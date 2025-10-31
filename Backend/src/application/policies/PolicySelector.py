@@ -2,14 +2,14 @@
 
 from typing import Optional, Dict, Any
 
-from ..domain.policies.RiskPolicyStrategy import (
+from ...domain.policies.RiskPolicyStrategy import (
     RiskPolicyStrategy,
     DefaultRiskPolicyStrategy,
     ClientBasedRiskPolicyStrategy,
     AdaptiveRiskPolicyStrategy,
     TimeBasedRiskPolicyStrategy
 )
-from ..domain.model.ThresholdPolicy import ThresholdPolicy
+from ...domain.model.ThresholdPolicy import ThresholdPolicy
 from ...shared.types.common_types import UserId, ClientId
 
 

@@ -14,7 +14,7 @@ from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.ChallengeRepositoryPort import ChallengeRepositoryPort
 from ..domain.repositories.AuthAttemptRepositoryPort import AuthAttemptRepositoryPort
 from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
-from ...shared.types.common_types import AuthReason, AuditAction
+from ..shared.types.common_types import AuthReason, AuditAction
 
 
 class VerificationService:
