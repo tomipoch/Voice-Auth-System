@@ -45,8 +45,19 @@ class AuthMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         """Process request through authentication and rate limiting."""
         
-        # Skip auth for health check and docs
-        if request.url.path in ["/health", "/docs", "/redoc", "/openapi.json"]:
+        # Skip auth for health check, docs, and development mode
+        skip_paths = ["/health", "/docs", "/openapi.json"]
+        
+        # Check if we're in development mode
+        import os
+        skip_auth = os.getenv('SKIP_AUTH', 'false').lower() == 'true'
+        development_mode = os.getenv('DEVELOPMENT_MODE', 'false').lower() == 'true'
+        
+        if request.url.path in skip_paths or skip_auth or development_mode:
+            # Add a fake client context for development
+            if development_mode:
+                request.state.client_id = "dev-client"
+                request.state.client_name = "Development Client"
             return await call_next(request)
         
         # Extract API key
