@@ -162,6 +162,61 @@ MAX_AUDIO_SIZE_MB=10
 SUPPORTED_AUDIO_FORMATS=["wav", "mp3", "m4a"]
 ```
 
+## 🧠 Modelos de Machine Learning
+
+### Modelos Implementados
+
+#### 1. **ECAPA-TDNN (Speaker Recognition)**
+- **Propósito**: Extracción de embeddings de speaker para verificación
+- **Arquitectura**: Emphasized Channel Attention, Propagation and Aggregation in TDNN
+- **Dataset**: Entrenado en VoxCeleb 1 & 2
+- **Dimensión**: 192/512-dimensional embeddings
+- **Precisión**: EER ~0.87% en VoxCeleb1-O test
+
+#### 2. **RawNet2 (Anti-Spoofing)** *(En desarrollo)*
+- **Propósito**: Detección de deepfakes y ataques de replay
+- **Arquitectura**: End-to-end raw waveform processing
+- **Dataset**: ASVspoof 2019 LA/PA
+- **Características**: Detección de síntesis, conversión de voz y replay
+
+#### 3. **Wav2Vec2 (ASR)** *(En desarrollo)*
+- **Propósito**: Reconocimiento automático de speech
+- **Arquitectura**: Self-supervised pre-training + fine-tuning
+- **Dataset**: LibriSpeech 960h
+- **Uso**: Verificación de frases de desafío
+
+### Descarga Automática de Modelos
+
+Los modelos se descargan automáticamente en la primera ejecución:
+
+```python
+from infrastructure.biometrics.model_manager import model_manager
+
+# Verificar estado de modelos
+models_status = model_manager.list_models()
+
+# Descargar modelos manualmente si es necesario
+model_manager.download_all_models()
+```
+
+**Requisitos de almacenamiento**:
+- ECAPA-TDNN: ~45 MB
+- RawNet2: ~30 MB  
+- Wav2Vec2: ~360 MB
+- **Total**: ~435 MB
+
+### Configuración de GPU
+
+Para acelerar la inferencia (opcional):
+
+```bash
+# Instalar PyTorch con soporte CUDA
+pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# Verificar GPU disponible
+python -c "import torch; print(torch.cuda.is_available())"
+```
+
 ### Instalación con Docker
 
 1. **Clonar el repositorio**
@@ -188,23 +243,51 @@ curl http://localhost:8000/health
 
 ### Instalación Manual
 
-1. **Instalar dependencias**
+1. **Instalar dependencias de sistema**
 ```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install python3-dev libsndfile1 ffmpeg
+
+# macOS  
+brew install libsndfile ffmpeg
+```
+
+2. **Instalar dependencias de Python**
+```bash
+# Crear entorno virtual (recomendado)
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+# venv\Scripts\activate     # Windows
+
+# Instalar dependencias
 pip install -r requirements.txt
 ```
 
-2. **Configurar base de datos**
+3. **Configurar modelos de ML**
+```bash
+# Probar descarga de modelos
+python test_ecapa_tdnn.py
+
+# O configurar manualmente
+python -c "
+from src.infrastructure.biometrics.model_manager import model_manager
+model_manager.download_all_models()
+"
+```
+
+4. **Configurar base de datos**
 ```bash
 # Ejecutar script de inicialización
 psql -U postgres -d voice_biometrics -f Database/init.sql
 ```
 
-3. **Ejecutar la aplicación**
-```bash
-3. **Ejecutar la aplicación**
+5. **Ejecutar la aplicación**
 ```bash
 uvicorn src.api.main:app --host 0.0.0.0 --port 8000
 ```
+
+**Nota**: La primera ejecución puede tardar varios minutos descargando modelos de ML.
 
 ## Flujos de Trabajo
 
