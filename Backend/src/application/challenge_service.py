@@ -9,8 +9,8 @@ from uuid import UUID
 from ..domain.repositories.ChallengeRepositoryPort import ChallengeRepositoryPort
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
-from ...shared.types.common_types import UserId, ChallengeId, AuditAction
-from ...shared.constants.biometric_constants import (
+from ..shared.types.common_types import UserId, ChallengeId, AuditAction
+from ..shared.constants.biometric_constants import (
     CHALLENGE_EXPIRY_MINUTES, 
     MIN_PHRASE_LENGTH, 
     MAX_PHRASE_LENGTH

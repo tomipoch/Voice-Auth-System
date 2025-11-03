@@ -46,6 +46,10 @@ COPY scripts/ ./scripts/
 RUN mkdir -p /app/logs /app/models /app/temp && \
     chown -R appuser:appuser /app
 
+# Set environment variables
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+
 # Switch to non-root user
 USER appuser
 
@@ -57,4 +61,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
 # Default command
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "-m", "src.main"]
