@@ -1,0 +1,227 @@
+# Configuraciones de entrenamiento para modelos biométricos
+# Basado en especificaciones del anteproyecto
+
+# ============================================================================
+# ECAPA-TDNN Speaker Recognition Configuration
+# ============================================================================
+ecapa_tdnn:
+  model:
+    name: "ECAPA-TDNN"
+    embedding_dim: 192
+    channels: [512, 512, 512, 512, 1536]
+    kernel_sizes: [5, 3, 3, 3, 1]
+    dilations: [1, 2, 3, 4, 1]
+    attention_channels: 128
+    lin_neurons: 192
+
+  dataset:
+    name: "synthetic_speaker"
+    train_split: "train"
+    test_split: "test"
+    sample_rate: 16000
+    min_duration: 2.0  # seconds
+    max_duration: 10.0
+    data_folder: "./training/datasets/synthetic/speaker_recognition"
+    manifest_file: "./training/datasets/synthetic/speaker_recognition/manifest.csv"
+    augmentation:
+      noise_snr: [10, 20]
+      reverb: true
+      speed_perturb: [0.95, 1.05]
+
+  training:
+    batch_size: 4  # Pequeño para dataset sintético
+    num_epochs: 5  # Pocas épocas para prueba
+    learning_rate: 0.001
+    scheduler: "cosine"
+    warmup_epochs: 1
+    weight_decay: 0.0001
+    
+    loss:
+      type: "AAMSoftmax"
+      margin: 0.2
+      scale: 30
+      
+    optimizer:
+      type: "Adam"
+      betas: [0.9, 0.999]
+
+  validation:
+    every_n_epochs: 5
+    metrics: ["eer", "min_dcf"]
+    
+# ============================================================================
+# x-vector Alternative Model Configuration
+# ============================================================================
+x_vector:
+  model:
+    name: "x-vector"
+    embedding_dim: 512
+    tdnn_layers:
+      - {input_dim: 40, output_dim: 512, context: [-2, -1, 0, 1, 2]}
+      - {input_dim: 512, output_dim: 512, context: [-2, 0, 2]}
+      - {input_dim: 512, output_dim: 512, context: [-3, 0, 3]}
+      - {input_dim: 512, output_dim: 512, context: [0]}
+      - {input_dim: 512, output_dim: 1500, context: [0]}
+    
+    pooling: "statistics"  # mean + std pooling
+    
+  dataset:
+    name: "voxceleb1"
+    features: "mfcc"  # 40-dim MFCC
+    train_split: "dev"
+    test_split: "test"
+    sample_rate: 16000
+    
+  training:
+    batch_size: 64
+    num_epochs: 80
+    learning_rate: 0.0005
+    scheduler: "step"
+    step_size: 30
+    gamma: 0.1
+
+# ============================================================================
+# AASIST Anti-Spoofing Configuration  
+# ============================================================================
+aasist:
+  model:
+    name: "AASIST"
+    architecture: "ResNet"
+    num_blocks: [3, 4, 6, 3]
+    channels: [64, 128, 256, 512]
+    attention_dim: 256
+    
+  dataset:
+    name: "asvspoof2019"
+    protocol: "LA"  # Logical Access
+    sample_rate: 16000
+    features: "raw_waveform"
+    
+  training:
+    batch_size: 24
+    num_epochs: 50
+    learning_rate: 0.0001
+    optimizer: "Adam"
+    
+    loss:
+      type: "WeightedCrossEntropy"
+      class_weights: [1.0, 9.0]  # Balance bonafide vs spoofed
+      
+    data_augmentation:
+      time_masking: true
+      frequency_masking: true
+      mixup_alpha: 0.4
+
+# ============================================================================
+# RawNet2 Anti-Spoofing Configuration
+# ============================================================================
+rawnet2:
+  model:
+    name: "RawNet2"
+    input_channels: 1
+    model_size: "large"
+    gru_hidden: 1024
+    gru_layers: 3
+    
+  dataset:
+    name: "asvspoof2019"
+    protocol: "PA"  # Physical Access
+    sample_rate: 16000
+    segment_length: 64000  # 4 seconds at 16kHz
+    
+  training:
+    batch_size: 16
+    num_epochs: 60
+    learning_rate: 0.0003
+    
+    scheduler:
+      type: "ReduceLROnPlateau"
+      patience: 10
+      factor: 0.5
+
+# ============================================================================
+# ResNet Anti-Spoofing Configuration
+# ============================================================================
+resnet_antispoofing:
+  model:
+    name: "ResNet18"
+    num_classes: 2
+    input_channels: 1
+    pretrained: false
+    
+  dataset:
+    name: "asvspoof2021"
+    protocol: "DF"  # Deepfake
+    features: "spectrogram"
+    n_fft: 1024
+    hop_length: 256
+    
+  training:
+    batch_size: 32
+    num_epochs: 40
+    learning_rate: 0.001
+    
+# ============================================================================
+# Lightweight ASR Configuration
+# ============================================================================
+lightweight_asr:
+  model:
+    name: "Transformer-ASR"
+    encoder_layers: 6
+    decoder_layers: 6
+    hidden_dim: 256
+    num_heads: 8
+    vocab_size: 1000
+    
+  dataset:
+    name: "librispeech"
+    subsets: ["train-clean-100"]
+    sample_rate: 16000
+    
+  training:
+    batch_size: 16
+    num_epochs: 30
+    learning_rate: 0.0005
+    
+    loss:
+      type: "CTC"
+      blank_index: 0
+      
+# ============================================================================
+# Evaluation Configuration
+# ============================================================================
+evaluation:
+  metrics:
+    speaker_recognition:
+      - "eer"  # Equal Error Rate
+      - "min_dcf"  # Minimum Detection Cost Function
+      - "cllr"  # Calibrated Log-Likelihood Ratio
+      
+    anti_spoofing:
+      - "eer"
+      - "t_dcf"  # Tandem Detection Cost Function
+      - "auc"  # Area Under Curve
+      
+    asr:
+      - "wer"  # Word Error Rate
+      - "cer"  # Character Error Rate
+      - "bleu"  # BLEU score
+      
+  protocols:
+    voxceleb1: "official"
+    asvspoof2019: "eval_protocol"
+    asvspoof2021: "eval_protocol"
+    
+# ============================================================================
+# Hardware Configuration
+# ============================================================================
+hardware:
+  device: "auto"  # auto-detect GPU/CPU
+  mixed_precision: true
+  gradient_accumulation_steps: 2
+  max_memory_usage: 0.8  # 80% of available GPU memory
+  
+  distributed:
+    enabled: false
+    backend: "nccl"
+    world_size: 1
