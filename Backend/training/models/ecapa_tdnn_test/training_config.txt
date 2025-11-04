@@ -1,4 +1,0 @@
-Training completed successfully with synthetic dataset
-Train samples: 40
-Test samples: 10
-Model: ECAPA-TDNN

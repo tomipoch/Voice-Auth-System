@@ -1,4 +1,0 @@
-Placeholder for ResNet Anti-Spoofing
-Model type: antispoofing
-Version: 1.0.0
-Real implementation coming soon...
