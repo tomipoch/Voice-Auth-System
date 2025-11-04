@@ -218,6 +218,18 @@ def main():
     print("🎵 **DESCARGADOR DE DATASETS BIOMÉTRICOS** 🎵")
     downloader.list_available_datasets()
     
+    _show_menu_options()
+    
+    while True:
+        choice = input("\nSelecciona una opción (0-6): ").strip()
+        
+        if choice == "0":
+            break
+        else:
+            _handle_menu_choice(choice, downloader)
+
+def _show_menu_options():
+    """Muestra las opciones del menú principal."""
     print("\n📋 **OPCIONES:**")
     print("1. Descargar VoxCeleb1 (recomendado para empezar)")
     print("2. Descargar VoxCeleb2 (dataset extendido)")
@@ -226,38 +238,43 @@ def main():
     print("5. Descargar todos los datasets")
     print("6. Verificar estado de datasets")
     print("0. Salir")
+
+def _handle_menu_choice(choice: str, downloader: DatasetDownloader):
+    """Maneja la opción seleccionada del menú."""
+    choice_handlers = {
+        "1": lambda: downloader.download_dataset("voxceleb1"),
+        "2": lambda: downloader.download_dataset("voxceleb2"),
+        "3": lambda: downloader.download_dataset("asvspoof2019"),
+        "4": lambda: downloader.download_dataset("asvspoof2021"),
+        "5": lambda: _handle_download_all(downloader),
+        "6": lambda: _handle_check_status(downloader)
+    }
     
-    while True:
-        choice = input("\nSelecciona una opción (0-6): ").strip()
-        
-        if choice == "0":
-            break
-        elif choice == "1":
-            downloader.download_dataset("voxceleb1")
-        elif choice == "2":
-            downloader.download_dataset("voxceleb2")
-        elif choice == "3":
-            downloader.download_dataset("asvspoof2019")
-        elif choice == "4":
-            downloader.download_dataset("asvspoof2021")
-        elif choice == "5":
-            print("⚠️  ADVERTENCIA: Esto descargará ~132 GB de datos")
-            confirm = input("¿Continuar? (y/N): ").strip().lower()
-            if confirm == 'y':
-                for dataset in downloader.datasets_info.keys():
-                    downloader.download_dataset(dataset)
-        elif choice == "6":
-            print("\n📊 **ESTADO DE DATASETS:**")
-            for dataset in downloader.datasets_info.keys():
-                status = downloader.check_dataset_status(dataset)
-                stats = downloader.get_dataset_stats(dataset)
-                print(f"\n{dataset.upper()}:")
-                print(f"  Estado: {stats.get('status', 'unknown')}")
-                if stats.get('status') == 'downloaded':
-                    print(f"  Tamaño: {stats['size_mb']:.1f} MB")
-                    print(f"  Archivos de audio: {stats['files_count']}")
-        else:
-            print("Opción inválida")
+    handler = choice_handlers.get(choice)
+    if handler:
+        handler()
+    else:
+        print("Opción inválida")
+
+def _handle_download_all(downloader: DatasetDownloader):
+    """Maneja la descarga de todos los datasets."""
+    print("⚠️  ADVERTENCIA: Esto descargará ~132 GB de datos")
+    confirm = input("¿Continuar? (y/N): ").strip().lower()
+    if confirm == 'y':
+        for dataset in downloader.datasets_info.keys():
+            downloader.download_dataset(dataset)
+
+def _handle_check_status(downloader: DatasetDownloader):
+    """Maneja la verificación del estado de datasets."""
+    print("\n📊 **ESTADO DE DATASETS:**")
+    for dataset in downloader.datasets_info.keys():
+        _ = downloader.check_dataset_status(dataset)
+        stats = downloader.get_dataset_stats(dataset)
+        print(f"\n{dataset.upper()}:")
+        print(f"  Estado: {stats.get('status', 'unknown')}")
+        if stats.get('status') == 'downloaded':
+            print(f"  Tamaño: {stats['size_mb']:.1f} MB")
+            print(f"  Archivos de audio: {stats['files_count']}")
 
 if __name__ == "__main__":
     main()

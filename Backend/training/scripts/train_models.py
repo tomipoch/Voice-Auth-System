@@ -467,7 +467,7 @@ def main():
     elif args.model == "lightweight_asr":
         model_path = trainer.train_lightweight_asr()
     
-    print(f"✅ Entrenamiento completado!")
+    print("✅ Entrenamiento completado!")
     print(f"📁 Modelo guardado en: {model_path}")
 
 if __name__ == "__main__":

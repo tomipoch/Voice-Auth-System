@@ -40,7 +40,6 @@ class BiometricEvaluator:
             (eer, threshold): EER y threshold óptimo
         """
         fpr, tpr, thresholds = roc_curve(labels, scores, pos_label=1)
-        fnr = 1 - tpr
         
         # Find EER point where FPR = FNR
         eer = brentq(lambda x: 1. - x - interp1d(fpr, tpr)(x), 0., 1.)
@@ -65,7 +64,7 @@ class BiometricEvaluator:
         Returns:
             min_dcf: Minimum detection cost function
         """
-        fpr, tpr, thresholds = roc_curve(labels, scores, pos_label=1)
+        fpr, tpr, _ = roc_curve(labels, scores, pos_label=1)
         fnr = 1 - tpr
         
         # Calculate DCF for each threshold
@@ -131,33 +130,42 @@ class BiometricEvaluator:
         # Calculate Cllr for each threshold
         cllr_values = []
         for i in range(len(sorted_labels) + 1):
-            if i == 0:
-                pmiss, pfa = 1.0, 0.0
-            elif i == len(sorted_labels):
-                pmiss, pfa = 0.0, 1.0
-            else:
-                pmiss = miss_rates[i-1]
-                pfa = fa_rates[i-1]
+            pmiss, pfa = self._get_error_rates(i, len(sorted_labels), miss_rates, fa_rates)
+            cllr = self._calculate_cllr_at_threshold(pmiss, pfa, prior)
             
-            if pmiss > 0 and pmiss < 1:
-                cllr_target = -np.log2(1 - pmiss)
-            elif pmiss == 0:
-                cllr_target = 0
-            else:
-                cllr_target = float('inf')
-            
-            if pfa > 0 and pfa < 1:
-                cllr_nontarget = -np.log2(1 - pfa)
-            elif pfa == 0:
-                cllr_nontarget = 0
-            else:
-                cllr_nontarget = float('inf')
-            
-            if not (np.isinf(cllr_target) or np.isinf(cllr_nontarget)):
-                cllr = prior * cllr_target + (1 - prior) * cllr_nontarget
+            if not np.isinf(cllr):
                 cllr_values.append(cllr)
         
         return min(cllr_values) if cllr_values else float('inf')
+    
+    def _get_error_rates(self, threshold_idx: int, total_length: int, 
+                        miss_rates: np.ndarray, fa_rates: np.ndarray) -> Tuple[float, float]:
+        """Calcula tasas de error para un threshold dado."""
+        if threshold_idx == 0:
+            return 1.0, 0.0
+        elif threshold_idx == total_length:
+            return 0.0, 1.0
+        else:
+            return miss_rates[threshold_idx-1], fa_rates[threshold_idx-1]
+    
+    def _calculate_cllr_at_threshold(self, pmiss: float, pfa: float, prior: float) -> float:
+        """Calcula CLLR para tasas de error específicas."""
+        cllr_target = self._safe_log_calculation(pmiss)
+        cllr_nontarget = self._safe_log_calculation(pfa)
+        
+        if np.isinf(cllr_target) or np.isinf(cllr_nontarget):
+            return float('inf')
+        
+        return prior * cllr_target + (1 - prior) * cllr_nontarget
+    
+    def _safe_log_calculation(self, error_rate: float) -> float:
+        """Calcula logaritmo de forma segura para CLLR."""
+        if error_rate > 0 and error_rate < 1:
+            return -np.log2(1 - error_rate)
+        elif error_rate == 0:
+            return 0
+        else:
+            return float('inf')
     
     def calculate_tandem_dcf(self, asv_scores: np.ndarray, cm_scores: np.ndarray, 
                            asv_labels: np.ndarray, cm_labels: np.ndarray) -> float:
@@ -234,7 +242,7 @@ class SpeakerVerificationEvaluator(BiometricEvaluator):
         
         return metrics
     
-    def _load_embeddings(self, embeddings_file: str) -> Dict[str, np.ndarray]:
+    def _load_embeddings(self, _embeddings_file: str) -> Dict[str, np.ndarray]:
         """Carga embeddings desde archivo."""
         embeddings = {}
         # Implementation depends on embedding file format
@@ -330,7 +338,7 @@ class AntiSpoofingEvaluator(BiometricEvaluator):
         
         # Load scores and labels
         scores = np.load(scores_file)
-        labels = np.load(labels_file)  # 1=bonafide, 0=spoof
+        labels = np.load(labels_file)
         
         # Calculate metrics
         eer, eer_threshold = self.calculate_eer(scores, labels)

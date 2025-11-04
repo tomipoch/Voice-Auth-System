@@ -47,7 +47,7 @@ class AudioPreprocessor:
             logger.error(f"Error processing {audio_path}: {e}")
             return None, None
     
-    def segment_audio(self, audio: np.ndarray, sr: int) -> List[np.ndarray]:
+    def segment_audio(self, audio: np.ndarray, _sr: int) -> List[np.ndarray]:
         """Segmenta audio en chunks de longitud fija."""
         if not self.segment_samples:
             return [audio]
@@ -133,7 +133,8 @@ class VoxCelebPreprocessor:
         try:
             info = sf.info(str(audio_path))
             return info.duration
-        except:
+        except (OSError, ValueError, sf.LibsndfileError) as e:
+            logger.warning(f"Error getting duration for {audio_path}: {e}")
             return 0.0
     
     def _determine_split(self, audio_path: Path) -> str:

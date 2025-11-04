@@ -41,7 +41,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://voice_user:voice_password@postgres:5432/voice_biometrics
+      - DATABASE_URL=${DATABASE_URL:-postgresql://voice_user:${DB_PASSWORD:-change_this_password}@postgres:5432/voice_biometrics}
       - REDIS_URL=redis://redis:6379/0
       - API_HOST=0.0.0.0
       - API_PORT=8000

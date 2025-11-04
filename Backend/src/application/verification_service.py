@@ -56,165 +56,240 @@ class VerificationService:
         biometric processing.
         """
         start_time = time.time()
-        
-        # Initialize result builder
-        builder = ResultBuilder()
-        builder.with_client(request.client_id)
+        builder = ResultBuilder().with_client(request.client_id)
         
         try:
-            # 1. Validate request
-            validation_errors = request.validate()
-            if validation_errors:
-                result = (builder
-                         .reject_with_reason(AuthReason.ERROR)
-                         .with_total_latency(int((time.time() - start_time) * 1000))
-                         .build())
-                await self._auth_repo.save_attempt(result)
-                return VerificationResponseDTO.from_auth_result(result, include_scores_in_response)
+            # Validate request and user
+            early_result = await self._validate_request_and_user(request, builder, start_time)
+            if early_result:
+                return early_result
             
-            # 2. Resolve user
             user_id = await self._resolve_user(request)
-            if not user_id:
-                result = (builder
-                         .reject_with_reason(AuthReason.ERROR)
-                         .with_total_latency(int((time.time() - start_time) * 1000))
-                         .build())
-                await self._auth_repo.save_attempt(result)
-                return VerificationResponseDTO.from_auth_result(result, include_scores_in_response)
-            
             builder.with_user(user_id)
             
-            # 3. Validate challenge
-            challenge_valid, challenge_reason, challenge_id = await self._validate_challenge(request, user_id)
-            if challenge_id:
-                builder.with_challenge(challenge_id)
-            
-            if not challenge_valid:
-                reason = AuthReason.EXPIRED_CHALLENGE if "expired" in challenge_reason else AuthReason.ERROR
-                result = (builder
-                         .reject_with_reason(reason)
-                         .with_total_latency(int((time.time() - start_time) * 1000))
-                         .build())
-                await self._auth_repo.save_attempt(result)
-                return VerificationResponseDTO.from_auth_result(result, include_scores_in_response)
-            
-            # 4. Get user's voiceprint
-            voiceprint = await self._voice_repo.get_voiceprint_by_user(user_id)
-            if not voiceprint:
-                result = (builder
-                         .reject_with_reason(AuthReason.ERROR)
-                         .with_total_latency(int((time.time() - start_time) * 1000))
-                         .build())
-                await self._auth_repo.save_attempt(result)
-                return VerificationResponseDTO.from_auth_result(result, include_scores_in_response)
-            
-            # 5. Store audio (if user policy allows)
-            audio_id = None
-            user_policy = await self._user_repo.get_user_policy(user_id)
-            if user_policy and user_policy.get('keep_audio', False):
-                audio_id = await self._auth_repo.store_audio_blob(
-                    request.audio_data, 
-                    request.audio_format
-                )
-                builder.with_audio(audio_id)
-            
-            # 6. Select appropriate policy
-            context = self._build_context(request, user_id)
-            policy = self._policy_selector.select_policy(
-                user_id=user_id,
-                client_id=request.client_id,
-                context=context
+            # Validate challenge
+            challenge_result = await self._validate_and_process_challenge(request, user_id, builder, start_time)
+            if challenge_result:
+                return challenge_result
+                
+            # Get voiceprint and perform verification
+            verification_result = await self._perform_voice_verification(
+                request, user_id, builder, start_time, include_scores_in_response
             )
-            builder.with_policy(policy.name)
-            
-            # 7. Perform biometric analysis
-            inference_start = time.time()
-            scores = await self._biometric_engine.analyze_voice(
-                audio_data=request.audio_data,
-                audio_format=request.audio_format,
-                reference_embedding=voiceprint.embedding,
-                expected_phrase=self._get_expected_phrase(request)
-            )
-            inference_time = int((time.time() - inference_start) * 1000)
-            
-            # 8. Add scores to result
-            builder.with_biometric_scores(
-                similarity=scores.similarity,
-                spoof_probability=scores.spoof_probability,
-                phrase_match=scores.phrase_match,
-                phrase_ok=scores.phrase_ok,
-                inference_latency_ms=inference_time,
-                speaker_model_id=scores.speaker_model_id,
-                antispoof_model_id=scores.antispoof_model_id,
-                asr_model_id=scores.asr_model_id
-            )
-            
-            # 9. Make decision using Strategy Pattern
-            accept, reason = self._decision_service.decide(
-                scores=scores,
-                policy=policy,
-                context=context
-            )
-            
-            # 10. Build final result
-            total_latency = int((time.time() - start_time) * 1000)
-            if accept:
-                result = (builder
-                         .accept_with_reason(reason)
-                         .with_total_latency(total_latency)
-                         .build())
-            else:
-                result = (builder
-                         .reject_with_reason(reason)
-                         .with_total_latency(total_latency)
-                         .build())
-            
-            # 11. Save attempt and mark challenge as used
-            await self._auth_repo.save_attempt(result)
-            if challenge_id and accept:
-                await self._challenge_repo.mark_challenge_used(challenge_id)
-            
-            # 12. Log the attempt
-            await self._audit_repo.log_event(
-                actor=f"client:{request.client_id}" if request.client_id else "unknown",
-                action=AuditAction.VERIFY,
-                entity_type="auth_attempt",
-                entity_id=str(result.id),
-                success=result.is_successful(),
-                metadata={
-                    "user_id": str(user_id),
-                    "similarity": scores.similarity,
-                    "spoof_prob": scores.spoof_probability,
-                    "policy": policy.name,
-                    "total_latency_ms": total_latency
-                }
-            )
-            
-            # 13. Check for suspicious activity
-            await self._check_suspicious_activity(result, context)
-            
-            return VerificationResponseDTO.from_auth_result(result, include_scores_in_response)
+            return verification_result
             
         except Exception as e:
-            # Handle unexpected errors
-            total_latency = int((time.time() - start_time) * 1000)
+            return await self._handle_verification_error(e, request, builder, start_time, include_scores_in_response)
+    
+    async def _validate_request_and_user(
+        self, 
+        request: VerificationRequestDTO, 
+        builder: ResultBuilder, 
+        start_time: float
+    ) -> Optional[VerificationResponseDTO]:
+        """Validate request and check if user exists."""
+        # Validate request
+        validation_errors = request.validate()
+        if validation_errors:
             result = (builder
                      .reject_with_reason(AuthReason.ERROR)
+                     .with_total_latency(int((time.time() - start_time) * 1000))
+                     .build())
+            await self._auth_repo.save_attempt(result)
+            return VerificationResponseDTO.from_auth_result(result, False)
+        
+        # Check user exists
+        user_id = await self._resolve_user(request)
+        if not user_id:
+            result = (builder
+                     .reject_with_reason(AuthReason.ERROR)
+                     .with_total_latency(int((time.time() - start_time) * 1000))
+                     .build())
+            await self._auth_repo.save_attempt(result)
+            return VerificationResponseDTO.from_auth_result(result, False)
+        
+        return None
+    
+    async def _validate_and_process_challenge(
+        self,
+        request: VerificationRequestDTO,
+        user_id: str,
+        builder: ResultBuilder,
+        start_time: float
+    ) -> Optional[VerificationResponseDTO]:
+        """Validate challenge and return error if invalid."""
+        challenge_valid, challenge_reason, challenge_id = await self._validate_challenge(request, user_id)
+        if challenge_id:
+            builder.with_challenge(challenge_id)
+        
+        if not challenge_valid:
+            reason = AuthReason.EXPIRED_CHALLENGE if "expired" in challenge_reason else AuthReason.ERROR
+            result = (builder
+                     .reject_with_reason(reason)
+                     .with_total_latency(int((time.time() - start_time) * 1000))
+                     .build())
+            await self._auth_repo.save_attempt(result)
+            return VerificationResponseDTO.from_auth_result(result, False)
+        
+        return None
+    
+    async def _perform_voice_verification(
+        self,
+        request: VerificationRequestDTO,
+        user_id: str,
+        builder: ResultBuilder,
+        start_time: float,
+        include_scores_in_response: bool
+    ) -> VerificationResponseDTO:
+        """Perform the actual voice verification process."""
+        # Get user's voiceprint
+        voiceprint = await self._voice_repo.get_voiceprint_by_user(user_id)
+        if not voiceprint:
+            result = (builder
+                     .reject_with_reason(AuthReason.ERROR)
+                     .with_total_latency(int((time.time() - start_time) * 1000))
+                     .build())
+            await self._auth_repo.save_attempt(result)
+            return VerificationResponseDTO.from_auth_result(result, include_scores_in_response)
+        
+        # Store audio if policy allows
+        await self._handle_audio_storage(request, user_id, builder)
+        
+        # Select policy and analyze voice
+        context = self._build_context(request, user_id)
+        policy = self._policy_selector.select_policy(
+            user_id=user_id,
+            client_id=request.client_id,
+            context=context
+        )
+        builder.with_policy(policy.name)
+        
+        # Perform biometric analysis
+        scores, inference_time = await self._analyze_voice_biometrics(request, voiceprint)
+        builder.with_biometric_scores(
+            similarity=scores.similarity,
+            spoof_probability=scores.spoof_probability,
+            phrase_match=scores.phrase_match,
+            phrase_ok=scores.phrase_ok,
+            inference_latency_ms=inference_time,
+            speaker_model_id=scores.speaker_model_id,
+            antispoof_model_id=scores.antispoof_model_id,
+            asr_model_id=scores.asr_model_id
+        )
+        
+        # Make decision and build result
+        return await self._make_decision_and_finalize(
+            request, user_id, builder, scores, policy, context, start_time, include_scores_in_response
+        )
+    
+    async def _handle_audio_storage(self, request: VerificationRequestDTO, user_id: str, builder: ResultBuilder) -> None:
+        """Handle audio storage if user policy allows."""
+        user_policy = await self._user_repo.get_user_policy(user_id)
+        if user_policy and user_policy.get('keep_audio', False):
+            audio_id = await self._auth_repo.store_audio_blob(
+                request.audio_data, 
+                request.audio_format
+            )
+            builder.with_audio(audio_id)
+    
+    async def _analyze_voice_biometrics(self, request: VerificationRequestDTO, voiceprint) -> tuple:
+        """Perform biometric analysis and return scores with timing."""
+        inference_start = time.time()
+        scores = await self._biometric_engine.analyze_voice(
+            audio_data=request.audio_data,
+            audio_format=request.audio_format,
+            reference_embedding=voiceprint.embedding,
+            expected_phrase=self._get_expected_phrase(request)
+        )
+        inference_time = int((time.time() - inference_start) * 1000)
+        return scores, inference_time
+    
+    async def _make_decision_and_finalize(
+        self,
+        request: VerificationRequestDTO,
+        user_id: str,
+        builder: ResultBuilder,
+        scores,
+        policy,
+        context: Dict[str, Any],
+        start_time: float,
+        include_scores_in_response: bool
+    ) -> VerificationResponseDTO:
+        """Make final decision and complete verification process."""
+        # Make decision using Strategy Pattern
+        accept, reason = self._decision_service.decide(
+            scores=scores,
+            policy=policy,
+            context=context
+        )
+        
+        # Build final result
+        total_latency = int((time.time() - start_time) * 1000)
+        if accept:
+            result = (builder
+                     .accept_with_reason(reason)
                      .with_total_latency(total_latency)
                      .build())
-            
-            await self._auth_repo.save_attempt(result)
-            
-            await self._audit_repo.log_event(
-                actor=f"client:{request.client_id}" if request.client_id else "unknown",
-                action=AuditAction.VERIFY,
-                entity_type="auth_attempt",
-                entity_id=str(result.id),
-                success=False,
-                error_message=str(e)
-            )
-            
-            return VerificationResponseDTO.from_auth_result(result, include_scores_in_response)
+        else:
+            result = (builder
+                     .reject_with_reason(reason)
+                     .with_total_latency(total_latency)
+                     .build())
+        
+        # Save attempt and mark challenge as used
+        await self._auth_repo.save_attempt(result)
+        challenge_id = getattr(builder, '_challenge_id', None)
+        if challenge_id and accept:
+            await self._challenge_repo.mark_challenge_used(challenge_id)
+        
+        # Log the attempt
+        await self._audit_repo.log_event(
+            actor=f"client:{request.client_id}" if request.client_id else "unknown",
+            action=AuditAction.VERIFY,
+            entity_type="auth_attempt",
+            entity_id=str(result.id),
+            success=result.is_successful(),
+            metadata={
+                "user_id": str(user_id),
+                "similarity": scores.similarity,
+                "spoof_prob": scores.spoof_probability,
+                "policy": policy.name,
+                "total_latency_ms": total_latency
+            }
+        )
+        
+        # Check for suspicious activity
+        await self._check_suspicious_activity(result, context)
+        
+        return VerificationResponseDTO.from_auth_result(result, include_scores_in_response)
+    
+    async def _handle_verification_error(
+        self,
+        error: Exception,
+        request: VerificationRequestDTO,
+        builder: ResultBuilder,
+        start_time: float,
+        include_scores_in_response: bool
+    ) -> VerificationResponseDTO:
+        """Handle unexpected errors during verification."""
+        total_latency = int((time.time() - start_time) * 1000)
+        result = (builder
+                 .reject_with_reason(AuthReason.ERROR)
+                 .with_total_latency(total_latency)
+                 .build())
+        
+        await self._auth_repo.save_attempt(result)
+        
+        await self._audit_repo.log_event(
+            actor=f"client:{request.client_id}" if request.client_id else "unknown",
+            action=AuditAction.VERIFY,
+            entity_type="auth_attempt",
+            entity_id=str(result.id),
+            success=False,
+            error_message=str(error)
+        )
+        
+        return VerificationResponseDTO.from_auth_result(result, include_scores_in_response)
     
     async def _resolve_user(self, request: VerificationRequestDTO) -> Optional[str]:
         """Resolve user ID from request."""
