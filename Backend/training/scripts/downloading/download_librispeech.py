@@ -78,7 +78,7 @@ def download_librispeech():
         except Exception as e:
             print(f"❌ Error descargando {name}: {e}")
     
-    print(f"\n✅ **LIBRISPEECH DESCARGADO**")
+    print("\n✅ **LIBRISPEECH DESCARGADO**")
     print(f"📁 Ubicación: {output_dir}")
     print("🔧 Siguiente paso: python preprocess_audio.py --dataset librispeech")
 

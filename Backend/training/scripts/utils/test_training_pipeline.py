@@ -9,6 +9,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../src'))
 
 import torch
 import numpy as np
+# Use numpy random generator for better practices
+rng = np.random.default_rng(seed=123)
 import pandas as pd
 from pathlib import Path
 import logging
@@ -39,7 +41,7 @@ def quick_training_test():
     train_data = manifest[manifest['split'] == 'train']
     test_data = manifest[manifest['split'] == 'test']
     
-    print(f"📊 Dataset cargado:")
+    print("📊 Dataset cargado:")
     print(f"   - Train samples: {len(train_data)}")
     print(f"   - Test samples: {len(test_data)}")
     print(f"   - Speakers: {manifest['speaker_id'].nunique()}")
@@ -73,8 +75,8 @@ def quick_training_test():
     # Simular épocas
     for epoch in range(1, 6):
         # Simular pérdida decreciente
-        train_loss = 2.5 - (epoch * 0.3) + np.random.normal(0, 0.1)
-        val_loss = 2.7 - (epoch * 0.25) + np.random.normal(0, 0.15)
+        train_loss = 2.5 - (epoch * 0.3) + rng.normal(0, 0.1)
+        val_loss = 2.7 - (epoch * 0.25) + rng.normal(0, 0.15)
         
         print(f"Epoch {epoch}/5:")
         print(f"   - Train Loss: {train_loss:.4f}")

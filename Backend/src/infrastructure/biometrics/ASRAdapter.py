@@ -169,7 +169,6 @@ class ASRAdapter:
         # text = self._asr_model.transcribe(waveform)
         
         # Simulate real ASR based on audio characteristics
-        duration = waveform.shape[-1] / self.target_sample_rate
         amplitude_mean = torch.mean(torch.abs(waveform)).item()
         
         # Simulate ASR behavior based on audio quality
