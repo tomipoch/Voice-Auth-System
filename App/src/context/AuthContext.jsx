@@ -125,6 +125,53 @@ export const AuthProvider = ({ children }) => {
     try {
       dispatch({ type: actionTypes.LOGIN_START });
       
+      // Usuario de desarrollo especial
+      if (credentials.email === 'dev@test.com' && credentials.password === '123456') {
+        const devUser = {
+          id: 'dev-user-1',
+          name: 'Usuario Desarrollo',
+          email: 'dev@test.com',
+          role: 'user'
+        };
+        const devToken = 'dev-token-' + Date.now();
+
+        // Guardar en localStorage
+        localStorage.setItem('token', devToken);
+        localStorage.setItem('user', JSON.stringify(devUser));
+
+        dispatch({
+          type: actionTypes.LOGIN_SUCCESS,
+          payload: { user: devUser, token: devToken },
+        });
+
+        toast.success(`¡Bienvenido, ${devUser.name}! (Modo desarrollo)`);
+        return { success: true };
+      }
+
+      // Usuario admin de desarrollo
+      if (credentials.email === 'admin@test.com' && credentials.password === '123456') {
+        const adminUser = {
+          id: 'admin-user-1',
+          name: 'Admin Desarrollo',
+          email: 'admin@test.com',
+          role: 'admin'
+        };
+        const adminToken = 'admin-token-' + Date.now();
+
+        // Guardar en localStorage
+        localStorage.setItem('token', adminToken);
+        localStorage.setItem('user', JSON.stringify(adminUser));
+
+        dispatch({
+          type: actionTypes.LOGIN_SUCCESS,
+          payload: { user: adminUser, token: adminToken },
+        });
+
+        toast.success(`¡Bienvenido, ${adminUser.name}! (Admin - Modo desarrollo)`);
+        return { success: true };
+      }
+
+      // Login normal con el servidor
       const response = await authService.login(credentials);
       const { user, token } = response;
 
