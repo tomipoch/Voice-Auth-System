@@ -1,25 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Users, BarChart3, Settings, Trash2, Edit } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import { adminService } from '../services/apiServices';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 
 const AdminPage = () => {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('users');
+  const [users, setUsers] = useState([]);
+  const [stats, setStats] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Datos de ejemplo
-  const users = [
-    { id: 1, name: 'Juan Pérez', email: 'juan@ejemplo.com', status: 'active', enrolled: true, lastLogin: '2024-11-14' },
-    { id: 2, name: 'María García', email: 'maria@ejemplo.com', status: 'active', enrolled: false, lastLogin: '2024-11-13' },
-    { id: 3, name: 'Carlos López', email: 'carlos@ejemplo.com', status: 'inactive', enrolled: true, lastLogin: '2024-11-10' },
-  ];
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setIsLoading(true);
+        const [usersData, statsData] = await Promise.all([
+          adminService.getUsers(1, 50), // página 1, 50 usuarios por página
+          adminService.getSystemStats()
+        ]);
 
-  const stats = [
-    { title: 'Total de Usuarios', value: '156', change: '+12%', trend: 'up' },
-    { title: 'Usuarios Activos', value: '143', change: '+5%', trend: 'up' },
-    { title: 'Verificaciones Hoy', value: '89', change: '+23%', trend: 'up' },
-    { title: 'Tasa de Éxito', value: '94.2%', change: '+1.2%', trend: 'up' },
-  ];
+        // Filtrar usuarios según el rol del usuario actual
+        let filteredUsers = usersData.users;
+        if (user?.role === 'admin' && user?.company) {
+          // Los administradores solo ven usuarios de su empresa
+          filteredUsers = usersData.users.filter(u => u.company === user.company);
+        }
+        // Los superadmin ven todos los usuarios
+
+        setUsers(filteredUsers);
+        setStats([
+          { title: 'Total de Usuarios', value: filteredUsers.length.toString(), change: '+12%', trend: 'up' },
+          { title: 'Usuarios Activos', value: statsData.active_users.toString(), change: '+5%', trend: 'up' },
+          { title: 'Verificaciones Hoy', value: statsData.verifications_today.toString(), change: '+23%', trend: 'up' },
+          { title: 'Tasa de Éxito', value: `${statsData.success_rate}%`, change: '+1.2%', trend: 'up' },
+        ]);
+      } catch (error) {
+        console.error('Error loading admin data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
+  }, [user?.role, user?.company]);
 
   const tabs = [
     { id: 'users', label: 'Usuarios', icon: Users },
@@ -31,9 +57,9 @@ const AdminPage = () => {
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-400/15 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-400/15 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/20 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       {/* Main Content */}
@@ -43,7 +69,7 @@ const AdminPage = () => {
           <div className="flex items-center">
             <Link 
               to="/dashboard" 
-              className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white/60 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white/70 hover:shadow-md mr-4"
+              className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white/80 hover:shadow-md mr-4"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Dashboard
@@ -107,66 +133,104 @@ const AdminPage = () => {
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 bg-clip-text text-transparent">
                     Gestión de Usuarios
+                    {user?.role === 'admin' && user?.company && (
+                      <span className="text-base font-normal text-blue-600/70 ml-2">
+                        - {user.company}
+                      </span>
+                    )}
                   </h2>
                   <Button size="sm" className="shadow-lg">
                     Agregar Usuario
                   </Button>
                 </div>
                 
-                <div className="backdrop-blur-sm bg-white/80 border border-blue-200/40 rounded-xl shadow-lg overflow-hidden">
-                  <table className="min-w-full divide-y divide-blue-200/30">
-                    <thead className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80">
-                      <tr>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
-                          Usuario
-                        </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
-                          Estado
-                        </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
-                          Perfil de Voz
-                        </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
-                          Último Acceso
-                        </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
-                          Acciones
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-blue-200/20">
-                      {users.map((user) => (
-                        <tr key={user.id} className="hover:bg-blue-50/40 transition-colors duration-200">
+                {isLoading ? (
+                  <div className="backdrop-blur-sm bg-white/80 border border-blue-200/40 rounded-xl shadow-lg p-8 text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <p className="text-gray-600">Cargando usuarios...</p>
+                  </div>
+                ) : (
+                  <div className="backdrop-blur-sm bg-white/80 border border-blue-200/40 rounded-xl shadow-lg overflow-hidden">
+                    <table className="min-w-full divide-y divide-blue-200/30">
+                      <thead className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80">
+                        <tr>
+                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
+                            Usuario
+                          </th>
+                          {user?.role === 'superadmin' && (
+                            <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
+                              Empresa
+                            </th>
+                          )}
+                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
+                            Rol
+                          </th>
+                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
+                            Estado
+                          </th>
+                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
+                            Perfil de Voz
+                          </th>
+                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
+                            Último Acceso
+                          </th>
+                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
+                            Acciones
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-blue-200/20">
+                      {users.map((userItem) => (
+                        <tr key={userItem.id} className="hover:bg-blue-50/40 transition-colors duration-200">
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div>
                               <div className="text-sm font-semibold text-gray-800">
-                                {user.name}
+                                {userItem.name}
                               </div>
                               <div className="text-sm text-blue-600/70">
-                                {user.email}
+                                {userItem.email}
                               </div>
                             </div>
                           </td>
+                          {user?.role === 'superadmin' && (
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm font-medium text-gray-800">
+                                {userItem.company || 'N/A'}
+                              </div>
+                            </td>
+                          )}
                           <td className="px-6 py-4 whitespace-nowrap">
                             <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
-                              user.status === 'active' 
+                              userItem.role === 'superadmin' 
+                                ? 'bg-red-100/80 text-red-700 border border-red-200/40' 
+                                : userItem.role === 'admin'
+                                ? 'bg-orange-100/80 text-orange-700 border border-orange-200/40'
+                                : 'bg-green-100/80 text-green-700 border border-green-200/40'
+                            }`}>
+                              {userItem.role === 'superadmin' ? 'Super Admin' : 
+                               userItem.role === 'admin' ? 'Admin' : 'Usuario'}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
+                              userItem.status === 'active' 
                                 ? 'bg-emerald-100/80 text-emerald-700 border border-emerald-200/40' 
                                 : 'bg-red-100/80 text-red-700 border border-red-200/40'
                             }`}>
-                              {user.status === 'active' ? 'Activo' : 'Inactivo'}
+                              {userItem.status === 'active' ? 'Activo' : 'Inactivo'}
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
-                              user.enrolled 
+                              (userItem.voice_template || userItem.enrolled)
                                 ? 'bg-blue-100/80 text-blue-700 border border-blue-200/40' 
                                 : 'bg-amber-100/80 text-amber-700 border border-amber-200/40'
                             }`}>
-                              {user.enrolled ? 'Configurado' : 'Pendiente'}
+                              {(userItem.voice_template || userItem.enrolled) ? 'Configurado' : 'Pendiente'}
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-medium">
-                            {user.lastLogin}
+                            {userItem.created_at ? new Date(userItem.created_at).toLocaleDateString() : (userItem.lastLogin || 'N/A')}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <div className="flex space-x-2">
@@ -183,6 +247,7 @@ const AdminPage = () => {
                     </tbody>
                   </table>
                 </div>
+                )}
               </div>
             )}
 

@@ -12,9 +12,9 @@ const EnrollmentPage = () => {
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/15 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/15 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/20 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       {/* Main Content */}
@@ -23,7 +23,7 @@ const EnrollmentPage = () => {
         <div className="flex items-center mb-8">
           <Link 
             to="/dashboard" 
-            className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white/60 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white/70 hover:shadow-md"
+            className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white/80 hover:shadow-md"
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
             Volver al Dashboard
@@ -43,7 +43,7 @@ const EnrollmentPage = () => {
 
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="backdrop-blur-xl bg-white/60 border border-blue-200/40 rounded-xl p-4 shadow-lg">
+          <div className="backdrop-blur-xl bg-white/70 border border-blue-200/40 rounded-xl p-4 shadow-lg">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-semibold text-gray-700">
                 Paso {currentStep} de {totalSteps}
