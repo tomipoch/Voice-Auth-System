@@ -1,5 +1,7 @@
 import { createContext, useReducer, useEffect } from 'react';
 import { authService } from '../services/apiServices';
+import { authStorage } from '../services/storage';
+import { features } from '../config/environment.js';
 import toast from 'react-hot-toast';
 
 // Estado inicial
@@ -92,25 +94,56 @@ export const AuthProvider = ({ children }) => {
     const initAuth = async () => {
       dispatch({ type: actionTypes.SET_LOADING, payload: true });
       
-      const token = localStorage.getItem('token');
-      const user = localStorage.getItem('user');
+      const token = authStorage.getAccessToken();
+      const user = authStorage.getUser();
+
+      if (features.debugMode) {
+        console.log('🔍 Auth initialization check:', { 
+          hasToken: !!token, 
+          hasUser: !!user,
+          token: token ? token.substring(0, 20) + '...' : 'none',
+          user: user ? user.name : 'none'
+        });
+      }
 
       if (token && user) {
         try {
-          // Verificar token con el servidor
-          const profile = await authService.getProfile();
-          dispatch({
-            type: actionTypes.LOGIN_SUCCESS,
-            payload: {
-              user: profile,
-              token,
-            },
-          });
+          // En desarrollo, si es un token dev, no verificar con servidor
+          if (token.startsWith('dev-token-') || token.startsWith('admin-token-')) {
+            dispatch({
+              type: actionTypes.LOGIN_SUCCESS,
+              payload: {
+                user: user,
+                token,
+              },
+            });
+            
+            if (features.debugMode) {
+              console.log('🔐 Dev Auth initialized (skip server verification):', { user: user.name, role: user.role });
+            }
+          } else {
+            // Verificar token con el servidor para tokens reales
+            const profile = await authService.getProfile();
+            dispatch({
+              type: actionTypes.LOGIN_SUCCESS,
+              payload: {
+                user: profile,
+                token,
+              },
+            });
+            
+            if (features.debugMode) {
+              console.log('🔐 Server Auth initialized:', { user: profile.name, role: profile.role });
+            }
+          }
         } catch {
-          // Token inválido, limpiar localStorage
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
+          // Token inválido, limpiar storage
+          authStorage.clearAuth();
           dispatch({ type: actionTypes.LOGOUT });
+          
+          if (features.debugMode) {
+            console.log('🔓 Invalid token cleared');
+          }
         }
       } else {
         dispatch({ type: actionTypes.SET_LOADING, payload: false });
@@ -135,15 +168,25 @@ export const AuthProvider = ({ children }) => {
         };
         const devToken = 'dev-token-' + Date.now();
 
-        // Guardar en localStorage
-        localStorage.setItem('token', devToken);
-        localStorage.setItem('user', JSON.stringify(devUser));
+        // Guardar usando authStorage
+        authStorage.setAccessToken(devToken);
+        authStorage.setUser(devUser);
+
+        if (features.debugMode) {
+          console.log('💾 Dev login - Data saved to storage:', {
+            token: devToken.substring(0, 20) + '...',
+            user: devUser.name
+          });
+        }
 
         dispatch({
           type: actionTypes.LOGIN_SUCCESS,
           payload: { user: devUser, token: devToken },
         });
 
+        if (features.debugMode) {
+          console.log('🔐 Dev login successful:', devUser);
+        }
         toast.success(`¡Bienvenido, ${devUser.name}! (Modo desarrollo)`);
         return { success: true };
       }
@@ -158,9 +201,9 @@ export const AuthProvider = ({ children }) => {
         };
         const adminToken = 'admin-token-' + Date.now();
 
-        // Guardar en localStorage
-        localStorage.setItem('token', adminToken);
-        localStorage.setItem('user', JSON.stringify(adminUser));
+        // Guardar usando authStorage
+        authStorage.setAccessToken(adminToken);
+        authStorage.setUser(adminUser);
 
         dispatch({
           type: actionTypes.LOGIN_SUCCESS,
@@ -175,15 +218,18 @@ export const AuthProvider = ({ children }) => {
       const response = await authService.login(credentials);
       const { user, token } = response;
 
-      // Guardar en localStorage
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
+      // Guardar usando authStorage
+      authStorage.setAccessToken(token);
+      authStorage.setUser(user);
 
       dispatch({
         type: actionTypes.LOGIN_SUCCESS,
         payload: { user, token },
       });
 
+      if (features.debugMode) {
+        console.log('🔐 Server login successful:', { user: user.name, role: user.role });
+      }
       toast.success(`¡Bienvenido, ${user.name}!`);
       return { success: true };
     } catch (error) {
@@ -192,6 +238,10 @@ export const AuthProvider = ({ children }) => {
         type: actionTypes.LOGIN_FAILURE,
         payload: errorMessage,
       });
+      
+      if (features.debugMode) {
+        console.error('❌ Login failed:', error);
+      }
       toast.error(errorMessage);
       return { success: false, error: errorMessage };
     }
@@ -223,11 +273,17 @@ export const AuthProvider = ({ children }) => {
     try {
       await authService.logout();
     } catch (error) {
-      console.error('Error during logout:', error);
+      if (features.debugMode) {
+        console.error('❌ Error during logout:', error);
+      }
     } finally {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      // Limpiar usando authStorage
+      authStorage.clearAuth();
       dispatch({ type: actionTypes.LOGOUT });
+      
+      if (features.debugMode) {
+        console.log('🔓 User logged out');
+      }
       toast.success('Sesión cerrada exitosamente');
     }
   };

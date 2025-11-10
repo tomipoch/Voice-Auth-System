@@ -3,39 +3,29 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Mic, Play, Square, RotateCcw } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import MainLayout from '../components/ui/MainLayout';
 
 const EnrollmentPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/20 rounded-full blur-3xl animate-pulse delay-500"></div>
-      </div>
-
-      {/* Main Content */}
-      <div className="relative z-10 max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="flex items-center mb-8">
-          <Link 
-            to="/dashboard" 
-            className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white/80 hover:shadow-md"
-          >
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            Volver al Dashboard
-          </Link>
-        </div>
-
-        {/* Título */}
+    <MainLayout>
+      {/* Header */}
+      <div className="flex items-center mb-8">
+        <Link 
+          to="/dashboard" 
+          className="flex items-center px-4 py-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-300 bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl border border-blue-200/40 dark:border-blue-500/40 rounded-xl hover:bg-white/80 dark:hover:bg-gray-800/80 hover:shadow-md"
+        >
+          <ArrowLeft className="h-5 w-5 mr-2" />
+          Volver al Dashboard
+        </Link>
+      </div>        {/* Título */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 bg-clip-text text-transparent mb-4">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-4">
             Registro de Perfil de Voz
           </h1>
-          <p className="text-lg text-blue-600/80 font-medium max-w-2xl mx-auto">
+          <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium max-w-2xl mx-auto">
             Para configurar tu autenticación biométrica por voz, necesitamos grabar 
             algunas muestras de tu voz. Este proceso es seguro y tus datos están protegidos.
           </p>
@@ -43,16 +33,16 @@ const EnrollmentPage = () => {
 
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="backdrop-blur-xl bg-white/70 border border-blue-200/40 rounded-xl p-4 shadow-lg">
+          <div className="backdrop-blur-xl bg-white/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-blue-500/40 rounded-xl p-4 shadow-lg">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-semibold text-gray-700">
+              <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">
                 Paso {currentStep} de {totalSteps}
               </span>
-              <span className="text-sm text-blue-600/70 font-medium">
+              <span className="text-sm text-blue-600/70 dark:text-blue-400/70 font-medium">
                 {Math.round((currentStep / totalSteps) * 100)}% completado
               </span>
             </div>
-            <div className="w-full bg-blue-100/60 rounded-full h-3 shadow-inner">
+            <div className="w-full bg-blue-100/60 dark:bg-gray-600/60 rounded-full h-3 shadow-inner">
               <div 
                 className="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full transition-all duration-500 shadow-sm"
                 style={{ width: `${(currentStep / totalSteps) * 100}%` }}
@@ -148,8 +138,7 @@ const EnrollmentPage = () => {
             </li>
           </ul>
         </div>
-      </div>
-    </div>
+    </MainLayout>
   );
 };
 
