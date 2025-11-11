@@ -62,7 +62,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="fixed inset-y-0 left-0 z-50 w-64 backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 border-r border-blue-200/40 dark:border-gray-600/40 shadow-xl">
+    <div className="fixed inset-y-0 left-0 z-50 w-64 backdrop-blur-xl bg-white dark:bg-gray-900/70 dark:bg-gray-900/70 border-r border-blue-200/40 dark:border-gray-600/40 shadow-xl">
       <div className="flex flex-col h-full">
         {/* Logo */}
         <div className="flex items-center px-6 py-4 border-b border-blue-200/30 dark:border-gray-600/30">
@@ -115,7 +115,7 @@ const Sidebar = () => {
                 className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                   isActive
                     ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg backdrop-blur-sm border border-blue-300/50'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-700/60 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-sm backdrop-blur-sm border border-transparent hover:border-blue-200/30 dark:hover:border-blue-500/30'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-white dark:bg-gray-900/60 dark:hover:bg-gray-700/60 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-sm backdrop-blur-sm border border-transparent hover:border-blue-200/30 dark:hover:border-blue-500/30'
                 }`}
               >
                 <IconComponent className="h-5 w-5 mr-3" />
@@ -129,7 +129,7 @@ const Sidebar = () => {
         <div className="px-4 py-4 border-t border-blue-200/30 space-y-3">
           <button
             onClick={openSettingsModal}
-            className="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-700/60 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 hover:shadow-sm backdrop-blur-sm border border-transparent hover:border-blue-200/30 dark:hover:border-blue-500/30"
+            className="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-white dark:bg-gray-900/60 dark:hover:bg-gray-700/60 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 hover:shadow-sm backdrop-blur-sm border border-transparent hover:border-blue-200/30 dark:hover:border-blue-500/30"
           >
             <Settings className="h-5 w-5 mr-3" />
             Configuración

@@ -19,7 +19,7 @@ const EnrollmentWizard = ({ currentStep, steps, onStepClick }) => {
                   {
                     'border-blue-600': isCurrent,
                     'border-green-600': isCompleted,
-                    'border-gray-200': isUpcoming,
+                    'border-gray-200 dark:border-gray-700': isUpcoming,
                   }
                 )}
               >
@@ -28,7 +28,7 @@ const EnrollmentWizard = ({ currentStep, steps, onStepClick }) => {
                   className={clsx(
                     'flex items-center text-left',
                     {
-                      'cursor-pointer hover:text-gray-900': onStepClick && !isUpcoming,
+                      'cursor-pointer hover:text-gray-900 dark:text-gray-100': onStepClick && !isUpcoming,
                       'cursor-default': !onStepClick || isUpcoming,
                     }
                   )}
@@ -41,7 +41,7 @@ const EnrollmentWizard = ({ currentStep, steps, onStepClick }) => {
                         {
                           'bg-blue-600 text-white': isCurrent,
                           'bg-green-600 text-white': isCompleted,
-                          'bg-gray-200 text-gray-600': isUpcoming,
+                          'bg-gray-200 text-gray-600 dark:text-gray-400': isUpcoming,
                         }
                       )}
                     >
@@ -57,12 +57,12 @@ const EnrollmentWizard = ({ currentStep, steps, onStepClick }) => {
                       className={clsx('text-sm font-medium', {
                         'text-blue-600': isCurrent,
                         'text-green-600': isCompleted,
-                        'text-gray-500': isUpcoming,
+                        'text-gray-500 dark:text-gray-400': isUpcoming,
                       })}
                     >
                       {step.name}
                     </span>
-                    <span className="text-sm text-gray-500">{step.description}</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">{step.description}</span>
                   </span>
                 </button>
               </div>

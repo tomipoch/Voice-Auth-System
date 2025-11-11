@@ -4,7 +4,7 @@ import Modal from './Modal';
 import Card from './Card';
 import Button from './Button';
 import { useAuth } from '../../hooks/useAuth';
-import { useTheme } from '../../context/ThemeContext';
+import { useTheme } from '../../hooks/useTheme';
 
 const SettingsModal = ({ isOpen, onClose }) => {
   const { user } = useAuth();
@@ -80,10 +80,10 @@ const SettingsModal = ({ isOpen, onClose }) => {
   // Estilos para inputs mejorados
   const inputClassName = `
     w-full px-6 py-4 rounded-2xl transition-all duration-300
-    bg-gradient-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-gray-200/50 dark:border-gray-600/50
+    bg-gradient-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-gray-200 dark:border-gray-700/50 dark:border-gray-600/50
     focus:ring-4 focus:ring-blue-300/30 dark:focus:ring-blue-500/30 focus:border-blue-400 dark:focus:border-blue-500 focus:bg-gradient-to-r focus:from-white/95 focus:to-white/80 dark:focus:from-gray-700/95 dark:focus:to-gray-800/80
     hover:bg-gradient-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:border-gray-300/60 dark:hover:border-gray-600/60 hover:shadow-xl
-    placeholder:text-gray-500 dark:placeholder:text-gray-400 text-gray-800 dark:text-gray-100 font-medium text-lg
+    placeholder:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-400 text-gray-800 dark:text-gray-100 font-medium text-lg
     shadow-xl
   `;
 
@@ -290,7 +290,7 @@ const SettingsModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setSecuritySettings({...securitySettings, twoFactorAuth: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-blue-500 peer-checked:to-indigo-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-blue-500 peer-checked:to-indigo-600 shadow-lg"></div>
             </label>
           </div>
 
@@ -316,7 +316,7 @@ const SettingsModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setSecuritySettings({...securitySettings, biometricVerification: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-green-500 peer-checked:to-emerald-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-green-500 peer-checked:to-emerald-600 shadow-lg"></div>
             </label>
           </div>
 
@@ -369,7 +369,7 @@ const SettingsModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setSecuritySettings({...securitySettings, loginNotifications: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-amber-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-amber-500 peer-checked:to-orange-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-amber-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-amber-500 peer-checked:to-orange-600 shadow-lg"></div>
             </label>
           </div>
         </div>
@@ -418,7 +418,7 @@ const SettingsModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setNotificationSettings({...notificationSettings, emailNotifications: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-emerald-500 peer-checked:to-blue-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-emerald-500 peer-checked:to-blue-600 shadow-lg"></div>
             </label>
           </div>
 
@@ -444,7 +444,7 @@ const SettingsModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setNotificationSettings({...notificationSettings, pushNotifications: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-blue-500 peer-checked:to-indigo-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-blue-500 peer-checked:to-indigo-600 shadow-lg"></div>
             </label>
           </div>
 
@@ -470,7 +470,7 @@ const SettingsModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setNotificationSettings({...notificationSettings, securityAlerts: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-red-500 peer-checked:to-orange-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-red-500 peer-checked:to-orange-600 shadow-lg"></div>
             </label>
           </div>
 
@@ -496,7 +496,7 @@ const SettingsModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setNotificationSettings({...notificationSettings, systemUpdates: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-purple-500 peer-checked:to-pink-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-purple-500 peer-checked:to-pink-600 shadow-lg"></div>
             </label>
           </div>
         </div>
@@ -541,7 +541,12 @@ const SettingsModal = ({ isOpen, onClose }) => {
             <div className="relative">
               <select
                 value={appearance.theme}
-                onChange={(e) => setAppearance({...appearance, theme: e.target.value})}
+                onChange={(e) => {
+                  const newTheme = e.target.value;
+                  setAppearance({...appearance, theme: newTheme});
+                  // Aplicar el tema inmediatamente
+                  changeTheme(newTheme);
+                }}
                 className="w-full px-6 py-4 bg-gradient-to-r from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-700/70 backdrop-blur-md border border-indigo-200/50 dark:border-gray-600/50 rounded-2xl focus:ring-4 focus:ring-indigo-300/30 dark:focus:ring-indigo-500/30 focus:border-indigo-400 dark:focus:border-indigo-500 shadow-xl text-gray-800 dark:text-gray-100 font-semibold text-lg appearance-none cursor-pointer hover:bg-gradient-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-800/95 dark:hover:to-gray-700/80 hover:shadow-2xl pr-14"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)',
@@ -698,7 +703,7 @@ const SettingsModal = ({ isOpen, onClose }) => {
                       transition-all duration-300 relative overflow-hidden group
                       ${activeTab === tab.id
                         ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg transform scale-[1.02]' 
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-700/60 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-md hover:scale-[1.01]'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-white dark:bg-gray-900/60 dark:hover:bg-gray-700/60 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-md hover:scale-[1.01]'
                       }
                     `}
                   >

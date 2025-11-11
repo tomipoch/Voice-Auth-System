@@ -161,7 +161,7 @@ const SettingsPage = () => {
       <div>
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Configuración de Seguridad</h3>
         <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
             <div>
               <h4 className="font-medium text-gray-800">Autenticación de Dos Factores</h4>
               <p className="text-sm text-gray-600">Añade una capa extra de seguridad a tu cuenta</p>
@@ -173,11 +173,11 @@ const SettingsPage = () => {
                 onChange={(e) => setSecuritySettings({...securitySettings, twoFactorAuth: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
             </label>
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
             <div>
               <h4 className="font-medium text-gray-800">Verificación Biométrica</h4>
               <p className="text-sm text-gray-600">Usar autenticación por voz como método principal</p>
@@ -189,11 +189,11 @@ const SettingsPage = () => {
                 onChange={(e) => setSecuritySettings({...securitySettings, biometricVerification: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
             </label>
           </div>
 
-          <div className="p-4 border border-gray-200 rounded-lg">
+          <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Tiempo de Sesión (minutos)
             </label>
@@ -209,7 +209,7 @@ const SettingsPage = () => {
             </select>
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
             <div>
               <h4 className="font-medium text-gray-800">Notificaciones de Inicio de Sesión</h4>
               <p className="text-sm text-gray-600">Recibir alertas cuando alguien acceda a tu cuenta</p>
@@ -221,7 +221,7 @@ const SettingsPage = () => {
                 onChange={(e) => setSecuritySettings({...securitySettings, loginNotifications: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
             </label>
           </div>
         </div>
@@ -239,7 +239,7 @@ const SettingsPage = () => {
       <div>
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Preferencias de Notificación</h3>
         <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
             <div>
               <h4 className="font-medium text-gray-800">Notificaciones por Email</h4>
               <p className="text-sm text-gray-600">Recibir notificaciones importantes por correo</p>
@@ -251,11 +251,11 @@ const SettingsPage = () => {
                 onChange={(e) => setNotificationSettings({...notificationSettings, emailNotifications: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
             </label>
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
             <div>
               <h4 className="font-medium text-gray-800">Notificaciones Push</h4>
               <p className="text-sm text-gray-600">Notificaciones en tiempo real en el navegador</p>
@@ -267,11 +267,11 @@ const SettingsPage = () => {
                 onChange={(e) => setNotificationSettings({...notificationSettings, pushNotifications: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
             </label>
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
             <div>
               <h4 className="font-medium text-gray-800">Alertas de Seguridad</h4>
               <p className="text-sm text-gray-600">Notificaciones sobre actividad sospechosa</p>
@@ -283,11 +283,11 @@ const SettingsPage = () => {
                 onChange={(e) => setNotificationSettings({...notificationSettings, securityAlerts: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
             </label>
           </div>
 
-          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
             <div>
               <h4 className="font-medium text-gray-800">Actualizaciones del Sistema</h4>
               <p className="text-sm text-gray-600">Información sobre nuevas funciones y actualizaciones</p>
@@ -299,7 +299,7 @@ const SettingsPage = () => {
                 onChange={(e) => setNotificationSettings({...notificationSettings, systemUpdates: e.target.checked})}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
             </label>
           </div>
         </div>
@@ -317,7 +317,7 @@ const SettingsPage = () => {
       <div>
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Personalización</h3>
         <div className="space-y-4">
-          <div className="p-4 border border-gray-200 rounded-lg">
+          <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
             <label className="block text-sm font-medium text-gray-700 mb-2">Tema</label>
             <select
               value={appearance.theme}
@@ -330,7 +330,7 @@ const SettingsPage = () => {
             </select>
           </div>
 
-          <div className="p-4 border border-gray-200 rounded-lg">
+          <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
             <label className="block text-sm font-medium text-gray-700 mb-2">Idioma</label>
             <select
               value={appearance.language}
@@ -343,7 +343,7 @@ const SettingsPage = () => {
             </select>
           </div>
 
-          <div className="p-4 border border-gray-200 rounded-lg">
+          <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
             <label className="block text-sm font-medium text-gray-700 mb-2">Tamaño de Fuente</label>
             <select
               value={appearance.fontSize}
@@ -386,7 +386,7 @@ const SettingsPage = () => {
       <div className="flex items-center mb-8">
         <Link 
           to="/dashboard" 
-          className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white/80 hover:shadow-md"
+          className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white dark:bg-gray-900/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white dark:bg-gray-900/80 hover:shadow-md"
         >
           <ArrowLeft className="h-5 w-5 mr-2" />
           Volver al Dashboard
@@ -418,7 +418,7 @@ const SettingsPage = () => {
                     className={`w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                       activeTab === tab.id
                         ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg'
-                        : 'text-gray-700 hover:bg-white/60 hover:text-blue-600 hover:shadow-sm'
+                        : 'text-gray-700 hover:bg-white dark:bg-gray-900/60 hover:text-blue-600 hover:shadow-sm'
                     }`}
                   >
                     <Icon className="h-5 w-5 mr-3" />

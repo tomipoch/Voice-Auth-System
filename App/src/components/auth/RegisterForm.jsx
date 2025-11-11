@@ -94,13 +94,13 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
   return (
     <Card className="w-full max-w-md p-8">
       <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto flex items-center justify-center mb-4">
-          <User className="h-8 w-8 text-blue-600" />
+        <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full mx-auto flex items-center justify-center mb-4">
+          <User className="h-8 w-8 text-blue-600 dark:text-blue-400" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
           Crear Cuenta
         </h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400">
           Regístrate para acceder al sistema de autenticación por voz
         </p>
       </div>
@@ -116,7 +116,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Nombre Completo
           </label>
           <div className="relative">
@@ -130,7 +130,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
               className={`pl-10 ${validationErrors.name ? 'border-red-300' : ''}`}
               disabled={isLoading}
             />
-            <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <User className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500 dark:text-gray-400" />
           </div>
           {validationErrors.name && (
             <p className="mt-1 text-sm text-red-600">{validationErrors.name}</p>
@@ -138,7 +138,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Correo Electrónico
           </label>
           <div className="relative">
@@ -152,7 +152,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
               className={`pl-10 ${validationErrors.email ? 'border-red-300' : ''}`}
               disabled={isLoading}
             />
-            <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500 dark:text-gray-400" />
           </div>
           {validationErrors.email && (
             <p className="mt-1 text-sm text-red-600">{validationErrors.email}</p>
@@ -160,7 +160,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Contraseña
           </label>
           <div className="relative">
@@ -174,11 +174,11 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
               className={`pl-10 pr-10 ${validationErrors.password ? 'border-red-300' : ''}`}
               disabled={isLoading}
             />
-            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500 dark:text-gray-400" />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-3 text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400"
               disabled={isLoading}
             >
               {showPassword ? (
@@ -214,7 +214,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Confirmar Contraseña
           </label>
           <div className="relative">
@@ -228,11 +228,11 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
               className={`pl-10 pr-10 ${validationErrors.confirmPassword ? 'border-red-300' : ''}`}
               disabled={isLoading}
             />
-            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500 dark:text-gray-400" />
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-3 text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400"
               disabled={isLoading}
             >
               {showConfirmPassword ? (
@@ -270,9 +270,9 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
       </form>
 
       <div className="mt-6 text-center">
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400">
           ¿Ya tienes una cuenta?{' '}
-          <a href="/login" className="font-medium text-blue-600 hover:text-blue-500">
+          <a href="/login" className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500">
             Inicia sesión aquí
           </a>
         </p>

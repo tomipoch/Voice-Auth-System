@@ -76,7 +76,7 @@ const EnrollmentProgress = ({
                     Paso {stepNumber}
                   </p>
                   {recording && recording.quality && (
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       Calidad: {recording.quality} • {recording.duration?.toFixed(1)}s
                     </p>
                   )}
@@ -132,7 +132,7 @@ const EnrollmentProgress = ({
       )}
 
       {!canSubmit && completedSteps === totalSteps && (
-        <div className="text-center text-gray-500">
+        <div className="text-center text-gray-500 dark:text-gray-400">
           <p className="text-sm">
             Por favor, revisa todas las grabaciones antes de continuar.
           </p>

@@ -114,12 +114,12 @@ const AdminLoginPage = () => {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
               Acceso Administrativo
             </h1>
-            <p className="text-gray-600 text-sm mt-2">
+            <p className="text-gray-600 dark:text-gray-400 text-sm mt-2">
               Panel de administración - Solo personal autorizado
             </p>
           </div>
 
-          <Card variant="glass" className="p-8 shadow-2xl backdrop-blur-xl bg-white/80 border border-red-200/40">
+          <Card variant="glass" className="p-8 shadow-2xl backdrop-blur-xl bg-white dark:bg-gray-900/80 border border-red-200/40">
             {/* Admin Credentials Helper */}
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-700 mb-3">Credenciales de Administrador:</h3>
@@ -128,7 +128,7 @@ const AdminLoginPage = () => {
                   <button
                     key={index}
                     onClick={() => fillCredentials(cred.email)}
-                    className="w-full text-left p-3 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50/50 transition-all duration-200 group"
+                    className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-red-300 hover:bg-red-50/50 transition-all duration-200 group"
                   >
                     <div className="text-xs font-medium text-red-600">{cred.role}</div>
                     <div className="text-sm text-gray-700 group-hover:text-red-700">{cred.email}</div>
@@ -159,7 +159,7 @@ const AdminLoginPage = () => {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-3 border border-red-200/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent backdrop-blur-sm bg-white/70 transition-all duration-300"
+                    className="w-full pl-10 pr-4 py-3 border border-red-200/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent backdrop-blur-sm bg-white dark:bg-gray-900/70 transition-all duration-300"
                     placeholder="admin@empresa.com"
                   />
                 </div>
@@ -179,7 +179,7 @@ const AdminLoginPage = () => {
                     required
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-12 py-3 border border-red-200/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent backdrop-blur-sm bg-white/70 transition-all duration-300"
+                    className="w-full pl-10 pr-12 py-3 border border-red-200/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent backdrop-blur-sm bg-white dark:bg-gray-900/70 transition-all duration-300"
                     placeholder="••••••••"
                   />
                   <button
@@ -236,7 +236,7 @@ const AdminLoginPage = () => {
           </Card>
 
           <div className="mt-6 text-center">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               VoiceAuth Admin Panel • Versión 1.0.0 • {new Date().getFullYear()}
             </p>
           </div>

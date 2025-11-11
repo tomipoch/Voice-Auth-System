@@ -107,20 +107,20 @@ const RegisterPage = () => {
             <div className="mx-auto relative">
               <div className="h-20 w-20 mx-auto bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-xl rounded-3xl border border-blue-200/30 shadow-xl flex items-center justify-center group hover:scale-105 transition-all duration-300">
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-400/20 to-blue-600/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <UserPlus className="h-10 w-10 text-blue-600 relative z-10" />
+                <UserPlus className="h-10 w-10 text-blue-600 dark:text-blue-400 relative z-10" />
               </div>
             </div>
             
             <h2 className="mt-8 text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 bg-clip-text text-transparent">
               Crear Cuenta
             </h2>
-            <p className="mt-3 text-lg text-blue-600/80 font-medium">
+            <p className="mt-3 text-lg text-blue-600 dark:text-blue-400/80 font-medium">
               Únete al sistema de autenticación biométrica
             </p>
           </div>
 
           {/* Main Form with Liquid Glass Effect */}
-          <div className="backdrop-blur-xl bg-white/70 border border-blue-200/40 rounded-2xl p-8 shadow-xl">
+          <div className="backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-blue-200/40 rounded-2xl p-8 shadow-xl">
             <form className="space-y-6" onSubmit={handleSubmit}>
               {/* Name Input */}
               <div className="relative space-y-2">
@@ -134,7 +134,7 @@ const RegisterPage = () => {
                   autoComplete="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 pr-12 bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
+                  className="w-full px-4 py-3 pr-12 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
                   placeholder="Tu nombre completo"
                 />
                 <User className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
@@ -155,7 +155,7 @@ const RegisterPage = () => {
                   autoComplete="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 pr-12 bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
+                  className="w-full px-4 py-3 pr-12 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
                   placeholder="tu@ejemplo.com"
                 />
                 <Mail className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
@@ -176,7 +176,7 @@ const RegisterPage = () => {
                   autoComplete="new-password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 pr-12 bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
+                  className="w-full px-4 py-3 pr-12 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
                   placeholder="••••••••"
                 />
                 <Lock className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
@@ -197,7 +197,7 @@ const RegisterPage = () => {
                   autoComplete="new-password"
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 pr-12 bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
+                  className="w-full px-4 py-3 pr-12 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
                   placeholder="••••••••"
                 />
                 <Lock className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
@@ -210,7 +210,7 @@ const RegisterPage = () => {
               <div className="text-center pt-2">
                 <Link 
                   to="/login" 
-                  className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-300"
+                  className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 transition-colors duration-300"
                 >
                   ¿Ya tienes cuenta? Inicia sesión aquí
                 </Link>
@@ -239,7 +239,7 @@ const RegisterPage = () => {
 
           {/* Footer Info */}
           <div className="text-center">
-            <p className="text-sm text-blue-600/70 leading-relaxed">
+            <p className="text-sm text-blue-600 dark:text-blue-400/70 leading-relaxed">
               🎤 Después del registro, configurarás tu perfil de voz
               <br />
               <span className="text-xs text-blue-500/50">Para completar la autenticación biométrica</span>

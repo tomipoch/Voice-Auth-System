@@ -36,7 +36,7 @@ const VerificationPage = () => {
       <div className="flex items-center mb-8">
         <Link 
           to="/dashboard" 
-          className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white/80 hover:shadow-md"
+          className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white dark:bg-gray-900/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white dark:bg-gray-900/80 hover:shadow-md"
         >
           <ArrowLeft className="h-5 w-5 mr-2" />
           Volver al Dashboard

@@ -4,9 +4,9 @@ const Card = ({ children, className = '', variant = 'default', ...props }) => {
   const baseClasses = 'rounded-2xl shadow-xl backdrop-blur-xl transition-all duration-300 hover:shadow-2xl';
   
   const variantClasses = {
-    default: 'bg-white/70 border border-blue-200/40 p-6',
-    glass: 'bg-white/60 border border-blue-200/30 p-8',
-    solid: 'bg-white border border-gray-200 p-6 shadow-lg',
+    default: 'bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 p-6',
+    glass: 'bg-white dark:bg-gray-900/60 dark:bg-gray-800/60 border border-blue-200/30 dark:border-gray-600/30 p-8',
+    solid: 'bg-white dark:bg-gray-900 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 dark:border-gray-700 p-6 shadow-lg',
   };
   
   const classes = clsx(
@@ -34,7 +34,7 @@ const CardHeader = ({ children, className = '', ...props }) => {
 
 const CardTitle = ({ children, className = '', ...props }) => {
   const classes = clsx(
-    'text-2xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 bg-clip-text text-transparent', 
+    'text-2xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent', 
     className
   );
   

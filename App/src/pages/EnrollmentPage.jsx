@@ -15,7 +15,7 @@ const EnrollmentPage = () => {
       <div className="flex items-center mb-8">
         <Link 
           to="/dashboard" 
-          className="flex items-center px-4 py-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-300 bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl border border-blue-200/40 dark:border-blue-500/40 rounded-xl hover:bg-white/80 dark:hover:bg-gray-800/80 hover:shadow-md"
+          className="flex items-center px-4 py-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-300 bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 backdrop-blur-xl border border-blue-200/40 dark:border-blue-500/40 rounded-xl hover:bg-white dark:bg-gray-900/80 dark:hover:bg-gray-800/80 hover:shadow-md"
         >
           <ArrowLeft className="h-5 w-5 mr-2" />
           Volver al Dashboard
@@ -33,7 +33,7 @@ const EnrollmentPage = () => {
 
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="backdrop-blur-xl bg-white/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-blue-500/40 rounded-xl p-4 shadow-lg">
+          <div className="backdrop-blur-xl bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-blue-500/40 rounded-xl p-4 shadow-lg">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">
                 Paso {currentStep} de {totalSteps}

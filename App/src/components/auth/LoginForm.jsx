@@ -58,29 +58,29 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
   return (
     <Card className="w-full max-w-md p-8">
       <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto flex items-center justify-center mb-4">
-          <Lock className="h-8 w-8 text-blue-600" />
+        <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full mx-auto flex items-center justify-center mb-4">
+          <Lock className="h-8 w-8 text-blue-600 dark:text-blue-400" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
           Iniciar Sesión
         </h2>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-400">
           Accede a tu cuenta para continuar
         </p>
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-600 rounded-lg p-4 mb-6">
           <div className="flex items-center">
-            <AlertCircle className="h-5 w-5 text-red-600 mr-2" />
-            <p className="text-sm text-red-800">{error}</p>
+            <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 mr-2" />
+            <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
           </div>
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Correo Electrónico
           </label>
           <div className="relative">
@@ -91,18 +91,18 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
               value={formData.email}
               onChange={handleInputChange}
               placeholder="correo@ejemplo.com"
-              className={`pl-10 ${validationErrors.email ? 'border-red-300' : ''}`}
+              className={`pl-10 ${validationErrors.email ? 'border-red-300 dark:border-red-600' : ''}`}
               disabled={isLoading}
             />
-            <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500 dark:text-gray-400" />
           </div>
           {validationErrors.email && (
-            <p className="mt-1 text-sm text-red-600">{validationErrors.email}</p>
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">{validationErrors.email}</p>
           )}
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             Contraseña
           </label>
           <div className="relative">
@@ -113,14 +113,14 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
               value={formData.password}
               onChange={handleInputChange}
               placeholder="••••••••"
-              className={`pl-10 pr-10 ${validationErrors.password ? 'border-red-300' : ''}`}
+              className={`pl-10 pr-10 ${validationErrors.password ? 'border-red-300 dark:border-red-600' : ''}`}
               disabled={isLoading}
             />
-            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500 dark:text-gray-400" />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-3 text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
               disabled={isLoading}
             >
               {showPassword ? (
@@ -131,7 +131,7 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
             </button>
           </div>
           {validationErrors.password && (
-            <p className="mt-1 text-sm text-red-600">{validationErrors.password}</p>
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">{validationErrors.password}</p>
           )}
         </div>
 

@@ -36,7 +36,7 @@ const VerificationPage = () => {
       <div className="flex items-center mb-8">
         <Link 
           to="/dashboard" 
-          className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white/80 hover:shadow-md"
+          className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white dark:bg-gray-900/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white dark:bg-gray-900/80 hover:shadow-md"
         >
           <ArrowLeft className="h-5 w-5 mr-2" />
           Volver al Dashboard
@@ -148,7 +148,7 @@ const VerificationPage = () => {
                   </p>
 
                   <div className="mb-6">
-                    <p className="text-sm font-medium text-gray-600 mb-3">
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">
                       Nivel de confianza:
                     </p>
                     <div className="bg-gray-100/60 rounded-full h-4 max-w-xs mx-auto shadow-inner">
@@ -159,7 +159,7 @@ const VerificationPage = () => {
                         style={{width: `${verificationResult.confidence * 100}%`}}
                       ></div>
                     </div>
-                    <p className="text-sm font-semibold text-gray-600 mt-2">
+                    <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mt-2">
                       {(verificationResult.confidence * 100).toFixed(1)}%
                     </p>
                   </div>

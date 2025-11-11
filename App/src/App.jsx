@@ -16,6 +16,7 @@ import VerificationPage from './pages/VerificationPage';
 import AdminPage from './pages/AdminPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import SuperAdminDashboard from './pages/SuperAdminDashboard';
+import ThemeTestPage from './pages/ThemeTestPage';
 
 // Componente de carga
 const LoadingSpinner = () => (
@@ -142,6 +143,12 @@ const AppRoutes = () => {
               <VerificationPage />
             </ProtectedRoute>
           } 
+        />
+        
+        {/* Página de prueba del tema (solo en desarrollo) */}
+        <Route 
+          path="/theme-test" 
+          element={<ThemeTestPage />} 
         />
         
         {/* Rutas de administrador de empresa */}

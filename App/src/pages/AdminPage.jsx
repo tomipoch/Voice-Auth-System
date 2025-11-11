@@ -69,7 +69,7 @@ const AdminPage = () => {
           <div className="flex items-center">
             <Link 
               to="/dashboard" 
-              className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white/80 hover:shadow-md mr-4"
+              className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white dark:bg-gray-900/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white dark:bg-gray-900/80 hover:shadow-md mr-4"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Dashboard
@@ -104,7 +104,7 @@ const AdminPage = () => {
         </div>
 
         {/* Tabs */}
-        <div className="backdrop-blur-xl bg-white/70 border border-blue-200/40 rounded-2xl shadow-xl">
+        <div className="backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-blue-200/40 rounded-2xl shadow-xl">
           <div className="border-b border-blue-200/40">
             <nav className="-mb-px flex space-x-8 px-6">
               {tabs.map((tab) => {
@@ -116,7 +116,7 @@ const AdminPage = () => {
                     className={`py-4 px-4 border-b-2 font-semibold text-sm flex items-center transition-all duration-300 ${
                       activeTab === tab.id
                         ? 'border-blue-500 text-blue-600 bg-blue-50/60'
-                        : 'border-transparent text-gray-600 hover:text-blue-600 hover:border-blue-300 hover:bg-blue-50/30'
+                        : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-blue-600 hover:border-blue-300 hover:bg-blue-50/30'
                     }`}
                   >
                     <IconComponent className="h-5 w-5 mr-2" />
@@ -145,12 +145,12 @@ const AdminPage = () => {
                 </div>
                 
                 {isLoading ? (
-                  <div className="backdrop-blur-sm bg-white/80 border border-blue-200/40 rounded-xl shadow-lg p-8 text-center">
+                  <div className="backdrop-blur-sm bg-white dark:bg-gray-900/80 border border-blue-200/40 rounded-xl shadow-lg p-8 text-center">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                    <p className="text-gray-600">Cargando usuarios...</p>
+                    <p className="text-gray-600 dark:text-gray-400">Cargando usuarios...</p>
                   </div>
                 ) : (
-                  <div className="backdrop-blur-sm bg-white/80 border border-blue-200/40 rounded-xl shadow-lg overflow-hidden">
+                  <div className="backdrop-blur-sm bg-white dark:bg-gray-900/80 border border-blue-200/40 rounded-xl shadow-lg overflow-hidden">
                     <table className="min-w-full divide-y divide-blue-200/30">
                       <thead className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80">
                         <tr>
@@ -229,7 +229,7 @@ const AdminPage = () => {
                               {(userItem.voice_template || userItem.enrolled) ? 'Configurado' : 'Pendiente'}
                             </span>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-medium">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-medium">
                             {userItem.created_at ? new Date(userItem.created_at).toLocaleDateString() : (userItem.lastLogin || 'N/A')}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -314,7 +314,7 @@ const AdminPage = () => {
                         <label className="block text-sm font-semibold text-gray-700 mb-3">
                           Calidad de Audio
                         </label>
-                        <select className="block w-full px-4 py-3 border border-blue-200/50 bg-white/80 backdrop-blur-sm rounded-xl text-gray-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/60 transition-all duration-300">
+                        <select className="block w-full px-4 py-3 border border-blue-200/50 bg-white dark:bg-gray-900/80 backdrop-blur-sm rounded-xl text-gray-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/60 transition-all duration-300">
                           <option>Alta (48kHz)</option>
                           <option>Media (24kHz)</option>
                           <option>Básica (16kHz)</option>

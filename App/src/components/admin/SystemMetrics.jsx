@@ -78,9 +78,9 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
               <Users className="h-8 w-8 text-blue-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500">Usuarios Totales</p>
-              <p className="text-2xl font-semibold text-gray-900">{totalUsers}</p>
-              <p className="text-xs text-gray-500">
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Usuarios Totales</p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{totalUsers}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {enrollmentRate}% registrados
               </p>
             </div>
@@ -93,9 +93,9 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
               <Shield className="h-8 w-8 text-green-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500">Tasa de Éxito</p>
-              <p className="text-2xl font-semibold text-gray-900">{successRate}%</p>
-              <p className="text-xs text-gray-500">
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Tasa de Éxito</p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{successRate}%</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {successfulVerifications} / {verificationAttempts} intentos
               </p>
             </div>
@@ -108,7 +108,7 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
               <Activity className="h-8 w-8 text-purple-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500">Estado del Sistema</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Estado del Sistema</p>
               <div className="flex items-center space-x-2 mt-1">
                 <StatusIndicator 
                   status={getHealthStatus(systemHealth)} 
@@ -126,9 +126,9 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
               <Clock className="h-8 w-8 text-orange-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500">Tiempo de Respuesta</p>
-              <p className="text-2xl font-semibold text-gray-900">{responseTime}ms</p>
-              <p className="text-xs text-gray-500">
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Tiempo de Respuesta</p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{responseTime}ms</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 Uptime: {formatUptime(uptime)}
               </p>
             </div>
@@ -140,14 +140,14 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Estadísticas de verificación */}
         <Card className="p-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
             Estadísticas de Verificación
           </h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <CheckCircle className="h-5 w-5 text-green-600" />
-                <span className="text-sm text-gray-600">Verificaciones Exitosas</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">Verificaciones Exitosas</span>
               </div>
               <span className="text-lg font-semibold text-green-600">
                 {successfulVerifications}
@@ -157,17 +157,17 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <XCircle className="h-5 w-5 text-red-600" />
-                <span className="text-sm text-gray-600">Verificaciones Fallidas</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">Verificaciones Fallidas</span>
               </div>
               <span className="text-lg font-semibold text-red-600">
                 {failedVerifications}
               </span>
             </div>
             
-            <div className="pt-4 border-t border-gray-200">
+            <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-900">Tasa de Éxito</span>
-                <span className="text-lg font-bold text-gray-900">{successRate}%</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-gray-100">Tasa de Éxito</span>
+                <span className="text-lg font-bold text-gray-900 dark:text-gray-100">{successRate}%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
                 <div 
@@ -181,7 +181,7 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
 
         {/* Actividad reciente */}
         <Card className="p-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
             Actividad Reciente
           </h3>
           <div className="space-y-3">
@@ -195,17 +195,17 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
                     'bg-blue-500'
                   }`}></div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-gray-900 truncate">
+                    <p className="text-sm text-gray-900 dark:text-gray-100 truncate">
                       {activity.message}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       {new Date(activity.timestamp).toLocaleString()}
                     </p>
                   </div>
                 </div>
               ))
             ) : (
-              <p className="text-sm text-gray-500 italic">
+              <p className="text-sm text-gray-500 dark:text-gray-400 italic">
                 No hay actividad reciente
               </p>
             )}
