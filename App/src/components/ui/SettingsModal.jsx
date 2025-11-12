@@ -8,7 +8,7 @@ import { useTheme } from '../../hooks/useTheme';
 
 const SettingsModal = ({ isOpen, onClose }) => {
   const { user } = useAuth();
-  const { getSavedTheme, changeTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [activeTab, setActiveTab] = useState('profile');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,16 +48,16 @@ const SettingsModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     setAppearance(prev => ({
       ...prev,
-      theme: getSavedTheme()
+      theme: theme
     }));
-  }, [getSavedTheme]);
+  }, [theme]);
 
   const handleSave = async (section) => {
     setIsLoading(true);
     try {
       // Si es la sección de apariencia, aplicar el tema
       if (section === 'appearance') {
-        changeTheme(appearance.theme);
+        setTheme(appearance.theme);
       }
       
       // Simular guardado
@@ -545,7 +545,7 @@ const SettingsModal = ({ isOpen, onClose }) => {
                   const newTheme = e.target.value;
                   setAppearance({...appearance, theme: newTheme});
                   // Aplicar el tema inmediatamente
-                  changeTheme(newTheme);
+                  setTheme(newTheme);
                 }}
                 className="w-full px-6 py-4 bg-gradient-to-r from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-700/70 backdrop-blur-md border border-indigo-200/50 dark:border-gray-600/50 rounded-2xl focus:ring-4 focus:ring-indigo-300/30 dark:focus:ring-indigo-500/30 focus:border-indigo-400 dark:focus:border-indigo-500 shadow-xl text-gray-800 dark:text-gray-100 font-semibold text-lg appearance-none cursor-pointer hover:bg-gradient-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-800/95 dark:hover:to-gray-700/80 hover:shadow-2xl pr-14"
                 style={{

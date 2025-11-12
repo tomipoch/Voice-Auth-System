@@ -1,5 +1,3 @@
-import { storageService } from '../services/storage';
-
 export const getSystemTheme = () => {
   if (typeof window !== 'undefined' && window.matchMedia) {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -8,6 +6,8 @@ export const getSystemTheme = () => {
 };
 
 export const applyTheme = (theme) => {
+  if (typeof document === 'undefined') return;
+  
   const root = document.documentElement;
   const body = document.body;
   
@@ -26,9 +26,13 @@ export const getInitialTheme = () => {
   if (typeof window === 'undefined') return 'light';
   
   try {
-    const saved = storageService.getThemePreference();
-    if (saved && (saved === 'light' || saved === 'dark')) {
-      return saved;
+    // Acceder directamente a localStorage sin el servicio para evitar dependencias circulares
+    const saved = localStorage.getItem('voiceauth_theme_preference');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed === 'light' || parsed === 'dark') {
+        return parsed;
+      }
     }
     return getSystemTheme();
   } catch {

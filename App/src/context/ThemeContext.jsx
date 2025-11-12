@@ -5,7 +5,7 @@ import { applyTheme, getInitialTheme } from './theme';
 export const ThemeContext = createContext({});
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(getInitialTheme);
+  const [theme, setTheme] = useState(() => getInitialTheme());
 
   useEffect(() => {
     applyTheme(theme);
