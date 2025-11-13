@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Shield, 
-  Users, 
-  Building2, 
-  LogOut, 
+import {
+  Shield,
+  Users,
+  Building2,
+  LogOut,
   Settings,
   Home,
   UserCheck,
@@ -13,7 +13,7 @@ import {
   AlertTriangle,
   Database,
   Globe,
-  Server
+  Server,
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useDashboardStats } from '../hooks/useDashboardStats';
@@ -221,13 +221,19 @@ const SuperAdminDashboard = () => {
             {superAdminStats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (
-                <Card key={index} variant="glass" className="p-6 shadow-xl backdrop-blur-xl border border-purple-200/40">
+                <Card
+                  key={index}
+                  variant="glass"
+                  className="p-6 shadow-xl backdrop-blur-xl border border-purple-200/40"
+                >
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-semibold text-gray-600 mb-2">{stat.title}</p>
                       <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
                     </div>
-                    <div className={`h-12 w-12 ${stat.bgColor} rounded-xl flex items-center justify-center shadow-sm`}>
+                    <div
+                      className={`h-12 w-12 ${stat.bgColor} rounded-xl flex items-center justify-center shadow-sm`}
+                    >
                       <IconComponent className={`h-6 w-6 ${stat.color}`} />
                     </div>
                   </div>
@@ -235,7 +241,9 @@ const SuperAdminDashboard = () => {
                     <span className="text-sm font-semibold text-green-600 bg-green-50/80 px-2 py-1 rounded-lg">
                       {stat.change}
                     </span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">vs mes anterior</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">
+                      vs mes anterior
+                    </span>
                   </div>
                 </Card>
               );
@@ -248,7 +256,10 @@ const SuperAdminDashboard = () => {
             {activeTab === 'overview' && (
               <>
                 <div className="lg:col-span-2">
-                  <Card variant="glass" className="p-6 shadow-xl backdrop-blur-xl border border-purple-200/40">
+                  <Card
+                    variant="glass"
+                    className="p-6 shadow-xl backdrop-blur-xl border border-purple-200/40"
+                  >
                     <h3 className="text-lg font-bold text-gray-800 mb-6 flex items-center">
                       <Building2 className="h-5 w-5 mr-2 text-purple-600" />
                       Empresas Registradas
@@ -257,10 +268,18 @@ const SuperAdminDashboard = () => {
                       <table className="min-w-full">
                         <thead>
                           <tr className="border-b border-purple-200/30">
-                            <th className="text-left text-xs font-bold text-purple-800 uppercase tracking-wider pb-3">Empresa</th>
-                            <th className="text-left text-xs font-bold text-purple-800 uppercase tracking-wider pb-3">Usuarios</th>
-                            <th className="text-left text-xs font-bold text-purple-800 uppercase tracking-wider pb-3">Estado</th>
-                            <th className="text-left text-xs font-bold text-purple-800 uppercase tracking-wider pb-3">Plan</th>
+                            <th className="text-left text-xs font-bold text-purple-800 uppercase tracking-wider pb-3">
+                              Empresa
+                            </th>
+                            <th className="text-left text-xs font-bold text-purple-800 uppercase tracking-wider pb-3">
+                              Usuarios
+                            </th>
+                            <th className="text-left text-xs font-bold text-purple-800 uppercase tracking-wider pb-3">
+                              Estado
+                            </th>
+                            <th className="text-left text-xs font-bold text-purple-800 uppercase tracking-wider pb-3">
+                              Plan
+                            </th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-purple-200/20">
@@ -268,15 +287,19 @@ const SuperAdminDashboard = () => {
                             <tr key={company.id} className="hover:bg-purple-50/40">
                               <td className="py-4">
                                 <div className="font-medium text-gray-800">{company.name}</div>
-                                <div className="text-sm text-gray-500 dark:text-gray-400">{company.lastActivity}</div>
+                                <div className="text-sm text-gray-500 dark:text-gray-400">
+                                  {company.lastActivity}
+                                </div>
                               </td>
                               <td className="py-4 text-sm text-gray-800">{company.users}</td>
                               <td className="py-4">
-                                <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                                  company.status === 'active' 
-                                    ? 'bg-green-100 text-green-800' 
-                                    : 'bg-yellow-100 text-yellow-800'
-                                }`}>
+                                <span
+                                  className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                                    company.status === 'active'
+                                      ? 'bg-green-100 text-green-800'
+                                      : 'bg-yellow-100 text-yellow-800'
+                                  }`}
+                                >
                                   {company.status === 'active' ? 'Activo' : 'Prueba'}
                                 </span>
                               </td>
@@ -291,21 +314,29 @@ const SuperAdminDashboard = () => {
 
                 {/* System Alerts */}
                 <div>
-                  <Card variant="glass" className="p-6 shadow-xl backdrop-blur-xl border border-purple-200/40">
+                  <Card
+                    variant="glass"
+                    className="p-6 shadow-xl backdrop-blur-xl border border-purple-200/40"
+                  >
                     <h3 className="text-lg font-bold text-gray-800 mb-6 flex items-center">
                       <AlertTriangle className="h-5 w-5 mr-2 text-yellow-600" />
                       Alertas del Sistema
                     </h3>
                     <div className="space-y-4">
                       {systemAlerts.map((alert) => (
-                        <div key={alert.id} className={`p-4 rounded-lg border ${
-                          alert.type === 'warning' 
-                            ? 'bg-yellow-50/80 border-yellow-200' 
-                            : 'bg-blue-50/80 border-blue-200'
-                        }`}>
+                        <div
+                          key={alert.id}
+                          className={`p-4 rounded-lg border ${
+                            alert.type === 'warning'
+                              ? 'bg-yellow-50/80 border-yellow-200'
+                              : 'bg-blue-50/80 border-blue-200'
+                          }`}
+                        >
                           <h4 className="font-medium text-gray-800 text-sm">{alert.title}</h4>
                           <p className="text-xs text-gray-600 mt-1">{alert.message}</p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{alert.timestamp}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                            {alert.timestamp}
+                          </p>
                         </div>
                       ))}
                     </div>

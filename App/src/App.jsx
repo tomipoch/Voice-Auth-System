@@ -91,86 +91,86 @@ const AppRoutes = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <Routes>
         {/* Rutas públicas */}
-        <Route 
-          path="/login" 
+        <Route
+          path="/login"
           element={
             <PublicRoute>
               <LoginPage />
             </PublicRoute>
-          } 
+          }
         />
-        <Route 
-          path="/register" 
+        <Route
+          path="/register"
           element={
             <PublicRoute>
               <RegisterPage />
             </PublicRoute>
-          } 
+          }
         />
-        
+
         {/* Ruta de login administrativo */}
-        <Route 
-          path="/admin/login" 
+        <Route
+          path="/admin/login"
           element={
             <AdminPublicRoute>
               <AdminLoginPage />
             </AdminPublicRoute>
-          } 
+          }
         />
-        
+
         {/* Rutas protegidas para usuarios normales */}
-        <Route 
-          path="/dashboard" 
+        <Route
+          path="/dashboard"
           element={
             <ProtectedRoute>
               <DashboardPage />
             </ProtectedRoute>
-          } 
+          }
         />
-        <Route 
-          path="/enrollment" 
+        <Route
+          path="/enrollment"
           element={
             <ProtectedRoute>
               <EnrollmentPage />
             </ProtectedRoute>
-          } 
+          }
         />
-        <Route 
-          path="/verification" 
+        <Route
+          path="/verification"
           element={
             <ProtectedRoute>
               <VerificationPage />
             </ProtectedRoute>
-          } 
+          }
         />
-        
+
         {/* Rutas de administrador de empresa */}
-        <Route 
-          path="/admin" 
+        <Route
+          path="/admin"
           element={
             <ProtectedRoute adminOnly>
               <AdminPage />
             </ProtectedRoute>
-          } 
+          }
         />
-        
+
         {/* Rutas de super administrador */}
-        <Route 
-          path="/admin/dashboard" 
+        <Route
+          path="/admin/dashboard"
           element={
             <ProtectedRoute superAdminOnly>
               <SuperAdminDashboard />
             </ProtectedRoute>
-          } 
+          }
         />
-        
+
         {/* Redirección por defecto */}
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        
+
         {/* Ruta 404 */}
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
-      
+
       {/* Modal Global de Configuración */}
       <GlobalSettingsModal />
     </div>
@@ -195,32 +195,32 @@ function App() {
           <SettingsModalProvider>
             <Router>
               <AppRoutes />
-              
+
               {/* Toast notifications */}
               <Toaster
                 position="top-right"
-              toastOptions={{
-                duration: 4000,
-                style: {
-                  background: '#363636',
-                  color: '#fff',
-                },
-                success: {
-                  duration: 3000,
-                  iconTheme: {
-                    primary: '#4ade80',
-                    secondary: '#fff',
+                toastOptions={{
+                  duration: 4000,
+                  style: {
+                    background: '#363636',
+                    color: '#fff',
                   },
-                },
-                error: {
-                  duration: 5000,
-                  iconTheme: {
-                    primary: '#ef4444',
-                    secondary: '#fff',
+                  success: {
+                    duration: 3000,
+                    iconTheme: {
+                      primary: '#4ade80',
+                      secondary: '#fff',
+                    },
                   },
-                },
-              }}
-            />
+                  error: {
+                    duration: 5000,
+                    iconTheme: {
+                      primary: '#ef4444',
+                      secondary: '#fff',
+                    },
+                  },
+                }}
+              />
             </Router>
           </SettingsModalProvider>
         </AuthProvider>

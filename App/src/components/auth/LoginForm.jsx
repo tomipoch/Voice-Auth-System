@@ -14,26 +14,26 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
 
   const validateForm = () => {
     const errors = {};
-    
+
     if (!formData.email) {
       errors.email = 'El correo electrónico es requerido';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = 'El correo electrónico no es válido';
     }
-    
+
     if (!formData.password) {
       errors.password = 'La contraseña es requerida';
     } else if (formData.password.length < 6) {
       errors.password = 'La contraseña debe tener al menos 6 caracteres';
     }
-    
+
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       onSubmit(formData);
     }
@@ -41,16 +41,16 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
-    
+
     // Limpiar error de validación cuando el usuario empieza a escribir
     if (validationErrors[name]) {
-      setValidationErrors(prev => ({
+      setValidationErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: '',
       }));
     }
   };
@@ -61,12 +61,8 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
         <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full mx-auto flex items-center justify-center mb-4">
           <Lock className="h-8 w-8 text-blue-600 dark:text-blue-400" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-          Iniciar Sesión
-        </h2>
-        <p className="text-gray-600 dark:text-gray-400">
-          Accede a tu cuenta para continuar
-        </p>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Iniciar Sesión</h2>
+        <p className="text-gray-600 dark:text-gray-400">Accede a tu cuenta para continuar</p>
       </div>
 
       {error && (
@@ -80,7 +76,10 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
             Correo Electrónico
           </label>
           <div className="relative">
@@ -102,7 +101,10 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
             Contraseña
           </label>
           <div className="relative">
@@ -123,25 +125,17 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }) => {
               className="absolute right-3 top-3 text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
               disabled={isLoading}
             >
-              {showPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
           {validationErrors.password && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-400">{validationErrors.password}</p>
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+              {validationErrors.password}
+            </p>
           )}
         </div>
 
-        <Button
-          type="submit"
-          className="w-full"
-          size="lg"
-          loading={isLoading}
-          disabled={isLoading}
-        >
+        <Button type="submit" className="w-full" size="lg" loading={isLoading} disabled={isLoading}>
           {isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
         </Button>
       </form>

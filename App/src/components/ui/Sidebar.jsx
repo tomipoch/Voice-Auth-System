@@ -1,13 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { 
-  Mic, 
-  Shield, 
-  Users, 
-  LogOut, 
-  Settings,
-  Home,
-  UserPlus as UserPlusIcon
-} from 'lucide-react';
+import { Mic, Shield, Users, LogOut, Settings, Home, UserPlus as UserPlusIcon } from 'lucide-react';
 import { useSettingsModal } from '../../hooks/useSettingsModal';
 import { useAuth } from '../../hooks/useAuth';
 
@@ -23,40 +15,40 @@ const Sidebar = () => {
   };
 
   const navigation = [
-    { 
-      id: 'dashboard', 
-      label: 'Dashboard', 
-      href: '/dashboard', 
-      icon: Home 
+    {
+      id: 'dashboard',
+      label: 'Dashboard',
+      href: '/dashboard',
+      icon: Home,
     },
-    { 
-      id: 'enrollment', 
-      label: 'Registro de Voz', 
-      href: '/enrollment', 
-      icon: UserPlusIcon 
+    {
+      id: 'enrollment',
+      label: 'Registro de Voz',
+      href: '/enrollment',
+      icon: UserPlusIcon,
     },
-    { 
-      id: 'verification', 
-      label: 'Verificación', 
-      href: '/verification', 
-      icon: Shield 
-    }
+    {
+      id: 'verification',
+      label: 'Verificación',
+      href: '/verification',
+      icon: Shield,
+    },
   ];
 
   // Agregar opciones de admin si el usuario es admin o superadmin
   if (user?.role === 'admin' || user?.role === 'superadmin') {
     navigation.push(
-      { 
-        id: 'admin', 
-        label: 'Administración', 
-        href: '/admin', 
-        icon: Settings 
+      {
+        id: 'admin',
+        label: 'Administración',
+        href: '/admin',
+        icon: Settings,
       },
-      { 
-        id: 'users', 
-        label: 'Usuarios', 
-        href: '/admin/users', 
-        icon: Users 
+      {
+        id: 'users',
+        label: 'Usuarios',
+        href: '/admin/users',
+        icon: Users,
       }
     );
   }
@@ -69,7 +61,9 @@ const Sidebar = () => {
           <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
             <Mic className="h-7 w-7 text-white" />
           </div>
-          <h1 className="ml-3 text-xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent">VoiceAuth</h1>
+          <h1 className="ml-3 text-xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent">
+            VoiceAuth
+          </h1>
         </div>
 
         {/* User Info */}
@@ -84,18 +78,25 @@ const Sidebar = () => {
               <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{user?.name}</p>
               <p className="text-xs text-blue-600/70 dark:text-blue-400/70">{user?.email}</p>
               {user?.company && (
-                <p className="text-xs text-indigo-500/80 dark:text-indigo-400/80 font-medium">{user.company}</p>
+                <p className="text-xs text-indigo-500/80 dark:text-indigo-400/80 font-medium">
+                  {user.company}
+                </p>
               )}
               {user?.role && (
-                <span className={`inline-block text-xs px-2 py-1 rounded-md mt-1 ${
-                  user.role === 'superadmin' 
-                    ? 'bg-red-100 text-red-700 border border-red-200'
+                <span
+                  className={`inline-block text-xs px-2 py-1 rounded-md mt-1 ${
+                    user.role === 'superadmin'
+                      ? 'bg-red-100 text-red-700 border border-red-200'
+                      : user.role === 'admin'
+                        ? 'bg-orange-100 text-orange-700 border border-orange-200'
+                        : 'bg-green-100 text-green-700 border border-green-200'
+                  }`}
+                >
+                  {user.role === 'superadmin'
+                    ? 'Super Admin'
                     : user.role === 'admin'
-                    ? 'bg-orange-100 text-orange-700 border border-orange-200'
-                    : 'bg-green-100 text-green-700 border border-green-200'
-                }`}>
-                  {user.role === 'superadmin' ? 'Super Admin' : 
-                   user.role === 'admin' ? 'Administrador' : 'Usuario'}
+                      ? 'Administrador'
+                      : 'Usuario'}
                 </span>
               )}
             </div>
@@ -107,7 +108,7 @@ const Sidebar = () => {
           {navigation.map((item) => {
             const IconComponent = item.icon;
             const isActive = location.pathname === item.href;
-            
+
             return (
               <Link
                 key={item.id}

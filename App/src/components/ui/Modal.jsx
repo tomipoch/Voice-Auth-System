@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { X } from 'lucide-react';
 
-const Modal = ({ 
-  isOpen, 
-  onClose, 
-  children, 
-  title, 
+const Modal = ({
+  isOpen,
+  onClose,
+  children,
+  title,
   size = 'large', // 'small', 'medium', 'large', 'xl'
-  className = '' 
+  className = '',
 }) => {
   // Cerrar modal con Escape
   useEffect(() => {
@@ -34,60 +34,61 @@ const Modal = ({
     small: 'max-w-md',
     medium: 'max-w-2xl',
     large: 'max-w-4xl',
-    xl: 'max-w-6xl'
+    xl: 'max-w-6xl',
   };
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop con animación mejorada */}
-      <div 
+      <div
         className="fixed inset-0 transition-all duration-300 ease-in-out"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15) 0%, rgba(0, 0, 0, 0.4) 70%)',
+          background:
+            'radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15) 0%, rgba(0, 0, 0, 0.4) 70%)',
           backdropFilter: 'blur(8px)',
         }}
         onClick={onClose}
         aria-hidden="true"
       />
-      
+
       {/* Modal Container con animación mejorada */}
       <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
-        <div 
+        <div
           className={`
             relative w-full ${sizeClasses[size]} 
             transform transition-all duration-300 ease-out
             ${className}
           `}
           style={{
-            animation: isOpen ? 'modalSlideIn 0.3s ease-out' : undefined
+            animation: isOpen ? 'modalSlideIn 0.3s ease-out' : undefined,
           }}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Modal principal con estilo liquid glass mejorado */}
-          <div 
+          <div
             className="relative overflow-hidden rounded-3xl shadow-2xl bg-white dark:bg-gray-900/95 dark:bg-gray-800/95 border border-white/30 dark:border-gray-600/30 backdrop-blur-[20px]"
             style={{
               boxShadow: `
                 0 25px 50px -12px rgba(0, 0, 0, 0.25),
                 0 0 0 1px rgba(255, 255, 255, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.6)
-              `
+              `,
             }}
           >
             {/* Elementos decorativos de fondo */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div 
+              <div
                 className="absolute -top-40 -right-40 w-80 h-80 rounded-full opacity-20"
                 style={{
                   background: 'linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%)',
-                  filter: 'blur(60px)'
+                  filter: 'blur(60px)',
                 }}
               />
-              <div 
+              <div
                 className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full opacity-20"
                 style={{
                   background: 'linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%)',
-                  filter: 'blur(60px)'
+                  filter: 'blur(60px)',
                 }}
               />
             </div>
@@ -107,15 +108,13 @@ const Modal = ({
                 </button>
               </div>
             )}
-            
+
             {/* Content con padding mejorado */}
-            <div className={`relative ${title ? "p-6" : "p-8"}`}>
-              {children}
-            </div>
+            <div className={`relative ${title ? 'p-6' : 'p-8'}`}>{children}</div>
           </div>
         </div>
       </div>
-      
+
       {/* Estilos CSS en línea para animaciones */}
       <style jsx>{`
         @keyframes modalSlideIn {

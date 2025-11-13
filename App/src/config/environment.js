@@ -7,7 +7,7 @@
 export const ENV = {
   DEVELOPMENT: 'development',
   STAGING: 'staging',
-  PRODUCTION: 'production'
+  PRODUCTION: 'production',
 };
 
 /**
@@ -41,10 +41,10 @@ const getNumEnvVar = (key, defaultValue = 0) => {
 const getCurrentEnvironment = () => {
   const nodeEnv = getEnvVar('VITE_NODE_ENV') || getEnvVar('NODE_ENV') || 'development';
   const mode = import.meta.env.MODE || 'development';
-  
+
   // Prioridad: VITE_NODE_ENV > MODE > NODE_ENV
   const env = getEnvVar('VITE_NODE_ENV') || mode || nodeEnv;
-  
+
   switch (env) {
     case 'production':
     case 'prod':
@@ -192,7 +192,7 @@ export const config = {
     isDevelopment,
     isStaging,
     isProduction,
-  }
+  },
 };
 
 export default config;

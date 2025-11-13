@@ -23,6 +23,8 @@
     "start:prod": "vite --mode production",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "test": "echo \"No tests configured yet\"",
     "test:watch": "echo \"Test watch mode not configured yet\"",
     "clean": "rm -rf dist node_modules/.vite",
@@ -54,9 +56,12 @@
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^5.1.0",
     "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "prettier": "^3.6.2",
     "vite": "npm:rolldown-vite@7.2.2"
   },
   "overrides": {

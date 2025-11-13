@@ -93,16 +93,16 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initAuth = async () => {
       dispatch({ type: actionTypes.SET_LOADING, payload: true });
-      
+
       const token = authStorage.getAccessToken();
       const user = authStorage.getUser();
 
       if (features.debugMode) {
-        console.log('🔍 Auth initialization check:', { 
-          hasToken: !!token, 
+        console.log('🔍 Auth initialization check:', {
+          hasToken: !!token,
           hasUser: !!user,
           token: token ? token.substring(0, 20) + '...' : 'none',
-          user: user ? user.name : 'none'
+          user: user ? user.name : 'none',
         });
       }
 
@@ -117,9 +117,12 @@ export const AuthProvider = ({ children }) => {
                 token,
               },
             });
-            
+
             if (features.debugMode) {
-              console.log('🔐 Dev Auth initialized (skip server verification):', { user: user.name, role: user.role });
+              console.log('🔐 Dev Auth initialized (skip server verification):', {
+                user: user.name,
+                role: user.role,
+              });
             }
           } else {
             // Verificar token con el servidor para tokens reales
@@ -131,16 +134,19 @@ export const AuthProvider = ({ children }) => {
                 token,
               },
             });
-            
+
             if (features.debugMode) {
-              console.log('🔐 Server Auth initialized:', { user: profile.name, role: profile.role });
+              console.log('🔐 Server Auth initialized:', {
+                user: profile.name,
+                role: profile.role,
+              });
             }
           }
         } catch {
           // Token inválido, limpiar storage
           authStorage.clearAuth();
           dispatch({ type: actionTypes.LOGOUT });
-          
+
           if (features.debugMode) {
             console.log('🔓 Invalid token cleared');
           }
@@ -157,14 +163,14 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       dispatch({ type: actionTypes.LOGIN_START });
-      
+
       // Usuario de desarrollo especial
       if (credentials.email === 'dev@test.com' && credentials.password === '123456') {
         const devUser = {
           id: 'dev-user-1',
           name: 'Usuario Desarrollo',
           email: 'dev@test.com',
-          role: 'user'
+          role: 'user',
         };
         const devToken = 'dev-token-' + Date.now();
 
@@ -175,7 +181,7 @@ export const AuthProvider = ({ children }) => {
         if (features.debugMode) {
           console.log('💾 Dev login - Data saved to storage:', {
             token: devToken.substring(0, 20) + '...',
-            user: devUser.name
+            user: devUser.name,
           });
         }
 
@@ -197,7 +203,7 @@ export const AuthProvider = ({ children }) => {
           id: 'admin-user-1',
           name: 'Admin Desarrollo',
           email: 'admin@test.com',
-          role: 'admin'
+          role: 'admin',
         };
         const adminToken = 'admin-token-' + Date.now();
 
@@ -238,7 +244,7 @@ export const AuthProvider = ({ children }) => {
         type: actionTypes.LOGIN_FAILURE,
         payload: errorMessage,
       });
-      
+
       if (features.debugMode) {
         console.error('❌ Login failed:', error);
       }
@@ -251,10 +257,10 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       dispatch({ type: actionTypes.LOGIN_START });
-      
+
       await authService.register(userData);
       toast.success('Usuario registrado exitosamente. Puedes iniciar sesión.');
-      
+
       dispatch({ type: actionTypes.SET_LOADING, payload: false });
       return { success: true };
     } catch (error) {
@@ -280,7 +286,7 @@ export const AuthProvider = ({ children }) => {
       // Limpiar usando authStorage
       authStorage.clearAuth();
       dispatch({ type: actionTypes.LOGOUT });
-      
+
       if (features.debugMode) {
         console.log('🔓 User logged out');
       }
@@ -301,11 +307,7 @@ export const AuthProvider = ({ children }) => {
     clearError,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 // Exportar el contexto para que pueda ser importado en el hook

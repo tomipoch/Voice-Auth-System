@@ -1,12 +1,5 @@
 import { Link } from 'react-router-dom';
-import { 
-  Activity,
-  TrendingUp,
-  AlertCircle,
-  Mic,
-  Shield,
-  Users
-} from 'lucide-react';
+import { Activity, TrendingUp, AlertCircle, Mic, Shield, Users } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useDashboardStats } from '../hooks/useDashboardStats';
 import Button from '../components/ui/Button';
@@ -58,7 +51,10 @@ const DashboardPage = () => {
         {stats.map((stat, index) => {
           const IconComponent = stat.icon;
           return (
-            <div key={index} className="backdrop-blur-xl bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
+            <div
+              key={index}
+              className="backdrop-blur-xl bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
+            >
               <div className="flex items-center">
                 <div className="p-3 rounded-xl bg-gradient-to-br from-blue-100/80 to-indigo-100/80 dark:from-blue-900/80 dark:to-indigo-900/80 shadow-sm">
                   <IconComponent className="h-6 w-6 text-blue-600 dark:text-blue-400" />
@@ -67,9 +63,7 @@ const DashboardPage = () => {
                   <p className="text-sm font-medium text-blue-600/70 dark:text-blue-400/70">
                     {stat.title}
                   </p>
-                  <p className="text-lg font-bold text-gray-800 dark:text-gray-200">
-                    {stat.value}
-                  </p>
+                  <p className="text-lg font-bold text-gray-800 dark:text-gray-200">{stat.value}</p>
                 </div>
               </div>
             </div>
@@ -104,34 +98,45 @@ const DashboardPage = () => {
               </div>
             </Link>
           )}
-          
+
           <Link to="/verification" className="group">
-            <div className={`p-6 bg-gradient-to-br backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02] ${
-              userStats.isVoiceEnrolled ? 
-              'from-blue-50/80 to-indigo-50/80 dark:from-blue-900/80 dark:to-indigo-900/80 border-blue-200/60 dark:border-blue-600/60 hover:border-blue-300/80 dark:hover:border-blue-500/80' :
-              'from-gray-50/80 to-gray-100/80 dark:from-gray-800/80 dark:to-gray-700/80 border-gray-200 dark:border-gray-700/60 dark:border-gray-600/60 hover:border-gray-300/80 dark:hover:border-gray-500/80 opacity-75'
-            }`}>
+            <div
+              className={`p-6 bg-gradient-to-br backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02] ${
+                userStats.isVoiceEnrolled
+                  ? 'from-blue-50/80 to-indigo-50/80 dark:from-blue-900/80 dark:to-indigo-900/80 border-blue-200/60 dark:border-blue-600/60 hover:border-blue-300/80 dark:hover:border-blue-500/80'
+                  : 'from-gray-50/80 to-gray-100/80 dark:from-gray-800/80 dark:to-gray-700/80 border-gray-200 dark:border-gray-700/60 dark:border-gray-600/60 hover:border-gray-300/80 dark:hover:border-gray-500/80 opacity-75'
+              }`}
+            >
               <div className="flex items-center">
-                <div className={`p-3 bg-gradient-to-br rounded-xl shadow-sm ${
-                  userStats.isVoiceEnrolled ?
-                  'from-blue-100 to-indigo-100 dark:from-blue-800 dark:to-indigo-800' :
-                  'from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600'
-                }`}>
-                  <Shield className={`h-8 w-8 ${
-                    userStats.isVoiceEnrolled ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400 dark:text-gray-400'
-                  }`} />
+                <div
+                  className={`p-3 bg-gradient-to-br rounded-xl shadow-sm ${
+                    userStats.isVoiceEnrolled
+                      ? 'from-blue-100 to-indigo-100 dark:from-blue-800 dark:to-indigo-800'
+                      : 'from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600'
+                  }`}
+                >
+                  <Shield
+                    className={`h-8 w-8 ${
+                      userStats.isVoiceEnrolled
+                        ? 'text-blue-600 dark:text-blue-400'
+                        : 'text-gray-500 dark:text-gray-400 dark:text-gray-400'
+                    }`}
+                  />
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                     Verificar Identidad
                   </h3>
-                  <p className={`text-sm ${
-                    userStats.isVoiceEnrolled ? 'text-blue-700/80 dark:text-blue-400/80' : 'text-gray-500 dark:text-gray-400 dark:text-gray-400'
-                  }`}>
-                    {userStats.isVoiceEnrolled ? 
-                      'Autentícate usando tu voz' : 
-                      'Requiere perfil de voz configurado'
-                    }
+                  <p
+                    className={`text-sm ${
+                      userStats.isVoiceEnrolled
+                        ? 'text-blue-700/80 dark:text-blue-400/80'
+                        : 'text-gray-500 dark:text-gray-400 dark:text-gray-400'
+                    }`}
+                  >
+                    {userStats.isVoiceEnrolled
+                      ? 'Autentícate usando tu voz'
+                      : 'Requiere perfil de voz configurado'}
                   </p>
                 </div>
               </div>
@@ -171,13 +176,20 @@ const DashboardPage = () => {
               </h2>
               <div className="space-y-3">
                 {recentActivity.map((activity, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 dark:bg-gray-700 rounded-lg">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 dark:bg-gray-700 rounded-lg"
+                  >
                     <div className="flex items-center">
-                      <div className={`w-3 h-3 rounded-full mr-3 ${
-                        activity.type === 'success' ? 'bg-green-500' :
-                        activity.type === 'warning' ? 'bg-yellow-500' :
-                        'bg-red-500'
-                      }`}></div>
+                      <div
+                        className={`w-3 h-3 rounded-full mr-3 ${
+                          activity.type === 'success'
+                            ? 'bg-green-500'
+                            : activity.type === 'warning'
+                              ? 'bg-yellow-500'
+                              : 'bg-red-500'
+                        }`}
+                      ></div>
                       <div>
                         <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
                           {activity.description}
@@ -210,12 +222,20 @@ const DashboardPage = () => {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                  <p className="text-sm text-blue-600 dark:text-blue-400 font-medium">Tiempo de Respuesta Promedio</p>
-                  <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">{systemStats.avg_response_time}ms</span>
+                  <p className="text-sm text-blue-600 dark:text-blue-400 font-medium">
+                    Tiempo de Respuesta Promedio
+                  </p>
+                  <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">
+                    {systemStats.avg_response_time}ms
+                  </span>
                 </div>
                 <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                  <p className="text-sm text-green-600 dark:text-green-400 font-medium">Uptime del Sistema</p>
-                  <span className="text-sm text-green-600 dark:text-green-400 font-medium">{systemStats.system_uptime}%</span>
+                  <p className="text-sm text-green-600 dark:text-green-400 font-medium">
+                    Uptime del Sistema
+                  </p>
+                  <span className="text-sm text-green-600 dark:text-green-400 font-medium">
+                    {systemStats.system_uptime}%
+                  </span>
                 </div>
               </div>
             </div>
@@ -236,7 +256,8 @@ const DashboardPage = () => {
                   ¡Configura tu perfil de voz!
                 </h3>
                 <p className="text-orange-700 dark:text-orange-300">
-                  Para aprovechar al máximo el sistema de autenticación biométrica, necesitas registrar tu perfil de voz. Es un proceso rápido y seguro.
+                  Para aprovechar al máximo el sistema de autenticación biométrica, necesitas
+                  registrar tu perfil de voz. Es un proceso rápido y seguro.
                 </p>
               </div>
               <Link to="/enrollment">

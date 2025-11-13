@@ -66,7 +66,7 @@ export const enrollmentService = {
     if (!useRealAPI) {
       return await mockApiService.enrollment.submitAudio(enrollmentId, audioBlob, phraseText);
     }
-    
+
     const formData = new FormData();
     formData.append('audio', audioBlob, 'enrollment.wav');
     formData.append('enrollment_id', enrollmentId);
@@ -116,7 +116,7 @@ export const verificationService = {
     if (!useRealAPI) {
       return await mockApiService.verification.verifyAudio(verificationId, audioBlob, phraseText);
     }
-    
+
     const formData = new FormData();
     formData.append('audio', audioBlob, 'verification.wav');
     formData.append('verification_id', verificationId);

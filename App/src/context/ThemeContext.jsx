@@ -28,12 +28,8 @@ export const ThemeProvider = ({ children }) => {
     theme,
     toggleTheme,
     setTheme: setThemeMode,
-    isDark: theme === 'dark'
+    isDark: theme === 'dark',
   };
 
-  return (
-    <ThemeContext.Provider value={value}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };

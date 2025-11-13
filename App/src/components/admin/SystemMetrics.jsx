@@ -1,12 +1,12 @@
-import { 
-  Activity, 
-  Users, 
-  Shield, 
-  AlertTriangle, 
-  TrendingUp, 
+import {
+  Activity,
+  Users,
+  Shield,
+  AlertTriangle,
+  TrendingUp,
   Clock,
   CheckCircle,
-  XCircle
+  XCircle,
 } from 'lucide-react';
 import Card from '../ui/Card';
 import StatusIndicator from '../ui/StatusIndicator';
@@ -21,23 +21,26 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
     systemHealth = 'unknown',
     responseTime = 0,
     uptime = 0,
-    recentActivity = []
+    recentActivity = [],
   } = metrics;
 
-  const successRate = verificationAttempts > 0 
-    ? ((successfulVerifications / verificationAttempts) * 100).toFixed(1)
-    : 0;
+  const successRate =
+    verificationAttempts > 0
+      ? ((successfulVerifications / verificationAttempts) * 100).toFixed(1)
+      : 0;
 
-  const enrollmentRate = totalUsers > 0 
-    ? ((enrolledUsers / totalUsers) * 100).toFixed(1)
-    : 0;
+  const enrollmentRate = totalUsers > 0 ? ((enrolledUsers / totalUsers) * 100).toFixed(1) : 0;
 
   const getHealthStatus = (health) => {
     switch (health) {
-      case 'healthy': return 'success';
-      case 'warning': return 'warning';
-      case 'critical': return 'error';
-      default: return 'pending';
+      case 'healthy':
+        return 'success';
+      case 'warning':
+        return 'warning';
+      case 'critical':
+        return 'error';
+      default:
+        return 'pending';
     }
   };
 
@@ -45,7 +48,7 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
     const days = Math.floor(seconds / 86400);
     const hours = Math.floor((seconds % 86400) / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
-    
+
     if (days > 0) return `${days}d ${hours}h ${minutes}m`;
     if (hours > 0) return `${hours}h ${minutes}m`;
     return `${minutes}m`;
@@ -78,8 +81,12 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
               <Users className="h-8 w-8 text-blue-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Usuarios Totales</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{totalUsers}</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Usuarios Totales
+              </p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                {totalUsers}
+              </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 {enrollmentRate}% registrados
               </p>
@@ -94,7 +101,9 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Tasa de Éxito</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{successRate}%</p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                {successRate}%
+              </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 {successfulVerifications} / {verificationAttempts} intentos
               </p>
@@ -108,12 +117,11 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
               <Activity className="h-8 w-8 text-purple-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Estado del Sistema</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Estado del Sistema
+              </p>
               <div className="flex items-center space-x-2 mt-1">
-                <StatusIndicator 
-                  status={getHealthStatus(systemHealth)} 
-                  size="sm" 
-                />
+                <StatusIndicator status={getHealthStatus(systemHealth)} size="sm" />
                 <span className="text-sm font-medium capitalize">{systemHealth}</span>
               </div>
             </div>
@@ -126,8 +134,12 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
               <Clock className="h-8 w-8 text-orange-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Tiempo de Respuesta</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{responseTime}ms</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Tiempo de Respuesta
+              </p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                {responseTime}ms
+              </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Uptime: {formatUptime(uptime)}
               </p>
@@ -147,31 +159,37 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <CheckCircle className="h-5 w-5 text-green-600" />
-                <span className="text-sm text-gray-600 dark:text-gray-400">Verificaciones Exitosas</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  Verificaciones Exitosas
+                </span>
               </div>
               <span className="text-lg font-semibold text-green-600">
                 {successfulVerifications}
               </span>
             </div>
-            
+
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <XCircle className="h-5 w-5 text-red-600" />
-                <span className="text-sm text-gray-600 dark:text-gray-400">Verificaciones Fallidas</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  Verificaciones Fallidas
+                </span>
               </div>
-              <span className="text-lg font-semibold text-red-600">
-                {failedVerifications}
-              </span>
+              <span className="text-lg font-semibold text-red-600">{failedVerifications}</span>
             </div>
-            
+
             <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-900 dark:text-gray-100">Tasa de Éxito</span>
-                <span className="text-lg font-bold text-gray-900 dark:text-gray-100">{successRate}%</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                  Tasa de Éxito
+                </span>
+                <span className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                  {successRate}%
+                </span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                <div 
-                  className="bg-green-600 h-2 rounded-full" 
+                <div
+                  className="bg-green-600 h-2 rounded-full"
                   style={{ width: `${successRate}%` }}
                 ></div>
               </div>
@@ -188,12 +206,17 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
             {recentActivity.length > 0 ? (
               recentActivity.slice(0, 5).map((activity, index) => (
                 <div key={index} className="flex items-center space-x-3">
-                  <div className={`w-3 h-3 rounded-full ${
-                    activity.type === 'success' ? 'bg-green-500' :
-                    activity.type === 'error' ? 'bg-red-500' :
-                    activity.type === 'warning' ? 'bg-yellow-500' :
-                    'bg-blue-500'
-                  }`}></div>
+                  <div
+                    className={`w-3 h-3 rounded-full ${
+                      activity.type === 'success'
+                        ? 'bg-green-500'
+                        : activity.type === 'error'
+                          ? 'bg-red-500'
+                          : activity.type === 'warning'
+                            ? 'bg-yellow-500'
+                            : 'bg-blue-500'
+                    }`}
+                  ></div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm text-gray-900 dark:text-gray-100 truncate">
                       {activity.message}
@@ -219,14 +242,11 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }) => {
           <div className="flex items-center space-x-3">
             <AlertTriangle className="h-6 w-6 text-yellow-600" />
             <div>
-              <h3 className="text-lg font-medium text-yellow-900">
-                Alerta del Sistema
-              </h3>
+              <h3 className="text-lg font-medium text-yellow-900">Alerta del Sistema</h3>
               <p className="text-sm text-yellow-700">
-                {systemHealth === 'warning' 
+                {systemHealth === 'warning'
                   ? 'El sistema presenta algunos problemas menores que requieren atención.'
-                  : 'El sistema presenta problemas críticos que requieren atención inmediata.'
-                }
+                  : 'El sistema presenta problemas críticos que requieren atención inmediata.'}
               </p>
             </div>
           </div>
