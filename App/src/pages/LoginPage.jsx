@@ -100,30 +100,87 @@ const LoginPage = () => {
           {/* Development Panel with Liquid Glass Effect */}
           {import.meta.env.DEV && (
             <div className="backdrop-blur-xl bg-white/60 border border-blue-200/40 rounded-2xl p-6 shadow-xl">
-              <div className="text-center">
-                <h3 className="text-sm font-semibold text-blue-700 mb-4 flex items-center justify-center gap-2">
+              <div className="text-center mb-4">
+                <h3 className="text-sm font-semibold text-blue-700 mb-2 flex items-center justify-center gap-2">
                   <span className="text-lg">🚀</span>
-                  Modo Desarrollo
+                  Usuarios de Prueba Disponibles
                 </h3>
-                <div className="space-y-3">
+              </div>
+              
+              <div className="space-y-3">
+                {/* Usuarios de producción */}
+                <div className="text-xs text-gray-600 font-semibold mb-2">👥 USUARIOS PRINCIPALES:</div>
+                
+                <button
+                  type="button"
+                  onClick={() => fillDevCredentials('admin@voicebio.com', 'AdminVoice2024!')}
+                  className="w-full text-left text-sm bg-purple-100/80 backdrop-blur-sm hover:bg-purple-200/80 text-purple-700 py-3 px-4 rounded-xl border border-purple-300/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="mr-2">👑</span>
+                      <strong>Administrador del Sistema</strong>
+                      <div className="text-xs text-purple-600/70 mt-1">admin@voicebio.com</div>
+                      <div className="text-xs text-green-600 mt-1">🎤 Perfil de voz configurado</div>
+                    </div>
+                  </div>
+                </button>
+                
+                <button
+                  type="button"
+                  onClick={() => fillDevCredentials('juan.perez@empresa.com', 'UserVoice2024!')}
+                  className="w-full text-left text-sm bg-green-100/80 backdrop-blur-sm hover:bg-green-200/80 text-green-700 py-3 px-4 rounded-xl border border-green-300/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                >
+                  <div>
+                    <span className="mr-2">👤</span>
+                    <strong>Juan Carlos Pérez</strong>
+                    <div className="text-xs text-green-600/70 mt-1">juan.perez@empresa.com</div>
+                    <div className="text-xs text-green-600 mt-1">🎤 Perfil de voz configurado</div>
+                  </div>
+                </button>
+                
+                <button
+                  type="button"
+                  onClick={() => fillDevCredentials('maria.rodriguez@empresa.com', 'UserVoice2024!')}
+                  className="w-full text-left text-sm bg-yellow-100/80 backdrop-blur-sm hover:bg-yellow-200/80 text-yellow-700 py-3 px-4 rounded-xl border border-yellow-300/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                >
+                  <div>
+                    <span className="mr-2">👤</span>
+                    <strong>María Elena Rodríguez</strong>
+                    <div className="text-xs text-yellow-600/70 mt-1">maria.rodriguez@empresa.com</div>
+                    <div className="text-xs text-orange-600 mt-1">⚠️ Sin perfil de voz</div>
+                  </div>
+                </button>
+                
+                {/* Usuarios de desarrollo */}
+                <div className="text-xs text-gray-600 font-semibold mt-4 mb-2 pt-3 border-t border-gray-200">🔧 DESARROLLO:</div>
+                
+                <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => fillDevCredentials('dev@test.com', '123456')}
-                    className="w-full text-sm bg-blue-100/80 backdrop-blur-sm hover:bg-blue-200/80 text-blue-700 py-3 px-4 rounded-xl border border-blue-300/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                    className="text-xs bg-blue-100/80 backdrop-blur-sm hover:bg-blue-200/80 text-blue-700 py-2 px-3 rounded-xl border border-blue-300/40 transition-all duration-300 hover:scale-[1.02]"
                   >
-                    <span className="mr-2">👤</span>
-                    Usuario Normal
+                    <span className="mr-1">👤</span>
+                    Usuario Dev
                     <div className="text-xs text-blue-600/70 mt-1">dev@test.com</div>
                   </button>
+                  
                   <button
                     type="button"
                     onClick={() => fillDevCredentials('admin@test.com', '123456')}
-                    className="w-full text-sm bg-indigo-100/80 backdrop-blur-sm hover:bg-indigo-200/80 text-indigo-700 py-3 px-4 rounded-xl border border-indigo-300/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                    className="text-xs bg-indigo-100/80 backdrop-blur-sm hover:bg-indigo-200/80 text-indigo-700 py-2 px-3 rounded-xl border border-indigo-300/40 transition-all duration-300 hover:scale-[1.02]"
                   >
-                    <span className="mr-2">👑</span>
-                    Usuario Admin
+                    <span className="mr-1">👑</span>
+                    Admin Dev
                     <div className="text-xs text-indigo-600/70 mt-1">admin@test.com</div>
                   </button>
+                </div>
+                
+                <div className="mt-4 pt-3 border-t border-gray-200">
+                  <div className="text-xs text-gray-500 text-center">
+                    💡 Haz clic en cualquier usuario para autocompletar el formulario
+                  </div>
                 </div>
               </div>
             </div>
