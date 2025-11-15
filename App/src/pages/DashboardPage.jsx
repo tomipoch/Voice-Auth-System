@@ -17,6 +17,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useDashboardStats } from '../hooks/useDashboardStats';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
+import Layout from '../components/ui/Layout';
 
 const DashboardPage = () => {
   const { user, logout } = useAuth();

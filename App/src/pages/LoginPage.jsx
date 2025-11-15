@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mic } from 'lucide-react';
+import { Mic, Shield } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
@@ -108,23 +108,8 @@ const LoginPage = () => {
               </div>
               
               <div className="space-y-3">
-                {/* Usuarios de producción */}
-                <div className="text-xs text-gray-600 font-semibold mb-2">👥 USUARIOS PRINCIPALES:</div>
-                
-                <button
-                  type="button"
-                  onClick={() => fillDevCredentials('admin@voicebio.com', 'AdminVoice2024!')}
-                  className="w-full text-left text-sm bg-purple-100/80 backdrop-blur-sm hover:bg-purple-200/80 text-purple-700 py-3 px-4 rounded-xl border border-purple-300/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="mr-2">👑</span>
-                      <strong>Administrador del Sistema</strong>
-                      <div className="text-xs text-purple-600/70 mt-1">admin@voicebio.com</div>
-                      <div className="text-xs text-green-600 mt-1">🎤 Perfil de voz configurado</div>
-                    </div>
-                  </div>
-                </button>
+                {/* Usuarios de prueba */}
+                <div className="text-xs text-gray-600 font-semibold mb-2">👥 USUARIOS DE PRUEBA:</div>
                 
                 <button
                   type="button"
@@ -155,29 +140,45 @@ const LoginPage = () => {
                 {/* Usuarios de desarrollo */}
                 <div className="text-xs text-gray-600 font-semibold mt-4 mb-2 pt-3 border-t border-gray-200">🔧 DESARROLLO:</div>
                 
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => fillDevCredentials('dev@test.com', '123456')}
-                    className="text-xs bg-blue-100/80 backdrop-blur-sm hover:bg-blue-200/80 text-blue-700 py-2 px-3 rounded-xl border border-blue-300/40 transition-all duration-300 hover:scale-[1.02]"
-                  >
-                    <span className="mr-1">👤</span>
-                    Usuario Dev
-                    <div className="text-xs text-blue-600/70 mt-1">dev@test.com</div>
-                  </button>
-                  
-                  <button
-                    type="button"
-                    onClick={() => fillDevCredentials('admin@test.com', '123456')}
-                    className="text-xs bg-indigo-100/80 backdrop-blur-sm hover:bg-indigo-200/80 text-indigo-700 py-2 px-3 rounded-xl border border-indigo-300/40 transition-all duration-300 hover:scale-[1.02]"
-                  >
-                    <span className="mr-1">👑</span>
-                    Admin Dev
-                    <div className="text-xs text-indigo-600/70 mt-1">admin@test.com</div>
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => fillDevCredentials('juan.perez@empresaa.com', 'User2024!')}
+                  className="w-full text-xs bg-green-100/80 backdrop-blur-sm hover:bg-green-200/80 text-green-700 py-2 px-3 rounded-xl border border-green-300/40 transition-all duration-300 hover:scale-[1.02]"
+                >
+                  <span className="mr-1">👤</span>
+                  <strong>Juan Carlos Pérez</strong>
+                  <div className="text-xs text-green-600/70 mt-1">juan.perez@empresaa.com</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => fillDevCredentials('carlos.rodriguez@empresab.com', 'User2024!')}
+                  className="w-full text-xs bg-green-100/80 backdrop-blur-sm hover:bg-green-200/80 text-green-700 py-2 px-3 rounded-xl border border-green-300/40 transition-all duration-300 hover:scale-[1.02]"
+                >
+                  <span className="mr-1">👤</span>
+                  <strong>Carlos Rodríguez Silva</strong>
+                  <div className="text-xs text-green-600/70 mt-1">carlos.rodriguez@empresab.com</div>
+                </button>
+
+                {/* Usuarios de desarrollo */}
+                <div className="text-xs text-gray-600 font-semibold mt-4 mb-2 pt-3 border-t border-gray-200">🔧 DESARROLLO:</div>
                 
-                <div className="mt-4 pt-3 border-t border-gray-200">
+                <button
+                  type="button"
+                  onClick={() => fillDevCredentials('dev@test.com', '123456')}
+                  className="w-full text-xs bg-blue-100/80 backdrop-blur-sm hover:bg-blue-200/80 text-blue-700 py-2 px-3 rounded-xl border border-blue-300/40 transition-all duration-300 hover:scale-[1.02]"
+                >
+                  <span className="mr-1">👤</span>
+                  <strong>Usuario de Desarrollo</strong>
+                  <div className="text-xs text-blue-600/70 mt-1">dev@test.com</div>
+                </button>                <div className="mt-4 pt-3 border-t border-gray-200">
+                  <div className="text-xs text-gray-500 text-center p-2 bg-amber-50/80 rounded-lg border border-amber-200/60 mb-3">
+                    <span className="text-amber-600">💡</span> <strong>¿Eres administrador?</strong><br />
+                    Las credenciales administrativas están en el{" "}
+                    <Link to="/admin/login" className="text-blue-600 hover:text-blue-700 underline">
+                      login administrativo
+                    </Link>
+                  </div>
                   <div className="text-xs text-gray-500 text-center">
                     💡 Haz clic en cualquier usuario para autocompletar el formulario
                   </div>
@@ -230,12 +231,18 @@ const LoginPage = () => {
               </div>
 
               {/* Register Link */}
-              <div className="text-center pt-2">
+              <div className="text-center pt-2 space-y-2">
                 <Link 
                   to="/register" 
-                  className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-300"
+                  className="block text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-300"
                 >
                   ¿No tienes cuenta? Regístrate aquí
+                </Link>
+                <Link 
+                  to="/admin/login" 
+                  className="block text-xs font-medium text-red-600 hover:text-red-700 transition-colors duration-300 border-t border-blue-200/30 pt-2"
+                >
+                  🛡️ Acceso Administrativo
                 </Link>
               </div>
 
