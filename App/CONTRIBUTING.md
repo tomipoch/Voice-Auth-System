@@ -141,6 +141,7 @@ Seguimos [Conventional Commits](https://www.conventionalcommits.org/):
 ```
 
 **Types:**
+
 - `feat`: Nueva feature
 - `fix`: Bug fix
 - `docs`: Solo documentación
@@ -170,11 +171,13 @@ test(storage): add tests for localStorage service
 ### Branches
 
 **Formato:**
+
 ```
 <type>/<short-description>
 ```
 
 **Examples:**
+
 ```bash
 feature/voice-enrollment
 fix/dark-mode-button
@@ -258,6 +261,7 @@ Antes de crear tu PR, verifica:
 Descripción clara y concisa del bug.
 
 **Pasos para Reproducir**
+
 1. Ve a '...'
 2. Click en '...'
 3. Scroll down to '...'
@@ -270,6 +274,7 @@ Qué esperabas que pasara.
 Si aplica, agrega screenshots.
 
 **Ambiente:**
+
 - OS: [ej: macOS 14.0]
 - Browser: [ej: Chrome 120]
 - Node.js: [ej: 18.0.0]
@@ -332,6 +337,7 @@ npm run test:coverage
 ### README
 
 Actualizar README.md si:
+
 - Agregas nueva feature
 - Cambias API
 - Modificas instalación
@@ -356,16 +362,19 @@ async function registerUser(userData) {
 ## 🎯 Prioridades
 
 ### High Priority
+
 - 🔴 Bugs críticos
 - 🔴 Vulnerabilidades de seguridad
 - 🔴 Features bloqueantes
 
 ### Medium Priority
+
 - 🟡 Mejoras de performance
 - 🟡 Refactorizaciones
 - 🟡 Documentación
 
 ### Low Priority
+
 - 🟢 Features nice-to-have
 - 🟢 Mejoras de UI
 - 🟢 Optimizaciones menores
@@ -388,6 +397,7 @@ async function registerUser(userData) {
 ## 🏆 Reconocimientos
 
 Todos los contribuidores serán:
+
 - Listados en README.md
 - Mencionados en releases
 - Agradecidos públicamente
@@ -403,6 +413,7 @@ Todos los contribuidores serán:
 ## ❓ Preguntas
 
 ¿Tienes preguntas? ¡No dudes en:
+
 - Abrir una discussion
 - Comentar en un issue
 - Contactar a los mantenedores

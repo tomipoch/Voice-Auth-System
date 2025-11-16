@@ -11,17 +11,20 @@ Se ejecuta en **push** y **pull requests** a `main` y `develop`.
 #### Jobs:
 
 **Lint:**
+
 - ✅ ESLint
 - ✅ Prettier format check
 - ⏱️ ~30 segundos
 
 **Test:**
+
 - ✅ Ejecuta todos los tests
 - ✅ Genera reporte de cobertura
 - ✅ Sube cobertura a Codecov
 - ⏱️ ~45 segundos
 
 **Build:**
+
 - ✅ Build para development, staging y production
 - ✅ Sube artefactos (7 días de retención)
 - ⏱️ ~1-2 minutos por ambiente
@@ -33,16 +36,19 @@ Deployments automáticos basados en branches y tags.
 #### Environments:
 
 **Development:**
+
 - 🔀 Branch: `develop`
 - 🌐 URL: `https://dev.voiceauth.example.com`
 - 🚀 Deploy automático
 
 **Staging:**
+
 - 🔀 Branch: `main`
 - 🌐 URL: `https://staging.voiceauth.example.com`
 - 🚀 Deploy automático
 
 **Production:**
+
 - 🏷️ Tags: `v*` (ej: v1.0.0)
 - 🌐 URL: `https://voiceauth.example.com`
 - ✅ Requiere tests pasando
@@ -55,11 +61,13 @@ Se ejecuta en **pull requests**.
 #### Jobs:
 
 **PR Info:**
+
 - 📝 Muestra información del PR
 - 👤 Autor
 - 🔀 Branches
 
 **Validate:**
+
 - ✅ Lint
 - ✅ Format check
 - ✅ Tests con cobertura
@@ -67,10 +75,12 @@ Se ejecuta en **pull requests**.
 - ✅ Bundle size check
 
 **Security:**
+
 - 🔒 npm audit
 - ⚠️ Detecta vulnerabilidades
 
 **Size Check:**
+
 - 📦 Calcula tamaño del bundle
 - 💬 Comenta en PR con resultados
 
@@ -91,6 +101,7 @@ git push origin feature/nueva-feature
 ```
 
 **GitHub Actions ejecutará:**
+
 - ✅ Lint
 - ✅ Tests
 - ✅ Build
@@ -104,6 +115,7 @@ gh pr create --base develop --title "Nueva feature"
 ```
 
 **Checks que se ejecutan:**
+
 - ✅ CI workflow (lint, test, build)
 - ✅ PR checks (validación, seguridad, tamaño)
 - 💬 Comentarios automáticos con info del build
@@ -139,6 +151,7 @@ git push origin v1.0.0
 ```
 
 **Resultado:**
+
 - Tests ejecutados
 - Build de producción
 - Deploy a `voiceauth.example.com`
@@ -204,7 +217,7 @@ En cada workflow:
 - name: Setup Node.js
   uses: actions/setup-node@v4
   with:
-    node-version: '20'  # Cambiar aquí
+    node-version: '20' # Cambiar aquí
     cache: 'npm'
 ```
 
@@ -225,7 +238,7 @@ jobs:
     environment:
       name: custom
       url: https://custom.example.com
-    
+
     steps:
       # ... pasos de deploy
 ```
@@ -248,7 +261,7 @@ Agregar al final de cada job:
 ```yaml
 on:
   schedule:
-    - cron: '0 0 * * *'  # Diario a medianoche
+    - cron: '0 0 * * *' # Diario a medianoche
 ```
 
 ## 🐛 Troubleshooting
@@ -258,6 +271,7 @@ on:
 **Causa:** package-lock.json desactualizado
 
 **Solución:**
+
 ```bash
 npm install
 git add package-lock.json
@@ -269,6 +283,7 @@ git commit -m "chore: update package-lock"
 **Causa:** Tests no pasan en CI
 
 **Solución:**
+
 ```bash
 # Ejecutar localmente
 npm test
@@ -287,11 +302,13 @@ git commit -m "fix: failing tests"
 ### Workflow no se ejecuta
 
 **Causas posibles:**
+
 1. Archivo YAML con errores de sintaxis
 2. Workflow deshabilitado
 3. Branch no incluido en `on: push:`
 
 **Solución:**
+
 ```bash
 # Validar YAML
 yamllint .github/workflows/ci.yml
@@ -302,6 +319,7 @@ yamllint .github/workflows/ci.yml
 ### Deploy no funciona
 
 **Verificar:**
+
 1. ✅ Secrets configurados
 2. ✅ Environment creado
 3. ✅ Permisos de Actions habilitados
@@ -310,6 +328,7 @@ yamllint .github/workflows/ci.yml
 ## 📈 Mejoras Futuras
 
 ### 1. Parallel Testing
+
 ```yaml
 test:
   strategy:
@@ -320,6 +339,7 @@ test:
 ```
 
 ### 2. Cache de Dependencies
+
 ```yaml
 - name: Cache node modules
   uses: actions/cache@v3
@@ -329,6 +349,7 @@ test:
 ```
 
 ### 3. Lighthouse CI
+
 ```yaml
 - name: Run Lighthouse
   uses: treosh/lighthouse-ci-action@v10
@@ -338,21 +359,23 @@ test:
 ```
 
 ### 4. E2E Tests (Playwright)
+
 ```yaml
 - name: E2E Tests
   run: npx playwright test
 ```
 
 ### 5. Dependabot
+
 Crear `.github/dependabot.yml`:
 
 ```yaml
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
 ```
 
 ## 📝 Best Practices
