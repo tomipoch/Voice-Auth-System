@@ -411,6 +411,8 @@ npm start                # Alias de npm run dev
 
 - [**LOGIN_SYSTEM.md**](./LOGIN_SYSTEM.md) - Sistema de autenticación
 - [**DARK_MODE_IMPLEMENTATION.md**](./DARK_MODE_IMPLEMENTATION.md) - Implementación de dark mode
+- [**PERFORMANCE.md**](./PERFORMANCE.md) - Optimización y performance
+- [**ACCESSIBILITY.md**](./ACCESSIBILITY.md) - Guía de accesibilidad
 
 ### Contribución
 
@@ -418,8 +420,6 @@ npm start                # Alias de npm run dev
 - [**CODE_OF_CONDUCT.md**](./CODE_OF_CONDUCT.md) - Código de conducta
 - [**CHANGELOG.md**](./CHANGELOG.md) - Historial de cambios
 - [**LICENSE**](./LICENSE) - Licencia MIT
-- [**LOGIN_SYSTEM.md**](./LOGIN_SYSTEM.md) - Sistema de autenticación
-- [**DARK_MODE_IMPLEMENTATION.md**](./DARK_MODE_IMPLEMENTATION.md) - Dark mode
 
 ## 🤝 Contribuir
 
