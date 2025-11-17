@@ -4,5 +4,5 @@ export default {
     "./index.html", 
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: ['selector', '.dark']
+  darkMode: 'selector', // o 'class' para Tailwind v3
 }
