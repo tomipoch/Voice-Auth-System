@@ -413,6 +413,8 @@ npm start                # Alias de npm run dev
 - [**DARK_MODE_IMPLEMENTATION.md**](./DARK_MODE_IMPLEMENTATION.md) - Implementación de dark mode
 - [**PERFORMANCE.md**](./PERFORMANCE.md) - Optimización y performance
 - [**ACCESSIBILITY.md**](./ACCESSIBILITY.md) - Guía de accesibilidad
+- [**TYPESCRIPT.md**](./TYPESCRIPT.md) - Migración a TypeScript
+- [**SECURITY.md**](./SECURITY.md) - Guía de seguridad
 
 ### Contribución
 

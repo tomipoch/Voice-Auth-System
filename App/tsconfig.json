@@ -1,0 +1,77 @@
+{
+  "compilerOptions": {
+    // Target & Module
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+
+    // Type Checking
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+
+    // JSX
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+
+    // Interop
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    // Output
+    "skipLibCheck": true,
+    "noEmit": true,
+
+    // Path Aliases
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@services/*": ["./src/services/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@types/*": ["./src/types/*"],
+      "@context/*": ["./src/context/*"],
+      "@config/*": ["./src/config/*"],
+      "@assets/*": ["./src/assets/*"]
+    },
+
+    // Advanced
+    "allowJs": true,
+    "checkJs": false,
+    "incremental": true
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*.tsx",
+    "src/**/*.ts",
+    "vite.config.ts",
+    "tailwind.config.ts",
+    "eslint.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "src/services/mockApi.ts",
+    "src/services/apiServices.ts",
+    "src/hooks/useAdvancedAudioRecording.ts",
+    "src/hooks/useAccessibility.ts",
+    "src/context/AuthContext.tsx"
+  ]
+}
