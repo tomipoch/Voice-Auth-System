@@ -24,23 +24,27 @@ Sistema de autenticación biométrica por voz con interfaz web moderna y segura.
 ## ✨ Características
 
 ### 🔐 Autenticación Biométrica
+
 - **Registro por voz** con análisis de calidad de audio
 - **Verificación biométrica** en tiempo real
 - **Multi-rol** (Usuario, Administrador, Super Admin)
 - Gestión segura de tokens y sesiones
 
 ### 🎨 Interfaz Moderna
+
 - **Dark Mode** con persistencia en localStorage
 - Diseño **responsive** y accesible
 - Componentes reutilizables con **Tailwind CSS**
 - Efectos glass morphism y gradientes
 
 ### 📊 Panel de Administración
+
 - Gestión de usuarios y permisos
 - Métricas del sistema en tiempo real
 - Dashboard con estadísticas
 
 ### 🛠️ Calidad de Código
+
 - **ESLint** + **Prettier** para formato consistente
 - **Tests** unitarios y de integración con Vitest
 - Configuración de ambientes (development, staging, production)
@@ -49,22 +53,26 @@ Sistema de autenticación biométrica por voz con interfaz web moderna y segura.
 ## 🛠️ Tecnologías
 
 ### Core
+
 - **React 19.2.0** - Framework UI
 - **Vite 7.2.2** - Build tool y dev server
 - **React Router 7.9.6** - Enrutamiento
 - **Axios 1.7.9** - Cliente HTTP
 
 ### Styling
+
 - **Tailwind CSS 4.1.17** - Framework CSS utility-first
 - **Lucide React** - Iconos modernos
 - **clsx** - Utilidad para clases condicionales
 
 ### Testing
+
 - **Vitest 4.0.9** - Framework de testing
 - **React Testing Library** - Testing de componentes
 - **jsdom** - Simulación de DOM
 
 ### Calidad de Código
+
 - **ESLint 9.39.1** - Linter
 - **Prettier 3.6.2** - Formatter
 - **eslint-plugin-react-hooks** - Reglas para hooks
@@ -127,26 +135,32 @@ VITE_TOKEN_REFRESH_INTERVAL=300000
 El proyecto soporta tres ambientes:
 
 #### Development
+
 ```bash
 npm run dev
 ```
+
 - API Mock habilitada
 - Logs de consola activados
 - Hot Module Replacement (HMR)
 
 #### Staging
+
 ```bash
 npm run start:staging
 ```
+
 - API real en servidor de staging
 - Logs limitados
 - Build optimizado
 
 #### Production
+
 ```bash
 npm run build:prod
 npm run preview:prod
 ```
+
 - API de producción
 - Sin logs
 - Bundle optimizado y minificado
@@ -157,10 +171,10 @@ El proyecto usa `@` como alias para `src/`:
 
 ```javascript
 // Antes
-import Button from '../../../components/ui/Button'
+import Button from '../../../components/ui/Button';
 
 // Después
-import Button from '@/components/ui/Button'
+import Button from '@/components/ui/Button';
 ```
 
 ## 💻 Uso
@@ -284,6 +298,7 @@ App/
 ### Patrones de Diseño
 
 #### 1. Context API para Estado Global
+
 ```javascript
 // AuthContext - Gestión de autenticación
 // ThemeContext - Dark mode
@@ -291,22 +306,25 @@ App/
 ```
 
 #### 2. Custom Hooks
+
 ```javascript
-useAuth()              // Autenticación
-useTheme()             // Tema
-useAudioRecording()    // Grabación de voz
-useDashboardStats()    // Estadísticas
+useAuth(); // Autenticación
+useTheme(); // Tema
+useAudioRecording(); // Grabación de voz
+useDashboardStats(); // Estadísticas
 ```
 
 #### 3. Service Layer
+
 ```javascript
-api.js          // Cliente HTTP base
-apiServices.js  // Endpoints específicos
-mockApi.js      // API simulada para desarrollo
-storage.js      // Abstracción de localStorage
+api.js; // Cliente HTTP base
+apiServices.js; // Endpoints específicos
+mockApi.js; // API simulada para desarrollo
+storage.js; // Abstracción de localStorage
 ```
 
 #### 4. Componentes Atómicos
+
 ```
 Atoms:    Button, Input, Card
 Molecules: AudioRecorder, StatusIndicator
@@ -328,6 +346,7 @@ User Action → Component → Custom Hook → Service → API
 ## 📜 Scripts Disponibles
 
 ### Desarrollo
+
 ```bash
 npm run dev              # Inicia dev server
 npm run dev:local        # Dev con config local
@@ -336,6 +355,7 @@ npm run dev:network      # Expone en red local
 ```
 
 ### Build
+
 ```bash
 npm run build            # Build producción
 npm run build:dev        # Build development
@@ -344,6 +364,7 @@ npm run build:analyze    # Analiza bundle size
 ```
 
 ### Preview
+
 ```bash
 npm run preview          # Preview del build
 npm run preview:dev      # Preview development
@@ -352,6 +373,7 @@ npm run preview:prod     # Preview production
 ```
 
 ### Calidad de Código
+
 ```bash
 npm run lint             # Ejecuta ESLint
 npm run lint:fix         # Fix automático
@@ -360,6 +382,7 @@ npm run format:check     # Verifica formato
 ```
 
 ### Testing
+
 ```bash
 npm test                 # Ejecuta tests
 npm run test:watch       # Mode watch
@@ -368,6 +391,7 @@ npm run test:coverage    # Genera reporte
 ```
 
 ### Utilidades
+
 ```bash
 npm run clean            # Limpia cache y dist
 npm start                # Alias de npm run dev
@@ -376,6 +400,7 @@ npm start                # Alias de npm run dev
 ## 📚 Documentación
 
 ### Guías Técnicas
+
 - [**TESTING.md**](./TESTING.md) - Guía completa de testing con Vitest
 - [**CODE_FORMAT.md**](./CODE_FORMAT.md) - Estándares de formato con Prettier
 - [**ENVIRONMENTS.md**](./ENVIRONMENTS.md) - Configuración de ambientes
@@ -383,10 +408,12 @@ npm start                # Alias de npm run dev
 - [**CI_CD.md**](./CI_CD.md) - Pipeline de CI/CD con GitHub Actions
 
 ### Documentación del Sistema
+
 - [**LOGIN_SYSTEM.md**](./LOGIN_SYSTEM.md) - Sistema de autenticación
 - [**DARK_MODE_IMPLEMENTATION.md**](./DARK_MODE_IMPLEMENTATION.md) - Implementación de dark mode
 
 ### Contribución
+
 - [**CONTRIBUTING.md**](./CONTRIBUTING.md) - Guía para contribuir
 - [**CODE_OF_CONDUCT.md**](./CODE_OF_CONDUCT.md) - Código de conducta
 - [**CHANGELOG.md**](./CHANGELOG.md) - Historial de cambios
