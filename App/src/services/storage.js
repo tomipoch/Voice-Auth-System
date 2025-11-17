@@ -24,7 +24,7 @@ export const storageService = {
       const fullKey = this.getKey(key);
       const serializedValue = JSON.stringify(value);
       localStorage.setItem(fullKey, serializedValue);
-      
+
       if (features.consoleLogs && appConfig.debug) {
         logger.debug('Storage SET:', { key: fullKey, value });
       }
@@ -42,17 +42,17 @@ export const storageService = {
     try {
       const fullKey = this.getKey(key);
       const item = localStorage.getItem(fullKey);
-      
+
       if (item === null) {
         return null;
       }
-      
+
       const parsed = JSON.parse(item);
-      
+
       if (features.consoleLogs && appConfig.debug) {
         logger.debug('Storage GET:', { key: fullKey, value: parsed });
       }
-      
+
       return parsed;
     } catch (error) {
       logger.error('Error reading from storage:', error);
@@ -67,7 +67,7 @@ export const storageService = {
     try {
       const fullKey = this.getKey(key);
       localStorage.removeItem(fullKey);
-      
+
       if (features.consoleLogs && appConfig.debug) {
         logger.debug('Storage REMOVE:', { key: fullKey });
       }
@@ -84,12 +84,12 @@ export const storageService = {
   clear() {
     try {
       const keys = Object.keys(localStorage);
-      const prefixKeys = keys.filter(key => key.startsWith(authConfig.storagePrefix));
-      
-      prefixKeys.forEach(key => {
+      const prefixKeys = keys.filter((key) => key.startsWith(authConfig.storagePrefix));
+
+      prefixKeys.forEach((key) => {
         localStorage.removeItem(key);
       });
-      
+
       if (features.consoleLogs && appConfig.debug) {
         logger.debug('Storage CLEAR:', { removedKeys: prefixKeys.length });
       }
@@ -114,8 +114,8 @@ export const storageService = {
   getAllKeys() {
     const keys = Object.keys(localStorage);
     return keys
-      .filter(key => key.startsWith(authConfig.storagePrefix))
-      .map(key => key.replace(authConfig.storagePrefix, ''));
+      .filter((key) => key.startsWith(authConfig.storagePrefix))
+      .map((key) => key.replace(authConfig.storagePrefix, ''));
   },
 
   /**
@@ -131,7 +131,7 @@ export const storageService = {
     return {
       keysCount: allKeys.length,
       totalSizeBytes: totalSize,
-      totalSizeKB: Math.round(totalSize / 1024 * 100) / 100,
+      totalSizeKB: Math.round((totalSize / 1024) * 100) / 100,
       keys: allKeys,
     };
   },
@@ -142,24 +142,26 @@ export const storageService = {
   migrate(oldPrefix) {
     try {
       const keys = Object.keys(localStorage);
-      const oldKeys = keys.filter(key => key.startsWith(oldPrefix));
-      
+      const oldKeys = keys.filter((key) => key.startsWith(oldPrefix));
+
       let migrated = 0;
-      oldKeys.forEach(oldKey => {
+      oldKeys.forEach((oldKey) => {
         const value = localStorage.getItem(oldKey);
         const newKey = oldKey.replace(oldPrefix, authConfig.storagePrefix);
         localStorage.setItem(newKey, value);
         localStorage.removeItem(oldKey);
         migrated++;
       });
-      
-      logger.info(`Storage migrated: ${migrated} keys from ${oldPrefix} to ${authConfig.storagePrefix}`);
+
+      logger.info(
+        `Storage migrated: ${migrated} keys from ${oldPrefix} to ${authConfig.storagePrefix}`
+      );
       return migrated;
     } catch (error) {
       logger.error('Error migrating storage:', error);
       return 0;
     }
-  }
+  },
 };
 
 /**
@@ -213,7 +215,7 @@ export const authStorage = {
    */
   clearAuth() {
     const authKeys = [authConfig.tokenKey, authConfig.refreshKey, 'user'];
-    authKeys.forEach(key => {
+    authKeys.forEach((key) => {
       storageService.removeItem(key);
     });
   },
@@ -223,7 +225,7 @@ export const authStorage = {
    */
   isAuthenticated() {
     return !!(this.getAccessToken() && this.getUser());
-  }
+  },
 };
 
 export default storageService;

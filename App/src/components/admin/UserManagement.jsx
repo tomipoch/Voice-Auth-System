@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { 
-  Users, 
-  Shield, 
-  Activity, 
-  AlertTriangle, 
-  Search, 
+import {
+  Users,
+  Shield,
+  Activity,
+  AlertTriangle,
+  Search,
   Filter,
   MoreVertical,
   Edit,
   Trash2,
-  Eye
+  Eye,
 } from 'lucide-react';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
@@ -21,16 +21,18 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [selectedUsers, setSelectedUsers] = useState([]);
 
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesFilter = selectedFilter === 'all' || 
-                         (selectedFilter === 'active' && user.isActive) ||
-                         (selectedFilter === 'inactive' && !user.isActive) ||
-                         (selectedFilter === 'enrolled' && user.voiceProfile?.isEnrolled) ||
-                         (selectedFilter === 'pending' && !user.voiceProfile?.isEnrolled);
-    
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch =
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesFilter =
+      selectedFilter === 'all' ||
+      (selectedFilter === 'active' && user.isActive) ||
+      (selectedFilter === 'inactive' && !user.isActive) ||
+      (selectedFilter === 'enrolled' && user.voiceProfile?.isEnrolled) ||
+      (selectedFilter === 'pending' && !user.voiceProfile?.isEnrolled);
+
     return matchesSearch && matchesFilter;
   });
 
@@ -42,18 +44,20 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'active': return 'success';
-      case 'inactive': return 'error';
-      case 'pending': return 'warning';
-      default: return 'pending';
+      case 'active':
+        return 'success';
+      case 'inactive':
+        return 'error';
+      case 'pending':
+        return 'warning';
+      default:
+        return 'pending';
     }
   };
 
   const handleSelectUser = (userId) => {
-    setSelectedUsers(prev => 
-      prev.includes(userId) 
-        ? prev.filter(id => id !== userId)
-        : [...prev, userId]
+    setSelectedUsers((prev) =>
+      prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
     );
   };
 
@@ -61,7 +65,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
     if (selectedUsers.length === filteredUsers.length) {
       setSelectedUsers([]);
     } else {
-      setSelectedUsers(filteredUsers.map(user => user.id));
+      setSelectedUsers(filteredUsers.map((user) => user.id));
     }
   };
 
@@ -76,7 +80,9 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Usuarios</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{users.length}</p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                {users.length}
+              </p>
             </div>
           </div>
         </Card>
@@ -89,7 +95,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Registrados</p>
               <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-                {users.filter(u => u.voiceProfile?.isEnrolled).length}
+                {users.filter((u) => u.voiceProfile?.isEnrolled).length}
               </p>
             </div>
           </div>
@@ -103,7 +109,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Activos</p>
               <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-                {users.filter(u => u.isActive).length}
+                {users.filter((u) => u.isActive).length}
               </p>
             </div>
           </div>
@@ -117,7 +123,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Pendientes</p>
               <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-                {users.filter(u => !u.voiceProfile?.isEnrolled).length}
+                {users.filter((u) => !u.voiceProfile?.isEnrolled).length}
               </p>
             </div>
           </div>
@@ -139,7 +145,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
               />
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-3">
             <div className="relative">
               <Filter className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -155,7 +161,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
                 <option value="pending">Pendientes</option>
               </select>
             </div>
-            
+
             {selectedUsers.length > 0 && (
               <Button
                 variant="danger"
@@ -179,7 +185,9 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   <input
                     type="checkbox"
-                    checked={selectedUsers.length === filteredUsers.length && filteredUsers.length > 0}
+                    checked={
+                      selectedUsers.length === filteredUsers.length && filteredUsers.length > 0
+                    }
                     onChange={handleSelectAll}
                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
@@ -207,13 +215,18 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
                   <td colSpan="6" className="px-6 py-12 text-center">
                     <div className="flex items-center justify-center">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                      <span className="ml-2 text-gray-600 dark:text-gray-400">Cargando usuarios...</span>
+                      <span className="ml-2 text-gray-600 dark:text-gray-400">
+                        Cargando usuarios...
+                      </span>
                     </div>
                   </td>
                 </tr>
               ) : filteredUsers.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                  <td
+                    colSpan="6"
+                    className="px-6 py-12 text-center text-gray-500 dark:text-gray-400"
+                  >
                     No se encontraron usuarios
                   </td>
                 </tr>
@@ -238,19 +251,26 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }) => {
                           </div>
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{user.name}</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
+                          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            {user.name}
+                          </div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                            {user.email}
+                          </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <StatusIndicator 
-                        status={getStatusColor(getUserStatus(user))} 
+                      <StatusIndicator
+                        status={getStatusColor(getUserStatus(user))}
                         message={
-                          getUserStatus(user) === 'active' ? 'Activo' :
-                          getUserStatus(user) === 'inactive' ? 'Inactivo' : 'Pendiente'
+                          getUserStatus(user) === 'active'
+                            ? 'Activo'
+                            : getUserStatus(user) === 'inactive'
+                              ? 'Inactivo'
+                              : 'Pendiente'
                         }
-                        size="sm" 
+                        size="sm"
                       />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">

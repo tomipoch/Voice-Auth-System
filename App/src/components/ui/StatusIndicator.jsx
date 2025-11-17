@@ -37,7 +37,8 @@ const StatusIndicator = ({ status, message, size = 'md' }) => {
       default:
         return {
           icon: AlertCircle,
-          className: 'text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700',
+          className:
+            'text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700',
           iconClassName: 'text-gray-600 dark:text-gray-400',
         };
     }
@@ -59,16 +60,10 @@ const StatusIndicator = ({ status, message, size = 'md' }) => {
   };
 
   return (
-    <div className={clsx(
-      'rounded-lg border',
-      config.className,
-      sizeClasses[size]
-    )}>
+    <div className={clsx('rounded-lg border', config.className, sizeClasses[size])}>
       <div className="flex items-center space-x-2">
         <Icon className={clsx(iconSizes[size], config.iconClassName)} />
-        {message && (
-          <span className="font-medium">{message}</span>
-        )}
+        {message && <span className="font-medium">{message}</span>}
       </div>
     </div>
   );

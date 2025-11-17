@@ -19,16 +19,16 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    
+
     // Log requests en modo desarrollo
     if (features.debugMode) {
       console.log('🌐 API Request:', {
         method: config.method?.toUpperCase(),
         url: config.url,
-        data: config.data
+        data: config.data,
       });
     }
-    
+
     return config;
   },
   (error) => {
@@ -47,7 +47,7 @@ api.interceptors.response.use(
       console.log('✅ API Response:', {
         status: response.status,
         url: response.config.url,
-        data: response.data
+        data: response.data,
       });
     }
     return response;
@@ -58,14 +58,14 @@ api.interceptors.response.use(
       console.error('❌ API Response Error:', {
         status: error.response?.status,
         url: error.config?.url,
-        message: error.message
+        message: error.message,
       });
     }
 
     if (error.response?.status === 401) {
       // Limpiar tokens usando authStorage
       authStorage.clearAuth();
-      
+
       if (!window.location.pathname.includes('/login')) {
         toast.error('Sesión expirada. Por favor, inicia sesión nuevamente.');
         window.location.href = '/login';

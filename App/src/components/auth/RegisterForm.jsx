@@ -17,40 +17,41 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
 
   const validateForm = () => {
     const errors = {};
-    
+
     if (!formData.name) {
       errors.name = 'El nombre es requerido';
     } else if (formData.name.length < 2) {
       errors.name = 'El nombre debe tener al menos 2 caracteres';
     }
-    
+
     if (!formData.email) {
       errors.email = 'El correo electrónico es requerido';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = 'El correo electrónico no es válido';
     }
-    
+
     if (!formData.password) {
       errors.password = 'La contraseña es requerida';
     } else if (formData.password.length < 8) {
       errors.password = 'La contraseña debe tener al menos 8 caracteres';
     } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
-      errors.password = 'La contraseña debe contener al menos una mayúscula, una minúscula y un número';
+      errors.password =
+        'La contraseña debe contener al menos una mayúscula, una minúscula y un número';
     }
-    
+
     if (!formData.confirmPassword) {
       errors.confirmPassword = 'Confirma tu contraseña';
     } else if (formData.password !== formData.confirmPassword) {
       errors.confirmPassword = 'Las contraseñas no coinciden';
     }
-    
+
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       const { confirmPassword: _, ...submitData } = formData;
       onSubmit(submitData);
@@ -59,16 +60,16 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
-    
+
     // Limpiar error de validación cuando el usuario empieza a escribir
     if (validationErrors[name]) {
-      setValidationErrors(prev => ({
+      setValidationErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: '',
       }));
     }
   };
@@ -76,14 +77,14 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
   const getPasswordStrength = () => {
     const password = formData.password;
     if (!password) return null;
-    
+
     let score = 0;
     if (password.length >= 8) score++;
     if (/[a-z]/.test(password)) score++;
     if (/[A-Z]/.test(password)) score++;
     if (/\d/.test(password)) score++;
     if (/[^a-zA-Z0-9]/.test(password)) score++;
-    
+
     if (score < 3) return { level: 'weak', color: 'red' };
     if (score < 4) return { level: 'medium', color: 'yellow' };
     return { level: 'strong', color: 'green' };
@@ -97,9 +98,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
         <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full mx-auto flex items-center justify-center mb-4">
           <User className="h-8 w-8 text-blue-600 dark:text-blue-400" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-          Crear Cuenta
-        </h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Crear Cuenta</h2>
         <p className="text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400">
           Regístrate para acceder al sistema de autenticación por voz
         </p>
@@ -116,7 +115,10 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
             Nombre Completo
           </label>
           <div className="relative">
@@ -138,7 +140,10 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
             Correo Electrónico
           </label>
           <div className="relative">
@@ -160,7 +165,10 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
             Contraseña
           </label>
           <div className="relative">
@@ -181,25 +189,30 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
               className="absolute right-3 top-3 text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400"
               disabled={isLoading}
             >
-              {showPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
-          
+
           {/* Indicador de fortaleza de contraseña */}
           {formData.password && passwordStrength && (
             <div className="mt-2">
               <div className="flex items-center space-x-2">
                 <div className={`h-2 flex-1 rounded-full bg-${passwordStrength.color}-200`}>
-                  <div 
+                  <div
                     className={`h-2 rounded-full bg-${passwordStrength.color}-500 transition-all duration-300`}
-                    style={{ width: passwordStrength.level === 'weak' ? '33%' : passwordStrength.level === 'medium' ? '66%' : '100%' }}
+                    style={{
+                      width:
+                        passwordStrength.level === 'weak'
+                          ? '33%'
+                          : passwordStrength.level === 'medium'
+                            ? '66%'
+                            : '100%',
+                    }}
                   />
                 </div>
-                <span className={`text-xs font-medium text-${passwordStrength.color}-600 capitalize`}>
+                <span
+                  className={`text-xs font-medium text-${passwordStrength.color}-600 capitalize`}
+                >
                   {passwordStrength.level === 'weak' && 'Débil'}
                   {passwordStrength.level === 'medium' && 'Media'}
                   {passwordStrength.level === 'strong' && 'Fuerte'}
@@ -207,14 +220,17 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
               </div>
             </div>
           )}
-          
+
           {validationErrors.password && (
             <p className="mt-1 text-sm text-red-600">{validationErrors.password}</p>
           )}
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
             Confirmar Contraseña
           </label>
           <div className="relative">
@@ -235,13 +251,9 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
               className="absolute right-3 top-3 text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400"
               disabled={isLoading}
             >
-              {showConfirmPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
+              {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
-            
+
             {/* Indicador de coincidencia */}
             {formData.confirmPassword && formData.password && (
               <div className="absolute right-10 top-3">
@@ -258,13 +270,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
           )}
         </div>
 
-        <Button
-          type="submit"
-          className="w-full"
-          size="lg"
-          loading={isLoading}
-          disabled={isLoading}
-        >
+        <Button type="submit" className="w-full" size="lg" loading={isLoading} disabled={isLoading}>
           {isLoading ? 'Creando cuenta...' : 'Crear Cuenta'}
         </Button>
       </form>
@@ -272,7 +278,10 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }) => {
       <div className="mt-6 text-center">
         <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400">
           ¿Ya tienes una cuenta?{' '}
-          <a href="/login" className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500">
+          <a
+            href="/login"
+            className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500"
+          >
             Inicia sesión aquí
           </a>
         </p>

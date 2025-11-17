@@ -7,20 +7,16 @@ export const SettingsModalProvider = ({ children }) => {
 
   const openSettingsModal = () => setIsSettingsModalOpen(true);
   const closeSettingsModal = () => setIsSettingsModalOpen(false);
-  const toggleSettingsModal = () => setIsSettingsModalOpen(prev => !prev);
+  const toggleSettingsModal = () => setIsSettingsModalOpen((prev) => !prev);
 
   const value = {
     isSettingsModalOpen,
     openSettingsModal,
     closeSettingsModal,
-    toggleSettingsModal
+    toggleSettingsModal,
   };
 
-  return (
-    <SettingsModalContext.Provider value={value}>
-      {children}
-    </SettingsModalContext.Provider>
-  );
+  return <SettingsModalContext.Provider value={value}>{children}</SettingsModalContext.Provider>;
 };
 
 export { SettingsModalContext };

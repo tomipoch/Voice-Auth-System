@@ -3,14 +3,14 @@ import Card from '../ui/Card';
 import Button from '../ui/Button';
 import StatusIndicator from '../ui/StatusIndicator';
 
-const EnrollmentProgress = ({ 
-  recordings, 
-  totalSteps = 5, 
-  onSubmit, 
+const EnrollmentProgress = ({
+  recordings,
+  totalSteps = 5,
+  onSubmit,
   isSubmitting = false,
-  canSubmit = false 
+  canSubmit = false,
 }) => {
-  const completedSteps = recordings.filter(r => r && r.isValid).length;
+  const completedSteps = recordings.filter((r) => r && r.isValid).length;
   const progressPercentage = (completedSteps / totalSteps) * 100;
 
   const getStepStatus = (stepIndex) => {
@@ -33,9 +33,7 @@ const EnrollmentProgress = ({
   return (
     <Card className="p-6">
       <div className="text-center mb-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">
-          Progreso del Registro
-        </h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">Progreso del Registro</h3>
         <p className="text-gray-600">
           {completedSteps} de {totalSteps} pasos completados
         </p>
@@ -48,7 +46,7 @@ const EnrollmentProgress = ({
           <span>{Math.round(progressPercentage)}%</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
-          <div 
+          <div
             className="bg-blue-600 h-2 rounded-full transition-all duration-500"
             style={{ width: `${progressPercentage}%` }}
           />
@@ -63,18 +61,14 @@ const EnrollmentProgress = ({
           const recording = recordings[index];
 
           return (
-            <div 
+            <div
               key={stepNumber}
               className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
             >
               <div className="flex items-center space-x-3">
-                <div className="flex-shrink-0">
-                  {getStepIcon(status)}
-                </div>
+                <div className="flex-shrink-0">{getStepIcon(status)}</div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">
-                    Paso {stepNumber}
-                  </p>
+                  <p className="text-sm font-medium text-gray-900">Paso {stepNumber}</p>
                   {recording && recording.quality && (
                     <p className="text-xs text-gray-500 dark:text-gray-400">
                       Calidad: {recording.quality} • {recording.duration?.toFixed(1)}s
@@ -82,17 +76,11 @@ const EnrollmentProgress = ({
                   )}
                 </div>
               </div>
-              
+
               <div className="text-right">
-                {status === 'completed' && (
-                  <StatusIndicator status="success" size="sm" />
-                )}
-                {status === 'error' && (
-                  <StatusIndicator status="error" size="sm" />
-                )}
-                {status === 'pending' && (
-                  <StatusIndicator status="pending" size="sm" />
-                )}
+                {status === 'completed' && <StatusIndicator status="success" size="sm" />}
+                {status === 'error' && <StatusIndicator status="error" size="sm" />}
+                {status === 'pending' && <StatusIndicator status="pending" size="sm" />}
               </div>
             </div>
           );
@@ -133,9 +121,7 @@ const EnrollmentProgress = ({
 
       {!canSubmit && completedSteps === totalSteps && (
         <div className="text-center text-gray-500 dark:text-gray-400">
-          <p className="text-sm">
-            Por favor, revisa todas las grabaciones antes de continuar.
-          </p>
+          <p className="text-sm">Por favor, revisa todas las grabaciones antes de continuar.</p>
         </div>
       )}
     </Card>

@@ -27,9 +27,9 @@ const AdminLoginPage = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     if (error) setError('');
   };
@@ -37,9 +37,9 @@ const AdminLoginPage = () => {
   const validateAdminEmail = (email) => {
     const adminEmails = [
       'superadmin@voicebio.com',
-      'admin@empresaa.com', 
+      'admin@empresaa.com',
       'admin@empresab.com',
-      'admin@test.com'
+      'admin@test.com',
     ];
     return adminEmails.includes(email.toLowerCase());
   };
@@ -52,13 +52,15 @@ const AdminLoginPage = () => {
     try {
       // Validar que sea un email de administrador
       if (!validateAdminEmail(formData.email)) {
-        throw new Error('Este email no tiene permisos administrativos. Use el login regular para usuarios normales.');
+        throw new Error(
+          'Este email no tiene permisos administrativos. Use el login regular para usuarios normales.'
+        );
       }
 
       logger.info('Admin login attempt:', { email: formData.email });
-      
+
       const response = await login(formData.email, formData.password);
-      
+
       // Redirigir según el tipo de admin
       const userRole = response.user?.role;
       if (userRole === 'superadmin') {
@@ -80,7 +82,7 @@ const AdminLoginPage = () => {
 
   const fillCredentials = (email) => {
     let password;
-    
+
     if (email === 'superadmin@voicebio.com') {
       password = 'SuperAdmin2024!';
     } else if (email === 'admin@test.com') {
@@ -88,10 +90,10 @@ const AdminLoginPage = () => {
     } else {
       password = 'AdminEmpresa2024!';
     }
-    
+
     setFormData({
       email,
-      password
+      password,
     });
   };
 
@@ -119,10 +121,15 @@ const AdminLoginPage = () => {
             </p>
           </div>
 
-          <Card variant="glass" className="p-8 shadow-2xl backdrop-blur-xl bg-white dark:bg-gray-900/80 border border-red-200/40">
+          <Card
+            variant="glass"
+            className="p-8 shadow-2xl backdrop-blur-xl bg-white dark:bg-gray-900/80 border border-red-200/40"
+          >
             {/* Admin Credentials Helper */}
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">Credenciales de Administrador:</h3>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">
+                Credenciales de Administrador:
+              </h3>
               <div className="space-y-2">
                 {adminCredentials.map((cred, index) => (
                   <button
@@ -131,7 +138,9 @@ const AdminLoginPage = () => {
                     className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-red-300 hover:bg-red-50/50 transition-all duration-200 group"
                   >
                     <div className="text-xs font-medium text-red-600">{cred.role}</div>
-                    <div className="text-sm text-gray-700 group-hover:text-red-700">{cred.email}</div>
+                    <div className="text-sm text-gray-700 group-hover:text-red-700">
+                      {cred.email}
+                    </div>
                   </button>
                 ))}
               </div>
@@ -166,7 +175,10 @@ const AdminLoginPage = () => {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-3">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-semibold text-gray-700 mb-3"
+                >
                   Contraseña Administrativa
                 </label>
                 <div className="relative">
@@ -213,8 +225,8 @@ const AdminLoginPage = () => {
 
             <div className="mt-8 pt-6 border-t border-red-200/40">
               <div className="text-center">
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   className="text-sm font-medium text-red-600 hover:text-red-700 transition-colors duration-200 flex items-center justify-center"
                 >
                   <User className="h-4 w-4 mr-1" />
@@ -228,8 +240,9 @@ const AdminLoginPage = () => {
               <div className="flex items-start space-x-2">
                 <AlertCircle className="h-4 w-4 text-amber-600 mt-0.5 flex-shrink-0" />
                 <p className="text-xs text-amber-700">
-                  <strong>Aviso de Seguridad:</strong> Este es un panel de administración restringido. 
-                  Solo personal autorizado puede acceder. Todos los accesos quedan registrados.
+                  <strong>Aviso de Seguridad:</strong> Este es un panel de administración
+                  restringido. Solo personal autorizado puede acceder. Todos los accesos quedan
+                  registrados.
                 </p>
               </div>
             </div>

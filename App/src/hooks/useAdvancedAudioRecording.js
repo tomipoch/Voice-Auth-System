@@ -14,13 +14,13 @@ const audioUtils = {
   analyzeAudioQuality: (audioBuffer) => {
     let sum = 0;
     const length = audioBuffer.length;
-    
+
     for (let i = 0; i < length; i++) {
       sum += Math.abs(audioBuffer[i]);
     }
-    
+
     const average = sum / length;
-    
+
     // Clasificar calidad basándose en el nivel promedio
     if (average > 0.1) return 'excellent';
     if (average > 0.05) return 'good';
@@ -32,25 +32,25 @@ const audioUtils = {
   detectSilence: (audioBuffer, threshold = 0.01) => {
     let silentSamples = 0;
     const totalSamples = audioBuffer.length;
-    
+
     for (let i = 0; i < totalSamples; i++) {
       if (Math.abs(audioBuffer[i]) < threshold) {
         silentSamples++;
       }
     }
-    
+
     const silencePercentage = (silentSamples / totalSamples) * 100;
     return silencePercentage > 50; // Más del 50% es silencio
-  }
+  },
 };
 
 export const useAdvancedAudioRecording = (options = {}) => {
   const {
     maxDuration = 30, // Duración máxima en segundos
-    minDuration = 2,  // Duración mínima en segundos
+    minDuration = 2, // Duración mínima en segundos
     onQualityCheck = null,
     onRecordingComplete = null,
-    autoStop = true
+    autoStop = true,
   } = options;
 
   const [isRecording, setIsRecording] = useState(false);
@@ -84,12 +84,12 @@ export const useAdvancedAudioRecording = (options = {}) => {
 
     volumeIntervalRef.current = setInterval(() => {
       analyzer.getByteFrequencyData(dataArray);
-      
+
       let sum = 0;
       for (let i = 0; i < bufferLength; i++) {
         sum += dataArray[i];
       }
-      
+
       const average = sum / bufferLength;
       setVolume(Math.round((average / 255) * 100));
     }, 100);
@@ -129,7 +129,7 @@ export const useAdvancedAudioRecording = (options = {}) => {
 
       // Crear contexto de audio para análisis
       audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
-      
+
       // Crear MediaRecorder con configuración optimizada
       const mediaRecorder = new MediaRecorder(stream, {
         mimeType: 'audio/webm;codecs=opus',
@@ -149,13 +149,13 @@ export const useAdvancedAudioRecording = (options = {}) => {
       mediaRecorder.onstop = async () => {
         const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
         setRecordedBlob(blob);
-        
+
         // Analizar calidad de audio
         await analyzeRecording(blob);
-        
+
         // Limpiar stream
         if (streamRef.current) {
-          streamRef.current.getTracks().forEach(track => track.stop());
+          streamRef.current.getTracks().forEach((track) => track.stop());
           streamRef.current = null;
         }
 
@@ -179,15 +179,15 @@ export const useAdvancedAudioRecording = (options = {}) => {
 
       // Iniciar timer
       timerRef.current = setInterval(() => {
-        setRecordingTime(prev => {
+        setRecordingTime((prev) => {
           const newTime = prev + 1;
-          
+
           // Auto-stop si alcanza duración máxima
           if (autoStop && newTime >= maxDuration) {
             stopRecording();
             toast.info(`Grabación detenida automáticamente (${maxDuration}s máximo)`);
           }
-          
+
           return newTime;
         });
       }, 1000);
@@ -198,7 +198,7 @@ export const useAdvancedAudioRecording = (options = {}) => {
       toast.success('Grabación iniciada');
     } catch (err) {
       let errorMessage = 'Error al acceder al micrófono';
-      
+
       if (err.name === 'NotAllowedError') {
         errorMessage = 'Permisos de micrófono denegados';
       } else if (err.name === 'NotFoundError') {
@@ -206,11 +206,19 @@ export const useAdvancedAudioRecording = (options = {}) => {
       } else if (err.name === 'NotSupportedError') {
         errorMessage = 'Grabación no soportada en este navegador';
       }
-      
+
       setError(errorMessage);
       toast.error(errorMessage);
     }
-  }, [maxDuration, autoStop, onRecordingComplete, startVolumeMonitoring, stopVolumeMonitoring, analyzeRecording, stopRecording]);
+  }, [
+    maxDuration,
+    autoStop,
+    onRecordingComplete,
+    startVolumeMonitoring,
+    stopVolumeMonitoring,
+    analyzeRecording,
+    stopRecording,
+  ]);
 
   // Pausar/reanudar grabación
   const togglePause = useCallback(() => {
@@ -251,47 +259,50 @@ export const useAdvancedAudioRecording = (options = {}) => {
   }, [isRecording, recordingTime, minDuration]);
 
   // Analizar grabación
-  const analyzeRecording = useCallback(async (blob) => {
-    if (!blob || !onQualityCheck) return;
+  const analyzeRecording = useCallback(
+    async (blob) => {
+      if (!blob || !onQualityCheck) return;
 
-    try {
-      setIsAnalyzing(true);
-      
-      // Convertir blob a ArrayBuffer
-      const arrayBuffer = await blob.arrayBuffer();
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-      
-      // Obtener datos de audio
-      const channelData = audioBuffer.getChannelData(0);
-      
-      // Analizar calidad
-      const quality = audioUtils.analyzeAudioQuality(channelData);
-      const hasSilence = audioUtils.detectSilence(channelData);
-      
-      const analysis = {
-        quality,
-        duration: audioBuffer.duration,
-        sampleRate: audioBuffer.sampleRate,
-        channels: audioBuffer.numberOfChannels,
-        hasSilence,
-        isValid: quality !== 'poor' && !hasSilence && audioBuffer.duration >= minDuration
-      };
+      try {
+        setIsAnalyzing(true);
 
-      setAudioQuality(analysis);
-      
-      if (onQualityCheck) {
-        onQualityCheck(analysis);
+        // Convertir blob a ArrayBuffer
+        const arrayBuffer = await blob.arrayBuffer();
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+        // Obtener datos de audio
+        const channelData = audioBuffer.getChannelData(0);
+
+        // Analizar calidad
+        const quality = audioUtils.analyzeAudioQuality(channelData);
+        const hasSilence = audioUtils.detectSilence(channelData);
+
+        const analysis = {
+          quality,
+          duration: audioBuffer.duration,
+          sampleRate: audioBuffer.sampleRate,
+          channels: audioBuffer.numberOfChannels,
+          hasSilence,
+          isValid: quality !== 'poor' && !hasSilence && audioBuffer.duration >= minDuration,
+        };
+
+        setAudioQuality(analysis);
+
+        if (onQualityCheck) {
+          onQualityCheck(analysis);
+        }
+
+        await audioContext.close();
+      } catch (err) {
+        console.error('Error analizando audio:', err);
+        toast.error('Error al analizar la grabación');
+      } finally {
+        setIsAnalyzing(false);
       }
-
-      await audioContext.close();
-    } catch (err) {
-      console.error('Error analizando audio:', err);
-      toast.error('Error al analizar la grabación');
-    } finally {
-      setIsAnalyzing(false);
-    }
-  }, [onQualityCheck, minDuration]);
+    },
+    [onQualityCheck, minDuration]
+  );
 
   // Limpiar grabación
   const clearRecording = useCallback(() => {
@@ -306,7 +317,7 @@ export const useAdvancedAudioRecording = (options = {}) => {
   const playRecording = useCallback(() => {
     if (recordedBlob) {
       const audio = new Audio(URL.createObjectURL(recordedBlob));
-      audio.play().catch(err => {
+      audio.play().catch((err) => {
         console.error('Error reproduciendo audio:', err);
         toast.error('Error al reproducir audio');
       });
@@ -325,13 +336,13 @@ export const useAdvancedAudioRecording = (options = {}) => {
     if (isRecording) {
       stopRecording();
     }
-    
+
     stopVolumeMonitoring();
-    
+
     if (streamRef.current) {
-      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current.getTracks().forEach((track) => track.stop());
     }
-    
+
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
@@ -359,7 +370,7 @@ export const useAdvancedAudioRecording = (options = {}) => {
     volume,
     hasRecording: Boolean(recordedBlob),
     canStop: isRecording && recordingTime >= minDuration,
-    
+
     // Acciones
     startRecording,
     stopRecording,
@@ -368,7 +379,7 @@ export const useAdvancedAudioRecording = (options = {}) => {
     playRecording,
     analyzeRecording: () => recordedBlob && analyzeRecording(recordedBlob),
     cleanup,
-    
+
     // Utilidades
     formatTime,
     maxDuration,

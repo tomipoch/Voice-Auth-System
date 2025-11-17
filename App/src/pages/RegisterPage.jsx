@@ -14,19 +14,19 @@ const RegisterPage = () => {
     confirmPassword: '',
   });
   const [errors, setErrors] = useState({});
-  
+
   const { register, isLoading } = useAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-    
+
     // Limpiar error del campo cuando el usuario empieza a escribir
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
         [name]: '',
       }));
@@ -100,7 +100,6 @@ const RegisterPage = () => {
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
-          
           {/* Header */}
           <div className="text-center">
             {/* Liquid Glass Icon Container */}
@@ -110,7 +109,7 @@ const RegisterPage = () => {
                 <UserPlus className="h-10 w-10 text-blue-600 dark:text-blue-400 relative z-10" />
               </div>
             </div>
-            
+
             <h2 className="mt-8 text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 bg-clip-text text-transparent">
               Crear Cuenta
             </h2>
@@ -138,9 +137,7 @@ const RegisterPage = () => {
                   placeholder="Tu nombre completo"
                 />
                 <User className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
-                {errors.name && (
-                  <p className="text-sm text-red-500">{errors.name}</p>
-                )}
+                {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
               </div>
 
               {/* Email Input */}
@@ -159,9 +156,7 @@ const RegisterPage = () => {
                   placeholder="tu@ejemplo.com"
                 />
                 <Mail className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
-                {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email}</p>
-                )}
+                {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
               </div>
 
               {/* Password Input */}
@@ -180,14 +175,15 @@ const RegisterPage = () => {
                   placeholder="••••••••"
                 />
                 <Lock className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
-                {errors.password && (
-                  <p className="text-sm text-red-500">{errors.password}</p>
-                )}
+                {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
               </div>
 
               {/* Confirm Password Input */}
               <div className="relative space-y-2">
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Confirmar Contraseña
                 </label>
                 <input
@@ -208,8 +204,8 @@ const RegisterPage = () => {
 
               {/* Login Link */}
               <div className="text-center pt-2">
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 transition-colors duration-300"
                 >
                   ¿Ya tienes cuenta? Inicia sesión aquí
@@ -242,7 +238,9 @@ const RegisterPage = () => {
             <p className="text-sm text-blue-600 dark:text-blue-400/70 leading-relaxed">
               🎤 Después del registro, configurarás tu perfil de voz
               <br />
-              <span className="text-xs text-blue-500/50">Para completar la autenticación biométrica</span>
+              <span className="text-xs text-blue-500/50">
+                Para completar la autenticación biométrica
+              </span>
             </p>
           </div>
         </div>

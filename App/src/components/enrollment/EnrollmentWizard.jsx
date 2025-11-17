@@ -25,13 +25,11 @@ const EnrollmentWizard = ({ currentStep, steps, onStepClick }) => {
               >
                 <button
                   onClick={() => onStepClick && onStepClick(stepNumber)}
-                  className={clsx(
-                    'flex items-center text-left',
-                    {
-                      'cursor-pointer hover:text-gray-900 dark:text-gray-100': onStepClick && !isUpcoming,
-                      'cursor-default': !onStepClick || isUpcoming,
-                    }
-                  )}
+                  className={clsx('flex items-center text-left', {
+                    'cursor-pointer hover:text-gray-900 dark:text-gray-100':
+                      onStepClick && !isUpcoming,
+                    'cursor-default': !onStepClick || isUpcoming,
+                  })}
                   disabled={isUpcoming && !onStepClick}
                 >
                   <span className="flex-shrink-0">
@@ -45,11 +43,7 @@ const EnrollmentWizard = ({ currentStep, steps, onStepClick }) => {
                         }
                       )}
                     >
-                      {isCompleted ? (
-                        <Check className="w-6 h-6" />
-                      ) : (
-                        stepNumber
-                      )}
+                      {isCompleted ? <Check className="w-6 h-6" /> : stepNumber}
                     </span>
                   </span>
                   <span className="ml-4 min-w-0 flex flex-col">
@@ -62,7 +56,9 @@ const EnrollmentWizard = ({ currentStep, steps, onStepClick }) => {
                     >
                       {step.name}
                     </span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">{step.description}</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      {step.description}
+                    </span>
                   </span>
                 </button>
               </div>

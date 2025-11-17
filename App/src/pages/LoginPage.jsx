@@ -12,19 +12,19 @@ const LoginPage = () => {
     password: '',
   });
   const [errors, setErrors] = useState({});
-  
+
   const { login, isLoading } = useAuth();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-    
+
     // Limpiar error del campo cuando el usuario empieza a escribir
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
         [name]: '',
       }));
@@ -78,7 +78,6 @@ const LoginPage = () => {
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
-          
           {/* Header */}
           <div className="text-center">
             {/* Liquid Glass Icon Container */}
@@ -88,7 +87,7 @@ const LoginPage = () => {
                 <Mic className="h-10 w-10 text-blue-600 dark:text-blue-400 relative z-10" />
               </div>
             </div>
-            
+
             <h2 className="mt-8 text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-blue-800 bg-clip-text text-transparent">
               Iniciar Sesión
             </h2>
@@ -106,11 +105,12 @@ const LoginPage = () => {
                   Usuarios de Prueba Disponibles
                 </h3>
               </div>
-              
+
               <div className="space-y-3">
                 {/* Usuarios de prueba */}
-                <div className="text-xs text-gray-600 dark:text-gray-400 font-semibold mb-2">👥 USUARIOS DE PRUEBA:</div>
-                
+                <div className="text-xs text-gray-600 dark:text-gray-400 font-semibold mb-2">
+                  👥 USUARIOS DE PRUEBA:
+                </div>
                 <button
                   type="button"
                   onClick={() => fillDevCredentials('juan.perez@empresa.com', 'UserVoice2024!')}
@@ -123,23 +123,26 @@ const LoginPage = () => {
                     <div className="text-xs text-green-600 mt-1">🎤 Perfil de voz configurado</div>
                   </div>
                 </button>
-                
                 <button
                   type="button"
-                  onClick={() => fillDevCredentials('maria.rodriguez@empresa.com', 'UserVoice2024!')}
+                  onClick={() =>
+                    fillDevCredentials('maria.rodriguez@empresa.com', 'UserVoice2024!')
+                  }
                   className="w-full text-left text-sm bg-yellow-100/80 backdrop-blur-sm hover:bg-yellow-200/80 text-yellow-700 py-3 px-4 rounded-xl border border-yellow-300/40 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
                 >
                   <div>
                     <span className="mr-2">👤</span>
                     <strong>María Elena Rodríguez</strong>
-                    <div className="text-xs text-yellow-600/70 mt-1">maria.rodriguez@empresa.com</div>
+                    <div className="text-xs text-yellow-600/70 mt-1">
+                      maria.rodriguez@empresa.com
+                    </div>
                     <div className="text-xs text-orange-600 mt-1">⚠️ Sin perfil de voz</div>
                   </div>
                 </button>
-                
                 {/* Usuarios de desarrollo */}
-                <div className="text-xs text-gray-600 dark:text-gray-400 font-semibold mt-4 mb-2 pt-3 border-t border-gray-200 dark:border-gray-700">🔧 DESARROLLO:</div>
-                
+                <div className="text-xs text-gray-600 dark:text-gray-400 font-semibold mt-4 mb-2 pt-3 border-t border-gray-200 dark:border-gray-700">
+                  🔧 DESARROLLO:
+                </div>
                 <button
                   type="button"
                   onClick={() => fillDevCredentials('juan.perez@empresaa.com', 'User2024!')}
@@ -149,7 +152,6 @@ const LoginPage = () => {
                   <strong>Juan Carlos Pérez</strong>
                   <div className="text-xs text-green-600/70 mt-1">juan.perez@empresaa.com</div>
                 </button>
-
                 <button
                   type="button"
                   onClick={() => fillDevCredentials('carlos.rodriguez@empresab.com', 'User2024!')}
@@ -157,12 +159,14 @@ const LoginPage = () => {
                 >
                   <span className="mr-1">👤</span>
                   <strong>Carlos Rodríguez Silva</strong>
-                  <div className="text-xs text-green-600/70 mt-1">carlos.rodriguez@empresab.com</div>
+                  <div className="text-xs text-green-600/70 mt-1">
+                    carlos.rodriguez@empresab.com
+                  </div>
                 </button>
-
                 {/* Usuarios de desarrollo */}
-                <div className="text-xs text-gray-600 dark:text-gray-400 font-semibold mt-4 mb-2 pt-3 border-t border-gray-200 dark:border-gray-700">🔧 DESARROLLO:</div>
-                
+                <div className="text-xs text-gray-600 dark:text-gray-400 font-semibold mt-4 mb-2 pt-3 border-t border-gray-200 dark:border-gray-700">
+                  🔧 DESARROLLO:
+                </div>
                 <button
                   type="button"
                   onClick={() => fillDevCredentials('dev@test.com', '123456')}
@@ -170,12 +174,19 @@ const LoginPage = () => {
                 >
                   <span className="mr-1">👤</span>
                   <strong>Usuario de Desarrollo</strong>
-                  <div className="text-xs text-blue-600 dark:text-blue-400/70 mt-1">dev@test.com</div>
-                </button>                <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <div className="text-xs text-blue-600 dark:text-blue-400/70 mt-1">
+                    dev@test.com
+                  </div>
+                </button>{' '}
+                <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
                   <div className="text-xs text-gray-500 dark:text-gray-400 text-center p-2 bg-amber-50/80 rounded-lg border border-amber-200/60 mb-3">
-                    <span className="text-amber-600">💡</span> <strong>¿Eres administrador?</strong><br />
-                    Las credenciales administrativas están en el{" "}
-                    <Link to="/admin/login" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 underline">
+                    <span className="text-amber-600">💡</span> <strong>¿Eres administrador?</strong>
+                    <br />
+                    Las credenciales administrativas están en el{' '}
+                    <Link
+                      to="/admin/login"
+                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 underline"
+                    >
                       login administrativo
                     </Link>
                   </div>
@@ -205,9 +216,7 @@ const LoginPage = () => {
                   className="w-full px-4 py-3 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
                   placeholder="tu@ejemplo.com"
                 />
-                {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email}</p>
-                )}
+                {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
               </div>
 
               {/* Password Input */}
@@ -225,21 +234,19 @@ const LoginPage = () => {
                   className="w-full px-4 py-3 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
                   placeholder="••••••••"
                 />
-                {errors.password && (
-                  <p className="text-sm text-red-500">{errors.password}</p>
-                )}
+                {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
               </div>
 
               {/* Register Link */}
               <div className="text-center pt-2 space-y-2">
-                <Link 
-                  to="/register" 
+                <Link
+                  to="/register"
                   className="block text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 transition-colors duration-300"
                 >
                   ¿No tienes cuenta? Regístrate aquí
                 </Link>
-                <Link 
-                  to="/admin/login" 
+                <Link
+                  to="/admin/login"
                   className="block text-xs font-medium text-red-600 hover:text-red-700 transition-colors duration-300 border-t border-blue-200/30 pt-2"
                 >
                   🛡️ Acceso Administrativo
@@ -272,7 +279,9 @@ const LoginPage = () => {
             <p className="text-sm text-blue-600 dark:text-blue-400/70 leading-relaxed">
               🔐 Sistema de autenticación biométrica por voz
               <br />
-              <span className="text-xs text-blue-500/50">Tecnología de vanguardia para tu seguridad</span>
+              <span className="text-xs text-blue-500/50">
+                Tecnología de vanguardia para tu seguridad
+              </span>
             </p>
           </div>
         </div>

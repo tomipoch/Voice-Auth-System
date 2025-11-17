@@ -19,23 +19,43 @@ const AdminPage = () => {
         setIsLoading(true);
         const [usersData, statsData] = await Promise.all([
           adminService.getUsers(1, 50), // página 1, 50 usuarios por página
-          adminService.getSystemStats()
+          adminService.getSystemStats(),
         ]);
 
         // Filtrar usuarios según el rol del usuario actual
         let filteredUsers = usersData.users;
         if (user?.role === 'admin' && user?.company) {
           // Los administradores solo ven usuarios de su empresa
-          filteredUsers = usersData.users.filter(u => u.company === user.company);
+          filteredUsers = usersData.users.filter((u) => u.company === user.company);
         }
         // Los superadmin ven todos los usuarios
 
         setUsers(filteredUsers);
         setStats([
-          { title: 'Total de Usuarios', value: filteredUsers.length.toString(), change: '+12%', trend: 'up' },
-          { title: 'Usuarios Activos', value: statsData.active_users.toString(), change: '+5%', trend: 'up' },
-          { title: 'Verificaciones Hoy', value: statsData.verifications_today.toString(), change: '+23%', trend: 'up' },
-          { title: 'Tasa de Éxito', value: `${statsData.success_rate}%`, change: '+1.2%', trend: 'up' },
+          {
+            title: 'Total de Usuarios',
+            value: filteredUsers.length.toString(),
+            change: '+12%',
+            trend: 'up',
+          },
+          {
+            title: 'Usuarios Activos',
+            value: statsData.active_users.toString(),
+            change: '+5%',
+            trend: 'up',
+          },
+          {
+            title: 'Verificaciones Hoy',
+            value: statsData.verifications_today.toString(),
+            change: '+23%',
+            trend: 'up',
+          },
+          {
+            title: 'Tasa de Éxito',
+            value: `${statsData.success_rate}%`,
+            change: '+1.2%',
+            trend: 'up',
+          },
         ]);
       } catch (error) {
         console.error('Error loading admin data:', error);
@@ -67,8 +87,8 @@ const AdminPage = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
-            <Link 
-              to="/dashboard" 
+            <Link
+              to="/dashboard"
               className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white dark:bg-gray-900/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white dark:bg-gray-900/80 hover:shadow-md mr-4"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
@@ -83,15 +103,15 @@ const AdminPage = () => {
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {stats.map((stat, index) => (
-            <Card key={index} variant="glass" className="p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
+            <Card
+              key={index}
+              variant="glass"
+              className="p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
+            >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-blue-600/70 mb-2">
-                    {stat.title}
-                  </p>
-                  <p className="text-3xl font-bold text-gray-800">
-                    {stat.value}
-                  </p>
+                  <p className="text-sm font-medium text-blue-600/70 mb-2">{stat.title}</p>
+                  <p className="text-3xl font-bold text-gray-800">{stat.value}</p>
                 </div>
                 <div className="text-right">
                   <span className="text-sm font-semibold text-emerald-600 bg-emerald-50/80 px-2 py-1 rounded-lg">
@@ -143,7 +163,7 @@ const AdminPage = () => {
                     Agregar Usuario
                   </Button>
                 </div>
-                
+
                 {isLoading ? (
                   <div className="backdrop-blur-sm bg-white dark:bg-gray-900/80 border border-blue-200/40 rounded-xl shadow-lg p-8 text-center">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
@@ -180,73 +200,87 @@ const AdminPage = () => {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-blue-200/20">
-                      {users.map((userItem) => (
-                        <tr key={userItem.id} className="hover:bg-blue-50/40 transition-colors duration-200">
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div>
-                              <div className="text-sm font-semibold text-gray-800">
-                                {userItem.name}
-                              </div>
-                              <div className="text-sm text-blue-600/70">
-                                {userItem.email}
-                              </div>
-                            </div>
-                          </td>
-                          {user?.role === 'superadmin' && (
+                        {users.map((userItem) => (
+                          <tr
+                            key={userItem.id}
+                            className="hover:bg-blue-50/40 transition-colors duration-200"
+                          >
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm font-medium text-gray-800">
-                                {userItem.company || 'N/A'}
+                              <div>
+                                <div className="text-sm font-semibold text-gray-800">
+                                  {userItem.name}
+                                </div>
+                                <div className="text-sm text-blue-600/70">{userItem.email}</div>
                               </div>
                             </td>
-                          )}
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
-                              userItem.role === 'superadmin' 
-                                ? 'bg-red-100/80 text-red-700 border border-red-200/40' 
-                                : userItem.role === 'admin'
-                                ? 'bg-orange-100/80 text-orange-700 border border-orange-200/40'
-                                : 'bg-green-100/80 text-green-700 border border-green-200/40'
-                            }`}>
-                              {userItem.role === 'superadmin' ? 'Super Admin' : 
-                               userItem.role === 'admin' ? 'Admin' : 'Usuario'}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
-                              userItem.status === 'active' 
-                                ? 'bg-emerald-100/80 text-emerald-700 border border-emerald-200/40' 
-                                : 'bg-red-100/80 text-red-700 border border-red-200/40'
-                            }`}>
-                              {userItem.status === 'active' ? 'Activo' : 'Inactivo'}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
-                              (userItem.voice_template || userItem.enrolled)
-                                ? 'bg-blue-100/80 text-blue-700 border border-blue-200/40' 
-                                : 'bg-amber-100/80 text-amber-700 border border-amber-200/40'
-                            }`}>
-                              {(userItem.voice_template || userItem.enrolled) ? 'Configurado' : 'Pendiente'}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-medium">
-                            {userItem.created_at ? new Date(userItem.created_at).toLocaleDateString() : (userItem.lastLogin || 'N/A')}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <div className="flex space-x-2">
-                              <button className="p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50/60 rounded-lg transition-all duration-200">
-                                <Edit className="h-4 w-4" />
-                              </button>
-                              <button className="p-2 text-red-600 hover:text-red-700 hover:bg-red-50/60 rounded-lg transition-all duration-200">
-                                <Trash2 className="h-4 w-4" />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                            {user?.role === 'superadmin' && (
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm font-medium text-gray-800">
+                                  {userItem.company || 'N/A'}
+                                </div>
+                              </td>
+                            )}
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span
+                                className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
+                                  userItem.role === 'superadmin'
+                                    ? 'bg-red-100/80 text-red-700 border border-red-200/40'
+                                    : userItem.role === 'admin'
+                                      ? 'bg-orange-100/80 text-orange-700 border border-orange-200/40'
+                                      : 'bg-green-100/80 text-green-700 border border-green-200/40'
+                                }`}
+                              >
+                                {userItem.role === 'superadmin'
+                                  ? 'Super Admin'
+                                  : userItem.role === 'admin'
+                                    ? 'Admin'
+                                    : 'Usuario'}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span
+                                className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
+                                  userItem.status === 'active'
+                                    ? 'bg-emerald-100/80 text-emerald-700 border border-emerald-200/40'
+                                    : 'bg-red-100/80 text-red-700 border border-red-200/40'
+                                }`}
+                              >
+                                {userItem.status === 'active' ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span
+                                className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
+                                  userItem.voice_template || userItem.enrolled
+                                    ? 'bg-blue-100/80 text-blue-700 border border-blue-200/40'
+                                    : 'bg-amber-100/80 text-amber-700 border border-amber-200/40'
+                                }`}
+                              >
+                                {userItem.voice_template || userItem.enrolled
+                                  ? 'Configurado'
+                                  : 'Pendiente'}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-medium">
+                              {userItem.created_at
+                                ? new Date(userItem.created_at).toLocaleDateString()
+                                : userItem.lastLogin || 'N/A'}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                              <div className="flex space-x-2">
+                                <button className="p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50/60 rounded-lg transition-all duration-200">
+                                  <Edit className="h-4 w-4" />
+                                </button>
+                                <button className="p-2 text-red-600 hover:text-red-700 hover:bg-red-50/60 rounded-lg transition-all duration-200">
+                                  <Trash2 className="h-4 w-4" />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 )}
               </div>
             )}
@@ -258,18 +292,14 @@ const AdminPage = () => {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <Card variant="glass" className="p-6 shadow-xl">
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">
-                      Verificaciones por Día
-                    </h3>
+                    <h3 className="text-lg font-bold text-gray-800 mb-4">Verificaciones por Día</h3>
                     <div className="h-64 bg-gradient-to-br from-blue-50/60 to-indigo-50/60 border border-blue-200/40 rounded-xl flex items-center justify-center backdrop-blur-sm">
                       <p className="text-blue-600 font-medium">📊 Gráfico de verificaciones</p>
                     </div>
                   </Card>
-                  
+
                   <Card variant="glass" className="p-6 shadow-xl">
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">
-                      Tasa de Éxito
-                    </h3>
+                    <h3 className="text-lg font-bold text-gray-800 mb-4">Tasa de Éxito</h3>
                     <div className="h-64 bg-gradient-to-br from-green-50/60 to-emerald-50/60 border border-green-200/40 rounded-xl flex items-center justify-center backdrop-blur-sm">
                       <p className="text-green-600 font-medium">📈 Gráfico de tasa de éxito</p>
                     </div>
@@ -293,18 +323,20 @@ const AdminPage = () => {
                         <label className="block text-sm font-semibold text-gray-700 mb-3">
                           Umbral de Confianza Mínimo
                         </label>
-                        <input 
-                          type="range" 
-                          min="0" 
-                          max="100" 
+                        <input
+                          type="range"
+                          min="0"
+                          max="100"
                           defaultValue="70"
                           className="w-full h-2 bg-blue-100/60 rounded-lg appearance-none cursor-pointer slider"
                         />
-                        <span className="text-sm font-medium text-blue-600 bg-blue-50/80 px-2 py-1 rounded-lg">70%</span>
+                        <span className="text-sm font-medium text-blue-600 bg-blue-50/80 px-2 py-1 rounded-lg">
+                          70%
+                        </span>
                       </div>
                     </div>
                   </Card>
-                  
+
                   <Card variant="glass" className="p-6 shadow-xl">
                     <h3 className="text-lg font-bold text-gray-800 mb-4">
                       Configuración de Grabación
