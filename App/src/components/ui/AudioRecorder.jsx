@@ -27,7 +27,6 @@ const AudioRecorder = ({
   const {
     isRecording,
     isPaused,
-    recordedBlob,
     recordingTime,
     rawRecordingTime,
     audioQuality,
@@ -65,7 +64,7 @@ const AudioRecorder = ({
       case 'good': return 'text-blue-600';
       case 'fair': return 'text-yellow-600';
       case 'poor': return 'text-red-600';
-      default: return 'text-gray-600';
+      default: return 'text-gray-600 dark:text-gray-400';
     }
   };
 
@@ -126,10 +125,10 @@ const AudioRecorder = ({
 
         {/* Tiempo de grabación */}
         {(isRecording || hasRecording) && (
-          <div className="text-2xl font-mono font-bold text-gray-900">
+          <div className="text-2xl font-mono font-bold text-gray-900 dark:text-gray-100">
             {recordingTime}
             {isRecording && (
-              <span className="text-sm text-gray-500 ml-2">
+              <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">
                 / {Math.floor(maxDuration / 60).toString().padStart(2, '0')}:{(maxDuration % 60).toString().padStart(2, '0')}
               </span>
             )}
@@ -139,7 +138,7 @@ const AudioRecorder = ({
         {/* Estado actual */}
         <div>
           {!hasStarted && (
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               Presiona el botón para comenzar a grabar
             </p>
           )}
@@ -236,20 +235,20 @@ const AudioRecorder = ({
 
         {/* Análisis de calidad */}
         {showQualityAnalysis && (isAnalyzing || audioQuality) && (
-          <Card className="bg-gray-50 border-gray-200 p-4">
-            <h4 className="text-sm font-medium text-gray-900 mb-3">
+          <Card className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 p-4">
+            <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">
               Análisis de Calidad
             </h4>
             
             {isAnalyzing ? (
               <div className="flex items-center justify-center space-x-2">
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                <span className="text-sm text-gray-600">Analizando audio...</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">Analizando audio...</span>
               </div>
             ) : audioQuality && (
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Calidad:</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Calidad:</span>
                   <div className={`flex items-center space-x-1 ${getQualityColor(audioQuality.quality)}`}>
                     {getQualityIcon(audioQuality.quality)}
                     <span className="text-sm font-medium capitalize">
@@ -259,7 +258,7 @@ const AudioRecorder = ({
                 </div>
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Duración:</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Duración:</span>
                   <span className="text-sm">
                     {audioQuality.duration?.toFixed(1)}s
                   </span>

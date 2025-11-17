@@ -46,10 +46,10 @@ const VoiceEnrollmentStep = ({
           <div className="w-16 h-16 bg-gray-100 rounded-full mx-auto flex items-center justify-center mb-4">
             <span className="text-2xl font-bold text-gray-400">{stepNumber}</span>
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
             Paso {stepNumber}
           </h3>
-          <p className="text-gray-500 mb-4">"{phrase}"</p>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">"{phrase}"</p>
           <p className="text-sm text-gray-400">Completa los pasos anteriores</p>
         </div>
       </Card>
@@ -77,7 +77,7 @@ const VoiceEnrollmentStep = ({
           )}
         </div>
         
-        <h3 className="text-lg font-medium text-gray-900 mb-2">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
           Paso {stepNumber} de 5
         </h3>
         

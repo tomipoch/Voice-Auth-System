@@ -91,10 +91,10 @@ const VoiceVerification = ({
     return (
       <Card className={`p-8 text-center ${className}`}>
         <Clock className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-        <h3 className="text-lg font-medium text-gray-900 mb-2">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
           Cargando desafío...
         </h3>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-400">
           Espera mientras preparamos tu frase de verificación
         </p>
       </Card>
@@ -120,15 +120,15 @@ const VoiceVerification = ({
           ) : verificationState === 'processing' ? (
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
           ) : (
-            <Shield className="h-10 w-10 text-gray-600" />
+            <Shield className="h-10 w-10 text-gray-600 dark:text-gray-400" />
           )}
         </div>
         
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
           Verificación por Voz
         </h2>
         
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-600 dark:text-gray-400 mb-4">
           {getVerificationMessage()}
         </p>
 
@@ -179,7 +179,7 @@ const VoiceVerification = ({
             <div className="h-4 bg-gray-200 rounded w-3/4 mx-auto mb-2"></div>
             <div className="h-4 bg-gray-200 rounded w-1/2 mx-auto"></div>
           </div>
-          <p className="text-sm text-gray-600 mt-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-4">
             Esto puede tomar unos segundos...
           </p>
         </div>
@@ -246,7 +246,7 @@ const VoiceVerification = ({
 
       {/* Información de intentos */}
       {maxAttempts > 1 && currentAttempt > 0 && verificationState !== 'success' && (
-        <div className="mt-4 text-center text-sm text-gray-600">
+        <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
           Intento {currentAttempt} de {maxAttempts}
         </div>
       )}

@@ -20,8 +20,9 @@ const getEnvVar = (key, defaultValue = '') => {
 /**
  * Convierte string a boolean
  */
-const getBoolEnvVar = (key, defaultValue = false) => {
+const getBoolEnvVar = (key, _defaultValue = false) => {
   const value = getEnvVar(key).toLowerCase();
+  if (!value) return _defaultValue;
   return value === 'true' || value === '1';
 };
 

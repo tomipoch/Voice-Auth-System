@@ -22,7 +22,7 @@ import Card from '../components/ui/Card';
 
 const SuperAdminDashboard = () => {
   const { user, logout } = useAuth();
-  const { stats: userStats, recentActivity, systemStats, isLoading } = useDashboardStats();
+  const { systemStats, isLoading } = useDashboardStats();
   const [activeTab, setActiveTab] = useState('overview');
 
   const handleLogout = async () => {
@@ -132,7 +132,7 @@ const SuperAdminDashboard = () => {
       </div>
 
       {/* Sidebar with Liquid Glass Effect */}
-      <div className="fixed inset-y-0 left-0 z-50 w-64 backdrop-blur-xl bg-white/70 border-r border-purple-200/40 shadow-xl">
+      <div className="fixed inset-y-0 left-0 z-50 w-64 backdrop-blur-xl bg-white dark:bg-gray-900/70 border-r border-purple-200/40 shadow-xl">
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center px-6 py-4 border-b border-purple-200/30">
@@ -235,7 +235,7 @@ const SuperAdminDashboard = () => {
                     <span className="text-sm font-semibold text-green-600 bg-green-50/80 px-2 py-1 rounded-lg">
                       {stat.change}
                     </span>
-                    <span className="text-sm text-gray-500 ml-2">vs mes anterior</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">vs mes anterior</span>
                   </div>
                 </Card>
               );
@@ -268,7 +268,7 @@ const SuperAdminDashboard = () => {
                             <tr key={company.id} className="hover:bg-purple-50/40">
                               <td className="py-4">
                                 <div className="font-medium text-gray-800">{company.name}</div>
-                                <div className="text-sm text-gray-500">{company.lastActivity}</div>
+                                <div className="text-sm text-gray-500 dark:text-gray-400">{company.lastActivity}</div>
                               </td>
                               <td className="py-4 text-sm text-gray-800">{company.users}</td>
                               <td className="py-4">
@@ -305,7 +305,7 @@ const SuperAdminDashboard = () => {
                         }`}>
                           <h4 className="font-medium text-gray-800 text-sm">{alert.title}</h4>
                           <p className="text-xs text-gray-600 mt-1">{alert.message}</p>
-                          <p className="text-xs text-gray-500 mt-2">{alert.timestamp}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{alert.timestamp}</p>
                         </div>
                       ))}
                     </div>
