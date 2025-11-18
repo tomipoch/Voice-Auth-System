@@ -158,7 +158,9 @@ const VoiceVerification = ({
       {verificationState === 'ready' && (
         <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-200 dark:border-blue-700/60 rounded-lg p-6 mb-6">
           <div className="text-center">
-            <h3 className="text-sm font-medium text-blue-900 dark:text-blue-300 mb-2">Lee la siguiente frase:</h3>
+            <h3 className="text-sm font-medium text-blue-900 dark:text-blue-300 mb-2">
+              Lee la siguiente frase:
+            </h3>
             <p className="text-xl font-bold text-blue-900 dark:text-blue-300">"{challenge}"</p>
           </div>
         </div>
@@ -212,7 +214,9 @@ const VoiceVerification = ({
           >
             <h4
               className={`text-sm font-medium mb-2 ${
-                verificationState === 'success' ? 'text-green-900 dark:text-green-300' : 'text-red-900 dark:text-red-300'
+                verificationState === 'success'
+                  ? 'text-green-900 dark:text-green-300'
+                  : 'text-red-900 dark:text-red-300'
               }`}
             >
               Resultado de la Verificación
@@ -221,7 +225,11 @@ const VoiceVerification = ({
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <span
-                  className={verificationState === 'success' ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}
+                  className={
+                    verificationState === 'success'
+                      ? 'text-green-700 dark:text-green-400'
+                      : 'text-red-700 dark:text-red-400'
+                  }
                 >
                   Confianza:
                 </span>
@@ -231,7 +239,11 @@ const VoiceVerification = ({
               </div>
               <div>
                 <span
-                  className={verificationState === 'success' ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}
+                  className={
+                    verificationState === 'success'
+                      ? 'text-green-700 dark:text-green-400'
+                      : 'text-red-700 dark:text-red-400'
+                  }
                 >
                   Umbral:
                 </span>

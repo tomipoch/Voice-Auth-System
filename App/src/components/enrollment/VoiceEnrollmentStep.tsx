@@ -63,30 +63,42 @@ const VoiceEnrollmentStep = ({
       <Card className={`p-6 ${className} opacity-50`}>
         <div className="text-center">
           <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800/70 rounded-full mx-auto flex items-center justify-center mb-4">
-            <span className="text-2xl font-bold text-gray-400 dark:text-blue-400/70">{stepNumber}</span>
+            <span className="text-2xl font-bold text-gray-400 dark:text-blue-400/70">
+              {stepNumber}
+            </span>
           </div>
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-200 mb-2">
             Paso {stepNumber}
           </h3>
           <p className="text-gray-500 dark:text-blue-400/70 mb-4">"{phrase}"</p>
-          <p className="text-sm text-gray-400 dark:text-blue-400/50">Completa los pasos anteriores</p>
+          <p className="text-sm text-gray-400 dark:text-blue-400/50">
+            Completa los pasos anteriores
+          </p>
         </div>
       </Card>
     );
   }
 
   return (
-    <Card className={`p-6 ${className} ${isActive ? 'ring-2 ring-blue-500 dark:ring-blue-400' : ''}`}>
+    <Card
+      className={`p-6 ${className} ${isActive ? 'ring-2 ring-blue-500 dark:ring-blue-400' : ''}`}
+    >
       <div className="text-center mb-6">
         <div
           className={`w-16 h-16 mx-auto flex items-center justify-center mb-4 rounded-full ${
-            isCompleted ? 'bg-green-100 dark:bg-green-900/30' : isActive ? 'bg-blue-100 dark:bg-blue-900/30' : 'bg-gray-100 dark:bg-gray-800/70'
+            isCompleted
+              ? 'bg-green-100 dark:bg-green-900/30'
+              : isActive
+                ? 'bg-blue-100 dark:bg-blue-900/30'
+                : 'bg-gray-100 dark:bg-gray-800/70'
           }`}
         >
           {isCompleted ? (
             <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
           ) : (
-            <span className={`text-2xl font-bold ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400 dark:text-blue-400/70'}`}>
+            <span
+              className={`text-2xl font-bold ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400 dark:text-blue-400/70'}`}
+            >
               {stepNumber}
             </span>
           )}
@@ -98,7 +110,9 @@ const VoiceEnrollmentStep = ({
 
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700/60 rounded-lg p-4 mb-4">
           <p className="text-lg font-medium text-blue-900 dark:text-blue-300">"{phrase}"</p>
-          <p className="text-sm text-blue-700 dark:text-blue-400/70 mt-1">Lee esta frase de forma natural y clara</p>
+          <p className="text-sm text-blue-700 dark:text-blue-400/70 mt-1">
+            Lee esta frase de forma natural y clara
+          </p>
         </div>
       </div>
 
@@ -129,7 +143,9 @@ const VoiceEnrollmentStep = ({
 
           {qualityScore && (
             <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700/60 rounded-lg p-4">
-              <h4 className="text-sm font-medium text-green-900 dark:text-green-300 mb-2">Calidad de la grabación</h4>
+              <h4 className="text-sm font-medium text-green-900 dark:text-green-300 mb-2">
+                Calidad de la grabación
+              </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <span className="text-green-700 dark:text-green-400">Calidad:</span>
@@ -155,7 +171,9 @@ const VoiceEnrollmentStep = ({
           <StatusIndicator status="error" message="La calidad de la grabación es insuficiente" />
 
           <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/60 rounded-lg p-4">
-            <p className="text-sm text-red-800 dark:text-red-300">Por favor, graba nuevamente asegurándote de:</p>
+            <p className="text-sm text-red-800 dark:text-red-300">
+              Por favor, graba nuevamente asegurándote de:
+            </p>
             <ul className="mt-2 text-sm text-red-700 dark:text-red-400 list-disc list-inside text-left">
               <li>Hablar de forma clara y natural</li>
               <li>Estar en un ambiente silencioso</li>

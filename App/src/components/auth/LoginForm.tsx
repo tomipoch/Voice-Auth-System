@@ -159,7 +159,10 @@ const LoginForm = ({ onSubmit, isLoading = false, error = null }: LoginFormProps
       <div className="mt-6 text-center">
         <p className="text-sm text-gray-600 dark:text-blue-400/70">
           ¿No tienes una cuenta?{' '}
-          <a href="/register" className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300">
+          <a
+            href="/register"
+            className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300"
+          >
             Regístrate aquí
           </a>
         </p>
