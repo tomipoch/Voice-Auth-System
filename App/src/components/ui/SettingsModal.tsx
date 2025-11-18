@@ -58,19 +58,43 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
     loginNotifications: true,
   });
 
-  const [appearance, setAppearance] = useState({
-    theme: isDark ? 'dark' : 'light',
-    language: 'es',
-    fontSize: 'medium',
-  });
+  const [appearance, setAppearance] = useState(() => {
+    try {
+      const keys = Object.keys(localStorage);
+      const themeKey = keys.find((key) => key.includes('theme'));
 
-  // Inicializar tema desde el contexto
-  useEffect(() => {
-    setAppearance((prev) => ({
-      ...prev,
-      theme: isDark ? 'dark' : 'light',
-    }));
-  }, [isDark]);
+      if (themeKey) {
+        const saved = localStorage.getItem(themeKey);
+
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          const themeValue = parsed === 'auto' ? 'light' : parsed;
+
+          if (themeValue !== 'light' && themeValue !== 'dark' && themeValue !== 'auto') {
+            return {
+              theme: 'light',
+              language: 'es',
+              fontSize: 'medium',
+            };
+          }
+
+          return {
+            theme: themeValue,
+            language: 'es',
+            fontSize: 'medium',
+          };
+        }
+      }
+    } catch (error) {
+      console.error('Error loading theme preference:', error);
+    }
+
+    return {
+      theme: 'light',
+      language: 'es',
+      fontSize: 'medium',
+    };
+  });
 
   const handleSave = async (section: string) => {
     setIsLoading(true);
@@ -450,15 +474,6 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           </div>
         </div>
       </div>
-
-      <Button
-        onClick={() => handleSave('security')}
-        disabled={isLoading}
-        className="w-full md:w-auto bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white shadow-lg hover:shadow-xl px-8 py-3"
-      >
-        <Save className="h-4 w-4 mr-2" />
-        {isLoading ? 'Guardando...' : 'Guardar Configuración'}
-      </Button>
     </div>
   );
 
@@ -615,15 +630,6 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           </div>
         </div>
       </div>
-
-      <Button
-        onClick={() => handleSave('notifications')}
-        disabled={isLoading}
-        className="w-full md:w-auto bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl px-8 py-3"
-      >
-        <Save className="h-4 w-4 mr-2" />
-        {isLoading ? 'Guardando...' : 'Guardar Preferencias'}
-      </Button>
     </div>
   );
 
@@ -663,9 +669,8 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
               <select
                 value={appearance.theme}
                 onChange={(e) => {
-                  const newTheme = e.target.value as 'light' | 'dark';
+                  const newTheme = e.target.value as 'light' | 'dark' | 'auto';
                   setAppearance({ ...appearance, theme: newTheme });
-                  // Aplicar el tema inmediatamente
                   setTheme(newTheme);
                 }}
                 className="w-full px-6 py-4 bg-gradient-to-r from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-700/70 backdrop-blur-md border border-indigo-200/50 dark:border-gray-600/50 rounded-2xl focus:ring-4 focus:ring-indigo-300/30 dark:focus:ring-indigo-500/30 focus:border-indigo-400 dark:focus:border-indigo-500 shadow-xl text-gray-800 dark:text-gray-100 font-semibold text-lg appearance-none cursor-pointer hover:bg-gradient-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-800/95 dark:hover:to-gray-700/80 hover:shadow-2xl pr-14"
@@ -772,15 +777,6 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           </div>
         </div>
       </div>
-
-      <Button
-        onClick={() => handleSave('appearance')}
-        disabled={isLoading}
-        className="w-full md:w-auto bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white shadow-lg hover:shadow-xl px-8 py-3"
-      >
-        <Save className="h-4 w-4 mr-2" />
-        {isLoading ? 'Guardando...' : 'Guardar Apariencia'}
-      </Button>
     </div>
   );
 
