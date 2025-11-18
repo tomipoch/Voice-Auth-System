@@ -89,12 +89,12 @@ const AdminPage = () => {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/20 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/20 dark:bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 dark:bg-blue-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/20 dark:bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       {/* Main Content */}
@@ -104,12 +104,12 @@ const AdminPage = () => {
           <div className="flex items-center">
             <Link
               to="/dashboard"
-              className="flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 transition-all duration-300 bg-white dark:bg-gray-900/70 backdrop-blur-xl border border-blue-200/40 rounded-xl hover:bg-white dark:bg-gray-900/80 hover:shadow-md mr-4"
+              className="flex items-center px-4 py-2 text-blue-600 dark:text-blue-400/70 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-300 bg-white dark:bg-gray-800/70 backdrop-blur-xl border border-blue-200/40 dark:border-gray-600/40 rounded-xl hover:bg-white dark:hover:bg-gray-800/80 hover:shadow-md mr-4"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Dashboard
             </Link>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-purple-800 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-purple-800 dark:from-gray-200 dark:via-blue-400/70 dark:to-purple-400/70 bg-clip-text text-transparent">
               Panel de Administración
             </h1>
           </div>
@@ -125,11 +125,11 @@ const AdminPage = () => {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-blue-600/70 mb-2">{stat.title}</p>
-                  <p className="text-3xl font-bold text-gray-800">{stat.value}</p>
+                  <p className="text-sm font-medium text-blue-600/70 dark:text-blue-400/70 mb-2">{stat.title}</p>
+                  <p className="text-3xl font-bold text-gray-800 dark:text-gray-200">{stat.value}</p>
                 </div>
                 <div className="text-right">
-                  <span className="text-sm font-semibold text-emerald-600 bg-emerald-50/80 px-2 py-1 rounded-lg">
+                  <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-900/30 px-2 py-1 rounded-lg">
                     {stat.change}
                   </span>
                 </div>
@@ -139,8 +139,8 @@ const AdminPage = () => {
         </div>
 
         {/* Tabs */}
-        <div className="backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-blue-200/40 rounded-2xl shadow-xl">
-          <div className="border-b border-blue-200/40">
+        <div className="backdrop-blur-xl bg-white dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-2xl shadow-xl">
+          <div className="border-b border-blue-200/40 dark:border-gray-600/40">
             <nav className="-mb-px flex space-x-8 px-6">
               {tabs.map((tab) => {
                 const IconComponent = tab.icon;
@@ -150,8 +150,8 @@ const AdminPage = () => {
                     onClick={() => setActiveTab(tab.id)}
                     className={`py-4 px-4 border-b-2 font-semibold text-sm flex items-center transition-all duration-300 ${
                       activeTab === tab.id
-                        ? 'border-blue-500 text-blue-600 bg-blue-50/60'
-                        : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-blue-600 hover:border-blue-300 hover:bg-blue-50/30'
+                        ? 'border-blue-500 dark:border-blue-400 text-blue-600 dark:text-blue-400/70 bg-blue-50/60 dark:bg-gray-700/50'
+                        : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400/70 hover:border-blue-300 dark:hover:border-gray-600 hover:bg-blue-50/30 dark:hover:bg-gray-700/30'
                     }`}
                   >
                     <IconComponent className="h-5 w-5 mr-2" />
@@ -166,7 +166,7 @@ const AdminPage = () => {
             {activeTab === 'users' && (
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 bg-clip-text text-transparent">
+                  <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent">
                     Gestión de Usuarios
                   </h2>
                   <Button size="sm" className="shadow-lg">
@@ -175,35 +175,28 @@ const AdminPage = () => {
                 </div>
 
                 {isLoading ? (
-                  <div className="backdrop-blur-sm bg-white dark:bg-gray-900/80 border border-blue-200/40 rounded-xl shadow-lg p-8 text-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                    <p className="text-gray-600 dark:text-gray-400">Cargando usuarios...</p>
+                  <div className="backdrop-blur-sm bg-white dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-xl shadow-lg p-8 text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400 mx-auto mb-4"></div>
+                    <p className="text-gray-600 dark:text-blue-400/70">Cargando usuarios...</p>
                   </div>
                 ) : (
-                  <div className="backdrop-blur-sm bg-white dark:bg-gray-900/80 border border-blue-200/40 rounded-xl shadow-lg overflow-hidden">
-                    <table className="min-w-full divide-y divide-blue-200/30">
-                      <thead className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80">
+                  <div className="backdrop-blur-sm bg-white dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-xl shadow-lg overflow-hidden">
+                    <table className="min-w-full divide-y divide-blue-200/30 dark:divide-gray-600/30">
+                      <thead className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 dark:from-gray-700/50 dark:to-gray-700/50">0/80 to-indigo-50/80 dark:from-gray-700/50 dark:to-gray-700/50">
                         <tr>
-                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
+                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 dark:text-blue-400/70 uppercase tracking-wider">
                             Usuario
                           </th>
-                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
+                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 dark:text-blue-400/70 uppercase tracking-wider">
                             Rol
                           </th>
-                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
+                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 dark:text-blue-400/70 uppercase tracking-wider">
                             Estado
                           </th>
-                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
+                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 dark:text-blue-400/70 uppercase tracking-wider">
                             Perfil de Voz
                           </th>
-                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
-                            Último Acceso
-                          </th>
-                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 uppercase tracking-wider">
-                            Acciones
-                          </th>
-                        </tr>
-                      </thead>
+                          <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 dark:text-blue-400/70 uppercase tracking-wider">
                       <tbody className="divide-y divide-blue-200/20">
                         {users.map((userItem) => (
                           <tr

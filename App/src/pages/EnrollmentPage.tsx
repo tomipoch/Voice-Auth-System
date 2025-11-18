@@ -15,7 +15,7 @@ const EnrollmentPage = () => {
       <div className="flex items-center mb-8">
         <Link
           to="/dashboard"
-          className="flex items-center px-4 py-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-300 bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 backdrop-blur-xl border border-blue-200/40 dark:border-blue-500/40 rounded-xl hover:bg-white dark:bg-gray-900/80 dark:hover:bg-gray-800/80 hover:shadow-md"
+          className="flex items-center px-4 py-2 text-blue-600 dark:text-blue-400/70 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-300 bg-white dark:bg-gray-800/70 backdrop-blur-xl border border-blue-200/40 dark:border-gray-600/40 rounded-xl hover:bg-white dark:hover:bg-gray-800/80 hover:shadow-md"
         >
           <ArrowLeft className="h-5 w-5 mr-2" />
           Volver al Dashboard
@@ -23,7 +23,7 @@ const EnrollmentPage = () => {
       </div>{' '}
       {/* Título */}
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-4">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400/70 dark:to-indigo-400/70 bg-clip-text text-transparent mb-4">
           Registro de Perfil de Voz
         </h1>
         <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium max-w-2xl mx-auto">
@@ -33,7 +33,7 @@ const EnrollmentPage = () => {
       </div>
       {/* Progress Bar */}
       <div className="mb-8">
-        <div className="backdrop-blur-xl bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-blue-500/40 rounded-xl p-4 shadow-lg">
+        <div className="backdrop-blur-xl bg-white dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-xl p-4 shadow-lg">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">
               Paso {currentStep} de {totalSteps}

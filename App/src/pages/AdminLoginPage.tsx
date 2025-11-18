@@ -99,36 +99,36 @@ const AdminLoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-yellow-400/20 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-400/20 dark:bg-red-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-400/20 dark:bg-orange-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-yellow-400/20 dark:bg-yellow-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       <div className="relative z-10 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="mx-auto h-16 w-16 bg-gradient-to-br from-red-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl mb-4">
+            <div className="mx-auto h-16 w-16 bg-gradient-to-br from-red-500 to-orange-600 dark:from-red-600 dark:to-orange-700 rounded-2xl flex items-center justify-center shadow-xl mb-4">
               <Shield className="h-8 w-8 text-white" />
             </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 dark:from-red-400 dark:to-orange-400 bg-clip-text text-transparent">
               Acceso Administrativo
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 text-sm mt-2">
+            <p className="text-gray-600 dark:text-blue-400/70 text-sm mt-2">
               Panel de administración - Solo personal autorizado
             </p>
           </div>
 
           <Card
             variant="glass"
-            className="p-8 shadow-2xl backdrop-blur-xl bg-white dark:bg-gray-900/80 border border-red-200/40"
+            className="p-8 shadow-2xl backdrop-blur-xl bg-white dark:bg-gray-800/70 border border-red-200/40 dark:border-gray-600/40"
           >
             {/* Admin Credentials Helper */}
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
                 Credenciales de Administrador:
               </h3>
               <div className="space-y-2">
@@ -136,10 +136,10 @@ const AdminLoginPage = () => {
                   <button
                     key={index}
                     onClick={() => fillCredentials(cred.email)}
-                    className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-red-300 hover:bg-red-50/50 transition-all duration-200 group"
+                    className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600/40 hover:border-red-300 dark:hover:border-red-500/40 hover:bg-red-50/50 dark:hover:bg-gray-700/50 transition-all duration-200 group"
                   >
-                    <div className="text-xs font-medium text-red-600">{cred.role}</div>
-                    <div className="text-sm text-gray-700 group-hover:text-red-700">
+                    <div className="text-xs font-medium text-red-600 dark:text-red-400">{cred.role}</div>
+                    <div className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-red-700 dark:group-hover:text-red-400">
                       {cred.email}
                     </div>
                   </button>
@@ -149,18 +149,18 @@ const AdminLoginPage = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
-                <div className="bg-red-50/80 border border-red-200 rounded-lg p-4 flex items-center space-x-3">
-                  <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0" />
-                  <span className="text-sm text-red-700">{error}</span>
+                <div className="bg-red-50/80 dark:bg-red-900/30 border border-red-200 dark:border-red-700/60 rounded-lg p-4 flex items-center space-x-3">
+                  <AlertCircle className="h-5 w-5 text-red-500 dark:text-red-400 flex-shrink-0" />
+                  <span className="text-sm text-red-700 dark:text-red-300">{error}</span>
                 </div>
               )}
 
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-3">
+                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
                   Email Administrativo
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-red-400" />
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-red-400 dark:text-red-400/70" />
                   <input
                     id="email"
                     name="email"
@@ -169,7 +169,7 @@ const AdminLoginPage = () => {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-3 border border-red-200/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent backdrop-blur-sm bg-white dark:bg-gray-900/70 transition-all duration-300"
+                    className="w-full pl-10 pr-4 py-3 border border-red-200/60 dark:border-gray-600/40 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 focus:border-transparent backdrop-blur-sm bg-white dark:bg-gray-800/70 dark:text-gray-200 transition-all duration-300"
                     placeholder="admin@empresa.com"
                   />
                 </div>
@@ -178,12 +178,12 @@ const AdminLoginPage = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-semibold text-gray-700 mb-3"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3"
                 >
                   Contraseña Administrativa
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-red-400" />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-red-400 dark:text-red-400/70" />
                   <input
                     id="password"
                     name="password"
@@ -192,7 +192,7 @@ const AdminLoginPage = () => {
                     required
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-12 py-3 border border-red-200/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent backdrop-blur-sm bg-white dark:bg-gray-900/70 transition-all duration-300"
+                    className="w-full pl-10 pr-12 py-3 border border-red-200/60 dark:border-gray-600/40 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 focus:border-transparent backdrop-blur-sm bg-white dark:bg-gray-800/70 dark:text-gray-200 transition-all duration-300"
                     placeholder="••••••••"
                   />
                   <button
