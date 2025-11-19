@@ -176,15 +176,15 @@ export const storageService = {
   /**
    * Guarda la preferencia de tema
    */
-  setThemePreference(theme: 'light' | 'dark'): boolean {
+  setThemePreference(theme: 'light' | 'dark' | 'auto'): boolean {
     return this.setItem('theme', theme);
   },
 
   /**
    * Obtiene la preferencia de tema
    */
-  getThemePreference(): 'light' | 'dark' | null {
-    return this.getItem<'light' | 'dark'>('theme');
+  getThemePreference(): 'light' | 'dark' | 'auto' | null {
+    return this.getItem<'light' | 'dark' | 'auto'>('theme');
   },
 };
 
