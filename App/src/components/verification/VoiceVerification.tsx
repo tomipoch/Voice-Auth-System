@@ -109,11 +109,11 @@ const VoiceVerification = ({
   if (!challenge) {
     return (
       <Card className={`p-8 text-center ${className}`}>
-        <Clock className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+        <Clock className="h-16 w-16 text-gray-400 dark:text-blue-400/70 mx-auto mb-4" />
+        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-200 mb-2">
           Cargando desafío...
         </h3>
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-gray-600 dark:text-blue-400/70">
           Espera mientras preparamos tu frase de verificación
         </p>
       </Card>
@@ -126,50 +126,50 @@ const VoiceVerification = ({
         <div
           className={`w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center ${
             verificationState === 'success'
-              ? 'bg-green-100'
+              ? 'bg-green-100 dark:bg-green-900/30'
               : verificationState === 'failed' || verificationState === 'blocked'
-                ? 'bg-red-100'
+                ? 'bg-red-100 dark:bg-red-900/30'
                 : verificationState === 'processing'
-                  ? 'bg-blue-100'
-                  : 'bg-gray-100'
+                  ? 'bg-blue-100 dark:bg-blue-900/30'
+                  : 'bg-gray-100 dark:bg-gray-800/70'
           }`}
         >
           {verificationState === 'success' ? (
-            <CheckCircle className="h-10 w-10 text-green-600" />
+            <CheckCircle className="h-10 w-10 text-green-600 dark:text-green-400" />
           ) : verificationState === 'failed' || verificationState === 'blocked' ? (
-            <XCircle className="h-10 w-10 text-red-600" />
+            <XCircle className="h-10 w-10 text-red-600 dark:text-red-400" />
           ) : verificationState === 'processing' ? (
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400" />
           ) : (
-            <Shield className="h-10 w-10 text-gray-600 dark:text-gray-400" />
+            <Shield className="h-10 w-10 text-gray-600 dark:text-blue-400/70" />
           )}
         </div>
 
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-200 mb-2">
           Verificación por Voz
         </h2>
 
-        <p className="text-gray-600 dark:text-gray-400 mb-4">{getVerificationMessage()}</p>
+        <p className="text-gray-600 dark:text-blue-400/70 mb-4">{getVerificationMessage()}</p>
 
         {getStatusIndicator()}
       </div>
 
       {/* Frase de desafío */}
       {verificationState === 'ready' && (
-        <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-6">
+        <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-200 dark:border-blue-700/60 rounded-lg p-6 mb-6">
           <div className="text-center">
-            <h3 className="text-sm font-medium text-blue-900 mb-2">Lee la siguiente frase:</h3>
-            <p className="text-xl font-bold text-blue-900">"{challenge}"</p>
+            <h3 className="text-sm font-medium text-blue-900 dark:text-blue-300 mb-2">Lee la siguiente frase:</h3>
+            <p className="text-xl font-bold text-blue-900 dark:text-blue-300">"{challenge}"</p>
           </div>
         </div>
       )}
 
       {/* Error message */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/60 rounded-lg p-4 mb-6">
           <div className="flex items-center">
-            <AlertTriangle className="h-5 w-5 text-red-600 mr-2" />
-            <p className="text-sm text-red-800">{error}</p>
+            <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400 mr-2" />
+            <p className="text-sm text-red-800 dark:text-red-300">{error}</p>
           </div>
         </div>
       )}
@@ -191,10 +191,10 @@ const VoiceVerification = ({
       {verificationState === 'processing' && (
         <div className="text-center mb-6">
           <div className="animate-pulse">
-            <div className="h-4 bg-gray-200 rounded w-3/4 mx-auto mb-2"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/2 mx-auto"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700/70 rounded w-3/4 mx-auto mb-2"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700/70 rounded w-1/2 mx-auto"></div>
           </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-4">
+          <p className="text-sm text-gray-600 dark:text-blue-400/70 mt-4">
             Esto puede tomar unos segundos...
           </p>
         </div>
@@ -206,13 +206,13 @@ const VoiceVerification = ({
           <div
             className={`border rounded-lg p-4 mb-6 ${
               verificationState === 'success'
-                ? 'bg-green-50 border-green-200'
-                : 'bg-red-50 border-red-200'
+                ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700/60'
+                : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700/60'
             }`}
           >
             <h4
               className={`text-sm font-medium mb-2 ${
-                verificationState === 'success' ? 'text-green-900' : 'text-red-900'
+                verificationState === 'success' ? 'text-green-900 dark:text-green-300' : 'text-red-900 dark:text-red-300'
               }`}
             >
               Resultado de la Verificación
@@ -221,7 +221,7 @@ const VoiceVerification = ({
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <span
-                  className={verificationState === 'success' ? 'text-green-700' : 'text-red-700'}
+                  className={verificationState === 'success' ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}
                 >
                   Confianza:
                 </span>
@@ -231,7 +231,7 @@ const VoiceVerification = ({
               </div>
               <div>
                 <span
-                  className={verificationState === 'success' ? 'text-green-700' : 'text-red-700'}
+                  className={verificationState === 'success' ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}
                 >
                   Umbral:
                 </span>
@@ -260,15 +260,15 @@ const VoiceVerification = ({
 
         {verificationState === 'success' && (
           <div className="text-center">
-            <CheckCircle className="h-8 w-8 text-green-600 mx-auto mb-2" />
-            <p className="text-green-600 font-medium">Acceso concedido</p>
+            <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
+            <p className="text-green-600 dark:text-green-400 font-medium">Acceso concedido</p>
           </div>
         )}
       </div>
 
       {/* Información de intentos */}
       {maxAttempts > 1 && currentAttempt > 0 && verificationState !== 'success' && (
-        <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+        <div className="mt-4 text-center text-sm text-gray-600 dark:text-blue-400/70">
           Intento {currentAttempt} de {maxAttempts}
         </div>
       )}
