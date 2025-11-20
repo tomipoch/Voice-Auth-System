@@ -203,11 +203,15 @@ const SuperAdminDashboard = () => {
               <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-purple-700 dark:from-gray-200 dark:to-purple-400/70 bg-clip-text text-transparent">
                 Panel de Super Administrador
               </h1>
-              <p className="text-purple-600/70 dark:text-purple-400/70 mt-2">Gestión global del sistema VoiceAuth</p>
+              <p className="text-purple-600/70 dark:text-purple-400/70 mt-2">
+                Gestión global del sistema VoiceAuth
+              </p>
             </div>
             <div className="flex items-center space-x-4">
               <div className="text-right">
-                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Sistema Global</p>
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                  Sistema Global
+                </p>
                 <p className="text-xs text-purple-600 dark:text-purple-400/70">Acceso Completo</p>
               </div>
             </div>
@@ -225,8 +229,12 @@ const SuperAdminDashboard = () => {
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-semibold text-gray-600 dark:text-blue-400/70 mb-2">{stat.title}</p>
-                      <p className="text-2xl font-bold text-gray-800 dark:text-gray-200">{stat.value}</p>
+                      <p className="text-sm font-semibold text-gray-600 dark:text-blue-400/70 mb-2">
+                        {stat.title}
+                      </p>
+                      <p className="text-2xl font-bold text-gray-800 dark:text-gray-200">
+                        {stat.value}
+                      </p>
                     </div>
                     <div
                       className={`h-12 w-12 ${stat.bgColor} dark:bg-gray-700/50 rounded-xl flex items-center justify-center shadow-sm`}

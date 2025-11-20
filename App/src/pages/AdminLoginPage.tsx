@@ -138,7 +138,9 @@ const AdminLoginPage = () => {
                     onClick={() => fillCredentials(cred.email)}
                     className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600/40 hover:border-red-300 dark:hover:border-red-500/40 hover:bg-red-50/50 dark:hover:bg-gray-700/50 transition-all duration-200 group"
                   >
-                    <div className="text-xs font-medium text-red-600 dark:text-red-400">{cred.role}</div>
+                    <div className="text-xs font-medium text-red-600 dark:text-red-400">
+                      {cred.role}
+                    </div>
                     <div className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-red-700 dark:group-hover:text-red-400">
                       {cred.email}
                     </div>
@@ -156,7 +158,10 @@ const AdminLoginPage = () => {
               )}
 
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3"
+                >
                   Email Administrativo
                 </label>
                 <div className="relative">
