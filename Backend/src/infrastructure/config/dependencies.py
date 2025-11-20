@@ -1,0 +1,79 @@
+"""Dependency injection configuration for the application."""
+
+import asyncpg
+import os
+import logging
+from typing import Optional
+from functools import lru_cache
+from fastapi import HTTPException
+
+from ..persistence.PostgresPhraseRepository import (
+    PostgresPhraseRepository,
+    PostgresPhraseUsageRepository
+)
+from ...application.phrase_service import PhraseService
+
+logger = logging.getLogger(__name__)
+
+# Global connection pool
+_db_pool: Optional[asyncpg.Pool] = None
+_connection_error: Optional[str] = None
+
+
+async def get_db_pool() -> asyncpg.Pool:
+    """Get or create database connection pool."""
+    global _db_pool, _connection_error
+    
+    if _db_pool is None:
+        db_host = os.getenv('DB_HOST', 'localhost')
+        db_port = os.getenv('DB_PORT', '5432')
+        db_name = os.getenv('DB_NAME', 'voice_biometrics')
+        db_user = os.getenv('DB_USER', 'voice_user')
+        db_password = os.getenv('DB_PASSWORD', 'voice_password')
+        
+        try:
+            logger.info(f"Attempting to connect to database at {db_host}:{db_port}")
+            _db_pool = await asyncpg.create_pool(
+                host=db_host,
+                port=int(db_port),
+                database=db_name,
+                user=db_user,
+                password=db_password,
+                min_size=2,
+                max_size=10,
+                timeout=5
+            )
+            _connection_error = None
+            logger.info("Database connection pool created successfully")
+        except Exception as e:
+            error_msg = f"Database unavailable: {str(e)}"
+            logger.error(error_msg)
+            _connection_error = error_msg
+            raise HTTPException(
+                status_code=503,
+                detail={
+                    "error": "Service Unavailable",
+                    "message": "Database connection failed. Please ensure Docker is running and PostgreSQL is accessible.",
+                    "hint": "Run 'docker-compose up -d' to start the database."
+                }
+            )
+    
+    return _db_pool
+
+
+async def close_db_pool():
+    """Close database connection pool."""
+    global _db_pool
+    if _db_pool:
+        await _db_pool.close()
+        _db_pool = None
+
+
+async def get_phrase_service() -> PhraseService:
+    """Get phrase service instance with dependencies."""
+    pool = await get_db_pool()
+    
+    phrase_repo = PostgresPhraseRepository(pool)
+    usage_repo = PostgresPhraseUsageRepository(pool)
+    
+    return PhraseService(phrase_repo, usage_repo)

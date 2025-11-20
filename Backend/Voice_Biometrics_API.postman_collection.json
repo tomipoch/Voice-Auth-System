@@ -1,0 +1,413 @@
+{
+	"info": {
+		"_postman_id": "voice-biometrics-api",
+		"name": "Voice Biometrics API",
+		"description": "API de autenticación biométrica por voz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login - SuperAdmin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('access_token', jsonData.access_token);",
+									"    console.log('Token guardado:', jsonData.access_token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"superadmin@voicebio.com\",\n    \"password\": \"SuperAdmin2024!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						},
+						"description": "Login como SuperAdministrador (acceso completo)"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Admin Empresa A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('access_token', jsonData.access_token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@empresaa.com\",\n    \"password\": \"AdminEmpresa2024!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						},
+						"description": "Login como Admin de Empresa A"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Usuario Regular",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('access_token', jsonData.access_token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"juan.perez@empresaa.com\",\n    \"password\": \"User2024!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						},
+						"description": "Login como usuario regular"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/auth/me",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "me"]
+						},
+						"description": "Obtener perfil del usuario autenticado"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Phrases",
+			"item": [
+				{
+					"name": "Get Phrase Stats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/phrases/stats?language=es",
+							"host": ["{{base_url}}"],
+							"path": ["api", "phrases", "stats"],
+							"query": [
+								{
+									"key": "language",
+									"value": "es"
+								}
+							]
+						},
+						"description": "Obtener estadísticas de frases disponibles"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Random Phrases",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/phrases/random?count=3&difficulty=medium&language=es",
+							"host": ["{{base_url}}"],
+							"path": ["api", "phrases", "random"],
+							"query": [
+								{
+									"key": "count",
+									"value": "3",
+									"description": "Número de frases (1-10)"
+								},
+								{
+									"key": "difficulty",
+									"value": "medium",
+									"description": "easy, medium, hard (opcional)"
+								},
+								{
+									"key": "language",
+									"value": "es"
+								}
+							]
+						},
+						"description": "Obtener frases aleatorias para enrollment/verification"
+					},
+					"response": []
+				},
+				{
+					"name": "List All Phrases",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/phrases/list?limit=20&difficulty=easy",
+							"host": ["{{base_url}}"],
+							"path": ["api", "phrases", "list"],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "difficulty",
+									"value": "easy",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Listar todas las frases activas"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Phrase by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/phrases/{{phrase_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "phrases", "{{phrase_id}}"]
+						},
+						"description": "Obtener una frase específica por ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Record Phrase Usage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/phrases/{{phrase_id}}/record-usage?user_id={{user_id}}&used_for=enrollment",
+							"host": ["{{base_url}}"],
+							"path": ["api", "phrases", "{{phrase_id}}", "record-usage"],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "{{user_id}}"
+								},
+								{
+									"key": "used_for",
+									"value": "enrollment",
+									"description": "enrollment o verification"
+								}
+							]
+						},
+						"description": "Registrar que un usuario usó una frase"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Phrase Status (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/phrases/{{phrase_id}}/status?is_active=false",
+							"host": ["{{base_url}}"],
+							"path": ["api", "phrases", "{{phrase_id}}", "status"],
+							"query": [
+								{
+									"key": "is_active",
+									"value": "false"
+								}
+							]
+						},
+						"description": "Activar o desactivar una frase (solo admin)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Phrase (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/phrases/{{phrase_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "phrases", "{{phrase_id}}"]
+						},
+						"description": "Eliminar una frase (solo admin)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": ["{{base_url}}"],
+					"path": ["health"]
+				},
+				"description": "Verificar estado del servicio (sin autenticación)"
+			},
+			"response": []
+		}
+	]
+}
