@@ -77,3 +77,61 @@ async def get_phrase_service() -> PhraseService:
     usage_repo = PostgresPhraseUsageRepository(pool)
     
     return PhraseService(phrase_repo, usage_repo)
+
+
+async def get_enrollment_service():
+    """Get enrollment service instance with dependencies."""
+    from ..persistence.PostgresVoiceTemplateRepository import PostgresVoiceTemplateRepository
+    from ..persistence.PostgresUserRepository import PostgresUserRepository
+    from ..persistence.PostgresAuditLogRepository import PostgresAuditLogRepository
+    from ...application.enrollment_service import EnrollmentService
+    
+    pool = await get_db_pool()
+    
+    voice_repo = PostgresVoiceTemplateRepository(pool)
+    user_repo = PostgresUserRepository(pool)
+    audit_repo = PostgresAuditLogRepository(pool)
+    phrase_repo = PostgresPhraseRepository(pool)
+    phrase_usage_repo = PostgresPhraseUsageRepository(pool)
+    
+    return EnrollmentService(
+        voice_repo=voice_repo,
+        user_repo=user_repo,
+        audit_repo=audit_repo,
+        phrase_repo=phrase_repo,
+        phrase_usage_repo=phrase_usage_repo
+    )
+
+
+def get_voice_biometric_engine():
+    """Get voice biometric engine instance."""
+    from ..services.VoiceBiometricEngineFacade import VoiceBiometricEngineFacade
+    
+    # In production, this would be configured based on environment
+    return VoiceBiometricEngineFacade()
+
+
+async def get_verification_service_v2():
+    """Get verification service V2 instance with dependencies."""
+    from ..persistence.PostgresVoiceTemplateRepository import PostgresVoiceTemplateRepository
+    from ..persistence.PostgresUserRepository import PostgresUserRepository
+    from ..persistence.PostgresAuditLogRepository import PostgresAuditLogRepository
+    from ...application.verification_service_v2 import VerificationServiceV2
+    
+    pool = await get_db_pool()
+    
+    voice_repo = PostgresVoiceTemplateRepository(pool)
+    user_repo = PostgresUserRepository(pool)
+    audit_repo = PostgresAuditLogRepository(pool)
+    phrase_repo = PostgresPhraseRepository(pool)
+    phrase_usage_repo = PostgresPhraseUsageRepository(pool)
+    
+    return VerificationServiceV2(
+        voice_repo=voice_repo,
+        user_repo=user_repo,
+        audit_repo=audit_repo,
+        phrase_repo=phrase_repo,
+        phrase_usage_repo=phrase_usage_repo,
+        similarity_threshold=0.75,
+        anti_spoofing_threshold=0.5
+    )
