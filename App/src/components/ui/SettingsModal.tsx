@@ -271,7 +271,9 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <Shield className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-800 dark:text-gray-200">Autenticación de Dos Factores</h4>
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200">
+                  Autenticación de Dos Factores
+                </h4>
                 <p className="text-sm text-gray-600 dark:text-blue-400/70">
                   Añade una capa extra de seguridad a tu cuenta
                 </p>
@@ -297,9 +299,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <Clock className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-800 dark:text-gray-200">
-                  Tiempo de Sesión
-                </h4>
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200">Tiempo de Sesión</h4>
                 <p className="text-sm text-gray-600 dark:text-blue-400/70">
                   Duración antes del cierre automático
                 </p>
@@ -334,7 +334,9 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <Bell className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-800 dark:text-gray-200">Notificaciones de Inicio de Sesión</h4>
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200">
+                  Notificaciones de Inicio de Sesión
+                </h4>
                 <p className="text-sm text-gray-600 dark:text-blue-400/70">
                   Recibir alertas cuando alguien acceda a tu cuenta
                 </p>
@@ -374,7 +376,9 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <Mail className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-800 dark:text-gray-200">Notificaciones por Email</h4>
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200">
+                  Notificaciones por Email
+                </h4>
                 <p className="text-sm text-gray-600 dark:text-blue-400/70">
                   Recibir notificaciones importantes por correo
                 </p>
@@ -403,7 +407,9 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <Smartphone className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-800 dark:text-gray-200">Notificaciones Push</h4>
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200">
+                  Notificaciones Push
+                </h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   Notificaciones en tiempo real en el navegador
                 </p>
@@ -432,8 +438,12 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <AlertTriangle className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-800 dark:text-gray-200">Alertas de Seguridad</h4>
-                <p className="text-sm text-gray-600 dark:text-blue-400/70">Notificaciones sobre actividad sospechosa</p>
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200">
+                  Alertas de Seguridad
+                </h4>
+                <p className="text-sm text-gray-600 dark:text-blue-400/70">
+                  Notificaciones sobre actividad sospechosa
+                </p>
               </div>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
@@ -459,7 +469,9 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <Download className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-800 dark:text-gray-200">Actualizaciones del Sistema</h4>
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200">
+                  Actualizaciones del Sistema
+                </h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   Información sobre nuevas funciones y actualizaciones
                 </p>
@@ -537,8 +549,12 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <Globe className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-800 dark:text-gray-200">Idioma de la Interfaz</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Selecciona tu idioma preferido</p>
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200">
+                  Idioma de la Interfaz
+                </h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Selecciona tu idioma preferido
+                </p>
               </div>
             </div>
             <div className="relative">
