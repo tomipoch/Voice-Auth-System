@@ -73,15 +73,13 @@ const AdminPublicRoute = ({ children }) => {
     return <LoadingSpinner />;
   }
 
-  // Si está autenticado y es admin/superadmin, redirigir a su dashboard correspondiente
+  // Si está autenticado, redirigir siempre al dashboard principal
+  // Desde ahí el usuario puede acceder a las secciones de administración
   if (isAuthenticated && user) {
     if (user.role === 'superadmin') {
       return <Navigate to="/admin/dashboard" replace />;
     }
-    if (user.role === 'admin') {
-      return <Navigate to="/admin" replace />;
-    }
-    // Si es usuario normal, redirigir al dashboard regular
+    // Tanto admin como usuarios normales van al dashboard principal
     return <Navigate to="/dashboard" replace />;
   }
 
