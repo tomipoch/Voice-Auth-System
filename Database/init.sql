@@ -337,3 +337,44 @@ CREATE INDEX IF NOT EXISTS idx_scores_phrase_ok       ON scores(phrase_ok);
 
 CREATE INDEX IF NOT EXISTS idx_audit_time             ON audit_log(at);
 CREATE INDEX IF NOT EXISTS idx_audit_actor            ON audit_log(actor);
+
+-- =====================================================
+-- 13. FRASES PARA ENROLAMIENTO Y VERIFICACIÓN
+--     => Almacena frases extraídas de libros para usar
+--        en el proceso de enrolamiento y verificación
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS phrase (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  text TEXT NOT NULL,                              -- La frase completa
+  source TEXT,                                      -- Nombre del libro de origen
+  word_count INTEGER NOT NULL,                     -- Número de palabras
+  char_count INTEGER NOT NULL,                     -- Número de caracteres
+  language TEXT NOT NULL DEFAULT 'es',             -- Idioma de la frase
+  difficulty TEXT CHECK (difficulty IN ('easy', 'medium', 'hard')),
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,         -- Si está disponible para uso
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  CONSTRAINT ck_phrase_length CHECK (char_count >= 20 AND char_count <= 500)
+);
+
+CREATE INDEX IF NOT EXISTS idx_phrase_active ON phrase(is_active);
+CREATE INDEX IF NOT EXISTS idx_phrase_difficulty ON phrase(difficulty);
+CREATE INDEX IF NOT EXISTS idx_phrase_source ON phrase(source);
+
+-- =====================================================
+-- 14. HISTORIAL DE USO DE FRASES
+--     => Registra qué frases se han usado para cada usuario
+--        para evitar repeticiones frecuentes
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS phrase_usage (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  phrase_id UUID NOT NULL REFERENCES phrase(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+  used_for TEXT NOT NULL CHECK (used_for IN ('enrollment', 'verification')),
+  used_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_phrase_usage_user ON phrase_usage(user_id, used_at DESC);
+CREATE INDEX IF NOT EXISTS idx_phrase_usage_phrase ON phrase_usage(phrase_id);
+

@@ -1,18 +1,21 @@
 """Main application entry point."""
 
-import asyncio
 import logging
 from contextlib import asynccontextmanager
+from pathlib import Path
 
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .api.challenge_controller import challenge_router
 from .api.auth_controller import auth_router
 from .api.admin_controller import admin_router
-# Middleware commented for testing - would need proper implementation
-# from .api.middleware.auth_middleware import AuthMiddleware
-# from .api.middleware.audit_trace_middleware import AuditTraceMiddleware
+from .api.phrase_controller import phrase_router
+
+# Load environment variables
+env_path = Path(__file__).parent.parent / '.env'
+load_dotenv(env_path)
 
 
 # Configure logging
@@ -28,9 +31,10 @@ async def lifespan(app: FastAPI):
     """Application lifespan manager."""
     logger.info("Starting Voice Biometrics API...")
     
-    # Initialize database connections, load ML models, etc.
-    # In production, this would:
-    # - Connect to PostgreSQL
+    # Try to initialize database connection pool (not critical at startup)
+    from .infrastructure.config.dependencies import close_db_pool
+    
+    # In production, this would also:
     # - Load ML models into memory
     # - Initialize caches
     # - Set up monitoring
@@ -39,6 +43,8 @@ async def lifespan(app: FastAPI):
     
     logger.info("Shutting down Voice Biometrics API...")
     # Cleanup resources
+    await close_db_pool()
+    logger.info("Database connection pool closed")
 
 
 def create_app() -> FastAPI:
@@ -56,22 +62,17 @@ def create_app() -> FastAPI:
     # Add CORS middleware
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],  # Configure appropriately for production
+        allow_origins=["*"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
     
-    # Add custom middleware (commented for testing)
-    # app.add_middleware(AuditTraceMiddleware)
-    # app.add_middleware(AuthMiddleware)
-    
     # Include routers
     app.include_router(auth_router, prefix="/api/auth", tags=["authentication"])
     app.include_router(admin_router, prefix="/api/admin", tags=["administration"])
-    # app.include_router(enrollment_router, prefix="/api/enrollment", tags=["enrollment"])
     app.include_router(challenge_router, prefix="/api/challenges", tags=["challenges"])
-    # app.include_router(verification_router, prefix="/api/verification", tags=["verification"])
+    app.include_router(phrase_router, prefix="/api/phrases", tags=["phrases"])
     
     # Health check endpoint
     @app.get("/health")

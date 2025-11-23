@@ -45,8 +45,8 @@ class AuthMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         """Process request through authentication and rate limiting."""
         
-        # Skip auth for health check, docs, and development mode
-        skip_paths = ["/health", "/docs", "/openapi.json"]
+        # Skip auth for health check, docs, auth endpoints, and development mode
+        skip_paths = ["/health", "/docs", "/openapi.json", "/api/auth/login", "/api/auth/register"]
         
         # Check if we're in development mode
         import os
