@@ -6,7 +6,7 @@ from uuid import UUID, uuid4
 from datetime import datetime, timezone
 
 from ..domain.model.VoiceSignature import VoiceSignature
-from ..domain.repositories.VoiceTemplateRepositoryPort import VoiceTemplateRepositoryPort
+from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
 from ..domain.repositories.PhraseRepositoryPort import PhraseRepositoryPort, PhraseUsageRepositoryPort
@@ -26,6 +26,9 @@ class EnrollmentSession:
         self.created_at = datetime.now(timezone.utc)
 
 
+from .services.BiometricValidator import BiometricValidator
+
+
 class EnrollmentService:
     """Service for handling voice biometric enrollment with dynamic phrases."""
     
@@ -34,17 +37,19 @@ class EnrollmentService:
     
     def __init__(
         self,
-        voice_repo: VoiceTemplateRepositoryPort,
+        voice_repo: VoiceSignatureRepositoryPort,
         user_repo: UserRepositoryPort,
         audit_repo: AuditLogRepositoryPort,
         phrase_repo: PhraseRepositoryPort,
-        phrase_usage_repo: PhraseUsageRepositoryPort
+        phrase_usage_repo: PhraseUsageRepositoryPort,
+        biometric_validator: BiometricValidator
     ):
         self._voice_repo = voice_repo
         self._user_repo = user_repo
         self._audit_repo = audit_repo
         self._phrase_repo = phrase_repo
         self._phrase_usage_repo = phrase_usage_repo
+        self._biometric_validator = biometric_validator
     
     async def start_enrollment(
         self,
@@ -133,7 +138,7 @@ class EnrollmentService:
             raise ValueError("Invalid or expired enrollment session")
         
         # Validate embedding
-        if not self._validate_embedding(embedding):
+        if not self._biometric_validator.is_valid_embedding(embedding):
             raise ValueError("Invalid voice embedding")
         
         # Verify phrase belongs to this enrollment
@@ -300,21 +305,7 @@ class EnrollmentService:
                 "required_samples": MIN_ENROLLMENT_SAMPLES
             }
     
-    def _validate_embedding(self, embedding: VoiceEmbedding) -> bool:
-        """Validate voice embedding."""
-        if embedding is None:
-            return False
-        
-        if embedding.shape != (256,):
-            return False
-        
-        if np.any(np.isnan(embedding)) or np.any(np.isinf(embedding)):
-            return False
-        
-        if np.allclose(embedding, 0):
-            return False
-        
-        return True
+
     
     def _calculate_enrollment_quality(self, embeddings: List[np.ndarray]) -> float:
         """Calculate enrollment quality based on consistency."""
@@ -324,9 +315,7 @@ class EnrollmentService:
         similarities = []
         for i in range(len(embeddings)):
             for j in range(i + 1, len(embeddings)):
-                norm_i = embeddings[i] / np.linalg.norm(embeddings[i])
-                norm_j = embeddings[j] / np.linalg.norm(embeddings[j])
-                sim = np.dot(norm_i, norm_j)
-                similarities.append(max(0, sim))
+                sim = self._biometric_validator.calculate_similarity(embeddings[i], embeddings[j])
+                similarities.append(sim)
         
         return float(np.mean(similarities)) if similarities else 0.5

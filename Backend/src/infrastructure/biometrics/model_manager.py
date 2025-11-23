@@ -190,8 +190,7 @@ class ModelManager:
             elif config.model_type == "asr":
                 return self._download_huggingface_model(config, model_path)
             elif config.model_type == "antispoofing":
-                # For now, create a placeholder - will implement real anti-spoofing later
-                return self._create_placeholder_model(config, model_path)
+                return self._download_speechbrain_model(config, model_path)
             else:
                 logger.error(f"Unknown model type: {config.model_type}")
                 return False

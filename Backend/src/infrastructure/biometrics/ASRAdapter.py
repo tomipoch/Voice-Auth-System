@@ -11,7 +11,7 @@ from pathlib import Path
 
 try:
     import speechbrain as sb
-    from speechbrain.inference import ASR
+    from speechbrain.pretrained import ASR
     SPEECHBRAIN_AVAILABLE = True
 except ImportError:
     SPEECHBRAIN_AVAILABLE = False
@@ -79,19 +79,19 @@ class ASRAdapter:
             
             if model_manager is None:
                 logger.warning("Model manager not available, using placeholder ASR")
-                self._asr_model = "asr_placeholder"
-                self._model_loaded = True
+                self._model_loaded = False
                 return
             
             # Load ASR model from anteproyecto specifications
             try:
-                asr_path = model_manager.get_model_path("lightweight_asr")
-                if not asr_path.exists():
+                if not model_manager.is_model_available("lightweight_asr"):
                     model_manager.download_model("lightweight_asr")
-                
-                # For now, use placeholder - would load real SpeechBrain ASR model
-                logger.info("Lightweight ASR model placeholder loaded")
-                self._asr_model = "lightweight_asr_placeholder"
+                asr_path = model_manager.get_model_path("lightweight_asr")
+                self._asr_model = ASR.from_hparams(
+                    source=str(asr_path),
+                    run_opts={"device": str(self.device)}
+                )
+                logger.info("Lightweight ASR model loaded successfully")
                 self._model_loaded = True
                 
             except Exception as e:
@@ -123,15 +123,11 @@ class ASRAdapter:
             waveform = self._preprocess_audio(audio_data)
             
             # Perform ASR inference
-            if self._asr_model and self._asr_model != "lightweight_asr_placeholder":
-                # Would use real SpeechBrain ASR model here
-                transcribed_text = self._real_asr_inference(waveform)
-            else:
-                # Use enhanced mock transcription based on audio characteristics
-                transcribed_text = self._enhanced_mock_transcription(audio_data, waveform)
+            with torch.no_grad():
+                transcribed_text = self._asr_model.transcribe_batch(waveform)
             
             logger.debug(f"Transcribed text: '{transcribed_text}'")
-            return transcribed_text
+            return transcribed_text[0] if isinstance(transcribed_text, list) else transcribed_text
             
         except Exception as e:
             logger.error(f"Transcription failed: {e}")

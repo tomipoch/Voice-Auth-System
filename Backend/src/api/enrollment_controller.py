@@ -9,7 +9,7 @@ import soundfile as sf
 import logging
 
 from ..application.enrollment_service import EnrollmentService
-from ..infrastructure.services.VoiceBiometricEngineFacade import VoiceBiometricEngineFacade
+from ..infrastructure.biometrics.VoiceBiometricEngineFacade import VoiceBiometricEngineFacade
 from ..application.dto.enrollment_dto import (
     StartEnrollmentRequest,
     StartEnrollmentResponse,
@@ -42,30 +42,20 @@ async def start_enrollment(
     
     Returns enrollment_id, user_id, and list of phrases to read.
     """
-    try:
-        user_uuid = UUID(user_id) if user_id else None
-        
-        result = await enrollment_service.start_enrollment(
-            user_id=user_uuid,
-            external_ref=external_ref,
-            difficulty=difficulty
-        )
-        
-        return StartEnrollmentResponse(
-            enrollment_id=result["enrollment_id"],
-            user_id=result["user_id"],
-            phrases=result["phrases"],
-            required_samples=result["required_samples"]
-        )
-    except ValueError as e:
-        logger.error(f"Validation error in start_enrollment: {e}")
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
-    except Exception as e:
-        logger.error(f"Error in start_enrollment: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to start enrollment"
-        )
+    user_uuid = UUID(user_id) if user_id else None
+    
+    result = await enrollment_service.start_enrollment(
+        user_id=user_uuid,
+        external_ref=external_ref,
+        difficulty=difficulty
+    )
+    
+    return StartEnrollmentResponse(
+        enrollment_id=result["enrollment_id"],
+        user_id=result["user_id"],
+        phrases=result["phrases"],
+        required_samples=result["required_samples"]
+    )
 
 
 @router.post("/add-sample", response_model=AddEnrollmentSampleResponse)
@@ -85,57 +75,42 @@ async def add_enrollment_sample(
     
     Returns sample_id, progress, and next phrase if available.
     """
-    try:
-        # Validate IDs
-        enrollment_uuid = UUID(enrollment_id)
-        phrase_uuid = UUID(phrase_id)
-        
-        # Read audio file
-        audio_bytes = await audio_file.read()
-        audio_data, sample_rate = sf.read(io.BytesIO(audio_bytes))
-        
-        # Process audio and extract embedding
-        result = voice_engine.process_audio(
-            audio_data=audio_data,
-            sample_rate=sample_rate
-        )
-        
-        if not result['is_valid']:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=result.get('error', 'Invalid audio')
-            )
-        
-        embedding = result['embedding']
-        snr_db = result.get('snr_db')
-        duration_sec = result.get('duration_sec')
-        
-        # Add enrollment sample
-        sample_result = await enrollment_service.add_enrollment_sample(
-            enrollment_id=enrollment_uuid,
-            phrase_id=phrase_uuid,
-            embedding=embedding,
-            snr_db=snr_db,
-            duration_sec=duration_sec
-        )
-        
-        return AddEnrollmentSampleResponse(
-            sample_id=sample_result["sample_id"],
-            samples_completed=sample_result["samples_completed"],
-            samples_required=sample_result["samples_required"],
-            is_complete=sample_result["is_complete"],
-            next_phrase=sample_result.get("next_phrase")
+    # Validate IDs
+    enrollment_uuid = UUID(enrollment_id)
+    phrase_uuid = UUID(phrase_id)
+    
+    # Read audio file
+    audio_bytes = await audio_file.read()
+    
+    # Validate audio quality
+    quality_info = voice_engine.validate_audio_quality(audio_bytes, audio_file.content_type)
+    if not quality_info["is_valid"]:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=quality_info.get('reason', 'Invalid audio')
         )
     
-    except ValueError as e:
-        logger.error(f"Validation error in add_enrollment_sample: {e}")
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
-    except Exception as e:
-        logger.error(f"Error in add_enrollment_sample: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to add enrollment sample"
-        )
+    # Extract embedding
+    embedding = voice_engine.extract_embedding_only(audio_bytes, audio_file.content_type)
+    snr_db = quality_info.get('snr_db')
+    duration_sec = quality_info.get('duration_sec')
+    
+    # Add enrollment sample
+    sample_result = await enrollment_service.add_enrollment_sample(
+        enrollment_id=enrollment_uuid,
+        phrase_id=phrase_uuid,
+        embedding=embedding,
+        snr_db=snr_db,
+        duration_sec=duration_sec
+    )
+    
+    return AddEnrollmentSampleResponse(
+        sample_id=sample_result["sample_id"],
+        samples_completed=sample_result["samples_completed"],
+        samples_required=sample_result["samples_required"],
+        is_complete=sample_result["is_complete"],
+        next_phrase=sample_result.get("next_phrase")
+    )
 
 
 @router.post("/complete", response_model=CompleteEnrollmentResponse)
@@ -152,30 +127,19 @@ async def complete_enrollment(
     
     Returns voiceprint_id and quality score.
     """
-    try:
-        enrollment_uuid = UUID(enrollment_id)
-        
-        result = await enrollment_service.complete_enrollment(
-            enrollment_id=enrollment_uuid,
-            speaker_model_id=speaker_model_id
-        )
-        
-        return CompleteEnrollmentResponse(
-            voiceprint_id=result["voiceprint_id"],
-            user_id=result["user_id"],
-            quality_score=result["quality_score"],
-            samples_used=result["samples_used"]
-        )
+    enrollment_uuid = UUID(enrollment_id)
     
-    except ValueError as e:
-        logger.error(f"Validation error in complete_enrollment: {e}")
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
-    except Exception as e:
-        logger.error(f"Error in complete_enrollment: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to complete enrollment"
-        )
+    result = await enrollment_service.complete_enrollment(
+        enrollment_id=enrollment_uuid,
+        speaker_model_id=speaker_model_id
+    )
+    
+    return CompleteEnrollmentResponse(
+        voiceprint_id=result["voiceprint_id"],
+        user_id=result["user_id"],
+        quality_score=result["quality_score"],
+        samples_used=result["samples_used"]
+    )
 
 
 @router.get("/status/{user_id}", response_model=EnrollmentStatusResponse)
@@ -190,18 +154,7 @@ async def get_enrollment_status(
     
     Returns enrollment status, samples collected, and phrases used.
     """
-    try:
-        user_uuid = UUID(user_id)
-        result = await enrollment_service.get_enrollment_status(user_uuid)
-        
-        return EnrollmentStatusResponse(**result)
+    user_uuid = UUID(user_id)
+    result = await enrollment_service.get_enrollment_status(user_uuid)
     
-    except ValueError as e:
-        logger.error(f"Validation error in get_enrollment_status: {e}")
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
-    except Exception as e:
-        logger.error(f"Error in get_enrollment_status: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to get enrollment status"
-        )
+    return EnrollmentStatusResponse(**result)

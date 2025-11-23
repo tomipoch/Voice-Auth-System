@@ -3,6 +3,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 from uuid import UUID
+from datetime import timedelta
 
 from ...shared.types.common_types import UserId
 
@@ -11,13 +12,18 @@ class UserRepositoryPort(ABC):
     """Repository interface for users."""
     
     @abstractmethod
-    async def create_user(self, external_ref: Optional[str] = None) -> UserId:
+    async def create_user(self, name: str, email: str, password: str, external_ref: Optional[str] = None) -> UserId:
         """Create a new user."""
         pass
     
     @abstractmethod
     async def get_user(self, user_id: UserId) -> Optional[dict]:
         """Get user by ID."""
+        pass
+    
+    @abstractmethod
+    async def get_user_by_email(self, email: str) -> Optional[dict]:
+        """Get user by email."""
         pass
     
     @abstractmethod
@@ -48,4 +54,34 @@ class UserRepositoryPort(ABC):
         retention_days: int = 7
     ) -> None:
         """Set user's privacy/retention policy."""
+        pass
+
+    @abstractmethod
+    async def get_users_by_company(self, company: str, page: int, limit: int) -> tuple[list[dict], int]:
+        """Get users by company."""
+        pass
+
+    @abstractmethod
+    async def get_all_users(self, page: int, limit: int) -> tuple[list[dict], int]:
+        """Get all users."""
+        pass
+
+    @abstractmethod
+    async def update_user(self, user_id: UserId, user_data: dict) -> None:
+        """Update user data."""
+        pass
+
+    @abstractmethod
+    async def increment_failed_auth_attempts(self, user_id: UserId) -> None:
+        """Increment failed authentication attempts."""
+        pass
+
+    @abstractmethod
+    async def lock_user_account(self, user_id: UserId, duration: timedelta) -> None:
+        """Lock user account."""
+        pass
+
+    @abstractmethod
+    async def reset_failed_auth_attempts(self, user_id: UserId) -> None:
+        """Reset failed authentication attempts."""
         pass

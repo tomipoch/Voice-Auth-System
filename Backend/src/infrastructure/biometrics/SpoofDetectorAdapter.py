@@ -9,7 +9,7 @@ import logging
 from typing import Dict, Any, Tuple, Optional, List
 from pathlib import Path
 import speechbrain as sb
-from speechbrain.inference import EncoderClassifier
+from speechbrain.pretrained import EncoderClassifier
 
 try:
     from ...shared.constants.biometric_constants import DEFAULT_SPOOF_THRESHOLD
@@ -77,10 +77,7 @@ class SpoofDetectorAdapter:
             
             if model_manager is None:
                 logger.warning("Model manager not available, using placeholder models")
-                self._aasist_model = "aasist_placeholder"
-                self._rawnet2_model = "rawnet2_placeholder" 
-                self._resnet_model = "resnet_placeholder"
-                self._models_loaded = True
+                self._models_loaded = False
                 return
             
             # Try to load real models from anteproyecto specifications
@@ -88,43 +85,45 @@ class SpoofDetectorAdapter:
             
             # Load AASIST model
             try:
-                aasist_path = model_manager.get_model_path("aasist")
-                if not aasist_path.exists():
+                if not model_manager.is_model_available("aasist"):
                     model_manager.download_model("aasist")
-                
-                # For now, we'll use a placeholder since real AASIST model needs specific implementation
-                logger.info("AASIST model placeholder loaded")
-                self._aasist_model = "aasist_placeholder"
+                aasist_path = model_manager.get_model_path("aasist")
+                self._aasist_model = EncoderClassifier.from_hparams(
+                    source=str(aasist_path),
+                    run_opts={"device": str(self.device)}
+                )
+                logger.info("AASIST model loaded successfully")
                 success_count += 1
-                
             except Exception as e:
                 logger.warning(f"Failed to load AASIST model: {e}")
                 self._aasist_model = None
             
             # Load RawNet2 model
             try:
-                rawnet2_path = model_manager.get_model_path("rawnet2")
-                if not rawnet2_path.exists():
+                if not model_manager.is_model_available("rawnet2"):
                     model_manager.download_model("rawnet2")
-                
-                logger.info("RawNet2 model placeholder loaded")
-                self._rawnet2_model = "rawnet2_placeholder"
+                rawnet2_path = model_manager.get_model_path("rawnet2")
+                self._rawnet2_model = EncoderClassifier.from_hparams(
+                    source=str(rawnet2_path),
+                    run_opts={"device": str(self.device)}
+                )
+                logger.info("RawNet2 model loaded successfully")
                 success_count += 1
-                
             except Exception as e:
                 logger.warning(f"Failed to load RawNet2 model: {e}")
                 self._rawnet2_model = None
             
             # Load ResNet model
             try:
-                resnet_path = model_manager.get_model_path("resnet_antispoofing")
-                if not resnet_path.exists():
+                if not model_manager.is_model_available("resnet_antispoofing"):
                     model_manager.download_model("resnet_antispoofing")
-                
-                logger.info("ResNet anti-spoofing model placeholder loaded")
-                self._resnet_model = "resnet_placeholder"
+                resnet_path = model_manager.get_model_path("resnet_antispoofing")
+                self._resnet_model = EncoderClassifier.from_hparams(
+                    source=str(resnet_path),
+                    run_opts={"device": str(self.device)}
+                )
+                logger.info("ResNet anti-spoofing model loaded successfully")
                 success_count += 1
-                
             except Exception as e:
                 logger.warning(f"Failed to load ResNet model: {e}")
                 self._resnet_model = None
@@ -325,53 +324,27 @@ class SpoofDetectorAdapter:
     
     def _predict_with_aasist(self, waveform: torch.Tensor) -> float:
         """Predict spoofing score using AASIST model."""
-        # Placeholder implementation - would use real AASIST model
-        # For now, simulate AASIST behavior based on audio characteristics
-        
-        # AASIST typically analyzes spectro-temporal features
-        spectral_variance = torch.var(waveform, dim=-1).mean().item()
-        temporal_variance = torch.var(torch.diff(waveform, dim=-1), dim=-1).mean().item()
-        
-        # Simulate AASIST scoring (higher variance often indicates spoofing)
-        aasist_score = min(1.0, (spectral_variance + temporal_variance) / 2.0)
-        
-        logger.debug(f"AASIST spoofing score: {aasist_score:.3f}")
-        return aasist_score
+        with torch.no_grad():
+            scores, _, _ = self._aasist_model.classify_batch(waveform)
+            # The model returns scores for bonafide and spoof. We want the spoof probability.
+            # The output format may vary, so we need to inspect it.
+            # Assuming the second column is the spoof score.
+            spoof_prob = torch.exp(scores)[:, 1].item()
+        return spoof_prob
     
     def _predict_with_rawnet2(self, waveform: torch.Tensor) -> float:
         """Predict spoofing score using RawNet2 model."""
-        # Placeholder implementation - would use real RawNet2 model
-        # RawNet2 analyzes raw waveform patterns
-        
-        # Simulate raw waveform analysis
-        amplitude_std = torch.std(waveform, dim=-1).mean().item()
-        zero_crossing_rate = self._calculate_zcr(waveform)
-        
-        # RawNet2-style scoring
-        rawnet2_score = min(1.0, (amplitude_std * 2 + zero_crossing_rate) / 3.0)
-        
-        logger.debug(f"RawNet2 spoofing score: {rawnet2_score:.3f}")
-        return rawnet2_score
+        with torch.no_grad():
+            scores, _, _ = self._rawnet2_model.classify_batch(waveform)
+            spoof_prob = torch.exp(scores)[:, 1].item()
+        return spoof_prob
     
     def _predict_with_resnet(self, waveform: torch.Tensor) -> float:
         """Predict spoofing score using ResNet model."""
-        # Placeholder implementation - would use real ResNet model
-        # ResNet analyzes spectrogram patterns
-        
-        # Simulate spectrogram-based analysis
-        # Convert to spectrogram
-        spec = torch.stft(waveform.squeeze(), n_fft=self.n_fft, 
-                         hop_length=self.hop_length, return_complex=True)
-        magnitude = torch.abs(spec)
-        
-        # ResNet-style pattern analysis
-        spectral_centroid = torch.mean(magnitude, dim=None).item()
-        spectral_rolloff = torch.quantile(magnitude.flatten(), 0.85, dim=None).item()
-        
-        resnet_score = min(1.0, abs(spectral_centroid - spectral_rolloff) / 10.0)
-        
-        logger.debug(f"ResNet spoofing score: {resnet_score:.3f}")
-        return resnet_score
+        with torch.no_grad():
+            scores, _, _ = self._resnet_model.classify_batch(waveform)
+            spoof_prob = torch.exp(scores)[:, 1].item()
+        return spoof_prob
     
     def _calculate_zcr(self, waveform: torch.Tensor) -> float:
         """Calculate zero crossing rate."""

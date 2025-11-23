@@ -5,7 +5,7 @@ from typing import Dict, Optional
 from uuid import UUID, uuid4
 from datetime import datetime, timezone
 
-from ..domain.repositories.VoiceTemplateRepositoryPort import VoiceTemplateRepositoryPort
+from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
 from ..domain.repositories.PhraseRepositoryPort import PhraseRepositoryPort, PhraseUsageRepositoryPort
@@ -22,6 +22,9 @@ class VerificationSession:
         self.created_at = datetime.now(timezone.utc)
 
 
+from .services.BiometricValidator import BiometricValidator
+
+
 class VerificationServiceV2:
     """Service for voice biometric verification with dynamic phrases."""
     
@@ -30,11 +33,12 @@ class VerificationServiceV2:
     
     def __init__(
         self,
-        voice_repo: VoiceTemplateRepositoryPort,
+        voice_repo: VoiceSignatureRepositoryPort,
         user_repo: UserRepositoryPort,
         audit_repo: AuditLogRepositoryPort,
         phrase_repo: PhraseRepositoryPort,
         phrase_usage_repo: PhraseUsageRepositoryPort,
+        biometric_validator: BiometricValidator,
         similarity_threshold: float = 0.75,
         anti_spoofing_threshold: float = 0.5
     ):
@@ -43,6 +47,7 @@ class VerificationServiceV2:
         self._audit_repo = audit_repo
         self._phrase_repo = phrase_repo
         self._phrase_usage_repo = phrase_usage_repo
+        self._biometric_validator = biometric_validator
         self._similarity_threshold = similarity_threshold
         self._anti_spoofing_threshold = anti_spoofing_threshold
     
@@ -125,7 +130,7 @@ class VerificationServiceV2:
             raise ValueError("Phrase does not match verification session")
         
         # Validate embedding
-        if not self._validate_embedding(embedding):
+        if not self._biometric_validator.is_valid_embedding(embedding):
             raise ValueError("Invalid voice embedding")
         
         # Get user's voiceprint
@@ -135,7 +140,7 @@ class VerificationServiceV2:
         
         # Calculate similarity
         stored_embedding = np.array(voiceprint.embedding)
-        similarity_score = self._calculate_similarity(embedding, stored_embedding)
+        similarity_score = self._biometric_validator.calculate_similarity(embedding, stored_embedding)
         
         # Check anti-spoofing
         is_live = True
@@ -213,12 +218,12 @@ class VerificationServiceV2:
             raise ValueError(f"User {user_id} is not enrolled")
         
         # Validate embedding
-        if not self._validate_embedding(embedding):
+        if not self._biometric_validator.is_valid_embedding(embedding):
             raise ValueError("Invalid voice embedding")
         
         # Calculate similarity
         stored_embedding = np.array(voiceprint.embedding)
-        similarity_score = self._calculate_similarity(embedding, stored_embedding)
+        similarity_score = self._biometric_validator.calculate_similarity(embedding, stored_embedding)
         
         # Check anti-spoofing
         is_live = True
@@ -283,30 +288,4 @@ class VerificationServiceV2:
             "recent_attempts": attempts[:limit]
         }
     
-    def _validate_embedding(self, embedding: VoiceEmbedding) -> bool:
-        """Validate voice embedding."""
-        if embedding is None:
-            return False
-        
-        if embedding.shape != (256,):
-            return False
-        
-        if np.any(np.isnan(embedding)) or np.any(np.isinf(embedding)):
-            return False
-        
-        if np.allclose(embedding, 0):
-            return False
-        
-        return True
-    
-    def _calculate_similarity(self, embedding1: np.ndarray, embedding2: np.ndarray) -> float:
-        """Calculate cosine similarity between embeddings."""
-        # Normalize embeddings
-        norm1 = embedding1 / np.linalg.norm(embedding1)
-        norm2 = embedding2 / np.linalg.norm(embedding2)
-        
-        # Calculate cosine similarity
-        similarity = np.dot(norm1, norm2)
-        
-        # Return value between 0 and 1
-        return float(max(0, min(1, (similarity + 1) / 2)))
+

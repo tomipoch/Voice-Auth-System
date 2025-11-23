@@ -9,8 +9,8 @@ from ..model.VoiceSignature import VoiceSignature
 from ...shared.types.common_types import UserId, VoiceEmbedding
 
 
-class VoiceTemplateRepositoryPort(ABC):
-    """Repository interface for voice templates (voiceprints)."""
+class VoiceSignatureRepositoryPort(ABC):
+    """Repository interface for voice signatures (voiceprints)."""
     
     @abstractmethod
     async def save_voiceprint(self, voiceprint: VoiceSignature) -> None:

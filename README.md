@@ -1,6 +1,6 @@
 # 🎙️ Voice Biometrics Authentication System
 
-Sistema completo de autenticación biométrica por voz con backend FastAPI y frontend Angular.
+Sistema completo de autenticación biométrica por voz con backend FastAPI y frontend React.
 
 ## 📋 Documentación del Proyecto
 
@@ -24,7 +24,7 @@ Proyecto/
 │   ├── docker-compose.yml # Servicios Docker
 │   └── README.md          # Documentación del backend
 │
-├── App/                   # Frontend Angular
+├── App/                   # Frontend React
 │   ├── src/              # Código fuente
 │   ├── public/           # Archivos estáticos
 │   └── README.md         # Documentación del frontend
@@ -144,7 +144,7 @@ python scripts/extract_phrases.py
 - **JWT** - Autenticación con tokens
 
 ### Frontend
-- **Angular 18+** - Framework frontend
+- **React 19+** - Framework frontend
 - **TypeScript** - Tipado estático
 - **Tailwind CSS** - Estilos
 - **Vite** - Build tool

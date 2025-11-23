@@ -19,7 +19,6 @@ logger = logging.getLogger(__name__)
 _db_pool: Optional[asyncpg.Pool] = None
 _connection_error: Optional[str] = None
 
-
 async def get_db_pool() -> asyncpg.Pool:
     """Get or create database connection pool."""
     global _db_pool, _connection_error
@@ -69,6 +68,13 @@ async def close_db_pool():
         _db_pool = None
 
 
+from ...application.services.BiometricValidator import BiometricValidator
+
+@lru_cache()
+def get_biometric_validator() -> BiometricValidator:
+    """Get a singleton instance of the BiometricValidator."""
+    return BiometricValidator()
+
 async def get_phrase_service() -> PhraseService:
     """Get phrase service instance with dependencies."""
     pool = await get_db_pool()
@@ -79,52 +85,76 @@ async def get_phrase_service() -> PhraseService:
     return PhraseService(phrase_repo, usage_repo)
 
 
+async def get_user_repository():
+    """Get user repository instance."""
+    from ..persistence.PostgresUserRepository import PostgresUserRepository
+    pool = await get_db_pool()
+    return PostgresUserRepository(pool)
+
+
 async def get_enrollment_service():
     """Get enrollment service instance with dependencies."""
-    from ..persistence.PostgresVoiceTemplateRepository import PostgresVoiceTemplateRepository
-    from ..persistence.PostgresUserRepository import PostgresUserRepository
+    from ..persistence.PostgresVoiceSignatureRepository import PostgresVoiceSignatureRepository
     from ..persistence.PostgresAuditLogRepository import PostgresAuditLogRepository
     from ...application.enrollment_service import EnrollmentService
     
     pool = await get_db_pool()
     
-    voice_repo = PostgresVoiceTemplateRepository(pool)
-    user_repo = PostgresUserRepository(pool)
+    voice_repo = PostgresVoiceSignatureRepository(pool)
+    user_repo = await get_user_repository()
     audit_repo = PostgresAuditLogRepository(pool)
     phrase_repo = PostgresPhraseRepository(pool)
     phrase_usage_repo = PostgresPhraseUsageRepository(pool)
+    biometric_validator = get_biometric_validator()
     
     return EnrollmentService(
         voice_repo=voice_repo,
         user_repo=user_repo,
         audit_repo=audit_repo,
         phrase_repo=phrase_repo,
-        phrase_usage_repo=phrase_usage_repo
+        phrase_usage_repo=phrase_usage_repo,
+        biometric_validator=biometric_validator
+    )
+
+
+@lru_cache()
+def create_voice_biometric_engine():
+    """Create a singleton instance of the VoiceBiometricEngineFacade."""
+    from ..biometrics.SpeakerEmbeddingAdapter import SpeakerEmbeddingAdapter
+    from ..biometrics.SpoofDetectorAdapter import SpoofDetectorAdapter
+    from ..biometrics.ASRAdapter import ASRAdapter
+    from ..biometrics.VoiceBiometricEngineFacade import VoiceBiometricEngineFacade
+
+    speaker_adapter = SpeakerEmbeddingAdapter()
+    spoof_adapter = SpoofDetectorAdapter()
+    asr_adapter = ASRAdapter()
+
+    return VoiceBiometricEngineFacade(
+        speaker_adapter=speaker_adapter,
+        spoof_adapter=spoof_adapter,
+        asr_adapter=asr_adapter,
     )
 
 
 def get_voice_biometric_engine():
     """Get voice biometric engine instance."""
-    from ..services.VoiceBiometricEngineFacade import VoiceBiometricEngineFacade
-    
-    # In production, this would be configured based on environment
-    return VoiceBiometricEngineFacade()
+    return create_voice_biometric_engine()
 
 
 async def get_verification_service_v2():
     """Get verification service V2 instance with dependencies."""
-    from ..persistence.PostgresVoiceTemplateRepository import PostgresVoiceTemplateRepository
-    from ..persistence.PostgresUserRepository import PostgresUserRepository
+    from ..persistence.PostgresVoiceSignatureRepository import PostgresVoiceSignatureRepository
     from ..persistence.PostgresAuditLogRepository import PostgresAuditLogRepository
     from ...application.verification_service_v2 import VerificationServiceV2
     
     pool = await get_db_pool()
     
-    voice_repo = PostgresVoiceTemplateRepository(pool)
-    user_repo = PostgresUserRepository(pool)
+    voice_repo = PostgresVoiceSignatureRepository(pool)
+    user_repo = await get_user_repository()
     audit_repo = PostgresAuditLogRepository(pool)
     phrase_repo = PostgresPhraseRepository(pool)
     phrase_usage_repo = PostgresPhraseUsageRepository(pool)
+    biometric_validator = get_biometric_validator()
     
     return VerificationServiceV2(
         voice_repo=voice_repo,
@@ -132,6 +162,7 @@ async def get_verification_service_v2():
         audit_repo=audit_repo,
         phrase_repo=phrase_repo,
         phrase_usage_repo=phrase_usage_repo,
-        similarity_threshold=0.75,
-        anti_spoofing_threshold=0.5
+        biometric_validator=biometric_validator,
+        similarity_threshold=float(os.getenv("SIMILARITY_THRESHOLD", "0.75")),
+        anti_spoofing_threshold=float(os.getenv("ANTI_SPOOFING_THRESHOLD", "0.5"))
     )

@@ -98,8 +98,8 @@ mock_activity_logs = [
     )
 ]
 
-# Import mock users from auth controller
-from .auth_controller import mock_users
+from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
+from ..infrastructure.config.dependencies import get_user_repository
 
 def require_admin(current_user: dict = Depends(get_current_user)):
     """Require admin role."""
@@ -114,75 +114,36 @@ def require_admin(current_user: dict = Depends(get_current_user)):
 async def get_users(
     page: int = 1,
     limit: int = 10,
-    current_user: dict = Depends(require_admin)
+    current_user: dict = Depends(require_admin),
+    user_repo: UserRepositoryPort = Depends(get_user_repository),
 ):
     """
     Get paginated list of users (admin only).
     Admins only see users from their company, superadmin sees all users.
     """
-    try:
-        # Import mock_users from auth_controller
-        from .auth_controller import mock_users
-        
-        # Convert mock_users to list and add additional fields
-        users_list = []
-        for email, user_data in mock_users.items():
-            user_info = UserInfo(
-                id=user_data["id"],
-                name=user_data["name"],
-                email=user_data["email"],
-                role=user_data["role"],
-                company=user_data["company"],
-                status="active",
-                enrollment_status="completed" if user_data["voice_template"] else "pending",
-                created_at=user_data["created_at"],
-                last_login=user_data["created_at"],  # Mock last_login
-                voice_template=user_data["voice_template"]
-            )
-            users_list.append(user_info)
-        
-        # Filter users based on current user's role
-        if current_user["role"] == "admin":
-            # Admins can only see users from their company
-            users_list = [u for u in users_list if u.company == current_user["company"]]
-        # Superadmins see all users (no filtering needed)
-        
-        # Apply pagination
-        
-        # Implement pagination
-        start_index = (page - 1) * limit
-        end_index = start_index + limit
-        paginated_users = users_list[start_index:end_index]
-        
-        return PaginatedUsers(
-            users=paginated_users,
-            total=len(users_list),
-            page=page,
-            limit=limit,
-            total_pages=(len(users_list) + limit - 1) // limit
+    # Filter users based on current user's role
+    if current_user["role"] == "admin":
+        # Admins can only see users from their company
+        users, total = await user_repo.get_users_by_company(
+            current_user["company"], page, limit
         )
+    else:
+        users, total = await user_repo.get_all_users(page, limit)
     
-    except Exception as e:
-        logger.error(f"Error getting users: {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Internal server error"
-        )
+    return PaginatedUsers(
+        users=users,
+        total=total,
+        page=page,
+        limit=limit,
+        total_pages=(total + limit - 1) // limit
+    )
 
 @admin_router.get("/stats", response_model=SystemStats)
 async def get_system_stats(current_user: dict = Depends(require_admin)):
     """
     Get system statistics (admin only).
     """
-    try:
-        return mock_system_stats
-    
-    except Exception as e:
-        logger.error(f"Error getting system stats: {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Internal server error"
-        )
+    return mock_system_stats
 
 @admin_router.get("/activity", response_model=List[ActivityLog])
 async def get_recent_activity(
@@ -192,109 +153,40 @@ async def get_recent_activity(
     """
     Get recent activity logs (admin only).
     """
-    try:
-        return mock_activity_logs[:limit]
-    
-    except Exception as e:
-        logger.error(f"Error getting activity logs: {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Internal server error"
-        )
+    return mock_activity_logs[:limit]
 
 @admin_router.delete("/users/{user_id}")
 async def delete_user(
     user_id: str,
-    current_user: dict = Depends(require_admin)
+    current_user: dict = Depends(require_admin),
+    user_repo: UserRepositoryPort = Depends(get_user_repository),
 ):
     """
     Delete a user (admin only).
     """
-    try:
-        # Find user in mock_users
-        user_to_delete = None
-        email_to_delete = None
-        
-        for email, user_data in mock_users.items():
-            if user_data["id"] == user_id:
-                user_to_delete = user_data
-                email_to_delete = email
-                break
-        
-        if not user_to_delete:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="User not found"
-            )
-        
-        # Don't allow deleting yourself
-        if user_id == current_user["id"]:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Cannot delete your own account"
-            )
-        
-        # Delete user
-        del mock_users[email_to_delete]
-        
-        return {"message": "User deleted successfully"}
-    
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error deleting user: {str(e)}")
+    # Don't allow deleting yourself
+    if user_id == current_user["id"]:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Internal server error"
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot delete your own account"
         )
+    
+    await user_repo.delete_user(user_id)
+    
+    return {"message": "User deleted successfully"}
 
 @admin_router.patch("/users/{user_id}")
 async def update_user(
     user_id: str,
     user_data: dict,
-    current_user: dict = Depends(require_admin)
+    current_user: dict = Depends(require_admin),
+    user_repo: UserRepositoryPort = Depends(get_user_repository),
 ):
     """
     Update user data (admin only).
     """
-    try:
-        # Find user in mock_users
-        user_to_update = None
-        email_to_update = None
-        
-        for email, existing_user in mock_users.items():
-            if existing_user["id"] == user_id:
-                user_to_update = existing_user
-                email_to_update = email
-                break
-        
-        if not user_to_update:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="User not found"
-            )
-        
-        # Update allowed fields
-        allowed_fields = ["name", "role"]
-        for field in allowed_fields:
-            if field in user_data:
-                user_to_update[field] = user_data[field]
-        
-        return {
-            "message": "User updated successfully",
-            "user": {
-                "id": user_to_update["id"],
-                "name": user_to_update["name"],
-                "email": user_to_update["email"],
-                "role": user_to_update["role"]
-            }
-        }
+    await user_repo.update_user(user_id, user_data)
     
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error updating user: {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Internal server error"
-        )
+    return {
+        "message": "User updated successfully",
+    }

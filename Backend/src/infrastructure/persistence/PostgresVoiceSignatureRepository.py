@@ -6,21 +6,22 @@ from typing import List, Optional, Dict, Any
 from uuid import UUID, uuid4
 
 from ..domain.model.VoiceSignature import VoiceSignature
-from ..domain.repositories.VoiceTemplateRepositoryPort import VoiceTemplateRepositoryPort
+from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
 from ...shared.types.common_types import UserId, VoiceEmbedding
+from ..security.encryption import DataEncryptor, get_encryptor
 
 
-class PostgresVoiceTemplateRepository(VoiceTemplateRepositoryPort):
-    """PostgreSQL implementation of voice template repository."""
+class PostgresVoiceSignatureRepository(VoiceSignatureRepositoryPort):
+    """PostgreSQL implementation of voice signature repository."""
     
     def __init__(self, connection_pool: asyncpg.Pool):
         self._pool = connection_pool
+        self._encryptor: DataEncryptor = get_encryptor()
     
     async def save_voiceprint(self, voiceprint: VoiceSignature) -> None:
-        """Save a user's voiceprint."""
+        """Save a user's voiceprint, encrypting the embedding."""
         async with self._pool.acquire() as conn:
-            # Convert numpy array to list for pgvector
-            embedding_list = voiceprint.embedding.tolist()
+            encrypted_embedding = self._encryptor.encrypt(voiceprint.embedding.tobytes())
             
             await conn.execute(
                 """
@@ -29,13 +30,13 @@ class PostgresVoiceTemplateRepository(VoiceTemplateRepositoryPort):
                 """,
                 voiceprint.id,
                 voiceprint.user_id,
-                embedding_list,
+                encrypted_embedding,
                 voiceprint.created_at,
                 voiceprint.speaker_model_id
             )
     
     async def get_voiceprint_by_user(self, user_id: UserId) -> Optional[VoiceSignature]:
-        """Get the current voiceprint for a user."""
+        """Get the current voiceprint for a user, decrypting the embedding."""
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
@@ -47,8 +48,8 @@ class PostgresVoiceTemplateRepository(VoiceTemplateRepositoryPort):
             )
             
             if row:
-                # Convert list back to numpy array
-                embedding = np.array(row['embedding'], dtype=np.float32)
+                decrypted_embedding_bytes = self._encryptor.decrypt(row['embedding'])
+                embedding = np.frombuffer(decrypted_embedding_bytes, dtype=np.float32)
                 
                 return VoiceSignature(
                     id=row['id'],
@@ -60,9 +61,9 @@ class PostgresVoiceTemplateRepository(VoiceTemplateRepositoryPort):
             return None
     
     async def update_voiceprint(self, voiceprint: VoiceSignature) -> None:
-        """Update an existing voiceprint."""
+        """Update an existing voiceprint, encrypting the new embedding."""
         async with self._pool.acquire() as conn:
-            embedding_list = voiceprint.embedding.tolist()
+            encrypted_embedding = self._encryptor.encrypt(voiceprint.embedding.tobytes())
             
             await conn.execute(
                 """
@@ -70,7 +71,7 @@ class PostgresVoiceTemplateRepository(VoiceTemplateRepositoryPort):
                 SET embedding = $1, created_at = $2, speaker_model_id = $3
                 WHERE user_id = $4
                 """,
-                embedding_list,
+                encrypted_embedding,
                 voiceprint.created_at,
                 voiceprint.speaker_model_id,
                 voiceprint.user_id
@@ -93,9 +94,9 @@ class PostgresVoiceTemplateRepository(VoiceTemplateRepositoryPort):
         snr_db: Optional[float] = None,
         duration_sec: Optional[float] = None
     ) -> UUID:
-        """Save an individual enrollment sample."""
+        """Save an individual enrollment sample, encrypting the embedding."""
         sample_id = uuid4()
-        embedding_list = embedding.tolist()
+        encrypted_embedding = self._encryptor.encrypt(embedding.tobytes())
         
         async with self._pool.acquire() as conn:
             await conn.execute(
@@ -103,13 +104,13 @@ class PostgresVoiceTemplateRepository(VoiceTemplateRepositoryPort):
                 INSERT INTO enrollment_sample (id, user_id, embedding, snr_db, duration_sec, created_at)
                 VALUES ($1, $2, $3, $4, $5, now())
                 """,
-                sample_id, user_id, embedding_list, snr_db, duration_sec
+                sample_id, user_id, encrypted_embedding, snr_db, duration_sec
             )
         
         return sample_id
     
     async def get_enrollment_samples(self, user_id: UserId) -> List[Dict[str, Any]]:
-        """Get all enrollment samples for a user."""
+        """Get all enrollment samples for a user, decrypting embeddings."""
         async with self._pool.acquire() as conn:
             rows = await conn.fetch(
                 """
@@ -124,16 +125,16 @@ class PostgresVoiceTemplateRepository(VoiceTemplateRepositoryPort):
             samples = []
             for row in rows:
                 sample = dict(row)
-                # Convert embedding list back to numpy array
-                sample['embedding'] = np.array(row['embedding'], dtype=np.float32)
+                decrypted_embedding_bytes = self._encryptor.decrypt(row['embedding'])
+                sample['embedding'] = np.frombuffer(decrypted_embedding_bytes, dtype=np.float32)
                 samples.append(sample)
             
             return samples
     
     async def save_voiceprint_history(self, voiceprint: VoiceSignature) -> None:
-        """Save voiceprint to history for audit trail."""
+        """Save voiceprint to history, encrypting the embedding."""
         async with self._pool.acquire() as conn:
-            embedding_list = voiceprint.embedding.tolist()
+            encrypted_embedding = self._encryptor.encrypt(voiceprint.embedding.tobytes())
             
             await conn.execute(
                 """
@@ -142,13 +143,13 @@ class PostgresVoiceTemplateRepository(VoiceTemplateRepositoryPort):
                 """,
                 uuid4(),
                 voiceprint.user_id,
-                embedding_list,
+                encrypted_embedding,
                 voiceprint.created_at,
                 voiceprint.speaker_model_id
             )
     
     async def get_voiceprint_history(self, user_id: UserId) -> List[VoiceSignature]:
-        """Get voiceprint history for a user."""
+        """Get voiceprint history for a user, decrypting embeddings."""
         async with self._pool.acquire() as conn:
             rows = await conn.fetch(
                 """
@@ -162,7 +163,8 @@ class PostgresVoiceTemplateRepository(VoiceTemplateRepositoryPort):
             
             history = []
             for row in rows:
-                embedding = np.array(row['embedding'], dtype=np.float32)
+                decrypted_embedding_bytes = self._encryptor.decrypt(row['embedding'])
+                embedding = np.frombuffer(decrypted_embedding_bytes, dtype=np.float32)
                 
                 signature = VoiceSignature(
                     id=row['id'],
