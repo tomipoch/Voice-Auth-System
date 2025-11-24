@@ -18,8 +18,11 @@ docker-compose up -d
 # Health check
 curl http://localhost:8000/health
 
-# Ver documentación
+# Ver documentación interactiva
 open http://localhost:8000/docs
+
+# Ver documentación completa con ejemplos
+open Backend/API_DOCUMENTATION.md
 ```
 
 ## 📁 Estructura del Proyecto
@@ -118,7 +121,9 @@ Importar colecciones en Postman:
 
 ## 📚 Documentación
 
-Ver `COMMANDS_CHEATSHEET.md` en la raíz del proyecto para comandos útiles.
+- **Documentación Completa de la API**: Ver `API_DOCUMENTATION.md`
+- **Comandos Útiles**: Ver `../COMMANDS_CHEATSHEET.md` 
+- **Documentación Interactiva**: http://localhost:8000/docs
 
 ## 🛠️ Desarrollo
 
