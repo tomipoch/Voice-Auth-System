@@ -9,7 +9,7 @@ from .dto.VerificationResponseDTO import VerificationResponseDTO
 from .policies.PolicySelector import PolicySelector
 from ..domain.services.DecisionService import DecisionService
 from ..domain.services.ResultBuilder import ResultBuilder
-from ..domain.repositories.VoiceTemplateRepositoryPort import VoiceTemplateRepositoryPort
+from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.ChallengeRepositoryPort import ChallengeRepositoryPort
 from ..domain.repositories.AuthAttemptRepositoryPort import AuthAttemptRepositoryPort
@@ -25,7 +25,7 @@ class VerificationService:
     
     def __init__(
         self,
-        voice_repo: VoiceTemplateRepositoryPort,
+        voice_repo: VoiceSignatureRepositoryPort,
         user_repo: UserRepositoryPort,
         challenge_repo: ChallengeRepositoryPort,
         auth_repo: AuthAttemptRepositoryPort,

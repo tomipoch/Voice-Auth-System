@@ -43,9 +43,16 @@ CREATE TABLE IF NOT EXISTS api_key (
 
 CREATE TABLE IF NOT EXISTS "user" (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  password TEXT NOT NULL,
+  company TEXT,
+  role TEXT NOT NULL DEFAULT 'user',
   external_ref TEXT UNIQUE,            -- id en el sistema bancario / core / CRM
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  deleted_at TIMESTAMPTZ               -- nullo = activo; si no nullo = usuario eliminado / anonimizado
+  deleted_at TIMESTAMPTZ,               -- nullo = activo; si no nullo = usuario eliminado / anonimizado
+  failed_auth_attempts INT NOT NULL DEFAULT 0,
+  locked_until TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS user_policy (
@@ -82,7 +89,7 @@ CREATE TABLE IF NOT EXISTS model_version (
 CREATE TABLE IF NOT EXISTS voiceprint (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
-  embedding vector(256) NOT NULL,          -- firma biométrica actual del usuario
+  embedding BYTEA NOT NULL,          -- firma biométrica actual del usuario
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   speaker_model_id INT REFERENCES model_version(id),  -- qué modelo generó esta firma
   CONSTRAINT uq_voiceprint_user UNIQUE (user_id)
@@ -91,7 +98,7 @@ CREATE TABLE IF NOT EXISTS voiceprint (
 CREATE TABLE IF NOT EXISTS voiceprint_history (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
-  embedding vector(256) NOT NULL,
+  embedding BYTEA NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   speaker_model_id INT REFERENCES model_version(id)
 );
@@ -99,7 +106,7 @@ CREATE TABLE IF NOT EXISTS voiceprint_history (
 CREATE TABLE IF NOT EXISTS enrollment_sample (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
-  embedding vector(256) NOT NULL,   -- embedding individual de esa frase
+  embedding BYTEA NOT NULL,   -- embedding individual de esa frase
   snr_db REAL,                      -- calidad de señal/ruido
   duration_sec REAL,                -- duración útil hablada
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()

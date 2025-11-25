@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     ffmpeg \
     libsndfile1 \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Create virtual environment
@@ -17,8 +18,10 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
+COPY requirements-dev.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir -r requirements-dev.txt && \
     pip cache purge
 
 # Production stage
@@ -42,6 +45,7 @@ WORKDIR /app
 # Copy application code
 COPY src/ ./src/
 COPY scripts/ ./scripts/
+COPY tests/ ./tests/
 
 # Create necessary directories
 RUN mkdir -p /app/logs /app/models /app/temp && \

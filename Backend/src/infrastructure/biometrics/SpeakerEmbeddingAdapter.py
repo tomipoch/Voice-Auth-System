@@ -54,41 +54,8 @@ class SpeakerEmbeddingAdapter:
         # Audio preprocessing parameters
         self.target_sample_rate = 16000
         self.target_length = 3.0  # seconds
-    
-    def _load_model(self):
-        """Load speaker recognition model (ECAPA-TDNN or x-vector) from SpeechBrain."""
-        if self._model_loaded:
-            return
-            
-        try:
-            # Import here to avoid loading if not needed
-            from speechbrain.pretrained import EncoderClassifier
-            
-            logger.info(f"Loading {self._model_type} model from SpeechBrain...")
-            
-            # Load primary model based on type
-            if self._model_type == "ecapa_tdnn":
-                success = self._load_ecapa_tdnn_model()
-            elif self._model_type == "x_vector":
-                success = self._load_x_vector_model()
-            else:
-                logger.error(f"Unknown model type: {self._model_type}")
-                success = False
-            
-            if success:
-                self._model_loaded = True
-                logger.info(f"{self._model_type} model loaded successfully")
-            else:
-                raise RuntimeError(f"Failed to load {self._model_type} model")
-            
-        except ImportError as e:
-            logger.error(f"SpeechBrain not available: {e}")
-            logger.warning(FALLBACK_MSG)
-            self._model_loaded = False
-        except Exception as e:
-            logger.error(f"Failed to load {self._model_type} model: {e}")
-            logger.warning(FALLBACK_MSG)
-            self._model_loaded = False
+
+        self._load_model()
     
     def _load_ecapa_tdnn_model(self) -> bool:
         """Load ECAPA-TDNN model specifically."""

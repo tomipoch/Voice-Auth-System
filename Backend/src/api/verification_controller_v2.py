@@ -8,7 +8,7 @@ import soundfile as sf
 import logging
 
 from ..application.verification_service_v2 import VerificationServiceV2
-from ..infrastructure.services.VoiceBiometricEngineFacade import VoiceBiometricEngineFacade
+from ..infrastructure.biometrics.VoiceBiometricEngineFacade import VoiceBiometricEngineFacade
 from ..application.dto.verification_dto import (
     StartVerificationResponse,
     VerifyVoiceResponse

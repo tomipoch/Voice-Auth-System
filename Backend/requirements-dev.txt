@@ -15,5 +15,8 @@ isort>=5.12.0
 # Development Tools
 pre-commit>=3.5.0
 
+# PDF Processing
+PyPDF2>=3.0.0
+
 # Production Deployment (optional)
 gunicorn>=21.2.0
