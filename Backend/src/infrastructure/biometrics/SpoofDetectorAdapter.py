@@ -86,14 +86,31 @@ class SpoofDetectorAdapter:
             # Load AASIST model
             try:
                 if not model_manager.is_model_available("aasist"):
-                    model_manager.download_model("aasist")
-                aasist_path = model_manager.get_model_path("aasist")
-                self._aasist_model = EncoderClassifier.from_hparams(
-                    source=str(aasist_path),
-                    run_opts={"device": str(self.device)}
-                )
-                logger.info("AASIST model loaded successfully")
-                success_count += 1
+                    # Try to download, but don't fail if it doesn't work
+                    download_success = model_manager.download_model("aasist")
+                    if not download_success:
+                        logger.warning("AASIST model download failed, skipping")
+                        self._aasist_model = None
+                        # Continue to next model instead of raising exception
+                else:
+                    aasist_path = model_manager.get_model_path("aasist")
+                    # Check if hyperparams.yaml exists (required for loading)
+                    hyperparams_file = aasist_path / "hyperparams.yaml"
+                    if not hyperparams_file.exists():
+                        logger.warning(f"AASIST model incomplete at {aasist_path}, skipping")
+                        self._aasist_model = None
+                    else:
+                        # Try to load from local path first
+                        try:
+                            self._aasist_model = EncoderClassifier.from_hparams(
+                                source=str(aasist_path),
+                                run_opts={"device": str(self.device)}
+                            )
+                            logger.info("AASIST model loaded successfully from local path")
+                            success_count += 1
+                        except Exception as load_error:
+                            logger.warning(f"Failed to load AASIST from local path: {load_error}")
+                            self._aasist_model = None
             except Exception as e:
                 logger.warning(f"Failed to load AASIST model: {e}")
                 self._aasist_model = None
@@ -101,14 +118,32 @@ class SpoofDetectorAdapter:
             # Load RawNet2 model
             try:
                 if not model_manager.is_model_available("rawnet2"):
-                    model_manager.download_model("rawnet2")
-                rawnet2_path = model_manager.get_model_path("rawnet2")
-                self._rawnet2_model = EncoderClassifier.from_hparams(
-                    source=str(rawnet2_path),
-                    run_opts={"device": str(self.device)}
-                )
-                logger.info("RawNet2 model loaded successfully")
-                success_count += 1
+                    # Try to download, but don't fail if it doesn't work
+                    download_success = model_manager.download_model("rawnet2")
+                    if not download_success:
+                        logger.warning("RawNet2 model download failed, skipping")
+                        self._rawnet2_model = None
+                        # Continue to next model instead of raising exception
+                else:
+                    rawnet2_path = model_manager.get_model_path("rawnet2")
+                    # Check if required files exist
+                    hyperparams_file = rawnet2_path / "hyperparams.yaml"
+                    embedding_file = rawnet2_path / "embedding_model.ckpt"
+                    if not hyperparams_file.exists() or not embedding_file.exists():
+                        logger.warning(f"RawNet2 model incomplete at {rawnet2_path}, skipping")
+                        self._rawnet2_model = None
+                    else:
+                        # Try to load from local path
+                        try:
+                            self._rawnet2_model = EncoderClassifier.from_hparams(
+                                source=str(rawnet2_path),
+                                run_opts={"device": str(self.device)}
+                            )
+                            logger.info("RawNet2 model loaded successfully from local path")
+                            success_count += 1
+                        except Exception as load_error:
+                            logger.warning(f"Failed to load RawNet2 from local path: {load_error}")
+                            self._rawnet2_model = None
             except Exception as e:
                 logger.warning(f"Failed to load RawNet2 model: {e}")
                 self._rawnet2_model = None
@@ -116,14 +151,31 @@ class SpoofDetectorAdapter:
             # Load ResNet model
             try:
                 if not model_manager.is_model_available("resnet_antispoofing"):
-                    model_manager.download_model("resnet_antispoofing")
-                resnet_path = model_manager.get_model_path("resnet_antispoofing")
-                self._resnet_model = EncoderClassifier.from_hparams(
-                    source=str(resnet_path),
-                    run_opts={"device": str(self.device)}
-                )
-                logger.info("ResNet anti-spoofing model loaded successfully")
-                success_count += 1
+                    # Try to download, but don't fail if it doesn't work
+                    download_success = model_manager.download_model("resnet_antispoofing")
+                    if not download_success:
+                        logger.warning("ResNet model download failed, skipping")
+                        self._resnet_model = None
+                        # Continue to next model instead of raising exception
+                else:
+                    resnet_path = model_manager.get_model_path("resnet_antispoofing")
+                    # Check if required files exist
+                    hyperparams_file = resnet_path / "hyperparams.yaml"
+                    if not hyperparams_file.exists():
+                        logger.warning(f"ResNet model incomplete at {resnet_path}, skipping")
+                        self._resnet_model = None
+                    else:
+                        # Try to load from local path
+                        try:
+                            self._resnet_model = EncoderClassifier.from_hparams(
+                                source=str(resnet_path),
+                                run_opts={"device": str(self.device)}
+                            )
+                            logger.info("ResNet anti-spoofing model loaded successfully from local path")
+                            success_count += 1
+                        except Exception as load_error:
+                            logger.warning(f"Failed to load ResNet from local path: {load_error}")
+                            self._resnet_model = None
             except Exception as e:
                 logger.warning(f"Failed to load ResNet model: {e}")
                 self._resnet_model = None

@@ -85,14 +85,33 @@ class ASRAdapter:
             # Load ASR model from anteproyecto specifications
             try:
                 if not model_manager.is_model_available("lightweight_asr"):
-                    model_manager.download_model("lightweight_asr")
+                    download_success = model_manager.download_model("lightweight_asr")
+                    if not download_success:
+                        logger.warning("ASR model download failed, using fallback")
+                        self._model_loaded = False
+                        return
+                
                 asr_path = model_manager.get_model_path("lightweight_asr")
-                self._asr_model = ASR.from_hparams(
-                    source=str(asr_path),
-                    run_opts={"device": str(self.device)}
-                )
-                logger.info("Lightweight ASR model loaded successfully")
-                self._model_loaded = True
+                # Check if required files exist
+                hyperparams_file = asr_path / "hyperparams.yaml"
+                asr_file = asr_path / "asr.ckpt"
+                if not hyperparams_file.exists() or not asr_file.exists():
+                    logger.warning(f"ASR model incomplete at {asr_path}, using fallback")
+                    self._model_loaded = False
+                    return
+                
+                # Try to load from local path
+                try:
+                    self._asr_model = ASR.from_hparams(
+                        source=str(asr_path),
+                        run_opts={"device": str(self.device)}
+                    )
+                    logger.info("Lightweight ASR model loaded successfully from local path")
+                    self._model_loaded = True
+                except Exception as load_error:
+                    logger.warning(f"Failed to load ASR from local path: {load_error}")
+                    self._asr_model = None
+                    self._model_loaded = False
                 
             except Exception as e:
                 logger.warning(f"Failed to load ASR model: {e}")
