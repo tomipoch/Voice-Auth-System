@@ -55,7 +55,7 @@ limiter = Limiter(key_func=get_remote_address, default_limits=[os.getenv("RATE_L
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - "%(message)s""
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -127,6 +127,26 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    
+    # Root endpoint
+    @app.get("/")
+    async def root():
+        """Root endpoint with API information."""
+        return {
+            "service": "Voice Biometrics API",
+            "version": "1.0.0",
+            "status": "running",
+            "documentation": "/docs",
+            "health": "/health",
+            "endpoints": {
+                "authentication": "/api/auth",
+                "enrollment": "/api/v1/enrollment",
+                "verification": "/api/v1/verification",
+                "phrases": "/api/phrases",
+                "admin": "/api/admin",
+                "challenges": "/api/challenges"
+            }
+        }
     
     # Include routers
     app.include_router(auth_router, prefix="/api/auth", tags=["authentication"])

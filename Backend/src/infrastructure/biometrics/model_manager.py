@@ -103,7 +103,7 @@ class ModelManager:
             "aasist": ModelConfig(
                 name="AASIST Anti-Spoofing",
                 source="speechbrain/aasist-wav2vec2-AASIST",
-                local_path="aasist",
+                local_path="aasist-substitute",  # Updated to match existing folder
                 model_type="antispoofing",
                 version="1.0.0",
                 size_mb=50,
@@ -114,7 +114,7 @@ class ModelManager:
             "rawnet2": ModelConfig(
                 name="RawNet2 Anti-Spoofing",
                 source="speechbrain/spkrec-rawnet2-antispoofing",
-                local_path="rawnet2",
+                local_path="rawnet2-substitute",  # Updated to match existing folder
                 model_type="antispoofing",
                 version="1.0.0",
                 size_mb=30,
@@ -138,7 +138,7 @@ class ModelManager:
             "lightweight_asr": ModelConfig(
                 name="Lightweight ASR",
                 source="speechbrain/asr-wav2vec2-commonvoice-14-en",
-                local_path="lightweight_asr",
+                local_path="asr-commonvoice-asr",  # Updated to match existing folder
                 model_type="asr",
                 version="1.0.0",
                 size_mb=120,
@@ -206,6 +206,14 @@ class ModelManager:
             
             logger.info(f"Downloading SpeechBrain model: {config.source}")
             
+            # Check if model path already exists and has content to avoid re-downloading
+            if model_path.exists() and any(model_path.iterdir()):
+                # Check if it's a valid model directory
+                hyperparams_file = model_path / "hyperparams.yaml"
+                if hyperparams_file.exists():
+                    logger.info(f"Model {config.name} already exists at {model_path}")
+                    return True
+            
             # SpeechBrain automatically downloads to the specified directory
             _ = EncoderClassifier.from_hparams(
                 source=config.source,
@@ -220,7 +228,29 @@ class ModelManager:
             logger.error("SpeechBrain not available for downloading")
             return False
         except Exception as e:
+            error_msg = str(e)
+            # Check if it's a 401 or repository not found error
+            if "401" in error_msg or "Repository Not Found" in error_msg or "Invalid username or password" in error_msg:
+                logger.warning(f"Model {config.name} is not publicly available or requires authentication. Skipping download.")
+                # Don't create partial files that would trigger reloads
+                if model_path.exists():
+                    try:
+                        # Clean up any partial files
+                        import shutil
+                        if model_path.is_dir():
+                            shutil.rmtree(model_path, ignore_errors=True)
+                    except Exception:
+                        pass
+                return False
             logger.error(f"Error downloading SpeechBrain model: {e}")
+            # Clean up partial files on error
+            if model_path.exists():
+                try:
+                    import shutil
+                    if model_path.is_dir():
+                        shutil.rmtree(model_path, ignore_errors=True)
+                except Exception:
+                    pass
             return False
     
     def _download_huggingface_model(self, config: ModelConfig, model_path: Path) -> bool:

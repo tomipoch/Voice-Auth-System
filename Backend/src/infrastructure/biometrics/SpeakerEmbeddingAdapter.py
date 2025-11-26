@@ -57,6 +57,22 @@ class SpeakerEmbeddingAdapter:
 
         self._load_model()
     
+    def _load_model(self) -> bool:
+        """
+        Load the appropriate model based on model_type.
+        Returns True if model loaded successfully, False otherwise.
+        """
+        if self._model_type == "ecapa_tdnn":
+            success = self._load_ecapa_tdnn_model()
+        elif self._model_type == "x_vector":
+            success = self._load_x_vector_model()
+        else:
+            logger.error(f"Unknown model type: {self._model_type}")
+            success = False
+        
+        self._model_loaded = success
+        return success
+    
     def _load_ecapa_tdnn_model(self) -> bool:
         """Load ECAPA-TDNN model specifically."""
         try:
