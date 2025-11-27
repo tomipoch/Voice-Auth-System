@@ -5,7 +5,6 @@ import {
   Settings,
   Shield,
   CheckCircle,
-  XCircle,
   TrendingUp,
   Activity,
   Mic,
@@ -128,7 +127,7 @@ const AdminPage = () => {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-purple-800 dark:from-gray-200 dark:via-blue-400/70 dark:to-purple-400/70 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-purple-800 dark:from-gray-200 dark:via-blue-400/70 dark:to-purple-400/70 bg-clip-text text-transparent">
               Panel de Administración
             </h1>
             <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium mt-2">
@@ -158,7 +157,7 @@ const AdminPage = () => {
               >
                 <div className="flex items-center justify-between mb-4">
                   <div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${colorClasses.split(' ')[0]} ${colorClasses.split(' ')[1]} flex items-center justify-center shadow-lg`}
+                    className={`w-12 h-12 rounded-xl bg-linear-to-br ${colorClasses.split(' ')[0]} ${colorClasses.split(' ')[1]} flex items-center justify-center shadow-lg`}
                   >
                     <IconComponent className="h-6 w-6 text-white" />
                   </div>
@@ -205,7 +204,7 @@ const AdminPage = () => {
         <div className="p-8">
           {activeTab === 'dashboard' && (
             <div>
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent mb-6">
+              <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent mb-6">
                 Resumen de la Empresa
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -281,7 +280,7 @@ const AdminPage = () => {
           {activeTab === 'users' && (
             <div>
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent">
+                <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent">
                   Gestión de Usuarios
                 </h2>
                 <Button size="sm" className="shadow-lg">
@@ -297,7 +296,7 @@ const AdminPage = () => {
               ) : (
                 <div className="backdrop-blur-sm bg-white dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-xl shadow-lg overflow-hidden">
                   <table className="min-w-full divide-y divide-blue-200/30 dark:divide-gray-600/30">
-                    <thead className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 dark:from-gray-700/50 dark:to-gray-700/50">
+                    <thead className="bg-linear-to-r from-blue-50/80 to-indigo-50/80 dark:from-gray-700/50 dark:to-gray-700/50">
                       <tr>
                         <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 dark:text-blue-400/70 uppercase tracking-wider">
                           Usuario
@@ -395,20 +394,20 @@ const AdminPage = () => {
 
           {activeTab === 'stats' && (
             <div>
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 bg-clip-text text-transparent mb-6">
+              <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 bg-clip-text text-transparent mb-6">
                 Estadísticas del Sistema
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card variant="glass" className="p-6 shadow-xl">
                   <h3 className="text-lg font-bold text-gray-800 mb-4">Verificaciones por Día</h3>
-                  <div className="h-64 bg-gradient-to-br from-blue-50/60 to-indigo-50/60 border border-blue-200/40 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                  <div className="h-64 bg-linear-to-br from-blue-50/60 to-indigo-50/60 border border-blue-200/40 rounded-xl flex items-center justify-center backdrop-blur-sm">
                     <p className="text-blue-600 font-medium">📊 Gráfico de verificaciones</p>
                   </div>
                 </Card>
 
                 <Card variant="glass" className="p-6 shadow-xl">
                   <h3 className="text-lg font-bold text-gray-800 mb-4">Tasa de Éxito</h3>
-                  <div className="h-64 bg-gradient-to-br from-green-50/60 to-emerald-50/60 border border-green-200/40 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                  <div className="h-64 bg-linear-to-br from-green-50/60 to-emerald-50/60 border border-green-200/40 rounded-xl flex items-center justify-center backdrop-blur-sm">
                     <p className="text-green-600 font-medium">📈 Gráfico de tasa de éxito</p>
                   </div>
                 </Card>
@@ -418,7 +417,7 @@ const AdminPage = () => {
 
           {activeTab === 'settings' && (
             <div>
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent mb-6">
+              <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent mb-6">
                 Configuración de la Empresa
               </h2>
               <div className="space-y-6">
@@ -510,7 +509,7 @@ const AdminPage = () => {
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" defaultChecked />
-                        <div className="w-11 h-6 bg-gray-300 dark:bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <div className="w-11 h-6 bg-gray-300 dark:bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                       </label>
                     </div>
                     <div className="flex items-center justify-between p-4 bg-blue-50/60 dark:bg-gray-700/50 rounded-lg">
@@ -524,7 +523,7 @@ const AdminPage = () => {
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" />
-                        <div className="w-11 h-6 bg-gray-300 dark:bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <div className="w-11 h-6 bg-gray-300 dark:bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                       </label>
                     </div>
                   </div>

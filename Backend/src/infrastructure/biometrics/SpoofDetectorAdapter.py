@@ -11,6 +11,14 @@ from pathlib import Path
 import speechbrain as sb
 from speechbrain.pretrained import EncoderClassifier
 
+from .local_antispoof_models import (
+    BaseLocalAntiSpoofModel,
+    LocalAASISTModel,
+    LocalNes2NetModel,
+    LocalRawNet2Model,
+    build_local_model_paths,
+)
+
 try:
     from ...shared.constants.biometric_constants import DEFAULT_SPOOF_THRESHOLD
 except ImportError:
@@ -52,6 +60,7 @@ class SpoofDetectorAdapter:
         self._aasist_model = None
         self._rawnet2_model = None
         self._resnet_model = None
+        self._local_models: Dict[str, BaseLocalAntiSpoofModel] = {}
         self._models_loaded = False
         
         # Audio processing parameters
@@ -64,7 +73,8 @@ class SpoofDetectorAdapter:
         self.model_weights = {
             'aasist': 0.4,    # Primary model for synthetic speech
             'rawnet2': 0.35,  # Strong for deepfake detection  
-            'resnet': 0.25    # Good for general spoofing patterns
+            'resnet': 0.25,   # Good for general spoofing patterns (SpeechBrain fallback)
+            'nes2net': 0.25   # Local Nes2Net replacement
         }
         
         # Load the anti-spoofing models
@@ -74,125 +84,88 @@ class SpoofDetectorAdapter:
         """Load AASIST, RawNet2 and ResNet models for ensemble anti-spoofing."""
         try:
             logger.info("Loading anti-spoofing models ensemble...")
-            
+
             if model_manager is None:
                 logger.warning("Model manager not available, using placeholder models")
                 self._models_loaded = False
                 return
-            
-            # Try to load real models from anteproyecto specifications
+
             success_count = 0
-            
-            # Load AASIST model
-            try:
-                if not model_manager.is_model_available("aasist"):
-                    # Try to download, but don't fail if it doesn't work
-                    download_success = model_manager.download_model("aasist")
-                    if not download_success:
-                        logger.warning("AASIST model download failed, skipping")
-                        self._aasist_model = None
-                        # Continue to next model instead of raising exception
-                else:
-                    aasist_path = model_manager.get_model_path("aasist")
-                    # Check if hyperparams.yaml exists (required for loading)
-                    hyperparams_file = aasist_path / "hyperparams.yaml"
-                    if not hyperparams_file.exists():
-                        logger.warning(f"AASIST model incomplete at {aasist_path}, skipping")
-                        self._aasist_model = None
-                    else:
-                        # Try to load from local path first
-                        try:
-                            self._aasist_model = EncoderClassifier.from_hparams(
-                                source=str(aasist_path),
-                                run_opts={"device": str(self.device)}
-                            )
-                            logger.info("AASIST model loaded successfully from local path")
-                            success_count += 1
-                        except Exception as load_error:
-                            logger.warning(f"Failed to load AASIST from local path: {load_error}")
-                            self._aasist_model = None
-            except Exception as e:
-                logger.warning(f"Failed to load AASIST model: {e}")
-                self._aasist_model = None
-            
-            # Load RawNet2 model
-            try:
-                if not model_manager.is_model_available("rawnet2"):
-                    # Try to download, but don't fail if it doesn't work
-                    download_success = model_manager.download_model("rawnet2")
-                    if not download_success:
-                        logger.warning("RawNet2 model download failed, skipping")
-                        self._rawnet2_model = None
-                        # Continue to next model instead of raising exception
-                else:
-                    rawnet2_path = model_manager.get_model_path("rawnet2")
-                    # Check if required files exist
-                    hyperparams_file = rawnet2_path / "hyperparams.yaml"
-                    embedding_file = rawnet2_path / "embedding_model.ckpt"
-                    if not hyperparams_file.exists() or not embedding_file.exists():
-                        logger.warning(f"RawNet2 model incomplete at {rawnet2_path}, skipping")
-                        self._rawnet2_model = None
-                    else:
-                        # Try to load from local path
-                        try:
-                            self._rawnet2_model = EncoderClassifier.from_hparams(
-                                source=str(rawnet2_path),
-                                run_opts={"device": str(self.device)}
-                            )
-                            logger.info("RawNet2 model loaded successfully from local path")
-                            success_count += 1
-                        except Exception as load_error:
-                            logger.warning(f"Failed to load RawNet2 from local path: {load_error}")
-                            self._rawnet2_model = None
-            except Exception as e:
-                logger.warning(f"Failed to load RawNet2 model: {e}")
-                self._rawnet2_model = None
-            
-            # Load ResNet model
-            try:
-                if not model_manager.is_model_available("resnet_antispoofing"):
-                    # Try to download, but don't fail if it doesn't work
-                    download_success = model_manager.download_model("resnet_antispoofing")
-                    if not download_success:
-                        logger.warning("ResNet model download failed, skipping")
-                        self._resnet_model = None
-                        # Continue to next model instead of raising exception
-                else:
-                    resnet_path = model_manager.get_model_path("resnet_antispoofing")
-                    # Check if required files exist
-                    hyperparams_file = resnet_path / "hyperparams.yaml"
-                    if not hyperparams_file.exists():
-                        logger.warning(f"ResNet model incomplete at {resnet_path}, skipping")
-                        self._resnet_model = None
-                    else:
-                        # Try to load from local path
-                        try:
-                            self._resnet_model = EncoderClassifier.from_hparams(
-                                source=str(resnet_path),
-                                run_opts={"device": str(self.device)}
-                            )
-                            logger.info("ResNet anti-spoofing model loaded successfully from local path")
-                            success_count += 1
-                        except Exception as load_error:
-                            logger.warning(f"Failed to load ResNet from local path: {load_error}")
-                            self._resnet_model = None
-            except Exception as e:
-                logger.warning(f"Failed to load ResNet model: {e}")
-                self._resnet_model = None
-            
-            # Check if at least one model loaded successfully
+            self._local_models = {}
+            local_paths = build_local_model_paths()
+
+            # Local AASIST
+            local_aasist = LocalAASISTModel(device=self.device, paths=local_paths)
+            if local_aasist.available:
+                self._local_models["aasist"] = local_aasist
+                success_count += 1
+
+            # Local RawNet2
+            local_rawnet = LocalRawNet2Model(device=self.device, paths=local_paths)
+            if local_rawnet.available:
+                self._local_models["rawnet2"] = local_rawnet
+                success_count += 1
+
+            # Local Nes2Net (ResNet replacement)
+            local_nes2net = LocalNes2NetModel(device=self.device, paths=local_paths)
+            if local_nes2net.available:
+                self._local_models["nes2net"] = local_nes2net
+                success_count += 1
+
+            # Fallback to SpeechBrain downloads when local assets are missing
+            if "aasist" not in self._local_models:
+                self._aasist_model = self._load_speechbrain_model("aasist")
+                if self._aasist_model is not None:
+                    success_count += 1
+
+            if "rawnet2" not in self._local_models:
+                self._rawnet2_model = self._load_speechbrain_model("rawnet2")
+                if self._rawnet2_model is not None:
+                    success_count += 1
+
+            if "nes2net" not in self._local_models:
+                self._resnet_model = self._load_speechbrain_model("resnet_antispoofing")
+                if self._resnet_model is not None:
+                    success_count += 1
+
             if success_count > 0:
                 self._models_loaded = True
                 logger.info(f"Anti-spoofing ensemble loaded: {success_count}/3 models available")
             else:
                 logger.error("No anti-spoofing models could be loaded")
                 self._models_loaded = False
-            
+
         except Exception as e:
             logger.error(f"Failed to load anti-spoofing models: {e}")
             logger.warning(FALLBACK_MSG)
             self._models_loaded = False
     
+    def _load_speechbrain_model(self, model_key: str):
+        """Helper to load SpeechBrain EncoderClassifier models when local weights are unavailable."""
+        try:
+            if not model_manager.is_model_available(model_key):
+                logger.info("Downloading SpeechBrain model: %s", model_key)
+                download_success = model_manager.download_model(model_key)
+                if not download_success:
+                    logger.warning("SpeechBrain model %s download failed", model_key)
+                    return None
+
+            model_path = model_manager.get_model_path(model_key)
+            hyperparams_file = model_path / "hyperparams.yaml"
+            if not hyperparams_file.exists():
+                logger.warning("SpeechBrain model %s incomplete at %s", model_key, model_path)
+                return None
+
+            classifier = EncoderClassifier.from_hparams(
+                source=str(model_path),
+                run_opts={"device": str(self.device)}
+            )
+            logger.info("SpeechBrain model %s loaded successfully", model_key)
+            return classifier
+        except Exception as exc:
+            logger.warning("Failed to load SpeechBrain model %s: %s", model_key, exc)
+            return None
+
     def _create_antispoofing_model(self, model_path: Path):
         """Create and train a basic anti-spoofing model using synthetic data."""
         try:
@@ -309,30 +282,50 @@ class SpoofDetectorAdapter:
             # Convert audio data to tensor
             waveform = self._preprocess_audio(audio_data)
             
-            # Get predictions from each model
             predictions = {}
-            
+
             # AASIST prediction
-            if self._aasist_model is not None:
+            aasist_local = self._local_models.get("aasist")
+            if aasist_local:
                 try:
-                    aasist_score = self._predict_with_aasist(waveform)
-                    predictions['aasist'] = aasist_score
+                    score = aasist_local.predict_spoof_probability(waveform, self.target_sample_rate)
+                    if score is not None:
+                        predictions["aasist"] = score
+                except Exception as e:
+                    logger.warning(f"Local AASIST prediction failed: {e}")
+            elif self._aasist_model is not None:
+                try:
+                    predictions["aasist"] = self._predict_with_aasist(waveform)
                 except Exception as e:
                     logger.warning(f"AASIST prediction failed: {e}")
-            
+
             # RawNet2 prediction
-            if self._rawnet2_model is not None:
+            rawnet_local = self._local_models.get("rawnet2")
+            if rawnet_local:
                 try:
-                    rawnet2_score = self._predict_with_rawnet2(waveform)
-                    predictions['rawnet2'] = rawnet2_score
+                    score = rawnet_local.predict_spoof_probability(waveform, self.target_sample_rate)
+                    if score is not None:
+                        predictions["rawnet2"] = score
+                except Exception as e:
+                    logger.warning(f"Local RawNet2 prediction failed: {e}")
+            elif self._rawnet2_model is not None:
+                try:
+                    predictions["rawnet2"] = self._predict_with_rawnet2(waveform)
                 except Exception as e:
                     logger.warning(f"RawNet2 prediction failed: {e}")
-            
-            # ResNet prediction
-            if self._resnet_model is not None:
+
+            # Nes2Net / ResNet prediction
+            nes2net_local = self._local_models.get("nes2net")
+            if nes2net_local:
                 try:
-                    resnet_score = self._predict_with_resnet(waveform)
-                    predictions['resnet'] = resnet_score
+                    score = nes2net_local.predict_spoof_probability(waveform, self.target_sample_rate)
+                    if score is not None:
+                        predictions["nes2net"] = score
+                except Exception as e:
+                    logger.warning(f"Nes2Net prediction failed: {e}")
+            elif self._resnet_model is not None:
+                try:
+                    predictions["resnet"] = self._predict_with_resnet(waveform)
                 except Exception as e:
                     logger.warning(f"ResNet prediction failed: {e}")
             
