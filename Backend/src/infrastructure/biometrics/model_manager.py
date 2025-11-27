@@ -137,14 +137,14 @@ class ModelManager:
             # ASR Model for phrase verification (Lower priority - optional feature)
             "lightweight_asr": ModelConfig(
                 name="Lightweight ASR",
-                source="speechbrain/asr-wav2vec2-commonvoice-14-en",
-                local_path="asr-commonvoice-asr",  # Updated to match existing folder
+                source="speechbrain/asr-wav2vec2-commonvoice-14-es",
+                local_path="lightweight_asr",
                 model_type="asr",
                 version="1.0.0",
                 size_mb=120,
                 memory_usage_mb=300,
                 priority=2,  # Lower priority (phrase verification)
-                description="Lightweight ASR for phrase verification and text matching"
+                description="Wav2Vec2-based Spanish ASR for phrase verification and text matching"
             )
         }
         
@@ -188,7 +188,7 @@ class ModelManager:
             if config.model_type == "speaker":
                 return self._download_speechbrain_model(config, model_path)
             elif config.model_type == "asr":
-                return self._download_huggingface_model(config, model_path)
+                return self._download_speechbrain_asr_model(config, model_path)
             elif config.model_type == "antispoofing":
                 return self._download_speechbrain_model(config, model_path)
             else:
@@ -202,7 +202,7 @@ class ModelManager:
     def _download_speechbrain_model(self, config: ModelConfig, model_path: Path) -> bool:
         """Download a SpeechBrain model."""
         try:
-            from speechbrain.pretrained import EncoderClassifier
+            from speechbrain.inference.speaker import EncoderClassifier
             
             logger.info(f"Downloading SpeechBrain model: {config.source}")
             
@@ -243,6 +243,60 @@ class ModelManager:
                         pass
                 return False
             logger.error(f"Error downloading SpeechBrain model: {e}")
+            # Clean up partial files on error
+            if model_path.exists():
+                try:
+                    import shutil
+                    if model_path.is_dir():
+                        shutil.rmtree(model_path, ignore_errors=True)
+                except Exception:
+                    pass
+            return False
+    
+    def _download_speechbrain_asr_model(self, config: ModelConfig, model_path: Path) -> bool:
+        """Download a SpeechBrain ASR model."""
+        try:
+            from speechbrain.inference.ASR import EncoderDecoderASR
+            
+            logger.info(f"Downloading SpeechBrain ASR model: {config.source}")
+            
+            # Check if model path already exists and has content to avoid re-downloading
+            if model_path.exists() and any(model_path.iterdir()):
+                # Check if it's a valid model directory
+                hyperparams_file = model_path / "hyperparams.yaml"
+                if hyperparams_file.exists():
+                    logger.info(f"Model {config.name} already exists at {model_path}")
+                    return True
+            
+            # SpeechBrain automatically downloads to the specified directory
+            _ = EncoderDecoderASR.from_hparams(
+                source=config.source,
+                savedir=str(model_path),
+                run_opts={"device": "cpu"}  # Use CPU for download
+            )
+            
+            logger.info(f"Successfully downloaded {config.name}")
+            return True
+            
+        except ImportError:
+            logger.error("SpeechBrain not available for downloading ASR model")
+            return False
+        except Exception as e:
+            error_msg = str(e)
+            # Check if it's a 401 or repository not found error
+            if "401" in error_msg or "Repository Not Found" in error_msg or "Invalid username or password" in error_msg:
+                logger.warning(f"Model {config.name} is not publicly available or requires authentication. Skipping download.")
+                # Don't create partial files that would trigger reloads
+                if model_path.exists():
+                    try:
+                        # Clean up any partial files
+                        import shutil
+                        if model_path.is_dir():
+                            shutil.rmtree(model_path, ignore_errors=True)
+                    except Exception:
+                        pass
+                return False
+            logger.error(f"Error downloading SpeechBrain ASR model: {e}")
             # Clean up partial files on error
             if model_path.exists():
                 try:

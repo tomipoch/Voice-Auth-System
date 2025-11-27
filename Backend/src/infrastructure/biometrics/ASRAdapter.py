@@ -11,7 +11,7 @@ from pathlib import Path
 
 try:
     import speechbrain as sb
-    from speechbrain.pretrained import ASR
+    from speechbrain.inference.ASR import EncoderDecoderASR
     SPEECHBRAIN_AVAILABLE = True
 except ImportError:
     SPEECHBRAIN_AVAILABLE = False
@@ -101,17 +101,17 @@ class ASRAdapter:
                     return
                 
                 # Try to load from local path
-                    try:
-                        self._asr_model = ASR.from_hparams(
-                            source=str(asr_path),
-                            run_opts={"device": str(self.device)}
-                        )
-                        logger.info("Lightweight ASR model loaded successfully from local path")
-                        self._model_loaded = True
-                    except Exception as load_error:
-                        logger.warning(f"Failed to load ASR from local path: {load_error}")
-                        self._asr_model = None
-                        self._model_loaded = False
+                try:
+                    self._asr_model = EncoderDecoderASR.from_hparams(
+                        source=str(asr_path),
+                        run_opts={"device": str(self.device)}
+                    )
+                    logger.info("Lightweight ASR model loaded successfully from local path")
+                    self._model_loaded = True
+                except Exception as load_error:
+                    logger.warning(f"Failed to load ASR from local path: {load_error}")
+                    self._asr_model = None
+                    self._model_loaded = False
                 
             except Exception as e:
                 logger.warning(f"Failed to load ASR model: {e}")
