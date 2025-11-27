@@ -76,7 +76,7 @@ class SpeakerEmbeddingAdapter:
     def _load_ecapa_tdnn_model(self) -> bool:
         """Load ECAPA-TDNN model specifically."""
         try:
-            from speechbrain.pretrained import EncoderClassifier
+            from speechbrain.inference.speaker import EncoderClassifier
             
             # Ensure model is downloaded
             if not model_manager.is_model_available("ecapa_tdnn"):
@@ -104,7 +104,7 @@ class SpeakerEmbeddingAdapter:
     def _load_x_vector_model(self) -> bool:
         """Load x-vector model specifically."""
         try:
-            from speechbrain.pretrained import EncoderClassifier
+            from speechbrain.inference.speaker import EncoderClassifier
             
             # Ensure model is downloaded
             if not model_manager.is_model_available("x_vector"):

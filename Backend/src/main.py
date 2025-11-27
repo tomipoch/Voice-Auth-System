@@ -2,6 +2,7 @@
 
 import logging
 import os
+import warnings
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
@@ -13,6 +14,15 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 import asyncpg
+
+# Suppress third-party library warnings that don't affect functionality
+warnings.filterwarnings("ignore", category=FutureWarning, module="torch")
+warnings.filterwarnings("ignore", category=FutureWarning, module="speechbrain")
+warnings.filterwarnings("ignore", category=UserWarning, module="torchaudio")
+warnings.filterwarnings("ignore", category=UserWarning, module="s3prl")
+warnings.filterwarnings("ignore", message=".*set_audio_backend.*")
+warnings.filterwarnings("ignore", message=".*weight_norm.*")
+warnings.filterwarnings("ignore", message=".*custom_fwd.*")
 
 from .api.challenge_controller import challenge_router
 from .api.auth_controller import auth_router
@@ -52,11 +62,18 @@ if not os.getenv("CORS_ALLOWED_ORIGINS"):
 # Rate limiter
 limiter = Limiter(key_func=get_remote_address, default_limits=[os.getenv("RATE_LIMIT", "100/minute")])
 
-# Configure logging
+# Configure logging - only show essential application logs
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
+
+# Suppress verbose logging from third-party libraries
+logging.getLogger("speechbrain").setLevel(logging.WARNING)
+logging.getLogger("s3prl").setLevel(logging.WARNING)
+logging.getLogger("transformers").setLevel(logging.WARNING)
+logging.getLogger("huggingface_hub").setLevel(logging.WARNING)
+
 logger = logging.getLogger(__name__)
 
 # Global connection pool

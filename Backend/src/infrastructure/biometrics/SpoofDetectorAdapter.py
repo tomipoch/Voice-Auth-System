@@ -9,7 +9,7 @@ import logging
 from typing import Dict, Any, Tuple, Optional, List
 from pathlib import Path
 import speechbrain as sb
-from speechbrain.pretrained import EncoderClassifier
+from speechbrain.inference.speaker import EncoderClassifier
 
 from .local_antispoof_models import (
     BaseLocalAntiSpoofModel,
