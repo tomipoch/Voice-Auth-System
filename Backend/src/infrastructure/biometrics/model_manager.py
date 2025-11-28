@@ -79,7 +79,7 @@ class ModelManager:
             "ecapa_tdnn": ModelConfig(
                 name="ECAPA-TDNN Speaker Verification",
                 source="speechbrain/spkrec-ecapa-voxceleb",
-                local_path="ecapa_tdnn",
+                local_path="speaker-recognition/ecapa_tdnn",
                 model_type="speaker",
                 version="1.0.0",
                 size_mb=45,
@@ -138,7 +138,7 @@ class ModelManager:
             "lightweight_asr": ModelConfig(
                 name="Lightweight ASR",
                 source="speechbrain/asr-wav2vec2-commonvoice-14-es",
-                local_path="lightweight_asr",
+                local_path="text-verification/lightweight_asr",
                 model_type="asr",
                 version="1.0.0",
                 size_mb=120,
@@ -146,6 +146,7 @@ class ModelManager:
                 priority=2,  # Lower priority (phrase verification)
                 description="Wav2Vec2-based Spanish ASR for phrase verification and text matching"
             )
+            # Reload trigger
         }
         
     def get_model_path(self, model_id: str) -> Path:
@@ -256,7 +257,7 @@ class ModelManager:
     def _download_speechbrain_asr_model(self, config: ModelConfig, model_path: Path) -> bool:
         """Download a SpeechBrain ASR model."""
         try:
-            from speechbrain.inference.ASR import EncoderDecoderASR
+            from speechbrain.inference.ASR import EncoderASR
             
             logger.info(f"Downloading SpeechBrain ASR model: {config.source}")
             
@@ -269,7 +270,7 @@ class ModelManager:
                     return True
             
             # SpeechBrain automatically downloads to the specified directory
-            _ = EncoderDecoderASR.from_hparams(
+            _ = EncoderASR.from_hparams(
                 source=config.source,
                 savedir=str(model_path),
                 run_opts={"device": "cpu"}  # Use CPU for download
