@@ -146,6 +146,8 @@ training/datasets/
 *.wav
 *.flac
 *.mp3
+*.bin
+wav2vec2_checkpoint/
 
 # Logs
 logs/
