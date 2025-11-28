@@ -401,26 +401,26 @@ npm start                # Alias de npm run dev
 
 ### Guías Técnicas
 
-- [**TESTING.md**](./TESTING.md) - Guía completa de testing con Vitest
-- [**CODE_FORMAT.md**](./CODE_FORMAT.md) - Estándares de formato con Prettier
-- [**ENVIRONMENTS.md**](./ENVIRONMENTS.md) - Configuración de ambientes
-- [**GIT_HOOKS.md**](./GIT_HOOKS.md) - Git hooks con Husky y lint-staged
-- [**CI_CD.md**](./CI_CD.md) - Pipeline de CI/CD con GitHub Actions
+- [**TESTING.md**](./docs/TESTING.md) - Guía completa de testing con Vitest
+- [**CODE_FORMAT.md**](./docs/CODE_FORMAT.md) - Estándares de formato con Prettier
+- [**ENVIRONMENTS.md**](./docs/ENVIRONMENTS.md) - Configuración de ambientes
+- [**GIT_HOOKS.md**](./docs/GIT_HOOKS.md) - Git hooks con Husky y lint-staged
+- [**CI_CD.md**](./docs/CI_CD.md) - Pipeline de CI/CD con GitHub Actions
 
 ### Documentación del Sistema
 
-- [**LOGIN_SYSTEM.md**](./LOGIN_SYSTEM.md) - Sistema de autenticación
-- [**DARK_MODE_IMPLEMENTATION.md**](./DARK_MODE_IMPLEMENTATION.md) - Implementación de dark mode
-- [**PERFORMANCE.md**](./PERFORMANCE.md) - Optimización y performance
-- [**ACCESSIBILITY.md**](./ACCESSIBILITY.md) - Guía de accesibilidad
-- [**TYPESCRIPT.md**](./TYPESCRIPT.md) - Migración a TypeScript
-- [**SECURITY.md**](./SECURITY.md) - Guía de seguridad
+- [**LOGIN_SYSTEM.md**](./docs/LOGIN_SYSTEM.md) - Sistema de autenticación
+- [**DARK_MODE_IMPLEMENTATION.md**](./docs/DARK_MODE_IMPLEMENTATION.md) - Implementación de dark mode
+- [**PERFORMANCE.md**](./docs/PERFORMANCE.md) - Optimización y performance
+- [**ACCESSIBILITY.md**](./docs/ACCESSIBILITY.md) - Guía de accesibilidad
+- [**TYPESCRIPT.md**](./docs/TYPESCRIPT.md) - Migración a TypeScript
+- [**SECURITY.md**](./docs/SECURITY.md) - Guía de seguridad
 
 ### Contribución
 
-- [**CONTRIBUTING.md**](./CONTRIBUTING.md) - Guía para contribuir
-- [**CODE_OF_CONDUCT.md**](./CODE_OF_CONDUCT.md) - Código de conducta
-- [**CHANGELOG.md**](./CHANGELOG.md) - Historial de cambios
+- [**CONTRIBUTING.md**](./docs/CONTRIBUTING.md) - Guía para contribuir
+- [**CODE_OF_CONDUCT.md**](./docs/CODE_OF_CONDUCT.md) - Código de conducta
+- [**CHANGELOG.md**](./docs/CHANGELOG.md) - Historial de cambios
 - [**LICENSE**](./LICENSE) - Licencia MIT
 
 ## 🤝 Contribuir

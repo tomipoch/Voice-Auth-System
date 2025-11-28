@@ -4,4 +4,4 @@
 cd "$(dirname "$0")"
 source venv/bin/activate
 # Ignorar directorios de modelos para evitar reinicios en bucle
-uvicorn src.main:app --host 127.0.0.1 --port 8000 --reload --reload-exclude "models/*" --reload-exclude "pretrained_models/*" --reload-exclude "*.ckpt" --reload-exclude "*.pth"
+uvicorn src.main:app --host 127.0.0.1 --port 8000 --reload --reload-exclude "models/*" --reload-exclude "*.ckpt" --reload-exclude "*.pth"
