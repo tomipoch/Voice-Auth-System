@@ -3,6 +3,7 @@
 import difflib
 import logging
 import io
+import os
 import torch
 import torchaudio
 import numpy as np
@@ -11,7 +12,7 @@ from pathlib import Path
 
 try:
     import speechbrain as sb
-    from speechbrain.inference.ASR import EncoderDecoderASR
+    from speechbrain.inference.ASR import EncoderASR
     SPEECHBRAIN_AVAILABLE = True
 except ImportError:
     SPEECHBRAIN_AVAILABLE = False
@@ -48,14 +49,21 @@ class ASRAdapter:
     - Word-level accuracy analysis
     """
     
-    def __init__(self, model_id: int = 3, model_name: str = "lightweight_asr", use_gpu: bool = True):
+    def __init__(self, model_id: int = 3, model_name: str = None, use_gpu: bool = True):
         self._model_id = model_id
+        
+        # Allow model selection via environment variable or parameter
+        # Priority: parameter > env var > default
+        if model_name is None:
+            model_name = os.getenv("ASR_MODEL", "lightweight_asr")
         self._model_name = model_name
+        
         self._model_version = "1.0.0"
         
         # Device configuration
         self.device = torch.device("cuda" if use_gpu and torch.cuda.is_available() else "cpu")
         logger.info(f"ASR using device: {self.device}")
+        logger.info(f"ASR model selected: {self._model_name}")
         
         # Model components
         self._asr_model = None
@@ -84,26 +92,35 @@ class ASRAdapter:
             
             # Load ASR model from anteproyecto specifications
             try:
-                if not model_manager.is_model_available("lightweight_asr"):
-                    download_success = model_manager.download_model("lightweight_asr")
+                if not model_manager.is_model_available(self._model_name):
+                    download_success = model_manager.download_model(self._model_name)
                     if not download_success:
-                        logger.warning("ASR model download failed, using fallback")
+                        logger.warning(f"ASR model '{self._model_name}' download failed, using fallback")
                         self._model_loaded = False
                         return
                 
-                asr_path = model_manager.get_model_path("lightweight_asr")
-                # Check if required files exist
-                hyperparams_file = asr_path / "hyperparams.yaml"
-                asr_file = asr_path / "asr.ckpt"
-                if not hyperparams_file.exists() or not asr_file.exists():
+                asr_path = model_manager.get_model_path(self._model_name)
+                
+                # Check if required files exist for Wav2Vec2-based ASR
+                required_files = [
+                    "hyperparams.yaml",
+                    "wav2vec2.ckpt",
+                    "tokenizer.ckpt"
+                ]
+                
+                all_files_exist = all((asr_path / f).exists() for f in required_files)
+                
+                if not all_files_exist:
                     logger.warning(f"ASR model incomplete at {asr_path}, using fallback")
                     self._model_loaded = False
                     return
                 
-                # Try to load from local path
+                # All files exist, load from local path
                 try:
-                    self._asr_model = EncoderDecoderASR.from_hparams(
+                    logger.info(f"Loading ASR model from {asr_path}")
+                    self._asr_model = EncoderASR.from_hparams(
                         source=str(asr_path),
+                        savedir=str(asr_path),  # Use local directory
                         run_opts={"device": str(self.device)}
                     )
                     logger.info("Lightweight ASR model loaded successfully from local path")
