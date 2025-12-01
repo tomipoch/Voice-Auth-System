@@ -41,10 +41,17 @@ CREATE TABLE IF NOT EXISTS api_key (
 CREATE TABLE IF NOT EXISTS "user" (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   external_ref TEXT UNIQUE,            -- id en el sistema bancario / core / CRM
+  email TEXT UNIQUE,                   -- email for authentication
+  password TEXT,                       -- bcrypt hashed password
+  first_name TEXT,                     -- user's first name
+  last_name TEXT,                      -- user's last name
+  role TEXT DEFAULT 'user' CHECK (role IN ('user', 'admin', 'superadmin')),
+  company TEXT,                        -- organization affiliation
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  deleted_at TIMESTAMPTZ,               -- nullo = activo; si no nullo = usuario eliminado / anonimizado
+  deleted_at TIMESTAMPTZ,              -- nullo = activo; si no nullo = usuario eliminado / anonimizado
   failed_auth_attempts INT NOT NULL DEFAULT 0,
-  locked_until TIMESTAMPTZ
+  locked_until TIMESTAMPTZ,
+  last_login TIMESTAMPTZ               -- track last login
 );
 
 CREATE TABLE IF NOT EXISTS user_policy (
@@ -77,7 +84,14 @@ CREATE TABLE IF NOT EXISTS model_version (
 --       en el enrolamiento (4-6 frases, control de calidad). :contentReference[oaicite:3]{index=3}
 -- =====================================================
 
+CREATE TABLE IF NOT EXISTS voiceprint (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
   embedding BYTEA NOT NULL,          -- firma biométrica actual del usuario (cifrada)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  CONSTRAINT uq_voiceprint_user UNIQUE(user_id)
+);
 
 CREATE TABLE IF NOT EXISTS voiceprint_history (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -209,12 +223,14 @@ CREATE TABLE IF NOT EXISTS scores (
 
 CREATE TABLE IF NOT EXISTS audit_log (
   id BIGSERIAL PRIMARY KEY,
-  at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  timestamp TIMESTAMPTZ NOT NULL DEFAULT now(),  -- renamed from 'at'
   actor TEXT NOT NULL,             -- 'api:<client_id>' | 'system' | 'user:<id>'
   action TEXT NOT NULL,            -- 'ENROLL','VERIFY','DELETE_USER','ROTATE_KEY',...
-  entity TEXT,                     -- tipo lógico ('user','voiceprint','auth_attempt',...)
+  entity_type TEXT,                -- tipo lógico ('user','voiceprint','auth_attempt',...)
   entity_id TEXT,                  -- id asociado
-  meta JSONB                       -- detalles técnicos extras
+  metadata JSONB,                  -- detalles técnicos extras
+  success BOOLEAN DEFAULT TRUE,    -- track if action succeeded
+  error_message TEXT               -- store error details if failed
 );
 
 -- =====================================================
@@ -317,6 +333,11 @@ END; $$ LANGUAGE plpgsql;
 CREATE INDEX IF NOT EXISTS idx_voiceprint_user        ON voiceprint(user_id);
 CREATE INDEX IF NOT EXISTS idx_enrollment_user        ON enrollment_sample(user_id);
 
+-- User authentication and profile indexes
+CREATE INDEX IF NOT EXISTS idx_user_email             ON "user"(email) WHERE email IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_user_role              ON "user"(role);
+CREATE INDEX IF NOT EXISTS idx_user_company           ON "user"(company) WHERE company IS NOT NULL;
+
 CREATE INDEX IF NOT EXISTS idx_challenge_user         ON challenge(user_id);
 CREATE INDEX IF NOT EXISTS idx_challenge_expires      ON challenge(expires_at);
 CREATE INDEX IF NOT EXISTS idx_challenge_used         ON challenge(used_at);
@@ -329,7 +350,7 @@ CREATE INDEX IF NOT EXISTS idx_scores_similarity      ON scores(similarity);
 CREATE INDEX IF NOT EXISTS idx_scores_spoof           ON scores(spoof_prob);
 CREATE INDEX IF NOT EXISTS idx_scores_phrase_ok       ON scores(phrase_ok);
 
-CREATE INDEX IF NOT EXISTS idx_audit_time             ON audit_log(at);
+CREATE INDEX IF NOT EXISTS idx_audit_timestamp       ON audit_log(timestamp);
 CREATE INDEX IF NOT EXISTS idx_audit_actor            ON audit_log(actor);
 
 -- =====================================================

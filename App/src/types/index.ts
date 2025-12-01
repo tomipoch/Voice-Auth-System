@@ -5,13 +5,17 @@
 export interface User {
   id: string;
   email: string;
-  username: string;
-  fullName: string;
+  first_name?: string;
+  last_name?: string;
+  name?: string; // Computed field from backend (first_name + last_name)
   role: UserRole;
-  isVerified: boolean;
+  company?: string;
+  isVerified?: boolean;
   voiceProfile?: VoiceProfile;
-  createdAt: string;
-  updatedAt: string;
+  voice_template?: boolean; // Backend returns this
+  createdAt?: string;
+  created_at?: string; // Backend uses snake_case
+  updatedAt?: string;
 }
 
 export enum UserRole {
@@ -42,11 +46,11 @@ export interface LoginCredentials {
 }
 
 export interface RegisterData {
+  first_name: string;
+  last_name: string;
   email: string;
-  username: string;
-  fullName: string;
   password: string;
-  confirmPassword: string;
+  company?: string;
 }
 
 export interface AuthResponse {
@@ -88,6 +92,26 @@ export interface QueryParams {
   order?: 'asc' | 'desc';
   search?: string;
   [key: string]: string | number | boolean | undefined;
+}
+
+export interface Phrase {
+  id: string;
+  text: string;
+  source?: string;
+  word_count: number;
+  char_count: number;
+  language: string;
+  difficulty: string;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface PhraseStats {
+  total: number;
+  easy: number;
+  medium: number;
+  hard: number;
+  language: string;
 }
 
 // ============================================

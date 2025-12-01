@@ -51,7 +51,7 @@ export const storageService = {
       const fullKey = this.getKey(key);
       const item = localStorage.getItem(fullKey);
 
-      if (!item) {
+      if (!item || item === 'undefined' || item === 'null') {
         return null;
       }
 

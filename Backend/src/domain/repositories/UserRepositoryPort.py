@@ -12,7 +12,16 @@ class UserRepositoryPort(ABC):
     """Repository interface for users."""
     
     @abstractmethod
-    async def create_user(self, name: str, email: str, password: str, external_ref: Optional[str] = None) -> UserId:
+    async def create_user(
+        self, 
+        email: Optional[str] = None, 
+        password: Optional[str] = None, 
+        first_name: Optional[str] = None,
+        last_name: Optional[str] = None,
+        role: str = "user",
+        company: Optional[str] = None,
+        external_ref: Optional[str] = None
+    ) -> UserId:
         """Create a new user."""
         pass
     

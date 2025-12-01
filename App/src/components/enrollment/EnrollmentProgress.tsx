@@ -79,7 +79,7 @@ const EnrollmentProgress = ({
               className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
             >
               <div className="flex items-center space-x-3">
-                <div className="flex-shrink-0">{getStepIcon(status)}</div>
+                <div className="shrink-0">{getStepIcon(status)}</div>
                 <div>
                   <p className="text-sm font-medium text-gray-900">Paso {stepNumber}</p>
                   {recording && (recording as { quality?: string; duration?: number }).quality && (

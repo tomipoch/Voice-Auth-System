@@ -37,7 +37,7 @@ const DashboardPage = () => {
     <MainLayout>
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+        <h1 className="text-4xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
           ¡Bienvenido, {user?.fullName || user?.username}!
         </h1>
         <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium mt-2">
@@ -55,7 +55,7 @@ const DashboardPage = () => {
               className="backdrop-blur-xl bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
             >
               <div className="flex items-center">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-blue-100/80 to-indigo-100/80 dark:from-blue-900/80 dark:to-indigo-900/80 shadow-sm">
+                <div className="p-3 rounded-xl bg-linear-to-br from-blue-100/80 to-indigo-100/80 dark:from-blue-900/80 dark:to-indigo-900/80 shadow-sm">
                   <IconComponent className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div className="ml-4">
@@ -73,16 +73,16 @@ const DashboardPage = () => {
       {/* Quick Actions */}
       <div className="backdrop-blur-xl bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-2xl p-8 shadow-xl">
         <div className="mb-6">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent">
+          <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent">
             Acciones Rápidas
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {!userStats.isVoiceEnrolled && (
             <Link to="/enrollment" className="group">
-              <div className="p-6 bg-gradient-to-br from-orange-50/80 to-yellow-50/80 dark:from-orange-900/80 dark:to-yellow-900/80 backdrop-blur-sm border-2 border-orange-200/60 dark:border-orange-600/60 rounded-2xl hover:border-orange-300/80 dark:hover:border-orange-500/80 transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02]">
+              <div className="p-6 bg-linear-to-br from-orange-50/80 to-yellow-50/80 dark:from-orange-900/80 dark:to-yellow-900/80 backdrop-blur-sm border-2 border-orange-200/60 dark:border-orange-600/60 rounded-2xl hover:border-orange-300/80 dark:hover:border-orange-500/80 transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02]">
                 <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-orange-100 to-yellow-100 dark:from-orange-800 dark:to-yellow-800 rounded-xl shadow-sm">
+                  <div className="p-3 bg-linear-to-br from-orange-100 to-yellow-100 dark:from-orange-800 dark:to-yellow-800 rounded-xl shadow-sm">
                     <Mic className="h-8 w-8 text-orange-600 dark:text-orange-400" />
                   </div>
                   <div className="ml-4">
@@ -100,7 +100,7 @@ const DashboardPage = () => {
 
           <Link to="/verification" className="group">
             <div
-              className={`p-6 bg-gradient-to-br backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02] ${
+              className={`p-6 bg-linear-to-br backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02] ${
                 userStats.isVoiceEnrolled
                   ? 'from-blue-50/80 to-indigo-50/80 dark:from-blue-900/80 dark:to-indigo-900/80 border-blue-200/60 dark:border-blue-600/60 hover:border-blue-300/80 dark:hover:border-blue-500/80'
                   : 'from-gray-50/80 to-gray-100/80 dark:from-gray-800/80 dark:to-gray-700/80 border-gray-200 dark:border-gray-700/60 dark:border-gray-600/60 hover:border-gray-300/80 dark:hover:border-gray-500/80 opacity-75'
@@ -108,7 +108,7 @@ const DashboardPage = () => {
             >
               <div className="flex items-center">
                 <div
-                  className={`p-3 bg-gradient-to-br rounded-xl shadow-sm ${
+                  className={`p-3 bg-linear-to-br rounded-xl shadow-sm ${
                     userStats.isVoiceEnrolled
                       ? 'from-blue-100 to-indigo-100 dark:from-blue-800 dark:to-indigo-800'
                       : 'from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600'
@@ -144,9 +144,9 @@ const DashboardPage = () => {
 
           {user?.role === 'admin' && (
             <Link to="/admin" className="group">
-              <div className="p-6 bg-gradient-to-br from-purple-50/80 to-indigo-50/80 dark:from-purple-900/80 dark:to-indigo-900/80 backdrop-blur-sm border-2 border-purple-200/60 dark:border-purple-600/60 rounded-2xl hover:border-purple-300/80 dark:hover:border-purple-500/80 transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02]">
+              <div className="p-6 bg-linear-to-br from-purple-50/80 to-indigo-50/80 dark:from-purple-900/80 dark:to-indigo-900/80 backdrop-blur-sm border-2 border-purple-200/60 dark:border-purple-600/60 rounded-2xl hover:border-purple-300/80 dark:hover:border-purple-500/80 transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02]">
                 <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-800 dark:to-indigo-800 rounded-xl shadow-sm">
+                  <div className="p-3 bg-linear-to-br from-purple-100 to-indigo-100 dark:from-purple-800 dark:to-indigo-800 rounded-xl shadow-sm">
                     <Users className="h-8 w-8 text-purple-600 dark:text-purple-400" />
                   </div>
                   <div className="ml-4">
@@ -240,9 +240,9 @@ const DashboardPage = () => {
       {/* Alert for voice enrollment */}
       {!userStats.isVoiceEnrolled && (
         <div className="mt-8">
-          <div className="backdrop-blur-xl bg-gradient-to-r from-orange-50/80 to-yellow-50/80 dark:from-orange-900/80 dark:to-yellow-900/80 border-2 border-orange-200/60 dark:border-orange-600/60 rounded-2xl p-6 shadow-xl">
+          <div className="backdrop-blur-xl bg-linear-to-r from-orange-50/80 to-yellow-50/80 dark:from-orange-900/80 dark:to-yellow-900/80 border-2 border-orange-200/60 dark:border-orange-600/60 rounded-2xl p-6 shadow-xl">
             <div className="flex items-center space-x-4">
-              <div className="p-3 bg-gradient-to-br from-orange-100 to-yellow-100 dark:from-orange-800 dark:to-yellow-800 rounded-xl shadow-sm">
+              <div className="p-3 bg-linear-to-br from-orange-100 to-yellow-100 dark:from-orange-800 dark:to-yellow-800 rounded-xl shadow-sm">
                 <AlertCircle className="h-6 w-6 text-orange-600 dark:text-orange-400" />
               </div>
               <div className="flex-1">
@@ -255,7 +255,7 @@ const DashboardPage = () => {
                 </p>
               </div>
               <Link to="/enrollment">
-                <button className="py-3 px-6 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] flex items-center gap-2">
+                <button className="py-3 px-6 bg-linear-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] flex items-center gap-2">
                   <Mic className="h-4 w-4" />
                   Configurar ahora
                 </button>

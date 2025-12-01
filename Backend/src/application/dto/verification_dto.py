@@ -15,6 +15,7 @@ class StartVerificationResponse(BaseModel):
     """Response after starting verification."""
     success: bool
     verification_id: str
+    user_id: str  # Changed from UUID to str to match controller
     phrase: dict
     message: str
 
@@ -29,13 +30,12 @@ class VerifyVoiceRequest(BaseModel):
 
 class VerifyVoiceResponse(BaseModel):
     """Response after voice verification."""
-    success: bool
-    verification_id: str
+    verification_id: Optional[str]
+    user_id: str
     is_verified: bool
     confidence_score: float
-    similarity_score: Optional[float]
+    similarity_score: float
     anti_spoofing_score: Optional[float]
     phrase_match: Optional[bool]
-    decision: str
-    message: str
-    metadata: Optional[dict] = None
+    is_live: bool
+    threshold_used: float

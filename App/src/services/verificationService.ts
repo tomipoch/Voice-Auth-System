@@ -18,9 +18,11 @@ export interface StartVerificationRequest {
 }
 
 export interface StartVerificationResponse {
+  success: boolean;
   verification_id: string;
   user_id: string;
   phrase: Phrase;
+  message: string;
 }
 
 export interface VerifyVoiceRequest {
@@ -71,24 +73,14 @@ export interface VerificationHistoryResponse {
 }
 
 class VerificationService {
-  private readonly baseUrl = '/api/v1/verification';
+  private readonly baseUrl = '/verification';
 
   /**
    * Iniciar proceso de verificación y obtener frase
    */
   async startVerification(data: StartVerificationRequest): Promise<StartVerificationResponse> {
-    const formData = new FormData();
-    formData.append('user_id', data.user_id);
-    
-    if (data.difficulty) {
-      formData.append('difficulty', data.difficulty);
-    }
+    const response = await api.post<StartVerificationResponse>(`${this.baseUrl}/start`, data);
 
-    const response = await api.post<StartVerificationResponse>(
-      `${this.baseUrl}/start`,
-      formData
-    );
-    
     return response.data;
   }
 
@@ -101,16 +93,12 @@ class VerificationService {
     formData.append('phrase_id', data.phrase_id);
     formData.append('audio_file', data.audioBlob, 'verification_audio.wav');
 
-    const response = await api.post<VerifyVoiceResponse>(
-      `${this.baseUrl}/verify`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    
+    const response = await api.post<VerifyVoiceResponse>(`${this.baseUrl}/verify`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
     return response.data;
   }
 
@@ -122,16 +110,12 @@ class VerificationService {
     formData.append('user_id', data.user_id);
     formData.append('audio_file', data.audioBlob, 'quick_verify.wav');
 
-    const response = await api.post<QuickVerifyResponse>(
-      `${this.baseUrl}/quick-verify`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    
+    const response = await api.post<QuickVerifyResponse>(`${this.baseUrl}/quick-verify`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
     return response.data;
   }
 
@@ -148,7 +132,7 @@ class VerificationService {
         params: { limit },
       }
     );
-    
+
     return response.data;
   }
 }

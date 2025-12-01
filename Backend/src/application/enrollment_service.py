@@ -74,6 +74,14 @@ class EnrollmentService:
         if not await self._user_repo.user_exists(user_id):
             raise ValueError(f"User {user_id} does not exist")
         
+        # Check if user already has a voiceprint
+        existing_voiceprint = await self._voice_repo.get_voiceprint_by_user(user_id)
+        if existing_voiceprint:
+            raise ValueError(
+                f"User {user_id} is already enrolled. "
+                "Please delete the existing voiceprint before re-enrolling."
+            )
+        
         # Get random phrases for enrollment
         phrases = await self._phrase_repo.find_random(
             user_id=user_id,
@@ -232,8 +240,7 @@ class EnrollmentService:
             id=uuid4(),
             user_id=session.user_id,
             embedding=average_embedding,
-            created_at=datetime.now(timezone.utc),
-            speaker_model_id=speaker_model_id
+            created_at=datetime.now(timezone.utc)
         )
         
         # Save voiceprint

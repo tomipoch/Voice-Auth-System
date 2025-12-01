@@ -105,7 +105,7 @@ const Modal = ({
             {/* Header mejorado */}
             {title && (
               <div className="relative flex items-center justify-between p-6 border-b border-white/20 dark:border-gray-600/20">
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-purple-800 dark:from-gray-200 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+                <h2 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-purple-800 dark:from-gray-200 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                   {title}
                 </h2>
                 <button

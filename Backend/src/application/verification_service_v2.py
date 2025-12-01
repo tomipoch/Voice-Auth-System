@@ -178,12 +178,14 @@ class VerificationServiceV2:
         )
         
         # Save verification attempt
-        await self._voice_repo.save_verification_attempt(
-            user_id=session.user_id,
-            embedding=embedding,
-            similarity_score=float(similarity_score),
-            is_verified=is_verified
-        )
+        # TODO: Uncomment when verification_attempt table is added to schema
+        # await self._voice_repo.save_verification_attempt(
+        #     user_id=session.user_id,
+        #     embedding=embedding,
+        #     similarity_score=float(similarity_score),
+        #     is_verified=is_verified
+        # )
+        
         
         # Clean up session
         del self._active_sessions[verification_id]
@@ -251,12 +253,14 @@ class VerificationServiceV2:
         )
         
         # Save attempt
-        await self._voice_repo.save_verification_attempt(
-            user_id=user_id,
-            embedding=embedding,
-            similarity_score=float(similarity_score),
-            is_verified=is_verified
-        )
+        # TODO: Uncomment when verification_attempt table is added to schema
+        # await self._voice_repo.save_verification_attempt(
+        #     user_id=user_id,
+        #     embedding=embedding,
+        #     similarity_score=float(similarity_score),
+        #     is_verified=is_verified
+        # )
+        
         
         return {
             "user_id": str(user_id),

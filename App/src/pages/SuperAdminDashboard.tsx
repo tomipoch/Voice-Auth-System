@@ -118,7 +118,7 @@ const SuperAdminDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen relative overflow-hidden bg-linear-to-br from-purple-50 via-indigo-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-400/20 dark:bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -131,10 +131,10 @@ const SuperAdminDashboard = () => {
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center px-6 py-4 border-b border-purple-200/30 dark:border-gray-600/30">
-            <div className="h-12 w-12 bg-gradient-to-br from-purple-500 to-indigo-600 dark:from-purple-600 dark:to-indigo-700 rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="h-12 w-12 bg-linear-to-br from-purple-500 to-indigo-600 dark:from-purple-600 dark:to-indigo-700 rounded-2xl flex items-center justify-center shadow-lg">
               <Shield className="h-7 w-7 text-white" />
             </div>
-            <h1 className="ml-3 text-xl font-bold bg-gradient-to-r from-gray-800 to-purple-700 dark:from-gray-200 dark:to-purple-400/70 bg-clip-text text-transparent">
+            <h1 className="ml-3 text-xl font-bold bg-linear-to-r from-gray-800 to-purple-700 dark:from-gray-200 dark:to-purple-400/70 bg-clip-text text-transparent">
               Super Admin
             </h1>
           </div>
@@ -142,8 +142,8 @@ const SuperAdminDashboard = () => {
           {/* User Info */}
           <div className="px-6 py-4 border-b border-purple-200/30 dark:border-gray-600/30">
             <div className="flex items-center">
-              <div className="h-12 w-12 bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-900/50 dark:to-indigo-900/50 rounded-xl flex items-center justify-center shadow-sm border border-purple-200/40 dark:border-purple-600/40">
-                <span className="text-lg font-bold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+              <div className="h-12 w-12 bg-linear-to-br from-purple-100 to-indigo-100 dark:from-purple-900/50 dark:to-indigo-900/50 rounded-xl flex items-center justify-center shadow-sm border border-purple-200/40 dark:border-purple-600/40">
+                <span className="text-lg font-bold bg-linear-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
                   {(user?.fullName || user?.username || 'S').charAt(0).toUpperCase()}
                 </span>
               </div>
@@ -169,7 +169,7 @@ const SuperAdminDashboard = () => {
                   onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 ${
                     activeTab === item.id
-                      ? 'bg-gradient-to-r from-purple-500 to-indigo-600 dark:from-purple-600 dark:to-indigo-700 text-white shadow-lg'
+                      ? 'bg-linear-to-r from-purple-500 to-indigo-600 dark:from-purple-600 dark:to-indigo-700 text-white shadow-lg'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-purple-50/60 dark:hover:bg-gray-700/50 hover:text-purple-700 dark:hover:text-purple-400'
                   }`}
                 >
@@ -200,7 +200,7 @@ const SuperAdminDashboard = () => {
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-purple-700 dark:from-gray-200 dark:to-purple-400/70 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 to-purple-700 dark:from-gray-200 dark:to-purple-400/70 bg-clip-text text-transparent">
                 Panel de Super Administrador
               </h1>
               <p className="text-purple-600/70 dark:text-purple-400/70 mt-2">

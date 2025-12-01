@@ -1,26 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Card } from '../ui/Card';
-import { Button } from '../ui/Button';
-
-interface Phrase {
-  id: string;
-  text: string;
-  source: string | null;
-  word_count: number;
-  char_count: number;
-  language: string;
-  difficulty: 'easy' | 'medium' | 'hard';
-  is_active: boolean;
-  created_at: string;
-}
-
-interface PhraseStats {
-  total: number;
-  easy: number;
-  medium: number;
-  hard: number;
-  language: string;
-}
+import React, { useState, useEffect, useCallback } from 'react';
+import Card from '../ui/Card';
+import Button from '../ui/Button';
+import { phraseService } from '../../services/apiServices';
+import type { Phrase, PhraseStats } from '../../types';
 
 export const PhraseManagement: React.FC = () => {
   const [phrases, setPhrases] = useState<Phrase[]>([]);
@@ -31,55 +13,43 @@ export const PhraseManagement: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const phrasesPerPage = 20;
 
-  useEffect(() => {
-    fetchStats();
-    fetchPhrases();
-  }, [selectedDifficulty]);
-
   const fetchStats = async () => {
     try {
-      const response = await fetch('/api/phrases/stats');
-      if (!response.ok) throw new Error('Error al obtener estadísticas');
-      const data = await response.json();
+      const data = await phraseService.getStats();
       setStats(data);
     } catch (err) {
       console.error('Error fetching stats:', err);
     }
   };
 
-  const fetchPhrases = async () => {
+  const fetchPhrases = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const difficulty = selectedDifficulty === 'all' ? '' : selectedDifficulty;
-      const url = `/api/phrases/list?limit=1000${difficulty ? `&difficulty=${difficulty}` : ''}`;
-      
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('Error al cargar frases');
-      
-      const data = await response.json();
+      const difficulty = selectedDifficulty === 'all' ? undefined : selectedDifficulty;
+      const data = await phraseService.listPhrases(difficulty, 'es', 1000);
       setPhrases(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedDifficulty]);
+
+  useEffect(() => {
+    fetchStats();
+    fetchPhrases();
+  }, [fetchPhrases]);
 
   const handleToggleActive = async (phraseId: string, currentStatus: boolean) => {
     try {
-      const response = await fetch(
-        `/api/phrases/${phraseId}/status?is_active=${!currentStatus}`,
-        { method: 'PATCH' }
-      );
-      
-      if (!response.ok) throw new Error('Error al actualizar frase');
-      
+      await phraseService.updateStatus(phraseId, !currentStatus);
+
       // Actualizar localmente
-      setPhrases(prev => 
-        prev.map(p => p.id === phraseId ? { ...p, is_active: !currentStatus } : p)
+      setPhrases((prev) =>
+        prev.map((p) => (p.id === phraseId ? { ...p, is_active: !currentStatus } : p))
       );
-      
+
       // Actualizar estadísticas
       fetchStats();
     } catch (err) {
@@ -90,17 +60,13 @@ export const PhraseManagement: React.FC = () => {
 
   const handleDelete = async (phraseId: string) => {
     if (!confirm('¿Estás seguro de eliminar esta frase?')) return;
-    
+
     try {
-      const response = await fetch(`/api/phrases/${phraseId}`, {
-        method: 'DELETE'
-      });
-      
-      if (!response.ok) throw new Error('Error al eliminar frase');
-      
+      await phraseService.deletePhrase(phraseId);
+
       // Eliminar localmente
-      setPhrases(prev => prev.filter(p => p.id !== phraseId));
-      
+      setPhrases((prev) => prev.filter((p) => p.id !== phraseId));
+
       // Actualizar estadísticas
       fetchStats();
     } catch (err) {
@@ -111,10 +77,14 @@ export const PhraseManagement: React.FC = () => {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'easy': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
-      case 'hard': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+      case 'easy':
+        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
+      case 'hard':
+        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+      default:
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
     }
   };
 
@@ -241,7 +211,9 @@ export const PhraseManagement: React.FC = () => {
                     </p>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getDifficultyColor(phrase.difficulty)}`}>
+                    <span
+                      className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getDifficultyColor(phrase.difficulty)}`}
+                    >
                       {phrase.difficulty}
                     </span>
                   </td>
@@ -249,11 +221,13 @@ export const PhraseManagement: React.FC = () => {
                     {phrase.word_count}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      phrase.is_active 
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
-                        : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
-                    }`}>
+                    <span
+                      className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        phrase.is_active
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                          : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+                      }`}
+                    >
                       {phrase.is_active ? 'Activa' : 'Inactiva'}
                     </span>
                   </td>
@@ -283,11 +257,12 @@ export const PhraseManagement: React.FC = () => {
         {totalPages > 1 && (
           <div className="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-gray-700">
             <div className="text-sm text-gray-700 dark:text-gray-300">
-              Mostrando {indexOfFirstPhrase + 1} a {Math.min(indexOfLastPhrase, phrases.length)} de {phrases.length} frases
+              Mostrando {indexOfFirstPhrase + 1} a {Math.min(indexOfLastPhrase, phrases.length)} de{' '}
+              {phrases.length} frases
             </div>
             <div className="flex gap-2">
               <Button
-                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
                 disabled={currentPage === 1}
                 size="sm"
                 variant="secondary"
@@ -298,7 +273,7 @@ export const PhraseManagement: React.FC = () => {
                 Página {currentPage} de {totalPages}
               </span>
               <Button
-                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
                 disabled={currentPage === totalPages}
                 size="sm"
                 variant="secondary"

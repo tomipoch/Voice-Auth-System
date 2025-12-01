@@ -10,23 +10,29 @@ import {
   Mic,
   Edit,
   Trash2,
+  FileText,
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { adminService } from '../services/apiServices';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import MainLayout from '../components/ui/MainLayout';
+import { PhraseManagement } from '../components/admin/PhraseManagement';
 
 interface UserItem {
   id: string;
   email: string;
-  username: string;
-  fullName: string;
+  name: string; // Backend returns this (first_name + last_name)
+  first_name?: string;
+  last_name?: string;
   role: 'user' | 'admin' | 'super_admin';
-  isVerified: boolean;
+  company?: string;
+  isVerified?: boolean;
   voiceProfile?: any;
-  createdAt: string;
-  updatedAt: string;
+  voice_template?: boolean;
+  createdAt?: string;
+  created_at?: string;
+  updatedAt?: string;
 }
 
 interface StatCard {
@@ -55,7 +61,7 @@ const AdminPage = () => {
         ]);
 
         // Filtrar solo usuarios de la empresa del admin
-        let filteredUsers = usersData.data;
+        const filteredUsers = usersData.data;
 
         setUsers(filteredUsers);
         setStats([
@@ -105,6 +111,7 @@ const AdminPage = () => {
   const tabs = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'users', label: 'Usuarios', icon: Users },
+    { id: 'phrases', label: 'Frases', icon: FileText },
     { id: 'settings', label: 'Configuración', icon: Settings },
   ];
 
@@ -136,7 +143,7 @@ const AdminPage = () => {
           </div>
           <div className="text-right">
             <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              {user?.fullName || user?.username}
+              {user?.name || user?.email}
             </p>
             <p className="text-xs text-blue-600/70 dark:text-blue-400/70">Administrador</p>
           </div>
@@ -324,7 +331,7 @@ const AdminPage = () => {
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div>
                               <div className="text-sm font-semibold text-gray-800">
-                                {userItem.fullName}
+                                {userItem.name}
                               </div>
                               <div className="text-sm text-blue-600/70">{userItem.email}</div>
                             </div>
@@ -389,6 +396,17 @@ const AdminPage = () => {
                   </table>
                 </div>
               )}
+            </div>
+          )}
+
+          {activeTab === 'phrases' && (
+            <div>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent">
+                  Gestión de Frases
+                </h2>
+              </div>
+              <PhraseManagement />
             </div>
           )}
 

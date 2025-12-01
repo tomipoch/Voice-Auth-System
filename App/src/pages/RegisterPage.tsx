@@ -4,14 +4,16 @@ import { UserPlus, Mail, Lock, User } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
 interface FormData {
-  name: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
 interface FormErrors {
-  name?: string;
+  first_name?: string;
+  last_name?: string;
   email?: string;
   password?: string;
   confirmPassword?: string;
@@ -19,7 +21,8 @@ interface FormErrors {
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState<FormData>({
-    name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -47,10 +50,16 @@ const RegisterPage = () => {
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = 'El nombre es requerido';
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = 'El nombre debe tener al menos 2 caracteres';
+    if (!formData.first_name.trim()) {
+      newErrors.first_name = 'El nombre es requerido';
+    } else if (formData.first_name.trim().length < 2) {
+      newErrors.first_name = 'El nombre debe tener al menos 2 caracteres';
+    }
+
+    if (!formData.last_name.trim()) {
+      newErrors.last_name = 'El apellido es requerido';
+    } else if (formData.last_name.trim().length < 2) {
+      newErrors.last_name = 'El apellido debe tener al menos 2 caracteres';
     }
 
     if (!formData.email.trim()) {
@@ -83,23 +92,23 @@ const RegisterPage = () => {
     }
 
     await register({
-      username: formData.name.trim(),
-      fullName: formData.name.trim(),
+      first_name: formData.first_name.trim(),
+      last_name: formData.last_name.trim(),
       email: formData.email.trim().toLowerCase(),
       password: formData.password,
-      confirmPassword: formData.confirmPassword,
     });
 
     // Resetear formulario después del registro exitoso
     setFormData({
-      name: '',
+      first_name: '',
+      last_name: '',
       email: '',
       password: '',
       confirmPassword: '',
     });
   };
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen relative overflow-hidden bg-linear-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/20 dark:bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -114,13 +123,13 @@ const RegisterPage = () => {
           <div className="text-center">
             {/* Liquid Glass Icon Container */}
             <div className="mx-auto relative">
-              <div className="h-20 w-20 mx-auto bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-xl rounded-3xl border border-blue-200/30 shadow-xl flex items-center justify-center group hover:scale-105 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-400/20 to-blue-600/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="h-20 w-20 mx-auto bg-linear-to-br from-white/70 to-white/40 backdrop-blur-xl rounded-3xl border border-blue-200/30 shadow-xl flex items-center justify-center group hover:scale-105 transition-all duration-300">
+                <div className="absolute inset-0 bg-linear-to-br from-indigo-400/20 to-blue-600/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <UserPlus className="h-10 w-10 text-blue-600 dark:text-blue-400 relative z-10" />
               </div>
             </div>
 
-            <h2 className="mt-8 text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 bg-clip-text text-transparent">
+            <h2 className="mt-8 text-4xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 bg-clip-text text-transparent">
               Crear Cuenta
             </h2>
             <p className="mt-3 text-lg text-blue-600 dark:text-blue-400/80 font-medium">
@@ -131,23 +140,42 @@ const RegisterPage = () => {
           {/* Main Form with Liquid Glass Effect */}
           <div className="backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-blue-200/40 rounded-2xl p-8 shadow-xl">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              {/* Name Input */}
+              {/* First Name Input */}
               <div className="relative space-y-2">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Nombre Completo
+                <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
+                  Nombre
                 </label>
                 <input
-                  id="name"
-                  name="name"
+                  id="first_name"
+                  name="first_name"
                   type="text"
-                  autoComplete="name"
-                  value={formData.name}
+                  autoComplete="given-name"
+                  value={formData.first_name}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 pr-12 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
-                  placeholder="Tu nombre completo"
+                  placeholder="Tu nombre"
                 />
                 <User className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
-                {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
+                {errors.first_name && <p className="text-sm text-red-500">{errors.first_name}</p>}
+              </div>
+
+              {/* Last Name Input */}
+              <div className="relative space-y-2">
+                <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">
+                  Apellido
+                </label>
+                <input
+                  id="last_name"
+                  name="last_name"
+                  type="text"
+                  autoComplete="family-name"
+                  value={formData.last_name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 pr-12 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
+                  placeholder="Tu apellido"
+                />
+                <User className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
+                {errors.last_name && <p className="text-sm text-red-500">{errors.last_name}</p>}
               </div>
 
               {/* Email Input */}
@@ -226,7 +254,7 @@ const RegisterPage = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full relative py-3 px-6 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="w-full relative py-3 px-6 bg-linear-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
                 <span className="relative z-10">
                   {isLoading ? (
@@ -238,7 +266,7 @@ const RegisterPage = () => {
                     'Crear Cuenta'
                   )}
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-linear-to-r from-blue-400 to-indigo-500 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
               </button>
             </form>
           </div>

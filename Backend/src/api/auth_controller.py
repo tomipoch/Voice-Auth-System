@@ -36,9 +36,11 @@ class UserLoginRequest(BaseModel):
     password: str
 
 class UserRegisterRequest(BaseModel):
-    name: str
+    first_name: str
+    last_name: str
     email: EmailStr
     password: str
+    company: Optional[str] = None
 
 class TokenResponse(BaseModel):
     access_token: str
@@ -59,6 +61,17 @@ class UserProfile(BaseModel):
 
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..infrastructure.config.dependencies import get_user_repository
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    """Create JWT access token."""
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
 
 async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
@@ -102,46 +115,58 @@ async def login(
     """
     Authenticate user and return access token.
     """
+    
     user = await user_repo.get_user_by_email(user_data.email)
+    logger.info(f"Login attempt for email={user_data.email}, found user_id={user['id'] if user else None}")
     
     if user and user.get("locked_until") and user["locked_until"] > datetime.now():
+        logger.warning(f"Login failed for email={user_data.email}: Account locked until {user['locked_until']}")
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=f"Account locked. Try again after {user['locked_until']}.",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    if not user or not verify_password(user_data.password, user["hashed_password"]):
+    if not user or not verify_password(user_data.password, user["password"]):
         if user:
             await user_repo.increment_failed_auth_attempts(user["id"])
+            logger.warning(f"Login failed for user_id={user['id']}, email={user_data.email}: Invalid credentials. Failed attempts: {user['failed_auth_attempts'] + 1}")
             if user["failed_auth_attempts"] + 1 >= MAX_FAILED_ATTEMPTS:
                 await user_repo.lock_user_account(user["id"], timedelta(minutes=LOCKOUT_MINUTES))
+                logger.error(f"User account user_id={user['id']}, email={user_data.email} locked due to too many failed attempts.")
+        else:
+            logger.warning(f"Login failed for email={user_data.email}: User not found or invalid credentials.")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect email or password",
+            detail="Invalid credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
     
+    # Reset failed attempts on successful login
     await user_repo.reset_failed_auth_attempts(user["id"])
     
+    # Create access token
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user["email"]}, expires_delta=access_token_expires
+        data={"sub": str(user["id"]), "role": user.get("role", "user")}, expires_delta=access_token_expires
     )
+    
+    logger.info(f"Login successful for user_id={user['id']}, email={user_data.email}")
     
     # Remove sensitive data
     user_response = {
-        "id": user["id"],
-        "name": user["name"],
+        "id": str(user["id"]),
+        "name": f"{user.get('first_name', '')} {user.get('last_name', '')}".strip(),
         "email": user["email"],
-        "role": user["role"],
-        "company": user["company"],
+        "role": user.get("role", "user"),
+        "company": user.get("company", ""),
         "created_at": user["created_at"].isoformat(),
-        "voice_template": user["voice_template"]
+        "voice_template": None  # Will be populated when user enrolls
     }
     
     return TokenResponse(
         access_token=access_token,
+        token_type="bearer",
         expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         user=user_response
     )
@@ -166,14 +191,16 @@ async def register(
     
     # Create new user
     user_id = await user_repo.create_user(
-        name=user_data.name,
         email=user_data.email,
         password=hashed_password,
+        first_name=user_data.first_name,
+        last_name=user_data.last_name,
+        company=user_data.company
     )
     
     return {
         "message": "User registered successfully",
-        "user_id": user_id
+        "user_id": str(user_id)
     }
 
 @auth_router.get("/profile", response_model=UserProfile)
@@ -182,13 +209,13 @@ async def get_profile(current_user: dict = Depends(get_current_user)):
     Get current user profile.
     """
     return UserProfile(
-        id=current_user["id"],
-        name=current_user["name"],
+        id=str(current_user["id"]),
+        name=f"{current_user.get('first_name', '')} {current_user.get('last_name', '')}".strip(),
         email=current_user["email"],
-        role=current_user["role"],
-        company=current_user["company"],
+        role=current_user.get("role", "user"),
+        company=current_user.get("company", ""),
         created_at=current_user["created_at"],
-        voice_template=current_user["voice_template"]
+        voice_template=None  # Will be populated when user enrolls
     )
 
 @auth_router.post("/logout")

@@ -36,8 +36,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
 
   // Estados del formulario
   const [profileData, setProfileData] = useState({
-    fullName: user?.fullName || '',
-    username: user?.username || '',
+    name: user?.name || '',
     email: user?.email || '',
     currentPassword: '',
     newPassword: '',
@@ -117,9 +116,9 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
   // Estilos para inputs mejorados
   const inputClassName = `
     w-full px-6 py-4 rounded-2xl transition-all duration-300
-    bg-gradient-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-gray-200 dark:border-gray-700/50 dark:border-gray-600/50
-    focus:ring-4 focus:ring-blue-300/30 dark:focus:ring-blue-500/30 focus:border-blue-400 dark:focus:border-blue-500 focus:bg-gradient-to-r focus:from-white/95 focus:to-white/80 dark:focus:from-gray-700/95 dark:focus:to-gray-800/80
-    hover:bg-gradient-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:border-gray-300/60 dark:hover:border-gray-600/60 hover:shadow-xl
+    bg-linear-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-gray-200 dark:border-gray-700/50 dark:border-gray-600/50
+    focus:ring-4 focus:ring-blue-300/30 dark:focus:ring-blue-500/30 focus:border-blue-400 dark:focus:border-blue-500 focus:bg-linear-to-r focus:from-white/95 focus:to-white/80 dark:focus:from-gray-700/95 dark:focus:to-gray-800/80
+    hover:bg-linear-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:border-gray-300/60 dark:hover:border-gray-600/60 hover:shadow-xl
     placeholder:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-400 text-gray-800 dark:text-gray-100 font-medium text-lg
     shadow-xl
   `;
@@ -130,38 +129,26 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
     <div className="space-y-8 max-h-96 overflow-y-auto pr-2">
       <div>
         <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-3">
+          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-3">
             <User className="h-4 w-4 text-white" />
           </div>
           Información Personal
         </h3>
         <div className="p-6 rounded-2xl hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             <div>
               <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
                 Nombre Completo
               </label>
               <input
                 type="text"
-                value={profileData.fullName}
-                onChange={(e) => setProfileData({ ...profileData, fullName: e.target.value })}
+                value={profileData.name}
+                onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                 className={inputClassName}
                 placeholder="Tu nombre completo"
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
-                Usuario
-              </label>
-              <input
-                type="text"
-                value={profileData.username}
-                onChange={(e) => setProfileData({ ...profileData, username: e.target.value })}
-                className={inputClassName}
-                placeholder="Tu nombre de usuario"
-              />
-            </div>
-            <div className="md:col-span-2">
               <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
                 Email
               </label>
@@ -179,7 +166,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
 
       <div>
         <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mr-3">
+          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-green-500 to-emerald-600 flex items-center justify-center mr-3">
             <Shield className="h-4 w-4 text-white" />
           </div>
           Cambiar Contraseña
@@ -246,7 +233,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
       <Button
         onClick={() => handleSave('profile')}
         disabled={isLoading}
-        className="w-full md:w-auto bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl px-8 py-3"
+        className="w-full md:w-auto bg-linear-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl px-8 py-3"
       >
         <Save className="h-4 w-4 mr-2" />
         {isLoading ? 'Guardando...' : 'Guardar Cambios'}
@@ -258,7 +245,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
     <div className="space-y-8 max-h-96 overflow-y-auto pr-2">
       <div>
         <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-pink-600 flex items-center justify-center mr-3">
+          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-red-500 to-pink-600 flex items-center justify-center mr-3">
             <Shield className="h-4 w-4 text-white" />
           </div>
           Configuración de Seguridad
@@ -267,7 +254,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           {/* Toggle mejorado para 2FA */}
           <div className="flex items-center justify-between p-6 rounded-2xl hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center mr-4">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-500 to-indigo-600 flex items-center justify-center mr-4">
                 <Shield className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -288,14 +275,14 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 }
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-blue-500 peer-checked:to-indigo-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-blue-500 peer-checked:to-indigo-600 shadow-lg"></div>
             </label>
           </div>
 
           {/* Selector de tiempo de sesión mejorado */}
           <div className="p-6 rounded-2xl transition-all duration-300 hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-cyan-600 flex items-center justify-center">
                 <Clock className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -314,7 +301,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                     sessionTimeout: parseInt(e.target.value),
                   })
                 }
-                className="w-full px-6 py-4 bg-gradient-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-blue-200/50 dark:border-gray-600/50 rounded-2xl focus:ring-4 focus:ring-blue-300/30 dark:focus:ring-blue-500/30 focus:border-blue-400 dark:focus:border-blue-500 shadow-xl text-gray-800 dark:text-gray-100 font-semibold text-lg appearance-none cursor-pointer hover:bg-gradient-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:shadow-2xl pr-14"
+                className="w-full px-6 py-4 bg-linear-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-blue-200/50 dark:border-gray-600/50 rounded-2xl focus:ring-4 focus:ring-blue-300/30 dark:focus:ring-blue-500/30 focus:border-blue-400 dark:focus:border-blue-500 shadow-xl text-gray-800 dark:text-gray-100 font-semibold text-lg appearance-none cursor-pointer hover:bg-linear-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:shadow-2xl pr-14"
               >
                 <option value={15}>⏱️ 15 minutos</option>
                 <option value={30}>⏰ 30 minutos</option>
@@ -330,7 +317,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           {/* Toggle para notificaciones de login */}
           <div className="flex items-center justify-between p-6 rounded-2xl transition-all duration-300 hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center mr-4">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-amber-500 to-orange-600 flex items-center justify-center mr-4">
                 <Bell className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -351,7 +338,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 }
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-amber-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-amber-500 peer-checked:to-orange-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-amber-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-amber-500 peer-checked:to-orange-600 shadow-lg"></div>
             </label>
           </div>
         </div>
@@ -363,7 +350,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
     <div className="space-y-8 max-h-96 overflow-y-auto overflow-x-hidden">
       <div>
         <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mr-3">
+          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center mr-3">
             <Bell className="h-4 w-4 text-white" />
           </div>
           Preferencias de Notificación
@@ -372,7 +359,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           {/* Email Notifications */}
           <div className="flex items-center justify-between p-6 rounded-2xl hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-4">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-4">
                 <Mail className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -396,14 +383,14 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 }
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-emerald-500 peer-checked:to-blue-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-emerald-500 peer-checked:to-blue-600 shadow-lg"></div>
             </label>
           </div>
 
           {/* Push Notifications */}
           <div className="flex items-center justify-between p-6 rounded-2xl hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-4">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-4">
                 <Smartphone className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -427,14 +414,14 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 }
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-blue-500 peer-checked:to-indigo-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-blue-500 peer-checked:to-indigo-600 shadow-lg"></div>
             </label>
           </div>
 
           {/* Security Alerts */}
           <div className="flex items-center justify-between p-6 rounded-2xl hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center mr-4">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-red-500 to-orange-600 flex items-center justify-center mr-4">
                 <AlertTriangle className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -458,14 +445,14 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 }
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-red-500 peer-checked:to-orange-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-red-500 peer-checked:to-orange-600 shadow-lg"></div>
             </label>
           </div>
 
           {/* System Updates */}
           <div className="flex items-center justify-between p-6 rounded-2xl hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mr-4">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-500 to-pink-600 flex items-center justify-center mr-4">
                 <Download className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -489,7 +476,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 }
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-purple-500 peer-checked:to-pink-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-purple-500 peer-checked:to-pink-600 shadow-lg"></div>
             </label>
           </div>
         </div>
@@ -501,7 +488,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
     <div className="space-y-8 max-h-96 overflow-y-auto overflow-x-hidden">
       <div>
         <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mr-3">
+          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-purple-500 to-pink-600 flex items-center justify-center mr-3">
             <Palette className="h-4 w-4 text-white" />
           </div>
           Personalización
@@ -510,7 +497,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           {/* Theme Selector */}
           <div className="p-6 rounded-2xl hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                 <Palette className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -530,7 +517,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                   setAppearance({ ...appearance, theme: newTheme });
                   setTheme(newTheme);
                 }}
-                className="w-full px-6 py-4 bg-gradient-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-indigo-200/50 dark:border-gray-600/50 rounded-2xl focus:ring-4 focus:ring-indigo-300/30 dark:focus:ring-indigo-500/30 focus:border-indigo-400 dark:focus:border-indigo-500 shadow-xl text-gray-800 dark:text-gray-100 font-semibold text-lg appearance-none cursor-pointer hover:bg-gradient-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:shadow-2xl pr-14"
+                className="w-full px-6 py-4 bg-linear-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-indigo-200/50 dark:border-gray-600/50 rounded-2xl focus:ring-4 focus:ring-indigo-300/30 dark:focus:ring-indigo-500/30 focus:border-indigo-400 dark:focus:border-indigo-500 shadow-xl text-gray-800 dark:text-gray-100 font-semibold text-lg appearance-none cursor-pointer hover:bg-linear-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:shadow-2xl pr-14"
               >
                 <option value="light">🌞 Claro</option>
                 <option value="dark">🌙 Oscuro</option>
@@ -545,7 +532,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           {/* Language Setting */}
           <div className="p-6 rounded-2xl hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
                 <Globe className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -561,7 +548,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
               <select
                 value={appearance.language}
                 onChange={(e) => setAppearance({ ...appearance, language: e.target.value })}
-                className="w-full px-6 py-4 bg-gradient-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-emerald-200/50 dark:border-gray-600/50 rounded-2xl focus:ring-4 focus:ring-emerald-300/30 dark:focus:ring-emerald-500/30 focus:border-emerald-400 dark:focus:border-emerald-500 shadow-xl text-gray-800 dark:text-gray-100 font-semibold text-lg appearance-none cursor-pointer hover:bg-gradient-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:shadow-2xl pr-14"
+                className="w-full px-6 py-4 bg-linear-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-emerald-200/50 dark:border-gray-600/50 rounded-2xl focus:ring-4 focus:ring-emerald-300/30 dark:focus:ring-emerald-500/30 focus:border-emerald-400 dark:focus:border-emerald-500 shadow-xl text-gray-800 dark:text-gray-100 font-semibold text-lg appearance-none cursor-pointer hover:bg-linear-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:shadow-2xl pr-14"
               >
                 <option value="es">🇪🇸 Español</option>
                 <option value="en">🇺🇸 English</option>
@@ -610,7 +597,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar de configuración mejorado */}
         <div className="lg:col-span-1">
-          <div className="relative overflow-hidden rounded-2xl p-4 shadow-lg border bg-gradient-to-br from-blue-50/80 to-purple-50/80 dark:from-gray-800/70 dark:to-gray-800/70 border-blue-200/40 dark:border-gray-600/40 backdrop-blur-xl">
+          <div className="relative overflow-hidden rounded-2xl p-4 shadow-lg border bg-linear-to-br from-blue-50/80 to-purple-50/80 dark:from-gray-800/70 dark:to-gray-800/70 border-blue-200/40 dark:border-gray-600/40 backdrop-blur-xl">
             {/* Elemento decorativo */}
             <div
               className="absolute top-0 right-0 w-20 h-20 rounded-full opacity-30"
@@ -632,13 +619,13 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                       transition-all duration-300 relative overflow-hidden group
                       ${
                         activeTab === tab.id
-                          ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg transform scale-[1.02]'
+                          ? 'bg-linear-to-r from-blue-500 to-indigo-600 text-white shadow-lg transform scale-[1.02]'
                           : 'text-gray-700 dark:text-blue-400/70 hover:bg-white dark:hover:bg-gray-700/60 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-md hover:scale-[1.01]'
                       }
                     `}
                   >
                     {/* Efecto de brillo en hover */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-700" />
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transform -translate-x-full group-hover:translate-x-full transition-all duration-700" />
 
                     <Icon className="h-5 w-5 mr-3 relative z-10" />
                     <span className="relative z-10">{tab.label}</span>

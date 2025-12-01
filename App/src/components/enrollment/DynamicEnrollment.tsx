@@ -5,8 +5,12 @@
 
 import { useState, useEffect } from 'react';
 import { Shield, CheckCircle, XCircle, Loader2 } from 'lucide-react';
-import enrollmentService, { type Phrase, type StartEnrollmentResponse } from '../../services/enrollmentService';
-import AudioRecorder from '../ui/AudioRecorder';
+import enrollmentService, {
+  type Phrase,
+  type StartEnrollmentResponse,
+} from '../../services/enrollmentService';
+import { type AudioQuality } from '../../hooks/useAdvancedAudioRecording';
+import EnhancedAudioRecorder from './EnhancedAudioRecorder';
 import Button from '../ui/Button';
 import Card from '../ui/Card';
 import StatusIndicator from '../ui/StatusIndicator';
@@ -83,17 +87,17 @@ const DynamicEnrollment = ({
   }, [userId, externalRef, difficulty, onError]);
 
   // Manejar grabación completada
-  const handleRecordingComplete = async (audioBlob: Blob, _quality: any) => {
+  const handleRecordingComplete = async (audioBlob: Blob, _quality: AudioQuality) => {
     if (!enrollmentData || !steps[currentStepIndex]?.phrase) {
       setError('Datos de enrollment no disponibles');
       return;
     }
 
     setIsProcessing(true);
-    
+
     try {
       const currentPhrase = steps[currentStepIndex].phrase!;
-      
+
       // Enviar muestra al servidor
       const response = await enrollmentService.addSample(
         enrollmentData.enrollment_id,
@@ -137,12 +141,10 @@ const DynamicEnrollment = ({
     setIsProcessing(true);
 
     try {
-      const response = await enrollmentService.completeEnrollment(
-        enrollmentData.enrollment_id
-      );
+      const response = await enrollmentService.completeEnrollment(enrollmentData.enrollment_id);
 
       setPhase('completed');
-      onEnrollmentComplete(response.voiceprint_id, response.quality_score);
+      onEnrollmentComplete(response.voiceprint_id, response.enrollment_quality);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error al completar enrollment';
       setError(errorMessage);
@@ -162,9 +164,7 @@ const DynamicEnrollment = ({
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
             Iniciando Enrollment
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">
-            Preparando frases dinámicas...
-          </p>
+          <p className="text-gray-600 dark:text-gray-400">Preparando frases dinámicas...</p>
         </div>
       </Card>
     );
@@ -253,28 +253,25 @@ const DynamicEnrollment = ({
             </p>
           </div>
 
-          {/* Audio Recorder */}
-          <AudioRecorder
+          {/* Enhanced Audio Recorder with Countdown and VAD */}
+          <EnhancedAudioRecorder
+            key={currentStepIndex} // Force remount when step changes
+            phraseText={currentStep?.phrase?.text || ''}
             onRecordingComplete={handleRecordingComplete}
             maxDuration={30}
+            minDuration={2}
           />
 
           {/* Status Messages */}
           {isProcessing && (
             <div className="mt-4">
-              <StatusIndicator
-                status="loading"
-                message="Procesando audio..."
-              />
+              <StatusIndicator status="loading" message="Procesando audio..." />
             </div>
           )}
 
           {error && (
             <div className="mt-4">
-              <StatusIndicator
-                status="error"
-                message={error}
-              />
+              <StatusIndicator status="error" message={error} />
             </div>
           )}
 

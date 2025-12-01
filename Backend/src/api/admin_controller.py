@@ -16,7 +16,8 @@ admin_router = APIRouter()
 # Pydantic models
 class UserInfo(BaseModel):
     id: str
-    name: str
+    first_name: str
+    last_name: str
     email: str
     role: str
     company: str

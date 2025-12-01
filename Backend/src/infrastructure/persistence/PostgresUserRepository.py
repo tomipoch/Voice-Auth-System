@@ -17,21 +17,34 @@ class PostgresUserRepository(UserRepositoryPort):
     
     async def create_user(
         self,
-        name: str,
-        email: str,
-        password: str,
+        email: Optional[str] = None,
+        password: Optional[str] = None,
+        first_name: Optional[str] = None,
+        last_name: Optional[str] = None,
+        role: str = "user",
+        company: Optional[str] = None,
         external_ref: Optional[str] = None
     ) -> UserId:
         """Create a new user."""
         user_id = uuid4()
         
+        # Generate defaults if missing
+        if not email:
+            email = f"anon_{user_id}@example.com"
+        if not password:
+            password = "temporary_password"
+        if not first_name:
+            first_name = "Anonymous"
+        if not last_name:
+            last_name = "User"
+        
         async with self._pool.acquire() as conn:
             await conn.execute(
                 """
-                INSERT INTO "user" (id, name, email, password, external_ref, created_at)
-                VALUES ($1, $2, $3, $4, $5, now())
+                INSERT INTO "user" (id, email, password, first_name, last_name, role, company, external_ref, created_at)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, now())
                 """,
-                user_id, name, email, password, external_ref
+                user_id, email, password, first_name, last_name, role, company, external_ref
             )
             
             # Create default user policy
@@ -50,7 +63,8 @@ class PostgresUserRepository(UserRepositoryPort):
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
-                SELECT id, name, email, password, external_ref, created_at, deleted_at, failed_auth_attempts, locked_until
+                SELECT id, email, password, first_name, last_name, role, company, external_ref, 
+                       created_at, deleted_at, failed_auth_attempts, locked_until, last_login
                 FROM "user"
                 WHERE id = $1 AND deleted_at IS NULL
                 """,
@@ -66,7 +80,8 @@ class PostgresUserRepository(UserRepositoryPort):
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
-                SELECT id, name, email, password, external_ref, created_at, deleted_at, failed_auth_attempts, locked_until
+                SELECT id, email, password, first_name, last_name, role, company, external_ref,
+                       created_at, deleted_at, failed_auth_attempts, locked_until, last_login
                 FROM "user"
                 WHERE email = $1 AND deleted_at IS NULL
                 """,
@@ -82,7 +97,8 @@ class PostgresUserRepository(UserRepositoryPort):
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
-                SELECT id, name, email, password, external_ref, created_at, deleted_at, failed_auth_attempts, locked_until
+                SELECT id, email, password, first_name, last_name, role, company, external_ref,
+                       created_at, deleted_at, failed_auth_attempts, locked_until, last_login
                 FROM "user"
                 WHERE external_ref = $1 AND deleted_at IS NULL
                 """,
@@ -161,7 +177,7 @@ class PostgresUserRepository(UserRepositoryPort):
             offset = (page - 1) * limit
             rows = await conn.fetch(
                 """
-                SELECT id, name, email, role, company, created_at, deleted_at
+                SELECT id, email, first_name, last_name, role, company, external_ref, created_at, deleted_at
                 FROM "user"
                 WHERE company = $1 AND deleted_at IS NULL
                 ORDER BY created_at DESC
@@ -185,7 +201,7 @@ class PostgresUserRepository(UserRepositoryPort):
             offset = (page - 1) * limit
             rows = await conn.fetch(
                 """
-                SELECT id, name, email, role, company, created_at, deleted_at
+                SELECT id, email, first_name, last_name, role, company, external_ref, created_at, deleted_at
                 FROM "user"
                 WHERE deleted_at IS NULL
                 ORDER BY created_at DESC

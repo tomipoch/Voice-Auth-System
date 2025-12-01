@@ -17,7 +17,6 @@ const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const EnrollmentPage = lazy(() => import('./pages/EnrollmentPage'));
 const VerificationPage = lazy(() => import('./pages/VerificationPage'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
-const AdminLoginPage = lazy(() => import('./pages/AdminLoginPage'));
 const SuperAdminDashboard = lazy(() => import('./pages/SuperAdminDashboard'));
 
 // Componente de carga
@@ -112,16 +111,6 @@ const AppRoutes = () => {
                 <PublicRoute>
                   <RegisterPage />
                 </PublicRoute>
-              }
-            />
-
-            {/* Ruta de login administrativo */}
-            <Route
-              path="/admin/login"
-              element={
-                <AdminPublicRoute>
-                  <AdminLoginPage />
-                </AdminPublicRoute>
               }
             />
 

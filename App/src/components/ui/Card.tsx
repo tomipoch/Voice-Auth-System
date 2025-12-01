@@ -46,7 +46,7 @@ const CardHeader = ({ children, className = '', ...props }: CardChildProps) => {
 
 const CardTitle = ({ children, className = '', ...props }: CardChildProps) => {
   const classes = clsx(
-    'text-2xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent',
+    'text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent',
     className
   );
 
