@@ -120,7 +120,7 @@ async def main():
                 print(f"   Después: {cleaned_text}\n")
                 cleaned_count += 1
         
-        print(f"\n🎯 Resumen:")
+        print("\n🎯 Resumen:")
         print(f"   - Frases limpiadas: {cleaned_count}")
         print(f"   - Frases eliminadas: {deleted_count}")
         print(f"   - Frases restantes: {len(phrases) - deleted_count}")

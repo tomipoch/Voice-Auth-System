@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Shield, CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { Shield, CheckCircle, XCircle, Loader2, RefreshCw } from 'lucide-react';
 import enrollmentService, {
   type Phrase,
   type StartEnrollmentResponse,
@@ -14,7 +14,6 @@ import EnhancedAudioRecorder from './EnhancedAudioRecorder';
 import Button from '../ui/Button';
 import Card from '../ui/Card';
 import StatusIndicator from '../ui/StatusIndicator';
-import EnrollmentWizard from './EnrollmentWizard';
 
 interface DynamicEnrollmentProps {
   userId?: string;
@@ -22,6 +21,7 @@ interface DynamicEnrollmentProps {
   difficulty?: 'easy' | 'medium' | 'hard';
   onEnrollmentComplete: (voiceprintId: string, qualityScore: number) => void;
   onError?: (error: string) => void;
+  onCancel?: () => void;
   className?: string;
 }
 
@@ -42,6 +42,7 @@ const DynamicEnrollment = ({
   difficulty = 'medium',
   onEnrollmentComplete,
   onError,
+  onCancel,
   className,
 }: DynamicEnrollmentProps) => {
   const [phase, setPhase] = useState<EnrollmentPhase>('initializing');
@@ -179,7 +180,17 @@ const DynamicEnrollment = ({
             Error en Enrollment
           </h3>
           <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
-          <Button onClick={() => window.location.reload()}>Reintentar</Button>
+          <div className="flex justify-center gap-3">
+            {onCancel && (
+              <Button onClick={onCancel} variant="ghost">
+                Cancelar
+              </Button>
+            )}
+            <Button onClick={() => window.location.reload()}>
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Reintentar
+            </Button>
+          </div>
         </div>
       </Card>
     );
@@ -224,33 +235,14 @@ const DynamicEnrollment = ({
         </div>
       </div>
 
-      {/* Wizard Steps */}
-      <EnrollmentWizard
-        currentStep={currentStepIndex + 1}
-        steps={steps.map((step) => ({
-          ...step,
-          title: step.name,
-        }))}
-      />
-
       {/* Current Step Card */}
-      <Card className="p-6 mt-6">
+      <Card className="p-6">
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
               {currentStep?.name}
             </h3>
             <Shield className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-          </div>
-
-          {/* Phrase Display */}
-          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-6">
-            <p className="text-center text-lg font-medium text-gray-900 dark:text-gray-100">
-              "{currentStep?.phrase?.text}"
-            </p>
-            <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-2">
-              Lee esta frase de forma natural y clara
-            </p>
           </div>
 
           {/* Enhanced Audio Recorder with Countdown and VAD */}
@@ -286,7 +278,7 @@ const DynamicEnrollment = ({
         </div>
 
         {/* Instructions */}
-        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 mb-4">
           <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
             Consejos para una mejor grabación:
           </h4>
@@ -297,6 +289,15 @@ const DynamicEnrollment = ({
             <li>• Lee la frase completa de forma fluida</li>
           </ul>
         </div>
+
+        {/* Cancel Button */}
+        {onCancel && (
+          <div className="flex justify-center mt-2">
+            <Button onClick={onCancel} variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+              Cancelar Registro
+            </Button>
+          </div>
+        )}
       </Card>
     </div>
   );

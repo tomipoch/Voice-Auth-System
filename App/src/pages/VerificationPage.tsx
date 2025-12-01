@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import MainLayout from '../components/ui/MainLayout';
 import VerificationWelcomeScreen from '../components/verification/VerificationWelcomeScreen';
@@ -9,12 +8,15 @@ import { type VerifyPhraseResponse } from '../services/verificationService';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 
+import Modal from '../components/ui/Modal';
+
 type VerificationPhase = 'welcome' | 'verifying' | 'success' | 'failed' | 'error';
 
 const VerificationPage = () => {
   const { user } = useAuth();
   const [phase, setPhase] = useState<VerificationPhase>('welcome');
   const [verificationResult, setVerificationResult] = useState<VerifyPhraseResponse | null>(null);
+  const [showCancelModal, setShowCancelModal] = useState(false);
 
   const handleStart = () => {
     setPhase('verifying');
@@ -36,25 +38,26 @@ const VerificationPage = () => {
     setVerificationResult(null);
   };
 
+  const handleCancel = () => {
+    setShowCancelModal(true);
+  };
+
+  const confirmCancel = () => {
+    setShowCancelModal(false);
+    setPhase('welcome');
+    setVerificationResult(null);
+  };
+
   return (
     <MainLayout>
-      {/* Header */}
-      <div className="flex items-center mb-8">
-        <Link
-          to="/dashboard"
-          className="flex items-center px-4 py-2 text-blue-600 dark:text-blue-400/70 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-300 bg-white dark:bg-gray-800/70 backdrop-blur-xl border border-blue-200/40 dark:border-gray-600/40 rounded-xl hover:bg-white dark:hover:bg-gray-800/80 hover:shadow-md"
-        >
-          <ArrowLeft className="h-5 w-5 mr-2" />
-          Volver al Dashboard
-        </Link>
-      </div>
+
 
       {/* Title */}
-      <div className="text-center mb-8">
+      <div className="text-left mb-8">
         <h1 className="text-4xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-green-800 dark:from-gray-200 dark:via-blue-400/70 dark:to-green-400/70 bg-clip-text text-transparent mb-4">
           Verificación de Identidad
         </h1>
-        <p className="text-lg text-blue-600/80 font-medium max-w-2xl mx-auto">
+        <p className="text-lg text-blue-600/80 font-medium max-w-2xl">
           {phase === 'welcome'
             ? 'Verifica tu identidad de forma segura usando tu voz.'
             : phase === 'verifying'
@@ -64,7 +67,7 @@ const VerificationPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto min-h-[calc(100vh-16rem)] flex flex-col justify-center">
         {phase === 'welcome' && <VerificationWelcomeScreen onStart={handleStart} />}
 
         {phase === 'verifying' && user && (
@@ -73,6 +76,7 @@ const VerificationPage = () => {
             userId={user.id}
             onVerificationSuccess={handleVerificationSuccess}
             onVerificationFailed={handleVerificationFailed}
+            onCancel={handleCancel}
             className="shadow-2xl"
           />
         )}
@@ -97,6 +101,28 @@ const VerificationPage = () => {
           </Card>
         )}
       </div>
+
+      {/* Cancel Confirmation Modal */}
+      <Modal
+        isOpen={showCancelModal}
+        onClose={() => setShowCancelModal(false)}
+        title="¿Cancelar verificación?"
+        size="small"
+      >
+        <div className="text-center">
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
+            ¿Estás seguro de que quieres cancelar el proceso de verificación? Se perderá el progreso actual.
+          </p>
+          <div className="flex justify-center gap-4">
+            <Button variant="ghost" onClick={() => setShowCancelModal(false)}>
+              No, continuar
+            </Button>
+            <Button variant="danger" onClick={confirmCancel}>
+              Sí, cancelar
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </MainLayout>
   );
 };
