@@ -92,7 +92,7 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }: SystemMetricsProps) 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="p-6">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <Users className="h-8 w-8 text-blue-600" />
             </div>
             <div className="ml-3">
@@ -111,7 +111,7 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }: SystemMetricsProps) 
 
         <Card className="p-6">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <Shield className="h-8 w-8 text-green-600" />
             </div>
             <div className="ml-3">
@@ -128,7 +128,7 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }: SystemMetricsProps) 
 
         <Card className="p-6">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <Activity className="h-8 w-8 text-purple-600" />
             </div>
             <div className="ml-3">
@@ -145,7 +145,7 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }: SystemMetricsProps) 
 
         <Card className="p-6">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <Clock className="h-8 w-8 text-orange-600" />
             </div>
             <div className="ml-3">

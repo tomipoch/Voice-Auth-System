@@ -10,6 +10,8 @@ import type {
   DashboardStats,
   Activity,
   PaginatedResponse,
+  Phrase,
+  PhraseStats,
 } from '../types/index.js';
 
 // Determinar si usar mock API
@@ -139,7 +141,7 @@ export const enrollmentService = {
     formData.append('enrollment_id', enrollmentId);
     formData.append('phrase_text', phraseText);
 
-    const response = await api.post<AudioSubmitResponse>('/enrollment/audio', formData, {
+    const response = await api.post<AudioSubmitResponse>('/enrollment/add-sample', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -165,7 +167,7 @@ export const enrollmentService = {
       return { status: 'in_progress', samples_recorded: 2, samples_required: 5 };
     }
     const response = await api.get<EnrollmentProgressResponse>(
-      `/enrollment/progress/${enrollmentId}`
+      `/enrollment/status/${enrollmentId}`
     );
     return response.data;
   },
@@ -199,7 +201,7 @@ export const verificationService = {
     formData.append('verification_id', verificationId);
     formData.append('phrase_text', phraseText);
 
-    const response = await api.post<VerificationAudioResponse>('/verification/audio', formData, {
+    const response = await api.post<VerificationAudioResponse>('/verification/verify', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -277,8 +279,13 @@ export const challengeService = {
     if (!useRealAPI) {
       return await mockApiService.challenges.getEnrollmentPhrase();
     }
-    const response = await api.get<PhraseResponse>('/challenges/enrollment');
-    return response.data;
+    // Usar el endpoint correcto de phrases
+    const response = await api.get<Phrase[]>('/phrases/random?count=1&difficulty=medium');
+    const phrase = response.data[0];
+    return {
+      id: phrase.id,
+      phrase: phrase.text,
+    };
   },
 
   // Obtener frase aleatoria para verificación
@@ -286,7 +293,66 @@ export const challengeService = {
     if (!useRealAPI) {
       return await mockApiService.challenges.getVerificationPhrase();
     }
-    const response = await api.get<PhraseResponse>('/challenges/verification');
+    // Usar el endpoint correcto de phrases
+    const response = await api.get<Phrase[]>('/phrases/random?count=1');
+    const phrase = response.data[0];
+    return {
+      id: phrase.id,
+      phrase: phrase.text,
+    };
+  },
+};
+
+// Servicios de gestión de frases (Admin)
+export const phraseService = {
+  // Listar frases
+  listPhrases: async (
+    difficulty?: string,
+    language: string = 'es',
+    limit: number = 100
+  ): Promise<Phrase[]> => {
+    if (!useRealAPI) {
+      // TODO: Implement mock for listPhrases if needed
+      return [];
+    }
+    const params = new URLSearchParams();
+    if (difficulty) params.append('difficulty', difficulty);
+    params.append('language', language);
+    params.append('limit', limit.toString());
+    const response = await api.get<Phrase[]>(`/phrases/list?${params.toString()}`);
+    return response.data;
+  },
+
+  // Obtener estadísticas
+  getStats: async (language: string = 'es'): Promise<PhraseStats> => {
+    if (!useRealAPI) {
+      // TODO: Implement mock for getStats if needed
+      return { total: 0, easy: 0, medium: 0, hard: 0, language };
+    }
+    const response = await api.get<PhraseStats>(`/phrases/stats?language=${language}`);
+    return response.data;
+  },
+
+  // Actualizar estado (activar/desactivar)
+  updateStatus: async (
+    id: string,
+    isActive: boolean
+  ): Promise<ApiResponse<{ message: string }>> => {
+    if (!useRealAPI) {
+      return { success: true, data: { message: 'Estado actualizado (mock)' } };
+    }
+    const response = await api.patch<ApiResponse<{ message: string }>>(
+      `/phrases/${id}/status?is_active=${isActive}`
+    );
+    return response.data;
+  },
+
+  // Eliminar frase
+  deletePhrase: async (id: string): Promise<ApiResponse<{ message: string }>> => {
+    if (!useRealAPI) {
+      return { success: true, data: { message: 'Frase eliminada (mock)' } };
+    }
+    const response = await api.delete<ApiResponse<{ message: string }>>(`/phrases/${id}`);
     return response.data;
   },
 };

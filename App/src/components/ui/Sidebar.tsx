@@ -59,10 +59,10 @@ const Sidebar = () => {
       <div className="flex flex-col h-full">
         {/* Logo */}
         <div className="flex items-center px-6 py-4 border-b border-blue-200/30 dark:border-gray-600/30">
-          <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+          <div className="h-12 w-12 bg-linear-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
             <Mic className="h-7 w-7 text-white" />
           </div>
-          <h1 className="ml-3 text-xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent">
+          <h1 className="ml-3 text-xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent">
             VoiceAuth
           </h1>
         </div>
@@ -70,8 +70,8 @@ const Sidebar = () => {
         {/* User Info */}
         <div className="px-6 py-4 border-b border-blue-200/30 dark:border-gray-600/30">
           <div className="flex items-center">
-            <div className="h-12 w-12 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 rounded-xl flex items-center justify-center shadow-sm border border-blue-200/40 dark:border-gray-600/40">
-              <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+            <div className="h-12 w-12 bg-linear-to-br from-blue-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 rounded-xl flex items-center justify-center shadow-sm border border-blue-200/40 dark:border-gray-600/40">
+              <span className="text-lg font-bold bg-linear-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
                 {user?.fullName?.charAt(0)?.toUpperCase() ||
                   user?.username?.charAt(0)?.toUpperCase() ||
                   'U'}
@@ -115,7 +115,7 @@ const Sidebar = () => {
                 to={item.href}
                 className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                   isActive
-                    ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg backdrop-blur-sm border border-blue-300/50'
+                    ? 'bg-linear-to-r from-blue-500 to-indigo-600 text-white shadow-lg backdrop-blur-sm border border-blue-300/50'
                     : 'text-gray-700 dark:text-gray-300 hover:bg-white dark:bg-gray-900/60 dark:hover:bg-gray-700/60 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-sm backdrop-blur-sm border border-transparent hover:border-blue-200/30 dark:hover:border-blue-500/30'
                 }`}
               >
@@ -137,7 +137,7 @@ const Sidebar = () => {
           </button>
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+            className="w-full flex items-center justify-center px-4 py-3 bg-linear-to-r from-red-500 to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
           >
             <LogOut className="h-4 w-4 mr-2" />
             Cerrar Sesión

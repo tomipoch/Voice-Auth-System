@@ -81,8 +81,8 @@ const verificationPhrases = [
 ];
 
 // Mock enrollment sessions
-let mockEnrollmentSessions = new Map();
-let mockVerificationSessions = new Map();
+const mockEnrollmentSessions = new Map();
+const mockVerificationSessions = new Map();
 
 // Mock statistics
 const mockStats = {

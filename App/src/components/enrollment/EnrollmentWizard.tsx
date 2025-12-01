@@ -46,7 +46,7 @@ const EnrollmentWizard = ({ currentStep, steps, onStepClick }: EnrollmentWizardP
                   })}
                   disabled={isUpcoming && !onStepClick}
                 >
-                  <span className="flex-shrink-0">
+                  <span className="shrink-0">
                     <span
                       className={clsx(
                         'w-10 h-10 flex items-center justify-center rounded-full text-sm font-medium',

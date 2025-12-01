@@ -83,7 +83,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="p-4">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <Users className="h-8 w-8 text-blue-600" />
             </div>
             <div className="ml-3">
@@ -97,7 +97,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
 
         <Card className="p-4">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <Shield className="h-8 w-8 text-green-600" />
             </div>
             <div className="ml-3">
@@ -111,7 +111,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
 
         <Card className="p-4">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <Activity className="h-8 w-8 text-yellow-600" />
             </div>
             <div className="ml-3">
@@ -125,7 +125,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
 
         <Card className="p-4">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <AlertTriangle className="h-8 w-8 text-yellow-600" />
             </div>
             <div className="ml-3">
@@ -250,7 +250,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="h-10 w-10 flex-shrink-0">
+                        <div className="h-10 w-10 shrink-0">
                           <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
                             <span className="text-sm font-medium text-blue-600">
                               {(user.fullName || user.username).charAt(0).toUpperCase()}

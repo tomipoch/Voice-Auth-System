@@ -5,8 +5,12 @@
 
 import { useState, useEffect } from 'react';
 import { Shield, CheckCircle, XCircle, Loader2, RefreshCw, AlertTriangle } from 'lucide-react';
-import verificationService, { type StartVerificationResponse, type VerifyVoiceResponse } from '../../services/verificationService';
-import AudioRecorder from '../ui/AudioRecorder';
+import verificationService, {
+  type StartVerificationResponse,
+  type VerifyVoiceResponse,
+} from '../../services/verificationService';
+import { type AudioQuality } from '../../hooks/useAdvancedAudioRecording';
+import EnhancedAudioRecorder from '../enrollment/EnhancedAudioRecorder';
 import Button from '../ui/Button';
 import Card from '../ui/Card';
 import StatusIndicator from '../ui/StatusIndicator';
@@ -21,7 +25,15 @@ interface DynamicVerificationProps {
   className?: string;
 }
 
-type VerificationPhase = 'initializing' | 'ready' | 'recording' | 'processing' | 'success' | 'failed' | 'blocked' | 'error';
+type VerificationPhase =
+  | 'initializing'
+  | 'ready'
+  | 'recording'
+  | 'processing'
+  | 'success'
+  | 'failed'
+  | 'blocked'
+  | 'error';
 
 const DynamicVerification = ({
   userId,
@@ -38,33 +50,44 @@ const DynamicVerification = ({
   const [currentAttempt, setCurrentAttempt] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  // Inicializar verificación
+  // Efecto para realizar la inicialización cuando la fase es 'initializing'
   useEffect(() => {
-    initializeVerification();
-  }, [userId, difficulty]);
+    let ignore = false;
 
-  const initializeVerification = async () => {
-    try {
-      setPhase('initializing');
-      setError(null);
-      
-      const response = await verificationService.startVerification({
-        user_id: userId,
-        difficulty,
-      });
+    const startVerification = async () => {
+      // Si ya tenemos datos o no estamos en initializing, no hacemos nada
+      // Esto previene llamadas dobles en React Strict Mode si el componente no se desmonta
+      if (phase !== 'initializing' || verificationData) return;
 
-      setVerificationData(response);
-      setPhase('ready');
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Error al iniciar verificación';
-      setError(errorMessage);
-      setPhase('error');
-      onError?.(errorMessage);
-    }
-  };
+      try {
+        const response = await verificationService.startVerification({
+          user_id: userId,
+          difficulty,
+        });
+
+        if (!ignore) {
+          setVerificationData(response);
+          setPhase('ready');
+        }
+      } catch (err) {
+        if (!ignore) {
+          const errorMessage = err instanceof Error ? err.message : 'Error al iniciar verificación';
+          setError(errorMessage);
+          setPhase('error');
+          onError?.(errorMessage);
+        }
+      }
+    };
+
+    startVerification();
+
+    return () => {
+      ignore = true;
+    };
+  }, [phase, userId, difficulty, onError, verificationData]);
 
   // Manejar grabación completada
-  const handleRecordingComplete = async (audioBlob: Blob, _quality: any) => {
+  const handleRecordingComplete = async (audioBlob: Blob, _quality: AudioQuality) => {
     if (!verificationData) {
       setError('Datos de verificación no disponibles');
       return;
@@ -94,7 +117,7 @@ const DynamicVerification = ({
         } else {
           setPhase('failed');
         }
-        
+
         onVerificationFailed(result);
       }
     } catch (err) {
@@ -110,7 +133,7 @@ const DynamicVerification = ({
   const handleRetry = () => {
     setVerificationResult(null);
     setError(null);
-    initializeVerification();
+    setPhase('initializing');
   };
 
   // Obtener mensaje según el estado
@@ -152,9 +175,7 @@ const DynamicVerification = ({
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
             Iniciando Verificación
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">
-            Obteniendo frase de verificación...
-          </p>
+          <p className="text-gray-600 dark:text-gray-400">Obteniendo frase de verificación...</p>
         </div>
       </Card>
     );
@@ -186,22 +207,24 @@ const DynamicVerification = ({
           <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             ¡Verificación Exitosa!
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">
-            Tu identidad ha sido confirmada
-          </p>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">Tu identidad ha sido confirmada</p>
 
           {verificationResult && (
             <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 mb-4">
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <p className="text-gray-500 dark:text-gray-400">Confianza</p>
-                  <p className={`text-lg font-bold ${getConfidenceColor(verificationResult.confidence_score)}`}>
+                  <p
+                    className={`text-lg font-bold ${getConfidenceColor(verificationResult.confidence_score)}`}
+                  >
                     {(verificationResult.confidence_score * 100).toFixed(1)}%
                   </p>
                 </div>
                 <div>
                   <p className="text-gray-500 dark:text-gray-400">Similitud</p>
-                  <p className={`text-lg font-bold ${getConfidenceColor(verificationResult.similarity_score)}`}>
+                  <p
+                    className={`text-lg font-bold ${getConfidenceColor(verificationResult.similarity_score)}`}
+                  >
                     {(verificationResult.similarity_score * 100).toFixed(1)}%
                   </p>
                 </div>
@@ -276,18 +299,16 @@ const DynamicVerification = ({
         )}
 
         {/* Audio Recorder */}
-        <AudioRecorder
+        <EnhancedAudioRecorder
+          key={`verification-${currentAttempt}`}
+          phraseText={verificationData?.phrase.text || ''}
           onRecordingComplete={handleRecordingComplete}
-          maxDuration={30}
         />
 
         {/* Status Messages */}
         <div className="mt-4">
           {phase === 'processing' && (
-            <StatusIndicator
-              status="loading"
-              message={getStatusMessage()}
-            />
+            <StatusIndicator status="loading" message={getStatusMessage()} />
           )}
 
           {phase === 'failed' && verificationResult && (
@@ -305,12 +326,7 @@ const DynamicVerification = ({
                 </div>
               </div>
               {currentAttempt < maxAttempts && (
-                <Button
-                  onClick={handleRetry}
-                  variant="outline"
-                  size="sm"
-                  className="mt-4"
-                >
+                <Button onClick={handleRetry} variant="outline" size="sm" className="mt-4">
                   <RefreshCw className="w-4 h-4 mr-2" />
                   Intentar con nueva frase
                 </Button>
@@ -318,12 +334,7 @@ const DynamicVerification = ({
             </div>
           )}
 
-          {error && (
-            <StatusIndicator
-              status="error"
-              message={error}
-            />
-          )}
+          {error && <StatusIndicator status="error" message={error} />}
         </div>
 
         {/* Instructions */}

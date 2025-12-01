@@ -19,25 +19,32 @@ export interface StartEnrollmentRequest {
 }
 
 export interface StartEnrollmentResponse {
+  success: boolean;
   enrollment_id: string;
   user_id: string;
   phrases: Phrase[];
   required_samples: number;
+  message: string;
 }
 
 export interface AddSampleResponse {
+  success: boolean;
   sample_id: string;
   samples_completed: number;
   samples_required: number;
   is_complete: boolean;
   next_phrase: Phrase | null;
+  quality_score?: number;
+  message: string;
 }
 
 export interface CompleteEnrollmentResponse {
+  success: boolean;
   voiceprint_id: string;
   user_id: string;
-  quality_score: number;
+  enrollment_quality: number;
   samples_used: number;
+  message: string;
 }
 
 export interface EnrollmentStatusResponse {
@@ -54,14 +61,14 @@ export interface EnrollmentStatusResponse {
 }
 
 class EnrollmentService {
-  private readonly baseUrl = '/api/v1/enrollment';
+  private readonly baseUrl = '/enrollment';
 
   /**
    * Iniciar proceso de enrollment
    */
   async startEnrollment(data: StartEnrollmentRequest): Promise<StartEnrollmentResponse> {
     const formData = new FormData();
-    
+
     if (data.external_ref) {
       formData.append('external_ref', data.external_ref);
     }
@@ -72,11 +79,8 @@ class EnrollmentService {
       formData.append('difficulty', data.difficulty);
     }
 
-    const response = await api.post<StartEnrollmentResponse>(
-      `${this.baseUrl}/start`,
-      formData
-    );
-    
+    const response = await api.post<StartEnrollmentResponse>(`${this.baseUrl}/start`, formData);
+
     return response.data;
   }
 
@@ -93,16 +97,12 @@ class EnrollmentService {
     formData.append('phrase_id', phraseId);
     formData.append('audio_file', audioBlob, 'enrollment_sample.wav');
 
-    const response = await api.post<AddSampleResponse>(
-      `${this.baseUrl}/add-sample`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    
+    const response = await api.post<AddSampleResponse>(`${this.baseUrl}/add-sample`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
     return response.data;
   }
 
@@ -115,16 +115,21 @@ class EnrollmentService {
   ): Promise<CompleteEnrollmentResponse> {
     const formData = new FormData();
     formData.append('enrollment_id', enrollmentId);
-    
+
     if (speakerModelId !== undefined) {
       formData.append('speaker_model_id', speakerModelId.toString());
     }
 
     const response = await api.post<CompleteEnrollmentResponse>(
       `${this.baseUrl}/complete`,
-      formData
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
     );
-    
+
     return response.data;
   }
 
@@ -132,10 +137,8 @@ class EnrollmentService {
    * Obtener estado del enrollment de un usuario
    */
   async getEnrollmentStatus(userId: string): Promise<EnrollmentStatusResponse> {
-    const response = await api.get<EnrollmentStatusResponse>(
-      `${this.baseUrl}/status/${userId}`
-    );
-    
+    const response = await api.get<EnrollmentStatusResponse>(`${this.baseUrl}/status/${userId}`);
+
     return response.data;
   }
 }

@@ -146,16 +146,37 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
       // Crear contexto de audio para análisis
       audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
 
+      // Determinar mimeType compatible
+      let mimeType = 'audio/webm;codecs=opus';
+      if (!MediaRecorder.isTypeSupported(mimeType)) {
+        console.warn('audio/webm;codecs=opus not supported, trying audio/webm');
+        mimeType = 'audio/webm';
+        if (!MediaRecorder.isTypeSupported(mimeType)) {
+          console.warn('audio/webm not supported, using default');
+          mimeType = '';
+        }
+      }
+
       // Crear MediaRecorder con configuración optimizada
-      const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: 'audio/webm;codecs=opus',
-        audioBitsPerSecond: 32000,
-      });
+      const options: MediaRecorderOptions = mimeType 
+        ? { mimeType, audioBitsPerSecond: 32000 }
+        : { audioBitsPerSecond: 32000 };
+      
+      console.log('Creating MediaRecorder with options:', options);
+      const mediaRecorder = new MediaRecorder(stream, options);
 
       mediaRecorderRef.current = mediaRecorder;
 
+      // Manejar errores del MediaRecorder
+      mediaRecorder.onerror = (event) => {
+        console.error('MediaRecorder error:', event);
+        setError('Error en la grabación');
+        toast.error('Error en la grabación');
+      };
+
       // Manejar datos de grabación
       mediaRecorder.ondataavailable = (event) => {
+        console.log('Data available, size:', event.data.size);
         if (event.data.size > 0) {
           chunksRef.current.push(event.data);
         }
@@ -163,6 +184,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
 
       // Manejar fin de grabación
       mediaRecorder.onstop = async () => {
+        console.log('MediaRecorder stopped, recording time:', recordingTime);
         const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
         setRecordedBlob(blob);
 
@@ -188,8 +210,24 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
         }
       };
 
+      // Manejar cambios de estado (para debugging)
+      mediaRecorder.onstart = () => {
+        console.log('MediaRecorder state changed to: recording');
+      };
+
+      mediaRecorder.onpause = () => {
+        console.log('MediaRecorder state changed to: paused');
+      };
+
+      mediaRecorder.onresume = () => {
+        console.log('MediaRecorder state changed to: recording (resumed)');
+      };
+
       // Iniciar grabación
+      console.log('Starting MediaRecorder...');
+      console.log('MediaRecorder initial state:', mediaRecorder.state);
       mediaRecorder.start(100); // Capturar datos cada 100ms
+      console.log('MediaRecorder state after start():', mediaRecorder.state);
       setIsRecording(true);
       setIsPaused(false);
 
@@ -197,9 +235,11 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
       timerRef.current = setInterval(() => {
         setRecordingTime((prev) => {
           const newTime = prev + 1;
+          console.log('Recording time:', newTime);
 
           // Auto-stop si alcanza duración máxima
           if (autoStop && newTime >= maxDuration) {
+            console.log('Max duration reached, stopping...');
             stopRecording();
             toast.info(`Grabación detenida automáticamente (${maxDuration}s máximo)`);
           }
@@ -212,6 +252,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
       startVolumeMonitoring();
 
       toast.success('Grabación iniciada');
+      console.log('Recording started successfully');
     } catch (err) {
       let errorMessage = 'Error al acceder al micrófono';
 
@@ -232,8 +273,6 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
     onRecordingComplete,
     startVolumeMonitoring,
     stopVolumeMonitoring,
-    analyzeRecording,
-    stopRecording,
   ]);
 
   // Pausar/reanudar grabación
@@ -253,13 +292,16 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
 
   // Detener grabación
   const stopRecording = useCallback(() => {
+    console.log('stopRecording called, isRecording:', isRecording, 'recordingTime:', recordingTime);
     if (mediaRecorderRef.current && isRecording) {
       // Verificar duración mínima
       if (recordingTime < minDuration) {
+        console.log('Recording too short, minimum:', minDuration, 'current:', recordingTime);
         toast.error(`Graba al menos ${minDuration} segundos`);
         return;
       }
 
+      console.log('Stopping MediaRecorder...');
       mediaRecorderRef.current.stop();
       setIsRecording(false);
       setIsPaused(false);
@@ -368,10 +410,31 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
     }
   }, [isRecording, stopRecording, stopVolumeMonitoring]);
 
-  // Cleanup al desmontar
+  // Cleanup al desmontar (sin dependencias para que solo se ejecute al desmontar)
   useEffect(() => {
-    return cleanup;
-  }, [cleanup]);
+    return () => {
+      console.log('Component unmounting, running cleanup');
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+        mediaRecorderRef.current.stop();
+      }
+
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+      }
+
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+
+      if (volumeIntervalRef.current) {
+        clearInterval(volumeIntervalRef.current);
+      }
+
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        audioContextRef.current.close();
+      }
+    };
+  }, []); // Sin dependencias - solo ejecutar al desmontar
 
   return {
     // Estado

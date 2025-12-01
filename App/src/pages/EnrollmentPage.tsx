@@ -1,13 +1,57 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Mic } from 'lucide-react';
-import Card from '../components/ui/Card';
-import Button from '../components/ui/Button';
+import { ArrowLeft } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
 import MainLayout from '../components/ui/MainLayout';
+import EnrollmentWelcomeScreen from '../components/enrollment/EnrollmentWelcomeScreen';
+import DynamicEnrollment from '../components/enrollment/DynamicEnrollment';
+import EnrollmentCompletionScreen from '../components/enrollment/EnrollmentCompletionScreen';
+import toast from 'react-hot-toast';
+
+type EnrollmentPhase = 'welcome' | 'recording' | 'completed' | 'error';
 
 const EnrollmentPage = () => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 3;
+  const { user } = useAuth();
+  const [phase, setPhase] = useState<EnrollmentPhase>('welcome');
+  const [error, setError] = useState<string | null>(null);
+  const [completionData, setCompletionData] = useState<{
+    samplesRecorded?: number;
+    qualityScore?: number;
+  }>({});
+
+  // Check if user already has voice profile
+  useEffect(() => {
+    if (user?.voice_template) {
+      toast.success('Ya tienes un perfil de voz registrado');
+    }
+  }, [user]);
+
+  const handleStart = () => {
+    setPhase('recording');
+    setError(null);
+  };
+
+  const handleEnrollmentComplete = (voiceprintId: string, qualityScore: number) => {
+    console.log('Enrollment completed:', { voiceprintId, qualityScore });
+    setCompletionData({
+      samplesRecorded: 3,
+      qualityScore,
+    });
+    setPhase('completed');
+    toast.success('¡Perfil de voz creado exitosamente!');
+  };
+
+  const handleEnrollmentError = (errorMessage: string) => {
+    console.error('Enrollment error:', errorMessage);
+    setError(errorMessage);
+    setPhase('error');
+    toast.error(errorMessage);
+  };
+
+  const handleRetry = () => {
+    setPhase('welcome');
+    setError(null);
+  };
 
   return (
     <MainLayout>
@@ -20,120 +64,55 @@ const EnrollmentPage = () => {
           <ArrowLeft className="h-5 w-5 mr-2" />
           Volver al Dashboard
         </Link>
-      </div>{' '}
-      {/* Título */}
+      </div>
+
+      {/* Title */}
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400/70 dark:to-indigo-400/70 bg-clip-text text-transparent mb-4">
+        <h1 className="text-4xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400/70 dark:to-indigo-400/70 bg-clip-text text-transparent mb-4">
           Registro de Perfil de Voz
         </h1>
-        <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium max-w-2xl mx-auto">
-          Para configurar tu autenticación biométrica por voz, necesitamos grabar algunas muestras
-          de tu voz. Este proceso es seguro y tus datos están protegidos.
-        </p>
-      </div>
-      {/* Progress Bar */}
-      <div className="mb-8">
-        <div className="backdrop-blur-xl bg-white dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-xl p-4 shadow-lg">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">
-              Paso {currentStep} de {totalSteps}
-            </span>
-            <span className="text-sm text-blue-600/70 dark:text-blue-400/70 font-medium">
-              {Math.round((currentStep / totalSteps) * 100)}% completado
-            </span>
-          </div>
-          <div className="w-full bg-blue-100/60 dark:bg-gray-600/60 rounded-full h-3 shadow-inner">
-            <div
-              className="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full transition-all duration-500 shadow-sm"
-              style={{ width: `${(currentStep / totalSteps) * 100}%` }}
-            />
-          </div>
-        </div>
-      </div>
-      {/* Content */}
-      <Card variant="glass" className="p-8 shadow-2xl">
-        <div className="text-center">
-          <div className="w-28 h-28 bg-gradient-to-br from-blue-100/80 to-indigo-100/80 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg border border-blue-200/40">
-            <Mic className="h-14 w-14 text-blue-600" />
-          </div>
-
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 bg-clip-text text-transparent mb-4">
-            Grabación {currentStep}
-          </h2>
-
-          <p className="text-gray-700 mb-8 max-w-md mx-auto font-medium">
-            Presiona el botón y di la siguiente frase claramente:
+        {phase === 'welcome' && (
+          <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium max-w-2xl mx-auto">
+            Configura tu autenticación biométrica por voz de forma segura
           </p>
+        )}
+      </div>
 
-          <div className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 backdrop-blur-sm border border-blue-200/40 rounded-2xl mb-8 p-6 max-w-lg mx-auto shadow-lg">
-            <p className="text-xl font-semibold text-blue-900">
-              "Mi voz es mi contraseña, úsala para verificar mi identidad"
-            </p>
-          </div>
+      {/* Content based on phase */}
+      {phase === 'welcome' && <EnrollmentWelcomeScreen onStart={handleStart} />}
 
-          {/* Recording Controls */}
-          <div className="flex flex-col items-center space-y-6">
-            <div className="flex space-x-4">
-              <Button size="lg" className="px-8 shadow-lg hover:shadow-xl">
-                <Mic className="h-5 w-5 mr-2" />
-                Iniciar Grabación
-              </Button>
-              <Button variant="glass" size="lg" disabled className="px-8">
-                Detener
-              </Button>
-            </div>
+      {phase === 'recording' && user && (
+        <DynamicEnrollment
+          userId={user.id}
+          difficulty="medium"
+          onEnrollmentComplete={handleEnrollmentComplete}
+          onError={handleEnrollmentError}
+        />
+      )}
 
-            <Button variant="secondary" size="sm" disabled className="shadow-sm">
-              Reproducir
-            </Button>
-          </div>
+      {phase === 'completed' && (
+        <EnrollmentCompletionScreen
+          samplesRecorded={completionData.samplesRecorded}
+          qualityScore={completionData.qualityScore}
+        />
+      )}
 
-          {/* Actions */}
-          <div className="flex justify-between items-center mt-8 pt-8 border-t border-blue-200/40">
-            <Button
-              variant="secondary"
-              disabled={currentStep === 1}
-              onClick={() => setCurrentStep((prev) => Math.max(1, prev - 1))}
-              className="shadow-sm"
+      {phase === 'error' && (
+        <div className="max-w-2xl mx-auto">
+          <div className="backdrop-blur-xl bg-red-50/80 dark:bg-red-900/20 border border-red-200/40 dark:border-red-700/40 rounded-2xl p-8 text-center">
+            <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">
+              Error en el Registro
+            </h2>
+            <p className="text-red-700 dark:text-red-300 mb-6">{error}</p>
+            <button
+              onClick={handleRetry}
+              className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium transition-colors duration-300"
             >
-              Anterior
-            </Button>
-
-            <Button
-              disabled={currentStep === totalSteps}
-              onClick={() => setCurrentStep((prev) => Math.min(totalSteps, prev + 1))}
-              className="shadow-lg"
-            >
-              {currentStep === totalSteps ? 'Finalizar' : 'Siguiente'}
-            </Button>
+              Intentar Nuevamente
+            </button>
           </div>
         </div>
-      </Card>
-      {/* Tips */}
-      <div className="mt-8 backdrop-blur-xl bg-gradient-to-r from-amber-50/80 to-yellow-50/80 border border-amber-200/40 rounded-2xl p-6 shadow-xl">
-        <h3 className="text-lg font-bold text-amber-800 mb-4 flex items-center">
-          <span className="mr-2">💡</span>
-          Consejos para una mejor grabación:
-        </h3>
-        <ul className="text-sm text-amber-700 space-y-3 font-medium">
-          <li className="flex items-center">
-            <span className="w-2 h-2 bg-amber-400 rounded-full mr-3"></span>
-            Habla de forma natural y clara
-          </li>
-          <li className="flex items-center">
-            <span className="w-2 h-2 bg-amber-400 rounded-full mr-3"></span>
-            Asegúrate de estar en un lugar silencioso
-          </li>
-          <li className="flex items-center">
-            <span className="w-2 h-2 bg-amber-400 rounded-full mr-3"></span>
-            Mantén el micrófono a una distancia apropiada
-          </li>
-          <li className="flex items-center">
-            <span className="w-2 h-2 bg-amber-400 rounded-full mr-3"></span>
-            Si cometes un error, puedes volver a grabar
-          </li>
-        </ul>
-      </div>
+      )}
     </MainLayout>
   );
 };
