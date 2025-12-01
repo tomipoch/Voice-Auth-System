@@ -4,8 +4,8 @@ import { ArrowLeft } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import MainLayout from '../components/ui/MainLayout';
 import VerificationWelcomeScreen from '../components/verification/VerificationWelcomeScreen';
-import DynamicVerification from '../components/verification/DynamicVerification';
-import { type VerifyVoiceResponse } from '../services/verificationService';
+import DynamicVerificationMulti from '../components/verification/DynamicVerificationMulti';
+import { type VerifyPhraseResponse } from '../services/verificationService';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 
@@ -14,18 +14,18 @@ type VerificationPhase = 'welcome' | 'verifying' | 'success' | 'failed' | 'error
 const VerificationPage = () => {
   const { user } = useAuth();
   const [phase, setPhase] = useState<VerificationPhase>('welcome');
-  const [verificationResult, setVerificationResult] = useState<VerifyVoiceResponse | null>(null);
+  const [verificationResult, setVerificationResult] = useState<VerifyPhraseResponse | null>(null);
 
   const handleStart = () => {
     setPhase('verifying');
   };
 
-  const handleVerificationSuccess = (result: VerifyVoiceResponse) => {
+  const handleVerificationSuccess = (result: VerifyPhraseResponse) => {
     setVerificationResult(result);
     setPhase('success');
   };
 
-  const handleVerificationFailed = (result: VerifyVoiceResponse) => {
+  const handleVerificationFailed = (result: VerifyPhraseResponse) => {
     setVerificationResult(result);
     // DynamicVerification handles retries, so we only switch phase if needed
     // But for now, let's keep it simple and let DynamicVerification show the failed state
@@ -68,7 +68,7 @@ const VerificationPage = () => {
         {phase === 'welcome' && <VerificationWelcomeScreen onStart={handleStart} />}
 
         {phase === 'verifying' && user && (
-          <DynamicVerification
+          <DynamicVerificationMulti
             key={user.id}
             userId={user.id}
             onVerificationSuccess={handleVerificationSuccess}
@@ -81,9 +81,9 @@ const VerificationPage = () => {
           <Card className="p-8 text-center">
             <h2 className="text-3xl font-bold text-green-600 mb-4">¡Verificación Exitosa!</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-8">
-              Tu identidad ha sido confirmada con un nivel de confianza del{' '}
+              Tu identidad ha sido confirmada con un score promedio del{' '}
               <span className="font-bold">
-                {(verificationResult.confidence_score * 100).toFixed(1)}%
+                {((verificationResult.average_score || 0) * 100).toFixed(1)}%
               </span>
             </p>
             <div className="flex justify-center space-x-4">

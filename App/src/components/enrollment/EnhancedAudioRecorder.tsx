@@ -32,8 +32,13 @@ const EnhancedAudioRecorder = ({
         setPhase('processing');
         // El audioQuality se pasa desde el hook después del análisis
         // Esperamos un momento para que el estado se actualice
-        await new Promise(resolve => setTimeout(resolve, 100));
-        const quality = audioQuality || { quality: 'unknown', duration: 0, hasSilence: false, isValid: true };
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        const quality = audioQuality || {
+          quality: 'unknown',
+          duration: 0,
+          hasSilence: false,
+          isValid: true,
+        };
         console.log('Calling parent onRecordingComplete with quality:', quality);
         await onRecordingComplete(blob, quality);
         setPhase('completed');

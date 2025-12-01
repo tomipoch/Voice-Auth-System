@@ -72,6 +72,50 @@ export interface VerificationHistoryResponse {
   recent_attempts: VerificationHistoryItem[];
 }
 
+// Multi-phrase verification interfaces
+export interface StartMultiPhraseVerificationResponse {
+  verification_id: string;
+  user_id: string;
+  phrases: Phrase[];
+  total_phrases: number;
+}
+
+export interface VerifyPhraseRequest {
+  verification_id: string;
+  phrase_id: string;
+  phrase_number: number; // 1, 2, or 3
+  audioBlob: Blob;
+}
+
+export interface PhraseResult {
+  phrase_number: number;
+  phrase_id: string;
+  similarity_score: number;
+  asr_confidence: number;
+  asr_penalty: number;
+  final_score: number;
+}
+
+export interface VerifyPhraseResponse {
+  phrase_number: number;
+  individual_score: number;
+  is_complete: boolean;
+
+  // Only present if is_complete=false
+  phrases_remaining?: number;
+
+  // Only present if is_complete=true
+  average_score?: number;
+  is_verified?: boolean;
+  threshold_used?: number;
+  all_results?: PhraseResult[];
+
+  // In case of spoof detection
+  rejected?: boolean;
+  reason?: string;
+  anti_spoofing_score?: number;
+}
+
 class VerificationService {
   private readonly baseUrl = '/verification';
 
@@ -130,6 +174,45 @@ class VerificationService {
       `${this.baseUrl}/history/${userId}`,
       {
         params: { limit },
+      }
+    );
+
+    return response.data;
+  }
+
+  // ===== Multi-phrase verification methods =====
+
+  /**
+   * Iniciar verificación multi-frase (3 frases)
+   */
+  async startMultiPhraseVerification(
+    data: StartVerificationRequest
+  ): Promise<StartMultiPhraseVerificationResponse> {
+    const response = await api.post<StartMultiPhraseVerificationResponse>(
+      `${this.baseUrl}/start-multi`,
+      data
+    );
+
+    return response.data;
+  }
+
+  /**
+   * Verificar una frase individual en verificación multi-frase
+   */
+  async verifyPhrase(data: VerifyPhraseRequest): Promise<VerifyPhraseResponse> {
+    const formData = new FormData();
+    formData.append('verification_id', data.verification_id);
+    formData.append('phrase_id', data.phrase_id);
+    formData.append('phrase_number', data.phrase_number.toString());
+    formData.append('audio_file', data.audioBlob, `phrase_${data.phrase_number}.wav`);
+
+    const response = await api.post<VerifyPhraseResponse>(
+      `${this.baseUrl}/verify-phrase`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       }
     );
 
