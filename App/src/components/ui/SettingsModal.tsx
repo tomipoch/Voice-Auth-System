@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   User,
   Shield,
@@ -14,13 +14,13 @@ import {
   AlertTriangle,
   Download,
   Globe,
-  Type,
   ChevronDown,
 } from 'lucide-react';
 import Modal from './Modal';
 import Button from './Button';
 import { useAuth } from '../../hooks/useAuth';
 import { useTheme } from '../../hooks/useTheme';
+import { authService } from '../../services/apiServices';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -29,7 +29,7 @@ interface SettingsModalProps {
 
 const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
   const { user } = useAuth();
-  const { isDark, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const [activeTab, setActiveTab] = useState('profile');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -103,9 +103,47 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
         setTheme(appearance.theme as 'light' | 'dark');
       }
 
-      // Simular guardado
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log(`Guardando configuración de ${section}`);
+      let updateData = {};
+      
+      if (section === 'profile') {
+        updateData = {
+          name: profileData.name,
+          email: profileData.email,
+          // Password change should be a separate endpoint ideally, but we'll skip it for now or add it later
+        };
+        // If password fields are filled, we might want to handle it (requires backend support for password change)
+      } else if (section === 'notifications') {
+        updateData = {
+          settings: {
+            ...user?.settings,
+            notifications: notificationSettings
+          }
+        };
+      } else if (section === 'security') {
+        updateData = {
+          settings: {
+            ...user?.settings,
+            security: securitySettings
+          }
+        };
+      } else if (section === 'appearance') {
+        updateData = {
+          settings: {
+            ...user?.settings,
+            appearance: appearance
+          }
+        };
+      }
+
+      const response = await authService.updateProfile(updateData);
+      
+      if (response.success) {
+        console.log(`Guardando configuración de ${section}`);
+        // Optionally show success toast here if not handled globally
+      } else {
+        console.error('Error updating profile settings');
+      }
+
     } catch (error) {
       console.error('Error al guardar:', error);
     } finally {

@@ -5,6 +5,7 @@ import { lazy, Suspense } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { SettingsModalProvider } from './context/SettingsModalContext';
+import { SettingsProvider } from './context/SettingsContext';
 import { useAuth } from './hooks/useAuth';
 import GlobalSettingsModal from './components/ui/GlobalSettingsModal';
 import SkipLink from './components/ui/SkipLink';
@@ -16,7 +17,12 @@ const RegisterPage = lazy(() => import('./pages/RegisterPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const EnrollmentPage = lazy(() => import('./pages/EnrollmentPage'));
 const VerificationPage = lazy(() => import('./pages/VerificationPage'));
+const HistoryPage = lazy(() => import('./pages/HistoryPage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
+const UserDetailPage = lazy(() => import('./pages/admin/UserDetailPage'));
+const AuditLogsPage = lazy(() => import('./pages/admin/AuditLogsPage'));
 const SuperAdminDashboard = lazy(() => import('./pages/SuperAdminDashboard'));
 
 // Componente de carga
@@ -139,20 +145,60 @@ const AppRoutes = () => {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/history"
+              element={
+                <ProtectedRoute>
+                  <HistoryPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute>
+                  <SettingsPage />
+                </ProtectedRoute>
+              }
+            />
 
             {/* Rutas de administrador de empresa */}
             <Route
               path="/admin"
               element={
-                <ProtectedRoute adminOnly>
+                <ProtectedRoute role="admin">
                   <AdminPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/users/:id"
+              element={
+                <ProtectedRoute role="admin">
+                  <UserDetailPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/logs"
+              element={
+                <ProtectedRoute role="admin">
+                  <AuditLogsPage />
                 </ProtectedRoute>
               }
             />
 
             {/* Rutas de super administrador */}
             <Route
-              path="/admin/dashboard"
+              path="/super-admin"
               element={
                 <ProtectedRoute superAdminOnly>
                   <SuperAdminDashboard />
@@ -193,37 +239,39 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <AuthProvider>
-          <SettingsModalProvider>
-            <Router>
-              <AppRoutes />
+          <SettingsProvider>
+            <SettingsModalProvider>
+              <Router>
+                <AppRoutes />
 
-              {/* Toast notifications */}
-              <Toaster
-                position="top-right"
-                toastOptions={{
-                  duration: 4000,
-                  style: {
-                    background: '#363636',
-                    color: '#fff',
-                  },
-                  success: {
-                    duration: 3000,
-                    iconTheme: {
-                      primary: '#4ade80',
-                      secondary: '#fff',
+                {/* Toast notifications */}
+                <Toaster
+                  position="top-right"
+                  toastOptions={{
+                    duration: 4000,
+                    style: {
+                      background: '#363636',
+                      color: '#fff',
                     },
-                  },
-                  error: {
-                    duration: 5000,
-                    iconTheme: {
-                      primary: '#ef4444',
-                      secondary: '#fff',
+                    success: {
+                      duration: 3000,
+                      iconTheme: {
+                        primary: '#4ade80',
+                        secondary: '#fff',
+                      },
                     },
-                  },
-                }}
-              />
-            </Router>
-          </SettingsModalProvider>
+                    error: {
+                      duration: 5000,
+                      iconTheme: {
+                        primary: '#ef4444',
+                        secondary: '#fff',
+                      },
+                    },
+                  }}
+                />
+              </Router>
+            </SettingsModalProvider>
+          </SettingsProvider>
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
@@ -231,3 +279,4 @@ function App() {
 }
 
 export default App;
+

@@ -1,106 +1,133 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Activity, TrendingUp, AlertCircle, Mic, Shield, Users } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
-import { useDashboardStats } from '../hooks/useDashboardStats';
-import Card from '../components/ui/Card';
+import {
+  Mic,
+  Shield,
+  Users,
+  Activity,
+  AlertCircle,
+} from 'lucide-react';
 import MainLayout from '../components/ui/MainLayout';
+import Card from '../components/ui/Card';
+import { useAuth } from '../hooks/useAuth';
+import { verificationService } from '../services/apiServices';
 
 const DashboardPage = () => {
   const { user } = useAuth();
-  const { stats: userStats, recentActivity, systemStats, isLoading } = useDashboardStats();
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const stats = [
-    {
-      title: 'Verificaciones Hoy',
-      value: isLoading ? '...' : userStats.verificationsToday.toString(),
-      icon: Shield,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50',
-    },
-    {
-      title: 'Registro de Voz',
-      value: userStats.isVoiceEnrolled ? 'Configurado' : 'Pendiente',
-      icon: Mic,
-      color: userStats.isVoiceEnrolled ? 'text-green-600' : 'text-orange-600',
-      bgColor: userStats.isVoiceEnrolled ? 'bg-green-50' : 'bg-orange-50',
-    },
-    {
-      title: 'Tasa de Éxito',
-      value: isLoading ? '...' : `${userStats.successRate}%`,
-      icon: TrendingUp,
-      color: 'text-green-600',
-      bgColor: 'bg-green-50',
-    },
-  ];
+  // Fetch real data from backend
+  useEffect(() => {
+    const fetchHistory = async () => {
+      if (user?.id) {
+        try {
+          const response = await verificationService.getVerificationHistory(user.id, 5);
+          if (response.success && response.history) {
+            // Transform backend data to match activity format
+            const activities = response.history.map((h: any) => ({
+              type: h.result === 'success' ? 'success' : 'error',
+              message: h.result === 'success' 
+                ? `Verificación exitosa (${h.score}%)` 
+                : `Verificación fallida (${h.score}%)`,
+              timestamp: h.date,
+            }));
+            setRecentActivity(activities);
+          }
+        } catch (error) {
+          console.error('Error fetching history:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        setIsLoading(false);
+      }
+    };
+
+    fetchHistory();
+  }, [user]);
+
+  const userStats = {
+    isVoiceEnrolled: user?.voice_template ? true : false,
+  };
+
+  const systemStats = {
+    avgResponseTime: 150,
+    systemUptime: 99.9,
+  };
 
   return (
     <MainLayout>
-      {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
-          ¡Bienvenido, {user?.fullName || user?.username}!
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent mb-2">
+          ¡Bienvenido, {user?.name?.split(' ')[0] || user?.email?.split('@')[0] || 'Usuario'}!
         </h1>
-        <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium mt-2">
-          Panel de control de autenticación biométrica por voz
+        <p className="text-lg text-gray-600 dark:text-gray-400">
+          {user?.role === 'admin'
+            ? 'Panel de control administrativo'
+            : 'Tu panel de autenticación biométrica por voz'}
         </p>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        {stats.map((stat, index) => {
-          const IconComponent = stat.icon;
-          return (
+      {/* Quick Actions */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">
+          Acciones Rápidas
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Link
+            to="/enrollment"
+            className={`group ${!userStats.isVoiceEnrolled ? 'animate-pulse' : ''}`}
+          >
             <div
-              key={index}
-              className="backdrop-blur-xl bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
+              className={`p-6 bg-gradient-to-br backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02] ${
+                userStats.isVoiceEnrolled
+                  ? 'from-green-50/80 to-emerald-50/80 dark:from-green-900/80 dark:to-emerald-900/80 border-green-200/60 dark:border-green-600/60 hover:border-green-300/80 dark:hover:border-green-500/80'
+                  : 'from-orange-50/80 to-amber-50/80 dark:from-orange-900/80 dark:to-amber-900/80 border-orange-200/60 dark:border-orange-600/60 hover:border-orange-300/80 dark:hover:border-orange-500/80'
+              }`}
             >
               <div className="flex items-center">
-                <div className="p-3 rounded-xl bg-linear-to-br from-blue-100/80 to-indigo-100/80 dark:from-blue-900/80 dark:to-indigo-900/80 shadow-sm">
-                  <IconComponent className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                <div
+                  className={`p-3 bg-gradient-to-br rounded-xl shadow-sm ${
+                    userStats.isVoiceEnrolled
+                      ? 'from-green-100 to-emerald-100 dark:from-green-800 dark:to-emerald-800'
+                      : 'from-orange-100 to-amber-100 dark:from-orange-800 dark:to-amber-800'
+                  }`}
+                >
+                  <Mic
+                    className={`h-8 w-8 ${
+                      userStats.isVoiceEnrolled
+                        ? 'text-green-600 dark:text-green-400'
+                        : 'text-orange-600 dark:text-orange-400'
+                    }`}
+                  />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-blue-600/70 dark:text-blue-400/70">
-                    {stat.title}
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                    {userStats.isVoiceEnrolled ? 'Actualizar Perfil de Voz' : 'Registrar Perfil de Voz'}
+                  </h3>
+                  <p
+                    className={`text-sm ${
+                      userStats.isVoiceEnrolled
+                        ? 'text-green-700/80 dark:text-green-400/80'
+                        : 'text-orange-700/80 dark:text-orange-400/80'
+                    }`}
+                  >
+                    {userStats.isVoiceEnrolled
+                      ? 'Mejora tu perfil biométrico'
+                      : '¡Configura tu huella de voz ahora!'}
                   </p>
-                  <p className="text-lg font-bold text-gray-800 dark:text-gray-200">{stat.value}</p>
                 </div>
               </div>
             </div>
-          );
-        })}
-      </div>
+          </Link>
 
-      {/* Quick Actions */}
-      <div className="backdrop-blur-xl bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-2xl p-8 shadow-xl">
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent">
-            Acciones Rápidas
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {!userStats.isVoiceEnrolled && (
-            <Link to="/enrollment" className="group">
-              <div className="p-6 bg-linear-to-br from-orange-50/80 to-yellow-50/80 dark:from-orange-900/80 dark:to-yellow-900/80 backdrop-blur-sm border-2 border-orange-200/60 dark:border-orange-600/60 rounded-2xl hover:border-orange-300/80 dark:hover:border-orange-500/80 transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02]">
-                <div className="flex items-center">
-                  <div className="p-3 bg-linear-to-br from-orange-100 to-yellow-100 dark:from-orange-800 dark:to-yellow-800 rounded-xl shadow-sm">
-                    <Mic className="h-8 w-8 text-orange-600 dark:text-orange-400" />
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                      Configurar Perfil de Voz
-                    </h3>
-                    <p className="text-sm text-orange-700/80 dark:text-orange-400/80">
-                      Registra tu voz para usar el sistema de verificación
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          )}
-
-          <Link to="/verification" className="group">
+          <Link
+            to="/verification"
+            className={`group ${!userStats.isVoiceEnrolled ? 'pointer-events-none' : ''}`}
+          >
             <div
-              className={`p-6 bg-linear-to-br backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02] ${
+              className={`p-6 bg-gradient-to-br backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02] ${
                 userStats.isVoiceEnrolled
                   ? 'from-blue-50/80 to-indigo-50/80 dark:from-blue-900/80 dark:to-indigo-900/80 border-blue-200/60 dark:border-blue-600/60 hover:border-blue-300/80 dark:hover:border-blue-500/80'
                   : 'from-gray-50/80 to-gray-100/80 dark:from-gray-800/80 dark:to-gray-700/80 border-gray-200 dark:border-gray-700/60 dark:border-gray-600/60 hover:border-gray-300/80 dark:hover:border-gray-500/80 opacity-75'
@@ -108,7 +135,7 @@ const DashboardPage = () => {
             >
               <div className="flex items-center">
                 <div
-                  className={`p-3 bg-linear-to-br rounded-xl shadow-sm ${
+                  className={`p-3 bg-gradient-to-br rounded-xl shadow-sm ${
                     userStats.isVoiceEnrolled
                       ? 'from-blue-100 to-indigo-100 dark:from-blue-800 dark:to-indigo-800'
                       : 'from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600'
@@ -144,9 +171,9 @@ const DashboardPage = () => {
 
           {user?.role === 'admin' && (
             <Link to="/admin" className="group">
-              <div className="p-6 bg-linear-to-br from-purple-50/80 to-indigo-50/80 dark:from-purple-900/80 dark:to-indigo-900/80 backdrop-blur-sm border-2 border-purple-200/60 dark:border-purple-600/60 rounded-2xl hover:border-purple-300/80 dark:hover:border-purple-500/80 transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02]">
+              <div className="p-6 bg-gradient-to-br from-purple-50/80 to-indigo-50/80 dark:from-purple-900/80 dark:to-indigo-900/80 backdrop-blur-sm border-2 border-purple-200/60 dark:border-purple-600/60 rounded-2xl hover:border-purple-300/80 dark:hover:border-purple-500/80 transition-all duration-300 hover:shadow-lg group-hover:scale-[1.02]">
                 <div className="flex items-center">
-                  <div className="p-3 bg-linear-to-br from-purple-100 to-indigo-100 dark:from-purple-800 dark:to-indigo-800 rounded-xl shadow-sm">
+                  <div className="p-3 bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-800 dark:to-indigo-800 rounded-xl shadow-sm">
                     <Users className="h-8 w-8 text-purple-600 dark:text-purple-400" />
                   </div>
                   <div className="ml-4">
@@ -165,7 +192,7 @@ const DashboardPage = () => {
       </div>
 
       {/* Recent Activity */}
-      {recentActivity && recentActivity.length > 0 && (
+      {!isLoading && recentActivity && recentActivity.length > 0 && (
         <div className="mt-8">
           <Card>
             <div className="p-6">
@@ -240,9 +267,9 @@ const DashboardPage = () => {
       {/* Alert for voice enrollment */}
       {!userStats.isVoiceEnrolled && (
         <div className="mt-8">
-          <div className="backdrop-blur-xl bg-linear-to-r from-orange-50/80 to-yellow-50/80 dark:from-orange-900/80 dark:to-yellow-900/80 border-2 border-orange-200/60 dark:border-orange-600/60 rounded-2xl p-6 shadow-xl">
+          <div className="backdrop-blur-xl bg-gradient-to-r from-orange-50/80 to-yellow-50/80 dark:from-orange-900/80 dark:to-yellow-900/80 border-2 border-orange-200/60 dark:border-orange-600/60 rounded-2xl p-6 shadow-xl">
             <div className="flex items-center space-x-4">
-              <div className="p-3 bg-linear-to-br from-orange-100 to-yellow-100 dark:from-orange-800 dark:to-yellow-800 rounded-xl shadow-sm">
+              <div className="p-3 bg-gradient-to-br from-orange-100 to-yellow-100 dark:from-orange-800 dark:to-yellow-800 rounded-xl shadow-sm">
                 <AlertCircle className="h-6 w-6 text-orange-600 dark:text-orange-400" />
               </div>
               <div className="flex-1">
@@ -255,7 +282,7 @@ const DashboardPage = () => {
                 </p>
               </div>
               <Link to="/enrollment">
-                <button className="py-3 px-6 bg-linear-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] flex items-center gap-2">
+                <button className="py-3 px-6 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] flex items-center gap-2">
                   <Mic className="h-4 w-4" />
                   Configurar ahora
                 </button>
