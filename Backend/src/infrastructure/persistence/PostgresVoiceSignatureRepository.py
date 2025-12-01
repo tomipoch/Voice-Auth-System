@@ -5,8 +5,8 @@ import numpy as np
 from typing import List, Optional, Dict, Any
 from uuid import UUID, uuid4
 
-from ..domain.model.VoiceSignature import VoiceSignature
-from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
+from src.domain.model.VoiceSignature import VoiceSignature
+from src.domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
 from ...shared.types.common_types import UserId, VoiceEmbedding
 from ..security.encryption import DataEncryptor, get_encryptor
 
@@ -20,27 +20,35 @@ class PostgresVoiceSignatureRepository(VoiceSignatureRepositoryPort):
     
     async def save_voiceprint(self, voiceprint: VoiceSignature) -> None:
         """Save a user's voiceprint, encrypting the embedding."""
-        async with self._pool.acquire() as conn:
-            encrypted_embedding = self._encryptor.encrypt(voiceprint.embedding.tobytes())
-            
-            await conn.execute(
-                """
-                INSERT INTO voiceprint (id, user_id, embedding, created_at, speaker_model_id)
-                VALUES ($1, $2, $3, $4, $5)
-                """,
-                voiceprint.id,
-                voiceprint.user_id,
-                encrypted_embedding,
-                voiceprint.created_at,
-                voiceprint.speaker_model_id
-            )
+        import logging
+        logger = logging.getLogger(__name__)
+        
+        try:
+            logger.info(f"Attempting to save voiceprint for user_id={voiceprint.user_id}")
+            async with self._pool.acquire() as conn:
+                encrypted_embedding = self._encryptor.encrypt(voiceprint.embedding.tobytes())
+                
+                await conn.execute(
+                    """
+                    INSERT INTO voiceprint (id, user_id, embedding, created_at)
+                    VALUES ($1, $2, $3, $4)
+                    """,
+                    voiceprint.id,
+                    voiceprint.user_id,
+                    encrypted_embedding,
+                    voiceprint.created_at
+                )
+                logger.info(f"Successfully saved voiceprint for user_id={voiceprint.user_id}, voiceprint_id={voiceprint.id}")
+        except Exception as e:
+            logger.error(f"Failed to save voiceprint for user_id={voiceprint.user_id}: {e}", exc_info=True)
+            raise
     
     async def get_voiceprint_by_user(self, user_id: UserId) -> Optional[VoiceSignature]:
         """Get the current voiceprint for a user, decrypting the embedding."""
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
-                SELECT id, user_id, embedding, created_at, speaker_model_id
+                SELECT id, user_id, embedding, created_at
                 FROM voiceprint
                 WHERE user_id = $1
                 """,
@@ -55,8 +63,7 @@ class PostgresVoiceSignatureRepository(VoiceSignatureRepositoryPort):
                     id=row['id'],
                     user_id=row['user_id'],
                     embedding=embedding,
-                    created_at=row['created_at'],
-                    speaker_model_id=row['speaker_model_id']
+                    created_at=row['created_at']
                 )
             return None
     
@@ -176,3 +183,25 @@ class PostgresVoiceSignatureRepository(VoiceSignatureRepositoryPort):
                 history.append(signature)
             
             return history
+    
+    async def save_verification_attempt(
+        self,
+        user_id: UserId,
+        embedding: VoiceEmbedding,
+        similarity_score: float,
+        is_verified: bool
+    ) -> UUID:
+        """Save a verification attempt for audit purposes, encrypting the embedding."""
+        attempt_id = uuid4()
+        encrypted_embedding = self._encryptor.encrypt(embedding.tobytes())
+        
+        async with self._pool.acquire() as conn:
+            await conn.execute(
+                """
+                INSERT INTO verification_attempt (id, user_id, embedding, similarity_score, is_verified, created_at)
+                VALUES ($1, $2, $3, $4, $5, now())
+                """,
+                attempt_id, user_id, encrypted_embedding, similarity_score, is_verified
+            )
+        
+        return attempt_id

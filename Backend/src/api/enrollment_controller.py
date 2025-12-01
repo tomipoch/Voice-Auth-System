@@ -23,7 +23,7 @@ from ..infrastructure.config.dependencies import (
 )
 
 logger = logging.getLogger(__name__)
-router = APIRouter(prefix="/api/v1/enrollment", tags=["enrollment"])
+router = APIRouter(tags=["enrollment"])
 
 
 @router.post("/start", response_model=StartEnrollmentResponse)
@@ -51,10 +51,12 @@ async def start_enrollment(
     )
     
     return StartEnrollmentResponse(
+        success=True,
         enrollment_id=result["enrollment_id"],
         user_id=result["user_id"],
         phrases=result["phrases"],
-        required_samples=result["required_samples"]
+        required_samples=result["required_samples"],
+        message="Enrollment started successfully"
     )
 
 
@@ -105,11 +107,13 @@ async def add_enrollment_sample(
     )
     
     return AddEnrollmentSampleResponse(
+        success=True,
         sample_id=sample_result["sample_id"],
         samples_completed=sample_result["samples_completed"],
         samples_required=sample_result["samples_required"],
         is_complete=sample_result["is_complete"],
-        next_phrase=sample_result.get("next_phrase")
+        next_phrase=sample_result.get("next_phrase"),
+        message="Sample added successfully"
     )
 
 
@@ -135,10 +139,12 @@ async def complete_enrollment(
     )
     
     return CompleteEnrollmentResponse(
+        success=True,
         voiceprint_id=result["voiceprint_id"],
         user_id=result["user_id"],
-        quality_score=result["quality_score"],
-        samples_used=result["samples_used"]
+        enrollment_quality=result["quality_score"],
+        samples_used=result["samples_used"],
+        message="Enrollment completed successfully"
     )
 
 

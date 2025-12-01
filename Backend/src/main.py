@@ -14,6 +14,7 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 import asyncpg
+from prometheus_client import make_asgi_app
 
 # Suppress third-party library warnings that don't affect functionality
 warnings.filterwarnings("ignore", category=FutureWarning, module="torch")
@@ -58,6 +59,9 @@ if not os.getenv("RATE_LIMIT"):
     os.environ["RATE_LIMIT"] = "100/minute"
 if not os.getenv("CORS_ALLOWED_ORIGINS"):
     os.environ["CORS_ALLOWED_ORIGINS"] = "http://localhost:3000"
+if not os.getenv("EMBEDDING_ENCRYPTION_KEY"):
+    # Default key for development only - generated with: python -m src.infrastructure.security.encryption
+    os.environ["EMBEDDING_ENCRYPTION_KEY"] = "jEqd5JIag7p51jF6mvXB0L0tJW_5423Of5EXfozqkFg="
 
 # Rate limiter
 limiter = Limiter(key_func=get_remote_address, default_limits=[os.getenv("RATE_LIMIT", "100/minute")])
@@ -137,9 +141,17 @@ def create_app() -> FastAPI:
     app.add_exception_handler(Exception, generic_exception_handler)
     
     # Add CORS middleware
+    origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+    
+    # Add common development ports (Vite default is 5173)
+    dev_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+    for origin in dev_origins:
+        if origin not in origins:
+            origins.append(origin)
+            
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(","),
+        allow_origins=origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -157,8 +169,8 @@ def create_app() -> FastAPI:
             "health": "/health",
             "endpoints": {
                 "authentication": "/api/auth",
-                "enrollment": "/api/v1/enrollment",
-                "verification": "/api/v1/verification",
+                "enrollment": "/api/enrollment",
+                "verification": "/api/verification",
                 "phrases": "/api/phrases",
                 "admin": "/api/admin",
                 "challenges": "/api/challenges"
@@ -173,8 +185,8 @@ def create_app() -> FastAPI:
     
     # Only include enrollment and verification routers if not in testing mode
     if os.getenv("TESTING") != "True":
-        app.include_router(enrollment_router)
-        app.include_router(verification_router_v2)
+        app.include_router(enrollment_router, prefix="/api/enrollment", tags=["enrollment"])
+        app.include_router(verification_router_v2, prefix="/api/verification", tags=["verification"])
     
     # Health check endpoint
     @app.get("/health")
@@ -185,6 +197,10 @@ def create_app() -> FastAPI:
             "version": "1.0.0"
         }
     
+    # Prometheus metrics
+    metrics_app = make_asgi_app()
+    app.mount("/metrics", metrics_app)
+
     return app
 
 

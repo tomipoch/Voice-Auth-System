@@ -199,19 +199,25 @@ class SpeakerEmbeddingAdapter:
     def _preprocess_audio(self, audio_data: bytes, audio_format: str) -> Tuple[np.ndarray, int]:
         """Preprocess audio for ECAPA-TDNN model."""
         
-        if audio_format.lower() == "wav":
-            # Load WAV directly
-            waveform, sample_rate = self._load_wav_audio(audio_data)
-        else:
-            # For other formats, we would need additional processing
-            # For now, assume WAV or convert using librosa
+        # Extract format from MIME type if needed
+        format_lower = audio_format.lower()
+        if '/' in format_lower:
+            format_lower = format_lower.split('/')[1].split(';')[0]
+        
+        # Convert to WAV if not already WAV format
+        if format_lower != "wav":
+            logger.info(f"Converting {format_lower} audio to WAV format")
+            from .audio_converter import convert_to_wav
             try:
-                import librosa
-                # Load audio using librosa (handles multiple formats)
-                audio_file = io.BytesIO(audio_data)
-                waveform, sample_rate = librosa.load(audio_file, sr=None)
-            except ImportError:
-                raise ValueError(f"Cannot process {audio_format} format without librosa")
+                audio_data = convert_to_wav(audio_data, format_lower)
+                format_lower = "wav"
+                logger.info("Audio conversion successful")
+            except Exception as e:
+                logger.error(f"Audio conversion failed: {e}")
+                raise ValueError(f"Failed to convert {audio_format} to WAV: {str(e)}")
+        
+        # Load WAV audio
+        waveform, sample_rate = self._load_wav_audio(audio_data)
         
         # Resample to target sample rate if needed
         if sample_rate != self.target_sample_rate:
@@ -289,14 +295,21 @@ class SpeakerEmbeddingAdapter:
             if len(audio_data) == 0:
                 return {"is_valid": False, "reason": "Empty audio data"}
             
-            if audio_format.lower() not in ["wav", "mp3", "flac", "m4a"]:
+            # Extract format from MIME type if needed (e.g., "audio/webm" -> "webm")
+            format_lower = audio_format.lower()
+            if '/' in format_lower:
+                # It's a MIME type like "audio/webm" or "audio/webm;codecs=opus"
+                format_lower = format_lower.split('/')[1].split(';')[0]
+            
+            # Accept webm format (common for browser recordings)
+            if format_lower not in ["wav", "mp3", "flac", "m4a", "webm", "ogg"]:
                 return {"is_valid": False, "reason": f"Unsupported format: {audio_format}"}
             
             # For WAV files, we can do more detailed validation
-            if audio_format.lower() == "wav":
+            if format_lower == "wav":
                 return self._validate_wav_audio(audio_data)
             
-            # For other formats, basic validation
+            # For other formats (including webm), basic validation
             return {
                 "is_valid": True,
                 "duration_sec": 3.0,  # Mock duration
