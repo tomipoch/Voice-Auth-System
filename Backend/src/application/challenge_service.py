@@ -104,12 +104,9 @@ class ChallengeService:
                 expires_at=expires_at
             )
             
-            # Record phrase usage
-            await self._phrase_repo.record_phrase_usage(
-                phrase_id=phrase.id,
-                user_id=user_id,
-                used_for='challenge'
-            )
+            # Note: Phrase usage tracking removed - not critical for challenge creation
+            # Usage will be tracked when challenge is actually used in enrollment/verification
+
             
             # Log challenge creation
             await self._audit_repo.log_event(
