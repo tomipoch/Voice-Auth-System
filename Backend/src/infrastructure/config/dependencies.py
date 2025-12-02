@@ -166,3 +166,15 @@ async def get_verification_service_v2():
         similarity_threshold=float(os.getenv("SIMILARITY_THRESHOLD", "0.60")),
         anti_spoofing_threshold=float(os.getenv("ANTI_SPOOFING_THRESHOLD", "0.5"))
     )
+
+
+async def get_phrase_quality_rules_service():
+    """Get phrase quality rules service instance with dependencies."""
+    from ..persistence.PostgresPhraseQualityRulesRepository import PostgresPhraseQualityRulesRepository
+    from ...application.phrase_quality_rules_service import PhraseQualityRulesService
+    
+    pool = await get_db_pool()
+    rules_repo = PostgresPhraseQualityRulesRepository(pool)
+    
+    return PhraseQualityRulesService(rules_repo)
+

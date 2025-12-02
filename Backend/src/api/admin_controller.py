@@ -191,3 +191,156 @@ async def update_user(
     return {
         "message": "User updated successfully",
     }
+
+
+# =====================================================
+# Phrase Quality Rules Endpoints
+# =====================================================
+
+class PhraseQualityRule(BaseModel):
+    """Phrase quality rule model."""
+    id: str
+    rule_name: str
+    rule_type: str
+    value: float
+    description: str
+    unit: str
+    is_active: bool
+    created_at: datetime
+    updated_at: datetime
+
+
+class UpdateRuleRequest(BaseModel):
+    """Request to update a rule value."""
+    value: float
+
+
+from ..infrastructure.config.dependencies import get_phrase_quality_rules_service
+from ..application.phrase_quality_rules_service import PhraseQualityRulesService
+
+
+@admin_router.get("/phrase-rules", response_model=List[PhraseQualityRule])
+async def get_phrase_quality_rules(
+    include_inactive: bool = False,
+    current_user: dict = Depends(require_admin),
+    rules_service: PhraseQualityRulesService = Depends(get_phrase_quality_rules_service)
+):
+    """
+    Get all phrase quality rules (admin only).
+    
+    - **include_inactive**: Include inactive rules in the response
+    """
+    try:
+        rules = await rules_service.get_all_rules(include_inactive=include_inactive)
+        
+        # Transform to response model
+        return [
+            PhraseQualityRule(
+                id=str(rule['id']),
+                rule_name=rule['rule_name'],
+                rule_type=rule['rule_type'],
+                value=float(rule['rule_value']['value']),
+                description=rule['rule_value'].get('description', ''),
+                unit=rule['rule_value'].get('unit', ''),
+                is_active=rule['is_active'],
+                created_at=rule['created_at'],
+                updated_at=rule['updated_at']
+            )
+            for rule in rules
+        ]
+    except Exception as e:
+        logger.error(f"Error getting phrase quality rules: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to get phrase quality rules"
+        )
+
+
+@admin_router.patch("/phrase-rules/{rule_name}")
+async def update_phrase_quality_rule(
+    rule_name: str,
+    request: UpdateRuleRequest,
+    current_user: dict = Depends(require_admin),
+    rules_service: PhraseQualityRulesService = Depends(get_phrase_quality_rules_service)
+):
+    """
+    Update a phrase quality rule value (admin only).
+    
+    - **rule_name**: Name of the rule to update
+    - **value**: New numeric value for the rule
+    """
+    try:
+        from uuid import UUID
+        admin_id = UUID(current_user['id'])
+        
+        success = await rules_service.update_rule(
+            rule_name=rule_name,
+            new_value=request.value,
+            admin_id=admin_id
+        )
+        
+        if not success:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Rule '{rule_name}' not found"
+            )
+        
+        return {
+            "success": True,
+            "message": f"Rule '{rule_name}' updated to {request.value}",
+            "rule_name": rule_name,
+            "new_value": request.value
+        }
+        
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating phrase quality rule: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to update phrase quality rule"
+        )
+
+
+@admin_router.post("/phrase-rules/{rule_name}/toggle")
+async def toggle_phrase_quality_rule(
+    rule_name: str,
+    is_active: bool,
+    current_user: dict = Depends(require_admin),
+    rules_service: PhraseQualityRulesService = Depends(get_phrase_quality_rules_service)
+):
+    """
+    Enable or disable a phrase quality rule (admin only).
+    
+    - **rule_name**: Name of the rule to toggle
+    - **is_active**: True to enable, False to disable
+    """
+    try:
+        success = await rules_service.toggle_rule(rule_name, is_active)
+        
+        if not success:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Rule '{rule_name}' not found"
+            )
+        
+        return {
+            "success": True,
+            "message": f"Rule '{rule_name}' {'enabled' if is_active else 'disabled'}",
+            "rule_name": rule_name,
+            "is_active": is_active
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error toggling phrase quality rule: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to toggle phrase quality rule"
+        )
