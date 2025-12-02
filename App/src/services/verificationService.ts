@@ -21,13 +21,16 @@ export interface StartVerificationResponse {
   success: boolean;
   verification_id: string;
   user_id: string;
-  phrase: Phrase;
+  challenge_id: string;
+  phrase: string;
+  phrase_id: string;
+  expires_at: string;
   message: string;
 }
 
 export interface VerifyVoiceRequest {
   verification_id: string;
-  phrase_id: string;
+  challenge_id: string;
   audioBlob: Blob;
 }
 
@@ -72,24 +75,32 @@ export interface VerificationHistoryResponse {
   recent_attempts: VerificationHistoryItem[];
 }
 
-// Multi-phrase verification interfaces
 export interface StartMultiPhraseVerificationResponse {
   verification_id: string;
   user_id: string;
-  phrases: Phrase[];
+  challenges: Challenge[];
   total_phrases: number;
+}
+
+export interface Challenge {
+  challenge_id: string;
+  phrase: string;
+  phrase_id: string;
+  difficulty: string;
+  expires_at: string;
+  expires_in_seconds: number;
 }
 
 export interface VerifyPhraseRequest {
   verification_id: string;
-  phrase_id: string;
+  challenge_id: string;
   phrase_number: number; // 1, 2, or 3
   audioBlob: Blob;
 }
 
 export interface PhraseResult {
   phrase_number: number;
-  phrase_id: string;
+  challenge_id: string;
   similarity_score: number;
   asr_confidence: number;
   asr_penalty: number;
@@ -129,12 +140,12 @@ class VerificationService {
   }
 
   /**
-   * Verificar voz con frase específica
+   * Verificar voz con challenge específico
    */
   async verifyVoice(data: VerifyVoiceRequest): Promise<VerifyVoiceResponse> {
     const formData = new FormData();
     formData.append('verification_id', data.verification_id);
-    formData.append('phrase_id', data.phrase_id);
+    formData.append('challenge_id', data.challenge_id);
     formData.append('audio_file', data.audioBlob, 'verification_audio.wav');
 
     const response = await api.post<VerifyVoiceResponse>(`${this.baseUrl}/verify`, formData, {
@@ -197,12 +208,12 @@ class VerificationService {
   }
 
   /**
-   * Verificar una frase individual en verificación multi-frase
+   * Verificar un challenge individual en verificación multi-frase
    */
   async verifyPhrase(data: VerifyPhraseRequest): Promise<VerifyPhraseResponse> {
     const formData = new FormData();
     formData.append('verification_id', data.verification_id);
-    formData.append('phrase_id', data.phrase_id);
+    formData.append('challenge_id', data.challenge_id);
     formData.append('phrase_number', data.phrase_number.toString());
     formData.append('audio_file', data.audioBlob, `phrase_${data.phrase_number}.wav`);
 

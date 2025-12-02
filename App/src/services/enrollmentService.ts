@@ -22,9 +22,18 @@ export interface StartEnrollmentResponse {
   success: boolean;
   enrollment_id: string;
   user_id: string;
-  phrases: Phrase[];
+  challenges: Challenge[]; // Changed from phrases
   required_samples: number;
   message: string;
+}
+
+export interface Challenge {
+  challenge_id: string;
+  phrase: string;
+  phrase_id: string;
+  difficulty: string;
+  expires_at: string;
+  expires_in_seconds: number;
 }
 
 export interface AddSampleResponse {
@@ -33,7 +42,7 @@ export interface AddSampleResponse {
   samples_completed: number;
   samples_required: number;
   is_complete: boolean;
-  next_phrase: Phrase | null;
+  next_challenge: Challenge | null; // Changed from next_phrase
   quality_score?: number;
   message: string;
 }
@@ -85,16 +94,16 @@ class EnrollmentService {
   }
 
   /**
-   * Agregar muestra de audio con frase
+   * Agregar muestra de audio con challenge
    */
   async addSample(
     enrollmentId: string,
-    phraseId: string,
+    challengeId: string, // Changed from phraseId
     audioBlob: Blob
   ): Promise<AddSampleResponse> {
     const formData = new FormData();
     formData.append('enrollment_id', enrollmentId);
-    formData.append('phrase_id', phraseId);
+    formData.append('challenge_id', challengeId); // Changed from phrase_id
     formData.append('audio_file', audioBlob, 'enrollment_sample.wav');
 
     const response = await api.post<AddSampleResponse>(`${this.baseUrl}/add-sample`, formData, {
