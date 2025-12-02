@@ -4,6 +4,7 @@ import asyncpg
 from typing import Optional, List, Dict, Any
 from uuid import UUID
 import logging
+import json
 
 from ...domain.repositories.PhraseQualityRulesRepositoryPort import PhraseQualityRulesRepositoryPort
 
@@ -137,11 +138,13 @@ class PostgresPhraseQualityRulesRepository(PhraseQualityRulesRepositoryPort):
             return default
         
         try:
-            # rule_value is JSONB with structure: {"value": 0.70, "description": "...", "unit": "..."}
+            # rule_value is JSONB, but asyncpg returns it as a string
+            # Parse it to dict first
             rule_value = rule['rule_value']
+            if isinstance(rule_value, str):
+                rule_value = json.loads(rule_value)
             value = rule_value.get('value', default)
             return float(value)
-        except (ValueError, TypeError, AttributeError) as e:
+        except (ValueError, TypeError, AttributeError, json.JSONDecodeError) as e:
             logger.error(f"Error parsing rule value for '{rule_name}': {e}, using default: {default}")
             return default
-

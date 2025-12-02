@@ -67,22 +67,24 @@ class ChallengeService:
         )
         
         # Get random phrases from database (1 query for all)
-        phrases = await self._phrase_repo.get_random_phrases(
+        # Note: find_random() uses exclude_recent=True by default, which excludes last 30 days
+        phrases = await self._phrase_repo.find_random(
             user_id=user_id,
             count=count,
             difficulty=difficulty,
             language='es',
-            exclude_ids=recent_phrase_ids
+            exclude_recent=True  # This will exclude recent phrases automatically
         )
         
         if len(phrases) < count:
             # Fallback: allow repetition if not enough unique phrases
             logger.warning(f"Only {len(phrases)} unique phrases available, need {count}. Allowing repetition.")
-            phrases = await self._phrase_repo.get_random_phrases(
+            phrases = await self._phrase_repo.find_random(
                 user_id=user_id,
                 count=count,
                 difficulty=difficulty,
-                language='es'
+                language='es',
+                exclude_recent=False  # Allow repetition
             )
         
         if not phrases:
