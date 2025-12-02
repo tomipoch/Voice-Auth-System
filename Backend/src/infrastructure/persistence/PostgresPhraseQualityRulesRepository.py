@@ -83,16 +83,13 @@ class PostgresPhraseQualityRulesRepository(PhraseQualityRulesRepositoryPort):
     ) -> bool:
         """Update a rule's value. Returns True if successful."""
         async with self._pool.acquire() as conn:
-            # Get current rule to preserve other fields
+            # Check if rule exists
             current_rule = await self.get_rule(rule_name)
             if not current_rule:
                 logger.warning(f"Rule '{rule_name}' not found")
                 return False
             
-            # Update the value in the JSONB field
-            rule_value = current_rule['rule_value']
-            rule_value['value'] = new_value
-            
+            # Update the numeric value directly
             result = await conn.execute(
                 """
                 UPDATE phrase_quality_rules
@@ -100,7 +97,7 @@ class PostgresPhraseQualityRulesRepository(PhraseQualityRulesRepositoryPort):
                     updated_at = now()
                 WHERE rule_name = $2
                 """,
-                rule_value,
+                new_value,
                 rule_name
             )
             
@@ -108,6 +105,7 @@ class PostgresPhraseQualityRulesRepository(PhraseQualityRulesRepositoryPort):
             logger.info(f"Rule '{rule_name}' updated to {new_value} by {updated_by or 'system'}")
             
             return result == "UPDATE 1"
+
     
     async def toggle_rule(self, rule_name: str, is_active: bool) -> bool:
         """Enable or disable a rule. Returns True if successful."""
@@ -136,8 +134,10 @@ class PostgresPhraseQualityRulesRepository(PhraseQualityRulesRepositoryPort):
             return default
         
         try:
-            value = rule['rule_value'].get('value', default)
+            # rule_value is already a numeric value, not a dict
+            value = rule['rule_value']
             return float(value)
         except (ValueError, TypeError) as e:
             logger.error(f"Error parsing rule value for '{rule_name}': {e}, using default: {default}")
             return default
+
