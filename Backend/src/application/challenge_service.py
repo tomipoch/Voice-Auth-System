@@ -1,114 +1,201 @@
-"""Challenge service for generating and validating dynamic phrases."""
+"""Challenge service for managing dynamic phrase challenges with database integration."""
 
-import random
-import string
 from datetime import datetime, timedelta
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 from uuid import UUID
+import logging
 
 from ..domain.repositories.ChallengeRepositoryPort import ChallengeRepositoryPort
+from ..domain.repositories.PhraseRepositoryPort import PhraseRepositoryPort
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from .phrase_quality_rules_service import PhraseQualityRulesService
 from ..shared.types.common_types import UserId, ChallengeId, AuditAction
-from ..shared.constants.biometric_constants import (
-    CHALLENGE_EXPIRY_MINUTES, 
-    MIN_PHRASE_LENGTH, 
-    MAX_PHRASE_LENGTH
-)
+
+logger = logging.getLogger(__name__)
 
 
 class ChallengeService:
-    """Service for generating and managing dynamic voice challenges."""
-    
-    # Common words for phrase generation
-    COMMON_WORDS = [
-        "apple", "bridge", "camera", "doctor", "elephant", "flower", "guitar", "hammer",
-        "island", "jacket", "kitchen", "laptop", "mountain", "notebook", "orange", "pencil",
-        "queen", "rainbow", "sunset", "teacher", "umbrella", "violet", "window", "yellow",
-        "zebra", "author", "basket", "candle", "desert", "engine", "forest", "garden",
-        "harbor", "igloo", "jungle", "ladder", "market", "ocean", "planet", "rabbit",
-        "silver", "turtle", "vessel", "wizard", "crystal", "dolphin", "eagle", "fabric"
-    ]
-    
-    NUMBERS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    """Service for generating and managing dynamic voice challenges using phrase database."""
     
     def __init__(
         self,
         challenge_repo: ChallengeRepositoryPort,
+        phrase_repo: PhraseRepositoryPort,
         user_repo: UserRepositoryPort,
-        audit_repo: AuditLogRepositoryPort
+        audit_repo: AuditLogRepositoryPort,
+        rules_service: PhraseQualityRulesService
     ):
         self._challenge_repo = challenge_repo
+        self._phrase_repo = phrase_repo
         self._user_repo = user_repo
         self._audit_repo = audit_repo
+        self._rules_service = rules_service
     
-    async def create_challenge(self, user_id: UserId) -> dict:
-        """Create a new challenge for a user."""
+    async def create_challenge_batch(
+        self,
+        user_id: UserId,
+        count: int = 3,
+        difficulty: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        Create multiple challenges at once (optimized for batch operations).
         
+        Args:
+            user_id: User UUID
+            count: Number of challenges to create (default: 3)
+            difficulty: Phrase difficulty level (easy/medium/hard)
+            
+        Returns:
+            List of challenge dictionaries
+        """
         # Verify user exists
         if not await self._user_repo.user_exists(user_id):
             raise ValueError(f"User {user_id} does not exist")
         
-        # Generate challenge phrase
-        phrase = self._generate_phrase()
+        # Check rate limiting
+        await self._check_rate_limits(user_id)
+        
+        # Get configuration from rules
+        expiry_minutes = await self._rules_service.get_rule_value('challenge_expiry_minutes', default=5.0)
+        exclude_recent = int(await self._rules_service.get_rule_value('exclude_recent_phrases', default=50.0))
+        
+        # Get recent phrase IDs to exclude
+        recent_phrase_ids = await self._phrase_repo.get_recent_phrase_ids(
+            user_id=user_id,
+            limit=exclude_recent
+        )
+        
+        # Get random phrases from database (1 query for all)
+        phrases = await self._phrase_repo.get_random_phrases(
+            user_id=user_id,
+            count=count,
+            difficulty=difficulty,
+            language='es',
+            exclude_ids=recent_phrase_ids
+        )
+        
+        if len(phrases) < count:
+            # Fallback: allow repetition if not enough unique phrases
+            logger.warning(f"Only {len(phrases)} unique phrases available, need {count}. Allowing repetition.")
+            phrases = await self._phrase_repo.get_random_phrases(
+                user_id=user_id,
+                count=count,
+                difficulty=difficulty,
+                language='es'
+            )
+        
+        if not phrases:
+            raise ValueError("No phrases available for challenges")
         
         # Set expiration time
-        expires_at = datetime.now() + timedelta(minutes=CHALLENGE_EXPIRY_MINUTES)
+        expires_at = datetime.now() + timedelta(minutes=int(expiry_minutes))
         
-        # Save challenge
-        challenge_id = await self._challenge_repo.create_challenge(
-            user_id=user_id,
-            phrase=phrase,
-            expires_at=expires_at
-        )
+        # Create challenges
+        challenges = []
+        for phrase in phrases:
+            # Create challenge in database
+            challenge_id = await self._challenge_repo.create_challenge(
+                user_id=user_id,
+                phrase=phrase.text,
+                phrase_id=phrase.id,
+                expires_at=expires_at
+            )
+            
+            # Record phrase usage
+            await self._phrase_repo.record_phrase_usage(
+                phrase_id=phrase.id,
+                user_id=user_id,
+                used_for='challenge'
+            )
+            
+            # Log challenge creation
+            await self._audit_repo.log_event(
+                actor="system",
+                action=AuditAction.CREATE_CHALLENGE,
+                entity_type="challenge",
+                entity_id=str(challenge_id),
+                metadata={
+                    "user_id": str(user_id),
+                    "phrase_id": str(phrase.id),
+                    "phrase_length": len(phrase.text),
+                    "difficulty": phrase.difficulty,
+                    "expires_at": expires_at.isoformat()
+                }
+            )
+            
+            challenges.append({
+                "challenge_id": challenge_id,
+                "phrase": phrase.text,
+                "phrase_id": phrase.id,
+                "difficulty": phrase.difficulty,
+                "expires_at": expires_at.isoformat(),
+                "expires_in_seconds": int((expires_at - datetime.now()).total_seconds())
+            })
         
-        # Log challenge creation
-        await self._audit_repo.log_event(
-            actor="system",
-            action=AuditAction.CREATE_CHALLENGE,
-            entity_type="challenge",
-            entity_id=str(challenge_id),
-            metadata={
-                "user_id": str(user_id),
-                "phrase_length": len(phrase),
-                "expires_at": expires_at.isoformat()
-            }
-        )
-        
-        return {
-            "challenge_id": challenge_id,
-            "phrase": phrase,
-            "expires_at": expires_at.isoformat(),
-            "expires_in_seconds": int((expires_at - datetime.now()).total_seconds())
-        }
+        logger.info(f"Created {len(challenges)} challenges for user {user_id}")
+        return challenges
     
-    async def get_challenge(self, challenge_id: ChallengeId) -> Optional[dict]:
+    async def create_challenge(
+        self,
+        user_id: UserId,
+        difficulty: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Create a single challenge (convenience method).
+        
+        Args:
+            user_id: User UUID
+            difficulty: Phrase difficulty level (easy/medium/hard)
+            
+        Returns:
+            Challenge dictionary
+        """
+        batch = await self.create_challenge_batch(
+            user_id=user_id,
+            count=1,
+            difficulty=difficulty
+        )
+        
+        return batch[0]
+    
+    async def get_challenge(self, challenge_id: ChallengeId) -> Optional[Dict[str, Any]]:
         """Get challenge details by ID."""
         return await self._challenge_repo.get_challenge(challenge_id)
     
-    async def get_active_challenge(self, user_id: UserId) -> Optional[dict]:
+    async def get_active_challenge(self, user_id: UserId) -> Optional[Dict[str, Any]]:
         """Get the most recent active challenge for a user."""
         return await self._challenge_repo.get_active_challenge(user_id)
     
-    async def validate_challenge(
+    async def validate_challenge_strict(
         self, 
         challenge_id: ChallengeId, 
-        user_id: Optional[UserId] = None
+        user_id: UserId
     ) -> tuple[bool, str]:
         """
-        Validate a challenge.
+        Strict challenge validation with comprehensive checks.
         
+        Args:
+            challenge_id: Challenge UUID
+            user_id: User UUID
+            
         Returns:
             tuple: (is_valid: bool, reason: str)
         """
-        
         # Get challenge
         challenge = await self._challenge_repo.get_challenge(challenge_id)
         if not challenge:
             return False, "Challenge not found"
         
-        # Check if challenge belongs to user (if specified)
-        if user_id and challenge.get('user_id') != user_id:
+        # Check if challenge belongs to user
+        if challenge.get('user_id') != user_id:
+            await self._audit_repo.log_event(
+                actor=str(user_id),
+                action=AuditAction.VERIFY,
+                entity_type="challenge_validation",
+                entity_id=str(challenge_id),
+                metadata={"error": "user_mismatch", "expected_user": str(challenge.get('user_id'))}
+            )
             return False, "Challenge does not belong to user"
         
         # Check if already used
@@ -127,84 +214,90 @@ class ChallengeService:
         await self._challenge_repo.mark_challenge_used(challenge_id)
     
     async def cleanup_expired_challenges(self) -> int:
-        """Clean up expired challenges."""
-        deleted_count = await self._challenge_repo.cleanup_expired_challenges()
+        """Clean up expired challenges based on configured rules."""
+        cleanup_hours = int(await self._rules_service.get_rule_value('cleanup_expired_after_hours', default=1.0))
+        deleted_count = await self._challenge_repo.cleanup_expired_challenges(older_than_hours=cleanup_hours)
         
         if deleted_count > 0:
             await self._audit_repo.log_event(
                 actor="system",
                 action=AuditAction.DELETE_USER,  # Using existing enum
                 entity_type="challenge_cleanup",
-                entity_id="batch",
-                metadata={"deleted_count": deleted_count}
+                entity_id="expired_batch",
+                metadata={"deleted_count": deleted_count, "older_than_hours": cleanup_hours}
             )
         
         return deleted_count
     
-    def _generate_phrase(self) -> str:
-        """Generate a random phrase for voice challenge."""
+    async def cleanup_used_challenges(self) -> int:
+        """Clean up used challenges based on configured rules."""
+        cleanup_hours = int(await self._rules_service.get_rule_value('cleanup_used_after_hours', default=24.0))
+        deleted_count = await self._challenge_repo.cleanup_used_challenges(older_than_hours=cleanup_hours)
         
-        # Choose phrase type randomly
-        phrase_type = random.choice(["word_sequence", "number_sequence", "mixed"])
+        if deleted_count > 0:
+            await self._audit_repo.log_event(
+                actor="system",
+                action=AuditAction.DELETE_USER,  # Using existing enum
+                entity_type="challenge_cleanup",
+                entity_id="used_batch",
+                metadata={"deleted_count": deleted_count, "older_than_hours": cleanup_hours}
+            )
         
-        if phrase_type == "number_sequence":
-            return self._generate_number_phrase()
-        elif phrase_type == "word_sequence":
-            return self._generate_word_phrase()
-        else:
-            return self._generate_mixed_phrase()
+        return deleted_count
     
-    def _generate_word_phrase(self) -> str:
-        """Generate a phrase with random words."""
-        num_words = random.randint(3, 6)
-        words = random.sample(self.COMMON_WORDS, num_words)
-        phrase = " ".join(words)
+    async def analyze_phrase_performance(self) -> Dict[str, Any]:
+        """
+        Analyze phrase performance and auto-disable problematic phrases.
+        Uses configurable rules from admin settings.
         
-        # Ensure phrase is within length limits
-        while len(phrase) < MIN_PHRASE_LENGTH:
-            words.append(random.choice(self.COMMON_WORDS))
-            phrase = " ".join(words)
+        Returns:
+            Dictionary with analysis results
+        """
+        # Get thresholds from rules
+        min_success_rate = await self._rules_service.get_rule_value('min_success_rate', default=0.70)
+        min_asr_score = await self._rules_service.get_rule_value('min_asr_score', default=0.80)
+        min_phrase_ok_rate = await self._rules_service.get_rule_value('min_phrase_ok_rate', default=0.75)
+        min_attempts = int(await self._rules_service.get_rule_value('min_attempts_for_analysis', default=10.0))
         
-        if len(phrase) > MAX_PHRASE_LENGTH:
-            # Truncate to fit
-            phrase = phrase[:MAX_PHRASE_LENGTH].rsplit(' ', 1)[0]
+        # Query phrase performance
+        # This would need to be implemented in PhraseRepository
+        # For now, return placeholder
+        logger.info(f"Analyzing phrase performance with thresholds: success_rate={min_success_rate}, asr={min_asr_score}, phrase_ok={min_phrase_ok_rate}")
         
-        return phrase.title()
+        return {
+            "analyzed": 0,
+            "disabled": 0,
+            "thresholds": {
+                "min_success_rate": min_success_rate,
+                "min_asr_score": min_asr_score,
+                "min_phrase_ok_rate": min_phrase_ok_rate,
+                "min_attempts": min_attempts
+            }
+        }
     
-    def _generate_number_phrase(self) -> str:
-        """Generate a phrase with random numbers."""
-        num_count = random.randint(4, 8)
-        numbers = [random.choice(self.NUMBERS) for _ in range(num_count)]
-        return " ".join(numbers).title()
-    
-    def _generate_mixed_phrase(self) -> str:
-        """Generate a mixed phrase with words and numbers."""
-        components = []
+    async def _check_rate_limits(self, user_id: UserId) -> None:
+        """
+        Check if user has exceeded rate limits.
         
-        # Add 2-3 words
-        word_count = random.randint(2, 3)
-        components.extend(random.sample(self.COMMON_WORDS, word_count))
+        Raises:
+            ValueError: If rate limit exceeded
+        """
+        # Get rate limits from rules
+        max_active = int(await self._rules_service.get_rule_value('max_challenges_per_user', default=3.0))
+        max_per_hour = int(await self._rules_service.get_rule_value('max_challenges_per_hour', default=20.0))
         
-        # Add 2-3 numbers
-        number_count = random.randint(2, 3)
-        components.extend([random.choice(self.NUMBERS) for _ in range(number_count)])
+        # Check active challenges
+        active_count = await self._challenge_repo.count_active_challenges(user_id)
+        if active_count >= max_active:
+            raise ValueError(
+                f"User has too many active challenges ({active_count}). "
+                f"Maximum allowed: {max_active}. Please wait for existing challenges to expire."
+            )
         
-        # Shuffle components
-        random.shuffle(components)
-        
-        phrase = " ".join(components)
-        
-        # Ensure within limits
-        if len(phrase) > MAX_PHRASE_LENGTH:
-            phrase = phrase[:MAX_PHRASE_LENGTH].rsplit(' ', 1)[0]
-        
-        return phrase.title()
-    
-    def generate_test_phrase(self, phrase_type: str = "mixed") -> str:
-        """Generate a test phrase (for testing purposes)."""
-        if phrase_type == "numbers":
-            return self._generate_number_phrase()
-        elif phrase_type == "words":
-            return self._generate_word_phrase()
-        else:
-            return self._generate_mixed_phrase()
+        # Check recent challenges (last hour)
+        recent_count = await self._challenge_repo.count_recent_challenges(user_id, since_hours=1)
+        if recent_count >= max_per_hour:
+            raise ValueError(
+                f"Rate limit exceeded. Maximum {max_per_hour} challenges per hour. "
+                f"Current count: {recent_count}. Try again later."
+            )

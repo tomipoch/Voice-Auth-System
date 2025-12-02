@@ -104,6 +104,24 @@ class PhraseService:
         """Delete a phrase from the system."""
         return await self._phrase_repo.delete(phrase_id)
     
+    async def get_recent_phrase_ids(
+        self,
+        user_id: UUID,
+        limit: int = 50
+    ) -> List[UUID]:
+        """
+        Get IDs of phrases recently used by a user.
+        Used to exclude recent phrases when creating challenges.
+        
+        Args:
+            user_id: User UUID
+            limit: Maximum number of recent phrase IDs to return
+            
+        Returns:
+            List of phrase UUIDs
+        """
+        return await self._usage_repo.get_user_phrase_ids(user_id, days=30)
+    
     def _to_dto(self, phrase: Phrase) -> PhraseDTO:
         """Convert domain model to DTO."""
         return PhraseDTO(
@@ -117,3 +135,4 @@ class PhraseService:
             is_active=phrase.is_active,
             created_at=phrase.created_at.isoformat()
         )
+

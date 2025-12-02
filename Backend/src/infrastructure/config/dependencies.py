@@ -178,3 +178,27 @@ async def get_phrase_quality_rules_service():
     
     return PhraseQualityRulesService(rules_repo)
 
+
+async def get_challenge_service():
+    """Get challenge service instance with dependencies."""
+    from ..persistence.PostgresChallengeRepository import PostgresChallengeRepository
+    from ..persistence.PostgresAuditLogRepository import PostgresAuditLogRepository
+    from ...application.challenge_service import ChallengeService
+    
+    pool = await get_db_pool()
+    
+    challenge_repo = PostgresChallengeRepository(pool)
+    phrase_repo = PostgresPhraseRepository(pool)
+    user_repo = await get_user_repository()
+    audit_repo = PostgresAuditLogRepository(pool)
+    rules_service = await get_phrase_quality_rules_service()
+    
+    return ChallengeService(
+        challenge_repo=challenge_repo,
+        phrase_repo=phrase_repo,
+        user_repo=user_repo,
+        audit_repo=audit_repo,
+        rules_service=rules_service
+    )
+
+
