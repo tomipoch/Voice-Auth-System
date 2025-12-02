@@ -46,7 +46,7 @@ class StartMultiPhraseVerificationResponse(BaseModel):
     """Response after starting multi-phrase verification."""
     verification_id: str
     user_id: str
-    phrases: list[dict]  # [{"id": "...", "text": "...", "difficulty": "..."}]
+    challenges: list[dict]  # Changed from phrases to match frontend
     total_phrases: int
 
 
