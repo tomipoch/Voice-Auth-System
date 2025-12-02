@@ -9,20 +9,19 @@ from ..domain.model.VoiceSignature import VoiceSignature
 from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
-from ..domain.repositories.PhraseRepositoryPort import PhraseRepositoryPort, PhraseUsageRepositoryPort
-from ..shared.types.common_types import UserId, VoiceEmbedding, AuditAction
+from ..shared.types.common_types import UserId, VoiceEmbedding, AuditAction, ChallengeId
 from ..shared.constants.biometric_constants import MIN_ENROLLMENT_SAMPLES, MAX_ENROLLMENT_SAMPLES
 
 
 class EnrollmentSession:
     """Represents an active enrollment session."""
     
-    def __init__(self, user_id: UUID, enrollment_id: UUID, phrases: List[dict]):
+    def __init__(self, user_id: UUID, enrollment_id: UUID, challenges: List[dict]):
         self.user_id = user_id
         self.enrollment_id = enrollment_id
-        self.phrases = phrases
+        self.challenges = challenges  # List of challenge dicts
         self.samples_collected = 0
-        self.phrase_index = 0
+        self.challenge_index = 0
         self.created_at = datetime.now(timezone.utc)
 
 
@@ -40,15 +39,13 @@ class EnrollmentService:
         voice_repo: VoiceSignatureRepositoryPort,
         user_repo: UserRepositoryPort,
         audit_repo: AuditLogRepositoryPort,
-        phrase_repo: PhraseRepositoryPort,
-        phrase_usage_repo: PhraseUsageRepositoryPort,
+        challenge_service,  # ChallengeService
         biometric_validator: BiometricValidator
     ):
         self._voice_repo = voice_repo
         self._user_repo = user_repo
         self._audit_repo = audit_repo
-        self._phrase_repo = phrase_repo
-        self._phrase_usage_repo = phrase_usage_repo
+        self._challenge_service = challenge_service
         self._biometric_validator = biometric_validator
     
     async def start_enrollment(
@@ -82,32 +79,19 @@ class EnrollmentService:
                 "Please delete the existing voiceprint before re-enrolling."
             )
         
-        # Get random phrases for enrollment
-        phrases = await self._phrase_repo.find_random(
+        # Create challenges for enrollment (batch operation)
+        challenges = await self._challenge_service.create_challenge_batch(
             user_id=user_id,
-            exclude_recent=True,
-            difficulty=difficulty,
-            language='es',
-            count=MIN_ENROLLMENT_SAMPLES
+            count=MIN_ENROLLMENT_SAMPLES,
+            difficulty=difficulty
         )
         
-        if len(phrases) < MIN_ENROLLMENT_SAMPLES:
-            raise ValueError(f"Not enough phrases available. Need {MIN_ENROLLMENT_SAMPLES}")
-        
-        # Convert phrases to dict
-        phrases_dict = [
-            {
-                "id": str(phrase.id),
-                "text": phrase.text,
-                "difficulty": phrase.difficulty,
-                "word_count": phrase.word_count
-            }
-            for phrase in phrases
-        ]
+        if len(challenges) < MIN_ENROLLMENT_SAMPLES:
+            raise ValueError(f"Not enough challenges created. Need {MIN_ENROLLMENT_SAMPLES}")
         
         # Create enrollment session
         enrollment_id = uuid4()
-        session = EnrollmentSession(user_id, enrollment_id, phrases_dict)
+        session = EnrollmentSession(user_id, enrollment_id, challenges)
         self._active_sessions[enrollment_id] = session
         
         # Log enrollment start
@@ -126,19 +110,19 @@ class EnrollmentService:
         return {
             "enrollment_id": str(enrollment_id),
             "user_id": str(user_id),
-            "phrases": phrases_dict,
+            "challenges": challenges,
             "required_samples": MIN_ENROLLMENT_SAMPLES
         }
     
     async def add_enrollment_sample(
         self,
         enrollment_id: UUID,
-        phrase_id: UUID,
+        challenge_id: ChallengeId,
         embedding: VoiceEmbedding,
         snr_db: Optional[float] = None,
         duration_sec: Optional[float] = None
     ) -> Dict:
-        """Add an enrollment sample with phrase validation."""
+        """Add an enrollment sample with challenge validation."""
         
         # Get session
         session = self._active_sessions.get(enrollment_id)
@@ -149,10 +133,19 @@ class EnrollmentService:
         if not self._biometric_validator.is_valid_embedding(embedding):
             raise ValueError("Invalid voice embedding")
         
-        # Verify phrase belongs to this enrollment
-        phrase_found = any(p["id"] == str(phrase_id) for p in session.phrases)
-        if not phrase_found:
-            raise ValueError("Phrase does not belong to this enrollment session")
+        # Verify challenge belongs to this enrollment
+        challenge_found = any(c["challenge_id"] == challenge_id for c in session.challenges)
+        if not challenge_found:
+            raise ValueError("Challenge does not belong to this enrollment session")
+        
+        # Validate challenge (strict validation)
+        is_valid, reason = await self._challenge_service.validate_challenge_strict(
+            challenge_id=challenge_id,
+            user_id=session.user_id
+        )
+        
+        if not is_valid:
+            raise ValueError(f"Invalid challenge: {reason}")
         
         # Store the sample
         sample_id = await self._voice_repo.save_enrollment_sample(
@@ -162,22 +155,18 @@ class EnrollmentService:
             duration_sec=duration_sec
         )
         
-        # Record phrase usage
-        await self._phrase_usage_repo.record_usage(
-            phrase_id=phrase_id,
-            user_id=session.user_id,
-            used_for="enrollment"
-        )
+        # Mark challenge as used
+        await self._challenge_service.mark_challenge_used(challenge_id)
         
         # Update session
         session.samples_collected += 1
-        session.phrase_index += 1
+        session.challenge_index += 1
         
         # Check if enrollment is complete
         is_complete = session.samples_collected >= MIN_ENROLLMENT_SAMPLES
-        next_phrase = None if is_complete else (
-            session.phrases[session.phrase_index] 
-            if session.phrase_index < len(session.phrases) 
+        next_challenge = None if is_complete else (
+            session.challenges[session.challenge_index] 
+            if session.challenge_index < len(session.challenges) 
             else None
         )
         
@@ -190,7 +179,7 @@ class EnrollmentService:
             metadata={
                 "enrollment_id": str(enrollment_id),
                 "user_id": str(session.user_id),
-                "phrase_id": str(phrase_id),
+                "challenge_id": str(challenge_id),
                 "sample_number": session.samples_collected,
                 "snr_db": snr_db,
                 "duration_sec": duration_sec
@@ -202,7 +191,7 @@ class EnrollmentService:
             "samples_completed": session.samples_collected,
             "samples_required": MIN_ENROLLMENT_SAMPLES,
             "is_complete": is_complete,
-            "next_phrase": next_phrase
+            "next_challenge": next_challenge
         }
     
     async def complete_enrollment(
