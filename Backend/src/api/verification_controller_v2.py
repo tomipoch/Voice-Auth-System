@@ -361,7 +361,7 @@ async def verify_phrase(
         # Verify phrase
         result = await verification_service.verify_phrase(
             verification_id=verification_uuid,
-            phrase_id=phrase_uuid,
+            challenge_id=phrase_uuid,  # Changed from phrase_id to challenge_id
             phrase_number=phrase_number,
             embedding=embedding,
             anti_spoofing_score=anti_spoofing_score,
