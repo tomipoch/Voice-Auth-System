@@ -110,6 +110,27 @@ export const authService = {
     const response = await api.get<ApiResponse<User>>('/auth/profile');
     return response.data;
   },
+
+  // Refresh access token
+  refreshToken: async (): Promise<AuthResponse> => {
+    const refreshToken = authStorage.getRefreshToken();
+    
+    if (!refreshToken) {
+      throw new Error('No refresh token available');
+    }
+    
+    const response = await api.post<AuthResponse>('/auth/refresh', {
+      refresh_token: refreshToken
+    });
+    
+    // Guardar nuevo access token
+    if (response.data.access_token) {
+      authStorage.setAccessToken(response.data.access_token);
+    }
+    
+    return response.data;
+  },
+
   // Actualizar perfil del usuario
   updateProfile: async (userData: Partial<User>): Promise<ApiResponse<User>> => {
     if (!useRealAPI) {

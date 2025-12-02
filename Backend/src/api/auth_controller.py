@@ -46,6 +46,7 @@ class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
     expires_in: int
+    refresh_token: Optional[str] = None
     user: dict
 
 class ProfileUpdateRequest(BaseModel):
@@ -145,10 +146,26 @@ async def login(
     # Reset failed attempts on successful login
     await user_repo.reset_failed_auth_attempts(user["id"])
     
-    # Create access token
+    # Create access token with email as subject (standard practice)
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": str(user["id"]), "role": user.get("role", "user")}, expires_delta=access_token_expires
+        data={
+            "sub": user["email"],  # Use email as subject for consistency
+            "user_id": str(user["id"]),
+            "role": user.get("role", "user")
+        },
+        expires_delta=access_token_expires
+    )
+    
+    # Create refresh token (longer expiration)
+    refresh_token_expires = timedelta(days=7)
+    refresh_token = create_access_token(
+        data={
+            "sub": user["email"],
+            "user_id": str(user["id"]),
+            "type": "refresh"
+        },
+        expires_delta=refresh_token_expires
     )
     
     logger.info(f"Login successful for user_id={user['id']}, email={user_data.email}")
@@ -169,6 +186,81 @@ async def login(
         access_token=access_token,
         token_type="bearer",
         expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        refresh_token=refresh_token,
+        user=user_response
+    )
+
+@auth_router.post("/refresh", response_model=TokenResponse)
+async def refresh_token(
+    refresh_token: str = Body(..., embed=True),
+    user_repo: UserRepositoryPort = Depends(get_user_repository),
+):
+    """
+    Refresh access token using refresh token.
+    Returns a new access token if the refresh token is valid.
+    """
+    auth_error = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid refresh token",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
+    try:
+        # Decode and validate refresh token
+        payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        token_type: str = payload.get("type")
+        
+        if email is None or token_type != "refresh":
+            raise auth_error
+            
+    except jwt.PyJWTError as e:
+        logger.warning(f"Invalid refresh token: {e}")
+        raise auth_error
+    
+    # Get user from database
+    user = await user_repo.get_user_by_email(email)
+    if user is None:
+        logger.warning(f"Refresh token for non-existent user: {email}")
+        raise auth_error
+    
+    # Check if account is locked
+    if user.get("locked_until") and user["locked_until"] > datetime.now():
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=f"Account locked. Try again after {user['locked_until']}.",
+        )
+    
+    # Create new access token
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    new_access_token = create_access_token(
+        data={
+            "sub": user["email"],
+            "user_id": str(user["id"]),
+            "role": user.get("role", "user")
+        },
+        expires_delta=access_token_expires
+    )
+    
+    logger.info(f"Token refreshed for user_id={user['id']}, email={email}")
+    
+    # Prepare user response
+    user_response = {
+        "id": str(user["id"]),
+        "name": f"{user.get('first_name', '')} {user.get('last_name', '')}".strip(),
+        "email": user["email"],
+        "role": user.get("role", "user"),
+        "company": user.get("company", ""),
+        "created_at": user["created_at"].isoformat(),
+        "voice_template": None,
+        "settings": user.get("settings", {})
+    }
+    
+    return TokenResponse(
+        access_token=new_access_token,
+        token_type="bearer",
+        expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        refresh_token=refresh_token,  # Return same refresh token
         user=user_response
     )
 
