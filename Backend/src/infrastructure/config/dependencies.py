@@ -151,20 +151,19 @@ async def get_verification_service_v2():
     voice_repo = PostgresVoiceSignatureRepository(pool)
     user_repo = await get_user_repository()
     audit_repo = PostgresAuditLogRepository(pool)
-    phrase_repo = PostgresPhraseRepository(pool)
-    phrase_usage_repo = PostgresPhraseUsageRepository(pool)
+    challenge_service = await get_challenge_service()
     biometric_validator = get_biometric_validator()
     
     return VerificationServiceV2(
         voice_repo=voice_repo,
         user_repo=user_repo,
         audit_repo=audit_repo,
-        phrase_repo=phrase_repo,
-        phrase_usage_repo=phrase_usage_repo,
+        challenge_service=challenge_service,
         biometric_validator=biometric_validator,
         similarity_threshold=float(os.getenv("SIMILARITY_THRESHOLD", "0.60")),
         anti_spoofing_threshold=float(os.getenv("ANTI_SPOOFING_THRESHOLD", "0.5"))
     )
+
 
 
 async def get_phrase_quality_rules_service():
