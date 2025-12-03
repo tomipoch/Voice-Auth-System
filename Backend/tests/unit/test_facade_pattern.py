@@ -4,11 +4,11 @@ import pytest
 from unittest.mock import Mock, AsyncMock
 import numpy as np
 
-from ...src.infrastructure.facades.VoiceBiometricEngineFacade import (
+from src.infrastructure.facades.VoiceBiometricEngineFacade import (
     VoiceBiometricEngineFacade
 )
-from ...src.domain.model.AuthAttemptResult import BiometricScores
-from ...src.shared.types.common_types import (
+from src.domain.model.AuthAttemptResult import BiometricScores
+from src.shared.types.common_types import (
     ProcessingResult,
     VoiceFeatures,
     AuthReason
