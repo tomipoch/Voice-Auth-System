@@ -1,6 +1,6 @@
 """Challenge service for managing dynamic phrase challenges with database integration."""
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Optional, List, Dict, Any
 from uuid import UUID
 import logging
@@ -203,7 +203,7 @@ class ChallengeService:
         
         # Check if expired
         expires_at = challenge.get('expires_at')
-        if expires_at and datetime.now() > expires_at:
+        if expires_at and datetime.now(timezone.utc) > expires_at:
             return False, "Challenge expired"
         
         return True, "Valid"
