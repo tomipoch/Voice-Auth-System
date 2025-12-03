@@ -31,6 +31,7 @@ async def start_enrollment(
     external_ref: Optional[str] = Form(None),
     user_id: Optional[str] = Form(None),
     difficulty: str = Form("medium"),
+    force_overwrite: bool = Form(False),
     enrollment_service: EnrollmentService = Depends(get_enrollment_service)
 ):
     """
@@ -39,6 +40,7 @@ async def start_enrollment(
     - **external_ref**: External reference for the user (optional)
     - **user_id**: User UUID (optional, will be created if not provided)
     - **difficulty**: Phrase difficulty level (easy/medium/hard)
+    - **force_overwrite**: Force overwrite existing voiceprint if it exists
     
     Returns enrollment_id, user_id, and list of phrases to read.
     """
@@ -47,7 +49,8 @@ async def start_enrollment(
     result = await enrollment_service.start_enrollment(
         user_id=user_uuid,
         external_ref=external_ref,
-        difficulty=difficulty
+        difficulty=difficulty,
+        force_overwrite=force_overwrite
     )
     
     return StartEnrollmentResponse(
@@ -56,7 +59,8 @@ async def start_enrollment(
         user_id=result["user_id"],
         challenges=result["challenges"],  # Changed from phrases
         required_samples=result["required_samples"],
-        message="Enrollment started successfully"
+        message=result.get("message", "Enrollment started successfully"),
+        voiceprint_exists=result.get("voiceprint_exists", False)
     )
 
 

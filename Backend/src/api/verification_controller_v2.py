@@ -381,3 +381,32 @@ async def verify_phrase(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to verify phrase"
         )
+
+@router.get("/user/{user_id}/history")
+async def get_verification_history(
+    user_id: str,
+    limit: int = 10,
+    verification_service: VerificationServiceV2 = Depends(get_verification_service_v2)
+):
+    """
+    Get verification history for a user.
+    
+    Returns a list of past verification attempts with scores and timestamps.
+    """
+    try:
+        user_uuid = UUID(user_id)
+        history = await verification_service.get_verification_history(user_uuid, limit)
+        
+        return {
+            "success": True,
+            "history": history
+        }
+    except ValueError as e:
+        logger.error(f"Invalid user_id in get_verification_history: {e}")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid user ID")
+    except Exception as e:
+        logger.error(f"Error in get_verification_history: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to retrieve verification history"
+        )
