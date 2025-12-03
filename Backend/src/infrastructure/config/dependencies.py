@@ -163,6 +163,6 @@ async def get_verification_service_v2():
         phrase_repo=phrase_repo,
         phrase_usage_repo=phrase_usage_repo,
         biometric_validator=biometric_validator,
-        similarity_threshold=float(os.getenv("SIMILARITY_THRESHOLD", "0.75")),
+        similarity_threshold=float(os.getenv("SIMILARITY_THRESHOLD", "0.60")),
         anti_spoofing_threshold=float(os.getenv("ANTI_SPOOFING_THRESHOLD", "0.5"))
     )

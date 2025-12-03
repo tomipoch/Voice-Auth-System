@@ -12,7 +12,9 @@ from ..infrastructure.biometrics.VoiceBiometricEngineFacade import VoiceBiometri
 from ..application.dto.verification_dto import (
     StartVerificationRequest,
     StartVerificationResponse,
-    VerifyVoiceResponse
+    VerifyVoiceResponse,
+    StartMultiPhraseVerificationResponse,
+    VerifyPhraseResponse
 )
 from ..infrastructure.config.dependencies import (
     get_verification_service_v2,
@@ -253,4 +255,129 @@ async def get_verification_history(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to get verification history"
+        )
+
+
+# Multi-phrase verification endpoints
+@router.post("/start-multi", response_model=StartMultiPhraseVerificationResponse)
+async def start_multi_phrase_verification(
+    request: StartVerificationRequest,
+    verification_service: VerificationServiceV2 = Depends(get_verification_service_v2)
+):
+    """
+    Start multi-phrase verification (3 phrases).
+    
+    - **user_id**: User UUID who wants to verify
+    - **difficulty**: Phrase difficulty level (easy/medium/hard)
+    
+    Returns verification_id, user_id, and 3 phrases to read.
+    """
+    try:
+        logger.info(f"start_multi_phrase_verification called with user_id={request.user_id}, difficulty={request.difficulty}")
+        
+        result = await verification_service.start_multi_phrase_verification(
+            user_id=request.user_id,
+            difficulty=request.difficulty
+        )
+        
+        return StartMultiPhraseVerificationResponse(**result)
+    
+    except ValueError as e:
+        logger.error(f"Validation error in start_multi_phrase_verification: {e}")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        logger.error(f"Error in start_multi_phrase_verification: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to start multi-phrase verification"
+        )
+
+
+@router.post("/verify-phrase", response_model=VerifyPhraseResponse)
+async def verify_phrase(
+    verification_id: str = Form(...),
+    phrase_id: str = Form(...),
+    phrase_number: int = Form(...),
+    audio_file: UploadFile = File(...),
+    verification_service: VerificationServiceV2 = Depends(get_verification_service_v2),
+    voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine)
+):
+    """
+    Verify a single phrase in multi-phrase verification.
+    
+    - **verification_id**: The verification session ID from /start-multi
+    - **phrase_id**: The phrase ID that was read
+    -  **phrase_number**: Which phrase this is (1, 2, or 3)
+    - **audio_file**: Audio file (WAV, MP3, FLAC, webm, etc.)
+    
+    Returns partial result or final result if all 3 phrases are complete.
+    """
+    try:
+        # Validate IDs
+        verification_uuid = UUID(verification_id)
+        phrase_uuid = UUID(phrase_id)
+        
+        # Read audio file
+        audio_bytes = await audio_file.read()
+        audio_format = audio_file.content_type or "audio/webm"
+        
+        # Convert to WAV if needed
+        from ..infrastructure.biometrics.audio_converter import convert_to_wav
+        format_lower = audio_format.lower()
+        if '/' in format_lower:
+            format_lower = format_lower.split('/')[1].split(';')[0]
+        
+        if format_lower != "wav":
+            logger.info(f"Converting {format_lower} audio to WAV for verification")
+            try:
+                audio_bytes = convert_to_wav(audio_bytes, format_lower)
+                logger.info("Audio conversion successful")
+            except Exception as e:
+                logger.error(f"Audio conversion failed: {e}")
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=f"Failed to convert audio: {str(e)}"
+                )
+        
+        # Read WAV audio
+        audio_data, sample_rate = sf.read(io.BytesIO(audio_bytes))
+        
+        # Process audio through full pipeline
+        # Extract embedding and get anti-spoofing score
+        embedding = voice_engine.extract_embedding_only(
+            audio_data=audio_bytes,
+            audio_format="wav"
+        )
+        
+        # TODO: Get ASR confidence
+        # For now, we'll use a placeholder value
+        # In future: voice_engine should have a method to get ASR confidence
+        asr_confidence = 1.0  # Placeholder: assume perfect transcription
+        
+        # TODO: Get anti-spoofing score
+        # For now, skip anti-spoofing in this initial implementation
+        anti_spoofing_score = None
+        
+        # Verify phrase
+        result = await verification_service.verify_phrase(
+            verification_id=verification_uuid,
+            phrase_id=phrase_uuid,
+            phrase_number=phrase_number,
+            embedding=embedding,
+            anti_spoofing_score=anti_spoofing_score,
+            asr_confidence=asr_confidence
+        )
+        
+        logger.info(f"Phrase {phrase_number} verified. is_complete={result.get('is_complete')}")
+        
+        return VerifyPhraseResponse(**result)
+    
+    except ValueError as e:
+        logger.error(f"Validation error in verify_phrase: {e}", exc_info=True)
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        logger.error(f"Error in verify_phrase: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to verify phrase"
         )

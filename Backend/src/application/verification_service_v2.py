@@ -22,6 +22,17 @@ class VerificationSession:
         self.created_at = datetime.now(timezone.utc)
 
 
+class MultiPhraseVerificationSession:
+    """Represents an active multi-phrase verification session (3 phrases)."""
+    
+    def __init__(self, user_id: UUID, verification_id: UUID, phrases: list):
+        self.user_id = user_id
+        self.verification_id = verification_id
+        self.phrases = phrases
+        self.results: list[Dict] = []  # Store results for each phrase
+        self.created_at = datetime.now(timezone.utc)
+
+
 from .services.BiometricValidator import BiometricValidator
 
 
@@ -30,6 +41,7 @@ class VerificationServiceV2:
     
     # In-memory sessions (in production, use Redis)
     _active_sessions: Dict[UUID, VerificationSession] = {}
+    _active_multi_sessions: Dict[UUID, MultiPhraseVerificationSession] = {}
     
     def __init__(
         self,
@@ -292,4 +304,196 @@ class VerificationServiceV2:
             "recent_attempts": attempts[:limit]
         }
     
+    async def start_multi_phrase_verification(
+        self,
+        user_id: UUID,
+        difficulty: str = "medium"
+    ) -> Dict:
+        """Start multi-phrase verification (3 phrases)."""
+        
+        # Verify user exists
+        if not await self._user_repo.user_exists(user_id):
+            raise ValueError(f"User {user_id} does not exist")
+        
+        # Check if user has voiceprint
+        voiceprint = await self._voice_repo.get_voiceprint_by_user(user_id)
+        if not voiceprint:
+            raise ValueError(f"User {user_id} is not enrolled")
+        
+        # Force difficulty to be medium or hard only (ignore easy)
+        # For verification, we want more challenging phrases
+        if difficulty not in ['medium', 'hard']:
+            difficulty = 'medium'
+        
+        # Get 3 random phrases for verification (only medium or hard)
+        phrases = await self._phrase_repo.find_random(
+            user_id=user_id,
+            exclude_recent=True,
+            difficulty=difficulty,
+            language='es',
+            count=3  # 3 phrases for multi-phrase verification
+        )
+        
+        if not phrases or len(phrases) < 3:
+            raise ValueError("Not enough phrases available for multi-phrase verification")
+        
+        # Create verification session
+        verification_id = uuid4()
+        session = MultiPhraseVerificationSession(
+            user_id, 
+            verification_id,
+            [
+                {
+                    "id": str(phrase.id),
+                    "text": phrase.text,
+                    "difficulty": phrase.difficulty,
+                    "word_count": phrase.word_count
+                }
+                for phrase in phrases
+            ]
+        )
+        self._active_multi_sessions[verification_id] = session
+        
+        # Log verification start
+        await self._audit_repo.log_event(
+            actor="system",
+            action=AuditAction.VERIFY,
+            entity_type="multi_verification",
+            entity_id=str(verification_id),
+            metadata={
+                "user_id": str(user_id),
+                "phrase_count": 3,
+                "difficulty": difficulty
+            }
+        )
+        
+        return {
+            "verification_id": str(verification_id),
+            "user_id": str(user_id),
+            "phrases": session.phrases,
+            "total_phrases": 3
+        }
+    
+    async def verify_phrase(
+        self,
+        verification_id: UUID,
+        phrase_id: UUID,
+        phrase_number: int,
+        embedding: VoiceEmbedding,
+        anti_spoofing_score: Optional[float],
+        asr_confidence: float
+    ) -> Dict:
+        """Verify a single phrase in multi-phrase verification."""
+        
+        # Get session
+        session = self._active_multi_sessions.get(verification_id)
+        if not session:
+            raise ValueError("Invalid or expired verification session")
+        
+        # 1. Check anti-spoofing FIRST (immediate rejection)
+        if anti_spoofing_score is not None:
+            is_spoof = anti_spoofing_score > self._anti_spoofing_threshold
+            if is_spoof:
+                # Clean up session and reject immediately
+                del self._active_multi_sessions[verification_id]
+                
+                await self._audit_repo.log_event(
+                    actor="system",
+                    action=AuditAction.VERIFY,
+                    entity_type="multi_verification_rejected",
+                    entity_id=str(verification_id),
+                    success=False,
+                    metadata={
+                        "user_id": str(session.user_id),
+                        "phrase_number": phrase_number,
+                        "reason": "spoof_detected",
+                        "anti_spoofing_score": anti_spoofing_score
+                    }
+                )
+                
+                return {
+                    "rejected": True,
+                    "reason": "spoof_detected",
+                    "anti_spoofing_score": anti_spoofing_score,
+                    "phrase_number": phrase_number,
+                    "is_complete": True,
+                    "individual_score": 0.0
+                }
+        
+        # 2. Apply ASR penalty if confidence < 70%
+        asr_penalty = 1.0 if asr_confidence >= 0.70 else 0.5
+        
+        # 3. Get user's voiceprint
+        voiceprint = await self._voice_repo.get_voiceprint_by_user(session.user_id)
+        if not voiceprint:
+            raise ValueError("User voiceprint not found")
+        
+        # 4. Calculate similarity
+        stored_embedding = np.array(voiceprint.embedding)
+        similarity_score = self._biometric_validator.calculate_similarity(embedding, stored_embedding)
+        
+        # 5. Apply ASR penalty to get final score for this phrase
+        final_score = similarity_score * asr_penalty
+        
+        # 6. Store result in session
+        session.results.append({
+            "phrase_number": phrase_number,
+            "phrase_id": str(phrase_id),
+            "similarity_score": float(similarity_score),
+            "asr_confidence": float(asr_confidence),
+            "asr_penalty": asr_penalty,
+            "final_score": float(final_score)
+        })
+        
+        # Record phrase usage
+        await self._phrase_usage_repo.record_usage(
+            phrase_id=phrase_id,
+            user_id=session.user_id,
+            used_for="verification"
+        )
+        
+        # 7. Check if this is the last phrase
+        is_complete = len(session.results) >= 3
+        
+        if is_complete:
+            # Calculate average score
+            avg_score = sum(r["final_score"] for r in session.results) / 3
+            is_verified = avg_score >= self._similarity_threshold
+            
+            # Log final verification result
+            await self._audit_repo.log_event(
+                actor="system",
+                action=AuditAction.VERIFY,
+                entity_type="multi_verification_complete",
+                entity_id=str(verification_id),
+                success=is_verified,
+                metadata={
+                    "user_id": str(session.user_id),
+                    "average_score": avg_score,
+                    "is_verified": is_verified,
+                    "results": session.results
+                }
+            )
+            
+            # Clean up session
+            del self._active_multi_sessions[verification_id]
+            
+            return {
+                "is_complete": True,
+                "phrase_number": phrase_number,
+                "individual_score": float(final_score),
+                "average_score": float(avg_score),
+                "is_verified": is_verified,
+                "threshold_used": self._similarity_threshold,
+                "all_results": session.results
+            }
+        
+        # Not complete yet
+        return {
+            "is_complete": False,
+            "phrase_number": phrase_number,
+            "individual_score": float(final_score),
+            "phrases_remaining": 3 - len(session.results)
+        }
+
 

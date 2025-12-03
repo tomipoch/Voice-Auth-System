@@ -39,3 +39,33 @@ class VerifyVoiceResponse(BaseModel):
     phrase_match: Optional[bool]
     is_live: bool
     threshold_used: float
+
+
+# Multi-phrase verification DTOs
+class StartMultiPhraseVerificationResponse(BaseModel):
+    """Response after starting multi-phrase verification."""
+    verification_id: str
+    user_id: str
+    phrases: list[dict]  # [{"id": "...", "text": "...", "difficulty": "..."}]
+    total_phrases: int
+
+
+class VerifyPhraseResponse(BaseModel):
+    """Response after verifying a single phrase in multi-phrase verification."""
+    phrase_number: int
+    individual_score: float
+    is_complete: bool
+    
+    # Only present if is_complete=False
+    phrases_remaining: Optional[int] = None
+    
+    # Only present if is_complete=True
+    average_score: Optional[float] = None
+    is_verified: Optional[bool] = None
+    threshold_used: Optional[float] = None
+    all_results: Optional[list[dict]] = None
+    
+    # In case of spoof detection
+    rejected: Optional[bool] = None
+    reason: Optional[str] = None
+

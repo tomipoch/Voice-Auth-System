@@ -158,10 +158,10 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
       }
 
       // Crear MediaRecorder con configuración optimizada
-      const options: MediaRecorderOptions = mimeType 
+      const options: MediaRecorderOptions = mimeType
         ? { mimeType, audioBitsPerSecond: 32000 }
         : { audioBitsPerSecond: 32000 };
-      
+
       console.log('Creating MediaRecorder with options:', options);
       const mediaRecorder = new MediaRecorder(stream, options);
 
@@ -267,13 +267,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
       setError(errorMessage);
       toast.error(errorMessage);
     }
-  }, [
-    maxDuration,
-    autoStop,
-    onRecordingComplete,
-    startVolumeMonitoring,
-    stopVolumeMonitoring,
-  ]);
+  }, [maxDuration, autoStop, onRecordingComplete, startVolumeMonitoring, stopVolumeMonitoring]);
 
   // Pausar/reanudar grabación
   const togglePause = useCallback(() => {
