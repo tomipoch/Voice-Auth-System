@@ -28,7 +28,6 @@ warnings.filterwarnings("ignore", message=".*custom_fwd.*")
 from .api.challenge_controller import challenge_router
 from .api.auth_controller import auth_router
 from .api.admin_controller import admin_router
-from .api.phrase_controller import phrase_router
 from .infrastructure.config.dependencies import close_db_pool, create_voice_biometric_engine
 
 # Only import enrollment and verification routers if not in testing mode
@@ -181,7 +180,6 @@ def create_app() -> FastAPI:
     app.include_router(auth_router, prefix="/api/auth", tags=["authentication"])
     app.include_router(admin_router, prefix="/api/admin", tags=["administration"])
     app.include_router(challenge_router, prefix="/api/challenges", tags=["challenges"])
-    app.include_router(phrase_router, prefix="/api/phrases", tags=["phrases"])
     
     # Only include enrollment and verification routers if not in testing mode
     if os.getenv("TESTING") != "True":
