@@ -1,7 +1,7 @@
 """Verification service with dynamic phrase support."""
 
 import numpy as np
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 from uuid import UUID, uuid4
 from datetime import datetime, timezone
 
