@@ -33,6 +33,8 @@ class TestVoiceprintOverwrite:
     
     def test_force_overwrite_parameter_accepted(self, client):
         """Test that force_overwrite parameter is accepted."""
+        # Just verify the parameter doesn't cause a 422 validation error
+        # We don't care about the actual response, just that the parameter is valid
         response = client.post(
             "/api/enrollment/start",
             data={
@@ -42,5 +44,6 @@ class TestVoiceprintOverwrite:
             }
         )
         
-        # Should not return 422 (validation error)
-        assert response.status_code != 422 or "force_overwrite" not in response.json().get("detail", "")
+        # Should accept the parameter (not 422 validation error)
+        # May fail with 500 (DB error) but that's OK - parameter was accepted
+        assert response.status_code in [200, 400, 404, 500]
