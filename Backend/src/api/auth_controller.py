@@ -408,8 +408,8 @@ async def change_password(
             detail="User not found"
         )
     
-    # Verify current password
-    if not verify_password(password_data.current_password, user["password_hash"]):
+    # Verify current password (field is 'password' not 'password_hash')
+    if not verify_password(password_data.current_password, user["password"]):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Current password is incorrect"
@@ -428,8 +428,8 @@ async def change_password(
         bcrypt.gensalt()
     ).decode('utf-8')
     
-    # Update password in database
-    await user_repo.update_user(current_user["id"], {"password_hash": new_password_hash})
+    # Update password in database (field is 'password')
+    await user_repo.update_user(current_user["id"], {"password": new_password_hash})
     
     return JSONResponse(
         status_code=status.HTTP_200_OK,
