@@ -30,6 +30,7 @@ interface DynamicVerificationMultiProps {
   onVerificationSuccess: (result: VerifyPhraseResponse) => void;
   onVerificationFailed: (result: VerifyPhraseResponse) => void;
   onError?: (error: string) => void;
+  onCancel?: () => void;
   className?: string;
 }
 
@@ -57,6 +58,7 @@ const DynamicVerificationMulti = ({
   onVerificationSuccess,
   onVerificationFailed,
   onError,
+  onCancel,
   className,
 }: DynamicVerificationMultiProps) => {
   const [phase, setPhase] = useState<VerificationPhase>('initializing');
@@ -132,13 +134,17 @@ const DynamicVerificationMulti = ({
 
       // Update step as completed
       const updatedSteps = [...steps];
-      updatedSteps[currentStepIndex] = {
-        ...updatedSteps[currentStepIndex],
-        audioBlob,
-        result,
-        completed: true,
-      };
-      setSteps(updatedSteps);
+      const stepToUpdate = updatedSteps[currentStepIndex];
+      
+      if (stepToUpdate) {
+        updatedSteps[currentStepIndex] = {
+          ...stepToUpdate,
+          audioBlob,
+          result,
+          completed: true,
+        };
+        setSteps(updatedSteps);
+      }
 
       // Check if verification is complete
       if (result.is_complete) {
@@ -205,10 +211,17 @@ const DynamicVerificationMulti = ({
             Error en Verificación
           </h3>
           <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
-          <Button onClick={handleRetry}>
-            <RefreshCw className="w-4 h-4 mr-2" />
-            Reintentar
-          </Button>
+          <div className="flex justify-center gap-3">
+            {onCancel && (
+              <Button onClick={onCancel} variant="ghost">
+                Cancelar
+              </Button>
+            )}
+            <Button onClick={handleRetry}>
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Reintentar
+            </Button>
+          </div>
         </div>
       </Card>
     );
@@ -237,6 +250,12 @@ const DynamicVerificationMulti = ({
               </p>
             )}
           </div>
+          
+          {onCancel && (
+            <Button onClick={onCancel} variant="ghost" className="mt-4">
+              Volver al inicio
+            </Button>
+          )}
         </div>
       </Card>
     );
@@ -285,7 +304,7 @@ const DynamicVerificationMulti = ({
                 <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Resultados por frase:
                 </p>
-                {finalResult.all_results.map((phraseResult: PhraseResult, index: number) => (
+                {finalResult.all_results.map((phraseResult: PhraseResult) => (
                   <div
                     key={phraseResult.phrase_number}
                     className="flex justify-between items-center text-sm"
@@ -312,10 +331,17 @@ const DynamicVerificationMulti = ({
           </div>
 
           {!isSuccess && (
-            <Button onClick={handleRetry} variant="outline" className="mt-4">
-              <RefreshCw className="w-4 h-4 mr-2" />
-              Intentar Nuevamente
-            </Button>
+            <div className="flex justify-center gap-3 mt-4">
+              {onCancel && (
+                <Button onClick={onCancel} variant="ghost">
+                  Cancelar
+                </Button>
+              )}
+              <Button onClick={handleRetry} variant="outline">
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Intentar Nuevamente
+              </Button>
+            </div>
           )}
         </div>
       </Card>
@@ -383,7 +409,7 @@ const DynamicVerificationMulti = ({
         </div>
 
         {/* Instructions */}
-        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 mb-4">
           <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
             Consejos para una verificación exitosa:
           </h4>
@@ -394,6 +420,15 @@ const DynamicVerificationMulti = ({
             <li>• Lee la frase completa sin pausas largas</li>
           </ul>
         </div>
+        
+        {/* Cancel Button */}
+        {onCancel && (
+          <div className="flex justify-center mt-2">
+            <Button onClick={onCancel} variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+              Cancelar Verificación
+            </Button>
+          </div>
+        )}
       </Card>
     </div>
   );
