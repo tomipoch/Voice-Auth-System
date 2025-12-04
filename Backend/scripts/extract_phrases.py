@@ -33,11 +33,22 @@ except ImportError:
 class PhraseExtractor:
     """Extrae y procesa frases de archivos PDF."""
 
-    def __init__(self, min_words: int = 5, max_words: int = 30):
+    def __init__(self, min_words: int = 20, max_words: int = 40):
         self.min_words = min_words
         self.max_words = max_words
-        self.min_chars = 20
-        self.max_chars = 500
+        self.min_chars = 100
+        self.max_chars = 600
+        
+        # Mapeo de caracteres corruptos
+        self.char_replacements = {
+            'Ø': 'é',
+            'Æ': 'á',
+            'æ': 'ñ',
+            'œ': 'ú',
+            '\u2019': "'",
+            '«': '"',
+            '»': '"',
+        }
 
     def extract_text_from_pdf(self, pdf_path: Path) -> str:
         """Extrae todo el texto de un archivo PDF."""
@@ -52,13 +63,31 @@ class PhraseExtractor:
         return text
 
     def clean_text(self, text: str) -> str:
-        """Limpia el texto extraído."""
+        """Limpia el texto extraído de manera agresiva."""
+        # Reemplazar caracteres corruptos
+        for old_char, new_char in self.char_replacements.items():
+            text = text.replace(old_char, new_char)
+        
         # Reemplazar saltos de línea múltiples
         text = re.sub(r'\n+', ' ', text)
+        
         # Eliminar espacios múltiples
         text = re.sub(r'\s+', ' ', text)
+        
         # Eliminar caracteres de control
         text = re.sub(r'[\x00-\x1f\x7f-\x9f]', '', text)
+        
+        # Eliminar números de página (números solos o con guiones/paréntesis)
+        text = re.sub(r'\b\d+\s*[-–—]\s*\d+\b', '', text)  # Rangos como "45-67"
+        text = re.sub(r'\(\d+\)', '', text)  # Números en paréntesis
+        text = re.sub(r'^\d+\s+', '', text)  # Números al inicio
+        text = re.sub(r'\s+\d+$', '', text)  # Números al final
+        text = re.sub(r'\b(pág|página|page|p)\.\s*\d+', '', text, flags=re.IGNORECASE)
+        
+        # Eliminar referencias bibliográficas típicas
+        text = re.sub(r'\[\d+\]', '', text)
+        text = re.sub(r'\d{4}', '', text)  # Años
+        
         return text.strip()
 
     def split_into_sentences(self, text: str) -> List[str]:
@@ -69,11 +98,12 @@ class PhraseExtractor:
         return [s.strip() for s in sentences if s.strip()]
 
     def is_valid_phrase(self, phrase: str) -> bool:
-        """Verifica si una frase es válida para usar en verificación."""
+        """Verifica si una frase es válida con filtros MUY estrictos."""
         # Contar palabras
         words = phrase.split()
         word_count = len(words)
         
+        # Filtro estricto: 20-40 palabras
         if word_count < self.min_words or word_count > self.max_words:
             return False
         
@@ -82,19 +112,45 @@ class PhraseExtractor:
         if char_count < self.min_chars or char_count > self.max_chars:
             return False
         
-        # Rechazar frases con muchos números
-        digit_ratio = sum(c.isdigit() for c in phrase) / len(phrase)
-        if digit_ratio > 0.2:
+        # Debe empezar con letra mayúscula
+        if not phrase[0].isupper():
+            return False
+        
+        # Rechazar si tiene demasiados números
+        digit_count = sum(c.isdigit() for c in phrase)
+        if digit_count > 3:  # Máximo 3 dígitos en total
             return False
         
         # Rechazar frases con muchos caracteres especiales
         special_chars = sum(1 for c in phrase if not c.isalnum() and not c.isspace())
-        if special_chars / len(phrase) > 0.15:
+        if special_chars / len(phrase) > 0.12:  # Máximo 12% de caracteres especiales
             return False
         
-        # Debe contener al menos algunas letras
+        # Debe contener suficientes letras
         letter_count = sum(c.isalpha() for c in phrase)
-        if letter_count < 10:
+        if letter_count < char_count * 0.75:  # Al menos 75% letras
+            return False
+        
+        # Rechazar si tiene guiones sospechosos (diálogos)
+        if phrase.count('—') > 0 or phrase.count('–') > 1:
+            return False
+        
+        # Rechazar si empieza con símbolos raros
+        if phrase[0] in ['—', '–', '«', '»', '(', ')', '[', ']']:
+            return False
+        
+        # Rechazar si contiene palabras muy cortas consecutivas (fragmentos)
+        short_words = [w for w in words if len(w) <= 2]
+        if len(short_words) > word_count * 0.3:  # Máximo 30% de palabras de 1-2 letras
+            return False
+        
+        # Rechazar si tiene palabras sospechosamente largas (probablemente errores)
+        if any(len(w) > 20 for w in words):
+            return False
+        
+        # Rechazar si contiene muchas mayúsculas (probablemente títulos/encabezados)
+        uppercase_count = sum(1 for c in phrase if c.isupper())
+        if uppercase_count > len(phrase) * 0.15:  # Máximo 15% mayúsculas
             return False
         
         return True
@@ -105,11 +161,8 @@ class PhraseExtractor:
         word_count = len(words)
         avg_word_length = sum(len(w) for w in words) / len(words)
         
-        # Frases fáciles: pocas palabras, palabras cortas
-        if word_count <= 8 and avg_word_length <= 5:
-            return 'easy'
-        # Frases difíciles: muchas palabras o palabras largas
-        elif word_count >= 20 or avg_word_length >= 8:
+        # Para el rango 20-40, usamos medium y hard
+        if word_count >= 30 or avg_word_length >= 8:
             return 'hard'
         else:
             return 'medium'
