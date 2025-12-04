@@ -2,6 +2,7 @@
 
 from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.responses import JSONResponse
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel, EmailStr
 from typing import Optional, Dict, Any
 import logging
@@ -14,6 +15,7 @@ from src.utils.validators import validate_rut, format_rut
 logger = logging.getLogger(__name__)
 
 auth_router = APIRouter()
+security = HTTPBearer()
 
 # Security
 security = HTTPBearer()
