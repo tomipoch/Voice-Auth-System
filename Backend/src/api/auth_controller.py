@@ -305,6 +305,15 @@ async def get_profile(current_user: dict = Depends(get_current_user)):
     """
     Get current user profile.
     """
+    # Parse settings if it's a string
+    settings = current_user.get("settings", {})
+    if isinstance(settings, str):
+        import json
+        try:
+            settings = json.loads(settings) if settings else {}
+        except (json.JSONDecodeError, ValueError):
+            settings = {}
+    
     return UserProfile(
         id=str(current_user["id"]),
         name=f"{current_user.get('first_name', '')} {current_user.get('last_name', '')}".strip(),
@@ -313,7 +322,7 @@ async def get_profile(current_user: dict = Depends(get_current_user)):
         company=current_user.get("company", ""),
         created_at=current_user["created_at"],
         voice_template=None,  # Will be populated when user enrolls
-        settings=current_user.get("settings", {})
+        settings=settings
     )
 
 @auth_router.post("/logout")
@@ -354,6 +363,15 @@ async def update_profile(
     # Get updated user
     updated_user = await user_repo.get_user(current_user["id"])
     
+    # Parse settings if it's a string
+    settings = updated_user.get("settings", {})
+    if isinstance(settings, str):
+        import json
+        try:
+            settings = json.loads(settings) if settings else {}
+        except (json.JSONDecodeError, ValueError):
+            settings = {}
+    
     return UserProfile(
         id=str(updated_user["id"]),
         name=f"{updated_user.get('first_name', '')} {updated_user.get('last_name', '')}".strip(),
@@ -362,7 +380,7 @@ async def update_profile(
         company=updated_user.get("company", ""),
         created_at=updated_user["created_at"],
         voice_template=None,
-        settings=updated_user.get("settings", {})
+        settings=settings
     )
 
 @auth_router.post("/change-password")
