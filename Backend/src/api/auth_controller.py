@@ -17,9 +17,6 @@ logger = logging.getLogger(__name__)
 auth_router = APIRouter()
 security = HTTPBearer()
 
-# Security
-security = HTTPBearer()
-
 import os
 from dotenv import load_dotenv
 
