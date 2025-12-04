@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Settings as SettingsIcon, Bell, Shield, Palette, Moon, Sun, Monitor } from 'lucide-react';
 import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import { useAuth } from '../hooks/useAuth';
 import { authService } from '../services/apiServices';
 import toast from 'react-hot-toast';
 
 const SettingsPage = () => {
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const [localSettings, setLocalSettings] = useState({
@@ -25,6 +27,26 @@ const SettingsPage = () => {
       language: 'es',
     },
   });
+
+  // Load settings from user profile on mount
+  useEffect(() => {
+    if (user?.settings) {
+      setLocalSettings((prev) => ({
+        notifications: {
+          ...prev.notifications,
+          ...(user.settings.notifications || {}),
+        },
+        security: {
+          ...prev.security,
+          ...(user.settings.security || {}),
+        },
+        appearance: {
+          ...prev.appearance,
+          ...(user.settings.appearance || {}),
+        },
+      }));
+    }
+  }, [user]);
 
   const handleSave = async () => {
     setIsLoading(true);
