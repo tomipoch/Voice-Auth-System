@@ -298,6 +298,25 @@ const ProfilePage = () => {
                       La empresa no se puede cambiar
                     </p>
                   </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      RUT
+                    </label>
+                    <div className="relative">
+                      <UserCircle className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                      <input
+                        type="text"
+                        name="rut"
+                        value={user?.rut || 'No especificado'}
+                        disabled={true}
+                        placeholder="12.345.678-5"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                      />
+                    </div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      El RUT no se puede cambiar
+                    </p>
+                  </div>
                 </div>
 
                 {isEditing && (

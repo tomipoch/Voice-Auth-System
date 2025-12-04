@@ -1,14 +1,15 @@
 """FastAPI controller for authentication endpoints."""
 
-from fastapi import APIRouter, HTTPException, Depends, status, Body
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import Optional, Dict, Any
 import logging
 from datetime import datetime, timedelta, timezone
 import jwt
 import bcrypt
+
+from src.utils.validators import validate_rut, format_rut
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +53,7 @@ class TokenResponse(BaseModel):
 class ProfileUpdateRequest(BaseModel):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
+    rut: Optional[str] = None
     settings: Optional[dict] = None
 
 class PasswordChangeRequest(BaseModel):
@@ -66,6 +68,7 @@ class UserProfile(BaseModel):
     email: str
     role: str
     company: Optional[str] = None
+    rut: Optional[str] = None
     created_at: datetime
     voice_template: Optional[dict] = None
     settings: Optional[dict] = None
@@ -323,6 +326,7 @@ async def get_profile(current_user: dict = Depends(get_current_user)):
         email=current_user["email"],
         role=current_user.get("role", "user"),
         company=current_user.get("company", ""),
+        rut=current_user.get("rut"),
         created_at=current_user["created_at"],
         voice_template=None,  # Will be populated when user enrolls
         settings=settings
@@ -383,6 +387,7 @@ async def update_profile(
         email=updated_user["email"],
         role=updated_user.get("role", "user"),
         company=updated_user.get("company", ""),
+        rut=updated_user.get("rut"),
         created_at=updated_user["created_at"],
         voice_template=None,
         settings=settings
