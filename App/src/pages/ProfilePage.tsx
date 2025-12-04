@@ -13,9 +13,8 @@ import {
   Key,
   CheckCircle,
   XCircle,
-  Activity,
-  LogIn,
   Edit,
+  UserCircle,
 } from 'lucide-react';
 import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
@@ -192,40 +191,25 @@ const ProfilePage = () => {
           Mi Perfil
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400">
-          Gestiona tu información personal y seguridad
+          Gestiona tu información personal y configuración de cuenta
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Avatar & Personal Information */}
-          <Card className="hover:shadow-xl transition-shadow duration-300">
+          {/* Personal Information Card */}
+          <Card>
             <div className="p-6">
-              {/* Avatar Section */}
-              <div className="flex flex-col items-center mb-8">
-                <div className="relative group">
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg ring-4 ring-white dark:ring-gray-900 transition-transform duration-300 group-hover:scale-105">
-                    {getInitials(user?.name || `${user?.first_name} ${user?.last_name}`)}
-                  </div>
-                  <div className="absolute bottom-0 right-0 w-6 h-6 bg-green-500 rounded-full border-4 border-white dark:border-gray-900 animate-pulse" />
-                </div>
-                <h2 className="mt-4 text-2xl font-bold text-gray-800 dark:text-gray-200">
-                  {user?.name || `${user?.first_name} ${user?.last_name}` || 'Usuario'}
-                </h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{user?.email}</p>
-              </div>
-
-              {/* Personal Info Form */}
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 rounded-xl mr-4">
-                    <User className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-xl mr-4">
+                    <UserCircle className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
                       Información Personal
-                    </h3>
+                    </h2>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       Actualiza tus datos personales
                     </p>
@@ -234,7 +218,6 @@ const ProfilePage = () => {
                 <Button
                   variant={isEditing ? 'ghost' : 'outline'}
                   onClick={() => setIsEditing(!isEditing)}
-                  className="transition-all duration-200 hover:scale-105"
                 >
                   {isEditing ? 'Cancelar' : (
                     <>
@@ -259,7 +242,7 @@ const ProfilePage = () => {
                         value={formData.firstName}
                         onChange={handleChange}
                         disabled={!isEditing}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-60 disabled:bg-gray-50 dark:disabled:bg-gray-900 transition-all duration-200 focus:shadow-lg"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-60 disabled:bg-gray-50 dark:disabled:bg-gray-900 transition-all"
                       />
                     </div>
                   </div>
@@ -275,7 +258,7 @@ const ProfilePage = () => {
                         value={formData.lastName}
                         onChange={handleChange}
                         disabled={!isEditing}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-60 disabled:bg-gray-50 dark:disabled:bg-gray-900 transition-all duration-200 focus:shadow-lg"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-60 disabled:bg-gray-50 dark:disabled:bg-gray-900 transition-all"
                       />
                     </div>
                   </div>
@@ -294,7 +277,7 @@ const ProfilePage = () => {
                       />
                     </div>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      El email no se puede cambiar directamente
+                      El email no se puede cambiar
                     </p>
                   </div>
                   <div>
@@ -309,7 +292,8 @@ const ProfilePage = () => {
                         value={formData.company}
                         onChange={handleChange}
                         disabled={!isEditing}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-60 disabled:bg-gray-50 dark:disabled:bg-gray-900 transition-all duration-200 focus:shadow-lg"
+                        placeholder="Opcional"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-60 disabled:bg-gray-50 dark:disabled:bg-gray-900 transition-all"
                       />
                     </div>
                   </div>
@@ -317,11 +301,7 @@ const ProfilePage = () => {
 
                 {isEditing && (
                   <div className="flex justify-end">
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="transition-all duration-200 hover:scale-105"
-                    >
+                    <Button type="submit" disabled={isLoading}>
                       {isLoading ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -340,34 +320,33 @@ const ProfilePage = () => {
             </div>
           </Card>
 
-          {/* Password Section */}
-          <Card className="hover:shadow-xl transition-shadow duration-300">
+          {/* Security Card */}
+          <Card>
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-red-100 to-orange-100 dark:from-red-900 dark:to-orange-900 rounded-xl mr-4">
+                  <div className="p-3 bg-gradient-to-br from-red-100 to-orange-100 dark:from-red-900/50 dark:to-orange-900/50 rounded-xl mr-4">
                     <Lock className="h-6 w-6 text-red-600 dark:text-red-400" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
                       Seguridad
-                    </h3>
+                    </h2>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
-                      Cambia tu contraseña
+                      Gestiona tu contraseña
                     </p>
                   </div>
                 </div>
                 <Button
                   variant="outline"
                   onClick={() => setShowPasswordSection(!showPasswordSection)}
-                  className="transition-all duration-200 hover:scale-105"
                 >
                   {showPasswordSection ? 'Cancelar' : 'Cambiar Contraseña'}
                 </Button>
               </div>
 
               {showPasswordSection && (
-                <form onSubmit={handlePasswordSubmit} className="space-y-4 animate-in slide-in-from-top duration-300">
+                <form onSubmit={handlePasswordSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Contraseña Actual
@@ -379,13 +358,13 @@ const ProfilePage = () => {
                         name="currentPassword"
                         value={passwordData.currentPassword}
                         onChange={handlePasswordChange}
-                        className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 focus:shadow-lg"
+                        className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                       >
                         {showCurrentPassword ? (
                           <EyeOff className="h-5 w-5" />
@@ -407,13 +386,13 @@ const ProfilePage = () => {
                         name="newPassword"
                         value={passwordData.newPassword}
                         onChange={handlePasswordChange}
-                        className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 focus:shadow-lg"
+                        className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowNewPassword(!showNewPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                       >
                         {showNewPassword ? (
                           <EyeOff className="h-5 w-5" />
@@ -495,13 +474,13 @@ const ProfilePage = () => {
                         name="confirmPassword"
                         value={passwordData.confirmPassword}
                         onChange={handlePasswordChange}
-                        className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 focus:shadow-lg"
+                        className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                       >
                         {showConfirmPassword ? (
                           <EyeOff className="h-5 w-5" />
@@ -519,11 +498,7 @@ const ProfilePage = () => {
                   </div>
 
                   <div className="flex justify-end pt-4">
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="transition-all duration-200 hover:scale-105"
-                    >
+                    <Button type="submit" disabled={isLoading}>
                       {isLoading ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -543,57 +518,38 @@ const ProfilePage = () => {
           </Card>
         </div>
 
-        {/* Sidebar Info */}
+        {/* Sidebar */}
         <div className="space-y-6">
-          {/* Voice Profile Status */}
-          <Card className="hover:shadow-xl transition-shadow duration-300">
+          {/* User Avatar Card */}
+          <Card>
             <div className="p-6">
-              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center">
-                <Shield className="h-5 w-5 mr-2 text-blue-600 dark:text-blue-400" />
-                Perfil de Voz
-              </h3>
-              <div
-                className={`p-4 rounded-xl border-2 transition-all duration-300 ${
-                  user?.voice_template
-                    ? 'bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-800'
-                    : 'bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border-orange-200 dark:border-orange-800'
-                }`}
-              >
-                <p
-                  className={`text-sm font-medium mb-2 ${
-                    user?.voice_template
-                      ? 'text-green-700 dark:text-green-400'
-                      : 'text-orange-700 dark:text-orange-400'
-                  }`}
-                >
-                  {user?.voice_template ? '✓ Perfil Activo' : '⚠ Sin Configurar'}
+              <div className="flex flex-col items-center text-center">
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg mb-4">
+                  {getInitials(user?.name || `${user?.first_name} ${user?.last_name}`)}
+                </div>
+                <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-1">
+                  {user?.name || `${user?.first_name} ${user?.last_name}` || 'Usuario'}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+                  {user?.email}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">
-                  {user?.voice_template
-                    ? 'Tu perfil de voz está configurado y listo para usar'
-                    : 'Configura tu perfil de voz para usar la verificación biométrica'}
-                </p>
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 capitalize">
+                  {user?.role || 'Usuario'}
+                </span>
               </div>
             </div>
           </Card>
 
-          {/* Account Info */}
-          <Card className="hover:shadow-xl transition-shadow duration-300">
+          {/* Account Info Card */}
+          <Card>
             <div className="p-6">
               <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center">
-                <User className="h-5 w-5 mr-2 text-purple-600 dark:text-purple-400" />
+                <Calendar className="h-5 w-5 mr-2 text-purple-600 dark:text-purple-400" />
                 Información de Cuenta
               </h3>
-              <div className="space-y-4">
-                <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Rol</p>
-                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200 capitalize">
-                    {user?.role || 'Usuario'}
-                  </p>
-                </div>
-                <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1 flex items-center">
-                    <Calendar className="h-3 w-3 mr-1" />
+              <div className="space-y-3">
+                <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
                     Miembro desde
                   </p>
                   <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
@@ -606,40 +562,14 @@ const ProfilePage = () => {
                       : 'N/A'}
                   </p>
                 </div>
-              </div>
-            </div>
-          </Card>
-
-          {/* Recent Activity */}
-          <Card className="hover:shadow-xl transition-shadow duration-300">
-            <div className="p-6">
-              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center">
-                <Activity className="h-5 w-5 mr-2 text-indigo-600 dark:text-indigo-400" />
-                Actividad Reciente
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-start p-3 bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                  <LogIn className="h-4 w-4 mr-3 mt-0.5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm text-gray-800 dark:text-gray-200">
-                      Último acceso
+                {user?.company && (
+                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                      Empresa
                     </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Hoy a las {new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}
+                    <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                      {user.company}
                     </p>
-                  </div>
-                </div>
-                {user?.voice_template && (
-                  <div className="flex items-start p-3 bg-gray-50 dark:bg-gray-800 rounded-lg transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <Shield className="h-4 w-4 mr-3 mt-0.5 text-green-600 dark:text-green-400 flex-shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-800 dark:text-gray-200">
-                        Perfil de voz activo
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        Configurado correctamente
-                      </p>
-                    </div>
                   </div>
                 )}
               </div>
