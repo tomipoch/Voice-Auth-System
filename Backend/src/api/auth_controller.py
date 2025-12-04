@@ -52,7 +52,6 @@ class TokenResponse(BaseModel):
 class ProfileUpdateRequest(BaseModel):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
-    company: Optional[str] = None
     settings: Optional[dict] = None
 
 class PasswordChangeRequest(BaseModel):
