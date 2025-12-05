@@ -305,8 +305,6 @@ const SettingsPage = () => {
 };
 
 export default SettingsPage;
-
-const SettingsPage = () => {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
