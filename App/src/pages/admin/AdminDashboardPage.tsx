@@ -1,26 +1,41 @@
 import {
   Users,
-  Settings,
   Activity,
   Shield,
   Mic,
-  BarChart2,
   AlertTriangle,
   FileText,
 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
-import { useAuth } from '../../hooks/useAuth';
-import { useDashboardStats } from '../../hooks/useDashboardStats';
+import adminService, { type SystemStats } from '../../services/adminService';
+import toast from 'react-hot-toast';
 
 const AdminDashboardPage = () => {
-  const { user } = useAuth();
   const navigate = useNavigate();
-  const { stats: dashboardStats, systemStats, isLoading } = useDashboardStats();
+  const [stats, setStats] = useState<SystemStats | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Mock data for charts/trends
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  const fetchStats = async () => {
+    try {
+      const data = await adminService.getStats();
+      setStats(data);
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+      toast.error('Error al cargar estadísticas');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Mock data for charts/trends - TODO: Get from API
   const trends = [
     { day: 'Lun', value: 45 },
     { day: 'Mar', value: 52 },
@@ -48,15 +63,19 @@ const AdminDashboardPage = () => {
           <Card className="p-6 border-l-4 border-blue-500">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Usuarios</p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">1,234</h3>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                  Total Usuarios
+                </p>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  {loading ? '...' : stats?.total_users.toLocaleString() || '0'}
+                </h3>
               </div>
               <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-full">
                 <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
-            <p className="text-xs text-green-600 mt-2 flex items-center">
-              <Activity className="h-3 w-3 mr-1" /> +12% este mes
+            <p className="text-xs text-blue-600 mt-2 flex items-center">
+              <Activity className="h-3 w-3 mr-1" /> {stats?.active_users_24h || 0} activos hoy
             </p>
           </Card>
 
@@ -66,14 +85,16 @@ const AdminDashboardPage = () => {
                 <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
                   Tasa de Éxito
                 </p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">98.5%</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  {loading ? '...' : `${((stats?.success_rate || 0) * 100).toFixed(1)}%`}
+                </h3>
               </div>
               <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-full">
                 <Shield className="h-6 w-6 text-green-600 dark:text-green-400" />
               </div>
             </div>
             <p className="text-xs text-green-600 mt-2 flex items-center">
-              <Activity className="h-3 w-3 mr-1" /> +0.5% vs semana pasada
+              <Activity className="h-3 w-3 mr-1" /> Verificaciones exitosas
             </p>
           </Card>
 
@@ -83,7 +104,9 @@ const AdminDashboardPage = () => {
                 <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
                   Verificaciones
                 </p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">8,543</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  {loading ? '...' : stats?.total_verifications.toLocaleString() || '0'}
+                </h3>
               </div>
               <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
                 <Mic className="h-6 w-6 text-purple-600 dark:text-purple-400" />
@@ -95,14 +118,18 @@ const AdminDashboardPage = () => {
           <Card className="p-6 border-l-4 border-orange-500">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Alertas</p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">3</h3>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                  Fallos (24h)
+                </p>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  {loading ? '...' : stats?.failed_verifications_24h || '0'}
+                </h3>
               </div>
               <div className="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-full">
                 <AlertTriangle className="h-6 w-6 text-orange-600 dark:text-orange-400" />
               </div>
             </div>
-            <p className="text-xs text-orange-600 mt-2">Requieren atención</p>
+            <p className="text-xs text-orange-600 mt-2">Últimas 24 horas</p>
           </Card>
         </div>
 
