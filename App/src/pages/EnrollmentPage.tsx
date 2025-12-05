@@ -82,7 +82,7 @@ const EnrollmentPage = () => {
           {phase === 'welcome'
             ? 'Configura tu autenticación biométrica por voz de forma segura'
             : phase === 'enrollment'
-            ? 'Sigue las instrucciones para registrar tu voz.'
+            ? 'Lee las frases que aparecen en pantalla con tu voz natural'
             : 'Resultado del registro.'}
         </p>
       </div>

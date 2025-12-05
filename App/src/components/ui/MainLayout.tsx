@@ -1,11 +1,15 @@
 import Sidebar from './Sidebar';
 import type { ReactNode } from 'react';
+import { useSessionTimeout } from '../../hooks/useSessionTimeout';
 
 interface MainLayoutProps {
   children: ReactNode;
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
+  // Enable automatic session timeout
+  useSessionTimeout();
+
   return (
     <div className="min-h-screen relative overflow-hidden bg-linear-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-500">
       {/* Animated Background Elements */}
