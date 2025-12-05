@@ -64,7 +64,7 @@ class PostgresUserRepository(UserRepositoryPort):
             row = await conn.fetchrow(
                 """
                 SELECT id, email, password, first_name, last_name, role, company, external_ref, 
-                       created_at, deleted_at, failed_auth_attempts, locked_until, last_login
+                       created_at, deleted_at, failed_auth_attempts, locked_until, last_login, settings
                 FROM "user"
                 WHERE id = $1 AND deleted_at IS NULL
                 """,
@@ -81,7 +81,7 @@ class PostgresUserRepository(UserRepositoryPort):
             row = await conn.fetchrow(
                 """
                 SELECT id, email, password, first_name, last_name, role, company, external_ref,
-                       created_at, deleted_at, failed_auth_attempts, locked_until, last_login
+                       created_at, deleted_at, failed_auth_attempts, locked_until, last_login, settings
                 FROM "user"
                 WHERE email = $1 AND deleted_at IS NULL
                 """,
@@ -98,7 +98,7 @@ class PostgresUserRepository(UserRepositoryPort):
             row = await conn.fetchrow(
                 """
                 SELECT id, email, password, first_name, last_name, role, company, external_ref,
-                       created_at, deleted_at, failed_auth_attempts, locked_until, last_login
+                       created_at, deleted_at, failed_auth_attempts, locked_until, last_login, settings
                 FROM "user"
                 WHERE external_ref = $1 AND deleted_at IS NULL
                 """,

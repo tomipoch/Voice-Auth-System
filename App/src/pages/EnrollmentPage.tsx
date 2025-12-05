@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AlertTriangle } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import MainLayout from '../components/ui/MainLayout';
 import EnrollmentWelcomeScreen from '../components/enrollment/EnrollmentWelcomeScreen';
@@ -8,27 +10,30 @@ import Modal from '../components/ui/Modal';
 import Button from '../components/ui/Button';
 import toast from 'react-hot-toast';
 
-type EnrollmentPhase = 'welcome' | 'recording' | 'completed' | 'error';
+type EnrollmentPhase = 'welcome' | 'enrollment' | 'completion' | 'error';
 
 const EnrollmentPage = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [phase, setPhase] = useState<EnrollmentPhase>('welcome');
   const [error, setError] = useState<string | null>(null);
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showReEnrollmentModal, setShowReEnrollmentModal] = useState(false);
   const [completionData, setCompletionData] = useState<{
     samplesRecorded?: number;
     qualityScore?: number;
   }>({});
 
-  // Check if user already has voice profile
+  // Check for existing enrollment
   useEffect(() => {
-    if (user?.voice_template) {
-      toast.success('Ya tienes un perfil de voz registrado');
+    if (phase === 'welcome' && user?.voice_template) {
+      setShowReEnrollmentModal(true);
     }
-  }, [user]);
+  }, [phase, user]);
 
-  const handleStart = () => {
-    setPhase('recording');
+  const handleStartEnrollment = () => {
+    setPhase('enrollment');
+    setShowReEnrollmentModal(false);
     setError(null);
   };
 
@@ -41,6 +46,7 @@ const EnrollmentPage = () => {
     setPhase('welcome');
     setError(null);
     toast('Registro cancelado', { icon: 'ℹ️' });
+    navigate('/dashboard');
   };
 
   const handleEnrollmentComplete = (voiceprintId: string, qualityScore: number) => {
@@ -49,7 +55,7 @@ const EnrollmentPage = () => {
       samplesRecorded: 3,
       qualityScore,
     });
-    setPhase('completed');
+    setPhase('completion');
     toast.success('¡Perfil de voz creado exitosamente!');
   };
 
@@ -75,7 +81,7 @@ const EnrollmentPage = () => {
         <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium max-w-2xl">
           {phase === 'welcome'
             ? 'Configura tu autenticación biométrica por voz de forma segura'
-            : phase === 'recording'
+            : phase === 'enrollment'
             ? 'Sigue las instrucciones para registrar tu voz.'
             : 'Resultado del registro.'}
         </p>
@@ -84,9 +90,9 @@ const EnrollmentPage = () => {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto min-h-[calc(100vh-16rem)] flex flex-col justify-center">
 
-        {phase === 'welcome' && <EnrollmentWelcomeScreen onStart={handleStart} />}
+        {phase === 'welcome' && <EnrollmentWelcomeScreen onStart={handleStartEnrollment} />}
 
-        {phase === 'recording' && user && (
+        {phase === 'enrollment' && user && (
           <DynamicEnrollment
             userId={user.id}
             difficulty="medium"
@@ -96,7 +102,7 @@ const EnrollmentPage = () => {
           />
         )}
 
-        {phase === 'completed' && (
+        {phase === 'completion' && (
           <EnrollmentCompletionScreen
             samplesRecorded={completionData.samplesRecorded}
             qualityScore={completionData.qualityScore}
@@ -139,6 +145,37 @@ const EnrollmentPage = () => {
             </Button>
             <Button variant="danger" onClick={confirmCancel}>
               Sí, cancelar
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Re-enrollment Warning Modal */}
+      <Modal
+        isOpen={showReEnrollmentModal}
+        onClose={() => navigate('/dashboard')}
+        title="¡Ya tienes una huella de voz!"
+        size="medium"
+      >
+        <div className="space-y-4">
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg flex items-start">
+            <AlertTriangle className="h-6 w-6 text-yellow-600 dark:text-yellow-400 mr-3 mt-0.5" />
+            <div>
+              <h4 className="font-bold text-yellow-800 dark:text-yellow-200 mb-1">Advertencia</h4>
+              <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                Detectamos que ya tienes un registro de voz activo. Si continúas, tu huella de voz anterior será eliminada y reemplazada por la nueva.
+              </p>
+            </div>
+          </div>
+          <p className="text-gray-600 dark:text-gray-300">
+            ¿Estás seguro de que deseas realizar el proceso de nuevo?
+          </p>
+          <div className="flex justify-end gap-3">
+            <Button variant="outline" onClick={() => navigate('/dashboard')}>
+              No, volver al Dashboard
+            </Button>
+            <Button variant="primary" onClick={handleStartEnrollment}>
+              Sí, volver a registrar
             </Button>
           </div>
         </div>

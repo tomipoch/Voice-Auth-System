@@ -1,564 +1,375 @@
 import { useState, useEffect } from 'react';
 import {
   Users,
-  BarChart3,
   Settings,
-  Shield,
-  CheckCircle,
-  TrendingUp,
   Activity,
+  Shield,
+  Search,
   Mic,
-  Edit,
-  Trash2,
+  BarChart2,
+  AlertTriangle,
   FileText,
+  ChevronRight,
 } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
-import { adminService } from '../services/apiServices';
+import { useNavigate } from 'react-router-dom';
+import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
-import MainLayout from '../components/ui/MainLayout';
-import { PhraseManagement } from '../components/admin/PhraseManagement';
-
-interface UserItem {
-  id: string;
-  email: string;
-  name: string; // Backend returns this (first_name + last_name)
-  first_name?: string;
-  last_name?: string;
-  role: 'user' | 'admin' | 'super_admin';
-  company?: string;
-  isVerified?: boolean;
-  voiceProfile?: any;
-  voice_template?: boolean;
-  createdAt?: string;
-  created_at?: string;
-  updatedAt?: string;
-}
-
-interface StatCard {
-  title: string;
-  value: string;
-  change: string;
-  trend: string;
-  icon: any;
-  color: string;
-}
+import { useAuth } from '../hooks/useAuth';
+import { useDashboardStats } from '../hooks/useDashboardStats';
+import toast from 'react-hot-toast';
 
 const AdminPage = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [users, setUsers] = useState<UserItem[]>([]);
-  const [stats, setStats] = useState<StatCard[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { stats: dashboardStats, systemStats, isLoading } = useDashboardStats();
+  const [users, setUsers] = useState([]);
+  const [loadingUsers, setLoadingUsers] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setIsLoading(true);
-        const [usersData, statsData] = await Promise.all([
-          adminService.getUsers(1, 50),
-          adminService.getStats(),
-        ]);
-
-        // Filtrar solo usuarios de la empresa del admin
-        const filteredUsers = usersData.data;
-
-        setUsers(filteredUsers);
-        setStats([
-          {
-            title: 'Total de Usuarios',
-            value: filteredUsers.length.toString(),
-            change: '+12%',
-            trend: 'up',
-            icon: Users,
-            color: 'blue',
-          },
-          {
-            title: 'Con Perfil de Voz',
-            value: filteredUsers.filter((u) => u.voiceProfile).length.toString(),
-            change: '+8%',
-            trend: 'up',
-            icon: Mic,
-            color: 'purple',
-          },
-          {
-            title: 'Verificaciones Hoy',
-            value: statsData.totalVerifications.toString(),
-            change: '+23%',
-            trend: 'up',
-            icon: Activity,
-            color: 'green',
-          },
-          {
-            title: 'Tasa de Éxito',
-            value: `${statsData.successRate.toFixed(1)}%`,
-            change: '+2%',
-            trend: 'up',
-            icon: TrendingUp,
-            color: 'emerald',
-          },
-        ]);
-      } catch (error) {
-        console.error('Error loading admin data:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadData();
-  }, [user?.role]);
-
-  const tabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
-    { id: 'users', label: 'Usuarios', icon: Users },
-    { id: 'phrases', label: 'Frases', icon: FileText },
-    { id: 'settings', label: 'Configuración', icon: Settings },
+  // Mock data for charts/trends
+  const trends = [
+    { day: 'Lun', value: 45 },
+    { day: 'Mar', value: 52 },
+    { day: 'Mie', value: 49 },
+    { day: 'Jue', value: 63 },
+    { day: 'Vie', value: 58 },
+    { day: 'Sab', value: 35 },
+    { day: 'Dom', value: 28 },
   ];
 
-  const getColorClasses = (color: string) => {
-    const colors: any = {
-      blue: 'from-blue-500 to-blue-600 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400',
-      purple:
-        'from-purple-500 to-purple-600 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400',
-      green:
-        'from-green-500 to-green-600 bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400',
-      emerald:
-        'from-emerald-500 to-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400',
-    };
-    return colors[color] || colors.blue;
+  useEffect(() => {
+    if (activeTab === 'users') {
+      fetchUsers();
+    }
+  }, [activeTab]);
+
+  const fetchUsers = async () => {
+    setLoadingUsers(true);
+    try {
+      // Mock users for now
+      setTimeout(() => {
+        setUsers([
+          {
+            id: 1,
+            username: 'juan.perez',
+            email: 'juan.perez@example.com',
+            role: 'user',
+            status: 'active',
+            voiceEnrolled: true,
+          },
+          {
+            id: 2,
+            username: 'maria.gomez',
+            email: 'maria.gomez@example.com',
+            role: 'user',
+            status: 'active',
+            voiceEnrolled: false,
+          },
+          {
+            id: 3,
+            username: 'carlos.ruiz',
+            email: 'carlos.ruiz@example.com',
+            role: 'admin',
+            status: 'active',
+            voiceEnrolled: true,
+          },
+        ]);
+        setLoadingUsers(false);
+      }, 500);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      toast.error('Error al cargar usuarios');
+      setLoadingUsers(false);
+    }
   };
 
-  return (
-    <MainLayout>
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-purple-800 dark:from-gray-200 dark:via-blue-400/70 dark:to-purple-400/70 bg-clip-text text-transparent">
-              Panel de Administración
-            </h1>
-            <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium mt-2">
-              Gestión de usuarios y configuración de empresa
-            </p>
+  const renderDashboard = () => (
+    <div className="space-y-6">
+      {/* KPIs */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card className="p-6 border-l-4 border-blue-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Usuarios</p>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">1,234</h3>
+            </div>
+            <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-full">
+              <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+            </div>
           </div>
-          <div className="text-right">
-            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              {user?.name || user?.email}
-            </p>
-            <p className="text-xs text-blue-600/70 dark:text-blue-400/70">Administrador</p>
+          <p className="text-xs text-green-600 mt-2 flex items-center">
+            <Activity className="h-3 w-3 mr-1" /> +12% este mes
+          </p>
+        </Card>
+
+        <Card className="p-6 border-l-4 border-green-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Tasa de Éxito
+              </p>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">98.5%</h3>
+            </div>
+            <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-full">
+              <Shield className="h-6 w-6 text-green-600 dark:text-green-400" />
+            </div>
           </div>
+          <p className="text-xs text-green-600 mt-2 flex items-center">
+            <Activity className="h-3 w-3 mr-1" /> +0.5% vs semana pasada
+          </p>
+        </Card>
+
+        <Card className="p-6 border-l-4 border-purple-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Verificaciones
+              </p>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">8,543</h3>
+            </div>
+            <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
+              <Mic className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+            </div>
+          </div>
+          <p className="text-xs text-blue-600 mt-2">Total histórico</p>
+        </Card>
+
+        <Card className="p-6 border-l-4 border-orange-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Alertas</p>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">3</h3>
+            </div>
+            <div className="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-full">
+              <AlertTriangle className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+            </div>
+          </div>
+          <p className="text-xs text-orange-600 mt-2">Requieren atención</p>
+        </Card>
+      </div>
+
+      {/* Charts & Quick Links */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Card className="lg:col-span-2 p-6">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-6">
+            Tendencia de Verificaciones (Últimos 7 días)
+          </h3>
+          <div className="h-64 flex items-end justify-between gap-2">
+            {trends.map((item, index) => (
+              <div key={index} className="flex flex-col items-center w-full group">
+                <div
+                  className="w-full max-w-[40px] bg-blue-500 dark:bg-blue-600 rounded-t-lg transition-all duration-300 group-hover:bg-blue-600 dark:group-hover:bg-blue-500 relative"
+                  style={{ height: `${item.value}%` }}
+                >
+                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                    {item.value}
+                  </div>
+                </div>
+                <span className="text-xs text-gray-500 mt-2">{item.day}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <div className="space-y-6">
+          <Card className="p-6">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+              Accesos Directos
+            </h3>
+            <div className="space-y-3">
+              <Button
+                variant="outline"
+                className="w-full justify-start"
+                onClick={() => setActiveTab('users')}
+              >
+                <Users className="h-4 w-4 mr-2" />
+                Gestionar Usuarios
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full justify-start"
+                onClick={() => navigate('/admin/logs')}
+              >
+                <FileText className="h-4 w-4 mr-2" />
+                Ver Logs de Auditoría
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full justify-start"
+                onClick={() => setActiveTab('settings')}
+              >
+                <Settings className="h-4 w-4 mr-2" />
+                Configuración del Sistema
+              </Button>
+            </div>
+          </Card>
+
+          <Card className="p-6 bg-linear-to-br from-blue-500 to-indigo-600 text-white">
+            <h3 className="text-lg font-bold mb-2">Estado del Sistema</h3>
+            <p className="text-blue-100 text-sm mb-4">Todos los servicios operativos</p>
+            <div className="flex items-center gap-2 text-sm">
+              <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span>API: Online</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm mt-1">
+              <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span>Biometría: Online</span>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderUsers = () => (
+    <Card className="p-6">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Usuarios</h2>
+        <div className="relative w-full md:w-64">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Buscar usuario..."
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
       </div>
 
-      {/* Stats Dashboard - Solo visible en tab dashboard */}
-      {activeTab === 'dashboard' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat, index) => {
-            const IconComponent = stat.icon;
-            const colorClasses = getColorClasses(stat.color);
-            return (
-              <Card
-                key={index}
-                variant="glass"
-                className="p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
+      <div className="overflow-x-auto">
+        <table className="min-w-full">
+          <thead>
+            <tr className="border-b border-gray-200 dark:border-gray-700">
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                Usuario
+              </th>
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                Rol
+              </th>
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                Estado
+              </th>
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                Biometría
+              </th>
+              <th className="text-right py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+            {users.map((u) => (
+              <tr
+                key={u.id}
+                className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
+                onClick={() => navigate(`/admin/users/${u.id}`)}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div
-                    className={`w-12 h-12 rounded-xl bg-linear-to-br ${colorClasses.split(' ')[0]} ${colorClasses.split(' ')[1]} flex items-center justify-center shadow-lg`}
-                  >
-                    <IconComponent className="h-6 w-6 text-white" />
+                <td className="py-3 px-4">
+                  <div className="flex items-center">
+                    <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold mr-3">
+                      {u.username.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900 dark:text-gray-100">{u.username}</p>
+                      <p className="text-xs text-gray-500">{u.email}</p>
+                    </div>
                   </div>
-                </div>
-                <p className="text-sm font-medium text-gray-600 dark:text-blue-400/70 mb-1">
-                  {stat.title}
-                </p>
-                <p className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">
-                  {stat.value}
-                </p>
-                <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-900/30 px-2 py-1 rounded-lg">
-                  {stat.change} vs mes anterior
-                </span>
-              </Card>
-            );
-          })}
-        </div>
-      )}
+                </td>
+                <td className="py-3 px-4">
+                  <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 capitalize">
+                    {u.role}
+                  </span>
+                </td>
+                <td className="py-3 px-4">
+                  <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 capitalize">
+                    {u.status}
+                  </span>
+                </td>
+                <td className="py-3 px-4">
+                  {u.voiceEnrolled ? (
+                    <span className="flex items-center text-green-600 text-sm">
+                      <Mic className="h-3 w-3 mr-1" /> Activo
+                    </span>
+                  ) : (
+                    <span className="flex items-center text-orange-500 text-sm">
+                      <AlertTriangle className="h-3 w-3 mr-1" /> Pendiente
+                    </span>
+                  )}
+                </td>
+                <td className="py-3 px-4 text-right">
+                  <Button variant="ghost" size="sm">
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Card>
+  );
+
+  return (
+    <MainLayout>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+          Panel de Administración
+        </h1>
+        <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
+          Gestión de empresa y usuarios
+        </p>
+      </div>
 
       {/* Tabs */}
-      <div className="backdrop-blur-xl bg-white dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-2xl shadow-xl">
-        <div className="border-b border-blue-200/40 dark:border-gray-600/40">
-          <nav className="-mb-px flex space-x-8 px-6">
-            {tabs.map((tab) => {
-              const IconComponent = tab.icon;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`py-4 px-4 border-b-2 font-semibold text-sm flex items-center transition-all duration-300 ${
-                    activeTab === tab.id
-                      ? 'border-blue-500 dark:border-blue-400 text-blue-600 dark:text-blue-400/70 bg-blue-50/60 dark:bg-gray-700/50'
-                      : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400/70 hover:border-blue-300 dark:hover:border-gray-600 hover:bg-blue-50/30 dark:hover:bg-gray-700/30'
-                  }`}
-                >
-                  <IconComponent className="h-5 w-5 mr-2" />
-                  {tab.label}
-                </button>
-              );
-            })}
-          </nav>
-        </div>
+      <div className="flex space-x-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl mb-8 w-fit">
+        {[
+          { id: 'dashboard', label: 'Dashboard', icon: BarChart2 },
+          { id: 'users', label: 'Usuarios', icon: Users },
+          { id: 'phrases', label: 'Frases', icon: FileText },
+          { id: 'settings', label: 'Configuración', icon: Settings },
+        ].map((tab) => {
+          const Icon = tab.icon;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`
+                flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
+                ${
+                  activeTab === tab.id
+                    ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-sm'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50'
+                }
+              `}
+            >
+              <Icon className="h-4 w-4 mr-2" />
+              {tab.label}
+            </button>
+          );
+        })}
+      </div>
 
-        <div className="p-8">
-          {activeTab === 'dashboard' && (
-            <div>
-              <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent mb-6">
-                Resumen de la Empresa
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <Card variant="glass" className="p-6 shadow-xl">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center">
-                    <Activity className="h-5 w-5 mr-2 text-blue-600 dark:text-blue-400" />
-                    Actividad Reciente
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-blue-50/60 dark:bg-gray-700/50 rounded-lg">
-                      <div>
-                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                          Verificaciones hoy
-                        </p>
-                        <p className="text-xs text-blue-600/70 dark:text-blue-400/70">
-                          Último acceso hace 5 min
-                        </p>
-                      </div>
-                      <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                        {stats[2]?.value || '0'}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-purple-50/60 dark:bg-gray-700/50 rounded-lg">
-                      <div>
-                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                          Usuarios con voz
-                        </p>
-                        <p className="text-xs text-purple-600/70 dark:text-purple-400/70">
-                          Registros completos
-                        </p>
-                      </div>
-                      <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                        {stats[1]?.value || '0'}
-                      </span>
-                    </div>
-                  </div>
-                </Card>
-
-                <Card variant="glass" className="p-6 shadow-xl">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center">
-                    <Shield className="h-5 w-5 mr-2 text-emerald-600 dark:text-emerald-400" />
-                    Estado del Sistema
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-emerald-50/60 dark:bg-gray-700/50 rounded-lg">
-                      <div className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-emerald-600 dark:text-emerald-400 mr-2" />
-                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                          Sistema operativo
-                        </p>
-                      </div>
-                      <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-100/80 dark:bg-emerald-900/30 px-2 py-1 rounded">
-                        100% Uptime
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-blue-50/60 dark:bg-gray-700/50 rounded-lg">
-                      <div className="flex items-center">
-                        <Mic className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2" />
-                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                          Servicio de voz
-                        </p>
-                      </div>
-                      <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-100/80 dark:bg-blue-900/30 px-2 py-1 rounded">
-                        Activo
-                      </span>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'users' && (
-            <div>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent">
-                  Gestión de Usuarios
-                </h2>
-                <Button size="sm" className="shadow-lg">
-                  Agregar Usuario
-                </Button>
-              </div>
-
-              {isLoading ? (
-                <div className="backdrop-blur-sm bg-white dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-xl shadow-lg p-8 text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400 mx-auto mb-4"></div>
-                  <p className="text-gray-600 dark:text-blue-400/70">Cargando usuarios...</p>
-                </div>
-              ) : (
-                <div className="backdrop-blur-sm bg-white dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 rounded-xl shadow-lg overflow-hidden">
-                  <table className="min-w-full divide-y divide-blue-200/30 dark:divide-gray-600/30">
-                    <thead className="bg-linear-to-r from-blue-50/80 to-indigo-50/80 dark:from-gray-700/50 dark:to-gray-700/50">
-                      <tr>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 dark:text-blue-400/70 uppercase tracking-wider">
-                          Usuario
-                        </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 dark:text-blue-400/70 uppercase tracking-wider">
-                          Rol
-                        </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 dark:text-blue-400/70 uppercase tracking-wider">
-                          Estado
-                        </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 dark:text-blue-400/70 uppercase tracking-wider">
-                          Perfil de Voz
-                        </th>
-                        <th className="px-6 py-4 text-left text-xs font-bold text-blue-800 dark:text-blue-400/70 uppercase tracking-wider">
-                          Acciones
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-blue-200/20">
-                      {users.map((userItem) => (
-                        <tr
-                          key={userItem.id}
-                          className="hover:bg-blue-50/40 transition-colors duration-200"
-                        >
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div>
-                              <div className="text-sm font-semibold text-gray-800">
-                                {userItem.name}
-                              </div>
-                              <div className="text-sm text-blue-600/70">{userItem.email}</div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <span
-                              className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
-                                userItem.role === 'super_admin'
-                                  ? 'bg-red-100/80 text-red-700 border border-red-200/40'
-                                  : userItem.role === 'admin'
-                                    ? 'bg-orange-100/80 text-orange-700 border border-orange-200/40'
-                                    : 'bg-green-100/80 text-green-700 border border-green-200/40'
-                              }`}
-                            >
-                              {userItem.role === 'super_admin'
-                                ? 'Super Admin'
-                                : userItem.role === 'admin'
-                                  ? 'Admin'
-                                  : 'Usuario'}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <span
-                              className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
-                                userItem.isVerified
-                                  ? 'bg-emerald-100/80 text-emerald-700 border border-emerald-200/40'
-                                  : 'bg-red-100/80 text-red-700 border border-red-200/40'
-                              }`}
-                            >
-                              {userItem.isVerified ? 'Activo' : 'Inactivo'}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <span
-                              className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full backdrop-blur-sm ${
-                                userItem.voiceProfile
-                                  ? 'bg-blue-100/80 text-blue-700 border border-blue-200/40'
-                                  : 'bg-amber-100/80 text-amber-700 border border-amber-200/40'
-                              }`}
-                            >
-                              {userItem.voiceProfile ? 'Configurado' : 'Pendiente'}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-medium">
-                            {userItem.createdAt
-                              ? new Date(userItem.createdAt).toLocaleDateString()
-                              : 'N/A'}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <div className="flex space-x-2">
-                              <button className="p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50/60 rounded-lg transition-all duration-200">
-                                <Edit className="h-4 w-4" />
-                              </button>
-                              <button className="p-2 text-red-600 hover:text-red-700 hover:bg-red-50/60 rounded-lg transition-all duration-200">
-                                <Trash2 className="h-4 w-4" />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
-          )}
-
-          {activeTab === 'phrases' && (
-            <div>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent">
-                  Gestión de Frases
-                </h2>
-              </div>
-              <PhraseManagement />
-            </div>
-          )}
-
-          {activeTab === 'stats' && (
-            <div>
-              <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 bg-clip-text text-transparent mb-6">
-                Estadísticas del Sistema
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card variant="glass" className="p-6 shadow-xl">
-                  <h3 className="text-lg font-bold text-gray-800 mb-4">Verificaciones por Día</h3>
-                  <div className="h-64 bg-linear-to-br from-blue-50/60 to-indigo-50/60 border border-blue-200/40 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <p className="text-blue-600 font-medium">📊 Gráfico de verificaciones</p>
-                  </div>
-                </Card>
-
-                <Card variant="glass" className="p-6 shadow-xl">
-                  <h3 className="text-lg font-bold text-gray-800 mb-4">Tasa de Éxito</h3>
-                  <div className="h-64 bg-linear-to-br from-green-50/60 to-emerald-50/60 border border-green-200/40 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <p className="text-green-600 font-medium">📈 Gráfico de tasa de éxito</p>
-                  </div>
-                </Card>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'settings' && (
-            <div>
-              <h2 className="text-2xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400/70 bg-clip-text text-transparent mb-6">
-                Configuración de la Empresa
-              </h2>
-              <div className="space-y-6">
-                <Card variant="glass" className="p-6 shadow-xl">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center">
-                    <Shield className="h-5 w-5 mr-2 text-blue-600 dark:text-blue-400" />
-                    Parámetros de Verificación
-                  </h3>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                        Umbral de Confianza Mínimo
-                      </label>
-                      <div className="flex items-center gap-4">
-                        <input
-                          type="range"
-                          min="0"
-                          max="100"
-                          defaultValue="70"
-                          className="flex-1 h-2 bg-blue-100/60 dark:bg-gray-700/50 rounded-lg appearance-none cursor-pointer"
-                        />
-                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-900/30 px-3 py-1 rounded-lg min-w-[60px] text-center">
-                          70%
-                        </span>
-                      </div>
-                      <p className="text-xs text-gray-600 dark:text-blue-400/70 mt-2">
-                        Porcentaje mínimo de similitud requerido para aceptar una verificación
-                      </p>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                        Intentos Máximos de Verificación
-                      </label>
-                      <select className="block w-full px-4 py-3 border border-blue-200/50 dark:border-gray-600/40 bg-white/80 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl text-gray-800 dark:text-gray-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/60 transition-all duration-300">
-                        <option>3 intentos</option>
-                        <option>5 intentos</option>
-                        <option>10 intentos</option>
-                      </select>
-                    </div>
-                  </div>
-                </Card>
-
-                <Card variant="glass" className="p-6 shadow-xl">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center">
-                    <Mic className="h-5 w-5 mr-2 text-purple-600 dark:text-purple-400" />
-                    Configuración de Audio
-                  </h3>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                        Calidad de Grabación
-                      </label>
-                      <select className="block w-full px-4 py-3 border border-blue-200/50 dark:border-gray-600/40 bg-white/80 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl text-gray-800 dark:text-gray-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/60 transition-all duration-300">
-                        <option>Alta (48kHz)</option>
-                        <option>Media (24kHz)</option>
-                        <option>Básica (16kHz)</option>
-                      </select>
-                      <p className="text-xs text-gray-600 dark:text-blue-400/70 mt-2">
-                        Mayor calidad requiere más ancho de banda
-                      </p>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                        Duración Mínima de Grabación
-                      </label>
-                      <select className="block w-full px-4 py-3 border border-blue-200/50 dark:border-gray-600/40 bg-white/80 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl text-gray-800 dark:text-gray-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/60 transition-all duration-300">
-                        <option>3 segundos</option>
-                        <option>5 segundos</option>
-                        <option>10 segundos</option>
-                      </select>
-                    </div>
-                  </div>
-                </Card>
-
-                <Card variant="glass" className="p-6 shadow-xl">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center">
-                    <Settings className="h-5 w-5 mr-2 text-emerald-600 dark:text-emerald-400" />
-                    Configuración General
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-4 bg-blue-50/60 dark:bg-gray-700/50 rounded-lg">
-                      <div>
-                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                          Notificaciones por Email
-                        </p>
-                        <p className="text-xs text-gray-600 dark:text-blue-400/70">
-                          Recibir alertas sobre verificaciones fallidas
-                        </p>
-                      </div>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" className="sr-only peer" defaultChecked />
-                        <div className="w-11 h-6 bg-gray-300 dark:bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                      </label>
-                    </div>
-                    <div className="flex items-center justify-between p-4 bg-blue-50/60 dark:bg-gray-700/50 rounded-lg">
-                      <div>
-                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                          Modo Estricto
-                        </p>
-                        <p className="text-xs text-gray-600 dark:text-blue-400/70">
-                          Requerir re-verificación después de período de inactividad
-                        </p>
-                      </div>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" className="sr-only peer" />
-                        <div className="w-11 h-6 bg-gray-300 dark:bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                      </label>
-                    </div>
-                  </div>
-                </Card>
-
-                <div className="flex justify-end gap-3">
-                  <Button variant="secondary" className="px-6 py-2">
-                    Cancelar
-                  </Button>
-                  <Button variant="primary" className="px-6 py-2">
-                    Guardar Cambios
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+      {/* Content */}
+      <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
+        {activeTab === 'dashboard' && renderDashboard()}
+        {activeTab === 'users' && renderUsers()}
+        {activeTab === 'phrases' && (
+          <Card className="p-6">
+            <h2 className="text-xl font-bold mb-4">Gestión de Frases</h2>
+            <p className="text-gray-500">Funcionalidad de gestión de frases en desarrollo...</p>
+          </Card>
+        )}
+        {activeTab === 'settings' && (
+          <Card className="p-6">
+            <h2 className="text-xl font-bold mb-4">Configuración</h2>
+            <p className="text-gray-500">
+              Parámetros de verificación y reglas de negocio en desarrollo...
+            </p>
+          </Card>
+        )}
       </div>
     </MainLayout>
   );

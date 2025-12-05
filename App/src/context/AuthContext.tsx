@@ -300,12 +300,30 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: actionTypes.CLEAR_ERROR });
   };
 
+  // Actualizar datos del usuario
+  const refreshUser = async () => {
+    try {
+      const profile = await authService.getProfile();
+      dispatch({
+        type: actionTypes.SET_USER,
+        payload: profile,
+      });
+      // Actualizar también en storage local para persistencia inmediata
+      authStorage.setUser(profile);
+      return { success: true };
+    } catch (error) {
+      console.error('Error refreshing user:', error);
+      return { success: false, error };
+    }
+  };
+
   const value = {
     ...state,
     login,
     register,
     logout,
     clearError,
+    refreshUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

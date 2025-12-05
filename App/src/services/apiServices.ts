@@ -15,8 +15,7 @@ import type {
 } from '../types/index.js';
 
 // Determinar si usar mock API
-const isDevelopment = import.meta.env.VITE_DEV_MODE === 'true';
-const useRealAPI = !isDevelopment; // En desarrollo usar mock por defecto
+const useRealAPI = true; // Forzar uso de API real para integración
 
 interface EnrollmentStartResponse {
   enrollment_id: string;
@@ -110,6 +109,24 @@ export const authService = {
     }
     const response = await api.get<ApiResponse<User>>('/auth/profile');
     return response.data;
+  },
+  // Actualizar perfil del usuario
+  updateProfile: async (userData: Partial<User>): Promise<ApiResponse<User>> => {
+    if (!useRealAPI) {
+      // Mock update
+      const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+      const updatedUser = { ...currentUser, ...userData };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      return { success: true, data: updatedUser };
+    }
+    const response = await api.patch<User>('/auth/profile', userData);
+    // Actualizar usuario en localStorage si la respuesta es exitosa
+    if (response.data) {
+       // La respuesta directa del backend es el objeto UserProfile, no envuelto en ApiResponse
+       // Ajustamos según la implementación del backend
+       return { success: true, data: response.data };
+    }
+    return { success: false, error: 'Error updating profile' };
   },
 };
 
@@ -218,6 +235,21 @@ export const verificationService = {
     const response = await api.get<VerificationResultResponse>(
       `/verification/result/${verificationId}`
     );
+    return response.data;
+  },
+
+  // Obtener historial de verificaciones
+  getVerificationHistory: async (userId: string, limit = 10): Promise<any> => {
+    if (!useRealAPI) {
+      return {
+        success: true,
+        history: [
+          { id: 1, date: '2024-11-30 14:30', result: 'success', score: 98, method: 'Frase Aleatoria' },
+          { id: 2, date: '2024-11-29 09:15', result: 'success', score: 95, method: 'Frase Fija' },
+        ],
+      };
+    }
+    const response = await api.get(`/verification/user/${userId}/history?limit=${limit}`);
     return response.data;
   },
 };

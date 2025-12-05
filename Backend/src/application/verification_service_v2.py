@@ -294,14 +294,26 @@ class VerificationServiceV2:
         if not await self._user_repo.user_exists(user_id):
             raise ValueError(f"User {user_id} does not exist")
         
-        # Get verification attempts (would be implemented in voice_repo)
-        # For now, return placeholder
+        # Get verification attempts from audit log
+        # We look for verification results
+        activity = await self._audit_repo.get_user_activity(str(user_id), hours=24*30, limit=limit)
+        
         attempts = []
+        for log in activity:
+            if log.get('action') == 'verify' and log.get('entity_type') == 'verification_result':
+                metadata = log.get('metadata', {})
+                attempts.append({
+                    "id": log.get('entity_id'),
+                    "date": log.get('timestamp').strftime("%Y-%m-%d %H:%M") if log.get('timestamp') else "",
+                    "result": "success" if log.get('success') else "failed",
+                    "score": int(metadata.get('similarity_score', 0) * 100) if metadata.get('similarity_score') else 0,
+                    "method": "Frase Aleatoria" # Default for now, could be extracted from metadata if available
+                })
         
         return {
             "user_id": str(user_id),
             "total_attempts": len(attempts),
-            "recent_attempts": attempts[:limit]
+            "recent_attempts": attempts
         }
     
     async def start_multi_phrase_verification(

@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import jwt
 import bcrypt
 
@@ -48,15 +48,21 @@ class TokenResponse(BaseModel):
     expires_in: int
     user: dict
 
+class ProfileUpdateRequest(BaseModel):
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    company: Optional[str] = None
+    settings: Optional[dict] = None
+
 class UserProfile(BaseModel):
     id: str
     name: str
     email: str
     role: str
-    company: str
+    company: Optional[str] = None
     created_at: datetime
     voice_template: Optional[dict] = None
-
+    settings: Optional[dict] = None
 
 
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
@@ -66,9 +72,9 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     """Create JWT access token."""
     to_encode = data.copy()
     if expires_delta:
-        expire = datetime.utcnow() + expires_delta
+        expire = datetime.now(timezone.utc) + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
@@ -78,29 +84,23 @@ async def get_current_user(
     user_repo: UserRepositoryPort = Depends(get_user_repository),
 ):
     """Get current user from JWT token."""
+    auth_error = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
     try:
         payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
         email: str = payload.get("sub")
         if email is None:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Could not validate credentials",
-                headers={"WWW-Authenticate": "Bearer"},
-            )
+            raise auth_error
     except jwt.PyJWTError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not validate credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise auth_error
     
     user = await user_repo.get_user_by_email(email)
     if user is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not validate credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise auth_error
     return user
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -161,7 +161,8 @@ async def login(
         "role": user.get("role", "user"),
         "company": user.get("company", ""),
         "created_at": user["created_at"].isoformat(),
-        "voice_template": None  # Will be populated when user enrolls
+        "voice_template": None,  # Will be populated when user enrolls
+        "settings": user.get("settings", {})
     }
     
     return TokenResponse(
@@ -215,7 +216,8 @@ async def get_profile(current_user: dict = Depends(get_current_user)):
         role=current_user.get("role", "user"),
         company=current_user.get("company", ""),
         created_at=current_user["created_at"],
-        voice_template=None  # Will be populated when user enrolls
+        voice_template=None,  # Will be populated when user enrolls
+        settings=current_user.get("settings", {})
     )
 
 @auth_router.post("/logout")
@@ -235,5 +237,34 @@ async def get_current_user_info(current_user: dict = Depends(get_current_user)):
         "name": current_user["name"],
         "email": current_user["email"],
         "role": current_user["role"],
-        "company": current_user["company"]
+        "company": current_user["company"],
+        "settings": current_user.get("settings", {})
     }
+
+@auth_router.patch("/profile", response_model=UserProfile)
+async def update_profile(
+    user_data: ProfileUpdateRequest,
+    current_user: dict = Depends(get_current_user),
+    user_repo: UserRepositoryPort = Depends(get_user_repository),
+):
+    """
+    Update current user profile.
+    """
+    # Convert Pydantic model to dict, excluding None values
+    update_data = user_data.model_dump(exclude_none=True)
+        
+    await user_repo.update_user(current_user["id"], update_data)
+    
+    # Get updated user
+    updated_user = await user_repo.get_user(current_user["id"])
+    
+    return UserProfile(
+        id=str(updated_user["id"]),
+        name=f"{updated_user.get('first_name', '')} {updated_user.get('last_name', '')}".strip(),
+        email=updated_user["email"],
+        role=updated_user.get("role", "user"),
+        company=updated_user.get("company", ""),
+        created_at=updated_user["created_at"],
+        voice_template=None,
+        settings=updated_user.get("settings", {})
+    )
