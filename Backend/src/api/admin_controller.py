@@ -108,7 +108,8 @@ async def get_users(
 ):
     """
     Get paginated list of users (admin only).
-    Admins only see users from their company, superadmin sees all users.
+    Admins only see regular users from their company (no admins/superadmins).
+    Superadmin sees all users.
     """
     # Filter users based on current user's role
     if current_user["role"] == "admin":
@@ -116,7 +117,11 @@ async def get_users(
         users, total = await user_repo.get_users_by_company(
             current_user["company"], page, limit
         )
+        # Filter out admin and superadmin users
+        users = [u for u in users if u.get("role") == "user"]
+        total = len(users)  # Update total count after filtering
     else:
+        # Superadmin sees all users
         users, total = await user_repo.get_all_users(page, limit)
     
     # Transform users to match UserInfo model
@@ -141,7 +146,7 @@ async def get_users(
         total=total,
         page=page,
         limit=limit,
-        total_pages=(total + limit - 1) // limit
+        total_pages=(total + limit - 1) // limit if total > 0 else 0
     )
 
 @admin_router.get("/stats", response_model=SystemStats)
@@ -152,11 +157,22 @@ async def get_system_stats(
 ):
     """
     Get system statistics (admin only).
+    Admins see stats for their company only, superadmin sees all.
     """
     from datetime import datetime, timedelta
     
-    # Get total users (use high limit to get all)
-    all_users_result = await user_repo.get_all_users(page=1, limit=10000)
+    # Get users based on role
+    if current_user["role"] == "admin":
+        # Admins only see their company's users
+        all_users_result = await user_repo.get_users_by_company(
+            current_user["company"], 
+            page=1, 
+            limit=10000
+        )
+    else:
+        # Superadmin sees all users
+        all_users_result = await user_repo.get_all_users(page=1, limit=10000)
+    
     all_users = all_users_result[0]  # First element is the list of users
     total_users = all_users_result[1]  # Second element is the total count
     
@@ -179,6 +195,20 @@ async def get_system_stats(
         action='VERIFICATION',
         limit=10000
     )
+    
+    # If admin, filter logs to only include users from their company
+    if current_user["role"] == "admin":
+        company_user_ids = {str(u["id"]) for u in all_users}
+        company_emails = {str(u.get("email")) for u in all_users if u.get("email")}
+        
+        recent_logs = [
+            log for log in recent_logs 
+            if log.get('actor') in company_user_ids or log.get('actor') in company_emails
+        ]
+        all_verification_logs = [
+            log for log in all_verification_logs 
+            if log.get('actor') in company_user_ids or log.get('actor') in company_emails
+        ]
     
     # Count verifications in last 24h
     verification_logs_24h = [log for log in recent_logs if log.get('action') == 'VERIFICATION']
