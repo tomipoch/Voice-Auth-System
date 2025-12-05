@@ -59,6 +59,14 @@ const DynamicEnrollment = ({
     const initializeEnrollment = async () => {
       try {
         setPhase('initializing');
+        
+        // DEBUG: Log what we're sending
+        console.log('🔍 DynamicEnrollment - Starting enrollment with:', {
+          userId,
+          externalRef,
+          difficulty
+        });
+        
         const response = await enrollmentService.startEnrollment({
           user_id: userId,
           external_ref: externalRef,
