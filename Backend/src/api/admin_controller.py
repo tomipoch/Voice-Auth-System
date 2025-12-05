@@ -212,17 +212,45 @@ async def get_recent_activity(
     limit: int = 100,
     action: Optional[str] = None,
     current_user: dict = Depends(require_admin),
-    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository),
+    user_repo: UserRepositoryPort = Depends(get_user_repository)
 ):
     """
     Get recent activity logs (admin only).
+    Admins see only logs from their company, superadmin sees all.
     """
     try:
         # Get logs from repository
         logs = await audit_repo.get_logs(
             action=action,
-            limit=limit
+            limit=limit * 10  # Get more to filter by company
         )
+        
+        # If admin (not superadmin), filter by company
+        if current_user["role"] == "admin":
+            # Get all users from the admin's company
+            company_users, _ = await user_repo.get_users_by_company(
+                current_user["company"], 
+                page=1, 
+                limit=10000
+            )
+            company_user_ids = {str(u["id"]) for u in company_users}
+            
+            # Filter logs to only include actors from this company
+            filtered_logs = []
+            for log in logs:
+                actor = log.get('actor', '')
+                # Check if actor is a user ID from this company or an email from this company
+                if actor in company_user_ids or (
+                    '@' in actor and any(str(u.get('email')) == actor for u in company_users)
+                ):
+                    filtered_logs.append(log)
+                    if len(filtered_logs) >= limit:
+                        break
+            logs = filtered_logs
+        else:
+            # Superadmin sees all logs, just limit
+            logs = logs[:limit]
         
         # Transform to ActivityLog model
         activity_logs = []
@@ -246,6 +274,7 @@ async def get_recent_activity(
         logger.error(f"Error getting activity logs: {e}")
         # Return empty list on error instead of raising exception
         return []
+
 
 
 @admin_router.delete("/users/{user_id}")
