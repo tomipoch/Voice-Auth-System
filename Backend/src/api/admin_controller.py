@@ -138,9 +138,10 @@ async def get_system_stats(
     """
     from datetime import datetime, timedelta
     
-    # Get total users
-    all_users = await user_repo.get_all_users()
-    total_users = len(all_users)
+    # Get total users (use high limit to get all)
+    all_users_result = await user_repo.get_all_users(page=1, limit=10000)
+    all_users = all_users_result[0]  # First element is the list of users
+    total_users = all_users_result[1]  # Second element is the total count
     
     # Get total enrollments (users with voiceprints)
     users_with_voiceprints = [u for u in all_users if u.get('has_voiceprint', False)]
