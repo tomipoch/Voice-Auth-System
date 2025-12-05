@@ -92,6 +92,13 @@ async def get_user_repository():
     return PostgresUserRepository(pool)
 
 
+async def get_audit_log_repository():
+    """Get audit log repository instance."""
+    from ..persistence.PostgresAuditLogRepository import PostgresAuditLogRepository
+    pool = await get_db_pool()
+    return PostgresAuditLogRepository(pool)
+
+
 async def get_enrollment_service():
     """Get enrollment service instance with dependencies."""
     from ..persistence.PostgresVoiceSignatureRepository import PostgresVoiceSignatureRepository
