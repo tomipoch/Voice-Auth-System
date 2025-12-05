@@ -19,8 +19,11 @@ from ..application.dto.enrollment_dto import (
 )
 from ..infrastructure.config.dependencies import (
     get_enrollment_service,
-    get_voice_biometric_engine
+    get_voice_biometric_engine,
+    get_audit_log_repository
 )
+from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..shared.types.common_types import AuditAction
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["enrollment"])
@@ -32,7 +35,8 @@ async def start_enrollment(
     user_id: Optional[str] = Form(None),
     difficulty: str = Form("medium"),
     force_overwrite: bool = Form(False),
-    enrollment_service: EnrollmentService = Depends(get_enrollment_service)
+    enrollment_service: EnrollmentService = Depends(get_enrollment_service),
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
 ):
     """
     Start enrollment process and get phrases for user.
@@ -51,6 +55,16 @@ async def start_enrollment(
         external_ref=external_ref,
         difficulty=difficulty,
         force_overwrite=force_overwrite
+    )
+    
+    # Log enrollment start to audit
+    await audit_repo.log_event(
+        actor=str(result["user_id"]),
+        action=AuditAction.ENROLLMENT_START,
+        entity_type="enrollment",
+        entity_id=str(result["enrollment_id"]),
+        success=True,
+        metadata={"message": "Started voice enrollment", "difficulty": difficulty}
     )
     
     return StartEnrollmentResponse(
@@ -126,7 +140,8 @@ async def add_enrollment_sample(
 async def complete_enrollment(
     enrollment_id: str = Form(...),
     speaker_model_id: Optional[int] = Form(None),
-    enrollment_service: EnrollmentService = Depends(get_enrollment_service)
+    enrollment_service: EnrollmentService = Depends(get_enrollment_service),
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
 ):
     """
     Complete enrollment and create final voiceprint.
@@ -141,6 +156,20 @@ async def complete_enrollment(
     result = await enrollment_service.complete_enrollment(
         enrollment_id=enrollment_uuid,
         speaker_model_id=speaker_model_id
+    )
+    
+    # Log enrollment complete to audit
+    await audit_repo.log_event(
+        actor=str(result["user_id"]),
+        action=AuditAction.ENROLLMENT_COMPLETE,
+        entity_type="enrollment",
+        entity_id=str(result["voiceprint_id"]),
+        success=True,
+        metadata={
+            "message": "Voice enrollment completed successfully",
+            "samples_used": result["samples_used"],
+            "quality_score": result["quality_score"]
+        }
     )
     
     return CompleteEnrollmentResponse(

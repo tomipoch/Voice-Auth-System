@@ -74,7 +74,9 @@ class UserProfile(BaseModel):
 
 
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
-from ..infrastructure.config.dependencies import get_user_repository
+from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..infrastructure.config.dependencies import get_user_repository, get_audit_log_repository
+from ..shared.types.common_types import AuditAction
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     """Create JWT access token."""
@@ -119,6 +121,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 async def login(
     user_data: UserLoginRequest,
     user_repo: UserRepositoryPort = Depends(get_user_repository),
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository),
 ):
     """
     Authenticate user and return access token.
@@ -176,6 +179,16 @@ async def login(
     )
     
     logger.info(f"Login successful for user_id={user['id']}, email={user_data.email}")
+    
+    # Log successful login to audit
+    await audit_repo.log_event(
+        actor=str(user["id"]),
+        action=AuditAction.LOGIN,
+        entity_type="user",
+        entity_id=str(user["id"]),
+        success=True,
+        metadata={"email": user_data.email, "message": "User logged in successfully"}
+    )
     
     # Remove sensitive data
     user_response = {
