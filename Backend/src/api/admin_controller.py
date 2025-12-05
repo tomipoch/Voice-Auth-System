@@ -119,8 +119,25 @@ async def get_users(
     else:
         users, total = await user_repo.get_all_users(page, limit)
     
+    # Transform users to match UserInfo model
+    transformed_users = []
+    for user in users:
+        transformed_users.append({
+            "id": str(user["id"]),  # Convert UUID to string
+            "first_name": user.get("first_name", ""),
+            "last_name": user.get("last_name", ""),
+            "email": user.get("email", ""),
+            "role": user.get("role", "user"),
+            "company": user.get("company", ""),
+            "status": "active" if user.get("is_active", True) else "inactive",
+            "enrollment_status": "enrolled" if user.get("has_voiceprint", False) else "pending",
+            "created_at": user.get("created_at"),
+            "last_login": user.get("last_login"),
+            "voice_template": None  # Not exposing this in list view
+        })
+    
     return PaginatedUsers(
-        users=users,
+        users=transformed_users,
         total=total,
         page=page,
         limit=limit,
@@ -278,19 +295,37 @@ async def get_phrase_quality_rules(
         rules = await rules_service.get_all_rules(include_inactive=include_inactive)
         
         # Transform to response model
-        return [
-            PhraseQualityRule(
+        transformed_rules = []
+        for rule in rules:
+            # Handle rule_value which might be a JSON string or a float
+            rule_value = rule['rule_value']
+            if isinstance(rule_value, str):
+                try:
+                    import json
+                    parsed_value = json.loads(rule_value)
+                    # If it's a dict with 'value' key, extract it
+                    if isinstance(parsed_value, dict) and 'value' in parsed_value:
+                        rule_value = float(parsed_value['value'])
+                    else:
+                        rule_value = float(parsed_value)
+                except (json.JSONDecodeError, ValueError, TypeError):
+                    # If parsing fails, try direct conversion
+                    rule_value = float(rule_value)
+            else:
+                rule_value = float(rule_value)
+            
+            transformed_rules.append(PhraseQualityRule(
                 id=str(rule['id']),
                 rule_name=rule['rule_name'],
                 rule_type=rule['rule_type'],
-                rule_value=float(rule['rule_value']),
+                rule_value=rule_value,
                 description=rule.get('description', ''),
                 is_active=rule['is_active'],
                 created_at=rule['created_at'],
                 updated_at=rule['updated_at']
-            )
-            for rule in rules
-        ]
+            ))
+        
+        return transformed_rules
     except Exception as e:
         logger.error(f"Error getting phrase quality rules: {e}")
         raise HTTPException(
