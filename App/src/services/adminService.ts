@@ -48,6 +48,16 @@ export interface SystemStats {
   failed_verifications_24h: number;
 }
 
+export interface AuditLog {
+  id: string;
+  user_id: string;
+  user_name: string;
+  action: string;
+  timestamp: string;
+  details: string;
+}
+
+
 class AdminService {
   private readonly baseUrl = '/admin';
 
@@ -85,6 +95,20 @@ class AdminService {
       `${this.baseUrl}/phrase-rules/${ruleName}`,
       { new_value: newValue }
     );
+    return response.data;
+  }
+
+  /**
+   * Obtener logs de auditoría
+   */
+  async getLogs(limit: number = 100, action?: string): Promise<AuditLog[]> {
+    const params = new URLSearchParams();
+    params.append('limit', limit.toString());
+    if (action) {
+      params.append('action', action);
+    }
+    
+    const response = await api.get<AuditLog[]>(`${this.baseUrl}/activity?${params}`);
     return response.data;
   }
 
