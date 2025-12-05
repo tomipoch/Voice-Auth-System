@@ -239,9 +239,8 @@ async def get_phrase_quality_rules(
                 id=str(rule['id']),
                 rule_name=rule['rule_name'],
                 rule_type=rule['rule_type'],
-                value=float(rule['rule_value']['value']),
-                description=rule['rule_value'].get('description', ''),
-                unit=rule['rule_value'].get('unit', ''),
+                rule_value=float(rule['rule_value']),
+                description=rule.get('description', ''),
                 is_active=rule['is_active'],
                 created_at=rule['created_at'],
                 updated_at=rule['updated_at']
