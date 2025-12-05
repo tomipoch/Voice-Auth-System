@@ -9,6 +9,7 @@ import adminService from '../../services/adminService';
 import type { PhraseQualityRule } from '../../types';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import MainLayout from '../../components/ui/MainLayout';
 
 interface RuleConfig {
   min: number;
@@ -225,166 +226,170 @@ const PhraseRulesPage = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <Settings className="w-12 h-12 mx-auto mb-4 animate-spin text-blue-600" />
-          <p className="text-gray-600 dark:text-gray-400">Cargando reglas...</p>
+      <MainLayout>
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <Settings className="w-12 h-12 mx-auto mb-4 animate-spin text-blue-600" />
+            <p className="text-gray-600 dark:text-gray-400">Cargando reglas...</p>
+          </div>
         </div>
-      </div>
+      </MainLayout>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-          Configuración de Reglas de Calidad
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Administra los parámetros de calidad y límites del sistema de challenges
-        </p>
-      </div>
-
-      {/* Success/Error Messages */}
-      {successMessage && (
-        <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center">
-          <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mr-3" />
-          <p className="text-green-800 dark:text-green-300">{successMessage}</p>
+    <MainLayout>
+      <div className="container mx-auto px-4 py-8 max-w-5xl">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+            Configuración de Reglas de Calidad
+          </h1>
+          <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
+            Administra los parámetros de calidad y límites del sistema de challenges
+          </p>
         </div>
-      )}
 
-      {error && (
-        <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center">
-          <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mr-3" />
-          <p className="text-red-800 dark:text-red-300">{error}</p>
-        </div>
-      )}
-
-      {/* Rules by Category */}
-      <div className="space-y-8">
-        {Object.entries(RULE_CATEGORIES).map(([categoryKey, category]) => (
-          <Card key={categoryKey} className="p-6">
-            <div className="mb-6">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-                {category.title}
-              </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{category.description}</p>
-            </div>
-
-            <div className="space-y-6">
-              {category.rules.map((ruleName) => {
-                const rule = rules.find((r) => r.rule_name === ruleName);
-                const config = RULE_CONFIGS[ruleName];
-                if (!rule || !config) return null;
-
-                const currentValue = getRuleValue(ruleName);
-                const isPending = hasPendingChanges(ruleName);
-                const isSaving = saving === ruleName;
-
-                return (
-                  <div
-                    key={ruleName}
-                    className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg"
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-1">
-                          <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                            {ruleName.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
-                          </h3>
-                          <button
-                            onClick={() => handleToggleRule(ruleName)}
-                            disabled={isSaving}
-                            className={`px-2 py-1 text-xs rounded ${
-                              rule.is_active
-                                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                                : 'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
-                            }`}
-                          >
-                            {rule.is_active ? 'Activa' : 'Inactiva'}
-                          </button>
-                        </div>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          {config.description}
-                        </p>
-                      </div>
-                      <div className="text-right ml-4">
-                        <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
-                          {formatValue(currentValue, ruleName)}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="range"
-                        min={config.min}
-                        max={config.max}
-                        step={config.step}
-                        value={currentValue}
-                        onChange={(e) => handleSliderChange(ruleName, parseFloat(e.target.value))}
-                        disabled={isSaving}
-                        className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                      />
-                      <div className="flex gap-2">
-                        {isPending && (
-                          <>
-                            <Button
-                              size="sm"
-                              onClick={() => handleSaveRule(ruleName)}
-                              disabled={isSaving}
-                              className="min-w-[80px]"
-                            >
-                              {isSaving ? (
-                                <Settings className="w-4 h-4 animate-spin" />
-                              ) : (
-                                <>
-                                  <Save className="w-4 h-4 mr-1" />
-                                  Guardar
-                                </>
-                              )}
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => handleResetRule(ruleName)}
-                              disabled={isSaving}
-                            >
-                              <RotateCcw className="w-4 h-4" />
-                            </Button>
-                          </>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between mt-2 text-xs text-gray-500 dark:text-gray-400">
-                      <span>{formatValue(config.min, ruleName)}</span>
-                      <span>{formatValue(config.max, ruleName)}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </Card>
-        ))}
-      </div>
-
-      {/* Info Footer */}
-      <Card className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20">
-        <div className="flex items-start">
-          <AlertCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-3 mt-0.5" />
-          <div className="text-sm text-blue-800 dark:text-blue-300">
-            <p className="font-medium mb-1">Información importante:</p>
-            <ul className="list-disc list-inside space-y-1">
-              <li>Los cambios se aplican inmediatamente al guardar</li>
-              <li>Las reglas inactivas no se aplican en el sistema</li>
-              <li>Los valores recomendados están basados en pruebas de rendimiento</li>
-            </ul>
+        {/* Success/Error Messages */}
+        {successMessage && (
+          <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center">
+            <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mr-3" />
+            <p className="text-green-800 dark:text-green-300">{successMessage}</p>
           </div>
+        )}
+
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center">
+            <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mr-3" />
+            <p className="text-red-800 dark:text-red-300">{error}</p>
+          </div>
+        )}
+
+        {/* Rules by Category */}
+        <div className="space-y-8">
+          {Object.entries(RULE_CATEGORIES).map(([categoryKey, category]) => (
+            <Card key={categoryKey} className="p-6">
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+                  {category.title}
+                </h2>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{category.description}</p>
+              </div>
+
+              <div className="space-y-6">
+                {category.rules.map((ruleName) => {
+                  const rule = rules.find((r) => r.rule_name === ruleName);
+                  const config = RULE_CONFIGS[ruleName];
+                  if (!rule || !config) return null;
+
+                  const currentValue = getRuleValue(ruleName);
+                  const isPending = hasPendingChanges(ruleName);
+                  const isSaving = saving === ruleName;
+
+                  return (
+                    <div
+                      key={ruleName}
+                      className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg"
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-1">
+                            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                              {ruleName.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+                            </h3>
+                            <button
+                              onClick={() => handleToggleRule(ruleName)}
+                              disabled={isSaving}
+                              className={`px-2 py-1 text-xs rounded ${
+                                rule.is_active
+                                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                                  : 'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
+                              }`}
+                            >
+                              {rule.is_active ? 'Activa' : 'Inactiva'}
+                            </button>
+                          </div>
+                          <p className="text-xs text-gray-600 dark:text-gray-400">
+                            {config.description}
+                          </p>
+                        </div>
+                        <div className="text-right ml-4">
+                          <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                            {formatValue(currentValue, ruleName)}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="range"
+                          min={config.min}
+                          max={config.max}
+                          step={config.step}
+                          value={currentValue}
+                          onChange={(e) => handleSliderChange(ruleName, parseFloat(e.target.value))}
+                          disabled={isSaving}
+                          className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                        />
+                        <div className="flex gap-2">
+                          {isPending && (
+                            <>
+                              <Button
+                                size="sm"
+                                onClick={() => handleSaveRule(ruleName)}
+                                disabled={isSaving}
+                                className="min-w-[80px]"
+                              >
+                                {isSaving ? (
+                                  <Settings className="w-4 h-4 animate-spin" />
+                                ) : (
+                                  <>
+                                    <Save className="w-4 h-4 mr-1" />
+                                    Guardar
+                                  </>
+                                )}
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => handleResetRule(ruleName)}
+                                disabled={isSaving}
+                              >
+                                <RotateCcw className="w-4 h-4" />
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex justify-between mt-2 text-xs text-gray-500 dark:text-gray-400">
+                        <span>{formatValue(config.min, ruleName)}</span>
+                        <span>{formatValue(config.max, ruleName)}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </Card>
+          ))}
         </div>
-      </Card>
-    </div>
+
+        {/* Info Footer */}
+        <Card className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20">
+          <div className="flex items-start">
+            <AlertCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-3 mt-0.5" />
+            <div className="text-sm text-blue-800 dark:text-blue-300">
+              <p className="font-medium mb-1">Información importante:</p>
+              <ul className="list-disc list-inside space-y-1">
+                <li>Los cambios se aplican inmediatamente al guardar</li>
+                <li>Las reglas inactivas no se aplican en el sistema</li>
+                <li>Los valores recomendados están basados en pruebas de rendimiento</li>
+              </ul>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </MainLayout>
   );
 };
 
