@@ -21,8 +21,11 @@ const VerificationPage = lazy(() => import('./pages/VerificationPage'));
 const HistoryPage = lazy(() => import('./pages/HistoryPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
-const AdminPage = lazy(() => import('./pages/AdminPage'));
+// Admin pages
+const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
+const UsersListPage = lazy(() => import('./pages/admin/UsersListPage'));
 const UserDetailPage = lazy(() => import('./pages/admin/UserDetailPage'));
+const PhrasesPage = lazy(() => import('./pages/admin/PhrasesPage'));
 const AuditLogsPage = lazy(() => import('./pages/admin/AuditLogsPage'));
 const SuperAdminDashboard = lazy(() => import('./pages/SuperAdminDashboard'));
 
@@ -34,7 +37,7 @@ const LoadingSpinner = () => (
 );
 
 // Componente de rutas protegidas
-const ProtectedRoute = ({ children, adminOnly = false, superAdminOnly = false }) => {
+const ProtectedRoute = ({ children, adminOnly = false, superAdminOnly = false, userOnly = false }) => {
   const { isAuthenticated, user, isLoading } = useAuth();
 
   if (isLoading) {
@@ -50,6 +53,11 @@ const ProtectedRoute = ({ children, adminOnly = false, superAdminOnly = false })
   }
 
   if (adminOnly && !['admin', 'superadmin'].includes(user?.role)) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  // Restrict access to regular users only (block admins and superadmins)
+  if (userOnly && ['admin', 'superadmin'].includes(user?.role)) {
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -134,7 +142,7 @@ const AppRoutes = () => {
             <Route
               path="/enrollment"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute userOnly>
                   <EnrollmentPage />
                 </ProtectedRoute>
               }
@@ -142,7 +150,7 @@ const AppRoutes = () => {
             <Route
               path="/verification"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute userOnly>
                   <VerificationPage />
                 </ProtectedRoute>
               }
@@ -173,26 +181,45 @@ const AppRoutes = () => {
             />
 
             {/* Rutas de administrador de empresa */}
+            {/* Redirect /admin to /admin/dashboard */}
+            <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+            
             <Route
-              path="/admin"
+              path="/admin/dashboard"
               element={
-                <ProtectedRoute role="admin">
-                  <AdminPage />
+                <ProtectedRoute adminOnly>
+                  <AdminDashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                <ProtectedRoute adminOnly>
+                  <UsersListPage />
                 </ProtectedRoute>
               }
             />
             <Route
               path="/admin/users/:id"
               element={
-                <ProtectedRoute role="admin">
+                <ProtectedRoute adminOnly>
                   <UserDetailPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/phrases"
+              element={
+                <ProtectedRoute adminOnly>
+                  <PhrasesPage />
                 </ProtectedRoute>
               }
             />
             <Route
               path="/admin/logs"
               element={
-                <ProtectedRoute role="admin">
+                <ProtectedRoute adminOnly>
                   <AuditLogsPage />
                 </ProtectedRoute>
               }
