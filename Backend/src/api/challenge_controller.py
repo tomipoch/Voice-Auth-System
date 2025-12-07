@@ -15,23 +15,27 @@ INTERNAL_SERVER_ERROR = "Internal server error"
 challenge_router = APIRouter()
 
 
-# Dependency injection placeholder
-async def get_challenge_service() -> ChallengeService:
-    """Get challenge service instance."""
-    # This would be implemented with proper DI container
-    raise NotImplementedError("Dependency injection not implemented in demo")
+# Dependency injection
+from ..infrastructure.config.dependencies import get_challenge_service
 
 
 @challenge_router.post("/create")
 async def create_challenge(
     user_id: UUID = Form(...),
+    difficulty: Optional[str] = Form(None),
     challenge_service: ChallengeService = Depends(get_challenge_service)
 ):
     """
     Create a new voice challenge for a user.
+    
+    - **user_id**: User UUID
+    - **difficulty**: Optional difficulty level (easy/medium/hard)
     """
     try:
-        challenge = await challenge_service.create_challenge(user_id)
+        challenge = await challenge_service.create_challenge(
+            user_id=user_id,
+            difficulty=difficulty
+        )
         
         return {
             "success": True,
@@ -43,6 +47,41 @@ async def create_challenge(
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         logger.error(f"Error creating challenge: {e}")
+        raise HTTPException(status_code=500, detail=INTERNAL_SERVER_ERROR)
+
+
+@challenge_router.post("/create-batch")
+async def create_challenge_batch(
+    user_id: UUID = Form(...),
+    count: int = Form(3),
+    difficulty: Optional[str] = Form(None),
+    challenge_service: ChallengeService = Depends(get_challenge_service)
+):
+    """
+    Create multiple challenges at once (optimized).
+    
+    - **user_id**: User UUID
+    - **count**: Number of challenges to create (default: 3)
+    - **difficulty**: Optional difficulty level (easy/medium/hard)
+    """
+    try:
+        challenges = await challenge_service.create_challenge_batch(
+            user_id=user_id,
+            count=count,
+            difficulty=difficulty
+        )
+        
+        return {
+            "success": True,
+            "challenges": challenges,
+            "count": len(challenges),
+            "message": f"Created {len(challenges)} challenges successfully"
+        }
+        
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(f"Error creating challenge batch: {e}")
         raise HTTPException(status_code=500, detail=INTERNAL_SERVER_ERROR)
 
 
@@ -103,22 +142,25 @@ async def get_active_challenge(
 @challenge_router.post("/validate")
 async def validate_challenge(
     challenge_id: UUID = Form(...),
-    user_id: Optional[UUID] = Form(None),
+    user_id: UUID = Form(...),
     challenge_service: ChallengeService = Depends(get_challenge_service)
 ):
     """
-    Validate a challenge.
+    Validate a challenge (strict validation).
+    
+    - **challenge_id**: Challenge UUID
+    - **user_id**: User UUID
     """
     try:
-        is_valid, reason = await challenge_service.validate_challenge(
-            challenge_id, user_id
+        is_valid, reason = await challenge_service.validate_challenge_strict(
+            challenge_id=challenge_id,
+            user_id=user_id
         )
         
         return {
             "success": True,
             "is_valid": is_valid,
-            "reason": reason,
-            "challenge_id": str(challenge_id)
+            "reason": reason
         }
         
     except Exception as e:
