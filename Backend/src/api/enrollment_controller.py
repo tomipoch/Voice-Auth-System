@@ -54,7 +54,7 @@ async def start_enrollment(
         success=True,
         enrollment_id=result["enrollment_id"],
         user_id=result["user_id"],
-        phrases=result["phrases"],
+        phrases=result["challenges"],  # Challenges contain phrase info
         required_samples=result["required_samples"],
         message="Enrollment started successfully"
     )
@@ -63,23 +63,23 @@ async def start_enrollment(
 @router.post("/add-sample", response_model=AddEnrollmentSampleResponse)
 async def add_enrollment_sample(
     enrollment_id: str = Form(...),
-    phrase_id: str = Form(...),
+    challenge_id: str = Form(...),
     audio_file: UploadFile = File(...),
     enrollment_service: EnrollmentService = Depends(get_enrollment_service),
     voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine)
 ):
     """
-    Add an enrollment sample with phrase validation.
+    Add an enrollment sample with challenge validation.
     
     - **enrollment_id**: The enrollment session ID from /start
-    - **phrase_id**: The phrase ID that was read
+    - **challenge_id**: The challenge ID that was read
     - **audio_file**: Audio file (WAV, MP3, FLAC, etc.)
     
-    Returns sample_id, progress, and next phrase if available.
+    Returns sample_id, progress, and next challenge if available.
     """
     # Validate IDs
     enrollment_uuid = UUID(enrollment_id)
-    phrase_uuid = UUID(phrase_id)
+    challenge_uuid = UUID(challenge_id)
     
     # Read audio file
     audio_bytes = await audio_file.read()
@@ -100,7 +100,7 @@ async def add_enrollment_sample(
     # Add enrollment sample
     sample_result = await enrollment_service.add_enrollment_sample(
         enrollment_id=enrollment_uuid,
-        phrase_id=phrase_uuid,
+        challenge_id=challenge_uuid,
         embedding=embedding,
         snr_db=snr_db,
         duration_sec=duration_sec
@@ -112,9 +112,10 @@ async def add_enrollment_sample(
         samples_completed=sample_result["samples_completed"],
         samples_required=sample_result["samples_required"],
         is_complete=sample_result["is_complete"],
-        next_phrase=sample_result.get("next_phrase"),
+        next_phrase=sample_result.get("next_challenge"),  # Map to next_phrase for compatibility
         message="Sample added successfully"
     )
+
 
 
 @router.post("/complete", response_model=CompleteEnrollmentResponse)
