@@ -8,28 +8,27 @@ from datetime import datetime, timezone
 from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
-from ..domain.repositories.PhraseRepositoryPort import PhraseRepositoryPort, PhraseUsageRepositoryPort
-from ..shared.types.common_types import VoiceEmbedding, AuditAction
+from ..shared.types.common_types import VoiceEmbedding, AuditAction, ChallengeId
 
 
 class VerificationSession:
     """Represents an active verification session."""
     
-    def __init__(self, user_id: UUID, verification_id: UUID, phrase: dict):
+    def __init__(self, user_id: UUID, verification_id: UUID, challenge: dict):
         self.user_id = user_id
         self.verification_id = verification_id
-        self.phrase = phrase
+        self.challenge = challenge
         self.created_at = datetime.now(timezone.utc)
 
 
 class MultiPhraseVerificationSession:
     """Represents an active multi-phrase verification session (3 phrases)."""
     
-    def __init__(self, user_id: UUID, verification_id: UUID, phrases: list):
+    def __init__(self, user_id: UUID, verification_id: UUID, challenges: list):
         self.user_id = user_id
         self.verification_id = verification_id
-        self.phrases = phrases
-        self.results: list[Dict] = []  # Store results for each phrase
+        self.challenges = challenges
+        self.results: list[Dict] = []  # Store results for each challenge
         self.created_at = datetime.now(timezone.utc)
 
 
@@ -48,8 +47,7 @@ class VerificationServiceV2:
         voice_repo: VoiceSignatureRepositoryPort,
         user_repo: UserRepositoryPort,
         audit_repo: AuditLogRepositoryPort,
-        phrase_repo: PhraseRepositoryPort,
-        phrase_usage_repo: PhraseUsageRepositoryPort,
+        challenge_service,  # ChallengeService
         biometric_validator: BiometricValidator,
         similarity_threshold: float = 0.75,
         anti_spoofing_threshold: float = 0.5
@@ -57,8 +55,7 @@ class VerificationServiceV2:
         self._voice_repo = voice_repo
         self._user_repo = user_repo
         self._audit_repo = audit_repo
-        self._phrase_repo = phrase_repo
-        self._phrase_usage_repo = phrase_usage_repo
+        self._challenge_service = challenge_service
         self._biometric_validator = biometric_validator
         self._similarity_threshold = similarity_threshold
         self._anti_spoofing_threshold = anti_spoofing_threshold
@@ -68,7 +65,7 @@ class VerificationServiceV2:
         user_id: UUID,
         difficulty: str = "medium"
     ) -> Dict:
-        """Start verification and get a phrase for the user."""
+        """Start verification and get a challenge for the user."""
         
         # Verify user exists
         if not await self._user_repo.user_exists(user_id):
@@ -79,29 +76,15 @@ class VerificationServiceV2:
         if not voiceprint:
             raise ValueError(f"User {user_id} is not enrolled")
         
-        # Get random phrase for verification (exclude recently used)
-        phrases = await self._phrase_repo.find_random(
+        # Create challenge for verification
+        challenge = await self._challenge_service.create_challenge(
             user_id=user_id,
-            exclude_recent=True,
-            difficulty=difficulty,
-            language='es',
-            count=1
+            difficulty=difficulty
         )
-        
-        if not phrases:
-            raise ValueError("No phrases available for verification")
-        
-        phrase = phrases[0]
-        phrase_dict = {
-            "id": str(phrase.id),
-            "text": phrase.text,
-            "difficulty": phrase.difficulty,
-            "word_count": phrase.word_count
-        }
         
         # Create verification session
         verification_id = uuid4()
-        session = VerificationSession(user_id, verification_id, phrase_dict)
+        session = VerificationSession(user_id, verification_id, challenge)
         self._active_sessions[verification_id] = session
         
         # Log verification start
@@ -112,7 +95,7 @@ class VerificationServiceV2:
             entity_id=str(verification_id),
             metadata={
                 "user_id": str(user_id),
-                "phrase_id": phrase_dict["id"],
+                "challenge_id": str(challenge["challenge_id"]),
                 "difficulty": difficulty
             }
         )
@@ -120,26 +103,38 @@ class VerificationServiceV2:
         return {
             "verification_id": str(verification_id),
             "user_id": str(user_id),
-            "phrase": phrase_dict
+            "challenge_id": str(challenge["challenge_id"]),
+            "phrase": challenge["phrase"],
+            "phrase_id": str(challenge["phrase_id"]),
+            "expires_at": challenge["expires_at"]
         }
     
     async def verify_voice(
         self,
         verification_id: UUID,
-        phrase_id: UUID,
+        challenge_id: ChallengeId,
         embedding: VoiceEmbedding,
         anti_spoofing_score: Optional[float] = None
     ) -> Dict:
-        """Verify voice with phrase validation."""
+        """Verify voice with challenge validation."""
         
         # Get session
         session = self._active_sessions.get(verification_id)
         if not session:
             raise ValueError("Invalid or expired verification session")
         
-        # Verify phrase matches
-        if str(phrase_id) != session.phrase["id"]:
-            raise ValueError("Phrase does not match verification session")
+        # Verify challenge matches
+        if challenge_id != session.challenge["challenge_id"]:
+            raise ValueError("Challenge does not match verification session")
+        
+        # Validate challenge (strict validation)
+        is_valid, reason = await self._challenge_service.validate_challenge_strict(
+            challenge_id=challenge_id,
+            user_id=session.user_id
+        )
+        
+        if not is_valid:
+            raise ValueError(f"Invalid challenge: {reason}")
         
         # Validate embedding
         if not self._biometric_validator.is_valid_embedding(embedding):
@@ -165,12 +160,8 @@ class VerificationServiceV2:
             is_live
         )
         
-        # Record phrase usage
-        await self._phrase_usage_repo.record_usage(
-            phrase_id=phrase_id,
-            user_id=session.user_id,
-            used_for="verification"
-        )
+        # Mark challenge as used
+        await self._challenge_service.mark_challenge_used(challenge_id)
         
         # Log verification result
         await self._audit_repo.log_event(
@@ -181,7 +172,7 @@ class VerificationServiceV2:
             success=is_verified,
             metadata={
                 "user_id": str(session.user_id),
-                "phrase_id": str(phrase_id),
+                "challenge_id": str(challenge_id),
                 "similarity_score": float(similarity_score),
                 "anti_spoofing_score": float(anti_spoofing_score) if anti_spoofing_score else None,
                 "is_verified": is_verified,
@@ -321,7 +312,7 @@ class VerificationServiceV2:
         user_id: UUID,
         difficulty: str = "medium"
     ) -> Dict:
-        """Start multi-phrase verification (3 phrases)."""
+        """Start multi-phrase verification (3 challenges)."""
         
         # Verify user exists
         if not await self._user_repo.user_exists(user_id):
@@ -337,32 +328,22 @@ class VerificationServiceV2:
         if difficulty not in ['medium', 'hard']:
             difficulty = 'medium'
         
-        # Get 3 random phrases for verification (only medium or hard)
-        phrases = await self._phrase_repo.find_random(
+        # Create 3 challenges for verification (batch operation)
+        challenges = await self._challenge_service.create_challenge_batch(
             user_id=user_id,
-            exclude_recent=True,
-            difficulty=difficulty,
-            language='es',
-            count=3  # 3 phrases for multi-phrase verification
+            count=3,
+            difficulty=difficulty
         )
         
-        if not phrases or len(phrases) < 3:
-            raise ValueError("Not enough phrases available for multi-phrase verification")
+        if len(challenges) < 3:
+            raise ValueError("Not enough challenges created for multi-phrase verification")
         
         # Create verification session
         verification_id = uuid4()
         session = MultiPhraseVerificationSession(
             user_id, 
             verification_id,
-            [
-                {
-                    "id": str(phrase.id),
-                    "text": phrase.text,
-                    "difficulty": phrase.difficulty,
-                    "word_count": phrase.word_count
-                }
-                for phrase in phrases
-            ]
+            challenges
         )
         self._active_multi_sessions[verification_id] = session
         
@@ -374,7 +355,7 @@ class VerificationServiceV2:
             entity_id=str(verification_id),
             metadata={
                 "user_id": str(user_id),
-                "phrase_count": 3,
+                "challenge_count": 3,
                 "difficulty": difficulty
             }
         )
@@ -382,25 +363,34 @@ class VerificationServiceV2:
         return {
             "verification_id": str(verification_id),
             "user_id": str(user_id),
-            "phrases": session.phrases,
+            "challenges": session.challenges,
             "total_phrases": 3
         }
     
     async def verify_phrase(
         self,
         verification_id: UUID,
-        phrase_id: UUID,
+        challenge_id: ChallengeId,
         phrase_number: int,
         embedding: VoiceEmbedding,
         anti_spoofing_score: Optional[float],
         asr_confidence: float
     ) -> Dict:
-        """Verify a single phrase in multi-phrase verification."""
+        """Verify a single challenge in multi-phrase verification."""
         
         # Get session
         session = self._active_multi_sessions.get(verification_id)
         if not session:
             raise ValueError("Invalid or expired verification session")
+        
+        # Validate challenge
+        is_valid, reason = await self._challenge_service.validate_challenge_strict(
+            challenge_id=challenge_id,
+            user_id=session.user_id
+        )
+        
+        if not is_valid:
+            raise ValueError(f"Invalid challenge: {reason}")
         
         # 1. Check anti-spoofing FIRST (immediate rejection)
         if anti_spoofing_score is not None:
@@ -450,19 +440,15 @@ class VerificationServiceV2:
         # 6. Store result in session
         session.results.append({
             "phrase_number": phrase_number,
-            "phrase_id": str(phrase_id),
+            "challenge_id": str(challenge_id),
             "similarity_score": float(similarity_score),
             "asr_confidence": float(asr_confidence),
             "asr_penalty": asr_penalty,
             "final_score": float(final_score)
         })
         
-        # Record phrase usage
-        await self._phrase_usage_repo.record_usage(
-            phrase_id=phrase_id,
-            user_id=session.user_id,
-            used_for="verification"
-        )
+        # Mark challenge as used
+        await self._challenge_service.mark_challenge_used(challenge_id)
         
         # 7. Check if this is the last phrase
         is_complete = len(session.results) >= 3
