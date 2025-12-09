@@ -168,6 +168,63 @@ async def validate_challenge(
         raise HTTPException(status_code=500, detail=INTERNAL_SERVER_ERROR)
 
 
+@challenge_router.get("/{challenge_id}/time-remaining")
+async def get_time_remaining(
+    challenge_id: UUID,
+    challenge_service: ChallengeService = Depends(get_challenge_service)
+):
+    """
+    Get the remaining time for a challenge.
+    
+    Returns:
+        - expired: bool - Whether the challenge has expired
+        - seconds_remaining: int - Seconds until expiration (0 if expired)
+        - expires_at: str - ISO timestamp of expiration
+    """
+    try:
+        challenge = await challenge_service.get_challenge(challenge_id)
+        
+        if not challenge:
+            raise HTTPException(status_code=404, detail="Challenge not found")
+        
+        from datetime import datetime, timezone
+        
+        now = datetime.now(timezone.utc)
+        expires_at = challenge.get('expires_at')
+        
+        if not expires_at:
+            raise HTTPException(status_code=500, detail="Challenge has no expiration time")
+        
+        # Ensure expires_at is timezone-aware
+        if expires_at.tzinfo is None:
+            expires_at = expires_at.replace(tzinfo=timezone.utc)
+        
+        # Check if expired
+        if expires_at <= now:
+            return {
+                "success": True,
+                "expired": True,
+                "seconds_remaining": 0,
+                "expires_at": expires_at.isoformat()
+            }
+        
+        # Calculate remaining time
+        seconds_remaining = int((expires_at - now).total_seconds())
+        
+        return {
+            "success": True,
+            "expired": False,
+            "seconds_remaining": seconds_remaining,
+            "expires_at": expires_at.isoformat()
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting time remaining: {e}")
+        raise HTTPException(status_code=500, detail=INTERNAL_SERVER_ERROR)
+
+
 @challenge_router.post("/cleanup")
 async def cleanup_expired_challenges(
     challenge_service: ChallengeService = Depends(get_challenge_service)

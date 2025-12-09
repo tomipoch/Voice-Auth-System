@@ -163,6 +163,32 @@ class PostgresChallengeRepository(ChallengeRepositoryPort):
             
             return count
     
+    async def mark_expired_challenges(self) -> int:
+        """
+        Mark challenges as expired (without deleting them).
+        This is used by the cleanup job to track expired challenges.
+        
+        Returns:
+            Number of challenges marked as expired
+        """
+        async with self._pool.acquire() as conn:
+            # Note: We don't have an 'expired' status in the current schema
+            # Expired challenges are identified by expires_at < now()
+            # This method can be used to count them
+            count = await conn.fetchval(
+                """
+                SELECT COUNT(*)
+                FROM challenge
+                WHERE expires_at < now()
+                  AND used_at IS NULL
+                """
+            )
+            
+            if count > 0:
+                logger.debug(f"Found {count} expired challenges")
+            
+            return int(count)
+    
     async def cleanup_used_challenges(self, older_than_hours: int = 24) -> int:
         """
         Remove used challenges older than specified hours.

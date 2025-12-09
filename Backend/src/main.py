@@ -111,9 +111,37 @@ async def lifespan(app: FastAPI):
     else:
         app.state.biometric_engine = MockVoiceBiometricEngineFacade() # Use mock engine for testing
     
+    # Start background cleanup job for expired challenges
+    import asyncio
+    from .jobs.cleanup_expired_challenges import cleanup_expired_challenges_job
+    from .infrastructure.config.dependencies import get_db_pool
+    from .infrastructure.persistence.PostgresChallengeRepository import PostgresChallengeRepository
+    from .config import CHALLENGE_CLEANUP_INTERVAL
+    
+    cleanup_task = None
+    if os.getenv("TESTING") != "True":
+        try:
+            pool = await get_db_pool()
+            challenge_repo = PostgresChallengeRepository(pool)
+            cleanup_task = asyncio.create_task(
+                cleanup_expired_challenges_job(challenge_repo, CHALLENGE_CLEANUP_INTERVAL)
+            )
+            logger.info(f"Started challenge cleanup job (interval: {CHALLENGE_CLEANUP_INTERVAL}s)")
+        except Exception as e:
+            logger.warning(f"Could not start cleanup job: {e}")
+    
     yield
     
     logger.info("Shutting down Voice Biometrics API...")
+    
+    # Cancel cleanup task
+    if cleanup_task and not cleanup_task.done():
+        cleanup_task.cancel()
+        try:
+            await cleanup_task
+        except asyncio.CancelledError:
+            logger.info("Cleanup job cancelled")
+    
     # Cleanup resources
     await close_db_pool()
     logger.info("Database connection pool closed")
