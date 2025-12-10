@@ -30,6 +30,15 @@ from .api.auth_controller import auth_router
 from .api.admin_controller import admin_router
 from .infrastructure.config.dependencies import close_db_pool, create_voice_biometric_engine
 
+# Import metrics to register them with Prometheus
+try:
+    from .infrastructure.monitoring import metrics
+    METRICS_ENABLED = True
+except ImportError:
+    METRICS_ENABLED = False
+    import logging
+    logging.warning("Monitoring metrics not available")
+
 # Only import enrollment and verification routers if not in testing mode
 if os.getenv("TESTING") != "True":
     from .api.enrollment_controller import router as enrollment_router
