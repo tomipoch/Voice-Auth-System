@@ -106,6 +106,15 @@ export interface Phrase {
   created_at: string;
 }
 
+export interface Challenge {
+  challenge_id: string;
+  phrase: string;
+  phrase_id: string;
+  difficulty: string;
+  expires_at: string;
+  expires_in_seconds: number;
+}
+
 export interface PhraseStats {
   total: number;
   easy: number;
@@ -113,6 +122,18 @@ export interface PhraseStats {
   hard: number;
   language: string;
 }
+
+export interface PhraseQualityRule {
+  id: string;
+  rule_name: string;
+  rule_type: 'threshold' | 'rate_limit' | 'cleanup';
+  rule_value: number;
+  is_active: boolean;
+  description?: string;
+  created_at: string;
+  updated_at: string;
+}
+
 
 // ============================================
 // Voice Processing Types

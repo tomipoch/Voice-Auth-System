@@ -99,7 +99,7 @@ const DynamicVerification = ({
     try {
       const result = await verificationService.verifyVoice({
         verification_id: verificationData.verification_id,
-        phrase_id: verificationData.phrase.id,
+        challenge_id: verificationData.challenge_id,
         audioBlob,
       });
 
@@ -290,10 +290,7 @@ const DynamicVerification = ({
               Lee esta frase:
             </p>
             <p className="text-center text-lg font-medium text-gray-900 dark:text-gray-100">
-              "{verificationData.phrase.text}"
-            </p>
-            <p className="text-center text-xs text-gray-500 dark:text-gray-400 mt-2">
-              Dificultad: {verificationData.phrase.difficulty}
+              "{verificationData.phrase}"
             </p>
           </div>
         )}
@@ -301,7 +298,7 @@ const DynamicVerification = ({
         {/* Audio Recorder */}
         <EnhancedAudioRecorder
           key={`verification-${currentAttempt}`}
-          phraseText={verificationData?.phrase.text || ''}
+          phraseText={verificationData?.phrase || ''}
           onRecordingComplete={handleRecordingComplete}
         />
 

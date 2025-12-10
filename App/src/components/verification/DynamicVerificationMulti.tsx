@@ -15,7 +15,7 @@ import {
 import verificationService, {
   type StartMultiPhraseVerificationResponse,
   type VerifyPhraseResponse,
-  type Phrase,
+  type Challenge,
   type PhraseResult,
 } from '../../services/verificationService';
 import { type AudioQuality } from '../../hooks/useAdvancedAudioRecording';
@@ -37,7 +37,7 @@ interface DynamicVerificationMultiProps {
 interface VerificationStep {
   id: string;
   name: string;
-  phrase: Phrase;
+  challenge: Challenge;
   audioBlob?: Blob;
   result?: VerifyPhraseResponse;
   completed: boolean;
@@ -81,11 +81,11 @@ const DynamicVerificationMulti = ({
 
         setVerificationData(response);
 
-        // Create steps based on phrases
-        const verificationSteps: VerificationStep[] = response.phrases.map((phrase, index) => ({
+        // Create steps based on challenges
+        const verificationSteps: VerificationStep[] = response.challenges.map((challenge, index) => ({
           id: `step-${index}`,
           name: `Frase ${index + 1}`,
-          phrase,
+          challenge,
           completed: false,
         }));
 
@@ -105,7 +105,7 @@ const DynamicVerificationMulti = ({
 
   // Handle recording complete
   const handleRecordingComplete = async (audioBlob: Blob, _quality: AudioQuality) => {
-    if (!verificationData || !steps[currentStepIndex]?.phrase) {
+    if (!verificationData || !steps[currentStepIndex]?.challenge) {
       setError('Datos de verificación no disponibles');
       return;
     }
@@ -114,12 +114,12 @@ const DynamicVerificationMulti = ({
     setError(null);
 
     try {
-      const currentPhrase = steps[currentStepIndex].phrase;
+      const currentChallenge = steps[currentStepIndex].challenge;
 
       // Verify phrase
       const result = await verificationService.verifyPhrase({
         verification_id: verificationData.verification_id,
-        phrase_id: currentPhrase.id,
+        challenge_id: currentChallenge.challenge_id,
         phrase_number: currentStepIndex + 1,
         audioBlob,
       });
@@ -385,7 +385,7 @@ const DynamicVerificationMulti = ({
           {/* Audio Recorder */}
           <EnhancedAudioRecorder
             key={currentStepIndex}
-            phraseText={currentStep?.phrase?.text || ''}
+            phraseText={currentStep?.challenge?.phrase || ''}
             onRecordingComplete={handleRecordingComplete}
             maxDuration={30}
             minDuration={2}
