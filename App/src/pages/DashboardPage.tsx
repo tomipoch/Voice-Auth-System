@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Mic,
-  Shield,
-  Users,
-  Activity,
-  AlertCircle,
-} from 'lucide-react';
+import { Mic, Shield, Users, Activity, AlertCircle } from 'lucide-react';
 import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
 import { useAuth } from '../hooks/useAuth';
@@ -27,9 +21,10 @@ const DashboardPage = () => {
             // Transform backend data to match activity format
             const activities = response.history.map((h: any) => ({
               type: h.result === 'success' ? 'success' : 'error',
-              message: h.result === 'success' 
-                ? `Verificación exitosa (${h.score}%)` 
-                : `Verificación fallida (${h.score}%)`,
+              message:
+                h.result === 'success'
+                  ? `Verificación exitosa (${h.score}%)`
+                  : `Verificación fallida (${h.score}%)`,
               timestamp: h.date,
             }));
             setRecentActivity(activities);
@@ -104,7 +99,9 @@ const DashboardPage = () => {
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                    {userStats.isVoiceEnrolled ? 'Actualizar Perfil de Voz' : 'Registrar Perfil de Voz'}
+                    {userStats.isVoiceEnrolled
+                      ? 'Actualizar Perfil de Voz'
+                      : 'Registrar Perfil de Voz'}
                   </h3>
                   <p
                     className={`text-sm ${

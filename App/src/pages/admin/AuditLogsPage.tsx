@@ -38,32 +38,43 @@ const AuditLogsPage = () => {
 
   const getLevelIcon = (level: string) => {
     switch (level) {
-      case 'info': return <Info className="h-4 w-4 text-blue-500" />;
-      case 'success': return <CheckCircle className="h-4 w-4 text-green-500" />;
-      case 'warning': return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
-      case 'error': return <XCircle className="h-4 w-4 text-red-500" />;
-      default: return <FileText className="h-4 w-4 text-gray-500" />;
+      case 'info':
+        return <Info className="h-4 w-4 text-blue-500" />;
+      case 'success':
+        return <CheckCircle className="h-4 w-4 text-green-500" />;
+      case 'warning':
+        return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+      case 'error':
+        return <XCircle className="h-4 w-4 text-red-500" />;
+      default:
+        return <FileText className="h-4 w-4 text-gray-500" />;
     }
   };
 
   const getLevelClass = (level: string) => {
     switch (level) {
-      case 'info': return 'bg-blue-50 text-blue-700 border-blue-200';
-      case 'success': return 'bg-green-50 text-green-700 border-green-200';
-      case 'warning': return 'bg-yellow-50 text-yellow-700 border-yellow-200';
-      case 'error': return 'bg-red-50 text-red-700 border-red-200';
-      default: return 'bg-gray-50 text-gray-700 border-gray-200';
+      case 'info':
+        return 'bg-blue-50 text-blue-700 border-blue-200';
+      case 'success':
+        return 'bg-green-50 text-green-700 border-green-200';
+      case 'warning':
+        return 'bg-yellow-50 text-yellow-700 border-yellow-200';
+      case 'error':
+        return 'bg-red-50 text-red-700 border-red-200';
+      default:
+        return 'bg-gray-50 text-gray-700 border-gray-200';
     }
   };
 
-  const filteredLogs = logs.filter(log => {
+  const filteredLogs = logs.filter((log) => {
     const level = getLevelFromAction(log.action);
     const matchesFilter = filter === 'all' || level === filter;
-    const matchesSearch = searchTerm === '' || 
+    const matchesSearch =
+      searchTerm === '' ||
       log.user_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       log.action.toLowerCase().includes(searchTerm.toLowerCase()) ||
       log.details.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     return matchesFilter && matchesSearch;
   });
 
@@ -117,30 +128,52 @@ const AuditLogsPage = () => {
             <table className="min-w-full text-sm">
               <thead>
                 <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
-                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">Timestamp</th>
-                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">Nivel</th>
-                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">Acción</th>
-                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">Usuario</th>
-                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">Detalles</th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                    Timestamp
+                  </th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                    Nivel
+                  </th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                    Acción
+                  </th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                    Usuario
+                  </th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                    Detalles
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                 {filteredLogs.map((log) => {
                   const level = getLevelFromAction(log.action);
                   return (
-                    <tr key={log.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 font-mono text-xs md:text-sm">
+                    <tr
+                      key={log.id}
+                      className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 font-mono text-xs md:text-sm"
+                    >
                       <td className="py-3 px-4 text-gray-500 whitespace-nowrap">
                         {new Date(log.timestamp).toLocaleString()}
                       </td>
                       <td className="py-3 px-4">
-                        <span className={`inline-flex items-center px-2 py-1 rounded border ${getLevelClass(level)}`}>
+                        <span
+                          className={`inline-flex items-center px-2 py-1 rounded border ${getLevelClass(level)}`}
+                        >
                           {getLevelIcon(level)}
                           <span className="ml-1 uppercase font-bold text-[10px]">{level}</span>
                         </span>
                       </td>
-                      <td className="py-3 px-4 font-medium text-gray-800 dark:text-gray-200">{log.action}</td>
-                      <td className="py-3 px-4 text-blue-600 dark:text-blue-400">{log.user_name}</td>
-                      <td className="py-3 px-4 text-gray-600 dark:text-gray-400 max-w-xs truncate" title={log.details}>
+                      <td className="py-3 px-4 font-medium text-gray-800 dark:text-gray-200">
+                        {log.action}
+                      </td>
+                      <td className="py-3 px-4 text-blue-600 dark:text-blue-400">
+                        {log.user_name}
+                      </td>
+                      <td
+                        className="py-3 px-4 text-gray-600 dark:text-gray-400 max-w-xs truncate"
+                        title={log.details}
+                      >
                         {log.details}
                       </td>
                     </tr>

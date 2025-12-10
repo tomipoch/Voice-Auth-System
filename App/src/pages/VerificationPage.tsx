@@ -50,8 +50,6 @@ const VerificationPage = () => {
 
   return (
     <MainLayout>
-
-
       {/* Title */}
       <div className="text-left mb-8">
         <h1 className="text-4xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-green-800 dark:from-gray-200 dark:via-blue-400/70 dark:to-green-400/70 bg-clip-text text-transparent mb-4">
@@ -111,7 +109,8 @@ const VerificationPage = () => {
       >
         <div className="text-center">
           <p className="text-gray-600 dark:text-gray-300 mb-6">
-            ¿Estás seguro de que quieres cancelar el proceso de verificación? Se perderá el progreso actual.
+            ¿Estás seguro de que quieres cancelar el proceso de verificación? Se perderá el progreso
+            actual.
           </p>
           <div className="flex justify-center gap-4">
             <Button variant="ghost" onClick={() => setShowCancelModal(false)}>

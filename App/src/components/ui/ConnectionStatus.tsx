@@ -16,12 +16,12 @@ export const ConnectionStatus = () => {
     const handleOnline = () => {
       setIsOnline(true);
       setShowBanner(false);
-      
+
       // Limpiar toast de offline si existe
       if (toastId) {
         toast.dismiss(toastId);
       }
-      
+
       toast.success('Conexión restaurada', {
         icon: '🟢',
         duration: 3000,
@@ -31,7 +31,7 @@ export const ConnectionStatus = () => {
     const handleOffline = () => {
       setIsOnline(false);
       setShowBanner(true);
-      
+
       toastId = toast.error('Sin conexión a internet', {
         icon: '🔴',
         duration: Infinity,

@@ -179,7 +179,7 @@ export const AuthProvider = ({ children }) => {
                         payload: profile,
                       });
                       authStorage.setUser(profile);
-                      
+
                       if (features.debugMode) {
                         console.log('🔄 Profile refreshed from server');
                       }
@@ -214,40 +214,40 @@ export const AuthProvider = ({ children }) => {
       if (e.key === 'voiceauth_logout_signal') {
         authStorage.clearAuth();
         dispatch({ type: actionTypes.LOGOUT });
-        
+
         if (features.debugMode) {
           console.log('🔓 Logout detected from another tab');
         }
-        
+
         toast.info('Sesión cerrada en otra pestaña');
         window.location.href = '/login';
       }
-      
+
       // Detectar login en otra pestaña
       if (e.key === 'voiceauth_login_signal') {
         const token = authStorage.getAccessToken();
         const user = authStorage.getUser();
-        
+
         if (token && user && !state.isAuthenticated) {
           dispatch({
             type: actionTypes.LOGIN_SUCCESS,
             payload: { user, token },
           });
-          
+
           if (features.debugMode) {
             console.log('🔐 Login detected from another tab');
           }
-          
+
           toast.info('Sesión iniciada en otra pestaña');
         }
       }
-      
+
       // Detectar cambios directos en token/user
       const tokenKey = authStorage.getAccessToken ? 'voiceauth_token' : e.key;
       if (e.key === tokenKey || e.key === 'voiceauth_user') {
         const newToken = authStorage.getAccessToken();
         const newUser = authStorage.getUser();
-        
+
         if (!newToken || !newUser) {
           // Se eliminó el token/user
           if (state.isAuthenticated) {
@@ -264,7 +264,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     window.addEventListener('storage', handleStorageChange);
-    
+
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
@@ -338,7 +338,7 @@ export const AuthProvider = ({ children }) => {
       // Guardar usando authStorage
       authStorage.setAccessToken(access_token);
       authStorage.setUser(user);
-      
+
       // Guardar refresh token si está disponible
       if (refresh_token) {
         authStorage.setRefreshToken(refresh_token);
@@ -406,7 +406,7 @@ export const AuthProvider = ({ children }) => {
       // Notificar a otras pestañas sobre el logout
       localStorage.setItem('voiceauth_logout_signal', Date.now().toString());
       localStorage.removeItem('voiceauth_logout_signal');
-      
+
       // Limpiar usando authStorage
       authStorage.clearAuth();
       dispatch({ type: actionTypes.LOGOUT });

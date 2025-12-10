@@ -109,7 +109,9 @@ const SettingsPage = () => {
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400">
           Personaliza tu experiencia en VoiceAuth
-          {isSaving && <span className="ml-2 text-sm text-blue-600 dark:text-blue-400">• Guardando...</span>}
+          {isSaving && (
+            <span className="ml-2 text-sm text-blue-600 dark:text-blue-400">• Guardando...</span>
+          )}
         </p>
       </div>
 
@@ -169,7 +171,10 @@ const SettingsPage = () => {
                   onChange={(e) =>
                     setLocalSettings((prev) => ({
                       ...prev,
-                      notifications: { ...prev.notifications, verificationAlerts: e.target.checked },
+                      notifications: {
+                        ...prev.notifications,
+                        verificationAlerts: e.target.checked,
+                      },
                     }))
                   }
                   className="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
@@ -187,9 +192,7 @@ const SettingsPage = () => {
                 <Shield className="h-6 w-6 text-green-600 dark:text-green-400" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
-                  Seguridad
-                </h2>
+                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">Seguridad</h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   Configura las opciones de seguridad de tu cuenta
                 </p>
@@ -227,7 +230,12 @@ const SettingsPage = () => {
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 dark:text-gray-400">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
                     </svg>
                   </div>
                 </div>
@@ -244,9 +252,7 @@ const SettingsPage = () => {
                 <Palette className="h-6 w-6 text-purple-600 dark:text-purple-400" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
-                  Apariencia
-                </h2>
+                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">Apariencia</h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   Personaliza el tema y la apariencia
                 </p>
@@ -255,9 +261,7 @@ const SettingsPage = () => {
 
             <div className="space-y-4">
               <div>
-                <p className="font-medium text-gray-800 dark:text-gray-200 mb-3">
-                  Tema de Color
-                </p>
+                <p className="font-medium text-gray-800 dark:text-gray-200 mb-3">Tema de Color</p>
                 <div className="grid grid-cols-3 gap-4">
                   <button
                     onClick={() => handleThemeChange('light')}

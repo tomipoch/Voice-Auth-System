@@ -30,9 +30,8 @@ const UsersListPage = () => {
     }
   };
 
-  const filteredUsers = users.filter(
-    (user) =>
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredUsers = users.filter((user) =>
+    user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -112,11 +111,13 @@ const UsersListPage = () => {
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium capitalize ${
-                        u.is_active
-                          ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                          : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
-                      }`}>
+                      <span
+                        className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium capitalize ${
+                          u.is_active
+                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                            : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+                        }`}
+                      >
                         {u.is_active ? 'Activo' : 'Inactivo'}
                       </span>
                     </td>

@@ -16,7 +16,7 @@ export interface StartEnrollmentRequest {
   external_ref?: string;
   user_id?: string;
   difficulty?: 'easy' | 'medium' | 'hard';
-  force_overwrite?: boolean;  // Force overwrite existing voiceprint
+  force_overwrite?: boolean; // Force overwrite existing voiceprint
 }
 
 export interface StartEnrollmentResponse {
@@ -31,7 +31,7 @@ export interface StartEnrollmentResponse {
   }>;
   required_samples: number;
   message: string;
-  voiceprint_exists?: boolean;  // Indicates if user already has a voiceprint
+  voiceprint_exists?: boolean; // Indicates if user already has a voiceprint
 }
 
 export interface Challenge {

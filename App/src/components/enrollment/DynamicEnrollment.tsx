@@ -59,7 +59,7 @@ const DynamicEnrollment = ({
     const initializeEnrollment = async () => {
       try {
         setPhase('initializing');
-        
+
         const response = await enrollmentService.startEnrollment({
           user_id: userId,
           external_ref: externalRef,
@@ -85,7 +85,7 @@ const DynamicEnrollment = ({
             id: challenge.phrase_id,
             text: challenge.phrase,
             difficulty: challenge.difficulty,
-            word_count: challenge.phrase.split(' ').length
+            word_count: challenge.phrase.split(' ').length,
           },
           completed: false,
         }));
@@ -108,7 +108,7 @@ const DynamicEnrollment = ({
     try {
       setShowOverwriteModal(false);
       setPhase('initializing');
-      
+
       const response = await enrollmentService.startEnrollment({
         user_id: userId,
         external_ref: externalRef,
@@ -127,7 +127,7 @@ const DynamicEnrollment = ({
           id: challenge.phrase_id,
           text: challenge.phrase,
           difficulty: challenge.difficulty,
-          word_count: challenge.phrase.split(' ').length
+          word_count: challenge.phrase.split(' ').length,
         },
         completed: false,
       }));
@@ -299,10 +299,13 @@ const DynamicEnrollment = ({
       {/* Educational Info Box */}
       <div className="mb-6 bg-blue-50/50 dark:bg-blue-900/20 border border-blue-200/50 dark:border-blue-800/50 rounded-xl p-4">
         <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-          <strong>📝 ¿Qué estamos haciendo?</strong> Estamos creando tu huella vocal única analizando las características de tu voz (frecuencia, ritmo, entonación). Lee cada frase con tu voz natural.
+          <strong>📝 ¿Qué estamos haciendo?</strong> Estamos creando tu huella vocal única
+          analizando las características de tu voz (frecuencia, ritmo, entonación). Lee cada frase
+          con tu voz natural.
         </p>
         <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mt-2">
-          <strong>💡 Frases aleatorias:</strong> Cambian en cada sesión para garantizar seguridad y prevenir fraudes con grabaciones.
+          <strong>💡 Frases aleatorias:</strong> Cambian en cada sesión para garantizar seguridad y
+          prevenir fraudes con grabaciones.
         </p>
       </div>
 
@@ -364,7 +367,12 @@ const DynamicEnrollment = ({
         {/* Cancel Button */}
         {onCancel && (
           <div className="flex justify-center mt-2">
-            <Button onClick={onCancel} variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+            <Button
+              onClick={onCancel}
+              variant="ghost"
+              size="sm"
+              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            >
               Cancelar Registro
             </Button>
           </div>
@@ -379,22 +387,18 @@ const DynamicEnrollment = ({
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/30 mb-4">
                 <AlertTriangle className="h-6 w-6 text-orange-600 dark:text-orange-400" />
               </div>
-              
+
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
                 Huella de Voz Existente
               </h3>
-              
+
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-                Ya tienes una huella de voz registrada. ¿Deseas sobrescribirla con un nuevo registro?
-                Esta acción no se puede deshacer.
+                Ya tienes una huella de voz registrada. ¿Deseas sobrescribirla con un nuevo
+                registro? Esta acción no se puede deshacer.
               </p>
-              
+
               <div className="flex gap-3 justify-center">
-                <Button
-                  onClick={handleOverwriteCancel}
-                  variant="outline"
-                  className="flex-1"
-                >
+                <Button onClick={handleOverwriteCancel} variant="outline" className="flex-1">
                   Cancelar
                 </Button>
                 <Button

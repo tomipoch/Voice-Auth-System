@@ -11,6 +11,7 @@ import GlobalSettingsModal from './components/ui/GlobalSettingsModal';
 import SkipLink from './components/ui/SkipLink';
 import PWAInstallPrompt from './components/ui/PWAInstallPrompt';
 import ConnectionStatus from './components/ui/ConnectionStatus';
+import ErrorBoundary from './components/ui/ErrorBoundary';
 
 // Lazy load de páginas para code splitting
 const LoginPage = lazy(() => import('./pages/LoginPage'));
@@ -37,7 +38,19 @@ const LoadingSpinner = () => (
 );
 
 // Componente de rutas protegidas
-const ProtectedRoute = ({ children, adminOnly = false, superAdminOnly = false, userOnly = false }) => {
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  adminOnly?: boolean;
+  superAdminOnly?: boolean;
+  userOnly?: boolean;
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
+  adminOnly = false,
+  superAdminOnly = false,
+  userOnly = false,
+}) => {
   const { isAuthenticated, user, isLoading } = useAuth();
 
   if (isLoading) {
@@ -52,20 +65,24 @@ const ProtectedRoute = ({ children, adminOnly = false, superAdminOnly = false, u
     return <Navigate to="/dashboard" replace />;
   }
 
-  if (adminOnly && !['admin', 'superadmin'].includes(user?.role)) {
+  if (adminOnly && !['admin', 'superadmin'].includes(user?.role ?? '')) {
     return <Navigate to="/dashboard" replace />;
   }
 
   // Restrict access to regular users only (redirect admins to admin dashboard)
-  if (userOnly && ['admin', 'superadmin'].includes(user?.role)) {
+  if (userOnly && ['admin', 'superadmin'].includes(user?.role ?? '')) {
     return <Navigate to="/admin/dashboard" replace />;
   }
 
-  return children;
+  return <>{children}</>;
 };
 
 // Componente de rutas públicas (solo para usuarios no autenticados)
-const PublicRoute = ({ children }) => {
+interface PublicRouteProps {
+  children: React.ReactNode;
+}
+
+const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
@@ -76,28 +93,7 @@ const PublicRoute = ({ children }) => {
     return <Navigate to="/dashboard" replace />;
   }
 
-  return children;
-};
-
-// Componente para rutas de login administrativo
-const AdminPublicRoute = ({ children }) => {
-  const { isAuthenticated, user, isLoading } = useAuth();
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
-  // Si está autenticado, redirigir siempre al dashboard principal
-  // Desde ahí el usuario puede acceder a las secciones de administración
-  if (isAuthenticated && user) {
-    if (user.role === 'superadmin') {
-      return <Navigate to="/admin/dashboard" replace />;
-    }
-    // Tanto admin como usuarios normales van al dashboard principal
-    return <Navigate to="/dashboard" replace />;
-  }
-
-  return children;
+  return <>{children}</>;
 };
 
 // Componente principal de rutas
@@ -183,7 +179,7 @@ const AppRoutes = () => {
             {/* Rutas de administrador de empresa */}
             {/* Redirect /admin to /admin/dashboard */}
             <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
-            
+
             <Route
               path="/admin/dashboard"
               element={
@@ -265,47 +261,48 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <AuthProvider>
-          <SettingsProvider>
-            <SettingsModalProvider>
-              <Router>
-                <AppRoutes />
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <AuthProvider>
+            <SettingsProvider>
+              <SettingsModalProvider>
+                <Router>
+                  <AppRoutes />
 
-                {/* Toast notifications */}
-                <Toaster
-                  position="top-right"
-                  toastOptions={{
-                    duration: 4000,
-                    style: {
-                      background: '#363636',
-                      color: '#fff',
-                    },
-                    success: {
-                      duration: 3000,
-                      iconTheme: {
-                        primary: '#4ade80',
-                        secondary: '#fff',
+                  {/* Toast notifications */}
+                  <Toaster
+                    position="top-right"
+                    toastOptions={{
+                      duration: 4000,
+                      style: {
+                        background: '#363636',
+                        color: '#fff',
                       },
-                    },
-                    error: {
-                      duration: 5000,
-                      iconTheme: {
-                        primary: '#ef4444',
-                        secondary: '#fff',
+                      success: {
+                        duration: 3000,
+                        iconTheme: {
+                          primary: '#4ade80',
+                          secondary: '#fff',
+                        },
                       },
-                    },
-                  }}
-                />
-              </Router>
-            </SettingsModalProvider>
-          </SettingsProvider>
-        </AuthProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+                      error: {
+                        duration: 5000,
+                        iconTheme: {
+                          primary: '#ef4444',
+                          secondary: '#fff',
+                        },
+                      },
+                    }}
+                  />
+                </Router>
+              </SettingsModalProvider>
+            </SettingsProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 
 export default App;
-

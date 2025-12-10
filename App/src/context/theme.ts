@@ -1,11 +1,13 @@
-export const getSystemTheme = () => {
+export type Theme = 'light' | 'dark';
+
+export const getSystemTheme = (): Theme => {
   if (typeof window !== 'undefined' && window.matchMedia) {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
   return 'light';
 };
 
-export const applyTheme = (theme) => {
+export const applyTheme = (theme: Theme): void => {
   if (typeof document === 'undefined') return;
 
   const root = document.documentElement;
@@ -22,14 +24,14 @@ export const applyTheme = (theme) => {
   }
 };
 
-export const getInitialTheme = () => {
+export const getInitialTheme = (): Theme => {
   if (typeof window === 'undefined') return 'light';
 
   try {
     // Acceder directamente a localStorage sin el servicio para evitar dependencias circulares
     const saved = localStorage.getItem('voiceauth_theme_preference');
     if (saved) {
-      const parsed = JSON.parse(saved);
+      const parsed = JSON.parse(saved) as unknown;
       if (parsed === 'light' || parsed === 'dark') {
         return parsed;
       }

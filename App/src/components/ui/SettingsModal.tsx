@@ -104,7 +104,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
       }
 
       let updateData = {};
-      
+
       if (section === 'profile') {
         updateData = {
           name: profileData.name,
@@ -116,34 +116,33 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
         updateData = {
           settings: {
             ...user?.settings,
-            notifications: notificationSettings
-          }
+            notifications: notificationSettings,
+          },
         };
       } else if (section === 'security') {
         updateData = {
           settings: {
             ...user?.settings,
-            security: securitySettings
-          }
+            security: securitySettings,
+          },
         };
       } else if (section === 'appearance') {
         updateData = {
           settings: {
             ...user?.settings,
-            appearance: appearance
-          }
+            appearance: appearance,
+          },
         };
       }
 
       const response = await authService.updateProfile(updateData);
-      
+
       if (response.success) {
         console.log(`Guardando configuración de ${section}`);
         // Optionally show success toast here if not handled globally
       } else {
         console.error('Error updating profile settings');
       }
-
     } catch (error) {
       console.error('Error al guardar:', error);
     } finally {

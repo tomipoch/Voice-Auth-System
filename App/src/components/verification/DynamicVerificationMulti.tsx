@@ -4,14 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import {
-  Shield,
-  CheckCircle,
-  XCircle,
-  Loader2,
-  RefreshCw,
-  AlertTriangle,
-} from 'lucide-react';
+import { Shield, CheckCircle, XCircle, Loader2, RefreshCw, AlertTriangle } from 'lucide-react';
 import verificationService, {
   type StartMultiPhraseVerificationResponse,
   type VerifyPhraseResponse,
@@ -83,12 +76,14 @@ const DynamicVerificationMulti = ({
         setVerificationData(response);
 
         // Create steps based on challenges
-        const verificationSteps: VerificationStep[] = response.challenges.map((challenge, index) => ({
-          id: `step-${index}`,
-          name: `Frase ${index + 1}`,
-          challenge,
-          completed: false,
-        }));
+        const verificationSteps: VerificationStep[] = response.challenges.map(
+          (challenge, index) => ({
+            id: `step-${index}`,
+            name: `Frase ${index + 1}`,
+            challenge,
+            completed: false,
+          })
+        );
 
         setSteps(verificationSteps);
         setPhase('ready');
@@ -136,7 +131,7 @@ const DynamicVerificationMulti = ({
       // Update step as completed
       const updatedSteps = [...steps];
       const stepToUpdate = updatedSteps[currentStepIndex];
-      
+
       if (stepToUpdate) {
         updatedSteps[currentStepIndex] = {
           ...stepToUpdate,
@@ -243,7 +238,10 @@ const DynamicVerificationMulti = ({
 
           <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4 mb-4">
             <p className="text-sm text-red-800 dark:text-red-300">
-              Razón: {finalResult.reason === 'spoof_detected' ? 'Audio falsificado detectado' : finalResult.reason}
+              Razón:{' '}
+              {finalResult.reason === 'spoof_detected'
+                ? 'Audio falsificado detectado'
+                : finalResult.reason}
             </p>
             {finalResult.anti_spoofing_score && (
               <p className="text-sm text-red-800 dark:text-red-300 mt-2">
@@ -251,7 +249,7 @@ const DynamicVerificationMulti = ({
               </p>
             )}
           </div>
-          
+
           {onCancel && (
             <Button onClick={onCancel} variant="ghost" className="mt-4">
               Volver al inicio
@@ -279,16 +277,12 @@ const DynamicVerificationMulti = ({
             {isSuccess ? '¡Verificación Exitosa!' : 'Verificación Fallida'}
           </h3>
           <p className="text-gray-600 dark:text-gray-400 mb-4">
-            {isSuccess
-              ? 'Tu identidad ha sido confirmada'
-              : 'No se pudo verificar tu identidad'}
+            {isSuccess ? 'Tu identidad ha sido confirmada' : 'No se pudo verificar tu identidad'}
           </p>
 
           <div
             className={`${
-              isSuccess
-                ? 'bg-green-50 dark:bg-green-900/20'
-                : 'bg-red-50 dark:bg-red-900/20'
+              isSuccess ? 'bg-green-50 dark:bg-green-900/20' : 'bg-red-50 dark:bg-red-900/20'
             } rounded-lg p-4 mb-4`}
           >
             <div className="text-center mb-4">
@@ -376,10 +370,12 @@ const DynamicVerificationMulti = ({
       {/* Educational Info Box */}
       <div className="mb-6 bg-green-50/50 dark:bg-green-900/20 border border-green-200/50 dark:border-green-800/50 rounded-xl p-4">
         <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-          <strong>🔍 ¿Qué estamos haciendo?</strong> Comparamos tu voz con tu perfil biométrico registrado para confirmar tu identidad. Lee cada frase con tu voz natural.
+          <strong>🔍 ¿Qué estamos haciendo?</strong> Comparamos tu voz con tu perfil biométrico
+          registrado para confirmar tu identidad. Lee cada frase con tu voz natural.
         </p>
         <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mt-2">
-          <strong>🔒 Seguridad:</strong> Las frases cambian cada vez para evitar que alguien use una grabación de tu voz. Solo tú, hablando en tiempo real, puedes pasar la verificación.
+          <strong>🔒 Seguridad:</strong> Las frases cambian cada vez para evitar que alguien use una
+          grabación de tu voz. Solo tú, hablando en tiempo real, puedes pasar la verificación.
         </p>
       </div>
 
@@ -392,7 +388,7 @@ const DynamicVerificationMulti = ({
             </h3>
             <div className="flex items-center gap-4">
               {currentStep?.challenge?.expires_at && (
-                <CountdownTimer 
+                <CountdownTimer
                   expiresAt={currentStep.challenge.expires_at}
                   onExpire={handleRetry}
                 />
@@ -439,11 +435,16 @@ const DynamicVerificationMulti = ({
             <li>• Lee la frase completa sin pausas largas</li>
           </ul>
         </div>
-        
+
         {/* Cancel Button */}
         {onCancel && (
           <div className="flex justify-center mt-2">
-            <Button onClick={onCancel} variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+            <Button
+              onClick={onCancel}
+              variant="ghost"
+              size="sm"
+              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            >
               Cancelar Verificación
             </Button>
           </div>

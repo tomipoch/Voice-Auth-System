@@ -82,27 +82,28 @@ const EnrollmentPage = () => {
           {phase === 'welcome'
             ? 'Configura tu autenticación biométrica por voz de forma segura'
             : phase === 'enrollment'
-            ? 'Lee las frases que aparecen en pantalla con tu voz natural'
-            : 'Resultado del registro.'}
+              ? 'Lee las frases que aparecen en pantalla con tu voz natural'
+              : 'Resultado del registro.'}
         </p>
       </div>
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto min-h-[calc(100vh-16rem)] flex flex-col justify-center">
-
         {phase === 'welcome' && <EnrollmentWelcomeScreen onStart={handleStartEnrollment} />}
 
-        {phase === 'enrollment' && user && (() => {
-          return (
-            <DynamicEnrollment
-              userId={user.id}
-              difficulty="medium"
-              onEnrollmentComplete={handleEnrollmentComplete}
-              onError={handleEnrollmentError}
-              onCancel={handleCancel}
-            />
-          );
-        })()}
+        {phase === 'enrollment' &&
+          user &&
+          (() => {
+            return (
+              <DynamicEnrollment
+                userId={user.id}
+                difficulty="medium"
+                onEnrollmentComplete={handleEnrollmentComplete}
+                onError={handleEnrollmentError}
+                onCancel={handleCancel}
+              />
+            );
+          })()}
 
         {phase === 'completion' && (
           <EnrollmentCompletionScreen
@@ -127,7 +128,6 @@ const EnrollmentPage = () => {
             </div>
           </div>
         )}
-
       </div>
 
       {/* Cancel Confirmation Modal */}
@@ -139,7 +139,8 @@ const EnrollmentPage = () => {
       >
         <div className="space-y-4">
           <p className="text-gray-600 dark:text-gray-300">
-            Si cancelas ahora, perderás el progreso actual. ¿Estás seguro de que deseas volver al inicio?
+            Si cancelas ahora, perderás el progreso actual. ¿Estás seguro de que deseas volver al
+            inicio?
           </p>
           <div className="flex justify-end gap-3 pt-2">
             <Button variant="ghost" onClick={() => setShowCancelModal(false)}>
@@ -165,7 +166,8 @@ const EnrollmentPage = () => {
             <div>
               <h4 className="font-bold text-yellow-800 dark:text-yellow-200 mb-1">Advertencia</h4>
               <p className="text-sm text-yellow-700 dark:text-yellow-300">
-                Detectamos que ya tienes un registro de voz activo. Si continúas, tu huella de voz anterior será eliminada y reemplazada por la nueva.
+                Detectamos que ya tienes un registro de voz activo. Si continúas, tu huella de voz
+                anterior será eliminada y reemplazada por la nueva.
               </p>
             </div>
           </div>

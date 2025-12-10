@@ -1,12 +1,4 @@
-import {
-  Mic,
-  Clock,
-  Volume2,
-  ShieldCheck,
-  Lock,
-  CheckCircle2,
-  Activity,
-} from 'lucide-react';
+import { Mic, Clock, Volume2, ShieldCheck, Lock, CheckCircle2, Activity } from 'lucide-react';
 import Button from '../ui/Button';
 import Card from '../ui/Card';
 
@@ -56,14 +48,13 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
   return (
     <div className={`w-full ${className}`}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-        
         {/* LEFT COLUMN: Hero & Action */}
         <div className="flex flex-col justify-center h-full">
           <Card className="relative overflow-hidden p-10 border-0 shadow-2xl h-full flex flex-col justify-between bg-linear-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
             {/* Decorative Background */}
             <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-            
+
             <div className="relative z-10">
               <div className="mb-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider mb-6">
@@ -77,7 +68,8 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                   </span>
                 </h1>
                 <p className="text-lg text-gray-600 dark:text-gray-300 max-w-md leading-relaxed">
-                  Registra tu voz para habilitar la autenticación biométrica segura. Grabaremos 3 frases simples para crear tu huella vocal única.
+                  Registra tu voz para habilitar la autenticación biométrica segura. Grabaremos 3
+                  frases simples para crear tu huella vocal única.
                 </p>
               </div>
 
@@ -90,14 +82,14 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                   <Mic className="h-5 w-5 mr-2" />
                   Comenzar Registro
                 </Button>
-                
+
                 <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
                   <Lock className="h-4 w-4" />
                   <span>Datos biométricos encriptados</span>
                 </div>
               </div>
             </div>
-            
+
             {/* System Status Mini-Widget */}
             <div className="mt-12 pt-8 border-t border-gray-100 dark:border-gray-800/50">
               <div className="flex items-center gap-2 mb-4">
@@ -125,7 +117,6 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
 
         {/* RIGHT COLUMN: Process & Info */}
         <div className="flex flex-col gap-6 h-full">
-          
           {/* Process Steps */}
           <Card className="p-8 border border-gray-100 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
             <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-2">
@@ -134,7 +125,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
               </span>
               ¿Cómo funciona?
             </h3>
-            
+
             <div className="space-y-8 relative">
               {/* Connecting Line */}
               <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-gray-100 dark:bg-gray-800" />
@@ -148,7 +139,8 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                     Preparación
                   </h4>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Busca un lugar silencioso y asegúrate de que tu micrófono funcione correctamente.
+                    Busca un lugar silencioso y asegúrate de que tu micrófono funcione
+                    correctamente.
                   </p>
                 </div>
               </div>
@@ -209,7 +201,6 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
               );
             })}
           </div>
-
         </div>
       </div>
     </div>
