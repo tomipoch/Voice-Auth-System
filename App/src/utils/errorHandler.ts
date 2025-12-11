@@ -46,7 +46,7 @@ export class ErrorHandler {
 
     if (this.isAxiosError(error)) {
       const statusCode = error.response?.status;
-      const message = error.response?.data?.message || error.message;
+      const message = (error.response?.data as { message?: string })?.message || error.message;
       const code = error.code;
 
       // Show user-friendly toast notifications

@@ -8,6 +8,8 @@ export interface User {
   first_name?: string;
   last_name?: string;
   name?: string; // Computed field from backend (first_name + last_name)
+  fullName?: string; // Alias for name (backward compatibility)
+  username?: string; // Alias for email or name
   role: UserRole;
   company?: string;
   rut?: string; // Chilean national ID
@@ -300,6 +302,7 @@ export interface AuthContextType {
   register: (data: RegisterData) => Promise<void>;
   logout: () => Promise<void>;
   refreshToken: () => Promise<void>;
+  refreshUser: () => Promise<void>;
   updateUser: (user: Partial<User>) => void;
 }
 

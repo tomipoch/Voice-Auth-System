@@ -47,21 +47,25 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (user) {
+      const formattedUser = {
+        ...user,
+        first_name: user?.first_name || user?.name?.split(' ')[0] || '',
+        last_name: user?.last_name || user?.name?.split(' ').slice(1).join(' ') || '',
+      };
       setFormData({
-        firstName: user.first_name || '',
-        lastName: user.last_name || '',
-        email: user.email || '',
-        company: user.company || '',
+        firstName: formattedUser.first_name || '',
+        lastName: formattedUser.last_name || '',
+        email: formattedUser.email || '',
+        company: formattedUser.company || '',
       });
     }
   }, [user]);
 
-  // Helper function to get user initials
   const getInitials = (name?: string) => {
     if (!name) return 'U';
     const parts = name.split(' ');
     if (parts.length >= 2) {
-      return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+      return `${parts[0]?.[0] || ''}${parts[1]?.[0] || ''}`.toUpperCase();
     }
     return name.substring(0, 2).toUpperCase();
   };

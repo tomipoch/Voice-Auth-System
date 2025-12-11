@@ -33,15 +33,15 @@ const SettingsPage = () => {
       setLocalSettings((prev) => ({
         notifications: {
           ...prev.notifications,
-          ...(user.settings.notifications || {}),
+          ...(user?.settings?.notifications || {}),
         },
         security: {
           ...prev.security,
-          ...(user.settings.security || {}),
+          ...(user?.settings?.security || {}),
         },
         appearance: {
           ...prev.appearance,
-          ...(user.settings.appearance || {}),
+          ...(user?.settings?.appearance || {}),
         },
       }));
     }
