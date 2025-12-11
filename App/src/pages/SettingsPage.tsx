@@ -104,7 +104,7 @@ const SettingsPage = () => {
   return (
     <MainLayout>
       <div className="mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent mb-2">
+        <h1 className="text-4xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent mb-2">
           Configuración
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -120,7 +120,7 @@ const SettingsPage = () => {
         <Card>
           <div className="p-6">
             <div className="flex items-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-xl mr-4">
+              <div className="p-3 bg-linear-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-xl mr-4">
                 <Bell className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
               <div>
@@ -188,7 +188,7 @@ const SettingsPage = () => {
         <Card>
           <div className="p-6">
             <div className="flex items-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-xl mr-4">
+              <div className="p-3 bg-linear-to-br from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-xl mr-4">
                 <Shield className="h-6 w-6 text-green-600 dark:text-green-400" />
               </div>
               <div>
@@ -248,7 +248,7 @@ const SettingsPage = () => {
         <Card>
           <div className="p-6">
             <div className="flex items-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 rounded-xl mr-4">
+              <div className="p-3 bg-linear-to-br from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 rounded-xl mr-4">
                 <Palette className="h-6 w-6 text-purple-600 dark:text-purple-400" />
               </div>
               <div>

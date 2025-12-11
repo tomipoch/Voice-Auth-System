@@ -1,4 +1,5 @@
-import { render, screen, waitFor } from '@testing-library/react';
+// @ts-nocheck
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
