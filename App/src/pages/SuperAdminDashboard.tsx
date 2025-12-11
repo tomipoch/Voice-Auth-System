@@ -110,7 +110,7 @@ const SuperAdminDashboard = () => {
               className={`w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                 activeSection === item.id
                   ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50'
               }`}
             >
               <Icon className="h-5 w-5 mr-3" />
@@ -143,7 +143,7 @@ const SuperAdminDashboard = () => {
                   {stat.change}
                 </span>
               </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{stat.title}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{stat.title}</p>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stat.value}</h3>
             </Card>
           );
@@ -197,22 +197,22 @@ const SuperAdminDashboard = () => {
         <table className="min-w-full">
           <thead>
             <tr className="border-b border-gray-200 dark:border-gray-700">
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Empresa
               </th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Plan
               </th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Usuarios
               </th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Estado
               </th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Renovación
               </th>
-              <th className="text-right py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+              <th className="text-right py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Acciones
               </th>
             </tr>
@@ -228,7 +228,7 @@ const SuperAdminDashboard = () => {
                     {company.plan}
                   </span>
                 </td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">{company.users}</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{company.users}</td>
                 <td className="py-3 px-4">
                   <span
                     className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${
@@ -245,7 +245,7 @@ const SuperAdminDashboard = () => {
                     {company.status}
                   </span>
                 </td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">{company.renewal}</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{company.renewal}</td>
                 <td className="py-3 px-4 text-right">
                   <Button variant="ghost" size="sm">
                     <MoreVertical className="h-4 w-4" />

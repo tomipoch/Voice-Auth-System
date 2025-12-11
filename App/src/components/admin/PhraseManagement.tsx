@@ -108,7 +108,7 @@ export const PhraseManagement: React.FC = () => {
       {stats && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card className="p-4">
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Total</h3>
+            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">Total</h3>
             <p className="text-3xl font-bold text-gray-900 dark:text-white">{stats.total}</p>
           </Card>
           <Card className="p-4">
@@ -177,22 +177,22 @@ export const PhraseManagement: React.FC = () => {
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="bg-gray-50 dark:bg-gray-800">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   Frase
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   Origen
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   Dificultad
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   Palabras
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   Estado
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   Acciones
                 </th>
               </tr>
@@ -206,7 +206,7 @@ export const PhraseManagement: React.FC = () => {
                     </p>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       {phrase.source || 'N/A'}
                     </p>
                   </td>
@@ -217,7 +217,7 @@ export const PhraseManagement: React.FC = () => {
                       {phrase.difficulty}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
                     {phrase.word_count}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">

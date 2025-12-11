@@ -123,7 +123,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }: RegisterFor
           <User className="h-8 w-8 text-blue-600 dark:text-blue-400" />
         </div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Crear Cuenta</h2>
-        <p className="text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400">
+        <p className="text-gray-700 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300">
           Regístrate para acceder al sistema de autenticación por voz
         </p>
       </div>
@@ -156,7 +156,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }: RegisterFor
               className={`pl-10 ${validationErrors.name ? 'border-red-300' : ''}`}
               disabled={isLoading}
             />
-            <User className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500 dark:text-gray-400" />
+            <User className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-600 dark:text-gray-300" />
           </div>
           {validationErrors.name && (
             <p className="mt-1 text-sm text-red-600">{validationErrors.name}</p>
@@ -181,7 +181,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }: RegisterFor
               className={`pl-10 ${validationErrors.email ? 'border-red-300' : ''}`}
               disabled={isLoading}
             />
-            <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500 dark:text-gray-400" />
+            <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-600 dark:text-gray-300" />
           </div>
           {validationErrors.email && (
             <p className="mt-1 text-sm text-red-600">{validationErrors.email}</p>
@@ -206,11 +206,11 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }: RegisterFor
               className={`pl-10 pr-10 ${validationErrors.password ? 'border-red-300' : ''}`}
               disabled={isLoading}
             />
-            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500 dark:text-gray-400" />
+            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-600 dark:text-gray-300" />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-3 text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400"
+              className="absolute right-3 top-3 text-gray-400 dark:text-gray-600 dark:text-gray-300 hover:text-gray-700 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300"
               disabled={isLoading}
             >
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -226,7 +226,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }: RegisterFor
                     className={`h-2 rounded-full ${passwordStrength.color} transition-all duration-300 ${passwordStrength.width}`}
                   />
                 </div>
-                <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
                   {passwordStrength.strength}
                 </span>
               </div>
@@ -256,11 +256,11 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }: RegisterFor
               className={`pl-10 pr-10 ${validationErrors.confirmPassword ? 'border-red-300' : ''}`}
               disabled={isLoading}
             />
-            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500 dark:text-gray-400" />
+            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-600 dark:text-gray-300" />
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute right-3 top-3 text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400"
+              className="absolute right-3 top-3 text-gray-400 dark:text-gray-600 dark:text-gray-300 hover:text-gray-700 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300"
               disabled={isLoading}
             >
               {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -288,7 +288,7 @@ const RegisterForm = ({ onSubmit, isLoading = false, error = null }: RegisterFor
       </form>
 
       <div className="mt-6 text-center">
-        <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300">
           ¿Ya tienes una cuenta?{' '}
           <a
             href="/login"

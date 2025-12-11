@@ -11,21 +11,18 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   useSessionTimeout();
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-linear-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-500">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/20 dark:bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 dark:bg-blue-800/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/20 dark:bg-cyan-600/20 rounded-full blur-3xl animate-pulse delay-500"></div>
-      </div>
-
-      {/* Sidebar */}
+    <div className="flex h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       <Sidebar />
 
       {/* Main Content */}
-      <div className="ml-64 p-8 relative z-10">
-        <div className="max-w-7xl mx-auto">{children}</div>
-      </div>
+      <main
+        id="main-content"
+        className="flex-1 overflow-y-auto ml-64"
+        role="main"
+        aria-label="Contenido principal"
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">{children}</div>
+      </main>
     </div>
   );
 };

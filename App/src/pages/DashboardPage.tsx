@@ -57,7 +57,7 @@ const DashboardPage = () => {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent mb-2">
           ¡Bienvenido, {user?.name?.split(' ')[0] || user?.email?.split('@')[0] || 'Usuario'}!
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400">
+        <p className="text-lg text-gray-700 dark:text-gray-300">
           {user?.role === 'admin'
             ? 'Panel de control administrativo'
             : 'Tu panel de autenticación biométrica por voz'}
@@ -142,7 +142,7 @@ const DashboardPage = () => {
                     className={`h-8 w-8 ${
                       userStats.isVoiceEnrolled
                         ? 'text-blue-600 dark:text-blue-400'
-                        : 'text-gray-500 dark:text-gray-400 dark:text-gray-400'
+                        : 'text-gray-600 dark:text-gray-300 dark:text-gray-400'
                     }`}
                   />
                 </div>
@@ -154,7 +154,7 @@ const DashboardPage = () => {
                     className={`text-sm ${
                       userStats.isVoiceEnrolled
                         ? 'text-blue-700/80 dark:text-blue-400/80'
-                        : 'text-gray-500 dark:text-gray-400 dark:text-gray-400'
+                        : 'text-gray-600 dark:text-gray-300 dark:text-gray-400'
                     }`}
                   >
                     {userStats.isVoiceEnrolled
@@ -219,7 +219,7 @@ const DashboardPage = () => {
                         </p>
                       </div>
                     </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">
+                    <span className="text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400">
                       {activity.timestamp}
                     </span>
                   </div>

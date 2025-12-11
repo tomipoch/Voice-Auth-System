@@ -83,7 +83,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                   Comenzar Registro
                 </Button>
 
-                <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
                   <Lock className="h-4 w-4" />
                   <span>Datos biométricos encriptados</span>
                 </div>
@@ -94,7 +94,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
             <div className="mt-12 pt-8 border-t border-gray-100 dark:border-gray-800/50">
               <div className="flex items-center gap-2 mb-4">
                 <Activity className="h-4 w-4 text-green-500" />
-                <span className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                <span className="text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                   Sistema Listo
                 </span>
               </div>
@@ -138,7 +138,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                   <h4 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
                     Preparación
                   </h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Busca un lugar silencioso y asegúrate de que tu micrófono funcione
                     correctamente.
                   </p>
@@ -153,7 +153,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                   <h4 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
                     Grabación
                   </h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Leerás 3 frases cortas. Nuestro sistema analizará tu voz en tiempo real.
                   </p>
                 </div>
@@ -167,7 +167,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                   <h4 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
                     Confirmación
                   </h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Tu perfil de voz se creará y podrás usarlo para iniciar sesión de forma segura.
                   </p>
                 </div>
@@ -193,7 +193,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                     <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm mb-0.5">
                       {rec.title}
                     </h3>
-                    <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                    <p className="text-[10px] text-gray-600 dark:text-gray-300 uppercase tracking-wide">
                       {rec.description}
                     </p>
                   </div>

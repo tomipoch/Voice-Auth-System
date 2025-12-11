@@ -84,7 +84,7 @@ const AuditLogsPage = () => {
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
           Logs de Auditoría
         </h1>
-        <p className="text-lg text-gray-500 dark:text-gray-400">
+        <p className="text-lg text-gray-600 dark:text-gray-300">
           Registro detallado de eventos y actividades del sistema
         </p>
       </div>
@@ -128,19 +128,19 @@ const AuditLogsPage = () => {
             <table className="min-w-full text-sm">
               <thead>
                 <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
-                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-300">
                     Timestamp
                   </th>
-                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-300">
                     Nivel
                   </th>
-                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-300">
                     Acción
                   </th>
-                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-300">
                     Usuario
                   </th>
-                  <th className="text-left py-3 px-4 font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-300">
                     Detalles
                   </th>
                 </tr>
@@ -171,7 +171,7 @@ const AuditLogsPage = () => {
                         {log.user_name}
                       </td>
                       <td
-                        className="py-3 px-4 text-gray-600 dark:text-gray-400 max-w-xs truncate"
+                        className="py-3 px-4 text-gray-700 dark:text-gray-300 max-w-xs truncate"
                         title={log.details}
                       >
                         {log.details}

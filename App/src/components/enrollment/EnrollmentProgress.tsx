@@ -83,7 +83,7 @@ const EnrollmentProgress = ({
                 <div>
                   <p className="text-sm font-medium text-gray-900">Paso {stepNumber}</p>
                   {recording && (recording as { quality?: string; duration?: number }).quality && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <p className="text-xs text-gray-600 dark:text-gray-300">
                       Calidad: {(recording as { quality?: string; duration?: number }).quality} •{' '}
                       {(recording as { quality?: string; duration?: number }).duration?.toFixed(1)}s
                     </p>
@@ -134,7 +134,7 @@ const EnrollmentProgress = ({
       )}
 
       {!canSubmit && completedSteps === totalSteps && (
-        <div className="text-center text-gray-500 dark:text-gray-400">
+        <div className="text-center text-gray-600 dark:text-gray-300">
           <p className="text-sm">Por favor, revisa todas las grabaciones antes de continuar.</p>
         </div>
       )}

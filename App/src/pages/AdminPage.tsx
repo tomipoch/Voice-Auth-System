@@ -83,7 +83,7 @@ const AdminPage = () => {
         <Card className="p-6 border-l-4 border-blue-500">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Usuarios</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Usuarios</p>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">1,234</h3>
             </div>
             <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-full">
@@ -98,7 +98,7 @@ const AdminPage = () => {
         <Card className="p-6 border-l-4 border-green-500">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Tasa de Éxito</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Tasa de Éxito</p>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">98.5%</h3>
             </div>
             <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-full">
@@ -113,7 +113,7 @@ const AdminPage = () => {
         <Card className="p-6 border-l-4 border-purple-500">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Verificaciones</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Verificaciones</p>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">8,543</h3>
             </div>
             <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
@@ -126,7 +126,7 @@ const AdminPage = () => {
         <Card className="p-6 border-l-4 border-orange-500">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Alertas</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Alertas</p>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">3</h3>
             </div>
             <div className="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-full">
@@ -230,19 +230,19 @@ const AdminPage = () => {
         <table className="min-w-full">
           <thead>
             <tr className="border-b border-gray-200 dark:border-gray-700">
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Usuario
               </th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Rol
               </th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Estado
               </th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Biometría
               </th>
-              <th className="text-right py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+              <th className="text-right py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Acciones
               </th>
             </tr>
@@ -328,7 +328,7 @@ const AdminPage = () => {
                 ${
                   activeTab === tab.id
                     ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-sm'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-700/50'
                 }
               `}
             >

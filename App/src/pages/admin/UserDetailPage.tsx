@@ -47,7 +47,7 @@ const UserDetailPage = () => {
             <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
               Detalle de Usuario
             </h1>
-            <p className="text-gray-500 dark:text-gray-400">Gestionando a {user.fullName}</p>
+            <p className="text-gray-600 dark:text-gray-300">Gestionando a {user.fullName}</p>
           </div>
           <div className="flex gap-3">
             <Button variant="outline">Resetear Password</Button>
@@ -67,7 +67,7 @@ const UserDetailPage = () => {
               <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
                 {user.fullName}
               </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{user.email}</p>
               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 mt-2">
                 {user.status}
               </span>
@@ -112,7 +112,7 @@ const UserDetailPage = () => {
             <p className="font-bold text-gray-900 dark:text-gray-100 mb-1">
               {user.voiceEnrolled ? 'Voz Registrada' : 'No Registrado'}
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
               {user.voiceEnrolled
                 ? 'Perfil biométrico activo'
                 : 'Usuario pendiente de enrolamiento'}
@@ -136,7 +136,7 @@ const UserDetailPage = () => {
           <div className="space-y-4">
             <div>
               <div className="flex justify-between text-sm mb-1">
-                <span className="text-gray-500 dark:text-gray-400">Tasa de Éxito</span>
+                <span className="text-gray-600 dark:text-gray-300">Tasa de Éxito</span>
                 <span className="font-bold text-gray-900 dark:text-gray-100">
                   {user.successRate}%
                 </span>
@@ -174,16 +174,16 @@ const UserDetailPage = () => {
           <table className="min-w-full">
             <thead>
               <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Fecha
                 </th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Método
                 </th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Resultado
                 </th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Score
                 </th>
               </tr>
@@ -195,7 +195,7 @@ const UserDetailPage = () => {
                   className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors"
                 >
                   <td className="py-3 px-4 text-gray-800 dark:text-gray-200">{item.date}</td>
-                  <td className="py-3 px-4 text-gray-600 dark:text-gray-400">{item.method}</td>
+                  <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{item.method}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${

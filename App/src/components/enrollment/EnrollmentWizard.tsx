@@ -53,7 +53,7 @@ const EnrollmentWizard = ({ currentStep, steps, onStepClick }: EnrollmentWizardP
                         {
                           'bg-blue-600 text-white': isCurrent,
                           'bg-green-600 text-white': isCompleted,
-                          'bg-gray-200 text-gray-600 dark:text-gray-400': isUpcoming,
+                          'bg-gray-200 text-gray-700 dark:text-gray-300': isUpcoming,
                         }
                       )}
                     >
@@ -65,12 +65,12 @@ const EnrollmentWizard = ({ currentStep, steps, onStepClick }: EnrollmentWizardP
                       className={clsx('text-sm font-medium', {
                         'text-blue-600': isCurrent,
                         'text-green-600': isCompleted,
-                        'text-gray-500 dark:text-gray-400': isUpcoming,
+                        'text-gray-600 dark:text-gray-300': isUpcoming,
                       })}
                     >
                       {step.name}
                     </span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">
                       {step.description}
                     </span>
                   </span>

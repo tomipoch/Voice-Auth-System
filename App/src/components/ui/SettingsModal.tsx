@@ -155,7 +155,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
     bg-linear-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-gray-200 dark:border-gray-700/50 dark:border-gray-600/50
     focus:ring-4 focus:ring-blue-300/30 dark:focus:ring-blue-500/30 focus:border-blue-400 dark:focus:border-blue-500 focus:bg-linear-to-r focus:from-white/95 focus:to-white/80 dark:focus:from-gray-700/95 dark:focus:to-gray-800/80
     hover:bg-linear-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:border-gray-300/60 dark:hover:border-gray-600/60 hover:shadow-xl
-    placeholder:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-400 text-gray-800 dark:text-gray-100 font-medium text-lg
+    placeholder:text-gray-600 dark:text-gray-300 dark:placeholder:text-gray-400 text-gray-800 dark:text-gray-100 font-medium text-lg
     shadow-xl
   `;
 
@@ -432,7 +432,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <h4 className="font-semibold text-gray-800 dark:text-gray-200">
                   Notificaciones Push
                 </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   Notificaciones en tiempo real en el navegador
                 </p>
               </div>
@@ -494,7 +494,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <h4 className="font-semibold text-gray-800 dark:text-gray-200">
                   Actualizaciones del Sistema
                 </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   Información sobre nuevas funciones y actualizaciones
                 </p>
               </div>
@@ -539,7 +539,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <h4 className="font-semibold text-gray-800 dark:text-gray-200">
                   Tema de la Aplicación
                 </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   Elige el esquema de colores preferido
                 </p>
               </div>
@@ -574,7 +574,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 <h4 className="font-semibold text-gray-800 dark:text-gray-200">
                   Idioma de la Interfaz
                 </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   Selecciona tu idioma preferido
                 </p>
               </div>

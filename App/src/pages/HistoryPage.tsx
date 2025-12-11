@@ -60,16 +60,16 @@ const HistoryPage = () => {
           <table className="min-w-full">
             <thead>
               <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Fecha y Hora
                 </th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Método
                 </th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Resultado
                 </th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Score
                 </th>
               </tr>
@@ -86,7 +86,7 @@ const HistoryPage = () => {
                       <span className="text-gray-800 dark:text-gray-200">{item.date}</span>
                     </div>
                   </td>
-                  <td className="py-3 px-4 text-gray-600 dark:text-gray-400">{item.method}</td>
+                  <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{item.method}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${

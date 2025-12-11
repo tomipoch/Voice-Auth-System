@@ -96,13 +96,13 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }: SystemMetricsProps) 
               <Users className="h-8 w-8 text-blue-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
                 Usuarios Totales
               </p>
               <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {totalUsers}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-gray-600 dark:text-gray-300">
                 {enrollmentRate}% registrados
               </p>
             </div>
@@ -115,11 +115,11 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }: SystemMetricsProps) 
               <Shield className="h-8 w-8 text-green-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Tasa de Éxito</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Tasa de Éxito</p>
               <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {successRate}%
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-gray-600 dark:text-gray-300">
                 {successfulVerifications} / {verificationAttempts} intentos
               </p>
             </div>
@@ -132,7 +132,7 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }: SystemMetricsProps) 
               <Activity className="h-8 w-8 text-purple-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
                 Estado del Sistema
               </p>
               <div className="flex items-center space-x-2 mt-1">
@@ -149,13 +149,13 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }: SystemMetricsProps) 
               <Clock className="h-8 w-8 text-orange-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
                 Tiempo de Respuesta
               </p>
               <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {responseTime}ms
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-gray-600 dark:text-gray-300">
                 Uptime: {formatUptime(uptime)}
               </p>
             </div>
@@ -174,7 +174,7 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }: SystemMetricsProps) 
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <CheckCircle className="h-5 w-5 text-green-600" />
-                <span className="text-sm text-gray-600 dark:text-gray-400">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
                   Verificaciones Exitosas
                 </span>
               </div>
@@ -186,7 +186,7 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }: SystemMetricsProps) 
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <XCircle className="h-5 w-5 text-red-600" />
-                <span className="text-sm text-gray-600 dark:text-gray-400">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
                   Verificaciones Fallidas
                 </span>
               </div>
@@ -236,14 +236,14 @@ const SystemMetrics = ({ metrics = {}, isLoading = false }: SystemMetricsProps) 
                     <p className="text-sm text-gray-900 dark:text-gray-100 truncate">
                       {activity.message}
                     </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <p className="text-xs text-gray-600 dark:text-gray-300">
                       {new Date(activity.timestamp).toLocaleString()}
                     </p>
                   </div>
                 </div>
               ))
             ) : (
-              <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+              <p className="text-sm text-gray-600 dark:text-gray-300 italic">
                 No hay actividad reciente
               </p>
             )}

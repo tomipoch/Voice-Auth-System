@@ -53,8 +53,8 @@ const StatusIndicator = ({ status, message, size = 'md' }: StatusIndicatorProps)
         return {
           icon: AlertCircle,
           className:
-            'text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700',
-          iconClassName: 'text-gray-600 dark:text-gray-400',
+            'text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700',
+          iconClassName: 'text-gray-700 dark:text-gray-300',
         };
     }
   };
