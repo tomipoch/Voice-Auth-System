@@ -14,15 +14,15 @@ interface CardChildProps extends HTMLAttributes<HTMLDivElement> {
 
 const Card = ({ children, className = '', variant = 'default', ...props }: CardProps) => {
   const baseClasses =
-    'rounded-2xl shadow-xl backdrop-blur-xl transition-all duration-300 hover:shadow-2xl';
+    'rounded-2xl shadow-xl backdrop-blur-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1';
 
   const variantClasses = {
     default:
-      'bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 p-6',
+      'bg-white dark:bg-gray-900/70 dark:bg-gray-800/70 border border-blue-200/40 dark:border-gray-600/40 p-6 hover:border-blue-300/60 dark:hover:border-gray-500/60',
     glass:
-      'bg-white dark:bg-gray-900/60 dark:bg-gray-800/60 border border-blue-200/30 dark:border-gray-600/30 p-8',
+      'bg-white dark:bg-gray-900/60 dark:bg-gray-800/60 border border-blue-200/30 dark:border-gray-600/30 p-8 hover:border-blue-300/50 dark:hover:border-gray-500/50',
     solid:
-      'bg-white dark:bg-gray-900 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 dark:border-gray-700 p-6 shadow-lg',
+      'bg-white dark:bg-gray-900 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 dark:border-gray-700 p-6 shadow-lg hover:border-gray-300 dark:hover:border-gray-600',
   };
 
   const classes = clsx(baseClasses, variantClasses[variant], className);

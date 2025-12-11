@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { FileText, Search, Filter, AlertTriangle, Info, CheckCircle, XCircle } from 'lucide-react';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
+import LoadingSpinner from '../../components/ui/LoadingSpinner';
+import EmptyState from '../../components/ui/EmptyState';
 import adminService, { type AuditLog } from '../../services/adminService';
 import toast from 'react-hot-toast';
 
@@ -47,7 +49,7 @@ const AuditLogsPage = () => {
       case 'error':
         return <XCircle className="h-4 w-4 text-red-500" />;
       default:
-        return <FileText className="h-4 w-4 text-gray-500" />;
+        return <FileText className="h-4 w-4 text-gray-600 dark:text-gray-300" aria-hidden="true" />;
     }
   };
 
@@ -93,19 +95,19 @@ const AuditLogsPage = () => {
         {/* Filters */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
           <div className="relative w-full md:w-96">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" aria-hidden="true" />
             <input
               type="text"
               placeholder="Buscar por usuario, acción o detalles..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-gray-500" />
+            <Filter className="h-4 w-4 text-gray-600 dark:text-gray-300" aria-hidden="true" />
             <select
-              className="border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
             >
@@ -120,9 +122,13 @@ const AuditLogsPage = () => {
 
         {/* Logs Table */}
         {loading ? (
-          <div className="text-center py-8 text-gray-500">Cargando logs...</div>
+          <LoadingSpinner size="lg" text="Cargando logs..." className="py-12" />
         ) : filteredLogs.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">No se encontraron logs</div>
+          <EmptyState
+            icon={<FileText className="h-16 w-16" />}
+            title="No se encontraron logs"
+            description="No hay registros de auditoría que coincidan con tus filtros. Intenta ajustar los criterios de búsqueda."
+          />
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full text-sm">
@@ -153,7 +159,7 @@ const AuditLogsPage = () => {
                       key={log.id}
                       className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 font-mono text-xs md:text-sm"
                     >
-                      <td className="py-3 px-4 text-gray-500 whitespace-nowrap">
+                      <td className="py-3 px-4 text-gray-600 dark:text-gray-300 whitespace-nowrap">
                         {new Date(log.timestamp).toLocaleString()}
                       </td>
                       <td className="py-3 px-4">
