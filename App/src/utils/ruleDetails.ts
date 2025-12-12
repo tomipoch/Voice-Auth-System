@@ -90,8 +90,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
   max_challenges_per_user: {
     name: 'Máximo de Challenges Simultáneos',
     category: 'Límites de Tasa',
-    description:
-      'Número máximo de challenges activos que un usuario puede tener al mismo tiempo.',
+    description: 'Número máximo de challenges activos que un usuario puede tener al mismo tiempo.',
     impact:
       'Previene abuso del sistema y limita el uso de recursos. Valores muy bajos pueden afectar la experiencia de usuario.',
     recommendedRange: '1 - 5 challenges',
@@ -104,10 +103,8 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
   max_challenges_per_hour: {
     name: 'Máximo de Challenges por Hora',
     category: 'Límites de Tasa',
-    description:
-      'Número máximo de challenges que un usuario puede crear en una hora.',
-    impact:
-      'Protege contra ataques de fuerza bruta y uso excesivo del sistema.',
+    description: 'Número máximo de challenges que un usuario puede crear en una hora.',
+    impact: 'Protege contra ataques de fuerza bruta y uso excesivo del sistema.',
     recommendedRange: '10 - 30 challenges/hora',
     examples: [
       '20 = Usuario puede crear máximo 20 challenges por hora',
@@ -120,8 +117,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
   challenge_expiry_minutes: {
     name: 'Tiempo de Expiración de Challenge',
     category: 'Mantenimiento',
-    description:
-      'Minutos después de los cuales un challenge no usado expira automáticamente.',
+    description: 'Minutos después de los cuales un challenge no usado expira automáticamente.',
     impact:
       'Valores muy cortos pueden frustrar a usuarios lentos. Valores muy largos acumulan challenges inactivos.',
     recommendedRange: '3 - 10 minutos',
@@ -136,8 +132,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
     category: 'Mantenimiento',
     description:
       'Horas después de expirar que un challenge es eliminado permanentemente de la base de datos.',
-    impact:
-      'Mantiene la base de datos limpia. Valores muy cortos pueden dificultar auditorías.',
+    impact: 'Mantiene la base de datos limpia. Valores muy cortos pueden dificultar auditorías.',
     recommendedRange: '1 - 24 horas',
     examples: [
       '1 = Elimina challenges expirados después de 1 hora',
@@ -148,10 +143,8 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
   cleanup_used_after_hours: {
     name: 'Limpieza de Challenges Usados',
     category: 'Mantenimiento',
-    description:
-      'Horas después de ser usado que un challenge es eliminado de la base de datos.',
-    impact:
-      'Balancea entre mantener historial y optimizar almacenamiento.',
+    description: 'Horas después de ser usado que un challenge es eliminado de la base de datos.',
+    impact: 'Balancea entre mantener historial y optimizar almacenamiento.',
     recommendedRange: '12 - 72 horas',
     examples: [
       '24 = Elimina challenges usados después de 24 horas',

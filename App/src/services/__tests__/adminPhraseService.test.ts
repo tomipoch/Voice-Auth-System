@@ -122,9 +122,7 @@ describe('challengeService', () => {
   describe('getEnrollmentPhrase', () => {
     it('successfully retrieves enrollment phrase', async () => {
       const mockResponse = {
-        data: [
-          { id: 'phrase-1', text: 'Test enrollment phrase', difficulty: 'medium' },
-        ],
+        data: [{ id: 'phrase-1', text: 'Test enrollment phrase', difficulty: 'medium' }],
       };
 
       vi.mocked(api.get).mockResolvedValue(mockResponse);
@@ -139,9 +137,7 @@ describe('challengeService', () => {
   describe('getVerificationPhrase', () => {
     it('successfully retrieves verification phrase', async () => {
       const mockResponse = {
-        data: [
-          { id: 'phrase-2', text: 'Test verification phrase', difficulty: 'easy' },
-        ],
+        data: [{ id: 'phrase-2', text: 'Test verification phrase', difficulty: 'easy' }],
       };
 
       vi.mocked(api.get).mockResolvedValue(mockResponse);

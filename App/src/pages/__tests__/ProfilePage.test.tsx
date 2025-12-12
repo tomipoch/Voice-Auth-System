@@ -201,7 +201,9 @@ describe('ProfilePage', () => {
     await user.click(changePasswordButton);
 
     // Find password input by name attribute
-    const newPasswordInput = container.querySelector('input[name="newPassword"]') as HTMLInputElement;
+    const newPasswordInput = container.querySelector(
+      'input[name="newPassword"]'
+    ) as HTMLInputElement;
     expect(newPasswordInput).toBeInTheDocument();
 
     // Type a weak password
@@ -231,8 +233,12 @@ describe('ProfilePage', () => {
     await user.click(changePasswordButton);
 
     // Find inputs by name attribute
-    const newPasswordInput = container.querySelector('input[name="newPassword"]') as HTMLInputElement;
-    const confirmPasswordInput = container.querySelector('input[name="confirmPassword"]') as HTMLInputElement;
+    const newPasswordInput = container.querySelector(
+      'input[name="newPassword"]'
+    ) as HTMLInputElement;
+    const confirmPasswordInput = container.querySelector(
+      'input[name="confirmPassword"]'
+    ) as HTMLInputElement;
 
     // Type passwords that don't match
     await user.type(newPasswordInput, 'Password123!');
@@ -257,9 +263,15 @@ describe('ProfilePage', () => {
     await user.click(changePasswordButton);
 
     // Find inputs by name attribute
-    const currentPasswordInput = container.querySelector('input[name="currentPassword"]') as HTMLInputElement;
-    const newPasswordInput = container.querySelector('input[name="newPassword"]') as HTMLInputElement;
-    const confirmPasswordInput = container.querySelector('input[name="confirmPassword"]') as HTMLInputElement;
+    const currentPasswordInput = container.querySelector(
+      'input[name="currentPassword"]'
+    ) as HTMLInputElement;
+    const newPasswordInput = container.querySelector(
+      'input[name="newPassword"]'
+    ) as HTMLInputElement;
+    const confirmPasswordInput = container.querySelector(
+      'input[name="confirmPassword"]'
+    ) as HTMLInputElement;
 
     // Fill in password fields
     await user.type(currentPasswordInput, 'OldPassword123!');
@@ -271,10 +283,7 @@ describe('ProfilePage', () => {
     await user.click(updateButton);
 
     await waitFor(() => {
-      expect(authService.changePassword).toHaveBeenCalledWith(
-        'OldPassword123!',
-        'NewPassword123!'
-      );
+      expect(authService.changePassword).toHaveBeenCalledWith('OldPassword123!', 'NewPassword123!');
       expect(toast.success).toHaveBeenCalledWith('Contraseña actualizada exitosamente');
     });
   });
@@ -293,9 +302,15 @@ describe('ProfilePage', () => {
     await user.click(changePasswordButton);
 
     // Find inputs by name attribute
-    const currentPasswordInput = container.querySelector('input[name="currentPassword"]') as HTMLInputElement;
-    const newPasswordInput = container.querySelector('input[name="newPassword"]') as HTMLInputElement;
-    const confirmPasswordInput = container.querySelector('input[name="confirmPassword"]') as HTMLInputElement;
+    const currentPasswordInput = container.querySelector(
+      'input[name="currentPassword"]'
+    ) as HTMLInputElement;
+    const newPasswordInput = container.querySelector(
+      'input[name="newPassword"]'
+    ) as HTMLInputElement;
+    const confirmPasswordInput = container.querySelector(
+      'input[name="confirmPassword"]'
+    ) as HTMLInputElement;
 
     // Fill in password fields
     await user.type(currentPasswordInput, 'WrongPassword');

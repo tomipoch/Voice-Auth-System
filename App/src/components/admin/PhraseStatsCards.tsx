@@ -16,7 +16,10 @@ export const PhraseStatsCards = ({ stats, loading }: PhraseStatsCardsProps) => {
     return (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 animate-pulse border border-gray-100 dark:border-gray-700">
+          <div
+            key={i}
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 animate-pulse border border-gray-100 dark:border-gray-700"
+          >
             <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-2"></div>
             <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
           </div>

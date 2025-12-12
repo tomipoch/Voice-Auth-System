@@ -159,7 +159,6 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
     shadow-xl
   `;
 
-
   const renderProfileTab = () => (
     <div className="space-y-8 max-h-96 overflow-y-auto pr-2">
       <div>

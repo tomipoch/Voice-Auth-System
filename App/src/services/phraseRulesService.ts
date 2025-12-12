@@ -31,10 +31,9 @@ class PhraseRulesService {
    * @param value - New value for the rule
    */
   async updateRule(ruleName: string, value: number): Promise<UpdateRuleResponse> {
-    const response = await api.patch<UpdateRuleResponse>(
-      `${this.baseUrl}/${ruleName}`,
-      { value } as UpdateRuleRequest
-    );
+    const response = await api.patch<UpdateRuleResponse>(`${this.baseUrl}/${ruleName}`, {
+      value,
+    } as UpdateRuleRequest);
     return response.data;
   }
 

@@ -302,7 +302,7 @@ class VerificationServiceV2:
             action = log.get('action')
             entity_type = log.get('entity_type')
             
-            # Valid verification types
+            # Valid verification types (only completed results, not start events)
             valid_types = ['verification_result', 'multi_verification_complete', 'quick_verification']
             
             if (action == AuditAction.VERIFY.value or action == 'verify' or action == 'VERIFICATION') and entity_type in valid_types:
@@ -480,26 +480,27 @@ class VerificationServiceV2:
             avg_score = sum(r["final_score"] for r in session.results) / 3
             is_verified = avg_score >= self._similarity_threshold
             
-            # Log final verification result
-            await self._audit_repo.log_event(
-                actor="system",
-                action=AuditAction.VERIFY,
-                entity_type="multi_verification_complete",
-                entity_id=str(verification_id),
-                success=is_verified,
-                metadata={
-                    "user_id": str(session.user_id),
-                    "average_score": avg_score,
-                    "is_verified": is_verified,
-                    "results": session.results
-                }
-            )
+            # NOTE: Audit log is now saved in the controller with full metadata (IP, user agent, device)
+            # await self._audit_repo.log_event(
+            #     actor="system",
+            #     action=AuditAction.VERIFY,
+            #     entity_type="multi_verification_complete",
+            #     entity_id=str(verification_id),
+            #     success=is_verified,
+            #     metadata={
+            #         "user_id": str(session.user_id),
+            #         "average_score": avg_score,
+            #         "is_verified": is_verified,
+            #         "results": session.results
+            #     }
+            # )
             
             # Clean up session
             del self._active_multi_sessions[verification_id]
             
             return {
                 "is_complete": True,
+                "user_id": str(session.user_id),  # Added for audit logging
                 "phrase_number": phrase_number,
                 "individual_score": float(final_score),
                 "average_score": float(avg_score),

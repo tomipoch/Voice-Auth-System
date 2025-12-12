@@ -95,7 +95,10 @@ const AuditLogsPage = () => {
         {/* Filters */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
           <div className="relative w-full md:w-96">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" aria-hidden="true" />
+            <Search
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
+              aria-hidden="true"
+            />
             <input
               type="text"
               placeholder="Buscar por usuario, acción o detalles..."

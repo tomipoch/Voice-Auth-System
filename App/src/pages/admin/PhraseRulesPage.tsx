@@ -28,9 +28,10 @@ export const PhraseRulesPage = () => {
     loadRules();
   }, []);
 
-  const filteredRules = rules.filter(rule => 
-    rule.rule_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    rule.description?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredRules = rules.filter(
+    (rule) =>
+      rule.rule_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      rule.description?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const loadRules = async () => {
@@ -124,7 +125,7 @@ export const PhraseRulesPage = () => {
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Search className="h-4 w-4 text-gray-400" />
               </div>
-              <input 
+              <input
                 type="text"
                 placeholder="Buscar reglas..."
                 value={searchTerm}
@@ -146,15 +147,10 @@ export const PhraseRulesPage = () => {
         {/* Grid View (Now the only view) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredRules.map((rule) => (
-            <PhraseRuleCard
-              key={rule.id}
-              rule={rule}
-              onEdit={handleEdit}
-              onToggle={handleToggle}
-            />
+            <PhraseRuleCard key={rule.id} rule={rule} onEdit={handleEdit} onToggle={handleToggle} />
           ))}
         </div>
-        </Card>
+      </Card>
 
       {/* Empty State */}
       {!isLoading && !error && filteredRules.length === 0 && (

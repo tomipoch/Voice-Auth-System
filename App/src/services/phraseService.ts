@@ -66,11 +66,7 @@ class PhraseService {
   /**
    * Get random phrases
    */
-  async getRandomPhrases(
-    count = 1,
-    difficulty?: string,
-    language = 'es'
-  ): Promise<Phrase[]> {
+  async getRandomPhrases(count = 1, difficulty?: string, language = 'es'): Promise<Phrase[]> {
     const response = await api.get<Phrase[]>(`${this.baseUrl}/random`, {
       params: { count, difficulty, language },
     });
@@ -95,9 +91,7 @@ class PhraseService {
    * Delete a phrase
    */
   async deletePhrase(phraseId: string): Promise<DeletePhraseResponse> {
-    const response = await api.delete<DeletePhraseResponse>(
-      `${this.baseUrl}/${phraseId}`
-    );
+    const response = await api.delete<DeletePhraseResponse>(`${this.baseUrl}/${phraseId}`);
     return response.data;
   }
 

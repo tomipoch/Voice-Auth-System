@@ -99,7 +99,10 @@ const UsersListPage = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Usuarios</h2>
           <div className="relative w-full md:w-64">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" aria-hidden="true" />
+            <Search
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
+              aria-hidden="true"
+            />
             <input
               type="text"
               placeholder="Buscar usuario..."
@@ -149,7 +152,9 @@ const UsersListPage = () => {
                         </div>
                         <div>
                           <p className="font-medium text-gray-900 dark:text-gray-100">{u.email}</p>
-                          <p className="text-xs text-gray-600 dark:text-gray-300">ID: {u.id.substring(0, 8)}</p>
+                          <p className="text-xs text-gray-600 dark:text-gray-300">
+                            ID: {u.id.substring(0, 8)}
+                          </p>
                         </div>
                       </div>
                     </td>
@@ -248,17 +253,17 @@ const UsersListPage = () => {
             <div className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 ${
-                    confirmAction.type === 'reset'
-                      ? 'bg-blue-100 dark:bg-blue-900/30'
-                      : confirmAction.user.status === 'active'
-                      ? 'bg-red-100 dark:bg-red-900/30'
-                      : 'bg-green-100 dark:bg-green-900/30'
-                  }`}>
+                  <div
+                    className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 ${
+                      confirmAction.type === 'reset'
+                        ? 'bg-blue-100 dark:bg-blue-900/30'
+                        : confirmAction.user.status === 'active'
+                          ? 'bg-red-100 dark:bg-red-900/30'
+                          : 'bg-green-100 dark:bg-green-900/30'
+                    }`}
+                  >
                     {confirmAction.type === 'reset' ? (
-                      <Key className={`h-6 w-6 ${
-                        'text-blue-600 dark:text-blue-400'
-                      }`} />
+                      <Key className={`h-6 w-6 ${'text-blue-600 dark:text-blue-400'}`} />
                     ) : confirmAction.user.status === 'active' ? (
                       <UserX className="h-6 w-6 text-red-600 dark:text-red-400" />
                     ) : (
@@ -270,8 +275,8 @@ const UsersListPage = () => {
                       {confirmAction.type === 'reset'
                         ? 'Resetear Contraseña'
                         : confirmAction.user.status === 'active'
-                        ? 'Desactivar Usuario'
-                        : 'Activar Usuario'}
+                          ? 'Desactivar Usuario'
+                          : 'Activar Usuario'}
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-300">
                       {confirmAction.user.email}
@@ -291,8 +296,8 @@ const UsersListPage = () => {
                   {confirmAction.type === 'reset'
                     ? '¿Estás seguro de que deseas resetear la contraseña de este usuario? Se enviará un correo con instrucciones para crear una nueva contraseña.'
                     : confirmAction.user.status === 'active'
-                    ? '¿Estás seguro de que deseas desactivar este usuario? El usuario no podrá iniciar sesión hasta que sea reactivado.'
-                    : '¿Estás seguro de que deseas activar este usuario? El usuario podrá iniciar sesión nuevamente.'}
+                      ? '¿Estás seguro de que deseas desactivar este usuario? El usuario no podrá iniciar sesión hasta que sea reactivado.'
+                      : '¿Estás seguro de que deseas activar este usuario? El usuario podrá iniciar sesión nuevamente.'}
                 </p>
               </div>
 
@@ -309,15 +314,15 @@ const UsersListPage = () => {
                     confirmAction.type === 'reset'
                       ? 'bg-blue-600 hover:bg-blue-700'
                       : confirmAction.user.status === 'active'
-                      ? 'bg-red-600 hover:bg-red-700'
-                      : 'bg-green-600 hover:bg-green-700'
+                        ? 'bg-red-600 hover:bg-red-700'
+                        : 'bg-green-600 hover:bg-green-700'
                   }`}
                 >
                   {confirmAction.type === 'reset'
                     ? 'Resetear'
                     : confirmAction.user.status === 'active'
-                    ? 'Desactivar'
-                    : 'Activar'}
+                      ? 'Desactivar'
+                      : 'Activar'}
                 </button>
               </div>
             </div>

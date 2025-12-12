@@ -212,7 +212,7 @@ class VerificationService {
    */
   async verifyPhrase(data: VerifyPhraseRequest): Promise<VerifyPhraseResponse> {
     const { getDeviceInfo, getUserAgent } = await import('../utils/deviceInfo');
-    
+
     const formData = new FormData();
     formData.append('verification_id', data.verification_id);
     formData.append('phrase_id', data.challenge_id); // Backend expects phrase_id
