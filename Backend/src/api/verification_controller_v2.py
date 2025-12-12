@@ -1,6 +1,6 @@
 """Voice biometric verification API endpoints with dynamic phrase support."""
 
-from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status
+from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status, Request
 from typing import Optional
 from uuid import UUID
 import io
@@ -295,10 +295,13 @@ async def start_multi_phrase_verification(
 
 @router.post("/verify-phrase", response_model=VerifyPhraseResponse)
 async def verify_phrase(
+    request: Request,
     verification_id: str = Form(...),
     phrase_id: str = Form(...),
     phrase_number: int = Form(...),
     audio_file: UploadFile = File(...),
+    user_agent: str = Form(default=""),
+    device_info: str = Form(default=""),
     verification_service: VerificationServiceV2 = Depends(get_verification_service_v2),
     voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine),
     audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
@@ -363,19 +366,31 @@ async def verify_phrase(
         
         logger.info(f"Phrase {phrase_number} verified. is_complete={result.get('is_complete')}")
         
+        # Extract IP address from request
+        client_ip = request.client.host if request.client else "Unknown"
+        # Check for forwarded headers (proxy/load balancer)
+        forwarded = request.headers.get("X-Forwarded-For")
+        if forwarded:
+            client_ip = forwarded.split(",")[0].strip()
+        
         # Log verification to audit if complete
         if result.get('is_complete'):
             await audit_repo.log_event(
                 actor=str(result.get('user_id')),
                 action=AuditAction.VERIFICATION,
-                entity_type="verification",
+                entity_type="multi_verification_complete",
                 entity_id=str(verification_uuid),
-                success=result.get('success', False),
+                success=result.get('is_verified', False),
                 metadata={
-                    "message": "Voice verification completed",
-                    "score": result.get('final_score'),
-                    "anti_spoofing_score": result.get('anti_spoofing_score'),
-                    "text_match_score": result.get('text_match_score')
+                    "id": str(verification_uuid),
+                    "user_id": str(result.get('user_id')),
+                    "average_score": result.get('average_score'),
+                    "is_verified": result.get('is_verified'),
+                    "results": result.get('all_results', []),
+                    "ip_address": client_ip,
+                    "user_agent": user_agent or "Unknown",
+                    "device_info": device_info or "Unknown",
+                    "timestamp": datetime.now().isoformat()
                 }
             )
         

@@ -211,11 +211,15 @@ class VerificationService {
    * Verificar un challenge individual en verificación multi-frase
    */
   async verifyPhrase(data: VerifyPhraseRequest): Promise<VerifyPhraseResponse> {
+    const { getDeviceInfo, getUserAgent } = await import('../utils/deviceInfo');
+    
     const formData = new FormData();
     formData.append('verification_id', data.verification_id);
     formData.append('phrase_id', data.challenge_id); // Backend expects phrase_id
     formData.append('phrase_number', data.phrase_number.toString());
     formData.append('audio_file', data.audioBlob, `phrase_${data.phrase_number}.wav`);
+    formData.append('user_agent', getUserAgent());
+    formData.append('device_info', getDeviceInfo());
 
     const response = await api.post<VerifyPhraseResponse>(
       `${this.baseUrl}/verify-phrase`,
