@@ -5,9 +5,9 @@ from typing import Dict
 
 # Challenge expiration timeouts (in seconds) based on difficulty
 CHALLENGE_TIMEOUT: Dict[str, int] = {
-    'easy': 60,      # 1 minute
-    'medium': 90,    # 1.5 minutes  
-    'hard': 120      # 2 minutes
+    'easy': 120,      # 2 minutes
+    'medium': 180,    # 3 minutes  
+    'hard': 240      # 4 minutes
 }
 
 # Cleanup job interval (in seconds)

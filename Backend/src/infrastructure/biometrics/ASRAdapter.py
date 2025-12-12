@@ -183,10 +183,19 @@ class ASRAdapter:
             if sample_rate != self.target_sample_rate:
                 resampler = torchaudio.transforms.Resample(sample_rate, self.target_sample_rate)
                 waveform = resampler(waveform)
+                sample_rate = self.target_sample_rate
             
             # Convert to mono if stereo
             if waveform.shape[0] > 1:
                 waveform = torch.mean(waveform, dim=0, keepdim=True)
+            
+            # PERFORMANCE OPTIMIZATION: Limit to 5s for ASR
+            # Wav2Vec2 is slow on CPU, and typical phrases are 3-5s
+            max_asr_samples = int(5.0 * sample_rate)
+            if waveform.shape[1] > max_asr_samples:
+                # Take center portion (best quality usually)
+                start = (waveform.shape[1] - max_asr_samples) // 2
+                waveform = waveform[:, start:start + max_asr_samples]
             
             # Move to device
             waveform = waveform.to(self.device)

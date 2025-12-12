@@ -402,7 +402,7 @@ const DynamicVerificationMulti = ({
             key={currentStepIndex}
             phraseText={currentStep?.challenge?.phrase || ''}
             onRecordingComplete={handleRecordingComplete}
-            maxDuration={30}
+            maxDuration={40}
             minDuration={2}
           />
 
