@@ -77,6 +77,10 @@ class SpoofDetectorAdapter:
             'nes2net': 0.25   # Local Nes2Net replacement
         }
         
+        # Thread safety for parallel processing
+        import threading
+        self._lock = threading.Lock()
+        
         # Load the anti-spoofing models
         self._load_antispoofing_models()
     
@@ -369,26 +373,29 @@ class SpoofDetectorAdapter:
     
     def _predict_with_aasist(self, waveform: torch.Tensor) -> float:
         """Predict spoofing score using AASIST model."""
-        with torch.no_grad():
-            scores, _, _ = self._aasist_model.classify_batch(waveform)
-            # The model returns scores for bonafide and spoof. We want the spoof probability.
-            # The output format may vary, so we need to inspect it.
-            # Assuming the second column is the spoof score.
-            spoof_prob = torch.exp(scores)[:, 1].item()
+        with self._lock:
+            with torch.no_grad():
+                scores, _, _ = self._aasist_model.classify_batch(waveform)
+                # The model returns scores for bonafide and spoof. We want the spoof probability.
+                # The output format may vary, so we need to inspect it.
+                # Assuming the second column is the spoof score.
+                spoof_prob = torch.exp(scores)[:, 1].item()
         return spoof_prob
     
     def _predict_with_rawnet2(self, waveform: torch.Tensor) -> float:
         """Predict spoofing score using RawNet2 model."""
-        with torch.no_grad():
-            scores, _, _ = self._rawnet2_model.classify_batch(waveform)
-            spoof_prob = torch.exp(scores)[:, 1].item()
+        with self._lock:
+            with torch.no_grad():
+                scores, _, _ = self._rawnet2_model.classify_batch(waveform)
+                spoof_prob = torch.exp(scores)[:, 1].item()
         return spoof_prob
     
     def _predict_with_resnet(self, waveform: torch.Tensor) -> float:
         """Predict spoofing score using ResNet model."""
-        with torch.no_grad():
-            scores, _, _ = self._resnet_model.classify_batch(waveform)
-            spoof_prob = torch.exp(scores)[:, 1].item()
+        with self._lock:
+            with torch.no_grad():
+                scores, _, _ = self._resnet_model.classify_batch(waveform)
+                spoof_prob = torch.exp(scores)[:, 1].item()
         return spoof_prob
     
     def _calculate_zcr(self, waveform: torch.Tensor) -> float:
