@@ -113,16 +113,16 @@ const UsersListPage = () => {
                     <td className="py-3 px-4">
                       <span
                         className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium capitalize ${
-                          u.is_active
+                          u.status === 'active'
                             ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
                             : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
                         }`}
                       >
-                        {u.is_active ? 'Activo' : 'Inactivo'}
+                        {u.status === 'active' ? 'Activo' : 'Inactivo'}
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      {u.has_voiceprint ? (
+                      {u.enrollment_status === 'enrolled' ? (
                         <span className="flex items-center text-green-600 text-sm">
                           <Mic className="h-3 w-3 mr-1" aria-hidden="true" /> Activo
                         </span>

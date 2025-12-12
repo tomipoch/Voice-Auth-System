@@ -1,385 +1,409 @@
 /**
- * PhraseRulesPage - Admin UI for Phrase Quality Rules
- * Interfaz de administración para configurar reglas de calidad de frases
+ * Phrases Page
+ * Admin page for managing phrases with stats, filters, and table
  */
 
 import { useState, useEffect } from 'react';
-import { Settings, Save, RotateCcw, AlertCircle, CheckCircle2 } from 'lucide-react';
-import adminService from '../../services/adminService';
-import type { PhraseQualityRule } from '../../types';
-import Card from '../../components/ui/Card';
-import Button from '../../components/ui/Button';
+import { Search, BookOpen, Filter, Trash2 } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 import MainLayout from '../../components/ui/MainLayout';
+import Card from '../../components/ui/Card';
+import LoadingSpinner from '../../components/ui/LoadingSpinner';
+import EmptyState from '../../components/ui/EmptyState';
+import { PhraseStatsCards } from '../../components/admin/PhraseStatsCards';
+import { phraseService } from '../../services/phraseService';
+import type { Phrase, Book, PhraseStats, PhraseFilters } from '../../types/phrases';
 
-interface RuleConfig {
-  min: number;
-  max: number;
-  step: number;
-  unit: string;
-  description: string;
-}
-
-const RULE_CONFIGS: Record<string, RuleConfig> = {
-  min_success_rate: {
-    min: 0.5,
-    max: 1.0,
-    step: 0.05,
-    unit: '%',
-    description: 'Tasa mínima de éxito para mantener una frase activa',
-  },
-  min_asr_score: {
-    min: 0.5,
-    max: 1.0,
-    step: 0.05,
-    unit: '%',
-    description: 'Score mínimo de reconocimiento de voz (ASR)',
-  },
-  min_phrase_ok_rate: {
-    min: 0.5,
-    max: 1.0,
-    step: 0.05,
-    unit: '%',
-    description: 'Tasa mínima de transcripción correcta',
-  },
-  min_attempts_for_analysis: {
-    min: 5,
-    max: 50,
-    step: 5,
-    unit: 'intentos',
-    description: 'Intentos mínimos antes de analizar performance',
-  },
-  exclude_recent_phrases: {
-    min: 10,
-    max: 100,
-    step: 10,
-    unit: 'frases',
-    description: 'Número de frases recientes a excluir',
-  },
-  max_challenges_per_user: {
-    min: 1,
-    max: 10,
-    step: 1,
-    unit: 'challenges',
-    description: 'Máximo de challenges activos por usuario',
-  },
-  max_challenges_per_hour: {
-    min: 5,
-    max: 100,
-    step: 5,
-    unit: 'challenges',
-    description: 'Máximo de challenges por hora por usuario',
-  },
-  challenge_expiry_minutes: {
-    min: 1,
-    max: 60,
-    step: 1,
-    unit: 'minutos',
-    description: 'Tiempo de expiración de challenges',
-  },
-  cleanup_expired_after_hours: {
-    min: 1,
-    max: 24,
-    step: 1,
-    unit: 'horas',
-    description: 'Borrar challenges expirados después de N horas',
-  },
-  cleanup_used_after_hours: {
-    min: 1,
-    max: 168,
-    step: 1,
-    unit: 'horas',
-    description: 'Borrar challenges usados después de N horas',
-  },
-};
-
-const RULE_CATEGORIES = {
-  threshold: {
-    title: '📊 Thresholds',
-    description: 'Umbrales de calidad para frases',
-    rules: ['min_success_rate', 'min_asr_score', 'min_phrase_ok_rate', 'min_attempts_for_analysis'],
-  },
-  rate_limit: {
-    title: '⏱️ Rate Limits',
-    description: 'Límites de uso de challenges',
-    rules: ['exclude_recent_phrases', 'max_challenges_per_user', 'max_challenges_per_hour'],
-  },
-  cleanup: {
-    title: '🧹 Cleanup',
-    description: 'Configuración de limpieza automática',
-    rules: ['challenge_expiry_minutes', 'cleanup_expired_after_hours', 'cleanup_used_after_hours'],
-  },
-};
-
-const PhraseRulesPage = () => {
-  const [rules, setRules] = useState<PhraseQualityRule[]>([]);
+export const PhrasesPage = () => {
+  const [stats, setStats] = useState<PhraseStats | null>(null);
+  const [phrases, setPhrases] = useState<Phrase[]>([]);
+  const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState<string | null>(null);
+  const [loadingTable, setLoadingTable] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [pendingChanges, setPendingChanges] = useState<Record<string, number>>({});
 
-  // Load rules on mount
+  // Filters
+  const [filters, setFilters] = useState<PhraseFilters>({
+    page: 1,
+    limit: 50,
+    difficulty: '',
+    is_active: undefined,
+    search: '',
+    book_id: '',
+    author: '',
+  });
+
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalPhrases, setTotalPhrases] = useState(0);
+
+  // Load stats and books on mount
   useEffect(() => {
-    loadRules();
+    loadStats();
+    loadBooks();
   }, []);
 
-  const loadRules = async () => {
+  // Load phrases when filters change
+  useEffect(() => {
+    loadPhrases();
+  }, [filters]);
+
+  const loadStats = async () => {
     try {
-      setLoading(true);
-      setError(null);
-      const data = await adminService.getPhraseRules();
-      setRules(data);
+      const data = await phraseService.getStats();
+      setStats(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cargar reglas');
+      console.error('Error loading stats:', err);
+      toast.error('Error al cargar estadísticas');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSliderChange = (ruleName: string, value: number) => {
-    setPendingChanges((prev) => ({
-      ...prev,
-      [ruleName]: value,
-    }));
+  const loadBooks = async () => {
+    try {
+      const data = await phraseService.getBooks();
+      setBooks(data);
+    } catch (err) {
+      console.error('Error loading books:', err);
+    }
   };
 
-  const handleSaveRule = async (ruleName: string) => {
-    const newValue = pendingChanges[ruleName];
-    if (newValue === undefined) return;
-
+  const loadPhrases = async () => {
+    setLoadingTable(true);
+    setError(null);
     try {
-      setSaving(ruleName);
-      setError(null);
-      setSuccessMessage(null);
+      const response = await phraseService.getPhrases(filters);
+      setPhrases(response.phrases);
+      setTotalPages(response.total_pages);
+      setTotalPhrases(response.total);
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.detail || 'Error al cargar frases';
+      setError(errorMessage);
+      toast.error(errorMessage);
+    } finally {
+      setLoadingTable(false);
+    }
+  };
 
-      await adminService.updateRule(ruleName, newValue);
+  const handleToggleStatus = async (phraseId: string, currentStatus: boolean) => {
+    try {
+      await phraseService.togglePhraseStatus(phraseId, !currentStatus);
+      toast.success(`Frase ${!currentStatus ? 'activada' : 'desactivada'}`);
 
       // Update local state
-      setRules((prev) =>
-        prev.map((rule) => (rule.rule_name === ruleName ? { ...rule, rule_value: newValue } : rule))
+      setPhrases((prev) =>
+        prev.map((p) => (p.id === phraseId ? { ...p, is_active: !currentStatus } : p))
       );
 
-      // Remove from pending changes
-      setPendingChanges((prev) => {
-        const { [ruleName]: _, ...rest } = prev;
-        return rest;
-      });
-
-      setSuccessMessage(`Regla "${ruleName}" actualizada correctamente`);
-      setTimeout(() => setSuccessMessage(null), 3000);
+      // Reload stats
+      loadStats();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al actualizar regla');
-    } finally {
-      setSaving(null);
+      toast.error('Error al cambiar estado de la frase');
     }
   };
 
-  const handleToggleRule = async (ruleName: string) => {
+  const handleDelete = async (phraseId: string) => {
+    if (!confirm('¿Estás seguro de eliminar esta frase?')) return;
+
     try {
-      setSaving(ruleName);
-      setError(null);
+      await phraseService.deletePhrase(phraseId);
+      toast.success('Frase eliminada');
 
-      const response = await adminService.toggleRule(ruleName);
+      // Remove from local state
+      setPhrases((prev) => prev.filter((p) => p.id !== phraseId));
 
-      // Update local state
-      setRules((prev) => prev.map((rule) => (rule.rule_name === ruleName ? response.rule : rule)));
-
-      setSuccessMessage(response.message);
-      setTimeout(() => setSuccessMessage(null), 3000);
+      // Reload stats
+      loadStats();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cambiar estado de regla');
-    } finally {
-      setSaving(null);
+      toast.error('Error al eliminar frase');
     }
   };
 
-  const handleResetRule = (ruleName: string) => {
-    setPendingChanges((prev) => {
-      const { [ruleName]: _, ...rest } = prev;
-      return rest;
-    });
+  const handleFilterChange = (key: keyof PhraseFilters, value: any) => {
+    setFilters((prev) => ({ ...prev, [key]: value, page: 1 }));
   };
 
-  const getRuleValue = (ruleName: string): number => {
-    return pendingChanges[ruleName] ?? rules.find((r) => r.rule_name === ruleName)?.rule_value ?? 0;
+  const handlePageChange = (newPage: number) => {
+    setFilters((prev) => ({ ...prev, page: newPage }));
   };
 
-  const formatValue = (value: number, ruleName: string): string => {
-    const config = RULE_CONFIGS[ruleName];
-    if (!config) return value.toString();
-
-    if (config.unit === '%') {
-      return `${(value * 100).toFixed(0)}%`;
-    }
-    return `${value} ${config.unit}`;
+  const getDifficultyBadge = (difficulty: string) => {
+    const colors: Record<string, string> = {
+      easy: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+      medium: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
+      hard: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
+    };
+    return colors[difficulty] || 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
   };
 
-  const hasPendingChanges = (ruleName: string): boolean => {
-    return pendingChanges[ruleName] !== undefined;
-  };
-
-  if (loading) {
-    return (
-      <MainLayout>
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <Settings className="w-12 h-12 mx-auto mb-4 animate-spin text-blue-600" />
-            <p className="text-gray-700 dark:text-gray-300">Cargando reglas...</p>
-          </div>
-        </div>
-      </MainLayout>
-    );
-  }
+  // Get unique authors
+  const uniqueAuthors = Array.from(new Set(books.map((b) => b.author).filter(Boolean)));
 
   return (
     <MainLayout>
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
-          Configuración de Reglas de Calidad
+          Gestión de Frases
         </h1>
         <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
-          Administra los parámetros de calidad y límites del sistema de challenges
+          Administra las {stats?.total.toLocaleString() || '...'} frases del sistema
         </p>
       </div>
 
-      {/* Success/Error Messages */}
-      {successMessage && (
-        <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center">
-          <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mr-3" />
-          <p className="text-green-800 dark:text-green-300">{successMessage}</p>
+      {/* Stats Cards */}
+      <PhraseStatsCards stats={stats} loading={loading} />
+
+      {/* Filters Card */}
+      <Card className="p-6 mb-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Filter className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Filtros</h2>
         </div>
-      )}
 
-      {error && (
-        <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center">
-          <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mr-3" />
-          <p className="text-red-800 dark:text-red-300">{error}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Search */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Buscar en frases..."
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              value={filters.search || ''}
+              onChange={(e) => handleFilterChange('search', e.target.value)}
+            />
+          </div>
+
+          {/* Difficulty */}
+          <select
+            value={filters.difficulty || ''}
+            onChange={(e) => handleFilterChange('difficulty', e.target.value)}
+            className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+          >
+            <option value="">Todas las dificultades</option>
+            <option value="easy">🟢 Fácil</option>
+            <option value="medium">🟡 Media</option>
+            <option value="hard">🔴 Difícil</option>
+          </select>
+
+          {/* Status */}
+          <select
+            value={filters.is_active === undefined ? '' : filters.is_active.toString()}
+            onChange={(e) => {
+              const value = e.target.value === '' ? undefined : e.target.value === 'true';
+              handleFilterChange('is_active', value);
+            }}
+            className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+          >
+            <option value="">Todos los estados</option>
+            <option value="true">✅ Activas</option>
+            <option value="false">❌ Inactivas</option>
+          </select>
+
+          {/* Book */}
+          <select
+            value={filters.book_id || ''}
+            onChange={(e) => handleFilterChange('book_id', e.target.value)}
+            className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+          >
+            <option value="">Todos los libros ({books.length})</option>
+            {books.map((book) => (
+              <option key={book.id} value={book.id}>
+                📖 {book.title}
+              </option>
+            ))}
+          </select>
+
+          {/* Author */}
+          <select
+            value={filters.author || ''}
+            onChange={(e) => handleFilterChange('author', e.target.value)}
+            className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+          >
+            <option value="">Todos los autores ({uniqueAuthors.length})</option>
+            {uniqueAuthors.map((author) => (
+              <option key={author} value={author}>
+                ✍️ {author}
+              </option>
+            ))}
+          </select>
+
+          {/* Clear Filters */}
+          <button
+            onClick={() =>
+              setFilters({
+                page: 1,
+                limit: 50,
+                difficulty: '',
+                is_active: undefined,
+                search: '',
+                book_id: '',
+                author: '',
+              })
+            }
+            className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          >
+            🔄 Limpiar filtros
+          </button>
         </div>
-      )}
 
-      {/* Rules by Category */}
-      <div className="space-y-8">
-        {Object.entries(RULE_CATEGORIES).map(([categoryKey, category]) => (
-          <Card key={categoryKey} className="p-6">
-            <div className="mb-6">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-                {category.title}
-              </h2>
-              <p className="text-sm text-gray-700 dark:text-gray-300">{category.description}</p>
-            </div>
+        {/* Active Filters Summary */}
+        {(filters.search || filters.difficulty || filters.is_active !== undefined || filters.book_id || filters.author) && (
+          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Mostrando <span className="font-semibold text-gray-900 dark:text-gray-100">{totalPhrases.toLocaleString()}</span> resultados
+              {filters.search && ` con "${filters.search}"`}
+              {filters.difficulty && ` • Dificultad: ${filters.difficulty}`}
+              {filters.is_active !== undefined && ` • ${filters.is_active ? 'Activas' : 'Inactivas'}`}
+              {filters.book_id && ` • Libro seleccionado`}
+              {filters.author && ` • Autor: ${filters.author}`}
+            </p>
+          </div>
+        )}
+      </Card>
 
-            <div className="space-y-6">
-              {category.rules.map((ruleName) => {
-                const rule = rules.find((r) => r.rule_name === ruleName);
-                const config = RULE_CONFIGS[ruleName];
-                if (!rule || !config) return null;
-
-                const currentValue = getRuleValue(ruleName);
-                const isPending = hasPendingChanges(ruleName);
-                const isSaving = saving === ruleName;
-
-                return (
-                  <div key={ruleName} className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-1">
-                          <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                            {ruleName.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
-                          </h3>
-                          <button
-                            onClick={() => handleToggleRule(ruleName)}
-                            disabled={isSaving}
-                            className={`px-2 py-1 text-xs rounded ${
-                              rule.is_active
-                                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                                : 'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
-                            }`}
-                          >
-                            {rule.is_active ? 'Activa' : 'Inactiva'}
-                          </button>
-                        </div>
-                        <p className="text-xs text-gray-700 dark:text-gray-300">
-                          {config.description}
-                        </p>
-                      </div>
-                      <div className="text-right ml-4">
-                        <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
-                          {formatValue(currentValue, ruleName)}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="range"
-                        min={config.min}
-                        max={config.max}
-                        step={config.step}
-                        value={currentValue}
-                        onChange={(e) => handleSliderChange(ruleName, parseFloat(e.target.value))}
-                        disabled={isSaving}
-                        className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                      />
-                      <div className="flex gap-2">
-                        {isPending && (
-                          <>
-                            <Button
-                              size="sm"
-                              onClick={() => handleSaveRule(ruleName)}
-                              disabled={isSaving}
-                              className="min-w-[80px]"
-                            >
-                              {isSaving ? (
-                                <Settings className="w-4 h-4 animate-spin" />
-                              ) : (
-                                <>
-                                  <Save className="w-4 h-4 mr-1" />
-                                  Guardar
-                                </>
-                              )}
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => handleResetRule(ruleName)}
-                              disabled={isSaving}
-                            >
-                              <RotateCcw className="w-4 h-4" />
-                            </Button>
-                          </>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between mt-2 text-xs text-gray-600 dark:text-gray-300">
-                      <span>{formatValue(config.min, ruleName)}</span>
-                      <span>{formatValue(config.max, ruleName)}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </Card>
-        ))}
-      </div>
-
-      {/* Info Footer */}
-      <Card className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20">
-        <div className="flex items-start">
-          <AlertCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-3 mt-0.5" />
-          <div className="text-sm text-blue-800 dark:text-blue-300">
-            <p className="font-medium mb-1">Información importante:</p>
-            <ul className="list-disc list-inside space-y-1">
-              <li>Los cambios se aplican inmediatamente al guardar</li>
-              <li>Las reglas inactivas no se aplican en el sistema</li>
-              <li>Los valores recomendados están basados en pruebas de rendimiento</li>
-            </ul>
+      {/* Table Card */}
+      <Card className="p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Frases</h2>
+          <div className="text-sm text-gray-600 dark:text-gray-400">
+            Página {filters.page} de {totalPages}
           </div>
         </div>
+
+        {error ? (
+          <EmptyState
+            icon={<BookOpen className="h-16 w-16" />}
+            title="Error al cargar frases"
+            description={error}
+          />
+        ) : loadingTable ? (
+          <LoadingSpinner size="lg" text="Cargando frases..." className="py-12" />
+        ) : phrases.length === 0 ? (
+          <EmptyState
+            icon={<BookOpen className="h-16 w-16" />}
+            title="No se encontraron frases"
+            description="No hay frases que coincidan con los filtros aplicados."
+          />
+        ) : (
+          <>
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead>
+                  <tr className="border-b border-gray-200 dark:border-gray-700">
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                      Texto
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                      Dificultad
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                      Palabras
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                      Estado
+                    </th>
+                    <th className="text-center py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                      Acciones
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                  {phrases.map((phrase) => (
+                    <tr
+                      key={phrase.id}
+                      className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors"
+                    >
+                      <td className="py-3 px-4">
+                        <div className="max-w-md">
+                          <p className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2">
+                            {phrase.text}
+                          </p>
+                          {(phrase.book_title || phrase.source) && (
+                            <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                              📚 {phrase.book_title || phrase.source}
+                              {phrase.book_author && ` - ${phrase.book_author}`}
+                            </p>
+                          )}
+                        </div>
+                      </td>
+                      <td className="py-3 px-4">
+                        <span
+                          className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium capitalize ${getDifficultyBadge(
+                            phrase.difficulty
+                          )}`}
+                        >
+                          {phrase.difficulty}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
+                        <span className="text-sm text-gray-600 dark:text-gray-300">
+                          {phrase.word_count}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
+                        <div
+                          onClick={() => handleToggleStatus(phrase.id, phrase.is_active)}
+                          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                            phrase.is_active
+                              ? 'bg-green-500 hover:bg-green-600'
+                              : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                          }`}
+                          style={{ width: '44px', height: '24px', borderRadius: '9999px' }}
+                          title={phrase.is_active ? 'Desactivar frase' : 'Activar frase'}
+                        >
+                          <span
+                            className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                              phrase.is_active ? 'translate-x-5' : 'translate-x-0'
+                            }`}
+                            style={{ width: '20px', height: '20px' }}
+                          />
+                        </div>
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        <div className="flex justify-center">
+                        <button
+                          onClick={() => handleDelete(phrase.id)}
+                          className="flex items-center justify-center h-8 w-8 rounded-full bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50 transition-colors"
+                          title="Eliminar frase"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Pagination */}
+            <div className="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                Mostrando {((filters.page! - 1) * filters.limit!) + 1} - {Math.min(filters.page! * filters.limit!, totalPhrases)} de {totalPhrases.toLocaleString()} frases
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handlePageChange(filters.page! - 1)}
+                  disabled={filters.page === 1}
+                  className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                >
+                  ← Anterior
+                </button>
+                <button
+                  onClick={() => handlePageChange(filters.page! + 1)}
+                  disabled={filters.page === totalPages}
+                  className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                >
+                  Siguiente →
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </Card>
     </MainLayout>
   );
 };
 
-export default PhraseRulesPage;
+export default PhrasesPage;

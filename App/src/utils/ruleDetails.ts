@@ -10,6 +10,7 @@ export interface RuleDetail {
   impact: string;
   recommendedRange: string;
   examples: string[];
+  unit: string;
 }
 
 export const RULE_DETAILS: Record<string, RuleDetail> = {
@@ -26,6 +27,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
       '0.70 = La frase debe tener al menos 70% de verificaciones exitosas',
       '0.80 = Más estricto, requiere 80% de éxito',
     ],
+    unit: '%',
   },
   min_asr_score: {
     name: 'Score Mínimo de ASR',
@@ -39,6 +41,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
       '0.80 = Requiere 80% de confianza en el reconocimiento',
       '0.90 = Muy estricto, solo acepta audio muy claro',
     ],
+    unit: 'Score',
   },
   min_phrase_ok_rate: {
     name: 'Tasa Mínima de Transcripción Correcta',
@@ -52,6 +55,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
       '0.75 = La frase debe transcribirse correctamente al menos 75% de las veces',
       '0.85 = Más estricto, requiere frases muy claras',
     ],
+    unit: '%',
   },
   min_attempts_for_analysis: {
     name: 'Intentos Mínimos para Análisis',
@@ -65,6 +69,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
       '10 = Analiza la frase después de 10 usos',
       '20 = Espera más datos antes de analizar',
     ],
+    unit: 'intentos',
   },
   exclude_recent_phrases: {
     name: 'Excluir Frases Recientes',
@@ -78,6 +83,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
       '50 = No repetir las últimas 50 frases usadas',
       '100 = Mayor variedad, no repetir las últimas 100',
     ],
+    unit: 'frases',
   },
 
   // Rate Limit Rules
@@ -93,6 +99,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
       '3 = Usuario puede tener máximo 3 challenges activos',
       '5 = Más permisivo, permite hasta 5 challenges',
     ],
+    unit: 'challenges',
   },
   max_challenges_per_hour: {
     name: 'Máximo de Challenges por Hora',
@@ -106,6 +113,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
       '20 = Usuario puede crear máximo 20 challenges por hora',
       '30 = Más permisivo para usuarios legítimos',
     ],
+    unit: 'challenges/hora',
   },
 
   // Cleanup Rules
@@ -121,6 +129,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
       '5 = Challenge expira después de 5 minutos sin uso',
       '10 = Más tiempo para completar el challenge',
     ],
+    unit: 'minutos',
   },
   cleanup_expired_after_hours: {
     name: 'Limpieza de Challenges Expirados',
@@ -134,6 +143,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
       '1 = Elimina challenges expirados después de 1 hora',
       '24 = Mantiene por un día para auditoría',
     ],
+    unit: 'horas',
   },
   cleanup_used_after_hours: {
     name: 'Limpieza de Challenges Usados',
@@ -147,6 +157,7 @@ export const RULE_DETAILS: Record<string, RuleDetail> = {
       '24 = Elimina challenges usados después de 24 horas',
       '72 = Mantiene por 3 días para análisis',
     ],
+    unit: 'horas',
   },
 };
 

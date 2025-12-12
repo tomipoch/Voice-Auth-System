@@ -24,11 +24,19 @@ export interface ToggleRuleResponse {
 
 export interface AdminUser {
   id: string;
+  first_name: string;
+  last_name: string;
   email: string;
   role: string;
-  is_active: boolean;
+  is_active: boolean; // Computed from status='active' in frontend or backend? Backend returns "status": "active" string.
+  // Wait, backend returns "status": "active" | "inactive".
+  // AdminUser interface had is_active: boolean.
+  // I should check if I need to map "status" string to is_active boolean or update interface.
+  // Backend returns: status: str, enrollment_status: str.
+  status: string;
+  enrollment_status: string;
   created_at: string;
-  has_voiceprint: boolean;
+  // has_voiceprint: boolean; // Removed
 }
 
 export interface PaginatedUsers {
@@ -57,6 +65,38 @@ export interface AuditLog {
   details: string;
 }
 
+export interface UserDetails {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  role: string;
+  company: string;
+  status: string;
+  enrollment_status: string;
+  created_at: string;
+  last_login?: string;
+  voice_template?: any;
+}
+
+export interface VerificationAttempt {
+  id: string;
+  date: string;
+  result: 'success' | 'failed';
+  score: number;
+  method: string;
+  details?: any; // Contains raw metadata from backend
+}
+
+export interface UserHistoryResponse {
+  success: boolean;
+  history: {
+    user_id: string;
+    total_attempts: number;
+    recent_attempts: VerificationAttempt[];
+  };
+}
+
 class AdminService {
   private readonly baseUrl = '/admin';
 
@@ -75,6 +115,24 @@ class AdminService {
     const response = await api.get<PaginatedUsers>(`${this.baseUrl}/users`, {
       params: { page, page_size: pageSize },
     });
+    return response.data;
+  }
+
+  /**
+   * Obtener detalles de un usuario
+   */
+  async getUserDetails(id: string): Promise<UserDetails> {
+    const response = await api.get<UserDetails>(`${this.baseUrl}/users/${id}`);
+    return response.data;
+  }
+
+  /**
+   * Obtener historial de verificaciones de un usuario
+   */
+  async getUserHistory(id: string): Promise<UserHistoryResponse> {
+    // Note: This calls the verification service, not admin service directly
+    // but we wrap it here for convenience in the admin context
+    const response = await api.get<UserHistoryResponse>(`/verification/user/${id}/history`);
     return response.data;
   }
 

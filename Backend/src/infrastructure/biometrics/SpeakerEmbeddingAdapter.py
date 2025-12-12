@@ -236,15 +236,24 @@ class SpeakerEmbeddingAdapter:
         waveform = waveform / (np.max(np.abs(waveform)) + 1e-8)
         
         # Trim or pad to target length
-        target_samples = int(self.target_length * sample_rate)
-        if len(waveform) > target_samples:
-            # Take center portion
-            start = (len(waveform) - target_samples) // 2
-            waveform = waveform[start:start + target_samples]
-        elif len(waveform) < target_samples:
-            # Pad with zeros
-            pad_length = target_samples - len(waveform)
+        # UPDATE: Allow variable length (MIN_AUDIO_DURATION_SEC to MAX_AUDIO_DURATION_SEC)
+        # We only trim if it exceeds MAX_AUDIO_DURATION_SEC
+        
+        # Max samples allowed
+        max_samples = int(MAX_AUDIO_DURATION_SEC * sample_rate)
+        min_samples = int(MIN_AUDIO_DURATION_SEC * sample_rate)
+        
+        if len(waveform) > max_samples:
+             # Trim to max length (take center portion)
+            start = (len(waveform) - max_samples) // 2
+            waveform = waveform[start:start + max_samples]
+        elif len(waveform) < min_samples:
+             # Pad with zeros to minimum length
+             # Some models need a minimum context window
+            pad_length = min_samples - len(waveform)
             waveform = np.pad(waveform, (0, pad_length), mode='constant')
+        
+        # Otherwise, keep original length (between min and max)
         
         return waveform, sample_rate
     

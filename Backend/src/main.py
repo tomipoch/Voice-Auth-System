@@ -27,6 +27,7 @@ warnings.filterwarnings("ignore", message=".*custom_fwd.*")
 from .api.challenge_controller import challenge_router
 from .api.auth_controller import auth_router
 from .api.admin_controller import admin_router
+from .api.phrase_controller import router as phrase_router
 from .infrastructure.config.dependencies import close_db_pool, create_voice_biometric_engine
 from .api.enrollment_controller import router as enrollment_router
 from .api.verification_controller_v2 import router as verification_router_v2
@@ -203,6 +204,7 @@ def create_app() -> FastAPI:
     # Include routers
     app.include_router(auth_router, prefix="/api/auth", tags=["authentication"])
     app.include_router(admin_router, prefix="/api/admin", tags=["administration"])
+    app.include_router(phrase_router, prefix="/api/phrases", tags=["phrases"])
     app.include_router(challenge_router, prefix="/api/challenges", tags=["challenges"])
     app.include_router(enrollment_router, prefix="/api/enrollment", tags=["enrollment"])
     app.include_router(verification_router_v2, prefix="/api/verification", tags=["verification"])
