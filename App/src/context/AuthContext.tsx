@@ -127,30 +127,77 @@ export const AuthProvider = ({ children }) => {
             }
           } else {
             // Verificar token con el servidor para tokens reales
-            const profile = await authService.getProfile();
-            dispatch({
-              type: actionTypes.LOGIN_SUCCESS,
-              payload: {
-                user: profile,
-                token,
-              },
-            });
-
-            if (features.debugMode) {
-              console.log('🔐 Server Auth initialized:', {
-                user: profile.name,
-                role: profile.role,
+            try {
+              const profile = await authService.getProfile();
+              dispatch({
+                type: actionTypes.LOGIN_SUCCESS,
+                payload: {
+                  user: profile,
+                  token,
+                },
               });
+
+              if (features.debugMode) {
+                console.log('🔐 Server Auth initialized:', {
+                  user: profile.name,
+                  role: profile.role,
+                });
+              }
+            } catch (error) {
+              // Diferenciar tipos de error para mejor manejo
+              if (error.response?.status === 401) {
+                // Token realmente inválido o expirado - limpiar sesión
+                authStorage.clearAuth();
+                dispatch({ type: actionTypes.LOGOUT });
+
+                if (features.debugMode) {
+                  console.log('🔓 Invalid token cleared (401)');
+                }
+              } else {
+                // Error de red o servidor temporal - MANTENER sesión local
+                console.warn('⚠️ Error verificando token, usando datos locales:', error.message);
+                dispatch({
+                  type: actionTypes.LOGIN_SUCCESS,
+                  payload: {
+                    user: user,
+                    token,
+                  },
+                });
+
+                if (features.debugMode) {
+                  console.log('🔐 Auth initialized with local data (network error)');
+                }
+
+                // Intentar reconectar en background después de 5 segundos
+                setTimeout(() => {
+                  authService
+                    .getProfile()
+                    .then((profile) => {
+                      // Actualizar con datos frescos del servidor
+                      dispatch({
+                        type: actionTypes.SET_USER,
+                        payload: profile,
+                      });
+                      authStorage.setUser(profile);
+                      
+                      if (features.debugMode) {
+                        console.log('🔄 Profile refreshed from server');
+                      }
+                    })
+                    .catch(() => {
+                      // Silenciosamente fallar si aún no hay conexión
+                      if (features.debugMode) {
+                        console.log('⚠️ Background refresh failed, keeping local data');
+                      }
+                    });
+                }, 5000);
+              }
             }
           }
-        } catch {
-          // Token inválido, limpiar storage
-          authStorage.clearAuth();
-          dispatch({ type: actionTypes.LOGOUT });
-
-          if (features.debugMode) {
-            console.log('🔓 Invalid token cleared');
-          }
+        } catch (error) {
+          // Error crítico inesperado
+          console.error('❌ Critical error in initAuth:', error);
+          dispatch({ type: actionTypes.SET_LOADING, payload: false });
         }
       } else {
         dispatch({ type: actionTypes.SET_LOADING, payload: false });
@@ -159,6 +206,69 @@ export const AuthProvider = ({ children }) => {
 
     initAuth();
   }, []);
+
+  // Sincronización entre pestañas
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      // Detectar logout en otra pestaña
+      if (e.key === 'voiceauth_logout_signal') {
+        authStorage.clearAuth();
+        dispatch({ type: actionTypes.LOGOUT });
+        
+        if (features.debugMode) {
+          console.log('🔓 Logout detected from another tab');
+        }
+        
+        toast.info('Sesión cerrada en otra pestaña');
+        window.location.href = '/login';
+      }
+      
+      // Detectar login en otra pestaña
+      if (e.key === 'voiceauth_login_signal') {
+        const token = authStorage.getAccessToken();
+        const user = authStorage.getUser();
+        
+        if (token && user && !state.isAuthenticated) {
+          dispatch({
+            type: actionTypes.LOGIN_SUCCESS,
+            payload: { user, token },
+          });
+          
+          if (features.debugMode) {
+            console.log('🔐 Login detected from another tab');
+          }
+          
+          toast.info('Sesión iniciada en otra pestaña');
+        }
+      }
+      
+      // Detectar cambios directos en token/user
+      const tokenKey = authStorage.getAccessToken ? 'voiceauth_token' : e.key;
+      if (e.key === tokenKey || e.key === 'voiceauth_user') {
+        const newToken = authStorage.getAccessToken();
+        const newUser = authStorage.getUser();
+        
+        if (!newToken || !newUser) {
+          // Se eliminó el token/user
+          if (state.isAuthenticated) {
+            dispatch({ type: actionTypes.LOGOUT });
+          }
+        } else if (!state.isAuthenticated) {
+          // Se agregó token/user
+          dispatch({
+            type: actionTypes.LOGIN_SUCCESS,
+            payload: { user: newUser, token: newToken },
+          });
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [state.isAuthenticated]);
 
   // Función de login
   const login = async (credentials) => {
@@ -223,16 +333,25 @@ export const AuthProvider = ({ children }) => {
 
       // Login normal con el servidor
       const response = await authService.login(credentials);
-      const { user, token } = response;
+      const { user, access_token, refresh_token } = response;
 
       // Guardar usando authStorage
-      authStorage.setAccessToken(token);
+      authStorage.setAccessToken(access_token);
       authStorage.setUser(user);
+      
+      // Guardar refresh token si está disponible
+      if (refresh_token) {
+        authStorage.setRefreshToken(refresh_token);
+      }
 
       dispatch({
         type: actionTypes.LOGIN_SUCCESS,
-        payload: { user, token },
+        payload: { user, token: access_token },
       });
+
+      // Notificar a otras pestañas sobre el login
+      localStorage.setItem('voiceauth_login_signal', Date.now().toString());
+      localStorage.removeItem('voiceauth_login_signal');
 
       if (features.debugMode) {
         console.log('🔐 Server login successful:', { user: user.name, role: user.role });
@@ -284,6 +403,10 @@ export const AuthProvider = ({ children }) => {
         console.error('❌ Error during logout:', error);
       }
     } finally {
+      // Notificar a otras pestañas sobre el logout
+      localStorage.setItem('voiceauth_logout_signal', Date.now().toString());
+      localStorage.removeItem('voiceauth_logout_signal');
+      
       // Limpiar usando authStorage
       authStorage.clearAuth();
       dispatch({ type: actionTypes.LOGOUT });

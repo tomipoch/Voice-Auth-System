@@ -139,6 +139,36 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
             rows = await conn.fetch(query, *params)
             return [Phrase(**dict(row)) for row in rows]
     
+    async def get_recent_phrase_ids(
+        self,
+        user_id: UUID,
+        limit: int = 50
+    ) -> List[UUID]:
+        """Get IDs of recently used phrases for a user.
+        
+        Args:
+            user_id: User ID to get recent phrases for
+            limit: Maximum number of phrase IDs to return
+            
+        Returns:
+            List of phrase UUIDs, ordered by most recent first
+        """
+        async with self._pool.acquire() as conn:
+            rows = await conn.fetch(
+                """
+                SELECT DISTINCT phrase_id
+                FROM phrase_usage
+                WHERE user_id = $1 AND phrase_id IS NOT NULL
+                ORDER BY used_at DESC
+                LIMIT $2
+                """,
+                user_id,
+                limit
+            )
+            
+            return [row['phrase_id'] for row in rows]
+
+    
     async def count_by_difficulty(self, language: str = 'es') -> dict:
         """Count phrases grouped by difficulty."""
         async with self._pool.acquire() as conn:

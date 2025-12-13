@@ -10,6 +10,7 @@ import { useAuth } from './hooks/useAuth';
 import GlobalSettingsModal from './components/ui/GlobalSettingsModal';
 import SkipLink from './components/ui/SkipLink';
 import PWAInstallPrompt from './components/ui/PWAInstallPrompt';
+import ConnectionStatus from './components/ui/ConnectionStatus';
 
 // Lazy load de páginas para code splitting
 const LoginPage = lazy(() => import('./pages/LoginPage'));
@@ -96,6 +97,7 @@ const AppRoutes = () => {
   return (
     <>
       <SkipLink />
+      <ConnectionStatus />
       <div
         id="main-content"
         className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300"

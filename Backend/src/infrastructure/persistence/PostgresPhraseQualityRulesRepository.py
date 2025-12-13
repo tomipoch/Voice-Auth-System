@@ -83,13 +83,16 @@ class PostgresPhraseQualityRulesRepository(PhraseQualityRulesRepositoryPort):
     ) -> bool:
         """Update a rule's value. Returns True if successful."""
         async with self._pool.acquire() as conn:
-            # Check if rule exists
+            # Get current rule to preserve JSONB structure
             current_rule = await self.get_rule(rule_name)
             if not current_rule:
                 logger.warning(f"Rule '{rule_name}' not found")
                 return False
             
-            # Update the numeric value directly
+            # Update only the 'value' field in the JSONB, preserving description and unit
+            rule_value = current_rule['rule_value']
+            rule_value['value'] = new_value
+            
             result = await conn.execute(
                 """
                 UPDATE phrase_quality_rules
@@ -97,7 +100,7 @@ class PostgresPhraseQualityRulesRepository(PhraseQualityRulesRepositoryPort):
                     updated_at = now()
                 WHERE rule_name = $2
                 """,
-                new_value,
+                rule_value,
                 rule_name
             )
             
@@ -134,10 +137,11 @@ class PostgresPhraseQualityRulesRepository(PhraseQualityRulesRepositoryPort):
             return default
         
         try:
-            # rule_value is already a numeric value, not a dict
-            value = rule['rule_value']
+            # rule_value is JSONB with structure: {"value": 0.70, "description": "...", "unit": "..."}
+            rule_value = rule['rule_value']
+            value = rule_value.get('value', default)
             return float(value)
-        except (ValueError, TypeError) as e:
+        except (ValueError, TypeError, AttributeError) as e:
             logger.error(f"Error parsing rule value for '{rule_name}': {e}, using default: {default}")
             return default
 
