@@ -23,8 +23,20 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# JWT Configuration
+# JWT Configuration with strict validation for production
 SECRET_KEY = os.getenv("SECRET_KEY", "voice-biometrics-secret-key-change-in-production")
+ENV = os.getenv("ENV", "development")
+
+# Validate SECRET_KEY in production
+if ENV == "production":
+    if not SECRET_KEY or SECRET_KEY == "voice-biometrics-secret-key-change-in-production":
+        raise ValueError(
+            "SECRET_KEY must be set to a strong random value in production. "
+            "Do not use the default development key!"
+        )
+elif SECRET_KEY == "voice-biometrics-secret-key-change-in-production":
+    logger.warning("⚠️  Using default SECRET_KEY - NOT SAFE FOR PRODUCTION")
+
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 MAX_FAILED_ATTEMPTS = 5
@@ -113,6 +125,36 @@ async def get_current_user(
         raise auth_error
     return user
 
+def validate_password_strength(password: str) -> tuple[bool, str]:
+    """
+    Validate password meets security requirements.
+    
+    Requirements:
+    - Minimum 8 characters
+    - At least 1 uppercase letter
+    - At least 1 lowercase letter
+    - At least 1 number
+    
+    Returns:
+        tuple: (is_valid, error_message)
+    """
+    import re
+    
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters long"
+    
+    if not re.search(r"[A-Z]", password):
+        return False, "Password must contain at least one uppercase letter"
+    
+    if not re.search(r"[a-z]", password):
+        return False, "Password must contain at least one lowercase letter"
+    
+    if not re.search(r"\d", password):
+        return False, "Password must contain at least one number"
+    
+    return True, ""
+
+
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify password against hash."""
     return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
@@ -120,41 +162,48 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 @auth_router.post("/login", response_model=TokenResponse)
 async def login(
     user_data: UserLoginRequest,
+    request: Request,  # Added Request dependency for IP logging
     user_repo: UserRepositoryPort = Depends(get_user_repository),
     audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository),
 ):
     """
     Authenticate user and return access token.
     """
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
     
     user = await user_repo.get_user_by_email(user_data.email)
     logger.info(f"Login attempt for email={user_data.email}, found user_id={user['id'] if user else None}")
     
-    if user and user.get("locked_until") and user["locked_until"] > datetime.now():
-        logger.warning(f"Login failed for email={user_data.email}: Account locked until {user['locked_until']}")
+    if not user:
+        logger.warning(f"Failed login attempt for non-existent user: {user_data.email} from IP: {request.client.host if request.client else 'unknown'}")
+        raise credentials_exception
+
+    # Check if account is locked
+    is_locked = user.get("locked_until") and user["locked_until"] > datetime.now()
+    if is_locked:
+        logger.warning(f"Login attempt for locked account: {user_data.email} from IP: {request.client.host if request.client else 'unknown'}")
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail=f"Account locked. Try again after {user['locked_until']}.",
-            headers={"WWW-Authenticate": "Bearer"},
+            detail=f"Account is locked due to multiple failed login attempts. Please try again after {LOCKOUT_MINUTES} minutes."
         )
 
-    if not user or not verify_password(user_data.password, user["password"]):
-        if user:
-            await user_repo.increment_failed_auth_attempts(user["id"])
-            logger.warning(f"Login failed for user_id={user['id']}, email={user_data.email}: Invalid credentials. Failed attempts: {user['failed_auth_attempts'] + 1}")
-            if user["failed_auth_attempts"] + 1 >= MAX_FAILED_ATTEMPTS:
-                await user_repo.lock_user_account(user["id"], timedelta(minutes=LOCKOUT_MINUTES))
-                logger.error(f"User account user_id={user['id']}, email={user_data.email} locked due to too many failed attempts.")
-        else:
-            logger.warning(f"Login failed for email={user_data.email}: User not found or invalid credentials.")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+    # Incorrect password - increment failed attempts
+    if not verify_password(user_data.password, user["password"]):
+        await user_repo.increment_failed_auth_attempts(user["id"])
+        failed_attempts = user.get("failed_auth_attempts", 0) + 1 # Get updated count
+        logger.warning(f"Failed login attempt for user: {user_data.email} (attempt {failed_attempts}/{MAX_FAILED_ATTEMPTS}) from IP: {request.client.host if request.client else 'unknown'}")
+        if failed_attempts >= MAX_FAILED_ATTEMPTS:
+            await user_repo.lock_user_account(user["id"], timedelta(minutes=LOCKOUT_MINUTES))
+            logger.error(f"User account user_id={user['id']}, email={user_data.email} locked due to too many failed attempts.")
+        raise credentials_exception
     
-    # Reset failed attempts on successful login
+    # Successful login - reset failed attempts
     await user_repo.reset_failed_auth_attempts(user["id"])
+    logger.info(f"Successful login for user: {user_data.email} (ID: {user['id']}) from IP: {request.client.host if request.client else 'unknown'}")
     
     # Create access token with email as subject (standard practice)
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -187,7 +236,7 @@ async def login(
         entity_type="user",
         entity_id=str(user["id"]),
         success=True,
-        metadata={"email": user_data.email, "message": "User logged in successfully"}
+        metadata={"email": user_data.email, "message": "User logged in successfully", "ip_address": request.client.host if request.client else 'unknown'}
     )
     
     # Remove sensitive data
@@ -292,6 +341,14 @@ async def register(
     """
     Register a new user.
     """
+    # Validate password strength
+    is_valid, error_msg = validate_password_strength(user_data.password)
+    if not is_valid:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=error_msg
+        )
+    
     # Check if user already exists
     if await user_repo.get_user_by_email(user_data.email):
         raise HTTPException(
@@ -351,20 +408,6 @@ async def logout():
     """
     return {"message": "Successfully logged out"}
 
-@auth_router.get("/me")
-async def get_current_user_info(current_user: dict = Depends(get_current_user)):
-    """
-    Get current authenticated user information.
-    """
-    return {
-        "id": current_user["id"],
-        "name": current_user["name"],
-        "email": current_user["email"],
-        "role": current_user["role"],
-        "company": current_user["company"],
-        "settings": current_user.get("settings", {})
-    }
-
 @auth_router.patch("/profile", response_model=UserProfile)
 async def update_profile(
     user_data: ProfileUpdateRequest,
@@ -408,6 +451,7 @@ async def update_profile(
 @auth_router.post("/change-password")
 async def change_password(
     password_data: PasswordChangeRequest,
+    request: Request, # Added Request dependency
     current_user: dict = Depends(get_current_user),
     user_repo: UserRepositoryPort = Depends(get_user_repository),
 ):
@@ -419,6 +463,7 @@ async def change_password(
     user = await user_repo.get_user(current_user["id"])
     
     if not user:
+        logger.warning(f"Password change attempt for non-existent user_id: {current_user['id']} from IP: {request.client.host if request.client else 'unknown'}")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="User not found"
@@ -426,16 +471,18 @@ async def change_password(
     
     # Verify current password (field is 'password' not 'password_hash')
     if not verify_password(password_data.current_password, user["password"]):
+        logger.warning(f"Password change failed for user_id: {current_user['id']} due to incorrect current password from IP: {request.client.host if request.client else 'unknown'}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Current password is incorrect"
         )
     
-    # Validate new password length
-    if len(password_data.new_password) < 8:
+    # Validate new password strength
+    is_valid, error_msg = validate_password_strength(password_data.new_password)
+    if not is_valid:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="New password must be at least 8 characters long"
+            detail=error_msg
         )
     
     # Hash new password

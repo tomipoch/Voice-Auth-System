@@ -164,21 +164,53 @@ def create_app() -> FastAPI:
     app.add_exception_handler(ValueError, value_error_handler)
     app.add_exception_handler(Exception, generic_exception_handler)
     
+    # Add security headers middleware
+    @app.middleware("http")
+    async def add_security_headers(request: Request, call_next):
+        """Add security headers to all responses."""
+        response = await call_next(request)
+        
+        # Prevent MIME-sniffing
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        
+        # Prevent clickjacking
+        response.headers["X-Frame-Options"] = "DENY"
+        
+        # Enable XSS protection
+        response.headers["X-XSS-Protection"] = "1; mode=block"
+        
+        # Enforce HTTPS (only in production)
+        env = os.getenv("ENV", "development")
+        if env == "production":
+            response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        
+        return response
+    
     # Add CORS middleware
     origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+    env = os.getenv("ENV", "development")
     
-    # Add common development ports (Vite default is 5173)
-    dev_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
-    for origin in dev_origins:
-        if origin not in origins:
-            origins.append(origin)
+    # Add common development ports in development mode
+    if env == "development":
+        dev_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+        for origin in dev_origins:
+            if origin not in origins:
+                origins.append(origin)
+    
+    # Configure CORS - more restrictive in production
+    if env == "production":
+        allowed_methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+        allowed_headers = ["Content-Type", "Authorization"]
+    else:
+        allowed_methods = ["*"]
+        allowed_headers = ["*"]
             
     app.add_middleware(
         CORSMiddleware,
         allow_origins=origins,
         allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
+        allow_methods=allowed_methods,
+        allow_headers=allowed_headers,
     )
     
     # Root endpoint

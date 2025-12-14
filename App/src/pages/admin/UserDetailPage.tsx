@@ -11,6 +11,7 @@ import {
   XCircle,
   Eye,
   FileText,
+  Trash2,
 } from 'lucide-react';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
@@ -342,6 +343,7 @@ const UserDetailPage = () => {
   const [showModelModal, setShowModelModal] = useState(false);
   const [selectedAttempt, setSelectedAttempt] = useState<VerificationAttempt | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [stats, setStats] = useState({
     successRate: 0,
     verificationCount: 0,
@@ -395,6 +397,21 @@ const UserDetailPage = () => {
     }
   };
 
+  const handleDeleteUser = async () => {
+    if (!user) return;
+
+    try {
+      await adminService.deleteUser(user.id);
+      toast.success('Usuario eliminado exitosamente');
+      navigate('/admin/users');
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      toast.error('Error al eliminar usuario');
+    } finally {
+      setShowDeleteModal(false);
+    }
+  };
+
   if (loading) {
     return (
       <MainLayout>
@@ -423,13 +440,24 @@ const UserDetailPage = () => {
   return (
     <MainLayout>
       <div className="mb-8">
-        <button
-          onClick={() => navigate('/admin/users')}
-          className="mb-4 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-          aria-label="Volver a usuarios"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </button>
+        <div className="flex items-center justify-between mb-4">
+          <button
+            onClick={() => navigate('/admin/users')}
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+            aria-label="Volver a usuarios"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowDeleteModal(true)}
+            className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 border-red-300 dark:border-red-800"
+          >
+            <Trash2 className="h-4 w-4 mr-2" />
+            Eliminar Usuario
+          </Button>
+        </div>
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
             Detalle de Usuario
@@ -742,6 +770,44 @@ const UserDetailPage = () => {
                 ? new Date(user.voice_template.created_at).toLocaleString()
                 : 'Desconocida'}
             </p>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        title="Eliminar Usuario"
+      >
+        <div className="space-y-4">
+          <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800/30">
+            <p className="text-sm text-red-800 dark:text-red-300 font-medium">
+              ⚠️ Esta acción no se puede deshacer
+            </p>
+          </div>
+          <p className="text-gray-700 dark:text-gray-300">
+            ¿Estás seguro de que deseas eliminar a{' '}
+            <span className="font-semibold">
+              {user?.first_name} {user?.last_name}
+            </span>
+            ?
+          </p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Se eliminarán todos los datos asociados, incluyendo su perfil biométrico y historial de
+            verificaciones.
+          </p>
+          <div className="flex gap-3 justify-end pt-4">
+            <Button variant="outline" onClick={() => setShowDeleteModal(false)}>
+              Cancelar
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleDeleteUser}
+              className="bg-red-600 hover:bg-red-700 text-white"
+            >
+              Eliminar Usuario
+            </Button>
           </div>
         </div>
       </Modal>
