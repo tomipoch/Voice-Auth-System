@@ -357,7 +357,6 @@ is_verified = (similarity_score >= threshold) AND (is_live)
 4. **Producción**:
    - Docker Compose para orquestación
    - CI/CD con GitHub Actions
-   - Monitoreo con Prometheus/Grafana
    - Backup automático de DB
 
 ## 📞 Soporte

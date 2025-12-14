@@ -168,7 +168,6 @@ El proyecto incluye:
 
 **Servicios incluidos**:
 - `postgres`: PostgreSQL 16 con pgvector
-- `redis`: Redis 7 para caching
 - `api`: FastAPI application
 - `pgadmin`: Interfaz web para DB (opcional)
 
@@ -207,7 +206,6 @@ Los volúmenes persistentes incluyen:
 ```yaml
 volumes:
   postgres_data:     # Datos de PostgreSQL
-  redis_data:        # Datos de Redis
   pgadmin_data:      # Configuración de pgAdmin
 ```
 
@@ -224,7 +222,6 @@ Volúmenes montados:
 | API | http://localhost:8000 | - |
 | API Docs | http://localhost:8000/docs | - |
 | PostgreSQL | localhost:5432 | voice_user / voice_password |
-| Redis | localhost:6379 | - |
 | pgAdmin | http://localhost:5050 | admin@example.com / admin |
 
 ### 6. Health Checks
@@ -240,9 +237,6 @@ curl http://localhost:8000/health
 
 # Health check de PostgreSQL
 docker exec voice_biometrics_db pg_isready -U voice_user
-
-# Health check de Redis
-docker exec voice_biometrics_redis redis-cli ping
 ```
 
 ---
@@ -390,15 +384,6 @@ services:
       - backend
     # NO exponer puerto externamente
 
-  redis:
-    image: redis:7-alpine
-    restart: always
-    command: redis-server --requirepass ${REDIS_PASSWORD}
-    volumes:
-      - redis_data:/data
-    networks:
-      - backend
-
   api:
     image: voice-biometrics-api:latest
     restart: always
@@ -408,7 +393,6 @@ services:
       - .env.production
     depends_on:
       - postgres
-      - redis
     volumes:
       - ./models:/app/models:ro  # Read-only
       - ./logs:/app/logs
@@ -422,7 +406,6 @@ services:
 
 volumes:
   postgres_data:
-  redis_data:
 
 networks:
   backend:
@@ -654,22 +637,9 @@ logs/
 └── access.log       # Access logs
 ```
 
-### Métricas Disponibles
+### Logs de Aplicación
 
-El endpoint `/metrics` expone métricas de Prometheus:
-
-```bash
-curl http://localhost:8000/metrics
-```
-
-Métricas incluidas:
-- Request count por endpoint
-- Request duration
-- Error rate
-- Active connections
-- ML model inference time
-
-### Monitoreo de Salud
+### Health Check
 
 ```bash
 # Health check básico

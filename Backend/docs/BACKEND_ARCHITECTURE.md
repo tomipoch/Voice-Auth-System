@@ -25,7 +25,6 @@ El backend es una **API RESTful** construida con **FastAPI** que implementa un s
 - 🔐 **Autenticación**: JWT con refresh tokens
 - 📊 **Base de Datos**: PostgreSQL con asyncpg
 - 🧹 **Cleanup Jobs**: Limpieza automática de desafíos
-- 📈 **Monitoreo**: Prometheus metrics
 
 ---
 
@@ -474,7 +473,6 @@ class ResultBuilder:
 ### Infraestructura
 - **Docker**: Containerización
 - **Docker Compose**: Orquestación
-- **Prometheus**: Métricas
 - **Uvicorn**: Servidor ASGI
 
 ### Desarrollo
@@ -559,20 +557,6 @@ async def lifespan(app: FastAPI):
 - Pydantic para request validation
 - Sanitización de inputs
 - CORS configurado
-
----
-
-## Monitoreo
-
-### Prometheus Metrics
-
-**Endpoint**: `/metrics`
-
-**Métricas**:
-- Request count
-- Request duration
-- Error rate
-- Active connections
 
 ---
 
