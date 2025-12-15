@@ -156,10 +156,10 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
         async with self._pool.acquire() as conn:
             rows = await conn.fetch(
                 """
-                SELECT DISTINCT phrase_id
+                SELECT DISTINCT ON (phrase_id) phrase_id, used_at
                 FROM phrase_usage
                 WHERE user_id = $1 AND phrase_id IS NOT NULL
-                ORDER BY used_at DESC
+                ORDER BY phrase_id, used_at DESC
                 LIMIT $2
                 """,
                 user_id,
@@ -167,6 +167,7 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
             )
             
             return [row['phrase_id'] for row in rows]
+
 
     
     async def count_by_difficulty(self, language: str = 'es') -> dict:
