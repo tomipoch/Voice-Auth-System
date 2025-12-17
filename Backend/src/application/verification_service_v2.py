@@ -192,6 +192,22 @@ class VerificationServiceV2:
         #     is_verified=is_verified
         # )
         
+        # Log to evaluation system if active (for thesis experimental results)
+        try:
+            from evaluation.evaluation_logger import evaluation_logger
+            if evaluation_logger.enabled:
+                evaluation_logger.log_verification_attempt(
+                    user_id=str(session.user_id),
+                    similarity_score=float(similarity_score),
+                    spoof_probability=float(anti_spoofing_score) if anti_spoofing_score else None,
+                    system_decision="accepted" if is_verified else "rejected",
+                    threshold_used=self._similarity_threshold,
+                    challenge_id=str(challenge_id),
+                    phrase_match_score=None
+                )
+        except Exception:
+            # Don't fail verification if evaluation logging fails
+            pass
         
         # Clean up session
         del self._active_sessions[verification_id]

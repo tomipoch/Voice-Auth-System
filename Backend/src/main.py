@@ -28,6 +28,8 @@ from .api.challenge_controller import challenge_router
 from .api.auth_controller import auth_router
 from .api.admin_controller import admin_router
 from .api.phrase_controller import router as phrase_router
+from .api.evaluation_controller import router as evaluation_router
+from .api.dataset_recording_controller import router as dataset_recording_router
 from .infrastructure.config.dependencies import close_db_pool, create_voice_biometric_engine
 from .api.enrollment_controller import router as enrollment_router
 from .api.verification_controller_v2 import router as verification_router_v2
@@ -240,6 +242,8 @@ def create_app() -> FastAPI:
     app.include_router(challenge_router, prefix="/api/challenges", tags=["challenges"])
     app.include_router(enrollment_router, prefix="/api/enrollment", tags=["enrollment"])
     app.include_router(verification_router_v2, prefix="/api/verification", tags=["verification"])
+    app.include_router(evaluation_router)  # Already has prefix defined in router
+    app.include_router(dataset_recording_router)  # Dataset recording endpoints
     
     # Health check endpoint
     @app.get("/health")

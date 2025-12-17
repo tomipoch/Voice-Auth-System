@@ -236,23 +236,86 @@ const RegisterPage = () => {
                 {errors.last_name && <p className="text-sm text-red-500">{errors.last_name}</p>}
               </div>
 
-              {/* RUT Input */}
+              {/* RUT Input - Split into number and verification digit */}
               <div className="relative space-y-2">
-                <label htmlFor="rut" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="rut_number" className="block text-sm font-medium text-gray-700">
                   RUT
                 </label>
-                <input
-                  id="rut"
-                  name="rut"
-                  type="text"
-                  autoComplete="off"
-                  value={formData.rut}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 pr-12 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
-                  placeholder="12345678-9"
-                />
-                <CreditCard className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
+                <div className="flex gap-3 items-center">
+                  {/* RUT Number */}
+                  <div className="flex-1 relative">
+                    <input
+                      id="rut_number"
+                      name="rut_number"
+                      type="text"
+                      autoComplete="off"
+                      value={(() => {
+                        // Extraer solo el número (antes del guión si existe)
+                        if (!formData.rut) return '';
+                        const parts = formData.rut.split('-');
+                        return parts[0] || '';
+                      })()}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/\D/g, '').slice(0, 8);
+                        // Obtener el verificador actual si existe
+                        const parts = formData.rut.split('-');
+                        const verifier = parts.length > 1 ? parts[1] : '';
+                        
+                        setFormData(prev => ({
+                          ...prev,
+                          rut: value + (verifier ? `-${verifier}` : '')
+                        }));
+                        if (errors.rut) {
+                          setErrors(prev => ({ ...prev, rut: undefined }));
+                        }
+                      }}
+                      className="w-full px-4 py-3 pr-12 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
+                      placeholder="12345678"
+                      maxLength={8}
+                    />
+                    <CreditCard className="absolute right-3 top-3 h-5 w-5 text-blue-400" />
+                  </div>
+                  
+                  {/* Hyphen Separator */}
+                  <div className="flex items-center text-gray-400 text-2xl font-bold pb-1">-</div>
+                  
+                  {/* Verification Digit */}
+                  <div className="w-20 relative">
+                    <input
+                      id="rut_verifier"
+                      name="rut_verifier"
+                      type="text"
+                      autoComplete="off"
+                      value={(() => {
+                        // Extraer solo el verificador (después del guión si existe)
+                        if (!formData.rut) return '';
+                        const parts = formData.rut.split('-');
+                        return parts.length > 1 ? parts[1] : '';
+                      })()}
+                      onChange={(e) => {
+                        const value = e.target.value.toUpperCase().slice(0, 1);
+                        if (value === '' || /^[0-9K]$/.test(value)) {
+                          // Obtener el número actual
+                          const parts = formData.rut.split('-');
+                          const number = parts[0] || '';
+                          
+                          setFormData(prev => ({
+                            ...prev,
+                            rut: number + (value ? `-${value}` : '')
+                          }));
+                          if (errors.rut) {
+                            setErrors(prev => ({ ...prev, rut: undefined }));
+                          }
+                        }
+                      }}
+                      className="w-full px-4 py-3 text-center bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
+                      placeholder="9"
+                      maxLength={1}
+                    />
+                  </div>
+                </div>
                 {errors.rut && <p className="text-sm text-red-500">{errors.rut}</p>}
+                <p className="text-xs text-gray-500">Ingresa tu RUT sin puntos. Ej: 12345678-9</p>
               </div>
 
               {/* Email Input */}
@@ -291,6 +354,29 @@ const RegisterPage = () => {
                 />
                 <Lock className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
                 {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
+                
+                {/* Password Requirements */}
+                <div className="mt-2 space-y-1">
+                  <p className="text-xs font-medium text-gray-600">La contraseña debe tener:</p>
+                  <ul className="text-xs space-y-1">
+                    <li className={`flex items-center gap-1 ${formData.password.length >= 8 ? 'text-green-600' : 'text-gray-500'}`}>
+                      <span className="text-lg">{formData.password.length >= 8 ? '✓' : '○'}</span>
+                      Al menos 8 caracteres
+                    </li>
+                    <li className={`flex items-center gap-1 ${/[A-Z]/.test(formData.password) ? 'text-green-600' : 'text-gray-500'}`}>
+                      <span className="text-lg">{/[A-Z]/.test(formData.password) ? '✓' : '○'}</span>
+                      Una letra mayúscula
+                    </li>
+                    <li className={`flex items-center gap-1 ${/[a-z]/.test(formData.password) ? 'text-green-600' : 'text-gray-500'}`}>
+                      <span className="text-lg">{/[a-z]/.test(formData.password) ? '✓' : '○'}</span>
+                      Una letra minúscula
+                    </li>
+                    <li className={`flex items-center gap-1 ${/\d/.test(formData.password) ? 'text-green-600' : 'text-gray-500'}`}>
+                      <span className="text-lg">{/\d/.test(formData.password) ? '✓' : '○'}</span>
+                      Un número
+                    </li>
+                  </ul>
+                </div>
               </div>
 
               {/* Confirm Password Input */}

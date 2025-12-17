@@ -1,0 +1,189 @@
+{
+  "session_id": "test_eval_20251217_022627",
+  "session_name": "test_eval",
+  "started_at": "2025-12-17T02:26:27.481292",
+  "enrollments": [
+    {
+      "enrollment_id": "enroll_0001",
+      "user_id": "user_001",
+      "timestamp": "2025-12-17T02:26:27.627642",
+      "embedding_shape": [
+        192
+      ],
+      "embedding_norm": 7.995574380588735,
+      "audio_metadata": {
+        "duration_ms": 3500
+      }
+    },
+    {
+      "enrollment_id": "enroll_0002",
+      "user_id": "user_002",
+      "timestamp": "2025-12-17T02:26:27.627822",
+      "embedding_shape": [
+        192
+      ],
+      "embedding_norm": 8.106671413438193,
+      "audio_metadata": {
+        "duration_ms": 3500
+      }
+    },
+    {
+      "enrollment_id": "enroll_0003",
+      "user_id": "user_003",
+      "timestamp": "2025-12-17T02:26:27.627834",
+      "embedding_shape": [
+        192
+      ],
+      "embedding_norm": 8.268951562278867,
+      "audio_metadata": {
+        "duration_ms": 3500
+      }
+    }
+  ],
+  "verification_attempts": [
+    {
+      "attempt_id": "v0001",
+      "user_id": "user_001",
+      "timestamp": "2025-12-17T02:26:27.629827",
+      "similarity_score": 0.9157942779777641,
+      "spoof_probability": 0.020314272461804263,
+      "phrase_match_score": null,
+      "system_decision": "accepted",
+      "threshold_used": 0.7,
+      "challenge_id": null,
+      "manual_annotation": null,
+      "is_genuine": null,
+      "notes": ""
+    },
+    {
+      "attempt_id": "v0002",
+      "user_id": "user_002",
+      "timestamp": "2025-12-17T02:26:27.629844",
+      "similarity_score": 0.3455534863660376,
+      "spoof_probability": 0.09951601847818922,
+      "phrase_match_score": null,
+      "system_decision": "rejected",
+      "threshold_used": 0.7,
+      "challenge_id": null,
+      "manual_annotation": null,
+      "is_genuine": null,
+      "notes": ""
+    },
+    {
+      "attempt_id": "v0003",
+      "user_id": "user_003",
+      "timestamp": "2025-12-17T02:26:27.629851",
+      "similarity_score": 0.7385526206371777,
+      "spoof_probability": 0.0512589011559982,
+      "phrase_match_score": null,
+      "system_decision": "accepted",
+      "threshold_used": 0.7,
+      "challenge_id": null,
+      "manual_annotation": null,
+      "is_genuine": null,
+      "notes": ""
+    },
+    {
+      "attempt_id": "v0004",
+      "user_id": "user_001",
+      "timestamp": "2025-12-17T02:26:27.629857",
+      "similarity_score": 0.46639562318569316,
+      "spoof_probability": 0.035850137472707634,
+      "phrase_match_score": null,
+      "system_decision": "rejected",
+      "threshold_used": 0.7,
+      "challenge_id": null,
+      "manual_annotation": null,
+      "is_genuine": null,
+      "notes": ""
+    },
+    {
+      "attempt_id": "v0005",
+      "user_id": "user_002",
+      "timestamp": "2025-12-17T02:26:27.629865",
+      "similarity_score": 0.9428861980939396,
+      "spoof_probability": 0.03675017714074234,
+      "phrase_match_score": null,
+      "system_decision": "accepted",
+      "threshold_used": 0.7,
+      "challenge_id": null,
+      "manual_annotation": null,
+      "is_genuine": null,
+      "notes": ""
+    },
+    {
+      "attempt_id": "v0006",
+      "user_id": "user_003",
+      "timestamp": "2025-12-17T02:26:27.629870",
+      "similarity_score": 0.32294350122193766,
+      "spoof_probability": 0.05116680705801895,
+      "phrase_match_score": null,
+      "system_decision": "rejected",
+      "threshold_used": 0.7,
+      "challenge_id": null,
+      "manual_annotation": null,
+      "is_genuine": null,
+      "notes": ""
+    },
+    {
+      "attempt_id": "v0007",
+      "user_id": "user_001",
+      "timestamp": "2025-12-17T02:26:27.629874",
+      "similarity_score": 0.7075299987327694,
+      "spoof_probability": 0.0956448740338716,
+      "phrase_match_score": null,
+      "system_decision": "accepted",
+      "threshold_used": 0.7,
+      "challenge_id": null,
+      "manual_annotation": null,
+      "is_genuine": null,
+      "notes": ""
+    },
+    {
+      "attempt_id": "v0008",
+      "user_id": "user_002",
+      "timestamp": "2025-12-17T02:26:27.629879",
+      "similarity_score": 0.43105997729057577,
+      "spoof_probability": 0.0354134146975775,
+      "phrase_match_score": null,
+      "system_decision": "rejected",
+      "threshold_used": 0.7,
+      "challenge_id": null,
+      "manual_annotation": null,
+      "is_genuine": null,
+      "notes": ""
+    },
+    {
+      "attempt_id": "v0009",
+      "user_id": "user_003",
+      "timestamp": "2025-12-17T02:26:27.629884",
+      "similarity_score": 0.7590046536808144,
+      "spoof_probability": 0.03917060750096371,
+      "phrase_match_score": null,
+      "system_decision": "accepted",
+      "threshold_used": 0.7,
+      "challenge_id": null,
+      "manual_annotation": null,
+      "is_genuine": null,
+      "notes": ""
+    },
+    {
+      "attempt_id": "v0010",
+      "user_id": "user_001",
+      "timestamp": "2025-12-17T02:26:27.629889",
+      "similarity_score": 0.43116475337714955,
+      "spoof_probability": 0.05135658418131854,
+      "phrase_match_score": null,
+      "system_decision": "rejected",
+      "threshold_used": 0.7,
+      "challenge_id": null,
+      "manual_annotation": null,
+      "is_genuine": null,
+      "notes": ""
+    }
+  ],
+  "stats": {
+    "total_enrollments": 3,
+    "total_verifications": 10
+  }
+}
