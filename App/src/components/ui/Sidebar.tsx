@@ -1,6 +1,17 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Mic, Shield, Users, LogOut, Settings, Home, UserPlus as UserPlusIcon, Menu, X, ChevronDown } from 'lucide-react';
+import {
+  Mic,
+  Shield,
+  Users,
+  LogOut,
+  Settings,
+  Home,
+  UserPlus as UserPlusIcon,
+  Menu,
+  X,
+  ChevronDown,
+} from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 
 const Sidebar = () => {
@@ -141,7 +152,9 @@ const Sidebar = () => {
                 </span>
               </div>
               <div className="ml-3 flex-1">
-                <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{user?.fullName || user?.username}</p>
+                <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                  {user?.fullName || user?.username}
+                </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">{user?.email}</p>
               </div>
             </Link>

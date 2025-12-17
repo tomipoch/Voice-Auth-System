@@ -21,6 +21,7 @@ class PostgresUserRepository(UserRepositoryPort):
         password: Optional[str] = None,
         first_name: Optional[str] = None,
         last_name: Optional[str] = None,
+        rut: Optional[str] = None,
         role: str = "user",
         company: Optional[str] = None,
         external_ref: Optional[str] = None
@@ -41,10 +42,10 @@ class PostgresUserRepository(UserRepositoryPort):
         async with self._pool.acquire() as conn:
             await conn.execute(
                 """
-                INSERT INTO "user" (id, email, password, first_name, last_name, role, company, external_ref, created_at)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, now())
+                INSERT INTO "user" (id, email, password, first_name, last_name, rut, role, company, external_ref, created_at)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, now())
                 """,
-                user_id, email, password, first_name, last_name, role, company, external_ref
+                user_id, email, password, first_name, last_name, rut, role, company, external_ref
             )
             
             # Create default user policy
@@ -63,7 +64,7 @@ class PostgresUserRepository(UserRepositoryPort):
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
-                SELECT u.id, u.email, u.password, u.first_name, u.last_name, u.role, u.company, u.external_ref, 
+                SELECT u.id, u.email, u.password, u.first_name, u.last_name, u.rut, u.role, u.company, u.external_ref, 
                        u.created_at, u.deleted_at, u.failed_auth_attempts, u.locked_until, u.last_login, u.settings,
                        (v.id IS NOT NULL) as has_voiceprint
                 FROM "user" u
@@ -82,7 +83,7 @@ class PostgresUserRepository(UserRepositoryPort):
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
-                SELECT id, email, password, first_name, last_name, role, company, external_ref,
+                SELECT id, email, password, first_name, last_name, rut, role, company, external_ref,
                        created_at, deleted_at, failed_auth_attempts, locked_until, last_login, settings
                 FROM "user"
                 WHERE email = $1 AND deleted_at IS NULL
@@ -99,7 +100,7 @@ class PostgresUserRepository(UserRepositoryPort):
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
-                SELECT id, email, password, first_name, last_name, role, company, external_ref,
+                SELECT id, email, password, first_name, last_name, rut, role, company, external_ref,
                        created_at, deleted_at, failed_auth_attempts, locked_until, last_login, settings
                 FROM "user"
                 WHERE external_ref = $1 AND deleted_at IS NULL
@@ -179,7 +180,7 @@ class PostgresUserRepository(UserRepositoryPort):
             offset = (page - 1) * limit
             rows = await conn.fetch(
                 """
-                SELECT u.id, u.email, u.first_name, u.last_name, u.role, u.company, u.external_ref, u.created_at, u.deleted_at,
+                SELECT u.id, u.email, u.first_name, u.last_name, u.rut, u.role, u.company, u.external_ref, u.created_at, u.deleted_at,
                        (v.id IS NOT NULL) as has_voiceprint
                 FROM "user" u
                 LEFT JOIN voiceprint v ON u.id = v.user_id
@@ -205,7 +206,7 @@ class PostgresUserRepository(UserRepositoryPort):
             offset = (page - 1) * limit
             rows = await conn.fetch(
                 """
-                SELECT u.id, u.email, u.first_name, u.last_name, u.role, u.company, u.external_ref, u.created_at, u.deleted_at,
+                SELECT u.id, u.email, u.first_name, u.last_name, u.rut, u.role, u.company, u.external_ref, u.created_at, u.deleted_at,
                        (v.id IS NOT NULL) as has_voiceprint
                 FROM "user" u
                 LEFT JOIN voiceprint v ON u.id = v.user_id

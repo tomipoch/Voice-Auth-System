@@ -15,6 +15,7 @@ import {
   XCircle,
   Edit,
   UserCircle,
+  CreditCard,
 } from 'lucide-react';
 import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
@@ -37,6 +38,7 @@ const ProfilePage = () => {
     lastName: '',
     email: '',
     company: '',
+    rut: '',
   });
 
   const [passwordData, setPasswordData] = useState({
@@ -57,6 +59,7 @@ const ProfilePage = () => {
         lastName: formattedUser.last_name || '',
         email: formattedUser.email || '',
         company: formattedUser.company || '',
+        rut: formattedUser.rut || '',
       });
     }
   }, [user]);
@@ -115,16 +118,61 @@ const ProfilePage = () => {
     }));
   };
 
+  // Función para validar RUT chileno
+  const validateRUT = (rut: string): boolean => {
+    if (!rut) return true; // RUT vacío es válido (opcional)
+
+    // Limpiar el RUT (remover puntos y guión)
+    const cleanRut = rut.replace(/\./g, '').replace(/-/g, '');
+
+    // Validar formato básico (mínimo 8 caracteres)
+    if (cleanRut.length < 8) return false;
+
+    // Separar número y dígito verificador
+    const rutNumber = cleanRut.slice(0, -1);
+    const verifier = cleanRut.slice(-1).toUpperCase();
+
+    // Validar que el número sea numérico
+    if (!/^\d+$/.test(rutNumber)) return false;
+
+    // Calcular dígito verificador
+    let sum = 0;
+    let multiplier = 2;
+
+    for (let i = rutNumber.length - 1; i >= 0; i--) {
+      sum += parseInt(rutNumber[i]) * multiplier;
+      multiplier = multiplier === 7 ? 2 : multiplier + 1;
+    }
+
+    const expectedVerifier = 11 - (sum % 11);
+    const calculatedVerifier =
+      expectedVerifier === 11 ? '0' : expectedVerifier === 10 ? 'K' : expectedVerifier.toString();
+
+    return verifier === calculatedVerifier;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validar RUT si fue proporcionado
+    if (formData.rut && !validateRUT(formData.rut)) {
+      toast.error('RUT inválido. Formato: 12345678-9');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const updateData = {
+      const updateData: any = {
         first_name: formData.firstName,
         last_name: formData.lastName,
         company: formData.company,
       };
+
+      // Solo enviar RUT si tiene valor
+      if (formData.rut) {
+        updateData.rut = formData.rut;
+      }
 
       const response = await authService.updateProfile(updateData);
 
@@ -310,21 +358,29 @@ const ProfilePage = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      RUT
+                      RUT{' '}
+                      {!formData.rut && !user?.rut && (
+                        <span className="text-xs text-blue-600">(Opcional)</span>
+                      )}
                     </label>
                     <div className="relative">
-                      <UserCircle className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                      <CreditCard className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                       <input
                         type="text"
                         name="rut"
-                        value={user?.rut || 'No especificado'}
-                        disabled={true}
-                        placeholder="12.345.678-5"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 cursor-not-allowed"
+                        value={formData.rut || ''}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                        placeholder="12345678-9"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-60 disabled:bg-gray-50 dark:disabled:bg-gray-900 transition-all"
                       />
                     </div>
                     <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
-                      El RUT no se puede cambiar
+                      {isEditing
+                        ? 'Formato: 12345678-9 o 12.345.678-9'
+                        : formData.rut
+                          ? 'RUT registrado'
+                          : 'Sin RUT registrado'}
                     </p>
                   </div>
                 </div>
