@@ -103,7 +103,7 @@ class EnrollmentService:
             metadata={
                 "user_id": str(user_id),
                 "difficulty": difficulty,
-                "phrase_count": len(phrases_dict)
+                "challenge_count": len(challenges)
             }
         )
         
