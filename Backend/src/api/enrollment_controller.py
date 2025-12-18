@@ -54,7 +54,7 @@ async def start_enrollment(
         success=True,
         enrollment_id=result["enrollment_id"],
         user_id=result["user_id"],
-        phrases=result["challenges"],  # Challenges contain phrase info
+        challenges=result["challenges"],  # Changed from phrases
         required_samples=result["required_samples"],
         message="Enrollment started successfully"
     )

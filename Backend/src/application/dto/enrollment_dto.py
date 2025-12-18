@@ -17,7 +17,7 @@ class StartEnrollmentResponse(BaseModel):
     success: bool
     user_id: str
     enrollment_id: str
-    phrases: List[dict]
+    challenges: List[dict]  # Changed from phrases to match frontend
     required_samples: int
     message: str
 
