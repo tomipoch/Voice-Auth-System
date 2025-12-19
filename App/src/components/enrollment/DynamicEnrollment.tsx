@@ -65,12 +65,17 @@ const DynamicEnrollment = ({
 
         setEnrollmentData(response);
 
-        // Crear pasos basados en las frases
-        const enrollmentSteps: EnrollmentStep[] = response.phrases.map((phrase, index) => ({
+        // Crear pasos basados en las frases (challenges)
+        const enrollmentSteps: EnrollmentStep[] = response.challenges.map((challenge, index) => ({
           id: `step-${index}`,
           name: `Frase ${index + 1}`,
-          description: phrase.text,
-          phrase,
+          description: challenge.phrase,
+          phrase: {
+            id: challenge.phrase_id,
+            text: challenge.phrase,
+            difficulty: challenge.difficulty,
+            word_count: challenge.phrase.split(' ').length
+          },
           completed: false,
         }));
 
