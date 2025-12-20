@@ -213,7 +213,7 @@ class VerificationService {
   async verifyPhrase(data: VerifyPhraseRequest): Promise<VerifyPhraseResponse> {
     const formData = new FormData();
     formData.append('verification_id', data.verification_id);
-    formData.append('challenge_id', data.challenge_id);
+    formData.append('phrase_id', data.challenge_id); // Backend expects phrase_id
     formData.append('phrase_number', data.phrase_number.toString());
     formData.append('audio_file', data.audioBlob, `phrase_${data.phrase_number}.wav`);
 
