@@ -29,6 +29,7 @@ interface EnrollmentStep {
   id: string;
   name: string;
   description: string;
+  challenge_id?: string; // Added for backend validation
   phrase?: Phrase;
   audioBlob?: Blob;
   completed: boolean;
@@ -70,6 +71,7 @@ const DynamicEnrollment = ({
           id: `step-${index}`,
           name: `Frase ${index + 1}`,
           description: challenge.phrase,
+          challenge_id: challenge.challenge_id, // Store challenge_id for backend
           phrase: {
             id: challenge.phrase_id,
             text: challenge.phrase,
@@ -102,12 +104,13 @@ const DynamicEnrollment = ({
     setIsProcessing(true);
 
     try {
-      const currentPhrase = steps[currentStepIndex].phrase!;
+      const currentStep = steps[currentStepIndex];
+      const currentPhrase = currentStep.phrase!;
 
-      // Enviar muestra al servidor
+      // Enviar muestra al servidor usando challenge_id
       const response = await enrollmentService.addSample(
         enrollmentData.enrollment_id,
-        currentPhrase.id,
+        currentStep.challenge_id!, // Use challenge_id instead of phrase_id
         audioBlob
       );
 
