@@ -116,10 +116,10 @@ const DynamicEnrollment = ({
 
       // Actualizar paso como completado
       const updatedSteps = [...steps];
-      const currentStep = updatedSteps[currentStepIndex];
-      if (currentStep) {
+      const updatedStep = updatedSteps[currentStepIndex];
+      if (updatedStep) {
         updatedSteps[currentStepIndex] = {
-          ...currentStep,
+          ...updatedStep,
           audioBlob,
           completed: true,
         };
