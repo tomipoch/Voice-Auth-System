@@ -1,0 +1,60 @@
+================================================================================
+EVALUACIÓN ASR - WER AJUSTADO
+================================================================================
+
+METODOLOGÍA:
+- El ASR procesa solo 5 segundos centrales del audio
+- WER Ajustado compara solo la porción de texto correspondiente
+- Asume distribución uniforme de palabras en el tiempo
+
+RESULTADOS GLOBALES
+--------------------------------------------------------------------------------
+WER Completo:  64.89% ± 16.07%
+WER Ajustado:  58.18% ± 25.11%
+Similarity:    64.42%
+Mejora:        6.70 puntos
+
+================================================================================
+RESULTADOS POR USUARIO
+================================================================================
+
+Usuario: anachamorromunoz
+--------------------------------------------------------------------------------
+  Audios:        13
+  WER Completo:  67.53%
+  WER Ajustado:  53.26% ± 12.74%
+  Similarity:    59.13%
+  Mejora:        14.27 puntos
+
+Usuario: ft_fernandotomas
+--------------------------------------------------------------------------------
+  Audios:        12
+  WER Completo:  60.53%
+  WER Ajustado:  57.10% ± 20.30%
+  Similarity:    70.44%
+  Mejora:        3.43 puntos
+
+Usuario: piapobletech
+--------------------------------------------------------------------------------
+  Audios:        12
+  WER Completo:  63.17%
+  WER Ajustado:  75.10% ± 30.75%
+  Similarity:    68.11%
+  Mejora:        -11.93 puntos
+
+Usuario: rapomo3
+--------------------------------------------------------------------------------
+  Audios:        12
+  WER Completo:  68.10%
+  WER Ajustado:  47.68% ± 24.84%
+  Similarity:    60.43%
+  Mejora:        20.42 puntos
+
+================================================================================
+CONCLUSIÓN
+================================================================================
+
+El WER Ajustado es una métrica más justa para evaluar el ASR,
+ya que solo considera la porción de texto que realmente se procesó.
+
+⚠️  WER Ajustado de 58.2% indica rendimiento moderado

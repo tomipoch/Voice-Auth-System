@@ -1,0 +1,27 @@
+FAR Results - Threshold: 0.5
+============================================================
+
+Global FAR: 13.51%
+Total attempts: 111
+False acceptances: 15
+
+
+piapobletech:
+  FAR: 35.71%
+  Attempts: 28
+  False accepts: 10
+
+ft_fernandotomas:
+  FAR: 3.57%
+  Attempts: 28
+  False accepts: 1
+
+rapomo3:
+  FAR: 3.57%
+  Attempts: 28
+  False accepts: 1
+
+anachamorromunoz:
+  FAR: 11.11%
+  Attempts: 27
+  False accepts: 3

@@ -17,9 +17,9 @@ const DashboardPage = () => {
       if (user?.id) {
         try {
           const response = await verificationService.getVerificationHistory(user.id, 5);
-          if (response.success && response.history) {
+          if (response.success && response.history?.recent_attempts) {
             // Transform backend data to match activity format
-            const activities = response.history.map((h: any) => ({
+            const activities = response.history.recent_attempts.map((h: any) => ({
               type: h.result === 'success' ? 'success' : 'error',
               message:
                 h.result === 'success'
@@ -220,7 +220,14 @@ const DashboardPage = () => {
                       </div>
                     </div>
                     <span className="text-xs text-gray-600 dark:text-gray-300 dark:text-gray-400">
-                      {activity.timestamp}
+                      {new Date(activity.timestamp).toLocaleString('es-CL', {
+                        timeZone: 'America/Santiago',
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
                     </span>
                   </div>
                 ))}

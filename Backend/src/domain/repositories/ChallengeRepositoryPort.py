@@ -45,3 +45,8 @@ class ChallengeRepositoryPort(ABC):
     async def cleanup_expired_challenges(self) -> int:
         """Remove old/expired challenges. Returns count of deleted challenges."""
         pass
+    
+    @abstractmethod
+    async def cleanup_unused_challenges(self, user_id: UserId) -> int:
+        """Remove all unused challenges for a specific user. Returns count of deleted challenges."""
+        pass

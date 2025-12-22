@@ -218,6 +218,34 @@ class PostgresChallengeRepository(ChallengeRepositoryPort):
             
             return count
     
+    async def cleanup_unused_challenges(self, user_id: UserId) -> int:
+        """
+        Remove all unused challenges for a specific user.
+        Used before creating new challenge batches to prevent accumulation.
+        
+        Args:
+            user_id: User UUID
+            
+        Returns:
+            Number of deleted challenges
+        """
+        async with self._pool.acquire() as conn:
+            result = await conn.execute(
+                """
+                DELETE FROM challenge
+                WHERE user_id = $1
+                  AND used_at IS NULL
+                """,
+                user_id
+            )
+            
+            count = int(result.split()[-1]) if result.startswith("DELETE") else 0
+            
+            if count > 0:
+                logger.debug(f"Cleaned up {count} unused challenges for user {user_id}")
+            
+            return count
+    
     async def count_active_challenges(self, user_id: UserId) -> int:
         """Count active challenges for a user (not used, not expired)."""
         async with self._pool.acquire() as conn:

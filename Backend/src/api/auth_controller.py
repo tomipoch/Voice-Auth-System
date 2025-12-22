@@ -38,7 +38,7 @@ elif SECRET_KEY == "voice-biometrics-secret-key-change-in-production":
     logger.warning("⚠️  Using default SECRET_KEY - NOT SAFE FOR PRODUCTION")
 
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 120  # Increased from 30 to 120 minutes
 MAX_FAILED_ATTEMPTS = 5
 LOCKOUT_MINUTES = 15
 

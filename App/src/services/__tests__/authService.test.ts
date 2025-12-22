@@ -117,15 +117,15 @@ describe('authService', () => {
 
   describe('getProfile', () => {
     it('successfully retrieves user profile', async () => {
+      const mockUser = {
+        id: '1',
+        email: 'test@example.com',
+        name: 'Test User',
+        role: 'user' as const,
+      };
+      
       const mockResponse = {
-        data: {
-          success: true,
-          data: {
-            id: '1',
-            email: 'test@example.com',
-            name: 'Test User',
-          },
-        },
+        data: mockUser,
       };
 
       vi.mocked(api.get).mockResolvedValue(mockResponse);
@@ -133,7 +133,7 @@ describe('authService', () => {
       const result = await authService.getProfile();
 
       expect(api.get).toHaveBeenCalledWith('/auth/profile');
-      expect(result).toEqual(mockResponse.data);
+      expect(result).toEqual(mockUser);
     });
   });
 

@@ -169,27 +169,25 @@ export const AuthProvider = ({ children }) => {
                 }
 
                 // Intentar reconectar en background después de 5 segundos
-                setTimeout(() => {
-                  authService
-                    .getProfile()
-                    .then((profile) => {
-                      // Actualizar con datos frescos del servidor
-                      dispatch({
-                        type: actionTypes.SET_USER,
-                        payload: profile,
-                      });
-                      authStorage.setUser(profile);
-
-                      if (features.debugMode) {
-                        console.log('🔄 Profile refreshed from server');
-                      }
-                    })
-                    .catch(() => {
-                      // Silenciosamente fallar si aún no hay conexión
-                      if (features.debugMode) {
-                        console.log('⚠️ Background refresh failed, keeping local data');
-                      }
+                setTimeout(async () => {
+                  try {
+                    const profile = await authService.getProfile();
+                    // Actualizar con datos frescos del servidor
+                    dispatch({
+                      type: actionTypes.SET_USER,
+                      payload: profile,
                     });
+                    authStorage.setUser(profile);
+
+                    if (features.debugMode) {
+                      console.log('🔄 Profile refreshed from server');
+                    }
+                  } catch (error) {
+                    // Silenciosamente fallar si aún no hay conexión
+                    if (features.debugMode) {
+                      console.log('⚠️ Background refresh failed, keeping local data');
+                    }
+                  }
                 }, 5000);
               }
             }
@@ -209,64 +207,87 @@ export const AuthProvider = ({ children }) => {
 
   // Sincronización entre pestañas
   useEffect(() => {
+    // Track if we're in the middle of a login/logout to avoid race conditions
+    let debounceTimer: NodeJS.Timeout | null = null;
+    
     const handleStorageChange = (e: StorageEvent) => {
-      // Detectar logout en otra pestaña
-      if (e.key === 'voiceauth_logout_signal') {
-        authStorage.clearAuth();
-        dispatch({ type: actionTypes.LOGOUT });
-
-        if (features.debugMode) {
-          console.log('🔓 Logout detected from another tab');
-        }
-
-        toast.info('Sesión cerrada en otra pestaña');
-        window.location.href = '/login';
+      // IMPORTANT: storage events should only fire for OTHER tabs/windows
+      // If e.storageArea is null or the event is from this window, ignore it
+      if (!e.storageArea) {
+        return;
       }
-
-      // Detectar login en otra pestaña
-      if (e.key === 'voiceauth_login_signal') {
-        const token = authStorage.getAccessToken();
-        const user = authStorage.getUser();
-
-        if (token && user && !state.isAuthenticated) {
-          dispatch({
-            type: actionTypes.LOGIN_SUCCESS,
-            payload: { user, token },
-          });
+      
+      // Clear any pending debounce
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+      
+      // Debounce storage changes to avoid race conditions during login
+      debounceTimer = setTimeout(() => {
+        // Detectar logout en otra pestaña
+        if (e.key === 'voiceauth_logout_signal') {
+          authStorage.clearAuth();
+          dispatch({ type: actionTypes.LOGOUT });
 
           if (features.debugMode) {
-            console.log('🔐 Login detected from another tab');
+            console.log('🔓 Logout detected from another tab');
           }
 
-          toast.info('Sesión iniciada en otra pestaña');
+          toast('Sesión cerrada en otra pestaña', { icon: 'ℹ️' });
+          window.location.href = '/login';
         }
-      }
 
-      // Detectar cambios directos en token/user
-      const tokenKey = authStorage.getAccessToken ? 'voiceauth_token' : e.key;
-      if (e.key === tokenKey || e.key === 'voiceauth_user') {
-        const newToken = authStorage.getAccessToken();
-        const newUser = authStorage.getUser();
+        // Detectar login en otra pestaña
+        if (e.key === 'voiceauth_login_signal') {
+          const token = authStorage.getAccessToken();
+          const user = authStorage.getUser();
 
-        if (!newToken || !newUser) {
-          // Se eliminó el token/user
-          if (state.isAuthenticated) {
-            dispatch({ type: actionTypes.LOGOUT });
+          if (token && user && !state.isAuthenticated) {
+            dispatch({
+              type: actionTypes.LOGIN_SUCCESS,
+              payload: { user, token },
+            });
+
+            if (features.debugMode) {
+              console.log('🔐 Login detected from another tab');
+            }
+
+            toast('Sesión iniciada en otra pestaña', { icon: 'ℹ️' });
           }
-        } else if (!state.isAuthenticated) {
-          // Se agregó token/user
-          dispatch({
-            type: actionTypes.LOGIN_SUCCESS,
-            payload: { user: newUser, token: newToken },
-          });
         }
-      }
+
+        // Detectar cambios directos en token/user
+        const tokenKey = 'voiceauth_voiceauth_token'; // Use the actual key
+        if (e.key === tokenKey || e.key === 'voiceauth_voiceauth_user') {
+          const newToken = authStorage.getAccessToken();
+          const newUser = authStorage.getUser();
+
+          if (!newToken || !newUser) {
+            // Se eliminó el token/user
+            if (state.isAuthenticated) {
+              if (features.debugMode) {
+                console.log('🔓 Token/user removed in another tab, logging out');
+              }
+              dispatch({ type: actionTypes.LOGOUT });
+            }
+          } else if (!state.isAuthenticated) {
+            // Se agregó token/user
+            dispatch({
+              type: actionTypes.LOGIN_SUCCESS,
+              payload: { user: newUser, token: newToken },
+            });
+          }
+        }
+      }, 100); // 100ms debounce
     };
 
     window.addEventListener('storage', handleStorageChange);
 
     return () => {
       window.removeEventListener('storage', handleStorageChange);
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
     };
   }, [state.isAuthenticated]);
 
@@ -333,6 +354,8 @@ export const AuthProvider = ({ children }) => {
 
       // Login normal con el servidor
       const response = await authService.login(credentials);
+      
+      // La respuesta viene como: { access_token, refresh_token, user, token_type, expires_in }
       const { user, access_token, refresh_token } = response;
 
       // Guardar usando authStorage

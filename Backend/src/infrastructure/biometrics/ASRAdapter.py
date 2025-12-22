@@ -202,6 +202,12 @@ class ASRAdapter:
                 start = (waveform.shape[1] - max_asr_samples) // 2
                 waveform = waveform[:, start:start + max_asr_samples]
             
+            # AUDIO NORMALIZATION: Normalize amplitude to improve ASR accuracy
+            # Scale waveform to [-1, 1] range for consistent model input
+            max_val = waveform.abs().max()
+            if max_val > 0:
+                waveform = waveform / max_val
+            
             # Move to device
             waveform = waveform.to(self.device)
             

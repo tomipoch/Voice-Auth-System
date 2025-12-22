@@ -124,6 +124,33 @@ async def add_enrollment_sample(
         duration_sec=duration_sec
     )
     
+    # Save audio to dataset (always active)
+    from evaluation.dataset_recorder import dataset_recorder
+    from src.utils.audio_converter import ensure_wav_format
+    
+    try:
+        # Get user info from active session
+        session = enrollment_service._active_sessions.get(enrollment_uuid)
+        if session:
+            user = await enrollment_service._user_repo.get_user(session.user_id)
+        
+        # Convert to WAV format
+        wav_bytes = ensure_wav_format(audio_bytes)
+        
+        if wav_bytes:
+            # Save audio
+            dataset_recorder.save_enrollment_audio(
+                user_id=str(session.user_id),
+                audio_data=wav_bytes,
+                user_email=user.get("email") if user else None,
+                sample_number=sample_result["samples_completed"]
+            )
+            logger.info(f"Saved enrollment audio for user {user.get('email') if user else session.user_id}, sample {sample_result['samples_completed']}")
+        else:
+            logger.warning("Failed to convert audio to WAV format")
+    except Exception as e:
+            logger.error(f"Failed to save enrollment audio to dataset: {e}")
+    
     return AddEnrollmentSampleResponse(
         success=True,
         sample_id=sample_result["sample_id"],
