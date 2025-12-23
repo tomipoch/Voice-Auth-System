@@ -52,6 +52,7 @@ const DynamicEnrollment = ({
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showOverwriteModal, setShowOverwriteModal] = useState(false);
 
   // Inicializar enrollment
   useEffect(() => {
@@ -63,6 +64,13 @@ const DynamicEnrollment = ({
           external_ref: externalRef,
           difficulty,
         });
+
+        // Check if voiceprint exists
+        if (response.voiceprint_exists) {
+          setShowOverwriteModal(true);
+          setPhase('idle');
+          return;
+        }
 
         setEnrollmentData(response);
 

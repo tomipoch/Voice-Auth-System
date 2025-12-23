@@ -16,15 +16,22 @@ export interface StartEnrollmentRequest {
   external_ref?: string;
   user_id?: string;
   difficulty?: 'easy' | 'medium' | 'hard';
+  force_overwrite?: boolean;  // Force overwrite existing voiceprint
 }
 
 export interface StartEnrollmentResponse {
   success: boolean;
   enrollment_id: string;
   user_id: string;
-  challenges: Challenge[]; // Changed from phrases
+  challenges: Array<{
+    challenge_id: string;
+    phrase: string;
+    phrase_id: string;
+    difficulty: string;
+  }>;
   required_samples: number;
   message: string;
+  voiceprint_exists?: boolean;  // Indicates if user already has a voiceprint
 }
 
 export interface Challenge {
@@ -86,6 +93,9 @@ class EnrollmentService {
     }
     if (data.difficulty) {
       formData.append('difficulty', data.difficulty);
+    }
+    if (data.force_overwrite !== undefined) {
+      formData.append('force_overwrite', data.force_overwrite.toString());
     }
 
     const response = await api.post<StartEnrollmentResponse>(`${this.baseUrl}/start`, formData);

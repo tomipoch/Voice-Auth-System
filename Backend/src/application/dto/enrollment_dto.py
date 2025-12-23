@@ -20,6 +20,7 @@ class StartEnrollmentResponse(BaseModel):
     challenges: List[dict]  # Changed from phrases to match frontend
     required_samples: int
     message: str
+    voiceprint_exists: bool = False  # Indicates if user already has a voiceprint
 
 
 class AddEnrollmentSampleRequest(BaseModel):

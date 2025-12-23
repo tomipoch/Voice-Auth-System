@@ -495,3 +495,9 @@ class VerificationServiceV2:
         }
 
 
+    async def get_verification_history(self, user_id: UUID, limit: int = 10) -> List[Dict]:
+        """Get verification history for a user."""
+        # TODO: Implement actual database query when verification_results table is created
+        # For now, return empty list as placeholder
+        logger.info(f"get_verification_history called for user_id={user_id}, limit={limit}")
+        return []

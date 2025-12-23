@@ -52,20 +52,13 @@ class EnrollmentService:
         self,
         user_id: Optional[UUID] = None,
         external_ref: Optional[str] = None,
-        difficulty: str = "medium"
+        difficulty: str = "medium",
+        force_overwrite: bool = False
     ) -> Dict:
-        """Start enrollment process and get phrases for the user."""
-        
-        # Create user if doesn't exist
-        if user_id is None:
-            if external_ref:
-                existing_user = await self._user_repo.get_user_by_external_ref(external_ref)
-                if existing_user:
-                    user_id = existing_user['id']
-                else:
-                    user_id = await self._user_repo.create_user(external_ref)
-            else:
-                user_id = await self._user_repo.create_user()
+        """Start enrollment process for a user."""
+        # Create user if not provided
+        if not user_id:
+            user_id = await self._user_repo.create_user(external_ref=external_ref)
         
         # Verify user exists
         if not await self._user_repo.user_exists(user_id):
@@ -73,11 +66,23 @@ class EnrollmentService:
         
         # Check if user already has a voiceprint
         existing_voiceprint = await self._voice_repo.get_voiceprint_by_user(user_id)
-        if existing_voiceprint:
-            raise ValueError(
-                f"User {user_id} is already enrolled. "
-                "Please delete the existing voiceprint before re-enrolling."
-            )
+        voiceprint_exists = existing_voiceprint is not None
+        
+        if voiceprint_exists and not force_overwrite:
+            # Return response indicating voiceprint exists, but don't create enrollment
+            return {
+                "enrollment_id": "",
+                "user_id": str(user_id),
+                "challenges": [],
+                "required_samples": MIN_ENROLLMENT_SAMPLES,
+                "voiceprint_exists": True,
+                "message": "User already has a voiceprint. Set force_overwrite=true to replace it."
+            }
+        
+        # If force_overwrite is True and voiceprint exists, delete the old one
+        if voiceprint_exists and force_overwrite:
+            await self._voice_repo.delete_voiceprint(user_id)
+            logger.info(f"Deleted existing voiceprint for user {user_id} (force_overwrite=True)")
         
         # Create challenges for enrollment (batch operation)
         challenges = await self._challenge_service.create_challenge_batch(
