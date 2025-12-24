@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Shield, CheckCircle, XCircle, Loader2, RefreshCw } from 'lucide-react';
+import { Shield, CheckCircle, XCircle, Loader2, RefreshCw, AlertTriangle } from 'lucide-react';
 import enrollmentService, {
   type Phrase,
   type StartEnrollmentResponse,
@@ -101,6 +101,50 @@ const DynamicEnrollment = ({
 
     initializeEnrollment();
   }, [userId, externalRef, difficulty, onError]);
+
+  // Handle voiceprint overwrite confirmation
+  const handleOverwriteConfirm = async () => {
+    try {
+      setShowOverwriteModal(false);
+      setPhase('initializing');
+      
+      const response = await enrollmentService.startEnrollment({
+        user_id: userId,
+        external_ref: externalRef,
+        difficulty,
+        force_overwrite: true,
+      });
+
+      setEnrollmentData(response);
+
+      const enrollmentSteps: EnrollmentStep[] = response.challenges.map((challenge, index) => ({
+        id: `step-${index}`,
+        name: `Frase ${index + 1}`,
+        description: challenge.phrase,
+        challenge_id: challenge.challenge_id,
+        phrase: {
+          id: challenge.phrase_id,
+          text: challenge.phrase,
+          difficulty: challenge.difficulty,
+          word_count: challenge.phrase.split(' ').length
+        },
+        completed: false,
+      }));
+
+      setSteps(enrollmentSteps);
+      setPhase('recording');
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Error al iniciar enrollment';
+      setError(errorMessage);
+      setPhase('error');
+      onError?.(errorMessage);
+    }
+  };
+
+  const handleOverwriteCancel = () => {
+    setShowOverwriteModal(false);
+    onCancel?.();
+  };
 
   // Manejar grabación completada
   const handleRecordingComplete = async (audioBlob: Blob, _quality: AudioQuality) => {
@@ -315,6 +359,44 @@ const DynamicEnrollment = ({
           </div>
         )}
       </Card>
+
+      {/* Voiceprint Overwrite Confirmation Modal */}
+      {showOverwriteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <Card className="max-w-md mx-4 p-6">
+            <div className="text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/30 mb-4">
+                <AlertTriangle className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+              </div>
+              
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                Huella de Voz Existente
+              </h3>
+              
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+                Ya tienes una huella de voz registrada. ¿Deseas sobrescribirla con un nuevo registro?
+                Esta acción no se puede deshacer.
+              </p>
+              
+              <div className="flex gap-3 justify-center">
+                <Button
+                  onClick={handleOverwriteCancel}
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  onClick={handleOverwriteConfirm}
+                  className="flex-1 bg-orange-600 hover:bg-orange-700 text-white"
+                >
+                  Sobrescribir
+                </Button>
+              </div>
+            </div>
+          </Card>
+        </div>
+      )}
     </div>
   );
 };
