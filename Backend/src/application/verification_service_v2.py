@@ -1,6 +1,7 @@
 """Verification service with dynamic phrase support."""
 
 import numpy as np
+import logging
 from typing import Dict, Optional, List
 from uuid import UUID, uuid4
 from datetime import datetime, timezone
@@ -9,6 +10,8 @@ from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRep
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
 from ..shared.types.common_types import VoiceEmbedding, AuditAction, ChallengeId
+
+logger = logging.getLogger(__name__)
 
 
 class VerificationSession:
