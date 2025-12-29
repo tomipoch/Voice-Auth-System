@@ -8,7 +8,7 @@ import io
 import soundfile as sf
 import logging
 
-from ..application.verification_service_v2 import VerificationServiceV2
+from ..application.verification_service import VerificationService
 from ..infrastructure.biometrics.VoiceBiometricEngineFacade import VoiceBiometricEngineFacade
 from ..application.dto.verification_dto import (
     StartVerificationRequest,
@@ -18,7 +18,7 @@ from ..application.dto.verification_dto import (
     VerifyPhraseResponse
 )
 from ..infrastructure.config.dependencies import (
-    get_verification_service_v2,
+    get_verification_service,
     get_voice_biometric_engine,
     get_audit_log_repository
 )
@@ -32,7 +32,7 @@ router = APIRouter(tags=["verification"])
 @router.post("/start", response_model=StartVerificationResponse)
 async def start_verification(
     request: StartVerificationRequest,
-    verification_service: VerificationServiceV2 = Depends(get_verification_service_v2)
+    verification_service: VerificationService = Depends(get_verification_service)
 ):
     """
     Start verification process and get a phrase for the user.
@@ -74,7 +74,7 @@ async def verify_voice(
     verification_id: str = Form(...),
     phrase_id: str = Form(...),
     audio_file: UploadFile = File(...),
-    verification_service: VerificationServiceV2 = Depends(get_verification_service_v2),
+    verification_service: VerificationService = Depends(get_verification_service),
     voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine)
 ):
     """
@@ -175,7 +175,7 @@ async def verify_voice(
 async def quick_verify(
     user_id: str = Form(...),
     audio_file: UploadFile = File(...),
-    verification_service: VerificationServiceV2 = Depends(get_verification_service_v2),
+    verification_service: VerificationService = Depends(get_verification_service),
     voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine)
 ):
     """
@@ -242,7 +242,7 @@ async def quick_verify(
 async def get_verification_history(
     user_id: str,
     limit: int = 10,
-    verification_service: VerificationServiceV2 = Depends(get_verification_service_v2)
+    verification_service: VerificationService = Depends(get_verification_service)
 ):
     """
     Get verification history for a user.
@@ -272,7 +272,7 @@ async def get_verification_history(
 @router.post("/start-multi", response_model=StartMultiPhraseVerificationResponse)
 async def start_multi_phrase_verification(
     request: StartVerificationRequest,
-    verification_service: VerificationServiceV2 = Depends(get_verification_service_v2)
+    verification_service: VerificationService = Depends(get_verification_service)
 ):
     """
     Start multi-phrase verification (3 phrases).
@@ -312,7 +312,7 @@ async def verify_phrase(
     audio_file: UploadFile = File(...),
     user_agent: str = Form(default=""),
     device_info: str = Form(default=""),
-    verification_service: VerificationServiceV2 = Depends(get_verification_service_v2),
+    verification_service: VerificationService = Depends(get_verification_service),
     voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine),
     audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
 ):
@@ -387,7 +387,7 @@ async def verify_phrase(
         
         # Save audio to dataset (always active)
         from evaluation.dataset_recorder import dataset_recorder
-        from src.utils.audio_converter import ensure_wav_format
+        from ..infrastructure.biometrics.audio_converter import ensure_wav_format
         
         try:
             # Ensure WAV format (already converted above, but just to be safe)
@@ -457,7 +457,7 @@ async def verify_phrase(
 async def get_verification_history(
     user_id: str,
     limit: int = 100,  # Increased from 10 to show full history
-    verification_service: VerificationServiceV2 = Depends(get_verification_service_v2)
+    verification_service: VerificationService = Depends(get_verification_service)
 ):
     """
     Get verification history for a user.

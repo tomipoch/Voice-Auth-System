@@ -1,4 +1,4 @@
-"""DTOs for enrollment module."""
+"""DTOs for enrollment module with OpenAPI documentation."""
 
 from typing import Optional, List
 from uuid import UUID
@@ -6,65 +6,64 @@ from pydantic import BaseModel, Field
 
 
 class StartEnrollmentRequest(BaseModel):
-    """Request to start enrollment process."""
-    user_id: Optional[UUID] = None
-    external_ref: Optional[str] = None
-    difficulty: str = Field(default="medium", pattern="^(easy|medium|hard)$")
+    """Request to start voice enrollment session."""
+    user_id: Optional[UUID] = Field(None, description="Existing user UUID (optional)")
+    external_ref: Optional[str] = Field(None, description="External reference ID")
+    difficulty: str = Field(default="medium", pattern="^(easy|medium|hard)$", description="Phrase difficulty")
 
 
 class StartEnrollmentResponse(BaseModel):
-    """Response after starting enrollment."""
-    success: bool
-    user_id: str
-    enrollment_id: str
-    challenges: List[dict]  # Changed from phrases to match frontend
-    required_samples: int
-    message: str
-    voiceprint_exists: bool = False  # Indicates if user already has a voiceprint
+    """Response after starting enrollment session."""
+    success: bool = Field(..., description="Whether session started successfully")
+    user_id: str = Field(..., description="User ID for this enrollment")
+    enrollment_id: str = Field(..., description="Unique enrollment session ID")
+    challenges: List[dict] = Field(..., description="List of phrases to read")
+    required_samples: int = Field(..., description="Total samples needed (usually 3)")
+    message: str = Field(..., description="Human-readable status message")
+    voiceprint_exists: bool = Field(False, description="Whether user already has a voiceprint")
 
 
 class AddEnrollmentSampleRequest(BaseModel):
-    """Request to add enrollment sample."""
-    user_id: UUID
-    enrollment_id: UUID
-    phrase_id: UUID
-    # audio_file se maneja como UploadFile en el controller
+    """Request to add a voice sample to enrollment."""
+    user_id: UUID = Field(..., description="User UUID")
+    enrollment_id: UUID = Field(..., description="Session ID from /start")
+    phrase_id: UUID = Field(..., description="ID of the phrase that was read")
 
 
 class AddEnrollmentSampleResponse(BaseModel):
-    """Response after adding sample."""
-    success: bool
-    sample_id: str
-    samples_completed: int
-    samples_required: int
-    is_complete: bool
-    next_phrase: Optional[dict] = None
-    quality_score: Optional[float] = None
-    message: str
+    """Response after adding a voice sample."""
+    success: bool = Field(..., description="Whether sample was added successfully")
+    sample_id: str = Field(..., description="Unique ID for this sample")
+    samples_completed: int = Field(..., description="Number of samples collected so far")
+    samples_required: int = Field(..., description="Total samples needed")
+    is_complete: bool = Field(..., description="Whether enrollment can be completed")
+    next_phrase: Optional[dict] = Field(None, description="Next phrase to read (if not complete)")
+    quality_score: Optional[float] = Field(None, description="Audio quality score (0-1)")
+    message: str = Field(..., description="Status message")
 
 
 class CompleteEnrollmentRequest(BaseModel):
-    """Request to complete enrollment."""
-    user_id: UUID
-    enrollment_id: UUID
+    """Request to finalize enrollment and create voiceprint."""
+    user_id: UUID = Field(..., description="User UUID")
+    enrollment_id: UUID = Field(..., description="Enrollment session ID")
 
 
 class CompleteEnrollmentResponse(BaseModel):
     """Response after completing enrollment."""
-    success: bool
-    user_id: str
-    voiceprint_id: str
-    enrollment_quality: float
-    samples_used: int
-    message: str
+    success: bool = Field(..., description="Whether voiceprint was created")
+    user_id: str = Field(..., description="User ID")
+    voiceprint_id: str = Field(..., description="Unique ID of created voiceprint")
+    enrollment_quality: float = Field(..., description="Overall enrollment quality (0-1)", ge=0, le=1)
+    samples_used: int = Field(..., description="Number of samples used")
+    message: str = Field(..., description="Status message")
 
 
 class EnrollmentStatusResponse(BaseModel):
-    """Response with enrollment status."""
-    user_id: str
-    enrollment_id: Optional[str]
-    is_enrolled: bool
-    samples_count: int
-    required_samples: int
-    phrases_used: List[dict]
-    created_at: Optional[str]
+    """Response with user's enrollment status."""
+    user_id: str = Field(..., description="User ID")
+    enrollment_id: Optional[str] = Field(None, description="Active enrollment session ID (if any)")
+    is_enrolled: bool = Field(..., description="Whether user has a voiceprint")
+    samples_count: int = Field(..., description="Samples collected in current session")
+    required_samples: int = Field(..., description="Samples required for enrollment")
+    phrases_used: List[dict] = Field(..., description="Phrases that have been read")
+    created_at: Optional[str] = Field(None, description="Voiceprint creation timestamp (if enrolled)")

@@ -30,9 +30,12 @@ from .api.admin_controller import admin_router
 from .api.phrase_controller import router as phrase_router
 from .api.evaluation_controller import router as evaluation_router
 from .api.dataset_recording_controller import router as dataset_recording_router
-from .infrastructure.config.dependencies import close_db_pool, create_voice_biometric_engine
+from .infrastructure.config.dependencies import (
+    close_db_pool, init_db_pool, init_biometric_engine_async, 
+    get_voice_biometric_engine, is_ready
+)
 from .api.enrollment_controller import router as enrollment_router
-from .api.verification_controller_v2 import router as verification_router_v2
+from .api.verification_controller import router as verification_router
 
 # Load environment variables
 # Only load from .env file if not already set in the environment (e.g., by Docker Compose)
@@ -40,26 +43,36 @@ env_path = Path(__file__).parent.parent / '.env'
 if env_path.is_file():
     load_dotenv(env_path)
 
-# Ensure essential environment variables are set, even if from .env
-if not os.getenv("DB_HOST"):
-    os.environ["DB_HOST"] = "localhost"
-if not os.getenv("DB_PORT"):
-    os.environ["DB_PORT"] = "5432"
-if not os.getenv("DB_NAME"):
-    os.environ["DB_NAME"] = "voice_biometrics"
-if not os.getenv("DB_USER"):
-    os.environ["DB_USER"] = "voice_user"
-if not os.getenv("DB_PASSWORD"):
-    os.environ["DB_PASSWORD"] = "voice_password"
-if not os.getenv("SECRET_KEY"):
-    os.environ["SECRET_KEY"] = "voice-biometrics-secret-key-change-in-production"
-if not os.getenv("RATE_LIMIT"):
-    os.environ["RATE_LIMIT"] = "100/minute"
-if not os.getenv("CORS_ALLOWED_ORIGINS"):
-    os.environ["CORS_ALLOWED_ORIGINS"] = "http://localhost:3000"
-if not os.getenv("EMBEDDING_ENCRYPTION_KEY"):
-    # Default key for development only - generated with: python -m src.infrastructure.security.encryption
-    os.environ["EMBEDDING_ENCRYPTION_KEY"] = "jEqd5JIag7p51jF6mvXB0L0tJW_5423Of5EXfozqkFg="
+# Set defaults for non-sensitive configuration
+os.environ.setdefault("DB_HOST", "localhost")
+os.environ.setdefault("DB_PORT", "5432")
+os.environ.setdefault("DB_NAME", "voice_biometrics")
+os.environ.setdefault("DB_USER", "voice_user")
+os.environ.setdefault("RATE_LIMIT", "100/minute")
+os.environ.setdefault("CORS_ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:5173")
+
+# Validate required secrets exist (no defaults for security)
+ENV = os.getenv("ENV", "development")
+
+if ENV == "production":
+    required_secrets = ["DB_PASSWORD", "SECRET_KEY", "EMBEDDING_ENCRYPTION_KEY"]
+    missing = [s for s in required_secrets if not os.getenv(s)]
+    if missing:
+        raise EnvironmentError(
+            f"Missing required secrets for production: {', '.join(missing)}. "
+            "Set these in your .env file or environment."
+        )
+else:
+    # Development defaults with warnings
+    if not os.getenv("DB_PASSWORD"):
+        os.environ["DB_PASSWORD"] = "voice_password"
+        logging.warning("⚠️  Using default DB_PASSWORD - NOT SAFE FOR PRODUCTION")
+    if not os.getenv("SECRET_KEY"):
+        os.environ["SECRET_KEY"] = "dev-secret-key-change-in-production"
+        logging.warning("⚠️  Using default SECRET_KEY - NOT SAFE FOR PRODUCTION")
+    if not os.getenv("EMBEDDING_ENCRYPTION_KEY"):
+        os.environ["EMBEDDING_ENCRYPTION_KEY"] = "jEqd5JIag7p51jF6mvXB0L0tJW_5423Of5EXfozqkFg="
+        logging.warning("⚠️  Using default EMBEDDING_ENCRYPTION_KEY - NOT SAFE FOR PRODUCTION")
 
 # Rate limiter
 limiter = Limiter(key_func=get_remote_address, default_limits=[os.getenv("RATE_LIMIT", "100/minute")])
@@ -101,17 +114,28 @@ class MockVoiceBiometricEngineFacade:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Application lifespan manager."""
+    """Application lifespan manager with optimized startup."""
+    import asyncio
+    
     logger.info("Starting Voice Biometrics API...")
     
-    # Load ML models into memory
+    # 1. Initialize database pool FIRST (blocking - required for cleanup job)
     if os.getenv("TESTING") != "True":
-        app.state.biometric_engine = create_voice_biometric_engine()
-    else:
-        app.state.biometric_engine = MockVoiceBiometricEngineFacade() # Use mock engine for testing
+        try:
+            await init_db_pool()
+        except Exception as e:
+            logger.error(f"Failed to initialize database: {e}")
+            # Continue anyway - health check will report degraded status
     
-    # Start background cleanup job for expired challenges
-    import asyncio
+    # 2. Load ML models in background (non-blocking)
+    model_loading_task = None
+    if os.getenv("TESTING") != "True":
+        model_loading_task = asyncio.create_task(init_biometric_engine_async())
+        logger.info("ML model loading started in background...")
+    else:
+        app.state.biometric_engine = MockVoiceBiometricEngineFacade()
+    
+    # 3. Start background cleanup job for expired challenges
     from .jobs.cleanup_expired_challenges import cleanup_expired_challenges_job
     from .infrastructure.config.dependencies import get_db_pool
     from .infrastructure.persistence.PostgresChallengeRepository import PostgresChallengeRepository
@@ -125,9 +149,18 @@ async def lifespan(app: FastAPI):
             cleanup_task = asyncio.create_task(
                 cleanup_expired_challenges_job(challenge_repo, CHALLENGE_CLEANUP_INTERVAL)
             )
-            logger.info(f"Started challenge cleanup job (interval: {CHALLENGE_CLEANUP_INTERVAL}s)")
+            logger.info(f"Challenge cleanup job started (interval: {CHALLENGE_CLEANUP_INTERVAL}s)")
         except Exception as e:
             logger.warning(f"Could not start cleanup job: {e}")
+    
+    # Wait for models to finish loading before accepting requests
+    if model_loading_task:
+        try:
+            await model_loading_task
+            app.state.biometric_engine = get_voice_biometric_engine()
+            logger.info("✅ Application fully ready")
+        except Exception as e:
+            logger.error(f"Model loading failed: {e}")
     
     yield
     
@@ -241,17 +274,23 @@ def create_app() -> FastAPI:
     app.include_router(phrase_router, prefix="/api/phrases", tags=["phrases"])
     app.include_router(challenge_router, prefix="/api/challenges", tags=["challenges"])
     app.include_router(enrollment_router, prefix="/api/enrollment", tags=["enrollment"])
-    app.include_router(verification_router_v2, prefix="/api/verification", tags=["verification"])
+    app.include_router(verification_router, prefix="/api/verification", tags=["verification"])
     app.include_router(evaluation_router)  # Already has prefix defined in router
     app.include_router(dataset_recording_router)  # Dataset recording endpoints
     
-    # Health check endpoint
+    # Health check endpoint with readiness status
     @app.get("/health")
     async def health_check():
+        readiness = is_ready()
+        status = "healthy" if readiness["ready"] else "starting"
         return {
-            "status": "healthy",
+            "status": status,
             "service": "voice-biometrics-api",
-            "version": "1.0.0"
+            "version": "1.0.0",
+            "components": {
+                "database": "up" if readiness["database"] else "down",
+                "models": "loaded" if readiness["models"] else "loading"
+            }
         }
     
 

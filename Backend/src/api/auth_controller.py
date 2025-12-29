@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Request, Body
 from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional, Dict, Any
 import logging
 from datetime import datetime, timedelta, timezone
@@ -42,35 +42,46 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 120  # Increased from 30 to 120 minutes
 MAX_FAILED_ATTEMPTS = 5
 LOCKOUT_MINUTES = 15
 
-# Pydantic models
+# Pydantic models with OpenAPI documentation
 class UserLoginRequest(BaseModel):
-    email: EmailStr
-    password: str
+    """Request body for user login."""
+    email: EmailStr = Field(..., description="User email address", examples=["user@example.com"])
+    password: str = Field(..., description="User password", min_length=8)
+
+    model_config = {"json_schema_extra": {"examples": [{"email": "user@example.com", "password": "SecurePass123"}]}}
+
 
 class UserRegisterRequest(BaseModel):
-    first_name: str
-    last_name: str
-    rut: Optional[str] = None
-    email: EmailStr
-    password: str
-    company: Optional[str] = None
+    """Request body for user registration."""
+    first_name: str = Field(..., description="User's first name", min_length=1, max_length=50)
+    last_name: str = Field(..., description="User's last name", min_length=1, max_length=50)
+    rut: Optional[str] = Field(None, description="Chilean RUT (optional)", pattern=r"^\d{7,8}-[\dkK]$")
+    email: EmailStr = Field(..., description="User email address")
+    password: str = Field(..., description="Password (min 8 chars, 1 uppercase, 1 lowercase, 1 number)", min_length=8)
+    company: Optional[str] = Field(None, description="Company name (optional)")
+
 
 class TokenResponse(BaseModel):
-    access_token: str
-    token_type: str = "bearer"
-    expires_in: int
-    refresh_token: Optional[str] = None
-    user: dict
+    """Response containing authentication tokens."""
+    access_token: str = Field(..., description="JWT access token")
+    token_type: str = Field(default="bearer", description="Token type (always 'bearer')")
+    expires_in: int = Field(..., description="Token expiration time in seconds")
+    refresh_token: Optional[str] = Field(None, description="JWT refresh token for obtaining new access tokens")
+    user: dict = Field(..., description="User profile data")
+
 
 class ProfileUpdateRequest(BaseModel):
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    rut: Optional[str] = None
-    settings: Optional[dict] = None
+    """Request body for updating user profile."""
+    first_name: Optional[str] = Field(None, description="New first name")
+    last_name: Optional[str] = Field(None, description="New last name")
+    rut: Optional[str] = Field(None, description="Chilean RUT")
+    settings: Optional[dict] = Field(None, description="User settings object")
+
 
 class PasswordChangeRequest(BaseModel):
-    current_password: str
-    new_password: str
+    """Request body for changing password."""
+    current_password: str = Field(..., description="Current password for verification")
+    new_password: str = Field(..., description="New password (must meet strength requirements)")
 
 class UserProfile(BaseModel):
     id: str

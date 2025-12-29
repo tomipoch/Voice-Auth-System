@@ -2,6 +2,8 @@
 
 import time
 import hashlib
+import os
+import json
 from fastapi import Request, HTTPException
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
@@ -23,23 +25,31 @@ class AuthMiddleware(BaseHTTPMiddleware):
     def __init__(self, app):
         super().__init__(app)
         
-        # In production, these would come from database
-        self._valid_api_keys = {
-            "demo-bank-key-12345": {
-                "client_id": "bank-demo-client",
-                "client_name": "Demo Bank",
-                "rate_limit": 100,  # requests per hour
-                "permissions": ["verify", "enroll", "challenge"]
-            },
-            "demo-app-key-67890": {
-                "client_id": "app-demo-client", 
-                "client_name": "Demo App",
-                "rate_limit": 50,
-                "permissions": ["verify", "challenge"]
-            }
-        }
+        # Load API keys from environment variable (JSON format)
+        # Example: API_KEYS='{"my-api-key": {"client_id": "client-1", "client_name": "My Client", "rate_limit": 100, "permissions": ["verify", "enroll"]}}'
+        api_keys_json = os.getenv("API_KEYS", "{}")
+        try:
+            self._valid_api_keys = json.loads(api_keys_json)
+        except json.JSONDecodeError:
+            logger.error("Invalid API_KEYS format. Expected JSON object.")
+            self._valid_api_keys = {}
         
-        # Rate limiting tracking (in production, use Redis)
+        # In development, add demo keys if none configured
+        if not self._valid_api_keys and os.getenv("ENV", "development") != "production":
+            logger.warning("⚠️  No API_KEYS configured. Using demo keys for development.")
+            self._valid_api_keys = {
+                "dev-api-key": {
+                    "client_id": "dev-client",
+                    "client_name": "Development Client",
+                    "rate_limit": 1000,
+                    "permissions": ["verify", "enroll", "challenge"]
+                }
+            }
+        
+        # Rate limiting tracking
+        # WARNING: In-memory store is NOT suitable for distributed systems
+        if os.getenv("ENV") == "production":
+            logger.warning("⚠️  Using in-memory rate limiting. Use Redis for production!")
         self._rate_limit_store: Dict[str, Dict] = {}
     
     async def dispatch(self, request: Request, call_next):
@@ -48,19 +58,16 @@ class AuthMiddleware(BaseHTTPMiddleware):
         # Skip auth for health check, docs, auth endpoints, and development mode
         skip_paths = ["/health", "/docs", "/openapi.json", "/api/auth/login", "/api/auth/register"]
         
-        # Check if we're in development mode
-        import os
         skip_auth = os.getenv('SKIP_AUTH', 'false').lower() == 'true'
         development_mode = os.getenv('DEVELOPMENT_MODE', 'false').lower() == 'true'
         
         if request.url.path in skip_paths or skip_auth or development_mode:
-            # Add a fake client context for development
             if development_mode:
                 request.state.client_id = "dev-client"
                 request.state.client_name = "Development Client"
             return await call_next(request)
         
-        # Extract API key
+        # Extract API key (headers only - no query params for security)
         api_key = self._extract_api_key(request)
         
         if not api_key:
@@ -100,19 +107,14 @@ class AuthMiddleware(BaseHTTPMiddleware):
         return response
     
     def _extract_api_key(self, request: Request) -> Optional[str]:
-        """Extract API key from request headers."""
+        """Extract API key from request headers only (no query params for security)."""
         # Try Authorization header first
         auth_header = request.headers.get("Authorization")
         if auth_header and auth_header.startswith("Bearer "):
             return auth_header[7:]
         
         # Try X-API-Key header
-        api_key = request.headers.get("X-API-Key")
-        if api_key:
-            return api_key
-        
-        # Try query parameter (less secure, for testing only)
-        return request.query_params.get("api_key")
+        return request.headers.get("X-API-Key")
     
     def _validate_api_key(self, api_key: str) -> Optional[Dict]:
         """Validate API key and return client info."""
@@ -129,9 +131,9 @@ class AuthMiddleware(BaseHTTPMiddleware):
         client_store = self._rate_limit_store[client_id]
         
         # Clean old entries
-        for hour_key in client_store.keys():
-            if hour_key < current_hour - 1:
-                del client_store[hour_key]
+        old_keys = [k for k in client_store.keys() if k < current_hour - 1]
+        for key in old_keys:
+            del client_store[key]
         
         # Check current hour
         current_count = client_store.get(current_hour, 0)
@@ -156,8 +158,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
             return "verify"
         elif "/challenge" in path:
             return "challenge"
-        else:
-            return None
+        return None
     
     def _unauthorized_response(self, message: str) -> Response:
         """Return 401 Unauthorized response."""

@@ -126,7 +126,7 @@ async def add_enrollment_sample(
     
     # Save audio to dataset (always active)
     from evaluation.dataset_recorder import dataset_recorder
-    from src.utils.audio_converter import ensure_wav_format
+    from ..infrastructure.biometrics.audio_converter import ensure_wav_format
     
     try:
         # Get user info from active session
