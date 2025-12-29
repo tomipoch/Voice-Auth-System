@@ -1,4 +1,8 @@
-# Voice Biometrics API - Production Dependencies
+# Voice Biometrics API - Dependencies
+
+# ============================================
+# Production Dependencies
+# ============================================
 
 # FastAPI and server
 fastapi>=0.104.0
@@ -49,3 +53,24 @@ structlog>=23.2.0
 httpx>=0.25.0
 aiofiles>=23.2.1
 
+# ============================================
+# Development Dependencies (optional)
+# Install all: pip install -r requirements.txt
+# ============================================
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.1
+pytest-cov>=4.1.0
+
+# Code Quality
+black>=23.11.0
+flake8>=6.1.0
+mypy>=1.7.0
+isort>=5.12.0
+
+# Development Tools
+pre-commit>=3.5.0
+
+# PDF Processing
+PyPDF2>=3.0.0
