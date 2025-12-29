@@ -61,16 +61,6 @@ class ChallengeService:
         # Check rate limiting
         await self._check_rate_limits(user_id)
         
-        # Get configuration from rules
-        expiry_minutes = await self._rules_service.get_rule_value('challenge_expiry_minutes', default=5.0)
-        exclude_recent = int(await self._rules_service.get_rule_value('exclude_recent_phrases', default=50.0))
-        
-        # Get recent phrase IDs to exclude
-        recent_phrase_ids = await self._phrase_repo.get_recent_phrase_ids(
-            user_id=user_id,
-            limit=exclude_recent
-        )
-        
         # Get random phrases from database (1 query for all)
         # Note: find_random() uses exclude_recent=True by default, which excludes last 30 days
         phrases = await self._phrase_repo.find_random(
@@ -168,6 +158,10 @@ class ChallengeService:
     async def get_challenge(self, challenge_id: ChallengeId) -> Optional[Dict[str, Any]]:
         """Get challenge details by ID."""
         return await self._challenge_repo.get_challenge(challenge_id)
+    
+    async def get_phrase(self, phrase_id: UUID) -> Optional[Any]:
+        """Get phrase by ID (public accessor)."""
+        return await self._phrase_repo.find_by_id(phrase_id)
     
     async def get_active_challenge(self, user_id: UserId) -> Optional[Dict[str, Any]]:
         """Get the most recent active challenge for a user."""

@@ -5,6 +5,7 @@ from fastapi.security import HTTPBearer
 from pydantic import BaseModel
 from typing import List, Optional
 import logging
+import json
 from datetime import datetime, timedelta
 
 from .auth_controller import get_current_user
@@ -51,45 +52,95 @@ class PaginatedUsers(BaseModel):
     limit: int
     total_pages: int
 
-# Mock data for activity logs (TODO: replace with real data)
-mock_activity_logs = [
-    ActivityLog(
-        id="act-1",
-        user_id="user-2",
-        user_name="María García",
-        action="verification_success",
-        timestamp=datetime.now(),
-        details="Verificación exitosa desde dispositivo móvil"
-    ),
-    ActivityLog(
-        id="act-2",
-        user_id="user-3",
-        user_name="Carlos López",
-        action="enrollment_started",
-        timestamp=datetime.now(),
-        details="Iniciado proceso de enrollment"
-    ),
-    ActivityLog(
-        id="act-3",
-        user_id="dev-user-1",
-        user_name="Usuario Desarrollo",
-        action="login",
-        timestamp=datetime.now(),
-        details="Inicio de sesión exitoso"
-    ),
-    ActivityLog(
-        id="act-4",
-        user_id="user-2",
-        user_name="María García",
-        action="verification_failed",
-        timestamp=datetime.now(),
-        details="Verificación fallida - ruido ambiental detectado"
-    )
-]
-
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
 from ..infrastructure.config.dependencies import get_user_repository, get_audit_log_repository
+
+
+# Helper functions to reduce cognitive complexity
+def _parse_metadata(metadata):
+    """Parse metadata from JSON string if needed."""
+    if isinstance(metadata, str):
+        try:
+            return json.loads(metadata)
+        except json.JSONDecodeError:
+            return {}
+    return metadata if metadata else {}
+
+
+def _belongs_to_company(log, company_user_ids: set, company_emails: set) -> bool:
+    """Check if a log belongs to the company (used for admin filtering)."""
+    actor = log.get('actor', '')
+    # Direct match: actor is a user_id or email from company
+    if actor in company_user_ids or actor in company_emails:
+        return True
+    # System logs: check metadata for user_id
+    if actor == 'system':
+        metadata = _parse_metadata(log.get('metadata'))
+        user_id_in_meta = metadata.get('user_id')
+        if user_id_in_meta and str(user_id_in_meta) in company_user_ids:
+            return True
+    return False
+
+
+def _filter_logs_by_company(logs: list, company_user_ids: set, company_emails: set) -> list:
+    """Filter logs to only include those belonging to company users."""
+    return [log for log in logs if _belongs_to_company(log, company_user_ids, company_emails)]
+
+
+def _count_verifications(logs: list, verification_actions: set, verification_types: set, since_time=None):
+    """Count verification logs, optionally filtering by time."""
+    result = []
+    for log in logs:
+        if log.get('action') not in verification_actions:
+            continue
+        if log.get('entity_type') not in verification_types:
+            continue
+        if since_time and log.get('timestamp') < since_time:
+            continue
+        result.append(log)
+    return result
+
+
+def _calculate_daily_stats(logs: list, verification_actions: set, verification_types: set, days: int = 7):
+    """Calculate daily verification counts for the last N days."""
+    from datetime import timezone
+    now = datetime.now(timezone.utc)
+    
+    daily_stats = {}
+    for i in range(days):
+        date_key = (now - timedelta(days=i)).strftime('%Y-%m-%d')
+        daily_stats[date_key] = 0
+    
+    for log in logs:
+        if log.get('action') in verification_actions and log.get('entity_type') in verification_types:
+            log_date = log.get('timestamp').strftime('%Y-%m-%d')
+            if log_date in daily_stats:
+                daily_stats[log_date] += 1
+    
+    return [{" date": date, "count": count} for date, count in sorted(daily_stats.items())]
+
+
+def _transform_log_to_activity(log, default_timestamp) -> dict:
+    """Transform a raw log to ActivityLog format."""
+    user_name = log.get('actor', 'system')
+    if '@' not in user_name and user_name != 'system':
+        user_name = f"user-{user_name[:8]}"
+    
+    metadata = _parse_metadata(log.get('metadata', {}))
+    details = metadata.get('message', '') if isinstance(metadata, dict) else str(metadata)
+    if not details:
+        details = str(metadata) if metadata else ''
+    
+    return {
+        "id": str(log.get('id', '')),
+        "user_id": log.get('actor', 'system'),
+        "user_name": user_name,
+        "action": log.get('action', 'UNKNOWN'),
+        "timestamp": log.get('timestamp', default_timestamp),
+        "details": details
+    }
+
 
 def require_admin(current_user: dict = Depends(get_current_user)):
     """Require admin role."""
@@ -264,32 +315,8 @@ async def get_system_stats(
     if current_user["role"] == "admin":
         company_user_ids = {str(u["id"]) for u in all_users}
         company_emails = {str(u.get("email")) for u in all_users if u.get("email")}
-        
-        def belongs_to_company(log):
-            """Check if a log belongs to the company."""
-            actor = log.get('actor', '')
-            # Direct match: actor is a user_id or email from company
-            if actor in company_user_ids or actor in company_emails:
-                return True
-            # System logs: check metadata for user_id
-            if actor == 'system':
-                metadata = log.get('metadata')
-                if metadata:
-                    # Parse JSON string if needed
-                    if isinstance(metadata, str):
-                        try:
-                            import json
-                            metadata = json.loads(metadata)
-                        except:
-                            return False
-                    # Check user_id in metadata
-                    user_id_in_meta = metadata.get('user_id')
-                    if user_id_in_meta and str(user_id_in_meta) in company_user_ids:
-                        return True
-            return False
-        
-        recent_logs = [log for log in recent_logs if belongs_to_company(log)]
-        all_logs = [log for log in all_logs if belongs_to_company(log)]
+        recent_logs = _filter_logs_by_company(recent_logs, company_user_ids, company_emails)
+        all_logs = _filter_logs_by_company(all_logs, company_user_ids, company_emails)
     
     # Count verifications (only results, ignore starts)
     # Action matches AuditAction.VERIFY ('VERIFY') or legacy 'VERIFICATION'
@@ -342,7 +369,7 @@ async def get_system_stats(
         total_verifications_count = 0
     
     # Count active users in last 24h (users who performed any action)
-    active_user_ids = set(log.get('actor') for log in recent_logs if log.get('actor'))
+    active_user_ids = {log.get('actor') for log in recent_logs if log.get('actor')}
     active_users_24h = len(active_user_ids)
     
     return SystemStats(
@@ -400,36 +427,12 @@ async def get_recent_activity(
             # Superadmin sees all logs, just limit
             logs = logs[:limit]
         
-        # Transform to ActivityLog model
-        activity_logs = []
-        for log in logs:
-            # Determine user name from actor
-            user_name = log.get('actor', 'system')
-            if '@' not in user_name and user_name != 'system':
-                user_name = f"user-{user_name[:8]}"  # Truncate UUID
-            
-            # Parse metadata if it's a JSON string
-            metadata = log.get('metadata', {})
-            if isinstance(metadata, str):
-                try:
-                    import json
-                    metadata = json.loads(metadata)
-                except (json.JSONDecodeError, TypeError):
-                    metadata = {}
-            
-            # Extract details from metadata
-            details = metadata.get('message', '') if isinstance(metadata, dict) else str(metadata)
-            if not details:
-                details = str(metadata) if metadata else ''
-            
-            activity_logs.append(ActivityLog(
-                id=str(log.get('id', '')),
-                user_id=log.get('actor', 'system'),
-                user_name=user_name,
-                action=log.get('action', 'UNKNOWN'),
-                timestamp=log.get('timestamp', datetime.utcnow()),
-                details=details
-            ))
+        # Transform to ActivityLog model using helper function
+        default_timestamp = datetime.now(timezone.utc)
+        activity_logs = [
+            ActivityLog(**_transform_log_to_activity(log, default_timestamp))
+            for log in logs
+        ]
         
         return activity_logs
     except Exception as e:
@@ -522,14 +525,13 @@ async def get_phrase_quality_rules(
             rule_value = rule['rule_value']
             if isinstance(rule_value, str):
                 try:
-                    import json
                     parsed_value = json.loads(rule_value)
                     # If it's a dict with 'value' key, extract it
                     if isinstance(parsed_value, dict) and 'value' in parsed_value:
                         rule_value = float(parsed_value['value'])
                     else:
                         rule_value = float(parsed_value)
-                except (json.JSONDecodeError, ValueError, TypeError):
+                except json.JSONDecodeError:
                     # If parsing fails, try direct conversion
                     rule_value = float(rule_value)
             else:

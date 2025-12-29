@@ -524,6 +524,46 @@ def rate_limit(user_id: str, action: str, max_attempts: int, window_seconds: int
         raise HTTPException(status_code=429, detail="Rate limit exceeded")
 ```
 
+- [ ] **Migrar rate limiting de in-memory a Redis**
+  - Estado actual: `auth_middleware.py` usa `Dict` en memoria
+  - Problema: No funciona en entornos distribuidos (múltiples workers)
+  - Solución: Usar Redis como store centralizado
+
+#### 4.2.2 Session Cleanup (Memory Leak Prevention)
+**Prioridad:** 🟡 MEDIA
+
+**Estado actual:** Las sesiones en `EnrollmentService._active_sessions` y `VerificationService._active_multi_sessions` no se limpian si el usuario abandona el proceso.
+
+- [ ] **Implementar background task de limpieza**
+
+```python
+# Ejemplo con APScheduler
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+
+async def cleanup_expired_sessions():
+    now = datetime.now(timezone.utc)
+    max_age = timedelta(minutes=10)
+    
+    # Cleanup enrollment sessions
+    for session_id, session in list(EnrollmentService._active_sessions.items()):
+        if now - session.created_at > max_age:
+            del EnrollmentService._active_sessions[session_id]
+    
+    # Cleanup verification sessions
+    for session_id, session in list(VerificationService._active_multi_sessions.items()):
+        if now - session.created_at > max_age:
+            del VerificationService._active_multi_sessions[session_id]
+
+scheduler = AsyncIOScheduler()
+scheduler.add_job(cleanup_expired_sessions, 'interval', minutes=5)
+scheduler.start()
+```
+
+- [ ] **Agregar endpoint de monitoreo de sesiones**
+  - `GET /api/admin/sessions/active` → Número de sesiones activas
+  - Útil para debugging y monitoreo
+
+
 #### 4.2.2 Account Lockout
 **Prioridad:** 🔴 ALTA
 

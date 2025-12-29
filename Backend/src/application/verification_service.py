@@ -375,6 +375,21 @@ class VerificationService:
             "recent_attempts": attempts
         }
     
+    def get_multi_session(self, verification_id: UUID) -> Optional[MultiPhraseVerificationSession]:
+        """Get an active multi-phrase verification session by ID (public accessor)."""
+        return self._active_multi_sessions.get(verification_id)
+    
+    async def get_multi_session_user(self, verification_id: UUID) -> Optional[Dict]:
+        """Get user data for an active multi-phrase verification session."""
+        session = self._active_multi_sessions.get(verification_id)
+        if session:
+            return await self._user_repo.get_user(session.user_id)
+        return None
+    
+    async def get_phrase(self, phrase_id: UUID):
+        """Get phrase by ID through challenge service (public accessor)."""
+        return await self._challenge_service.get_phrase(phrase_id)
+    
     async def start_multi_phrase_verification(
         self,
         user_id: UUID,

@@ -105,12 +105,6 @@ class SpoofDetectorAdapter:
                 self._local_models["rawnet2"] = local_rawnet
                 success_count += 1
 
-            # Local Nes2Net (ResNet replacement)
-            local_nes2net = LocalNes2NetModel(device=self.device, paths=local_paths)
-            if local_nes2net.available:
-                self._local_models["nes2net"] = local_nes2net
-                success_count += 1
-
             # Fallback to SpeechBrain downloads when local assets are missing
             if "aasist" not in self._local_models:
                 self._aasist_model = self._load_speechbrain_model("aasist")
@@ -259,7 +253,7 @@ class SpoofDetectorAdapter:
     
     def detect_spoof(self, audio_data: bytes) -> float:
         """
-        Detect spoofing probability using ensemble of AASIST, RawNet2 and Nes2Net models.
+        Detect spoofing probability using ensemble of AASIST and RawNet2 models.
         
         Args:
             audio_data: Raw audio bytes
@@ -267,7 +261,6 @@ class SpoofDetectorAdapter:
         Returns:
             float: Probability that audio is spoofed/synthetic (0.0 = genuine, 1.0 = spoofed)
         """
-        
         try:
             if not self._models_loaded:
                 logger.warning("Models not loaded, using fallback detection")
@@ -276,50 +269,42 @@ class SpoofDetectorAdapter:
             # Convert audio data to tensor
             waveform = self._preprocess_audio(audio_data)
             
+            # Get predictions from available models
             predictions = {}
-
-            # AASIST prediction
-            aasist_local = self._local_models.get("aasist")
-            if aasist_local:
-                try:
-                    score = aasist_local.predict_spoof_probability(waveform, self.target_sample_rate)
-                    if score is not None:
-                        predictions["aasist"] = score
-                except Exception as e:
-                    logger.warning(f"Local AASIST prediction failed: {e}")
-            elif self._aasist_model is not None:
-                try:
-                    predictions["aasist"] = self._predict_with_aasist(waveform)
-                except Exception as e:
-                    logger.warning(f"AASIST prediction failed: {e}")
-
-            # RawNet2 prediction
-            rawnet_local = self._local_models.get("rawnet2")
-            if rawnet_local:
-                try:
-                    score = rawnet_local.predict_spoof_probability(waveform, self.target_sample_rate)
-                    if score is not None:
-                        predictions["rawnet2"] = score
-                except Exception as e:
-                    logger.warning(f"Local RawNet2 prediction failed: {e}")
-            elif self._rawnet2_model is not None:
-                try:
-                    predictions["rawnet2"] = self._predict_with_rawnet2(waveform)
-                except Exception as e:
-                    logger.warning(f"RawNet2 prediction failed: {e}")
+            predictions.update(self._get_model_prediction("aasist", waveform))
+            predictions.update(self._get_model_prediction("rawnet2", waveform))
             
             # Ensemble prediction using weighted average
             if predictions:
                 weighted_score = self._ensemble_prediction(predictions)
                 logger.debug(f"Ensemble spoofing score: {weighted_score:.3f}")
                 return weighted_score
-            else:
-                logger.warning("No model predictions available, using fallback")
-                return self._fallback_spoof_detection(audio_data)
+            
+            logger.warning("No model predictions available, using fallback")
+            return self._fallback_spoof_detection(audio_data)
                 
         except Exception as e:
             logger.error(f"Spoofing detection failed: {e}")
             return self._fallback_spoof_detection(audio_data)
+    
+    def _get_model_prediction(self, model_name: str, waveform: torch.Tensor) -> dict:
+        """Get prediction from a single model (local or fallback)."""
+        local_model = self._local_models.get(model_name)
+        fallback_model = getattr(self, f"_{model_name}_model", None)
+        
+        try:
+            if local_model:
+                score = local_model.predict_spoof_probability(waveform, self.target_sample_rate)
+                if score is not None:
+                    return {model_name: score}
+            elif fallback_model is not None:
+                predict_method = getattr(self, f"_predict_with_{model_name}", None)
+                if predict_method:
+                    return {model_name: predict_method(waveform)}
+        except Exception as e:
+            logger.warning(f"{model_name} prediction failed: {e}")
+        
+        return {}
     
     def _preprocess_audio(self, audio_data: bytes) -> torch.Tensor:
         """Convert audio bytes to tensor format required by models."""
