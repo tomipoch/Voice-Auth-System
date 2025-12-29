@@ -4,7 +4,6 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 from uuid import UUID
-import numpy as np
 
 from ...shared.types.common_types import VoiceEmbedding, UserId
 

@@ -563,6 +563,31 @@ scheduler.start()
   - `GET /api/admin/sessions/active` → Número de sesiones activas
   - Útil para debugging y monitoreo
 
+#### 4.2.3 Thread Safety en Session Management
+**Prioridad:** 🟡 MEDIA
+
+**Estado actual:** Los diccionarios `_active_sessions` y `_active_multi_sessions` son atributos de clase, compartidos entre todas las instancias.
+
+```python
+class EnrollmentService:
+    _active_sessions: Dict[UUID, EnrollmentSession] = {}  # Compartido entre workers
+```
+
+- [ ] **Migrar a Redis para entornos distribuidos**
+  - Estado actual funciona para desarrollo/demo (single worker)
+  - Producción multi-worker requiere store externo (Redis)
+  - Usar `asyncio.Lock` como alternativa temporal
+
+```python
+# Alternativa temporal para single-pod
+_session_lock = asyncio.Lock()
+
+async def start_enrollment(self, ...):
+    async with self._session_lock:
+        session = EnrollmentSession(...)
+        self._active_sessions[enrollment_id] = session
+```
+
 
 #### 4.2.2 Account Lockout
 **Prioridad:** 🔴 ALTA

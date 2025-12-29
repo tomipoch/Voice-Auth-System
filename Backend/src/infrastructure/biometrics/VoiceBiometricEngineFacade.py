@@ -1,6 +1,8 @@
 """Voice Biometric Engine Facade - main interface for biometric processing."""
 
+import asyncio
 import numpy as np
+from concurrent.futures import ThreadPoolExecutor
 from typing import Optional
 from dataclasses import dataclass
 
@@ -38,6 +40,8 @@ class VoiceBiometricEngineFacade:
         self._speaker_adapter = speaker_adapter
         self._spoof_adapter = spoof_adapter
         self._asr_adapter = asr_adapter
+        # Reusable thread pool for parallel model inference (prevents memory leak)
+        self._executor = ThreadPoolExecutor(max_workers=3, thread_name_prefix="biometric_")
     
     def analyze_voice(
         self,
@@ -123,7 +127,7 @@ class VoiceBiometricEngineFacade:
         Extract biometric features in parallel for faster processing.
         
         Runs speaker embedding, anti-spoofing, and ASR models concurrently
-        using asyncio and ThreadPoolExecutor. This reduces processing time
+        using asyncio and a shared ThreadPoolExecutor. This reduces processing time
         from ~18s sequential to ~10s parallel (the time of the slowest model).
         
         Args:
@@ -133,31 +137,24 @@ class VoiceBiometricEngineFacade:
         Returns:
             Dictionary with embedding, anti_spoofing_score, and transcribed_text
         """
-        import asyncio
-        from concurrent.futures import ThreadPoolExecutor
-        
         loop = asyncio.get_event_loop()
         
-        # Use a thread pool with 3 workers (one per model)
-        # PyTorch models release GIL during inference, allowing true parallelism
-        executor = ThreadPoolExecutor(max_workers=3)
-        
-        # Run all three models concurrently
+        # Run all three models concurrently using shared executor
         embedding_task = loop.run_in_executor(
-            executor,
+            self._executor,
             self._speaker_adapter.extract_embedding,
             audio_data,
             audio_format
         )
         
         anti_spoof_task = loop.run_in_executor(
-            executor,
+            self._executor,
             self._spoof_adapter.detect_spoof,
             audio_data
         )
         
         transcription_task = loop.run_in_executor(
-            executor,
+            self._executor,
             self._asr_adapter.transcribe,
             audio_data
         )
@@ -168,9 +165,6 @@ class VoiceBiometricEngineFacade:
             anti_spoof_task,
             transcription_task
         )
-        
-        # Clean up executor
-        executor.shutdown(wait=False)
         
         return {
             "embedding": embedding,

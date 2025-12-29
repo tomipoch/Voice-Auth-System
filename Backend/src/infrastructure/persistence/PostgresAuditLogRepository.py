@@ -3,7 +3,7 @@
 import json
 import asyncpg
 import numpy as np
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional, Any
 from uuid import UUID
 
@@ -137,7 +137,6 @@ class PostgresAuditLogRepository(AuditLogRepositoryPort):
         limit: int = 100
     ) -> List[Dict[str, Any]]:
         """Get recent activity for a specific user."""
-        from datetime import timezone
         since = datetime.now(timezone.utc) - timedelta(hours=hours)
         
         query = """
@@ -159,7 +158,6 @@ class PostgresAuditLogRepository(AuditLogRepositoryPort):
         limit: int = 100
     ) -> List[Dict[str, Any]]:
         """Get recent activity for a specific client."""
-        from datetime import timezone
         since = datetime.now(timezone.utc) - timedelta(hours=hours)
         
         query = """
