@@ -1,4 +1,4 @@
-"""Anti-spoofing adapter using AASIST, RawNet2 and ResNet models for spoofing detection."""
+"""Anti-spoofing adapter using AASIST and RawNet2 models for spoofing detection."""
 
 import numpy as np
 import io
@@ -14,7 +14,6 @@ from speechbrain.inference.speaker import EncoderClassifier
 from .local_antispoof_models import (
     BaseLocalAntiSpoofModel,
     LocalAASISTModel,
-    LocalNes2NetModel,
     LocalRawNet2Model,
     build_local_model_paths,
 )
@@ -39,10 +38,9 @@ FALLBACK_MSG = "Falling back to mock implementation"
 
 class SpoofDetectorAdapter:
     """
-    Real anti-spoofing adapter using state-of-the-art models from anteproyecto:
+    Real anti-spoofing adapter using state-of-the-art models:
     - AASIST: Advanced anti-spoofing model for detecting synthetic speech
     - RawNet2: Raw waveform-based spoofing detection
-    - ResNet: CNN-based spoofing detection with ensemble approach
     
     Trained on ASVspoof 2019/2021 datasets for comprehensive spoofing detection.
     """
@@ -59,7 +57,6 @@ class SpoofDetectorAdapter:
         # Model instances
         self._aasist_model = None
         self._rawnet2_model = None
-        self._resnet_model = None
         self._local_models: Dict[str, BaseLocalAntiSpoofModel] = {}
         self._models_loaded = False
         
@@ -71,10 +68,8 @@ class SpoofDetectorAdapter:
         
         # Ensemble weights for model combination
         self.model_weights = {
-            'aasist': 0.4,    # Primary model for synthetic speech
-            'rawnet2': 0.35,  # Strong for deepfake detection  
-            'resnet': 0.25,   # Good for general spoofing patterns (SpeechBrain fallback)
-            'nes2net': 0.25   # Local Nes2Net replacement
+            'aasist': 0.55,   # Primary model for synthetic speech
+            'rawnet2': 0.45   # Strong for deepfake detection
         }
         
         # Thread safety for parallel processing
@@ -85,7 +80,7 @@ class SpoofDetectorAdapter:
         self._load_antispoofing_models()
     
     def _load_antispoofing_models(self):
-        """Load AASIST, RawNet2 and ResNet models for ensemble anti-spoofing."""
+        """Load AASIST and RawNet2 models for ensemble anti-spoofing."""
         try:
             logger.info("Loading anti-spoofing models ensemble...")
 
@@ -127,14 +122,9 @@ class SpoofDetectorAdapter:
                 if self._rawnet2_model is not None:
                     success_count += 1
 
-            if "nes2net" not in self._local_models:
-                self._resnet_model = self._load_speechbrain_model("resnet_antispoofing")
-                if self._resnet_model is not None:
-                    success_count += 1
-
             if success_count > 0:
                 self._models_loaded = True
-                logger.info(f"Anti-spoofing ensemble loaded: {success_count}/3 models available")
+                logger.info(f"Anti-spoofing ensemble loaded: {success_count}/2 models available")
             else:
                 logger.error("No anti-spoofing models could be loaded")
                 self._models_loaded = False
@@ -269,7 +259,7 @@ class SpoofDetectorAdapter:
     
     def detect_spoof(self, audio_data: bytes) -> float:
         """
-        Detect spoofing probability using ensemble of AASIST, RawNet2 and ResNet models.
+        Detect spoofing probability using ensemble of AASIST, RawNet2 and Nes2Net models.
         
         Args:
             audio_data: Raw audio bytes
@@ -317,21 +307,6 @@ class SpoofDetectorAdapter:
                     predictions["rawnet2"] = self._predict_with_rawnet2(waveform)
                 except Exception as e:
                     logger.warning(f"RawNet2 prediction failed: {e}")
-
-            # Nes2Net / ResNet prediction
-            nes2net_local = self._local_models.get("nes2net")
-            if nes2net_local:
-                try:
-                    score = nes2net_local.predict_spoof_probability(waveform, self.target_sample_rate)
-                    if score is not None:
-                        predictions["nes2net"] = score
-                except Exception as e:
-                    logger.warning(f"Nes2Net prediction failed: {e}")
-            elif self._resnet_model is not None:
-                try:
-                    predictions["resnet"] = self._predict_with_resnet(waveform)
-                except Exception as e:
-                    logger.warning(f"ResNet prediction failed: {e}")
             
             # Ensemble prediction using weighted average
             if predictions:
@@ -390,13 +365,7 @@ class SpoofDetectorAdapter:
                 spoof_prob = torch.exp(scores)[:, 1].item()
         return spoof_prob
     
-    def _predict_with_resnet(self, waveform: torch.Tensor) -> float:
-        """Predict spoofing score using ResNet model."""
-        with self._lock:
-            with torch.no_grad():
-                scores, _, _ = self._resnet_model.classify_batch(waveform)
-                spoof_prob = torch.exp(scores)[:, 1].item()
-        return spoof_prob
+
     
     def _calculate_zcr(self, waveform: torch.Tensor) -> float:
         """Calculate zero crossing rate."""
@@ -483,9 +452,8 @@ class SpoofDetectorAdapter:
                 "attack_type_probabilities": attack_probabilities,
                 "quality_indicators": quality_indicators,
                 "models_available": {
-                    "aasist": self._aasist_model is not None,
-                    "rawnet2": self._rawnet2_model is not None,
-                    "resnet": self._resnet_model is not None
+                    "aasist": self._aasist_model is not None or "aasist" in self._local_models,
+                    "rawnet2": self._rawnet2_model is not None or "rawnet2" in self._local_models
                 }
             }
             
@@ -547,12 +515,6 @@ class SpoofDetectorAdapter:
         if 'rawnet2' in individual_scores:
             attack_probs["replay"] = individual_scores['rawnet2']
             attack_probs["deepfake"] = individual_scores['rawnet2'] * 0.8
-        
-        # ResNet provides general spoofing detection
-        if 'resnet' in individual_scores:
-            for attack_type in attack_probs:
-                attack_probs[attack_type] = max(attack_probs[attack_type], 
-                                              individual_scores['resnet'] * 0.6)
         
         return attack_probs
     

@@ -55,7 +55,7 @@ class ASRAdapter:
         # Allow model selection via environment variable or parameter
         # Priority: parameter > env var > default
         if model_name is None:
-            model_name = os.getenv("ASR_MODEL", "lightweight_asr")
+            model_name = os.getenv("ASR_MODEL", "wav2vec2_asr_es")
         self._model_name = model_name
         
         self._model_version = "1.0.0"
