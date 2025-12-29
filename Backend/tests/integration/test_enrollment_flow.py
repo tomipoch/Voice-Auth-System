@@ -6,9 +6,9 @@ from unittest.mock import Mock, AsyncMock
 import numpy as np
 from datetime import datetime, timezone
 
-from ...src.application.services.EnrollmentService import EnrollmentService
-from ...src.application.dtos.ResponseDTOs import EnrollmentResponseDTO
-from ...src.shared.types.common_types import (
+from src.application.services.EnrollmentService import EnrollmentService
+from src.application.dtos.ResponseDTOs import EnrollmentResponseDTO
+from src.shared.types.common_types import (
     VoiceFeatures,
     ProcessingResult,
     AuthReason

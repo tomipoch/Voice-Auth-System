@@ -7,15 +7,15 @@ from unittest.mock import AsyncMock, Mock, patch
 import numpy as np
 from datetime import datetime, timezone
 
-from ...src.infrastructure.repositories.PostgreSQLVoiceSignatureRepository import (
+from src.infrastructure.repositories.PostgreSQLVoiceSignatureRepository import (
     PostgreSQLVoiceSignatureRepository
 )
-from ...src.infrastructure.repositories.PostgreSQLAuthAttemptRepository import (
+from src.infrastructure.repositories.PostgreSQLAuthAttemptRepository import (
     PostgreSQLAuthAttemptRepository
 )
-from ...src.domain.model.VoiceSignature import VoiceSignature
-from ...src.domain.model.AuthAttemptResult import AuthAttemptResult, BiometricScores
-from ...src.shared.types.common_types import (
+from src.domain.model.VoiceSignature import VoiceSignature
+from src.domain.model.AuthAttemptResult import AuthAttemptResult, BiometricScores
+from src.shared.types.common_types import (
     VoiceFeatures,
     AuthReason
 )

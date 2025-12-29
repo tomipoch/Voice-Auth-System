@@ -3,9 +3,9 @@
 import pytest
 from uuid import uuid4
 
-from ...src.domain.services.ResultBuilder import ResultBuilder
-from ...src.domain.model.AuthAttemptResult import BiometricScores
-from ...src.shared.types.common_types import AuthReason
+from src.domain.services.ResultBuilder import ResultBuilder
+from src.domain.model.AuthAttemptResult import BiometricScores
+from src.shared.types.common_types import AuthReason
 
 
 class TestResultBuilder:

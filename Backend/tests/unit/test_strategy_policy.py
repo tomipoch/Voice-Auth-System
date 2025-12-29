@@ -3,15 +3,15 @@
 import pytest
 from unittest.mock import Mock
 
-from ...src.domain.services.DecisionService import (
+from src.domain.services.DecisionService import (
     DecisionService,
     StandardDecisionStrategy,
     BankingDecisionStrategy,
     DemoDecisionStrategy
 )
-from ...src.domain.model.AuthAttemptResult import BiometricScores
-from ...src.domain.model.ThresholdPolicy import PolicyTemplates
-from ...src.shared.types.common_types import AuthReason
+from src.domain.model.AuthAttemptResult import BiometricScores
+from src.domain.model.ThresholdPolicy import PolicyTemplates
+from src.shared.types.common_types import AuthReason
 
 
 class TestDecisionStrategies:
