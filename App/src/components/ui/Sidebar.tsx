@@ -10,7 +10,6 @@ import {
   UserPlus as UserPlusIcon,
   Menu,
   X,
-  ChevronDown,
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 

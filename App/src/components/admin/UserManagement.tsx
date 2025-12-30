@@ -26,8 +26,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
   const [searchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
-  const [currentPage] = useState(1);
-  const [, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredUsers = users.filter((user) => {
     const matchesSearch =
