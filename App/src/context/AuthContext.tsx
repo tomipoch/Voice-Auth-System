@@ -1,12 +1,77 @@
-// @ts-nocheck
-import { createContext, useReducer, useEffect } from 'react';
+import { createContext, useReducer, useEffect, ReactNode } from 'react';
 import { authService } from '../services/apiServices';
 import { authStorage } from '../services/storage';
 import { features } from '../config/environment.js';
 import toast from 'react-hot-toast';
+import type { LoginCredentials, RegisterData, VoiceProfile } from '../types';
 
-// Estado inicial
-const initialState = {
+// ============================================
+// Type Definitions
+// ============================================
+
+// AuthUser is more flexible than User to accommodate various backend responses
+interface AuthUser {
+  id: string;
+  name?: string; // Optional - computed from first_name + last_name
+  first_name?: string;
+  last_name?: string;
+  fullName?: string; // Alias often used in frontend
+  username?: string;
+  email: string;
+  role: string;
+  voice_template?: unknown; // Allow voice template info
+  voiceProfile?: VoiceProfile;
+  company?: string;
+  rut?: string;
+  created_at?: string;
+  settings?: {
+    notifications?: {
+      email?: boolean;
+      push?: boolean;
+      verificationAlerts?: boolean;
+    };
+    security?: {
+      twoFactor?: boolean;
+      sessionTimeout?: number;
+      requireReauth?: boolean;
+    };
+    appearance?: {
+      theme?: string;
+      language?: string;
+    };
+  };
+}
+
+interface AuthState {
+  user: AuthUser | null;
+  token: string | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  error: string | null;
+}
+
+type AuthAction =
+  | { type: 'LOGIN_START' }
+  | { type: 'LOGIN_SUCCESS'; payload: { user: AuthUser; token: string } }
+  | { type: 'LOGIN_FAILURE'; payload: string }
+  | { type: 'LOGOUT' }
+  | { type: 'SET_USER'; payload: AuthUser | null }
+  | { type: 'SET_LOADING'; payload: boolean }
+  | { type: 'CLEAR_ERROR' };
+
+export interface AuthContextValue extends AuthState {
+  login: (credentials: LoginCredentials) => Promise<{ success: boolean; error?: string }>;
+  register: (userData: RegisterData) => Promise<{ success: boolean; error?: string }>;
+  logout: () => Promise<void>;
+  clearError: () => void;
+  refreshUser: () => Promise<{ success: boolean; error?: unknown }>;
+}
+
+// ============================================
+// Initial State & Action Types
+// ============================================
+
+const initialState: AuthState = {
   user: null,
   token: null,
   isAuthenticated: false,
@@ -14,7 +79,6 @@ const initialState = {
   error: null,
 };
 
-// Tipos de acciones
 const actionTypes = {
   LOGIN_START: 'LOGIN_START',
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
@@ -23,10 +87,13 @@ const actionTypes = {
   SET_USER: 'SET_USER',
   SET_LOADING: 'SET_LOADING',
   CLEAR_ERROR: 'CLEAR_ERROR',
-};
+} as const;
 
+// ============================================
 // Reducer
-const authReducer = (state, action) => {
+// ============================================
+
+const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.type) {
     case actionTypes.LOGIN_START:
       return {
@@ -83,11 +150,14 @@ const authReducer = (state, action) => {
   }
 };
 
-// Crear contexto
-const AuthContext = createContext(null);
+// ============================================
+// Context
+// ============================================
+
+const AuthContext = createContext<AuthContextValue | null>(null);
 
 // Provider del contexto
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Inicializar autenticación al cargar la app
@@ -143,9 +213,10 @@ export const AuthProvider = ({ children }) => {
                   role: profile.role,
                 });
               }
-            } catch (error) {
+            } catch (error: unknown) {
               // Diferenciar tipos de error para mejor manejo
-              if (error.response?.status === 401) {
+              const axiosError = error as { response?: { status?: number }; message?: string };
+              if (axiosError.response?.status === 401) {
                 // Token realmente inválido o expirado - limpiar sesión
                 authStorage.clearAuth();
                 dispatch({ type: actionTypes.LOGOUT });
@@ -155,7 +226,10 @@ export const AuthProvider = ({ children }) => {
                 }
               } else {
                 // Error de red o servidor temporal - MANTENER sesión local
-                console.warn('⚠️ Error verificando token, usando datos locales:', error.message);
+                console.warn(
+                  '⚠️ Error verificando token, usando datos locales:',
+                  axiosError.message
+                );
                 dispatch({
                   type: actionTypes.LOGIN_SUCCESS,
                   payload: {
@@ -182,7 +256,7 @@ export const AuthProvider = ({ children }) => {
                     if (features.debugMode) {
                       console.log('🔄 Profile refreshed from server');
                     }
-                  } catch (error) {
+                  } catch {
                     // Silenciosamente fallar si aún no hay conexión
                     if (features.debugMode) {
                       console.log('⚠️ Background refresh failed, keeping local data');
@@ -209,19 +283,19 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Track if we're in the middle of a login/logout to avoid race conditions
     let debounceTimer: NodeJS.Timeout | null = null;
-    
+
     const handleStorageChange = (e: StorageEvent) => {
       // IMPORTANT: storage events should only fire for OTHER tabs/windows
       // If e.storageArea is null or the event is from this window, ignore it
       if (!e.storageArea) {
         return;
       }
-      
+
       // Clear any pending debounce
       if (debounceTimer) {
         clearTimeout(debounceTimer);
       }
-      
+
       // Debounce storage changes to avoid race conditions during login
       debounceTimer = setTimeout(() => {
         // Detectar logout en otra pestaña
@@ -292,13 +366,13 @@ export const AuthProvider = ({ children }) => {
   }, [state.isAuthenticated]);
 
   // Función de login
-  const login = async (credentials) => {
+  const login = async (credentials: LoginCredentials) => {
     try {
       dispatch({ type: actionTypes.LOGIN_START });
 
       // Usuario de desarrollo especial
       if (credentials.email === 'dev@test.com' && credentials.password === '123456') {
-        const devUser = {
+        const devUser: AuthUser = {
           id: 'dev-user-1',
           name: 'Usuario Desarrollo',
           email: 'dev@test.com',
@@ -308,7 +382,7 @@ export const AuthProvider = ({ children }) => {
 
         // Guardar usando authStorage
         authStorage.setAccessToken(devToken);
-        authStorage.setUser(devUser);
+        authStorage.setUser(devUser as Parameters<typeof authStorage.setUser>[0]);
 
         if (features.debugMode) {
           console.log('💾 Dev login - Data saved to storage:', {
@@ -331,7 +405,7 @@ export const AuthProvider = ({ children }) => {
 
       // Usuario admin de desarrollo
       if (credentials.email === 'admin@test.com' && credentials.password === '123456') {
-        const adminUser = {
+        const adminUser: AuthUser = {
           id: 'admin-user-1',
           name: 'Admin Desarrollo',
           email: 'admin@test.com',
@@ -341,7 +415,7 @@ export const AuthProvider = ({ children }) => {
 
         // Guardar usando authStorage
         authStorage.setAccessToken(adminToken);
-        authStorage.setUser(adminUser);
+        authStorage.setUser(adminUser as Parameters<typeof authStorage.setUser>[0]);
 
         dispatch({
           type: actionTypes.LOGIN_SUCCESS,
@@ -354,7 +428,7 @@ export const AuthProvider = ({ children }) => {
 
       // Login normal con el servidor
       const response = await authService.login(credentials);
-      
+
       // La respuesta viene como: { access_token, refresh_token, user, token_type, expires_in }
       const { user, access_token, refresh_token } = response;
 
@@ -381,8 +455,9 @@ export const AuthProvider = ({ children }) => {
       }
       toast.success(`¡Bienvenido, ${user.name}!`);
       return { success: true };
-    } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Error al iniciar sesión';
+    } catch (error: unknown) {
+      const axiosError = error as { response?: { data?: { message?: string } } };
+      const errorMessage = axiosError.response?.data?.message || 'Error al iniciar sesión';
       dispatch({
         type: actionTypes.LOGIN_FAILURE,
         payload: errorMessage,
@@ -397,7 +472,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Función de registro
-  const register = async (userData) => {
+  const register = async (userData: RegisterData) => {
     try {
       dispatch({ type: actionTypes.LOGIN_START });
 
@@ -406,8 +481,9 @@ export const AuthProvider = ({ children }) => {
 
       dispatch({ type: actionTypes.SET_LOADING, payload: false });
       return { success: true };
-    } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Error al registrar usuario';
+    } catch (error: unknown) {
+      const axiosError = error as { response?: { data?: { message?: string } } };
+      const errorMessage = axiosError.response?.data?.message || 'Error al registrar usuario';
       dispatch({
         type: actionTypes.LOGIN_FAILURE,
         payload: errorMessage,

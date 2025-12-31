@@ -43,6 +43,19 @@ class VoiceBiometricEngineFacade:
         # Reusable thread pool for parallel model inference (prevents memory leak)
         self._executor = ThreadPoolExecutor(max_workers=3, thread_name_prefix="biometric_")
     
+    def close(self):
+        """Close the executor and release resources. Call this on application shutdown."""
+        if hasattr(self, '_executor') and self._executor:
+            self._executor.shutdown(wait=True)
+    
+    def __del__(self):
+        """Cleanup resources when the object is destroyed."""
+        try:
+            if hasattr(self, '_executor') and self._executor:
+                self._executor.shutdown(wait=False)
+        except Exception:
+            pass  # Ignore errors during cleanup
+    
     def analyze_voice(
         self,
         audio_data: bytes,
@@ -137,7 +150,7 @@ class VoiceBiometricEngineFacade:
         Returns:
             Dictionary with embedding, anti_spoofing_score, and transcribed_text
         """
-        loop = asyncio.get_event_loop()
+        loop = asyncio.get_running_loop()  # Fixed: use get_running_loop instead of deprecated get_event_loop
         
         # Run all three models concurrently using shared executor
         embedding_task = loop.run_in_executor(

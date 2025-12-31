@@ -66,6 +66,13 @@ export interface AuditLog {
   details: string;
 }
 
+export interface VoiceTemplate {
+  id?: string;
+  model_type?: string;
+  sample_count?: number;
+  created_at?: string;
+}
+
 export interface UserDetails {
   id: string;
   first_name: string;
@@ -77,7 +84,7 @@ export interface UserDetails {
   enrollment_status: string;
   created_at: string;
   last_login?: string;
-  voice_template?: any;
+  voice_template?: VoiceTemplate | null;
 }
 
 export interface VerificationAttempt {
@@ -86,7 +93,7 @@ export interface VerificationAttempt {
   result: 'success' | 'failed';
   score: number;
   method: string;
-  details?: any; // Contains raw metadata from backend
+  details?: Record<string, unknown>; // Contains raw metadata from backend
 }
 
 export interface UserHistoryResponse {

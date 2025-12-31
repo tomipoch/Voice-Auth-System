@@ -32,7 +32,7 @@ class PhraseService {
    * Get paginated list of phrases with filters
    */
   async getPhrases(filters: PhraseFilters): Promise<PhraseListResponse> {
-    const params: any = {
+    const params: Record<string, string | number | boolean | undefined> = {
       page: filters.page,
       limit: filters.limit,
     };

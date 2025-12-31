@@ -261,6 +261,7 @@ export const constantTimeCompare = (a: string, b: string): boolean => {
  * Input sanitization para SQL injection prevention (aunque uses ORM)
  */
 export const escapeSqlString = (str: string): string => {
+  // Control characters are intentional for SQL escape - biome-ignore lint/suspicious/noControlCharactersInRegex: Required for SQL injection prevention
   return str.replace(/[\0\x08\x09\x1a\n\r"'\\%]/g, (char) => {
     switch (char) {
       case '\0':
@@ -300,10 +301,16 @@ export const isValidOrigin = (origin: string): boolean => {
 };
 
 /**
- * Limpia automáticamente rate limiters cada 5 minutos
+ * Cleanup interval for rate limiters
  */
-if (typeof window !== 'undefined') {
-  setInterval(
+let cleanupInterval: ReturnType<typeof setInterval> | null = null;
+
+/**
+ * Start automatic cleanup of rate limiters
+ */
+export const startRateLimiterCleanup = (): void => {
+  if (cleanupInterval) return; // Prevent duplicate intervals
+  cleanupInterval = setInterval(
     () => {
       loginRateLimiter.cleanup();
       apiRateLimiter.cleanup();
@@ -311,4 +318,21 @@ if (typeof window !== 'undefined') {
     },
     5 * 60 * 1000
   );
+};
+
+/**
+ * Stop automatic cleanup of rate limiters
+ */
+export const stopRateLimiterCleanup = (): void => {
+  if (cleanupInterval) {
+    clearInterval(cleanupInterval);
+    cleanupInterval = null;
+  }
+};
+
+/**
+ * Auto-start cleanup on module load
+ */
+if (typeof window !== 'undefined') {
+  startRateLimiterCleanup();
 }

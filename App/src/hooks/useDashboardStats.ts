@@ -34,6 +34,8 @@ export const useDashboardStats = () => {
   const [systemStats, setSystemStats] = useState<DashboardStats | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadDashboardData = async () => {
       try {
         setStats((prev) => ({ ...prev, loading: true, error: null }));
@@ -46,11 +48,15 @@ export const useDashboardStats = () => {
         if (user?.role === 'admin' || user?.role === 'superadmin') {
           try {
             systemData = await adminService.getStats();
-            setSystemStats(systemData);
+            if (isMounted) {
+              setSystemStats(systemData);
+            }
           } catch (error) {
             console.warn('No se pudieron cargar estadísticas del sistema:', error);
           }
         }
+
+        if (!isMounted) return;
 
         // Estadísticas del usuario basadas en datos mock
         const userStats = {
@@ -71,8 +77,18 @@ export const useDashboardStats = () => {
         if (user?.role === 'admin') {
           try {
             const activityData = await adminService.getRecentActivity();
+            if (!isMounted) return;
+            // Type for activity data from API
+            interface ActivityData {
+              id: string;
+              type: string;
+              username: string;
+              details?: string;
+              timestamp: string;
+              success: boolean;
+            }
             // Mapear Activity a ActivityItem
-            const mappedActivity: ActivityItem[] = activityData.map((act: any) => ({
+            const mappedActivity: ActivityItem[] = activityData.map((act: ActivityData) => ({
               id: act.id,
               message: act.details || `${act.type} - ${act.username}`,
               timestamp: act.timestamp,
@@ -81,7 +97,9 @@ export const useDashboardStats = () => {
             setRecentActivity(mappedActivity);
           } catch (error) {
             console.warn('No se pudo cargar actividad reciente:', error);
-            setRecentActivity([]);
+            if (isMounted) {
+              setRecentActivity([]);
+            }
           }
         } else {
           // Para usuarios normales, mostrar actividad personal simulada
@@ -110,17 +128,23 @@ export const useDashboardStats = () => {
         }
       } catch (error) {
         console.error('Error loading dashboard data:', error);
-        setStats((prev) => ({
-          ...prev,
-          loading: false,
-          error: 'Error al cargar datos del dashboard',
-        }));
+        if (isMounted) {
+          setStats((prev) => ({
+            ...prev,
+            loading: false,
+            error: 'Error al cargar datos del dashboard',
+          }));
+        }
       }
     };
 
     if (user) {
       loadDashboardData();
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [user]);
 
   const refreshStats = async (): Promise<void> => {

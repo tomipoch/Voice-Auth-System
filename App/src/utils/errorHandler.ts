@@ -162,7 +162,7 @@ export async function retryWithBackoff<T>(
   maxRetries = 3,
   baseDelay = 1000
 ): Promise<T> {
-  let lastError: Error;
+  let lastError: Error | undefined = undefined;
 
   for (let i = 0; i < maxRetries; i++) {
     try {
@@ -177,7 +177,7 @@ export async function retryWithBackoff<T>(
     }
   }
 
-  throw lastError!;
+  throw lastError ?? new Error('Max retries exceeded with unknown error');
 }
 
 export default ErrorHandler;

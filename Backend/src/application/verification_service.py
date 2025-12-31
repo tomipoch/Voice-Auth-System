@@ -43,10 +43,6 @@ from .services.BiometricValidator import BiometricValidator
 class VerificationService:
     """Service for voice biometric verification with dynamic phrases."""
     
-    # In-memory sessions (in production, use Redis)
-    _active_sessions: Dict[UUID, VerificationSession] = {}
-    _active_multi_sessions: Dict[UUID, MultiPhraseVerificationSession] = {}
-    
     def __init__(
         self,
         voice_repo: VoiceSignatureRepositoryPort,
@@ -64,6 +60,10 @@ class VerificationService:
         self._biometric_validator = biometric_validator
         self._similarity_threshold = similarity_threshold
         self._anti_spoofing_threshold = anti_spoofing_threshold
+        # In-memory sessions (in production, use Redis)
+        # Moved to instance variables to avoid sharing state between instances
+        self._active_sessions: Dict[UUID, VerificationSession] = {}
+        self._active_multi_sessions: Dict[UUID, MultiPhraseVerificationSession] = {}
     
     def _calculate_phrase_similarity(self, expected: str, transcribed: str) -> float:
         """Calculate similarity between expected and transcribed phrases."""

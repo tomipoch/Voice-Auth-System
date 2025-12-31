@@ -80,6 +80,7 @@ describe('authService', () => {
         password: 'password123',
         first_name: 'New',
         last_name: 'User',
+        rut: '12345678-9',
       });
 
       expect(api.post).toHaveBeenCalledWith('/auth/register', {
@@ -87,6 +88,7 @@ describe('authService', () => {
         password: 'password123',
         first_name: 'New',
         last_name: 'User',
+        rut: '12345678-9',
       });
       expect(result).toEqual(mockResponse.data);
     });
@@ -123,7 +125,7 @@ describe('authService', () => {
         name: 'Test User',
         role: 'user' as const,
       };
-      
+
       const mockResponse = {
         data: mockUser,
       };

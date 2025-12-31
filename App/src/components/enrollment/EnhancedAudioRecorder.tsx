@@ -32,7 +32,7 @@ const EnhancedAudioRecorder = ({
         console.log('onRecordingComplete called with blob size:', blob.size);
         console.log('Quality received:', quality);
         setPhase('processing');
-        
+
         try {
           await onRecordingComplete(blob, quality);
           setPhase('completed');

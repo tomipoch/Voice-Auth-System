@@ -6,6 +6,7 @@ import wave
 import torch
 import torchaudio
 import logging
+import pickle
 from typing import Dict, Any, Tuple, Optional, List
 from pathlib import Path
 import speechbrain as sb
@@ -416,8 +417,7 @@ class SpoofDetectorAdapter:
                     individual_scores['aasist'] = self._predict_with_aasist(waveform)
                 if self._rawnet2_model is not None:
                     individual_scores['rawnet2'] = self._predict_with_rawnet2(waveform)
-                if self._resnet_model is not None:
-                    individual_scores['resnet'] = self._predict_with_resnet(waveform)
+                # Note: resnet model removed - not implemented in current version
             
             # Calculate confidence based on model agreement
             confidence = self._calculate_ensemble_confidence(individual_scores, spoof_prob)

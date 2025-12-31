@@ -187,13 +187,12 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
       // Manejar fin de grabación
       mediaRecorder.onstop = async () => {
         // Calcular duración real basándose en el tiempo transcurrido
-        const actualDuration = startTimeRef.current > 0 
-          ? (Date.now() - startTimeRef.current) / 1000 
-          : recordingTime;
-        
+        const actualDuration =
+          startTimeRef.current > 0 ? (Date.now() - startTimeRef.current) / 1000 : recordingTime;
+
         // Guardar en ref para acceso inmediato
         lastDurationRef.current = actualDuration;
-        
+
         console.log('MediaRecorder stopped, recording time:', actualDuration.toFixed(2), 's');
         const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
         setRecordedBlob(blob);
@@ -205,7 +204,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
           hasSilence: false,
           isValid: actualDuration >= minDuration,
         };
-        
+
         // Actualizar estado con la calidad temporal
         setAudioQuality(tempQuality);
 
@@ -224,7 +223,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
         stopVolumeMonitoring();
 
         // Analizar calidad de audio en background (opcional, para mejorar la calidad)
-        analyzeRecording(blob, actualDuration).catch(err => {
+        analyzeRecording(blob, actualDuration).catch((err) => {
           console.error('Error analyzing audio:', err);
         });
 
@@ -354,7 +353,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
         // Analizar calidad
         const quality = audioUtils.analyzeAudioQuality(channelData);
         const hasSilence = audioUtils.detectSilence(channelData);
-        
+
         // Usar duración real calculada si está disponible
         const duration = actualDuration || audioBuffer.duration;
 

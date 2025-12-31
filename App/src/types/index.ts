@@ -2,6 +2,13 @@
 // User & Auth Types
 // ============================================
 
+export interface VoiceTemplateInfo {
+  id?: string;
+  model_type?: string;
+  sample_count?: number;
+  created_at?: string;
+}
+
 export interface User {
   id: string;
   email: string;
@@ -15,7 +22,7 @@ export interface User {
   rut?: string; // Chilean national ID
   isVerified?: boolean;
   voiceProfile?: VoiceProfile;
-  voice_template?: boolean; // Backend returns this
+  voice_template?: VoiceTemplateInfo | null; // Fixed: was boolean, now VoiceTemplateInfo object
   createdAt?: string;
   created_at?: string; // Backend uses snake_case
   updatedAt?: string;
@@ -77,8 +84,9 @@ export interface AuthResponse {
   user: User;
 }
 
-// Legacy support - puede ser removido después
-export interface AuthTokens {
+// AuthTokensResponse - for backend responses (snake_case)
+// Note: This was previously duplicated as AuthTokens, now renamed for clarity
+export interface AuthTokensResponse {
   access_token: string;
   refresh_token?: string;
   token_type?: string;

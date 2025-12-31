@@ -35,6 +35,7 @@ export const useVoiceActivityDetection = (
   const silenceStartRef = useRef<number | null>(null);
   const speechStartRef = useRef<number | null>(null);
   const lastSpeakingStateRef = useRef(false);
+  const hasFinishedRef = useRef(false);
 
   const reset = useCallback(() => {
     setIsSpeaking(false);
@@ -43,6 +44,7 @@ export const useVoiceActivityDetection = (
     silenceStartRef.current = null;
     speechStartRef.current = null;
     lastSpeakingStateRef.current = false;
+    hasFinishedRef.current = false;
   }, []);
 
   useEffect(() => {
@@ -102,6 +104,7 @@ export const useVoiceActivityDetection = (
           if (totalSpeechDuration >= minSpeechDuration) {
             setIsSpeaking(false);
             setHasFinished(true);
+            hasFinishedRef.current = true;
             return; // Stop analyzing
           }
         }
@@ -115,7 +118,7 @@ export const useVoiceActivityDetection = (
       lastSpeakingStateRef.current = currentlySpeaking;
 
       // Continue analyzing if not finished
-      if (!hasFinished) {
+      if (!hasFinishedRef.current) {
         animationFrameRef.current = requestAnimationFrame(detectVoiceActivity);
       }
     };
@@ -132,7 +135,7 @@ export const useVoiceActivityDetection = (
         audioContextRef.current.close();
       }
     };
-  }, [audioStream, enabled, silenceThreshold, silenceDuration, minSpeechDuration, hasFinished]);
+  }, [audioStream, enabled, silenceThreshold, silenceDuration, minSpeechDuration]);
 
   return {
     isSpeaking,

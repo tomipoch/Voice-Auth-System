@@ -53,7 +53,7 @@ const AdminDashboardPage = () => {
   const displayData =
     chartData.length > 0
       ? chartData
-      : [...Array(7)].map((_, i) => ({
+      : [...Array(7)].map(() => ({
           day: '',
           value: 0,
           fullDate: '',
@@ -66,7 +66,7 @@ const AdminDashboardPage = () => {
     title: string,
     value: string | number,
     subtext: string,
-    Icon: any,
+    Icon: React.ComponentType<{ className?: string }>,
     colorClasses: { bg: string; text: string }
   ) => (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4 transition-all hover:shadow-md">
