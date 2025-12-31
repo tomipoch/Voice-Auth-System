@@ -55,6 +55,10 @@ class ProfileUpdateRequest(BaseModel):
     company: Optional[str] = None
     settings: Optional[dict] = None
 
+class PasswordChangeRequest(BaseModel):
+    current_password: str
+    new_password: str
+
 class UserProfile(BaseModel):
     id: str
     name: str
@@ -359,4 +363,54 @@ async def update_profile(
         created_at=updated_user["created_at"],
         voice_template=None,
         settings=updated_user.get("settings", {})
+    )
+
+@auth_router.post("/change-password")
+async def change_password(
+    password_data: PasswordChangeRequest,
+    current_user: dict = Depends(get_current_user),
+    user_repo: UserRepositoryPort = Depends(get_user_repository),
+):
+    """
+    Change user password.
+    Requires current password for verification.
+    """
+    # Get user from database
+    user = await user_repo.get_user(current_user["id"])
+    
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    
+    # Verify current password
+    if not verify_password(password_data.current_password, user["password_hash"]):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Current password is incorrect"
+        )
+    
+    # Validate new password length
+    if len(password_data.new_password) < 8:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="New password must be at least 8 characters long"
+        )
+    
+    # Hash new password
+    new_password_hash = bcrypt.hashpw(
+        password_data.new_password.encode('utf-8'),
+        bcrypt.gensalt()
+    ).decode('utf-8')
+    
+    # Update password in database
+    await user_repo.update_user(current_user["id"], {"password_hash": new_password_hash})
+    
+    return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content={
+            "success": True,
+            "message": "Password changed successfully"
+        }
     )

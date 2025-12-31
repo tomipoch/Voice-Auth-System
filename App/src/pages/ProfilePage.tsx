@@ -107,14 +107,22 @@ const ProfilePage = () => {
 
     setIsLoading(true);
     try {
-      // TODO: Implement password change endpoint
-      toast.success('Contraseña actualizada exitosamente');
-      setPasswordData({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: '',
-      });
-      setShowPasswordSection(false);
+      const response = await authService.changePassword(
+        passwordData.currentPassword,
+        passwordData.newPassword
+      );
+      
+      if (response.success) {
+        toast.success('Contraseña actualizada exitosamente');
+        setPasswordData({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        });
+        setShowPasswordSection(false);
+      } else {
+        toast.error(response.error || 'Error al cambiar la contraseña');
+      }
     } catch (error) {
       console.error('Error changing password:', error);
       toast.error('Error al cambiar la contraseña');

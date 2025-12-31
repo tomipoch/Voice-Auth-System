@@ -114,20 +114,20 @@ export const authService = {
   // Refresh access token
   refreshToken: async (): Promise<AuthResponse> => {
     const refreshToken = authStorage.getRefreshToken();
-    
+
     if (!refreshToken) {
       throw new Error('No refresh token available');
     }
-    
+
     const response = await api.post<AuthResponse>('/auth/refresh', {
-      refresh_token: refreshToken
+      refresh_token: refreshToken,
     });
-    
+
     // Guardar nuevo access token
     if (response.data.access_token) {
       authStorage.setAccessToken(response.data.access_token);
     }
-    
+
     return response.data;
   },
 
@@ -143,11 +143,38 @@ export const authService = {
     const response = await api.patch<User>('/auth/profile', userData);
     // Actualizar usuario en localStorage si la respuesta es exitosa
     if (response.data) {
-       // La respuesta directa del backend es el objeto UserProfile, no envuelto en ApiResponse
-       // Ajustamos según la implementación del backend
-       return { success: true, data: response.data };
+      // La respuesta directa del backend es el objeto UserProfile, no envuelto en ApiResponse
+      // Ajustamos según la implementación del backend
+      return { success: true, data: response.data };
     }
     return { success: false, error: 'Error updating profile' };
+  },
+
+  // Cambiar contraseña del usuario
+  changePassword: async (
+    currentPassword: string,
+    newPassword: string
+  ): Promise<ApiResponse<void>> => {
+    if (!useRealAPI) {
+      // Mock password change
+      return { success: true };
+    }
+
+    try {
+      const response = await api.post('/auth/change-password', {
+        current_password: currentPassword,
+        new_password: newPassword,
+      });
+
+      if (response.data?.success) {
+        return { success: true };
+      }
+
+      return { success: false, error: response.data?.message || 'Error changing password' };
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.detail || 'Error changing password';
+      return { success: false, error: errorMessage };
+    }
   },
 };
 
@@ -265,7 +292,13 @@ export const verificationService = {
       return {
         success: true,
         history: [
-          { id: 1, date: '2024-11-30 14:30', result: 'success', score: 98, method: 'Frase Aleatoria' },
+          {
+            id: 1,
+            date: '2024-11-30 14:30',
+            result: 'success',
+            score: 98,
+            method: 'Frase Aleatoria',
+          },
           { id: 2, date: '2024-11-29 09:15', result: 'success', score: 95, method: 'Frase Fija' },
         ],
       };
