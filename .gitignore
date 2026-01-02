@@ -1,0 +1,112 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+.venv/
+ENV/
+env/
+
+# =========================
+# Node.js / React Native
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# React Native
+.expo/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# Metro
+.metro-health-check*
+
+# =========================
+# IDE / Editors
+# =========================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.local
+.env.*.local
+*.env
+
+# =========================
+# Models (Large Files)
+# =========================
+apps/backend/models/**/*.pt
+apps/backend/models/**/*.pth
+apps/backend/models/**/*.bin
+apps/backend/models/**/*.onnx
+apps/backend/models/**/*.ckpt
+apps/backend/models/**/pytorch_model.bin
+apps/backend/models/**/model.safetensors
+
+# =========================
+# Audio Files
+# =========================
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.m4a
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# Database
+# =========================
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================
+# Misc
+# =========================
+*.bak
+*.tmp
+*.temp
+coverage/
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/

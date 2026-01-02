@@ -13,7 +13,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ../Database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./infra/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U voice_user -d voice_biometrics"]
       interval: 30s
@@ -23,8 +23,8 @@ services:
   # Voice Biometrics API
   api:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./apps/backend
+      dockerfile: ../../infra/deployment/Dockerfile.backend
     container_name: voice_biometrics_api
     ports:
       - "8000:8000"
@@ -38,8 +38,8 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - ./models:/app/models # Mount ML models
-      - ./logs:/app/logs
+      - ./apps/backend/models:/app/models # Mount ML models
+      - ./apps/backend/logs:/app/logs
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
