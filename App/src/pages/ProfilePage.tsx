@@ -1,5 +1,17 @@
 import { useState, useEffect } from 'react';
-import { User, Mail, Building, Save, Loader2, Lock, Eye, EyeOff, Shield, Calendar, Key } from 'lucide-react';
+import {
+  User,
+  Mail,
+  Building,
+  Save,
+  Loader2,
+  Lock,
+  Eye,
+  EyeOff,
+  Shield,
+  Calendar,
+  Key,
+} from 'lucide-react';
 import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
@@ -15,7 +27,7 @@ const ProfilePage = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -31,13 +43,9 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (user) {
-      const nameParts = user.name ? user.name.split(' ') : ['',''];
-      const firstName = user.first_name || nameParts[0] || '';
-      const lastName = user.last_name || nameParts.slice(1).join(' ') || '';
-      
       setFormData({
-        firstName,
-        lastName,
+        firstName: user.first_name || '',
+        lastName: user.last_name || '',
         email: user.email || '',
         company: user.company || '',
       });
@@ -63,26 +71,28 @@ const ProfilePage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
       const updateData = {
         first_name: formData.firstName,
         last_name: formData.lastName,
-        company: formData.company
+        company: formData.company,
       };
 
       const response = await authService.updateProfile(updateData);
-      
+
       if (response.success) {
         toast.success('Perfil actualizado exitosamente');
         setIsEditing(false);
         if (refreshUser) {
-           await refreshUser();
+          await refreshUser();
         } else {
-           window.location.reload();
+          window.location.reload();
         }
       } else {
-        toast.error((response as any).error || (response as any).message || 'Error al actualizar perfil');
+        toast.error(
+          (response as any).error || (response as any).message || 'Error al actualizar perfil'
+        );
       }
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -94,7 +104,7 @@ const ProfilePage = () => {
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (passwordData.newPassword !== passwordData.confirmPassword) {
       toast.error('Las contraseñas no coinciden');
       return;
@@ -111,7 +121,7 @@ const ProfilePage = () => {
         passwordData.currentPassword,
         passwordData.newPassword
       );
-      
+
       if (response.success) {
         toast.success('Contraseña actualizada exitosamente');
         setPasswordData({
@@ -273,9 +283,7 @@ const ProfilePage = () => {
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
                       Seguridad
                     </h2>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      Cambia tu contraseña
-                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Cambia tu contraseña</p>
                   </div>
                 </div>
                 <Button
@@ -308,7 +316,11 @@ const ProfilePage = () => {
                           onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                         >
-                          {showCurrentPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                          {showCurrentPassword ? (
+                            <EyeOff className="h-5 w-5" />
+                          ) : (
+                            <Eye className="h-5 w-5" />
+                          )}
                         </button>
                       </div>
                     </div>
@@ -332,7 +344,11 @@ const ProfilePage = () => {
                           onClick={() => setShowNewPassword(!showNewPassword)}
                           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                         >
-                          {showNewPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                          {showNewPassword ? (
+                            <EyeOff className="h-5 w-5" />
+                          ) : (
+                            <Eye className="h-5 w-5" />
+                          )}
                         </button>
                       </div>
                       <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -359,7 +375,11 @@ const ProfilePage = () => {
                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                         >
-                          {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                          {showConfirmPassword ? (
+                            <EyeOff className="h-5 w-5" />
+                          ) : (
+                            <Eye className="h-5 w-5" />
+                          )}
                         </button>
                       </div>
                     </div>
@@ -395,21 +415,25 @@ const ProfilePage = () => {
                 <Shield className="h-5 w-5 mr-2 text-blue-600 dark:text-blue-400" />
                 Perfil de Voz
               </h3>
-              <div className={`p-4 rounded-xl border-2 ${
-                user?.voice_template 
-                  ? 'bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-800' 
-                  : 'bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border-orange-200 dark:border-orange-800'
-              }`}>
-                <p className={`text-sm font-medium mb-2 ${
-                  user?.voice_template 
-                    ? 'text-green-700 dark:text-green-400' 
-                    : 'text-orange-700 dark:text-orange-400'
-                }`}>
+              <div
+                className={`p-4 rounded-xl border-2 ${
+                  user?.voice_template
+                    ? 'bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-800'
+                    : 'bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border-orange-200 dark:border-orange-800'
+                }`}
+              >
+                <p
+                  className={`text-sm font-medium mb-2 ${
+                    user?.voice_template
+                      ? 'text-green-700 dark:text-green-400'
+                      : 'text-orange-700 dark:text-orange-400'
+                  }`}
+                >
                   {user?.voice_template ? '✓ Perfil Activo' : '⚠ Sin Configurar'}
                 </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">
-                  {user?.voice_template 
-                    ? 'Tu perfil de voz está configurado y listo para usar' 
+                  {user?.voice_template
+                    ? 'Tu perfil de voz está configurado y listo para usar'
                     : 'Configura tu perfil de voz para usar la verificación biométrica'}
                 </p>
               </div>
@@ -436,7 +460,9 @@ const ProfilePage = () => {
                     Miembro desde
                   </p>
                   <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                    {user?.created_at ? new Date(user.created_at).toLocaleDateString('es-ES') : 'N/A'}
+                    {user?.created_at
+                      ? new Date(user.created_at).toLocaleDateString('es-ES')
+                      : 'N/A'}
                   </p>
                 </div>
               </div>
