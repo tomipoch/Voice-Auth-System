@@ -62,6 +62,8 @@ class PasswordChangeRequest(BaseModel):
 class UserProfile(BaseModel):
     id: str
     name: str
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
     email: str
     role: str
     company: Optional[str] = None
@@ -317,6 +319,8 @@ async def get_profile(current_user: dict = Depends(get_current_user)):
     return UserProfile(
         id=str(current_user["id"]),
         name=f"{current_user.get('first_name', '')} {current_user.get('last_name', '')}".strip(),
+        first_name=current_user.get("first_name"),
+        last_name=current_user.get("last_name"),
         email=current_user["email"],
         role=current_user.get("role", "user"),
         company=current_user.get("company", ""),
@@ -375,6 +379,8 @@ async def update_profile(
     return UserProfile(
         id=str(updated_user["id"]),
         name=f"{updated_user.get('first_name', '')} {updated_user.get('last_name', '')}".strip(),
+        first_name=updated_user.get("first_name"),
+        last_name=updated_user.get("last_name"),
         email=updated_user["email"],
         role=updated_user.get("role", "user"),
         company=updated_user.get("company", ""),
