@@ -13,6 +13,8 @@ import type {
   UpdatePhraseStatusRequest,
   UpdatePhraseStatusResponse,
   DeletePhraseResponse,
+  UpdatePhraseTextRequest,
+  UpdatePhraseTextResponse,
 } from '../types/phrases';
 
 class PhraseService {
@@ -100,6 +102,20 @@ class PhraseService {
    */
   async getBooks(): Promise<Book[]> {
     const response = await api.get('/phrases/books');
+    return response.data;
+  }
+
+  /**
+   * Update phrase text
+   */
+  async updatePhraseText(
+    phraseId: string,
+    text: string
+  ): Promise<UpdatePhraseTextResponse> {
+    const response = await api.put<UpdatePhraseTextResponse>(
+      `${this.baseUrl}/${phraseId}`,
+      { text } as UpdatePhraseTextRequest
+    );
     return response.data;
   }
 }

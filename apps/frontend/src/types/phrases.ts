@@ -15,6 +15,8 @@ export interface Phrase {
   difficulty: 'easy' | 'medium' | 'hard';
   is_active: boolean;
   created_at: string;
+  phoneme_score?: number;
+  style?: 'narrative' | 'descriptive' | 'dialogue' | 'poetic';
 }
 
 export interface Book {
@@ -67,3 +69,17 @@ export interface DeletePhraseResponse {
   message: string;
   phrase_id: string;
 }
+
+export interface UpdatePhraseTextRequest {
+  text: string;
+}
+
+export interface UpdatePhraseTextResponse {
+  success: boolean;
+  message: string;
+  phrase_id: string;
+  text: string;
+  word_count: number;
+  char_count: number;
+}
+

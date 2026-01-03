@@ -269,6 +269,7 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 SELECT 
                     p.id, p.text, p.source, p.word_count, p.char_count, 
                     p.language, p.difficulty, p.is_active, p.created_at,
+                    p.phoneme_score, p.style,
                     b.title as book_title, b.author as book_author
                 FROM phrase p
                 LEFT JOIN books b ON p.book_id = b.id

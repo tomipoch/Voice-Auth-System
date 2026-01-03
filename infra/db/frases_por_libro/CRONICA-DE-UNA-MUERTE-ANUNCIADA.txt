@@ -1,0 +1,709 @@
+# CRONICA-DE-UNA-MUERTE-ANUNCIADA
+# Total frases: 348 (filtradas y balanceadas)
+# ========================================
+
+
+## EASY (1 frases)
+
+1. [81|narrative] Santiago Nasar la agarró por la muñeca cuando ella iba a recibirle el tazón vacío.
+
+
+## MEDIUM (31 frases)
+
+1. [94|narrative] Victoria Guzmán necesitó casi 20 años para entender que un hombre acostumbrado a matar animales inermes expresara de pronto semejante horror.
+
+2. [92|descriptive] La única que tenía en el dorso, a la altura de la tercera vértebra lumbar, le había perforado el riñón derecho.
+
+3. [90|dialogue] «Pensamos que eran vainas de borrachos», declararon varios carniceros, lo mismo que Victoria Guzmán y tantos otros que los vieron después.
+
+4. [89|narrative] Plácida Linero ordenó más tarde que los llevaran a algún lugar apartado hasta después del entierro.
+
+5. [88|descriptive] Clotilde Armenta me contó que habían perdido las últimas esperanzas cuando el párroco pasó de largo frente a su casa.
+
+6. [86|dialogue] La propietaria le contestó que era la hija menor de la mujer que la acompañaba, y que se llamaba Ángela Vicario.
+
+7. [86|dialogue] «Estaba en el último grado de intoxicación etílica», me dijo el doctor Dionisio Iguarán, que lo había atendido de emergencia.
+
+8. [85|poetic] Dueña por primera vez de su destino, Ángela Vicario descubrió entonces que el odio y el amor son pasiones recíprocas.
+
+9. [85|poetic] Estaba tan pálido como el hermano, y tenía puesta la chaqueta de la boda y el cuchillo envuelto en el periódico.
+
+10. [85|narrative] Además, Bayardo San Román no había intentado siquiera seducirla a ella, sino que hechizó a la familia con sus encantos.
+
+11. [84|narrative] Le aconsejó que llevara un paraguas, pero él le hizo un signo de adiós con la mano y salió del cuarto.
+
+12. [84|narrative] Jaime corrió detrás de ella sin saber qué pasaba ni para dónde iban, y se agarró de su mano.
+
+13. [84|narrative] Debían quedar aún algunos rescoldos desperdigados de la fiesta original, pues de todos lados nos llegaban ráfagas de música.
+
+14. [83|narrative] Con la misma propiedad había hablado de enfermedades fronterizas con un médico militar que pasó por aquellos meses haciendo la leva.
+
+15. [83|narrative] Pablo Vicario, que había empezado a dormirse, despertó sobresaltado cuando lo sintió entrar, y le mostró el cuchillo.
+
+16. [83|narrative] Los hermanos Vicario lo sintieron en el calabozo donde los encerró el alcalde mientras se le ocurría qué hacer con ellos.
+
+17. [83|narrative] Siguió pensando en él con un cierto asombro de sí misma cuando sollozaba tumbada en el sofá del comedor.
+
+18. [82|descriptive] Victoria Guzmán, la cocinera, estaba segura de que no había llovido aquel día, ni en todo el mes de febrero.
+
+19. [82|descriptive] Mi hermano Jaime, que entonces no tenía más de siete años, era el único que estaba vestido para la escuela.
+
+20. [82|dialogue] «Fue como si hubiéramos vuelto a matarlo después de muerto -me dijo el antiguo párroco en su retiro de Calafell-.
+
+21. [82|narrative] En la iglesia estimó que habían puesto adornos florales por un valor igual al de catorce entierros de primera clase.
+
+22. [82|narrative] Los calmó con las llaves, como lo había aprendido del dueño, y siguió acosado por ellos hasta la cocina.
+
+23. [82|narrative] Plácida Linero apareció en la puerta con el pocillo de café en el momento en que él cerraba la gaveta.
+
+24. [82|narrative] A través de la puerta vio a los hermanos Vicario que venían corriendo hacia la casa con los cuchillos desnudos.
+
+25. [81|poetic] Pero el tiempo alcanzó sin angustias por la manera irresistible con que Bayardo San Román arreglaba las cosas.
+
+26. [81|narrative] No podía imaginarse que él, sólo por impresionarla, había comprado todo los números de la rifa.
+
+27. [81|narrative] Sin embargo, en la nota final señalaba una hipertrofia del hígado que atribuyó a una hepatitis mal curada.
+
+28. [80|dialogue] Pero él le explicó que se había vestido de pontifical por si tenía ocasión de besarle el anillo al obispo.
+
+29. [80|descriptive] Tanto, que cuando se supo que Bayardo San Román quería casarse con ella, muchos pensaron que era una perfidia de forastero.
+
+30. [80|dialogue] «Recuerdo con seguridad que eran casi las cinco y empezaba a llover», me dijo el coronel Lázaro Aponte.
+
+31. [80|descriptive] Plácida Linero era una mujer de nervios firmes, así que no dejó traslucir ningún signo de alarma.
+
+
+## HARD (316 frases)
+
+1. [100|poetic] Su prosa escueta, precisa y pegada al terreno logra envolver de credibilidad lo exageradamente increíble, inventando una tensión narrativa donde ya no hay argumento, volviendo del revés el tiempo para que revele sus verdades, dejando una duda en el aire que acabará por destruir a los protagonistas de este drama, que fue adaptado a la gran pantalla en 1987, dirigido por Franceso Rosi e interpretado por Rupert Everett, Ornella Muti y Gian Maria Volonté.
+
+2. [100|descriptive] La costa atlántica colombiana, por los años en que se publicó esta novela, era aún vista desde la capital del país como algo remoto, y en esa mirada había ínfulas de superioridad y de arrogancia justificadas sólo por el hecho de que en Bogotá estaban los edificios grecorromanos del Capitolio y el Palacio Presidencial.
+
+3. [100|dialogue] Esa costa, y lo costeño -llamado despectivamente «corroncho» por los del interior-, con su mezcla de tradiciones caribes, hispanas, negras y árabes, era acusada de ser la madre de todos los vicios, la república de la pereza, de la corrupción, del nepotismo, del machismo y del trago, de la irresponsabilidad, en fin, de todo lo negativo, mientras que Bogotá, con su rancia aristocracia, se consideraba a sí misma la Atenas de América, la cuna de la cultura y la elegancia, el Londres de los Andes.
+
+4. [100|poetic] No recuerdo cuándo leí por primera vez esta , pero sé que fue en Bogotá, hace ya más de quince años, recuerdo, eso sí, el extraño y sobrecogedor efecto que me llevó a desear, en cada página, que alguien detuviera a los hermanos Vicario, que se evitara esa muerte absurda que los condenaba a todos.
+
+5. [100|dialogue] «Pero por más que volteaban el cuento al derecho y al revés, nadie podía explicarme cómo fue que el pobre Santiago Nasar terminó comprometido en semejante enredo.» Lo único que sabían con seguridad era que los hermanos de Ángela Vicario lo estaban esperando para matarlo.
+
+6. [100|descriptive] Durante años se siguió hablando en mi casa de que mi padre había vuelto a tocar el violín de su juventud en honor de los recién casados, que mi hermana la monja bailó un merengue con su hábito de tornera, y que el doctor Dionisio Iguarán, que era primo hermano de mi madre, consiguió que se lo llevaran en el buque oficial para no estar aquí al día siguiente cuando viniera el obispo.
+
+7. [100|poetic] Por último ordenó que siguiéramos bailando por cuenta suya hasta donde nos alcanzara la vida, y se llevó a la esposa aterrorizada para la casa de sus sueños donde el viudo de Xius había sido feliz.
+
+8. [100|descriptive] En el panóptico de Riohacha, donde estuvieron tres años en espera del juicio porque no tenían con que pagar la fianza para la libertad condicional, los reclusos más antiguos los recordaban por su buen carácter y su espíritu social, pero nunca advirtieron en ellos ningún indicio de arrepentimiento.
+
+9. [100|dialogue] Le preguntó a Victoria Guzmán si le había dicho algo a su hijo, y ella le mintió a conciencia, pues contestó que todavía no sabía nada cuando él bajó a tomar el café.
+
+10. [100|narrative] Contó que sus amigas la habían adiestrado para que emborrachara al esposo en la cama hasta que perdiera el sentido, que aparentara más vergüenza de la que sintiera para que él apagara la luz, que se hiciera un lavado drástico de aguas de alumbre para fingir la virginidad, y que manchara la sábana con mercurio cromo para que pudiera exhibirla al día siguiente en su patio de recién casada.
+
+11. [99|poetic] Había soñado que atravesaba un bosque de higuerones donde caía una llovizna tierna, y por un instante fue feliz en el sueño, pero al despertar se sintió por completo salpicado de cagada de pájaros.
+
+12. [99|poetic] Tenía una reputación muy bien ganada de interprete certera de los sueños ajenos, siempre que se los contaran en ayunas, pero no había advertido ningún augurio aciago en esos dos sueños de su hijo, ni en los otros sueños con árboles que él le había contado en las mañanas que precedieron a su muerte.
+
+13. [99|descriptive] En cambio ella no lo previno porque entonces no era más que una niña asustada, incapaz de una decisión propia, y se había asustado mucho más cuando él la agarró por la muñeca con una mano que sintió helada y pétrea, como una mano de muerto.
+
+14. [99|dialogue] «No lloraba por los golpes ni por nada de lo que había pasado -me dijo-: lloraba por él.» Seguía pensando en él mientra su madre le ponía compresas de árnica en la cara, y más aún cuando oyó la gritería en la calle y las campanas de incendio en la torre, y su madre entró a decirle que ahora podía dormir, pues lo peor había pasado.
+
+15. [99|dialogue] «La cerré porque Divina Flor me juró que había visto entrar a mi hijo -me contó-, y no era cierto.» Por el contrario, nunca se perdonó el haber confundido el augurio magnífico de los árboles con el infausto de los pájaros, y sucumbió a la perniciosa costumbre de su tiempo de masticar semillas de cardamina.
+
+16. [99|narrative] Sin embargo, el padre Amador me confesó muchos años después, retirado del mundo en la tenebrosa Casa de Salud de Calafell, que en efecto había recibido el mensaje de Clotilde Armenta, y otros más perentorios, mientras se preparaba para ir al puerto.
+
+17. [99|narrative] Yo mismo exploré muchas veces con las aguas hasta los tobillos aquel estanque de causas perdidas, y sólo una casualidad me permitió rescatar al cabo de cinco años de búsqueda unos 322 pliegos salteados de los más de 500 que debió de tener el sumario.
+
+18. [98|descriptive] Mi hermana Margot, que estaba con él en el muelle, lo encontró de muy buen humor y con ánimos de seguir la fiesta, a pesar de que las aspirinas no le habían causado ningún alivio.
+
+19. [98|poetic] Lo que encontramos dentro parecían ser los afeites naturales para la higiene y la belleza de una mujer, y sólo conocí su verdadera utilidad cuando Ángela Vicario me contó muchos años más tarde cuáles fueron los artificios de comadrona que le habían enseñado para engañar al esposo.
+
+20. [97|dialogue] Más aún: las muchas personas que encontró desde que salió de su casa a las 6.05 hasta que fue destazado como un cerdo una hora después, lo recordaban un poco soñoliento pero de buen humor, y a todos les comentó de un modo casual que era un día muy hermoso.
+
+21. [97|dialogue] Yo estaba seguro que prefería morirse antes que vender una casa donde había sido feliz durante más de treinta años.» También Bayardo San Román comprendió sus razones.
+
+22. [97|poetic] Antes de pisar tierra firme se quitaron los zapatos y atravesaron las calles hasta la colina caminando descalzas en el polvo ardiente del medio día, arrancándose mechones de raíz y llorando con gritos tan desgarradores que parecían de júbilo.
+
+23. [97|narrative] Además de los gemelos, tuvieron una hija intermedia que había muerto de fiebres crepusculares, y dos años después seguían guardándole un luto aliviado dentro de la casa, pero riguroso en la calle.
+
+24. [97|narrative] No existía clasificación alguna en los archivos, y más de un siglo de expedientes estaban amontonados en el suelo del decrépito edificio colonial que fuera por dos días el cuartel general de Francis Drake.
+
+25. [96|descriptive] Era el hijo único de un matrimonio de conveniencia que no tuvo un solo instante de felicidad, pero él parecía feliz con su padre hasta que éste murió de repente, tres años antes, y siguió pareciéndolo con la madre solitaria hasta el lunes de su muerte.
+
+26. [96|descriptive] Después de que la hermana les reveló el nombre, los gemelos Vicario pasaron por el depósito de la pocilga, donde guardaban los útiles de sacrificio, y escogieron los dos cuchillos mejores: uno de descuartizar, de diez pulgadas de largo por dos y media de ancho, y otro de limpiar, de siete pulgadas de largo por una y media de ancho.
+
+27. [96|dialogue] Pedro Vicario le preguntó a Clotilde Armenta si había visto luz en esa ventana, y ella le contestó que no, pero le pareció un interés extraño.
+
+28. [96|dialogue] «Pensé que ya lo habían matado -me dijo-, porque vi los cuchillos con la luz del poste y me pareció que iban chorreando sangre.» Una de las pocas casas que estaban abiertas en esa calle extraviada era la de Prudencia Cotes, la novia de Pablo Vicario.
+
+29. [96|dialogue] «¡Ese día me di cuenta -me dijode lo solas que estamos las mujeres en el mundo!» Pedro Vicario le pidió prestado los utensilios de afeitar de su marido, y ella le llevó la brocha, el jabón, el espejo de colgar y la máquina con la cuchilla nueva, pero él se afeitó con el cuchillo de destazar.
+
+30. [96|dialogue] La única vez que traté de hablar con él, 23 años más tarde, me recibió con una cierta agresividad, y se negó a aportar el dato más ínfimo que permitiera clarificar un poco su participación en el drama.
+
+31. [96|dialogue] Le preguntó por Plácida Linero, y ella le contestó que hacía un momento le había puesto el café en la mesa de noche, pero no la había despertado.
+
+32. [96|narrative] Los mayores siguieron hablando el árabe rural que trajeron de su tierra, y lo conservaron intacto en familia hasta la segunda generación, pero los de la tercera, con la excepción de Santiago Nasar, les oían a sus padres en árabe y les contestaban en castellano.
+
+33. [95|poetic] Cuando vino Ibrahim Nasar con los últimos árabes, al término de las guerras civiles, ya no llegaban los barcos de mar debido a las mudanzas del río, y el depósito estaba en desuso.
+
+34. [95|dialogue] Era un alboroto tan grande, que no podía creerse que hubiera tantos gallos en el pueblo, y pensó que venían en el buque del obispo.» Lo único que ella pudo hacer por el hombre que nunca había de ser suyo, fue dejar la puerta sin tranca, contra las órdenes de Plácida Linero, para que él pudiera entrar otra vez en caso de urgencia.
+
+35. [95|dialogue] Lo único que recuerdo es que se oía a lo lejos un ruido de mucha gente, como si hubiera vuelto a empezar la fiesta de la boda, y que todo el mundo corría en dirección de la plaza.» Apresuró el paso, con la determinación de que era capaz cuando estaba una vida de por medio, hasta que alguien que corría en sentido contrario se compadeció de su desvarío.
+
+36. [95|dialogue] Bayardo San Román llegó a la verbena y fue derecho al mostrador atendido por la rifera lánguida cerrada de luto hasta la empuñadura, y le preguntó cuánto costaba la ortofónica con incrustaciones de nácar que había de ser el atractivo mayor de la feria.
+
+37. [95|descriptive] Lo habían puesto ahí pensando quizás que era el sitio de honor, y los invitados tropezaban con él, lo confundían con otro, lo cambiaban de lugar para que no estorbara, y él movía la cabeza nevada hacia todos lados con una expresión errática de ciego demasiado reciente, contestando preguntas que no eran para él y respondiendo saludos fugaces que nadie le hacía, feliz en su cerco de olvido, con la camisa acartonada de engrudo y el bastón de guayacán que le habían comprado para la fiesta.
+
+38. [95|descriptive] El alcalde pensó que el cuerpo podía mantenerse refrigerado hasta que regresara el doctor Dionisio Iguarán, pero no encontró nevera de tamaño humano, y la única apropiada en el mercado estaba fuera de servicio.
+
+39. [95|descriptive] Allí lo encontró el coronel Aponte, encañonado por la guardia en el excusado sin puertas, y desaguándose con tanta fluidez que no era absurdo pensar en el veneno.
+
+40. [95|poetic] Las amigas de Ángela Vicario que habían sido sus cómplices en el engaño siguieron contando durante mucho tiempo que ella las había hecho partícipes de su secreto desde antes de la boda, pero no les había revelado ningún nombre.
+
+41. [95|dialogue] «Espero que Dios me haya perdonado -me dijo Plácida Linero-, pero lo vi tan confundido que de pronto se me ocurrió que había entrado a robar.» Le preguntó qué le pasaba.
+
+42. [95|narrative] Hace un par de años, en su casa de Bogotá, al frente del Parque de la 88, le pregunté a García Márquez si nunca había sentido la tentación de escribir una novela negra.
+
+43. [95|narrative] Algunos se quejaron de no haber recibido su ración de pastel, a pesar de ser compañeros de oficio, y ellos les prometieron que las harían mandar más tarde.
+
+44. [95|narrative] Después de las cuatro, cuando vio luces en la cocina de la casa de Plácida Linero, le mandó el último recado urgente a Victoria Guzmán con la pordiosera que iba todos los días a pedir un poco de leche por caridad.
+
+45. [95|narrative] Además, el párroco había arrancado de cuajo las vísceras destazadas, pero al final no supo qué hacer con ellas, y les impartió una bendición de rabia y las tiró en el balde de la basura.
+
+46. [94|poetic] Los hechos que rodean la muerte de Santiago Nasar, en la madrugada siguiente al fallido matrimonio de Bayardo San Román con Ángela Vicario, van siendo reconstruidos uno a uno por el narrador, agregando cada vez, con los testimonios de los protagonistas, la información necesaria para que el muro se levante en equilibrio, la curiosidad del lector quede azuzada y se forme una ambiciosa historia coral, nutrida de múltiples voces.
+
+47. [94|dialogue] Era lo que hacía siempre cuando me encontraba sola por los rincones de la casa, pero aquel día no sentí el susto de siempre sino unas ganas horribles de llorar.» Se apartó para dejarlo salir, y a través de la puerta entreabierta vio los almendros de la plaza, nevados por el resplandor del amanecer, pero no tuvo valor para ver nada más.
+
+48. [94|dialogue] «Estaban pasmados -me dijo Clotilde Armenta-, y ya no podían levantar presión ni con petróleo de lámpara.» Luego se quitaron las chaquetas de paño, las colgaron con mucho cuidado en el espaldar de las sillas, y pidieron otra botella.
+
+49. [94|descriptive] Por último se bebieron la botella en silencio, muy despacio, contemplando con el aire lelo de los amanecidos la ventana apagada en la casa de enfrente, mientras pasaban clientes fingidos comprando leche sin necesidad y preguntando por cosas de comer que no existían, con la intención de ver si era cierto que estaban esperando a Santiago Nasar para matarlo.
+
+50. [94|descriptive] La cavidad abdominal estaba ocupada por grandes témpanos de sangre, y entre el lodazal de contenido gástrico apareció una medalla de oro de la Virgen del Carmen que Santiago Nasar se había tragado a la edad de cuatro años.
+
+51. [94|descriptive] Mi hermana Margot, que también la visitaba en los primeros años, me contó que habían comprado una casa de material con un patio muy grande de vientos cruzados, cuyo único problema eran las noches de mareas altas, porque los retretes se desbordaban y los pescados amanecían dando saltos en los dormitorios.
+
+52. [94|descriptive] Nos sorprendían los gallos del amanecer tratando de ordenar las numerosas casualidades encadenadas que habían hecho posible el absurdo, y era evidente que no lo hacíamos por un anhelo de esclarecer misterios, sino porque ninguno de nosotros podía seguir viviendo sin saber con exactitud cuál era el sitio y la misión que le había asignado la fatalidad.
+
+53. [94|dialogue] Le había dado por lo menos tres veces y no había una gota de sangre.» Santiago Nasar se torció con los brazos cruzados sobre el vientre después de la tercera cuchillada, soltó un quejido de becerro, y trató de darles la espalda.
+
+54. [94|narrative] Lo que pasó, según ella, fue que el silbato del buque soltó un chorro de vapor a presión al pasar frente al puerto, y dejó ensopados a` los que estaban más cerca de la orilla.
+
+55. [94|narrative] Bayardo San Román reventó cohetes, tomó aguardiente de las botellas que le tendía la muchedumbre, y se bajó del coche con Ángela Vicario para meterse en la rueda de la cumbiamba.
+
+56. [94|narrative] Pero aquella noche, María Alejandrina Cervantes no permitió que Santiago Nasar se complaciera por última vez en sus artificios de transformista, y lo hizo con pretextos tan frívolos que el mal sabor de ese recuerdo le cambió la vida.
+
+57. [94|narrative] Años después, cuando volví a buscar los últimos testimonios para esta crónica, no quedaban tampoco ni los rescoldos de la dicha de Yolanda de Xius.
+
+58. [93|descriptive] Esa precisión había de perseguirme durante muchos años, pues Santiago Nasar me había dicho a menudo que el olor de las flores encerradas tenía para él una relación inmediata con la muerte, y aquel día me lo repitió al entrar en el templo.
+
+59. [93|descriptive] Uno era de descuartizar, con una hoja oxidada y dura de doce pulgadas de largo por tres de ancho, que había sido fabricado por Pedro Vicario con el metal de una segueta, en una época en que no venían cuchillos alemanes por causa de la guerra.
+
+60. [93|narrative] Divina Flor, su hija, que apenas empezaba a florecer, le sirvió a Santiago Nasar un tazón de café cerrero con un chorro de alcohol de caña, como todos los lunes, para ayudarlo a sobrellevar la carga de la noche anterior.
+
+61. [93|narrative] Los gemelos no reaparecieron hasta el amanecer del día siguiente, turbios de la borrachera, llevando otra vez la ortofónica y llevando además a Bayardo San Román para seguir la parranda en la casa.
+
+62. [93|narrative] Mientras desayunaba con un guiso de hígado cubierto de anillos de cebolla, su esposa le contó muy excitada que Bayardo San Román había devuelto a Ángela Vicario, pero él no lo tomó con igual dramatismo.
+
+63. [93|narrative] Hortensia Baute, cuya única participación fue haber visto ensangrentados dos cuchillos que todavía no lo estaban, se sintió tan afectada por la alucinación que cayó en una crisis de penitencia, y un día no pudo soportarla más y se echó desnuda a las calles.
+
+64. [92|dialogue] El «yo» inquietante que desde el principio reconstruye los hechos se va reconociendo en el autor hasta descubrirse del todo, pues dice: «Muchos sabían que en la inconsciencia de la parranda le propuse a Mercedes Barcha que se casara conmigo, cuando apenas había terminado la escuela primaria, tal como ella misma me lo recordó cuando nos casamos catorce años después».
+
+65. [92|poetic] Pero la mayoría estaba de acuerdo en que era un tiempo fúnebre, con un cielo turbio y bajo y un denso olor de aguas dormidas, y que en el instante de la desgracia estaba cayendo una llovizna menuda como la que había visto Santiago Nasar en el bosque del sueño.
+
+66. [92|descriptive] En el curso de las indagaciones para esta crónica recobré numerosas vivencias marginales, y entre ellas el recuerdo de gracia de las hermanas de Bayardo San Román, cuyos vestidos de terciopelo con grandes alas de mariposas, prendidas con pinzas de oro en la espalda, llamaron más la atención que el penacho de plumas y la coraza de medallas de guerra de su padre.
+
+67. [92|descriptive] Como a las diez, cuando todavía quedaban algunos borrachos cantando en el patio, Ángela Vicario había mandado a pedir una maletita de cosas personales que estaba en el ropero de su dormitorio, y ella quiso mandarle también una maleta con ropa de diario, pero el recadero estaba de prisa.
+
+68. [92|descriptive] A esa hora sólo se vendían cosas de comer, pero Clotilde Armenta les vendió una botella de aguardiente de caña, no sólo por el aprecio que les tenía, sino también porque estaba muy agradecida por la porción de pastel de boda que le habían mandado.
+
+69. [92|poetic] Ella fue su pasión desquiciada, su maestra de lágrimas a los 15 años, hasta que Ibrahim Nasar se lo quitó de la cama a correazos y lo encerró más de un año en El Divino Rostro.
+
+70. [92|dialogue] ¡A quién carajo se le podía ocurrir que los gemelos iban a matar a nadie, y menos con un cuchillo de puercos!» Luego le preguntaron dónde estaba Santiago Nasar, pues los habían visto juntos a las dos, y mi hermano no recordó tampoco su propia respuesta.
+
+71. [92|poetic] Pensaba en la ferocidad del destino de Santiago Nasar, que le había cobrado 20 años de dicha no sólo con la muerte, sino además con el descuartizamiento del cuerpo, y con su dispersión y exterminio.
+
+72. [92|descriptive] La versión más corriente, tal vez por ser la más perversa, era que Ángela Vicario estaba protegiendo a alguien a quien de veras amaba, y había escogido el nombre de Santiago Nasar porque nunca pensó que sus hermanos se atreverían contra él.
+
+73. [92|descriptive] Pedro Vicario estaba en la puerta, lívido y desgreñado, con la camisa abierta y las mangas enrolladas hasta los codos, y con el cuchillo basto que él mismo había fabricado con una hoja de segueta.
+
+74. [92|narrative] La madre del narrador es una de las que sí cree que debe hacer algo, y entonces se viste para salir a alertar a la mamá de Santiago Nasar; pero antes tiene esta extraordinaria conversación con su marido, quien le pregunta adónde va: A prevenir a mi comadre Plácida -contestó ella-.
+
+75. [92|narrative] Pero después de que el obispo pasó sin dejar su huella en la tierra, la otra noticia reprimida alcanzó su tamaño de escándalo.
+
+76. [91|dialogue] «Dios Santo -exclamó asustada-, de modo que todo aquello fue una revelación!» Sin embargo, tenía tantas rabias atrasadas la mañana del crimen, que siguió cebando a los perros con las vísceras de los otros conejos, sólo por amargarle el desayuno a Santiago Nasar.
+
+77. [91|descriptive] Se llegó a decir que había arrasado pueblos y sembrado el terror en Casanare como comandante de tropa, que era prófugo de Cayena, que lo habían visto en Pernambuco tratando de medrar con una pareja de osos amaestrados, y que había rescatado los restos de un galeón español cargado de oro en el canal de los Vientos.
+
+78. [91|dialogue] El viudo de Xius le explicó con una buena educación a la antigua que los objetos de la casa habían sido comprados por la esposa en toda una vida de sacrificios, y que para él seguían siendo como parte de ella.
+
+79. [91|descriptive] Pero aquella noche hubo tantos clientes descarriados de la boda, que se acostó pasadas las tres sin haber cerrado, y ya Clotilde Armenta estaba levantada más temprano que de costumbre, porque quería terminar antes de que llegara el obispo.
+
+80. [91|poetic] Nos enseñó mucho más de lo que debíamos aprender, pero nos enseñó sobre todo que ningún lugar de la vida es más triste que una canea vacía.
+
+81. [91|dialogue] «Es decir -me dijo-, que de todos modos le quedaban muy pocos años de vida.» El doctor Dionisio Iguarán, que en efecto le había tratado una hepatitis a Santiago Nasar a los doce años, recordaba indignado aquella autopsia.
+
+82. [91|narrative] Fue una ilusión fugaz: el obispo empezó a hacer la señal de la cruz en el aire frente a la muchedumbre del muelle, y después siguió haciéndola de memoria, sin malicia ni inspiración, hasta que el buque se perdió de vista y sólo quedó el alboroto de los gallos.
+
+83. [91|narrative] Al día siguiente tuvo que mandar un telegrama, y él mismo lo transmitió con el manipulador, y además le enseñó al telegrafista una fórmula suya para seguir usando las pilas agotadas.
+
+84. [91|narrative] Un domingo después de misa desafió a los nadadores más diestros, que eran muchos, y dejó rezagados a los mejores con veinte brazadas de ida y vuelta a través del río.
+
+85. [91|narrative] En la sórdida oficina de tablas del Palacio Municipal, bebiendo café de olla con ron de caña contra los espejismos del calor, tuvo que pedir tropas de refuerzo para encauzar a la muchedumbre que se precipitaba a declarar sin ser llamada, ansiosa de exhibir su propia importancia en el drama.
+
+86. [91|narrative] Cristo Bedoya cometió entonces su único error mortal: pensó que Santiago Nasar había resuelto a última hora desayunar en nuestra casa antes de cambiarse de ropa, y allá se fue a buscarlo.
+
+87. [90|dialogue] En realidad, la única explicación válida parecía ser la de Plácida Linero, que contestó a la pregunta con su razón de madre: «Mi hijo no salía nunca por la puerta de atrás cuando estaba bien vestido».
+
+88. [90|dialogue] Bayardo San Román despertó a medias, vio las dos mujeres vestidas de negro inclemente que parecían los únicos seres vivos en el marasmo de las dos de la tarde, y preguntó quién era la joven.
+
+89. [90|dialogue] «La verdad -me dijoes que yo no quería ser bendecida por un hombre que sólo cortaba las crestas para la sopa y botaba en la basura el resto del gallo.» Sin embargo, aun sin la bendición del obispo, la fiesta adquirió una fuerza propia tan difícil de amaestrar, que al mismo Bayardo San Román se le salió de las manos y terminó por ser un acontecimiento público.
+
+90. [90|dialogue] «Imagínate -me dijo Ángela Vicario-: habían pensado en la casa de Plácida Linero, pero por fortuna mis padres se emperraron con el tema de siempre de que nuestras hijas se casan en nuestro chiquero, o no se casan.» Así que pintaron la casa de su color amarillo original, enderezaron las puertas y compusieron los pisos, y la dejaron tan digna como fue posible para una boda de tanto estruendo.
+
+91. [90|dialogue] «Es cierto -me replicó uno-, pero fíjese que no les ponían nombres de gente sino de flores.» Faustino Santos fue el único que percibió una lumbre de verdad en la amenaza de Pablo Vicario, y le preguntó en broma por qué tenían que matar a Santiago Nasar habiendo tantos ricos que merecían morir primero.
+
+92. [90|dialogue] «Vinieron a afilar otra vez los cuchillos -me dijoy volvieron a gritar para que los oyeran que iban a sacarle las tripas a Santiago Nasar, así que yo creí que estaban mamando gallo, sobre todo porque no me fijé en los cuchillos, y pensó que eran los mismos.» Esta vez, sin embargo, Clotilde Armenta notó desde que los vio entrar que no llevaban la misma determinación de antes.
+
+93. [90|descriptive] En aquellas últimas vacaciones nos despachaba temprano con el pretexto inverosímil de que estaba cansada, pero dejaba la puerta sin tranca y una luz encendida en el corredor para que yo volviera a entrar en secreto.
+
+94. [90|descriptive] Se fue con Cristo Bedoya por la orilla del río bordeando los tambos de pobres que empezaban a encenderse en el puerto antiguo, y antes de doblar la esquina nos hizo una señal de adiós con la mano.
+
+95. [90|poetic] Pedro Vicario, sin amor ni empleo, se reintegró tres años después a las Fuerzas Armadas, mereció las insignias de sargento primero, y una mañana espléndida su patrulla se internó en territorio de guerrillas cantando canciones de putas, y nunca más se supo de ellos.
+
+96. [90|poetic] Estaba otra vez postrado por el alcohol, pero costaba creer que lo llevaran vivo, porque el brazo derecho le iba arrastrando por el suelo, y tan pronto como la madre se lo ponía dentro de la hamaca se le volvía a descolgar, de modo que dejó un rastro en la tierra desde la cornisa del precipicio hasta la plataforma del buque.
+
+97. [90|narrative] En cambio, el hecho de que Ángela Vicario se atreviera a ponerse el velo y los azahares sin ser virgen, había de ser interpretado después como una profanación de los símbolos de la pureza.
+
+98. [90|narrative] A las 5.30 cumplió la orden de despertarlo, pero no mandó a Divina Flor sino que subió ella misma al dormitorio con el vestido de lino, pues no perdía ninguna ocasión de preservar a la hija contra las garras del boyardo.
+
+99. [89|descriptive] Desde el comienzo de la narración se anuncia que Santiago Nasar va a morir: es el joven hijo de un árabe emigrado y parece ser el causante de la deshonra de Ángela, hermana de los gemelos, que ha contraído matrimonio el día anterior y ha sido rechazada por su marido.
+
+100. [89|poetic] De no haber sido por la llegada del obispo se habría puesto el vestido de caqui y las botas de montar con que se iba los lunes a El Divino Rostro, la hacienda de ganado que heredó de su padre, y que él administraba con muy buen juicio aunque sin mucha fortuna.
+
+101. [89|descriptive] La había despertado cuando trataba de encontrar a tientas una aspirina en el botiquín del baño, y ella encendió la luz y lo vio aparecer en la puerta con el vaso de agua en la mano, como había de recordarlo para siempre.
+
+102. [89|poetic] Alguien que nunca fue identificado había metido por debajo de la puerta un papel dentro de un sobre, en el cual le avisaban a Santiago Nasar que lo estaban esperando para matarlo, y le revelaban además el lugar y los motivos, y otros detalles muy precisos de la confabulación.
+
+103. [89|descriptive] Pensó una vez más en la buena suerte de Flora Miguel, que tenía tantas cosas en la vida, y que iba a tener además a Santiago Nasar en la Navidad de ese año.
+
+104. [89|dialogue] Estaba más sano que nosotros, pero cuando uno lo auscultaba se le sentían borboritar las lágrimas dentro del corazón.» Pues no sólo había vendido la casa con todo lo que tenía dentro, sino que le pidió a Bayardo San Román que le fuera pagando poco a poco porque no le quedaba ni un baúl de consolación para guardar tanto dinero.
+
+105. [89|descriptive] En el trayecto de la iglesia a la casa de los Vicario sacó la cuenta de las guirnaldas de colores con que adornaron las calles, calculó el precio de la música y los cohetes, y hasta de la granizada de arroz crudo con que nos recibieron en la fiesta.
+
+106. [89|descriptive] Llegó a sentir, inclusive, una especie de fervor ante la blenorragia de hombre grande que su hermano exhibía como una condecoración de guerra.
+
+107. [89|poetic] Sin embargo, en la tarde empezaron a manar de las heridas unas aguas color de almíbar que atrajeron a las moscas, y una mancha morada le apareció en el bozo y se extendió muy despacio como la sombra de una nube en el agua hasta la raíz del cabello.
+
+108. [89|descriptive] Sin embargo, nadie se había acordado de él hasta después del eclipse de luna, el sábado siguiente, cuando el viudo de Mus le contó al alcalde que había visto un pájaro fosforescente aleteando sobre su antigua casa, y pensaba que era el ánima de su esposa que andaba reclamando lo suyo.
+
+109. [89|dialogue] «Se me revolvían las tripas de sólo verla -me dijo-, pero no podía verla sin acordarme de él.» Su vida de casada devuelta seguía siendo tan simple corno la de soltera, siempre bordando a máquina con sus amigas como antes hizo tulipanes de trapo y pájaros de papel, pero cuando su madre se acostaba permanecía en el cuarto escribiendo cartas sin porvenir hasta la madrugada.
+
+110. [89|dialogue] «A veces no se me ocurría qué decir -me dijo muerta de risa-, pero me bastaba con saber que él las estaba recibiendo.» Al principio fueron esquelas de compromiso, después fueron papelitos de amante furtiva, billetes perfumados de novia fugaz, memoriales de negocios, documentos de amor, y por último fueron las cartas indignas de una esposa abandonada que se inventaba enfermedades crueles para obligarlo a volver.
+
+111. [89|descriptive] Don Rogelio de la Flor, el buen marido de Clotilde Armenta, que era un prodigio de vitalidad a los 86 años, se levantó por última vez para ver cómo desguazaban a Santiago Nasar contra la puerta cerrada de su propia casa, y no sobrevivió a la conmoción.
+
+112. [89|dialogue] «Al principio se asustó -me dijo Clotilde Armenta-, porque no sabía quién le estaba gritando, ni de dónde.» Pero cuando la vio a ella vio también a Pedro Vicario, que la tiró por tierra con un empellón, y alcanzó al hermano.
+
+113. [89|narrative] Pero hoy al cabo de dos décadas, la cultura de esa proscrita costa atlántica, en la que se inscribe este libro y casi toda la obra de García Márquez, es una de las pocas cosas que a los colombianos nos permite paliar las vergüenzas que ocasionan, en la acartonada capital, esos dos presuntuosos edificios grecorromanos.
+
+114. [89|narrative] El general Petronio San Román y su familia vinieron esta vez en el buque de ceremonias del Congreso Nacional, que permaneció atracado en el muelle hasta el término de la fiesta, y con ellos vinieron muchas gentes ilustres que sin embargo pasaron inadvertidas en el tumulto de caras nuevas.
+
+115. [89|narrative] Muchos sabían que en la inconsciencia de la parranda le propuse a Mercedes Barcha que se casara conmigo, cuando apenas había terminado la escuela primaria, tal como ella misma me lo recordó cuando nos casamos catorce años después.
+
+116. [89|narrative] Por allí entró de regreso a su casa, en efecto, cuando hacía más de una hora que los gemelos Vicario lo esperaban por el otro lado, y si después salió por la puerta de la plaza cuando iba a recibir al obispo fue por una.
+
+117. [89|narrative] Andaba solo, igual que su padre, cortándole el cogollo a cuanta doncella sin rumbo empezaba a despuntar por esos montes, pero nunca se le conoció dentro del pueblo otra relación distinta de la convencional que mantenía con Flora Miguel, y de la tormentosa que lo enloqueció durante catorce meses con María Alejandrina Cervantes.
+
+118. [88|poetic] Muchos coincidían en el recuerdo de que era una mañana radiante con una brisa de mar que llegaba a través de los platanales, como era de pensar que lo fuera en un buen febrero de aquella época.
+
+119. [88|descriptive] Sólo mucho después de la boda desgraciada me confesó que lo había conocido cuando ya era muy tarde para corregir la carta de octubre, y que sus ojos de oro le habían causado un estremecimiento de espanto.
+
+120. [88|descriptive] Trajeron tantos regalos, que fue preciso restaurar el local olvidado de la primera planta eléctrica para exhibir los más admirables, y el resto los llevaron de una vez a la antigua casa del viudo de Mus que ya estaba dispuesta para recibir a los recién casados.
+
+121. [88|dialogue] «Cuando los vi pensó que eran puras bravuconadas -me dijo con su lógica personal-, porque no estaban tan borrachos como yo creía.» Ni siquiera los interrogó sobre sus intenciones, sino que les quitó los cuchillos y los mandó a dormir.
+
+122. [88|poetic] Llevaba mucho tiempo pensando en él sin ninguna ilusión cuando tuvo que acompañar a su madre a un examen de la vista en el hospital de Riohacha.
+
+123. [88|poetic] Sin duda había leído a los clásicos españoles, y algunos latinos, y conocía muy bien a Nietzsche, que era el autor de moda entre los magistrados de su tiempo.
+
+124. [88|dialogue] «Nunca había disparado un arma -me dijo Cristo Bedoya-, pero resolví coger el revólver para llevárselo a Santiago Nasar.» Se lo ajustó en el cinturón, por dentro de la camisa, y sólo después del crimen se dio cuenta de que estaba descargado.
+
+125. [88|dialogue] A mi hermana la monja, la única que habló con ella después de la desgracia, le dijo que no recordaba siquiera quién se lo había dicho.
+
+126. [88|dialogue] «Llevaba el vestido blanco, y algo en la mano que no pude ver bien, pero me pareció un ramo de rosas.» De modo que cuando Plácida Linero le preguntó por él, Divina Flor la tranquilizó.
+
+127. [88|descriptive] Pablo Vicario, que estaba a su izquierda con el cuchillo curvo, le asestó entonces la única cuchillada en el lomo, y un chorro de sangre a alta presión le empapó la camisa.
+
+128. [88|descriptive] Pero Argénida Lanao, la hija mayor, contó que Santiago Nasar caminaba con la prestancia de siempre, midiendo bien los pasos, y que su rostro de sarraceno con los rizos alborotados estaba más bello que nunca.
+
+129. [88|narrative] Se lo había dicho una mujer que pasó después de las cinco a pedir un poco de leche por caridad, y les reveló además los motivos y el lugar donde lo estaban esperando.
+
+130. [88|narrative] Llegó en el buque semanal con unas alforjas guarnecidas de plata que hacían juego con las hebillas de la correa y las argollas de los botines.
+
+131. [88|narrative] Trajeron además un espectáculo de bailarines, y dos orquestas de valses que desentonaron con las bandas locales, y con las muchas papayeras y grupos de acordeones que venían alborotados por la bulla de la parranda.
+
+132. [88|narrative] Más aún: en la reconstrucción de los hechos fingieron un encarnizamiento mucho más inclemente que el de la realidad, hasta el extremo de que fue necesario reparar con fondos públicos la puerta principal de la casa de Plácida Linero, que quedó desportillada a punta de cuchillo.
+
+133. [88|narrative] Los hermanos Vicario les habían contado sus propósitos a más de doce personas que fueron a comprar leche, y éstas los habían divulgado por todas partes antes de las seis.
+
+134. [88|narrative] Habíamos estado juntos en la casa de María Alejandrina Cervantes hasta pasadas las tres, cuando ella misma despachó a los músicos y apagó las luces del patio de baile para que sus mulatas de placer se acostaran solas a descansar.
+
+135. [88|narrative] La cavidad torácica mostraba dos perforaciones: una en el segundo espacio intercostal derecho que le alcanzó a interesar el pulmón, y otra muy cerca de la axila izquierda.
+
+136. [88|narrative] Mucho después, en una época incierta en que trataba de entender algo de mí mismo vendiendo enciclopedias y libros de medicina por los pueblos de la Guajira, me llegué por casualidad hasta aquel moridero de indios.
+
+137. [88|narrative] Había hecho más que lo posible para que Ángela Vicario se muriera en vida, pero la misma hija le malogró los propósitos, porque nunca hizo ningún misterio de su desventura.
+
+138. [87|dialogue] «Nunca hubo una muerte tan anunciada», declara quien rememora los hechos veintisiete años después: los vengadores, en efecto, no se cansan de proclamar sus propósitos por todo el pueblo, como si quisieran evitar el mandato del destino, pero un cúmulo de casualidades hace que quienes pueden evitar el crimen no logren intervenir o se decidan demasiado tarde.
+
+139. [87|poetic] Pero la muerte ya estaba anunciada; y aún hoy, al releerlo, vuelvo a sentir que es posible, en medio de la tragedia, que los cuchillos no alcancen a Santiago, que alguno de los mensajeros llegue a tiempo y él escape, que la puerta de su casa se abra.
+
+140. [87|descriptive] Conservó también la puerta posterior, sólo que un poco más alzada para pasar a caballo, y mantuvo en servicio una parte del antiguo muelle.
+
+141. [87|descriptive] Había mucha gente en el puerto además de las autoridades y los niños de las escuelas, y por todas partes se veían los huacales de gallos bien cebados que le llevaban de regalo al obispo, porque la sopa de crestas era su plato predilecto.
+
+142. [87|dialogue] «Imagínate -me dijo-: hasta me hubiera alegrado de que no llegara, pero nunca que me dejara vestida.» Su cautela pareció natural, porque no había un percance público más vergonzoso para una mujer que quedarse plantada con el vestido de novia.
+
+143. [87|descriptive] Faustino Santos, un carnicero amigo, los vio entrar a las 3.20 cuando acababa de abrir su mesa de vísceras, y no entendió por qué llegaban el lunes y tan temprano, y todavía con los vestidos de paño oscuro de la boda.
+
+144. [87|dialogue] «Estaba sudando frío del dolor -me dijoy trató de decir que me fuera yo solo porque él no estaba en condiciones de matar a nadie.» Se sentó en uno de los mesones de carpintero que habían puesto bajo los árboles para el almuerzo de la boda, y se bajó los pantalones hasta las rodillas.
+
+145. [87|poetic] En realidad no se demoró más de diez minutos, pero fue algo tan difícil, y tan enigmático para Pablo Vicario, que lo interpretó como una nueva artimaña del hermano para perder el tiempo hasta el amanecer.
+
+146. [87|dialogue] Sin embargo, él me explicó después, y era cierto, que en el cuartel había aprendido a afeitarse con navaja barbera, y nunca más lo pudo hacer de otro modo.
+
+147. [87|dialogue] Santiago Nasar le dijo que lo tomaría más tarde, y le pidió decirle a Divina Flor que lo despertara a las cinco y media, y que le llevara una muda de ropa limpia igual a la que llevaba puesta.
+
+148. [87|dialogue] No hubo manera de hacerle entender nunca que la gente del trópico tenemos el hígado más grande que los gallegos.» El informe concluía que la causa de la muerte fue una hemorragia masiva ocasionada por cualquiera de las siete heridas mayores.
+
+149. [87|poetic] Cristo Bedoya no sólo conocía la casa tan bien como la suya, sino que tenía tanta confianza con la familia que empujó la puerta del dormitorio de Plácida Linero para pasar desde allí al dormitorio contiguo.
+
+150. [87|descriptive] El último que salió fue Nahir Miguel, el padre, con la barba colorada y la chilaba de beduino que trajo de su tierra, y que siempre usó dentro de la casa.
+
+151. [87|dialogue] «Me asusté cuando lo vi de frente ---me dijo Pablo Vicario-, porque me pareció como dos veces más grande de lo que era.» Santiago Nasar levantó la mano para parar el primer golpe de Pedro Vicario, que lo atacó por el flanco derecho con el cuchillo recto.
+
+152. [87|dialogue] Al contrario: me pareció que se estaba riendo.» Entonces ambos siguieron acuchillándolo contra la puerta, con golpes alternos y fáciles, flotando en el remanso deslumbrante que encontraron del otro lado del miedo.
+
+153. [87|descriptive] Tuvo todavía bastante lucidez para no ir por la calle, que era el trayecto más largo, sino que entró por la casa contigua.
+
+154. [87|narrative] Era una costumbre sabia impuesta por su padre desde una mañana en que una sirvienta sacudió la almohada para quitarle la funda, y la pistola se disparó al chocar contra el suelo, y la bala desbarató el armario del cuarto, atravesó la pared de la sala, * pasó con un estruendo de guerra por el comedor de la casa vecina y convirtió en polvo de yeso a un santo de tamaño natural en el altar mayor de la iglesia, al otro extremo de la plaza.
+
+155. [87|narrative] Lo vio desde la misma hamaca y en la misma posición en que la encontré postrada por las últimas luces de la vejez, cuando volví a este pueblo olvidado tratando de recomponer con tantas astillas dispersas el espejo roto de la memoria.
+
+156. [87|narrative] Había contribuido con varias cargas de leña alas solicitudes públicas del padre Carmen Amador, y además había escogido él mismo los gallos de crestas más apetitosas.
+
+157. [87|narrative] Sin embargo, no había acabado de escuchar la noticia cuando ya se había puesto los zapatos de tacones y la mantilla de iglesia que sólo usaba entonces para las visitas de pésame.
+
+158. [87|narrative] María Alejandrina Cervantes, de quien decíamos que sólo había de dormir una vez para morir, fue la mujer más elegante y la más tierna que conocí jamás, y la más servicial en la cama, pero también la más severa.
+
+159. [87|narrative] Mi hermano Luis Enrique, que entonces tocaba la guitarra como un profesional, improvisó en honor de los recién casados una canción de equívocos matrimoniales.
+
+160. [87|narrative] Un instante después de que él subió a acostarse, Victoria Guzmán recibió el recado de Clotilde Armenta con la pordiosera de la leche.
+
+161. [87|narrative] En la confusión de aquel lunes absurdo, el coronel Aponte había sostenido una conversación telegráfica urgente con el gobernador de la provincia, y éste lo autorizó para que hiciera las diligencias preliminares mientras mandaban un juez instructor.
+
+162. [87|narrative] En cambio nadie pensó en una represalia de la familia de Plácida Linero, que fueron gentes de poder y de guerra hasta que se les acabó la fortuna, y que habían engendrado más de dos matones de cantina preservados por la sal de su nombre.
+
+163. [87|narrative] Flora Miguel, por su parte, gozaba de una cierta condición floral, pero carecía de gracia y de juicio y había servido de madrina de bodas a toda su generación, de modo que el convenio fue para ella una solución providencial.
+
+164. [87|narrative] Después de buscarlo a gritos por los dormitorios, oyendo sin saber dónde otros gritos que no eran los suyos, Plácida Linero se asomó a la ventana de la plaza y vio a los gemelos Vicario que corrían hacia la iglesia.
+
+165. [86|dialogue] Clotilde Armenta, la propietaria de la tienda donde los Vicario esperan el amanecer, llega incluso a sentir lástima por ellos y le suplica al alcalde que los detenga, «para librar a esos pobres muchachos del horrible compromiso que les ha caído encima».
+
+166. [86|poetic] Apenas si distinguía las formas a plena luz, y tenía hojas medicinales en las sienes para el dolor de cabeza eterno que le dejó su hijo la última vez que pasó por el dormitorio.
+
+167. [86|poetic] Por aquella época, los legendarios buques de rueda alimentados con leña estaban a punto de acabarse, y los pocos que quedaban en servicio ya no tenían pianola ni camarotes para la luna de miel, y apenas si lograban navegar contra la corriente.
+
+168. [86|dialogue] Y era una lástima, porque estaba como para embadurnarlo de mantequilla y comérselo vivo.» No fue la única que lo pensó, ni tampoco la última en darse cuenta de que Bayardo San Román no era un hombre de conocer a primera vista.
+
+169. [86|descriptive] La noche en que llegó dio a entender en el cine que era ingeniero de trenes, y habló de la urgencia de construir un ferrocarril hasta el interior para anticiparnos a las veleidades del río.
+
+170. [86|dialogue] «En aquel tiempo -me explicó-, Dios entendía esas cosas.» Por el contrario, nadie ha sabido todavía con qué cartas jugó Bayardo San Román.
+
+171. [86|dialogue] «Pensé que estaban tan borrachos -me dijo Faustino Santos-, que no sólo se habían equivocado de hora sino también de fecha.» Les recordó que era lunes.
+
+172. [86|descriptive] Santiago Nasar entró en su casa a las 4.20, pero no tuvo que encender ninguna luz para llegar al dormitorio porque el foco de la escalera permanecía encendido durante la noche.
+
+173. [86|descriptive] Desde entonces siguieron vinculados por un afecto serio, pero sin el desorden del amor, y ella le tenía tanto respeto que no volvió a acostarse con nadie si él estaba presente.
+
+174. [86|dialogue] Santiago Nasar señaló una lumbre intermitente en el mar, y nos dijo que era el ánima en pena de un barco negrero que se había hundido con un cargamento de esclavos del Senegal frente a la boca grande de Cartagena de Indias.
+
+175. [86|dialogue] «Usted tiene que entenderlo -me dijo-: aquel día desgraciado llegaba el obispo.» En el momento del crimen se sintió tan desesperado, y tan indigno de sí mismo, que no se le ocurrió nada más que ordenar que tocaran a fuego.
+
+176. [86|descriptive] La masa encefálica pesaba sesenta gramos más que la de un inglés normal, y el padre Amador consignó en el informe que Santiago Nasar tenía una inteligencia superior y un porvenir brillante.
+
+177. [86|descriptive] En la ventana de una casa frente al mar, bordando a máquina en la hora de más calor, había una mujer de medio luto con antiparras de alambre y canas amarillas, y sobre su cabeza estaba colgada una jaula con un canario que no paraba de cantar.
+
+178. [86|dialogue] Cuando el juez instructor le preguntó con su estilo lateral si sabía quién era el difunto Santiago Nasar, ella le contestó impasible: -Fue mi autor.
+
+179. [86|dialogue] Cristo Bedoya le preguntó si Santiago Nasar estaba en casa, y ella le contestó con un candor fingido que aún no había llegado a dormir.
+
+180. [86|narrative] En la planta baja abrió un salón que servía para todo, y construyó en el fondo una caballeriza para cuatro animales, los cuartos de servicio, y una cocina de hacienda con ventanas hacia el puerto por donde entraba a toda hora la pestilencia de las aguas.
+
+181. [86|narrative] Victoria Guzmán, por su parte, fue terminante en la respuesta de que ni ella ni su hija sabían que a Santiago Nasar lo estaban esperando para matarlo.
+
+182. [86|narrative] El párroco había hecho la carrera de medicina y cirugía en Salamanca, pero ingresó en el seminario sin graduarse, y hasta el alcalde sabía que su autopsia carecía de valor legal.
+
+183. [86|narrative] Yo las vi pasar desde el balcón de Magdalena Oliver, y recuerdo haber pensado que un desconsuelo como ése sólo podía fingirse para ocultar otras vergüenzas mayores.
+
+184. [86|narrative] Cuando se alivió el sol, dos hombres del municipio bajaron a Bayardo San Román en una hamaca colgada de un palo, tapado hasta la cabeza con una manta y con el séquito de plañideras.
+
+185. [86|narrative] Era uno de los últimos árabes que llegaron con Ibrahim Nasar, fue su socio de barajas hasta la muerte, y seguía siendo el consejero hereditario de la familia.
+
+186. [86|narrative] Mientras Cristo Bedoya lo buscaba, Santiago Nasar había entrado en la casa de Flora Miguel, su novia, justo a la vuelta de la esquina donde él lo vio por última vez.
+
+187. [86|narrative] Desde el lugar en que ella se encontraba podía verlos a ellos, pero no alcanzaba a ver a su hijo que corría desde otro ángulo hacia la puerta.
+
+188. [85|descriptive] Yo estaba reponiéndome de la parranda de la boda en el regazo apostólico de María Alejandrina Cervantes, y apenas si desperté con el alboroto de las campanas tocando a rebato, porque pensó que las habían soltado en honor del obispo.
+
+189. [85|dialogue] «Imagínate: bello, formal, y con una fortuna propia a los veintiún años.» Ella solía invitarlo a desayunar en nuestra casa cuando había caribañolas de yuca, y mi madre las estaba haciendo aquella mañana.
+
+190. [85|dialogue] «Ya está de colgar en un alambre -me decía Santiago Nasar-: tu prima la boba.» De pronto, poco antes del luto de la hermana, la encontré en la calle por primera vez, vestida de mujer y con el cabello rizado, y apenas si pude creer que fuera la misma.
+
+191. [85|dialogue] «Les obedecí a ciegas -me dijoporque me habían hecho creer que eran expertas en chanchullos de hombres.» Le aseguraron que casi todas las mujeres perdían la virginidad en accidentes de la infancia.
+
+192. [85|descriptive] Sin embargo, la realidad parecía ser que los hermanos Vicario no hicieron nada de lo que convenía para matar a Santiago Nasar de inmediato y sin espectáculo público, sino que hicieron mucho más de lo que era imaginable para que alguien les impidiera matarlo, y no lo consiguieron.
+
+193. [85|descriptive] Tal vez no fuera en realidad sino una ráfaga de pánico, pero el hecho es que Pablo Vicario entró solo en la pocilga a buscar los otros dos cuchillos, mientras el hermano agonizaba gota a gota tratando de orinar bajo los tamarindos.
+
+194. [85|dialogue] «Yo sabía en qué andaban -me dijoy no sólo estaba de acuerdo, sino que nunca me hubiera casado con él si no cumplía como hombre.» Antes de abandonar la cocina, Pablo Vicario le quitó dos secciones de periódicos y le dio una al hermano para envolver los cuchillos.
+
+195. [85|descriptive] Los calabazos de luz estaban encendidos en los árboles, y en el patio de baile había varios fogones de leña con enormes ollas humeantes, donde las mulatas estaban tiñendo de luto sus ropas de parranda.
+
+196. [85|poetic] Mi hermana la monja anduvo algún tiempo por la alta Guajira tratando de convertir a los últimos idólatras, y solía detenerse a conversar con ella en la aldea abrasada por la sal del Caribe donde su madre había tratado de enterrarla en vida.
+
+197. [85|descriptive] Estaba pasando la tranca cuando oyó los gritos de Santiago Nasar, y oyó los puñetazos de terror en la puerta, pero creyó que él estaba arriba, insultando a los hermanos Vicario desde el balcón de su dormitorio.
+
+198. [85|descriptive] Mi tía Wenefrida Márquez estaba desescamando un sábalo en el patio de su casa al otro lado del río, y lo vio descender las escalinatas del muelle antiguo buscando con paso firme el rumbo de su casa.
+
+199. [85|narrative] Había dormido poco y mal, sin quitarse la ropa, y despertó con dolor de cabeza y con un sedimento de estribo de cobre en el paladar, y los interpretó como estragos naturales de la parranda de bodas que se había prolongado hasta después de la media noche.
+
+200. [85|narrative] Contó que se consumieron 205 cajas de alcoholes de contrabando y casi 2.000 botellas de ron de caña que fueron repartidas entre la muchedumbre.
+
+201. [85|narrative] Se despidió de ella con la misma señal de la mano con que se había despedido de su madre, y se alejó hacia la plaza llevando del brazo a Cristo Bedoya.
+
+202. [85|narrative] De modo que sus hermanos mayores, Pedro y Pablo, llevaron la ortofónica al hotel para devolvérsela a su dueño, y lo hicieron con tanto revuelo que no hubo nadie que la viera venir y no la viera regresar.
+
+203. [85|narrative] A diferencia de las muchachas de la época, que habían descuidado el culto de la muerte, las cuatro eran maestras en la ciencia antigua de velar a los enfermos, confortar a los moribundos y amortajar a los muertos.
+
+204. [85|narrative] Ángela Vicario no olvidó nunca el horror de la noche en que sus padres y sus hermanas mayores con sus maridos, reunidos en la sala de la casa, le impusieron la obligación de casarse con un hombre que apenas había visto.
+
+205. [85|narrative] El único sobresalto imprevisto lo causó el novio en la mañana de la boda, pues llegó a buscar a Ángela Vicario con dos horas de retraso, y ella se había negado a vestirse de novia mientras no lo viera en la casa.
+
+206. [85|narrative] En todo caso, ni siquiera sus padres sabían de él mucho más que nosotros, ni tenían la menor idea de qué vino a hacer en un pueblo extraviado sin otro propósito aparente que el de casarse con una mujer que no había visto nunca.
+
+207. [85|narrative] Le habló de las lacras eternas que él había dejado en su cuerpo, de la sal de su lengua, de la trilla de fuego de su verga africana.
+
+208. [85|narrative] Se la entregó a la empleada del correo, que iba los viernes en la tarde a bordar con ella para llevarse las cartas, y se quedó convencida de que aquel desahogo terminal seria el último de su agonía.
+
+209. [85|narrative] Después de que le prometió a mi hermana Margot que iría a desayunar a nuestra casa, Cristo Bedoya se lo llevó del brazo por el muelle, y ambos parecían tan desprevenidos que suscitaron ilusiones falsas.
+
+210. [85|narrative] Se apresuró por la orilla del río, preguntándole a todo el que encontraba si lo habían visto pasar, pero nadie le dio razón.
+
+211. [84|dialogue] Gabriel García Márquez Gabriel García Márquez (Aracataca, Colombia, 1928) es la figura más representativa de lo que se ha venido a llamar el «realismo mágico» hispanoamericano.
+
+212. [84|descriptive] La propietaria de la pensión de hombres solos donde vivía Bayardo San Román, contaba que éste estaba haciendo la siesta en un mecedor de la sala, a fines de setiembre, cuando Ángela Vicario y su madre, atravesaron la plaza con dos canastas de flores artificiales.
+
+213. [84|dialogue] Cualquier hombre será feliz con ellas, porque han sido criadas para sufrir.» Sin embargo, a los que se casaron con las dos mayores les fue difícil romper el cerco, porque siempre iban juntas a todas partes, y organizaban bailes de mujeres solas y estaban predispuestas a encontrar segundas intenciones en los designios de los hombres.
+
+214. [84|poetic] De modo que le enseñaron artimañas de comadronas para fingir sus prendas perdidas, y para que pudiera exhibir en su primera mañana de recién casada, abierta al sol en el patio de su casa, la sábana de hilo con la mancha del honor.
+
+215. [84|poetic] Al cabo de pocos minutos ya no me pareció tan envejecida como a primera vista, sino casi tan joven como en el recuerdo, y no tenía nada en común con la que habían obligado a casarse sin amor a los 20 años.
+
+216. [84|dialogue] «Me hice bolas -me explicó Celeste Dangondpues de pronto me pareció que no podían matarlo si estaba tan seguro de lo que iba a hacer.» Yamil Shaium fue el único que hizo lo que se había propuesto.
+
+217. [84|narrative] Los hombres que lo iban a matar se habían dormido en los asientos, apretando en el regazo los cuchillos envueltos en periódicos, y Clotilde Armenta reprimió el aliento para no despertarlos.
+
+218. [84|narrative] Habían puesto a los enfermos acostados en los portales para que recibieran la medicina de Dios, y las mujeres salían corriendo de los patios con pavos y lechones y toda clase de cosas de comer, y desde la orilla opuesta llegaban canoas adornadas de flores.
+
+219. [84|narrative] Cinco minutos después, en efecto, volvió al Club Social con las alforjas enchapadas de plata, y puso sobre la mesa diez gavillas de billetes de a mil todavía con las bandas impresas del Banco del Estado.
+
+220. [84|narrative] Aun cuando le faltaban menos de dos meses para casarse, Pura Vicario no permitió que fuera sola con Bayardo San Román a conocer la casa en que iban a vivir, sino que ella y el padre ciego la acompañaron para custodiarle la honra.
+
+221. [84|narrative] Ambos estaban exhaustos por el trabajo bárbaro de la muerte, y tenían la ropa y los brazos empapados y la cara embadurnada de sudor y de sangre todavía viva, pero él párroco recordaba la rendición como un acto de una gran dignidad.
+
+222. [84|narrative] Clotilde Armenta sufrió una desilusión más con la ligereza del alcalde, pues pensaba que debía arrestar a los gemelos hasta esclarecer la verdad.
+
+223. [84|narrative] Pedro Vicario, según declaración propia, fue el que tomó la decisión de matar a Santiago Nasar, y al principio su hermano no hizo más que seguirlo.
+
+224. [84|narrative] Estaba sentada a la turca sobre la cama de reina frente a un platón babilónico de cosas de comer: costillas de ternera, una gallina hervida, lomo de cerdo, y una guarnición de plátanos y legumbres que hubieran alcanzado para cinco.
+
+225. [84|narrative] Al contrario: a todo el que quiso oírla se la contaba con sus pormenores, salvo el que nunca se había de aclarar: quién fue, y cómo y cuándo, el verdadero causante de su perjuicio, porque nadie creyó que en realidad hubiera sido Santiago Nasar.
+
+226. [84|narrative] Se volvió lúcida, imperiosa, maestra de su albedrío, y volvió a ser virgen sólo para él, y no reconoció otra autoridad que la suya ni más servidumbre que la de su obsesión.
+
+227. [83|poetic] No obstante, Divina Flor me confesó en una visita posterior, cuando ya su madre había muerto, que ésta no le había dicho nada a Santiago Nasar porque en el fondo de su alma quería que lo mataran.
+
+228. [83|descriptive] Era extraño que no lo supiera, pero lo era mucho más que tampoco lo supiera mi madre, pues se enteraba de todo antes que nadie en la casa, a pesar de que hacía años que no salía a la calle, ni siquiera para ir a misa.
+
+229. [83|descriptive] A diferencia de los noviazgos de la época, que eran largos y vigilados, el de ellos fue de sólo cuatro meses por las urgencias de Bayardo San Román.
+
+230. [83|descriptive] No oyó lo que hablaron, pero supuso que algo le habían dicho de sus propósitos, por la forma en que observó los cuchillos al salir.
+
+231. [83|descriptive] El cascarón vacío, embutido de trapos y cal viva, y cosido a la machota con bramante basto y agujas de enfardelar, estaba a punto de desbaratarse cuando lo pusimos en el ataúd nuevo de seda capitonada.
+
+232. [83|dialogue] Antes de irse le pidió al padre Amador que confesara a los hijos en la cárcel, pero Pedro Vicario se negó, y convenció al hermano de que no tenían nada de que arrepentirse.
+
+233. [83|descriptive] A partir de entonces ya no era consciente de lo que escribía, ni a quién le escribía a ciencia cierta, pero siguió escribiendo sin cuartel durante diecisiete años.
+
+234. [83|narrative] No hubo una sola persona, ni pobre ni rica, que no hubiera participado de algún modo en la parranda de mayor escándalo que se había visto jamás en el pueblo.
+
+235. [83|narrative] Bayardo San Román, el hombre que devolvió a la esposa, había venido por primera vez en agosto del año anterior: seis meses antes de la boda.
+
+236. [83|narrative] Sabían bordar con bastidor, coser a máquina, tejer encaje de bolillo, lavar y planchar, hacer flores artificiales y dulces de fantasía, y redactar esquelas de compromiso.
+
+237. [83|narrative] En efecto, con los datos finales que Cristo Bedoya le dio al día siguiente en el puerto, 45 minutos antes de morir, comprobó que el pronóstico de Bayardo San Román había sido exacto.
+
+238. [83|narrative] La parranda pública se dispersó en fragmentos hacia la media noche, y sólo quedó abierto el negocio de Clotilde Armenta a un costado de la plaza.
+
+239. [83|narrative] Clotilde Armenta recordaría siempre que el talante rechoncho del coronel Aponte le causaba una cierta desdicha, y en cambio yo lo evocaba como un hombre feliz; aunque un poco trastornado por la práctica solitaria del espiritismo aprendido por correo.
+
+240. [83|narrative] Se tiró sobre la cama en la oscuridad y con la ropa puesta, pues sólo le quedaba una hora para dormir, y así lo encontró Victoria Guzmán cuando subió a despertarlo para que recibiera al obispo.
+
+241. [83|narrative] Se suponía más bien que aguardaran la noche para echar gasolina por la claraboya e incendiar a los prisioneros dentro del calabozo.
+
+242. [83|narrative] Todo lo que sabemos de su carácter es aprendido en el sumario, que numerosas personas me ayudaron a buscar veinte años después del crimen en el Palacio de justicia de Riohacha.
+
+243. [82|descriptive] Las voces de todos aquellos que, años después, recuerdan, confiesan u ocultan algún detalle nuevo del crimen, algún matiz que completa la tragedia.
+
+244. [82|poetic] La encontraba como era en aquellos tiempos, lívida y sigilosa, barriendo el patio con una escoba de ramas en el resplandor ceniciento del amanecer, y entre cada sorbo de café me iba contando lo que había ocurrido en el mundo mientras nosotros dormíamos.
+
+245. [82|descriptive] Entonces fue cuando mi hermana Margot la conoció completa y de un modo brutal: Ángela Vicario, la hermosa muchacha que se había casado el día anterior, había sido devuelta a la casa de sus padres, porque el esposo encontró que no era virgen.
+
+246. [82|dialogue] «La gente lo quiere mucho -me decía-, porque es honrado y de buen corazón, y el domingo pasado comulgó de rodillas y ayudó a la misa en latín.» En ese tiempo no estaba permitido comulgar de pie y sólo se oficiaba en latín, pero mi madre suele hacer esa clase de precisiones superfluas cuando quiere llegar al fondo de las cosas.
+
+247. [82|descriptive] He tenido que repetir esto muchas veces, pues los cuatro habíamos crecido juntos en la escuela y luego en la misma pandilla de vacaciones, y nadie podía creer que tuviéramos un secreto sin compartir, y menos un secreto tan grande.
+
+248. [82|dialogue] «Fueron tres toques muy despacio -le contó a mi madre-, pero tenían esa cosa rara de las malas noticias.» Le contó que había abierto la puerta sin encender la luz para no despertar a nadie, y vio a Bayardo San Román en el resplandor del farol público, con la camisa de seda sin abotonar y los pantalones de fantasía sostenidos con tirantes elásticos.
+
+249. [82|poetic] Sus amigos estábamos de acuerdo en que Pablo Vicario desarrolló de pronto una dependencia rara de hermano menor cuando Pedro Vicario regresó con un alma cuartelaria y con la novedad de levantarse la camisa para mostrarle a quien quisiera verla una cicatriz de bala de sedal en el costado izquierdo.
+
+250. [82|dialogue] Lo primero que pensó fue que no era un asunto mío sino de la autoridad civil, pero después resolví decirle algo de pasada a Plácida Linero.» Sin embargo, cuando atravesó la plaza lo había olvidado por completo.
+
+251. [82|dialogue] Después se durmió a fondo, rendido por la parranda, hasta que mi hermana la monja entró en el dormitorio tratando de ponerse el hábito a la carrera, y lo despertó con su grito de loca: -¡Mataron a Santiago Nasar!
+
+252. [82|dialogue] Pero era una orden del alcalde, y las órdenes de aquel bárbaro, por estúpidas que fueran, había que cumplirlas.» No era del todo justo.
+
+253. [82|descriptive] El alcalde había sido antes oficial de tropa sin ninguna experiencia en asuntos de justicia, y era demasiado fatuo para preguntarle a alguien que lo supiera por dónde tenía que empezar.
+
+254. [82|dialogue] «Me estaba yendo en aguas -me dijo Pablo Vicario-, y no podíamos quitarnos la idea de que eran vainas de los turcos.» Hasta entonces había desbordado dos veces la letrina portátil, y el guardián de vista lo había llevado otras seis al retrete de la alcaldía.
+
+255. [82|poetic] Pero una noche se le ocurrió oficiar una misa de espiritismo para esclarecer el misterio, y el alma de Yolanda de Mus le confirmó de su puño y letra que en efecto era ella quien estaba recuperando para su casa de la muerte los cachivaches de la felicidad.
+
+256. [82|dialogue] «Fue muy fácil -me dijo-, porque estaba resuelta a morir.» La verdad es que hablaba de su desventura sin ningún pudor para disimular la otra desventura, la verdadera, que le abrasaba las entrañas.
+
+257. [82|dialogue] «Si no hubiera sido por eso -me dijo Cristo Bedoya-, nunca hubiera sabido cuál de los dos era cuál.» Clotilde Armenta apareció detrás de Pablo Vicario, y le gritó a Cristo Bedoya que se diera prisa, porque en este pueblo de maricas sólo un hombre como él podía impedir la tragedia.
+
+258. [82|dialogue] «No se me ocurrió que estuviera ahí -me dijoporque esa gente no se levantaba nunca antes de medio día.» Era una versión corriente que la familia entera dormía hasta las doce por orden de Nahir Miguel, el varón sabio de la comunidad.
+
+259. [82|narrative] En realidad, el único en todo el pueblo que no sabe del crimen es la propia víctima, perdido entre otras cosas por el cambio en los hábitos diarios que supone, muy de mañana, la visita de un obispo que ni siquiera puso el pie en el puerto y que los bendijo desde el barco, alejándose entre resoplidos de vapor.
+
+260. [82|narrative] Santiago Nasar masticó otra aspirina y se sentó a beber a sorbos lentos el tazón de café, pensando despacio, sin apartar la vista de las dos mujeres que destripaban los conejos en la hornilla.
+
+261. [82|narrative] Sin embargo, fue por allí, y no por la puerta posterior, por donde esperaban a Santiago Nasar los hombres que lo iban a matar, y fue por allí por donde él salió a recibir al obispo, a pesar de que debía darle una vuelta completa a la casa para llegar al puerto.
+
+262. [82|narrative] Aunque no habían dejado de beber desde la víspera de la parranda, ya no estaban borrachos al cabo de tres días, sino que parecían sonámbulos desvelados.
+
+263. [82|narrative] Le costó trabajo convencer a sus padres de que no le había dado ningún motivo a Bayardo San Román para que le mandara semejante regalo, y menos de una manera tan visible que no pasó inadvertido para nadie.
+
+264. [82|narrative] Se consagró con tal espíritu de sacrificio a la atención del esposo y a la crianza de los hijos, que a uno se le olvidaba a veces que seguía existiendo.
+
+265. [82|narrative] Pura Vicario le contó a mi madre que se había acostado a las once de la noche después de que las hijas mayores la ayudaron a poner un poco de orden en los estragos de la boda.
+
+266. [82|narrative] Regresó con una blenorragia de sargento que resistió a los métodos más brutales de la medicina militar, y a las inyecciones de arsénico y las purgaciones de permanganato del doctor Dionisio Iguarán.
+
+267. [82|narrative] Prudencia Cotes se quedó esperando en la cocina hasta que los vio salir por la puerta del patio, y siguió esperando durante tres años sin un instante de desaliento, hasta que Pablo Vicario salió de la cárcel y fue su esposo de toda la vida.
+
+268. [82|narrative] Así que nos llevamos a los músicos a una ronda de serenatas, y seguirnos la fiesta por nuestra cuenta, mientras los gemelos Vicario esperaban a Santiago Nasar para matarlo.
+
+269. [82|narrative] A los últimos curiosos asomados a las ventanas de la escuela pública se les acabó la curiosidad, el ayudante se desvaneció, y el coronel Lázaro Aponte, que había visto y causado tantas masacres de represión, terminó por ser vegetariano además de espiritista.
+
+270. [82|narrative] Una vez rescatamos la maletita de mano que Ángela Vicario le había pedido a su madre la noche de bodas, pero no le dimos ninguna importancia.
+
+271. [81|poetic] La caza del amor es altanería VICENTE GIL El día en que lo iban a matar, Santiago Nasar se levantó a las 5.30 de la mañana para esperar el buque en que llegaba el obispo.
+
+272. [81|dialogue] Un mierda.» Pero no pudo eludir una rápida ráfaga de espanto al recordar el horror de Santiago Nasar cuando ella arrancó de cuajo las entrañas de un conejo y les tiró a los perros el tripajo humeante.
+
+273. [81|poetic] Había sido construido en los tiempos en que el río era tan servicial que muchas barcazas de mar, e inclusive algunos barcos de altura, se aventuraban hasta aquí a través de las ciénagas del estuario.
+
+274. [81|poetic] Encontró a mi madre en el comedor, con un traje dominical de flores azules que se había puesto por si el obispo pasaba a saludarnos, y estaba cantando el fado del amor invisible mientras arreglaba la mesa.
+
+275. [81|dialogue] Hombres de mala ley, decía en voz muy baja, animales de mierda que no son capaces de hacer nada que no sean desgracias.» No se daba cuenta ni siquiera de que llevaba al niño de la mano.
+
+276. [81|descriptive] Llegó con una chaqueta corta y un pantalón muy estrecho, ambos de becerro natural, y unos guantes de cabritilla del mismo color.
+
+277. [81|descriptive] Su pasado no iba más allá de la tarde en que desembarcó con su atuendo de artista, y era tan reservado sobre su origen que hasta el engendro más demente podía ser cierto.
+
+278. [81|poetic] Pero la carta grande era el padre: el general Petronio San Román, héroe de las guerras civiles del siglo anterior, y una de las glorias mayores del .régimen conservador por haber puesto en fuga al coronel Aureliano Buendía en el desastre de Tucurinca.
+
+279. [81|poetic] Bayardo San Román la había llevado a pie a casa de sus padres para que el ruido del motor no delatara su desgracia antes de tiempo, y estaba otra vez solo y con las luces apagadas en la quinta feliz del viudo de Xius.
+
+280. [81|descriptive] Fue una masacre, consumada en el local de la escuela pública con la ayuda del boticario que tomó las notas, y un estudiante de primer año de medicina que estaba aquí de vacaciones.
+
+281. [81|dialogue] «No hice nada de lo que me dijeron -me dijo-, porque mientras más lo pensaba más me daba cuenta de que todo aquello era una porquería que no se le podía hacer a nadie, y menos al pobre hombre que había tenido la mala suerte de casarse conmigo.» De modo que se dejó desnudar sin reservas en el dormitorio iluminado, a salvo ya de todos los miedos aprendidos que le habían malogrado la vida.
+
+282. [81|poetic] Nadie hubiera sospechado siquiera, hasta que ella se decidió a contármelo, que Bayardo San Román estaba en su vida para siempre desde que la llevó de regreso a su casa.
+
+283. [81|dialogue] Una noche de buen humor se le derramó el tintero sobre la carta terminada, y en vez de romperla le agregó una posdata: «En prueba de mi amor te envío mis lágrimas».
+
+284. [81|poetic] Le pareció imposible que hubiera llegado a su casa en tan poco tiempo, pero de todos modos entró a preguntar por él, pues encontró sin tranca y entreabierta la puerta del frente.
+
+285. [81|descriptive] Flora Miguel lo esperaba en la sala, verde de cólera, con uno de los vestidos de arandelas infortunadas que solía llevar en las ocasiones memorables, y le puso el cofre en las manos.
+
+286. [81|dialogue] «Oímos la gritería -me dijo la esposa-, pero pensamos que era la fiesta del obispo.» Empezaban a desayunar cuando vieron entrar a Santiago Nasar empapado de sangre llevando en las manos el racimo de sus entrañas.
+
+287. [81|narrative] Sin embargo, después de ese veredicto consagratorio me escribió dos cartas más en las que nada me decía sobre Bayardo San Román, ni siquiera cuando fue demasiado sabido que quería casarse con Ángela Vicario.
+
+288. [81|narrative] Los primeros clientes eran escasos, pero veintidós personas declararon haber oído cuanto dijeron, y todas coincidían en la impresión de que lo habían dicho con el único propósito de que los oyeran.
+
+289. [81|narrative] Hacía tres días con sus noches que trabajaban sin reposo, primero atendiendo en secreto a los invitados de honor, y después destrampadas a puertas abiertas con los que nos quedamos incompletos con la parranda de la boda.
+
+290. [81|narrative] Los estragos de los cuchillos fueron apenas un principio de la autopsia inclemente que el padre Carmen Amador se vio obligado a hacer por ausencia del doctor Dionisio Iguarán.
+
+291. [81|narrative] Encontré a María Alejandrina Cervantes despierta como siempre al amanecer, y desnuda por completo como siempre que no había extraños en la casa.
+
+292. [81|narrative] El dolor de las ingles le llegaba hasta el cuello, se le cerró la orina, y padeció la certidumbre espantosa de que no volvería a dormir en el resto de su vida.
+
+293. [81|narrative] Cristo Bedoya, que llegó a ser un cirujano notable, no pudo explicarse nunca por qué cedió al impulso de esperar dos horas donde sus abuelos hasta que llegara el obispo, en vez de irse a descansar en la casa de sus padres, que lo estuvieron esperando hasta el amanecer para alertarlo.
+
+294. [81|narrative] Estaba tan perplejo con el enigma que le había tocado en suerte, que muchas veces incurrió en distracciones líricas contrarias al rigor de su ciencia.
+
+295. [81|narrative] En el corredor se cruzó con Divina Flor que llevaba un cubo de agua y un trapero para pulir los pisos de la sala.
+
+296. [80|dialogue] Pero ninguno de los dos quiere hacerlo, y, como dice el narrador, «hicieron mucho más de lo que era imaginable para que alguien les impidiera matarlo, y no lo consiguieron».
+
+297. [80|descriptive] En el armario tenía además un rifle 30.06 Mannlicher-Schönauer, un rifle 300 Holland Magnum, un 22 Hornet con mira telescópica de dos poderes, y una Winchester de repetición.
+
+298. [80|descriptive] Ésa fue siempre la puerta de más uso, no sólo porque era el acceso natural a las pesebreras y la cocina, sino porque daba a la calle del puerto nuevo sin pasar por la plaza.
+
+299. [80|dialogue] Al contrario: sentía como si por fin me hubiera quitado de encima la conduerma de la muerte, y lo único que quería era que todo terminara rápido para tirarme a dormir.» Pedro Vicario, el más resuelto de los hermanos, la levantó en vilo por la cintura y la sentó en la mesa del comedor.
+
+300. [80|descriptive] El juez instructor lo dibujó en el sumario, tal vez porque no lo pudo describir, y se arriesgó apenas a indicar que parecía un alfanje en miniatura.
+
+301. [80|poetic] Aura Villeros, la comadrona que había ayudado a nacer a tres generaciones, sufrió un espasmo de la vejiga cuando conoció la noticia, y hasta el día de su muerte necesitó una sonda para orinar.
+
+302. [80|narrative] Las fronteras de la crónica periodística y de la literatura se disuelven y ningún dato queda suelto, nada de lo narrado aparece sin una previa justificación.
+
+303. [80|narrative] Nunca se les vio armados en el pueblo, y la única vez que trajeron sus halcones amaestrados fue para hacer una demostración de altanería en un bazar de caridad.
+
+304. [80|narrative] Divina Flor se le adelantó para abrirle la puerta, tratando de no dejarse alcanzar por entre las jaulas de pájaros dormidos del comedor, por entre los muebles de mimbre y las macetas de helechos colgados de la sala, pero cuando quitó la tranca de la puerta no pudo evitar otra vez la mano de gavilán carnicero.
+
+305. [80|narrative] Esa noche, cuando volvió a su casa, Ángela Vicario encontró allí la ortofónica envuelta en papel de regalo y adornada con un lazo de organza.
+
+306. [80|narrative] Al final, hicieron cantar los cuchillos en la piedra, y Pablo puso el suyo junto a la lámpara para que destellara el acero: -Vamos a matar a Santiago Nasar -dijo.
+
+307. [80|narrative] Se vistió con calma, se hizo varias veces hasta que le quedó perfecto el corbatín de mariposa, y se colgó en el cuello el escapulario de la Congregación de María para recibir al obispo.
+
+308. [80|narrative] Salieron por el portón de la porqueriza con los cuchillos sin envolver, perseguidos por el alboroto de los perros en los patios.
+
+309. [80|narrative] Cuando bajamos la colina, mi hermano nos invitó a desayunar con pescado frito en las fondas del mercado, pero Santiago Nasar se opuso porque quería dormir una hora hasta que llegara el obispo.
+
+310. [80|narrative] No habían dejado de aullar desde que yo entré en la casa, cuando Santiago Nasar agonizaba todavía en la cocina, y encontré a Divina Flor llorando a gritos y manteniéndolos a raya con una tranca.
+
+311. [80|narrative] Tenía cuatro incisiones en el estómago, y una de ellas tan profunda que lo atravesó por completo y le destruyó el páncreas.
+
+312. [80|narrative] Más aún: fue Suseme Abdala, la matriarca centenaria, quien recomendó la infusión prodigiosa de flores de pasionaria y ajenjo mayor que segó la colerina de Pablo Vicario y desató a la vez el manantial florido de su gemelo.
+
+313. [80|narrative] Se fueron sin que nadie se diera cuenta, al amparo del agotamiento público, mientras los únicos sobrevivientes despiertos de aquel día irreparable estábamos enterrando a Santiago Nasar.
+
+314. [80|narrative] La mañana de su muerte, en efecto, Santiago Nasar no había tenido un instante de duda, a pesar de que sabía muy bien cuál hubiera sido el precio de la injuria que le imputaban.
+
+315. [80|narrative] Sin embargo, le pareció inconcebible que a Santiago Nasar lo fueran a matar, y en cambio se le ocurrió que lo iban a casar a la fuerza con Ángela Vicario para que le devolviera la honra.
+
+316. [80|narrative] Iban perseguidos de cerca por Yamil Shaium, con su escopeta de matar tigres, y por otros árabes desarmados y Plácida Linero pensó que había pasado el peligro.
+

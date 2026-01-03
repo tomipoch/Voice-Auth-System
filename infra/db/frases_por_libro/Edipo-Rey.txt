@@ -1,0 +1,177 @@
+# Edipo-Rey
+# Total frases: 82 (filtradas y balanceadas)
+# ========================================
+
+
+## EASY (1 frases)
+
+1. [81|dialogue] ¿Cómo te atreviste a extinguir así tu vista?, ¿qué dios te impulsó?
+
+
+## MEDIUM (8 frases)
+
+1. [87|descriptive] Porque una sola podría proporcionarnos el conocimiento de muchas, si consiguiéramos un pequeño principio de esperanza.
+
+2. [85|dialogue] ¿O pensabas que no descubriría que tu acción se deslizaba con engaño, o que no me defendería al averiguarlo?
+
+3. [83|dialogue] Si alguna conexión hay entre Layo y este extranjero, ¿quién hay en este momento más infortunado que yo?
+
+4. [82|dialogue] ¡Ojalá que Febo, el que ha enviado estos oráculos, llegue como salvador y ponga fin a la epidemia!
+
+5. [82|dialogue] ¿Qué obligación de nuevo me vas a imponer, bien inmediatamente o después del transcurrir de los años?
+
+6. [81|poetic] Pues si eres tú, en verdad, quien él asegura, sábete que has nacido con funesto destino.
+
+7. [81|narrative] Sé bien que todos estáis sufriendo y, al sufrir, no hay ninguno de vosotros que padezca tanto como yo.
+
+8. [80|narrative] Yo, al que me había apartado, al conductor del carro, le golpeé movido por la cólera.
+
+
+## HARD (73 frases)
+
+1. [100|dialogue] Porque Febo, si es que no lo has oído a los mensajeros, contestó a nuestros embajadores que la única liberación de esta plaga nos llegaría si, después de averiguarlo correctamente, dábamos muerte a los asesinos de Layo o les hacíamos salir desterrados del país.
+
+2. [100|poetic] Una vez que estuvo tendida, la infortunada, en tierra, fue terrible de ver lo que siguió: arrancó los dorados broches de su vestido con los que se adornaba y, alzándolos, se golpeó con ellos las cuencas de los ojos, al tiempo que decía cosas como éstas: que no le verían a él, ni los males que había padecido, ni los horrores que había cometido, sino que estarían en la oscuridad el resto del tiempo para no ver a los que no debía y no conocer a los que deseaba.
+
+3. [99|descriptive] Sin que mis padres lo supieran, me dirigí a Delfos, y Febo me despidió sin atenderme en aquello por lo que llegué, sino que se manifestó anunciándome, infortunado de mí, terribles y desgraciadas calamidades: que estaba fijado que yo tendría que unirme a mi madre y que traería al mundo una descendencia insoportable de ver para los hombres y que yo sería asesino del padre que me había engendrado.
+
+4. [97|descriptive] Cuando llegó de allí y vio que tú regentabas el poder y que Layo estaba muerto, me suplicó, encarecidamente, cogiéndome la mano, que le enviara a los campos y al pastoreo de rebaños para estar lo más alejado posible de la ciudad.
+
+5. [96|dialogue] Ni la ciudad, ni el recinto amurallado, ni las sagradas imágenes de los dioses, de las que yo, desdichado —que fui quien vivió con más gloria en Tebas—, me privé a mí mismo cuando, en persona, proclamé que todos rechazaran al impío, al que por obra de los dioses resultó impuro y del linaje de Layo.
+
+6. [95|dialogue] ANTÍSTROFA 1ª Tú, que, tras disparar el arco con incomparable destreza, conseguiste una dicha por completo afortunada, ¡oh Zeus!, después de hacer perecer a la doncella de corvas garras cantora de enigmas, y te alzaste como un baluarte contra la muerte en mi tierra.
+
+7. [94|dialogue] Y si no saca con justicia provecho y no se aleja de los actos impíos, o toca cosas que son intocables en una insensata acción, ¿qué hombre, en tales circunstancias, se jactará aún de rechazar de su alma las flechas de los dioses?
+
+8. [93|poetic] El soberano de Cilene o el dios báquico que habita en lo más alto de los montes te recibió como un hallazgo de alguna de las ninfas del Helicón con las que juguetea la mayor parte del tiempo (Entra el anciano pastor acompañado de dos esclavos.) EDIPO.
+
+9. [92|dialogue] ¿Qué hombre podría llegar a ser más odiado por los dioses, cuando no le es posible a ningún extranjero ni ciudadano recibirle en su casa ni dirigirle la palabra y hay que arrojarle de los hogares?
+
+10. [92|narrative] Si, por el contrario, calláis y alguno temiendo por un amigo o por sí mismo trata de rechazar esta orden, lo que haré con ellos debéis escucharme.
+
+11. [92|narrative] Eres, sin darte cuenta, odioso para los tuyos, tanto para los de allí abajo como para los que están en la tierra, y la maldición que por dos lados te golpea, de tu madre y de tu padre, con paso terrible te arrojará, algún día, de esta tierra, y tú, que ahora ves claramente, entonces estarás en la oscuridad.
+
+12. [91|poetic] Una vez que entró, echando por dentro los cerrojos de las puertas, llama a Layo, muerto ya desde hace tiempo, y le recuerda su antigua simiente, por cuyas manos él mismo iba a morir y a dejar a su madre como funesto medio de procreación para sus hijos.
+
+13. [90|dialogue] ¡Cuánta envidia acecha en vosotros, si, a causa de este mando que la ciudad me confió como un don — sin que yo lo pidiera—, Creonte, el que era leal, el amigo desde el principio, desea expulsarme deslizándose a escondidas, tras sobornar a semejante hechicero, maquinador y charlatán engañoso, que sólo ve en las ganancias y es ciego en su arte!
+
+14. [90|descriptive] Tú, que dirigiste con justicia el rumbo de mi querido país, cuando estaba sacudido entre desgracias, llegarás a ser también ahora un buen guía, si puedes.
+
+15. [90|descriptive] Algún dios se lo mostró, a él que estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca.
+
+16. [90|narrative] ANTÍSTROFA 2ª Ya no iré honrando a la divinidad al sagrado centro de la tierra, ni al templo de Abas ni a Olimpia, si estos oráculos no se cumplen como para que sean señalados por todos los hombres.
+
+17. [89|poetic] profiriendo expresiones impías, impronunciables para mí, como si se fuera a desterrar él mismo de esta tierra y a no permanecer más en el palacio, estando como está sujeto a la maldición que lanzó.
+
+18. [89|narrative] Pero, como ahora he venido a ser un ciudadano entre ciudadanos, os diré a todos vosotros, cadmeos, lo siguiente: aquel de vosotros que sepa por obra de quién murió Layo, el hijo de Lábdaco, le ordeno que me lo revele todo y, si siente temor, que aleje la acusación que pesa contra sí mismo, ya que ninguna otra pena sufrirá y saldrá sano y salvo del país.
+
+19. [89|narrative] Yo nunca he sabido, ni antes ni ahora, qué motivo de disputa había entre los Labdácidas y el hijo de Pólibo, que, por haberlo probado, me haga ir contra la pública fama de Edipo, como vengador para los Labdácidas de muertes no claras.
+
+20. [89|narrative] Creo que ni el Istro ni el Fasis podrían lavar, para su purificación, cuanto oculta este techo y los infortunios que, enseguida, se mostrarán a la luz, queridos y no involuntarios.
+
+21. [88|dialogue] ¿Por qué, oh mujer, habría uno de tener en cuenta el altar vaticinador de Pitón o los pájaros que claman en el cielo, según cuyos indicios tenía yo que dar muerte a mi propio padre?
+
+22. [88|poetic] De modo que ningún mortal puede considerar a nadie feliz con la mira puesta en el último día, hasta que llegue al término de su vida sin haber sufrido nada doloroso.
+
+23. [88|narrative] Por otra parte, no habían pasado tres días desde el nacimiento del niño cuando Layo, después de atarle juntas las articulaciones de los pies, le arrojó, por la acción de otros, a un monte infranqueable.
+
+24. [88|narrative] Estoy bien seguro de que se acuerda cuando, en el monte Citerón, él con doble rebaño y yo con uno, convivimos durante tres períodos enteros de seis meses, desde la primavera hasta Arturo.
+
+25. [88|narrative] Las pupilas ensangrentadas teñían las mejillas y no destilaban gotas chorreantes de sangre, sino que todo se mojaba con una negra lluvia y granizada de sangre.
+
+26. [87|poetic] Y pido, para los que no hagan esto, que los dioses no les hagan brotar ni cosecha alguna de la tierra ni hijos de las mujeres, sino que perezcan a causa de la desgracia en que se encuentran y aún peor que ésta.
+
+27. [87|dialogue] ¡Qué sucesos vais a escuchar, qué cosas contemplaréis y en cuánto aumentaréis vuestra aflicción, si es que aún, con fidelidad, os preocupáis de la casa de los Labdácidas!
+
+28. [87|dialogue] Y cuando lleguéis a la edad de las bodas, ¿quién será, quién, oh hijas, el que se expondrá a aceptar semejante oprobio, que resultará una ruina para vosotras dos como, igualmente, lo fue para mis padres?
+
+29. [87|narrative] Pues, aunque la acción que llevamos a cabo no hubiese sido promovida por un dios, no sería natural que vosotros la dejarais sin expiación, sino que debíais hacer averiguaciones por haber perecido un hombre excelente y, a la vez, rey.
+
+30. [87|narrative] Y, después de esto, ya no sé cómo murió; pues Edipo, dando gritos, se precipitó y, por él, no nos fue posible contemplar hasta el final el infortunio de aquélla; más bien dirigíamos la mirada hacia él mientras daba vueltas.
+
+31. [87|narrative] Y gritando de horrible modo, como si alguien le guiara, se lanzó contra las puertas dobles y, combándolas, abate desde los puntos de apoyo los cerrojos y se precipita en la habitación en la que contemplamos a la mujer colgada, suspendida del cuello por retorcidos lazos.
+
+32. [86|dialogue] Invoco al de la mitra de oro, el que da nombre a esta región, a Baco, el de rojizo color, al del evohé, compañero de las ménades, ¡que se acerque resplandeciente con refulgente antorcha contra el dios odioso entre los dioses!
+
+33. [86|dialogue] ESTROFA 1ªº ¡Ojalá el destino me asistiera para cuidar de la venerable pureza de todas las palabras y acciones cuyas leyes son sublimes, nacidas en el celeste firmamento, de las que Olimpo es el único padre y ninguna naturaleza mortal de los hombres engendró ni nunca el olvido las hará reposar!
+
+34. [86|poetic] Pero él, habiendo muerto, está oculto bajo tierra y yo estoy aquí, sin haberle tocado con arma alguna, a no ser que se haya consumido por nostalgia de mí.
+
+35. [86|dialogue] CORO ESTROFA Si yo soy adivino y conocedor de entendimiento, ¡por el Olimpo!, no quedarás, ¡oh Citerón!, sin saber que desde el plenilunio de mañana yo te ensalzaré como región de Edipo, al tiempo que nodriza y madre, y serás celebrado con coros por nosotros como quien se hace protector de mis reyes.
+
+36. [86|narrative] El único remedio que he encontrado, después de reflexionar a fondo, es el que he tomado: envié a Creonte, hijo de Meneceo, mi propio cuñado, a la morada Pítica de Febo, a fin de que se enterara de lo que tengo que hacer o decir para proteger esta ciudad.
+
+37. [86|narrative] También yo tengo derecho a ello, ya que no vivo sometido a ti sino a Loxias, de modo que no podré ser inscrito como seguidor de Creonte, jefe de un partido.
+
+38. [85|poetic] Y ya hoy mismo, si lo calculo en comparación con el tiempo pasado, me inquieta qué estará haciendo, pues, contra lo que es razonable, lleva ausente más tiempo del fijado.
+
+39. [85|poetic] Pero esta tierra que se consume aflige mi ánimo, desventurado, si los males que os atañen a vosotros dos se unen a los que ya había.
+
+40. [85|narrative] Y yo, Edipo, el que nada sabía, llegué y la hice callar consiguiéndolo por mi habilidad, y no por haberlo aprendido de los pájaros.
+
+41. [84|poetic] En efecto, vuestro dolor llega sólo a cada uno en sí mismo y a ningún otro, mientras que mi ánimo se duele, al tiempo, por la ciudad y por mí y por ti.
+
+42. [84|poetic] El soberano Febo nos ordenó, claramente, arrojar de la región una mancilla que existe en esta tierra y no mantenerla para que llegue a ser irremediable.
+
+43. [84|dialogue] Y si en algo se apartara del anterior relato, ni aun entonces mostrará que la muerte de Layo se cumplió debidamente, porque Loxias dijo expresamente que se llevaría a cabo por obra de un hijo mío.
+
+44. [84|dialogue] Y ya que no consigo nada con mis consejos, me llego ante ti, oh Apolo Liceo —pues eres el más cercano—, cual suplicante, con estos signos de rogativas para que nos proporciones alguna liberación purificadora, puesto que ahora todos sentimos ansiedad, al ver asustado a aquel que es como el piloto de la nave.
+
+45. [84|dialogue] ¿A qué reuniones de ciudadanos llegaréis, a qué fiestas, de donde no volváis a casa bañadas en lágrimas, en lugar de gozar del festejo?
+
+46. [84|dialogue] ¡Oh hijo de Meneceo!, ya que sólo tú has quedado como padre para éstas —pues nosotros, que las engendramos, hemos sucumbido los dos—, no dejes que las que son de tu familia vaguen mendicantes sin esposos, no las iguales con mis desgracias.
+
+47. [84|narrative] Tú que, al llegar, liberaste la ciudad Cadmea del tributo que ofrecíamos a la cruel cantora y, además, sin haber visto nada más ni haber sido informado por nosotros, sino con la ayuda de un dios, se dice y se cree que enderezaste nuestra vida.
+
+48. [84|narrative] Y puesto que me has echado en cara que soy ciego, te digo: aunque tú tienes vista, no ves en qué grado de desgracia te encuentras ni dónde habitas ni con quiénes transcurre tu vida.
+
+49. [84|narrative] En cuanto a mí, que esta ciudad paterna no consienta en tenerme como habitante mientras esté con vida, antes bien, dejadme morar en los montes, en ese Citerón que es llamado mío, el que mi padre y mi madre, en vida, dispusieron que fuera legítima sepultura para mí, para que muera por obra de aquellos que tenían que haberme matado.
+
+50. [83|dialogue] Así que, oh anciano, ya que eres por tu condición a quien corresponde hablar, dime en nombre de todos: ¿cuál es la causa de que estéis así ante mí?
+
+51. [83|dialogue] Pero ahora, ¡oh Edipo, el más sabio entre todos!, te imploramos todos los que estamos aquí como suplicantes que nos consigas alguna ayuda, bien sea tras oír el mensaje de algún dios, o bien lo conozcas de un mortal.
+
+52. [83|poetic] ANTÍSTROFA 2ª Te sorprendió, a despecho tuyo, el tiempo que todo lo ve y condena una antigua boda que no es boda en donde se engendra y resulta engendrado.
+
+53. [83|descriptive] En efecto, iba y venía hasta nosotros pidiéndonos que le proporcionásemos una espada y que dónde se encontraba la esposa que no era esposa, seno materno en dos ocasiones, para él y para sus hijos.
+
+54. [83|narrative] Soberano Liceo, quisiera que tus flechas invencibles que parten de cuerdas trenzadas en oro se distribuyeran, colocadas delante, como protectoras y, también, las antorchas llameantes de Artemis con las que corre por los montes de Licia.
+
+55. [83|narrative] Pero a mis pobres y desgraciadas hijas, para las que nunca fue dispuesta mi mesa aparte de mí, sino que de cuanto yo gustaba, de todo ello participaban siempre, a éstas cuídamelas.
+
+56. [82|descriptive] Concede que el terrible Ares, que ahora sin la protección de los escudos me abrasa saliéndome al encuentro a grandes gritos, se dé la vuelta en su carrera, lejos de los confines de la patria, bien hacia el inmenso lecho de Anfitrita, bien hacia la inhóspita agitación de los puertos tracios.
+
+57. [82|poetic] Ciego, cuando antes tenía vista, y pobre, en lugar de rico, se trasladará a tierra extraña tanteando el camino con un bastón.
+
+58. [82|poetic] Es el momento para que él, en la huida, fuerce un paso más poderoso que el de caballos rápidos como el viento, pues contra él se precipita, armado con fuego y relámpagos, el hijo de Zeus.
+
+59. [82|poetic] Después de oír esto, calculando a partir de allí la posición de la región corintia por las estrellas, iba, huyendo de ella, adonde nunca viera cumplirse las atrocidades de mis funestos oráculos.
+
+60. [82|dialogue] Lloro por vosotras dos —pues no puedo miraros—, cuando pienso qué amarga vida os queda y cómo será preciso que paséis vuestra vida ante los hombres.
+
+61. [82|narrative] Prohíbo que en este país, del que yo poseo el poder y el trono, alguien acoja y dirija la palabra a este hombre, quienquiera que sea, y que se haga partícipe con él en súplicas o sacrificios a los dioses y que le permita las abluciones.
+
+62. [82|narrative] Será manifiesto que él mismo es, a la vez, hermano y padre de sus propios hijos, hijo y esposo de la mujer de la que nació y de la misma raza, así como asesino de su padre.
+
+63. [81|poetic] De modo que no me despertáis de un sueño en el que estuviera sumido, sino que estad seguros de que muchas lágrimas he derramado yo y muchos caminos he recorrido en el curso de mis pensamientos.
+
+64. [81|descriptive] Por tanto, Apolo ni cumplió el que éste llegara a ser asesino de su padre ni que Layo sufriera a manos de su hijo la desgracia que él temía.
+
+65. [81|poetic] Era considerado yo como el más importante de los ciudadanos de allí hasta que me sobrevino el siguiente suceso, digno de admirar, pero, sin embargo, no proporcionado al ardor que puse en ello.
+
+66. [81|descriptive] He aquí que en un banquete, un hombre saturado de bebida, refiriéndose a mí, dice, en plena embriaguez, que yo era un falso hijo de mi padre.
+
+67. [81|poetic] Porque Edipo tiene demasiado en vilo su corazón con aflicciones de todo tipo y no conjetura, cual un hombre razonable, lo nuevo por lo de antaño, sino que está pendiente del que habla si anuncia motivos de temor.
+
+68. [81|dialogue] Pues, ¿qué hombre, qué hombre logra más felicidad que la que necesita para parecerlo y, una vez que ha dado esa impresión, para declinar?
+
+69. [81|narrative] En cualquier caso, Pólibo yace en el Hades y se ha llevado consigo los oráculos presentes, que no tienen ya ningún valor.
+
+70. [80|poetic] Cuando, dejándose llevar por la pasión atravesó el vestíbulo, se lanzó derechamente hacia la cámara nupcial mesándose los cabellos con ambas manos.
+
+71. [80|narrative] La ciudad está llena de incienso, a la vez que de cantos, de súplica y de gemidos, y yo, porque considero justo no enterarme por otros mensajeros, he venido en persona, yo, el llamado Edipo, famoso entre todos.
+
+72. [80|narrative] Pues, si vas a gobernar esta tierra, como lo haces, es mejor reinar con hombres en ella que vacía, que nada es una fortaleza ni una nave privadas de hombres que las pueblen.
+
+73. [80|narrative] Y yo te insto a que permanezcas leal al edicto que has proclamado antes y a que no nos dirijas la palabra ni a éstos ni a mí desde el día de hoy, en la idea de que tú eres el azote impuro de esta tierra.
+

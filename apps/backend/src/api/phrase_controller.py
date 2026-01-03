@@ -26,6 +26,8 @@ class PhraseResponse(BaseModel):
     difficulty: str
     is_active: bool
     created_at: str
+    phoneme_score: Optional[int] = None
+    style: Optional[str] = None
 
 
 class PhraseStatsResponse(BaseModel):
@@ -58,6 +60,11 @@ class PhraseListResponse(BaseModel):
 class UpdatePhraseStatusRequest(BaseModel):
     """Request model for updating phrase status."""
     is_active: bool
+
+
+class UpdatePhraseTextRequest(BaseModel):
+    """Request model for updating phrase text."""
+    text: str
 
 
 # Endpoints
@@ -184,7 +191,9 @@ async def list_phrases(
             language=p['language'],
             difficulty=p['difficulty'],
             is_active=p['is_active'],
-            created_at=p['created_at'].isoformat()
+            created_at=p['created_at'].isoformat(),
+            phoneme_score=p.get('phoneme_score'),
+            style=p.get('style')
         )
         for p in phrases
     ]
@@ -295,3 +304,56 @@ async def delete_phrase(
         "message": "Phrase deleted successfully",
         "phrase_id": phrase_id
     }
+
+
+@router.put("/{phrase_id}")
+async def update_phrase_text(
+    phrase_id: str,
+    request: UpdatePhraseTextRequest,
+    _current_user=Depends(get_current_admin_user)
+):
+    """
+    Update the text of a phrase.
+    Admin only.
+    """
+    from ..infrastructure.config.dependencies import get_db_pool
+    
+    try:
+        phrase_uuid = UUID(phrase_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid phrase ID format")
+    
+    # Validate text
+    text = request.text.strip()
+    if len(text) < 20:
+        raise HTTPException(status_code=400, detail="Text must be at least 20 characters")
+    if len(text) > 500:
+        raise HTTPException(status_code=400, detail="Text must be at most 500 characters")
+    
+    # Calculate word and char count
+    word_count = len(text.split())
+    char_count = len(text)
+    
+    pool = await get_db_pool()
+    
+    result = await pool.execute(
+        """
+        UPDATE phrase 
+        SET text = $1, word_count = $2, char_count = $3
+        WHERE id = $4
+        """,
+        text, word_count, char_count, phrase_uuid
+    )
+    
+    if result == "UPDATE 0":
+        raise HTTPException(status_code=404, detail="Phrase not found")
+    
+    return {
+        "success": True,
+        "message": "Phrase updated successfully",
+        "phrase_id": phrase_id,
+        "text": text,
+        "word_count": word_count,
+        "char_count": char_count
+    }
+

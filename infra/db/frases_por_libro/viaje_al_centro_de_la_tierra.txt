@@ -1,0 +1,1457 @@
+# viaje al centro de la tierra
+# Total frases: 722 (filtradas y balanceadas)
+# ========================================
+
+
+## EASY (39 frases)
+
+1. [99|narrative] dictóme la serie siguiente: mmessunkaSenrA.icefdoK.segnittamurtn ecertswrrette, rotaivxadua,ednecsedsadne IacartniiiluJsitatracSarbmutabiledmeili meretarcsilucoYsleffenSnl Confieso que, al terminar, hallábame emocionado.
+
+2. [88|descriptive] Transcurrió el día sin que ninguna sombra viniese a proyectarse sobre el fondo del cráter.
+
+3. [88|narrative] Si mis compañeros se alejaban algunos pasos, el fenómeno acústico quedaría destruido.
+
+4. [87|narrative] Por consiguiente, lo mejor será aprovecharse de todo lo bueno que haya en la expedición.
+
+5. [86|descriptive] La obscuridad habíase hecho profunda, y extinguiéronse los últimos ruidos.
+
+6. [86|narrative] Yo podía con un solo gesto aflojar el férreo tornillo que le comprimía el cráneo.
+
+7. [86|narrative] Los fuegos interiores no habían hecho aún su irrupción a través de la corteza terrestre.
+
+8. [86|narrative] Jamás había visto un hombre tan chasqueado al principio, tan irritado después.
+
+9. [86|narrative] El siguiente, jueves 27 de agosto, fue una fecha célebre de aquel viaje subterráneo.
+
+10. [85|poetic] A la charla, después, siguió un sueño bastante agitado, al menos por parte mía.
+
+11. [85|dialogue] Formuló la misma pregunta en inglés, y tampoco contestó el chiquillo.
+
+12. [85|narrative] Pensé que mi voz debilitada no podría llegar hasta mis compañeros.
+
+13. [84|narrative] En un pasáje en que el túnel se estrechó demasiado, apoyéme en la pared.
+
+14. [83|descriptive] Al despertar, mi tío, que estaba radiante de júbilo, me saludó satisfecho.
+
+15. [83|narrative] Yo padecía horriblemente; mi tío seguía marchando sin quererse detener.
+
+16. [83|narrative] Sin ánimos para reflexionar, rechacé todas las ideas que acudían a mi cerebro.
+
+17. [82|dialogue] ¡Júzguese lo que sería semejante recipiente cuando se llenase de truenos y llamas!
+
+18. [82|dialogue] ¡Qué grito tan terrible escapóse de mi pecho!
+
+19. [82|dialogue] ¿Qué haríamos en medio de ese rebaño de gigantescos cuadrúpedos?
+
+20. [82|narrative] De este modo transcurrió aquella primera noche en el fondo del cráter.
+
+21. [82|narrative] Ni a derecha, ni a izquierda, ni arriba, ni abajo veíase paso alguno.
+
+22. [81|dialogue] Hallándome dotado de un corazón bondadoso, ¿por qué callaba en tales circunstancias?
+
+23. [81|descriptive] Hubiérase dicho que tenía bájo mis pies uno de esos mapas en relieve de Helbesmer.
+
+24. [81|dialogue] ¡Había que atravesar legua y media nada menos de corteza terrestre!
+
+25. [81|descriptive] Sin duda de algún fenómeno que estaba verificándose en el seno del gran macizo terrestre.
+
+26. [81|descriptive] Pero la vegetación de aquella comarca subterránea no era sólo de hongos.
+
+27. [81|dialogue] ¿No nos habrá engañado ese arroyuelo que tomamos por guía?
+
+28. [81|dialogue] ¡Con qué placer oprimimos entre nuestros labios aquellas sabrosas frutas, aquellas dulces y jugosísimas uvas!
+
+29. [81|narrative] En mi concepto, aquello nada ocultaba; pero me guardé muy bien de exteriorizar mi opinión.
+
+30. [81|narrative] No he encontrado ya más que algunas observaciones fugaces y tomadas, por decirlo así, maquinalmente.
+
+31. [80|dialogue] ¿Quién la había quitado?; evidentemente mi tío al regresar de su precipitada excursión.
+
+32. [80|dialogue] ¿Existe por ventura alguna razón física que se oponga a ella?
+
+33. [80|descriptive] Mi tío Lidenbrock aventuróse bajo aquellas gigantescas selvas.
+
+34. [80|narrative] No tuve más remedio que seguirle, agarrándome a la barandilla con ansia.
+
+35. [80|narrative] Y le seguimos, en efecto, cada vez que acompañarle hubiera sido imposible.
+
+36. [80|narrative] Yo apenas probé bocado y bebí las escasas gotas de agua que constituían mi ración.
+
+37. [80|narrative] El arroyo que corría a mis pies murmurando, encargóse de explicármelo.
+
+38. [80|narrative] apoyándome en mi bastón herrado, empecé a subir la pendiente de la galería.
+
+39. [80|narrative] que llegaban a mí como pronunciadas en voz baja, como cuchicheadas, por decirlo así.
+
+
+## MEDIUM (111 frases)
+
+1. [97|narrative] ni un pastor salvaje apacentando un rebaño menos salváje que él: tan sólo habíamos visto algunas vacas y carneros completamente abandonados.
+
+2. [96|narrative] Abandoné mi lecho de granito y fuime a disfrutar del magnífico espectáculo que se desarrollaba ante mi vista.
+
+3. [94|narrative] Aún abrigaba yo la esperanza de que en absoluto no hallásemos medio alguno de transporte; pero no fué así, por desgracia.
+
+4. [93|narrative] Pone la hembra sus huevos, nacen los pollos después, y reanúdase al año siguiente la cosecha del edredón.
+
+5. [92|narrative] Por más que buscamos a derecha a izquierda, por arriba y por abájo, no dimos con ningún paso, con ninguna bifurcación.
+
+6. [91|narrative] Hans nos había conducido a ella con probada inteligencia, y tranquilizábame la idea de que nos seguiría acompañando.
+
+7. [89|narrative] Sólo argurnentos científicos podrían detener al profesor Lidenhrock, y había rnuchos y muy poderosos que oponer a semejante viaje.
+
+8. [89|narrative] A nuestra llegada vino el dueño a tendernos la mano, y, sin más ceremonias, nos hizo señas pare que le siguiésemos.
+
+9. [89|narrative] Teníamos que darnos prisa, porque nos hallábamos a cinco jornadas del punto de bifurcación de la galería subterránea.
+
+10. [89|narrative] Tal vez esta misma agua, habiendo tenido que luchar contra los fuegos subterráneos, se había evaporado en parte.
+
+11. [88|poetic] Aunque sus movimientos eran fáciles, movía poco los brazos, cual hombre que ignora o desdeña el lenguaje de los gestos.
+
+12. [88|descriptive] Y lo peor del caso era que había pocas esperanzas de encontrar ningún manantial en aquellos terrenos del período de transición.
+
+13. [88|descriptive] Breves fueron los preparativos de marcha, internándonos en seguida por un corredor que tenía una pendiente de dos pies por toesa.
+
+14. [88|narrative] A las dos y cuarto, largó el buque sus amarras y avanzó rápidamente sobre las sombrías aguas del Gran Belt.
+
+15. [87|descriptive] Los aparatos de Ruhmkorff, que, mediante una corriente eléctrica, daban una luz portátil, muy segura y poco embarazosa.
+
+16. [87|narrative] Los geógrafos la han dividido en cuatro regiones, y teníamos que atravesar casi oblicuamente la llamada País del Sudoeste, Sudvestr Fjordúngr.
+
+17. [87|narrative] Vuelvo la vista hacia Hans, y veo que sigue impertérrito con la caña del timón en la mano.
+
+18. [87|narrative] Aquel puñado de tablas mal unidas ofrecían una superficie sólida, un punto de apoyo que, de otro modo, no hubiéramos hallado.
+
+19. [86|dialogue] ¡Y aquellos metales, desde el hierro hasta el oro, cuyo valor relativo desaparecía ante la igualdad absoluta de los ejemplares científicos!
+
+20. [86|descriptive] A las cinco de la mañana despertáronme los relinchos de cuatro caballos que bajo mi ventana piafaban.
+
+21. [86|descriptive] Sabido es que el basalto es una roca obscura de origen ígneo, afectando formas muy regulares cuya disposición causa extrañeza.
+
+22. [86|dialogue] Cuando me dijo que nos hallábamos a una distancia horizontal de cincuenta leguas, no pude reprimir una exclamación.
+
+23. [86|descriptive] Conocíamos todos los detalles del asunto, pero ignorábamos que, desde nuestra partida, había hecho la cuestión nuevos progresos.
+
+24. [86|narrative] Después de asearse un poco y de cambiarse de tráje, mi tío me mandó que le siguiese.
+
+25. [86|narrative] Yo me dejé arrastrar por la melancolía de áquella naturaleza salváje y mis recuerdos condujéromne a mi país natal.
+
+26. [86|narrative] No había necesidad de precaverse contra salvajes ni fieras, que son las razas más dañinas de la tierra.
+
+27. [85|descriptive] Cuando alguno de estos resbaladizos peldaños oscilaba bajo los pies de Hans, decía éste con voz tranquila.
+
+28. [85|dialogue] ¿En qué soñaba Hans, el hombre del extremo Occidente, quíen poseía la resignación fatalista de los orientales?
+
+29. [85|narrative] Enseñaba subjuntivamente, según una expresión de la filosofía alemana; enseñaba para él, y no para los otros.
+
+30. [85|narrative] Quiso mi tío entregar al cazador las arras del contrato; pero éste las rechazó con una sola palabra.
+
+31. [85|narrative] Arreglado este punto, dió Hans la señal de partida, y algunos instantes después habíamos salido de Stapi.
+
+32. [85|narrative] Después de diez horas de marcha, observé que la reverberación de nuestras lámparas sobre las paredes decrecía de una manera notable.
+
+33. [85|narrative] Por lo que a mí respecto, no pude pegar los párpados, y conté todas las horas hasta la siguiente mañana.
+
+34. [85|narrative] y que algunos viajeros la recorrieron en una extensión de más de diez leguas sin encontrarle el fin.
+
+35. [85|narrative] Largué la amarra que nos sujetaba a la orilla, orientamos la vela y nos alejamos con rapidez.
+
+36. [85|narrative] La temperatura se hacía insoportable, y un termómetro expuesto en aquella atmósfera habría marcado más de 70°.
+
+37. [84|descriptive] Y después de haberme recomendado con un gesto que guardase el más impenetrable silencio, bajó al bote que nos aguardaba.
+
+38. [84|poetic] Una vez cerrado el trato, retiróse nuestro guía, sin mover más que las piernas, cual si fuese de una sola pieza.
+
+39. [84|descriptive] Había en realidad motivo para hacer perder la paciencia al hombre más cachazudo; porque aquello era naufragar dentro del puerto.
+
+40. [84|dialogue] ¡Pero cuarenta leguas verticalmente contadas a través de una mole de granito, que para franquearlas tendría que recorrer más de mil!
+
+41. [84|narrative] estas últimas palabras parecen dar la razón a mi tío acerca de la lengua en que está redactado el documento.
+
+42. [84|narrative] sí: ya lo veremos -contestéle, dejándome arrastrar por su entusiasmo-; lo veremos, dado caso que se vea en aquellos apartados lugares.
+
+43. [84|narrative] Mas no los hostiguemos; dejémosles camtnar a su albedrío, y ya verás cómo hacemos nuestras diez leguas diarias.
+
+44. [84|narrative] Miré alrededor mío; nos hallábamos en el centro de una encrucijada, en la que desembocaban dos caminos, ambos sombríos y estrechos.
+
+45. [84|narrative] Era lógico que así sucediese, porque, en el período silúrico encerraban los mares más de mil quinientas especies vegetales o animales.
+
+46. [84|narrative] No tenía, por otra parte, noticia de ningún hecho geológico que pudiera explicar la existencia de semejante excavación.
+
+47. [84|narrative] Contemplaba aquellos elefantes monstruosos, cuyas trompas se movían entre los árboles como una legión de serpientes.
+
+48. [83|descriptive] así los grandes como los pequeños, corrían y saltaban en medio de los torbellinos de humo que llenaban la estancia.
+
+49. [83|poetic] Entonces quedó evidenciado que el cazador, durante su ausencia, no había tenido tiempo de llevar más adelante sus investigaciones.
+
+50. [83|dialogue] ¡Un catedrático del Johannaeum que no supiera dar una explicación de un fenómeno cósmico sería un bochorno inaudito!
+
+51. [83|poetic] Para concluir, añadiré que este Viáje al centro de la Tierra produjo una unánime sensación en el mundo.
+
+52. [83|narrative] Resolví dar dos vueltas alrededor de la estancia para apaciguar mis nervios, y me arrellané después en el amplio butacón.
+
+53. [83|narrative] Mas nada descubrí sobre las antiguas murallas; el castillo es, además, mucho más moderno que el heroico príncipe de Dinamarca.
+
+54. [83|narrative] El guía comenzó a circundar el cono del cráter, pero descendiendo con objeto de facilitarnos la marcha.
+
+55. [83|narrative] El guía presenciaba esta escena con su habitual indiferencia; pero dándose cuenta de lo que entre sus compañeros pasaba.
+
+56. [83|narrative] No encuentro en ninguna mernoria más que un solo acontecimiento de suma gravedad, cuyos más insignifïcantes detalles me sería irnposible olvidar.
+
+57. [83|narrative] Siguiendo idéntico camino que el sonido, debía lógicamente llegar lo mismo que él, si antes no me faltaban las fuerzas.
+
+58. [83|narrative] Una vasta extensión de agua, el principio de un lago o de un océano, prolongábase más allá del horizonte visible.
+
+59. [83|narrative] El huracán arreció o mediodía, y es preciso trincar salidamente todos las objetos que componen el cargomento.
+
+60. [83|narrative] Lo que ocurrió al chocar la balsa contra los escollos la costa, no sería capaz de explicarlo.
+
+61. [83|narrative] Un día, arreglando en su despacho una colección de minerales, descubrí la famosa brújula y me puse a examinarla.
+
+62. [82|descriptive] Con el martillo, el punzón, la brújula, el soplete y el frasco de ácido nítrico en las manos, no tenía rival.
+
+63. [82|descriptive] Extiéndese en el fondo de un pequeño fiordo, encájado en una muralla que hace el más extraño efecto.
+
+64. [82|descriptive] A medida que descendíamos, la sucesión de las capas que formaban el terreno primitivo mostrábanse con mayor claridad.
+
+65. [82|dialogue] ni un pieo ni un martillo, y ¡oh desgracia irreparable!, no teníamos víveres más que para un solo día.
+
+66. [82|narrative] pueden ocurrir muchas cosas que hagan desistir a mi tío de la manía de viájar por debajo de la tierrá”.
+
+67. [82|narrative] Pasamos la última velada en íntima conversación con el señor Fridriksson, que me inspiraba una íntima simpatía.
+
+68. [82|narrative] Sin fijarse siquiera en su propio cansancio, decidió ir a pasar algunos días en la montaña.
+
+69. [82|narrative] No hay duda: hemos recorrido ochenta y cinco leguas, -Según eso, caminamos por debajo dcl Atlántico.
+
+70. [82|narrative] Imagínese cuál sería el monstruoso desarrollo adquirido por aquellas plantas tan ávidas de calor y de humedad.
+
+71. [82|narrative] Y he aquí de qué manera hubo de vincularse a nuestra feliz expedición el nombre de mi amada curlandesa.
+
+72. [82|narrative] El primero de mis sentidos que volvió a funcionar después de la zambullida fue el oído.
+
+73. [82|narrative] Más lejos, emergían de la líquida llanura tan gran número de islotes, que semejaban un inmenso hormiguero.
+
+74. [81|dialogue] ¿Quién nos dice que este Saknussemm no ha ocultado bajo este ininteligible criptograma alguna sorprendente invención?
+
+75. [81|dialogue] Un geólogo tan exaltado, partiría a pesar de todas las dificultades y obstáculos, llevándome consigo, y no regresaríamos jamás; ¡pero jamás!
+
+76. [81|descriptive] Este personáje grave, silencioso y flemático llamábase Hans Bjelke, y venía recomendado por el señor Fridriksson.
+
+77. [81|descriptive] Por lo que respecta a él, tenía sin duda alguna el sentimiento innato del equilibrio, pues no tropezaba jamás.
+
+78. [81|poetic] Era una estrella despojada de todo centelleo, y que, según mis cálculos, debía ser la beta de la Osa Menor.
+
+79. [81|descriptive] Retrocedimos un poco y Hans detúvose en el preciso lugar donde el torrente parecía estar más próximo.
+
+80. [81|descriptive] El ruido del torrente aumentaba por momentos, y ya creía sentir que el agua bienhechora humedecía mis ardorosos labios.
+
+81. [81|poetic] Era agua, y, aunque caliente aún, devolvía al corazón la vida que casi se le escapaba.
+
+82. [81|descriptive] Comprendí que el terrible profesor amenazaba mostrarse bajo la piel del pariente, y hube de ponerme en guardia.
+
+83. [81|descriptive] A la izquierda, los peñascos abruptos, hacinados unos sobre otros, formaban una aglomeración titánica de prodigioso efecto.
+
+84. [81|poetic] Después de la cena, tendíme al pie del mástil, y no tardé en dormirme, arrullado por mágicos sueños.
+
+85. [81|descriptive] Levantamos aquel cadáver, lo enderezamos después; palpábamos su torso sonoro, y él parecía mirarnos con sus órbitas vacías.
+
+86. [81|narrative] Fue éste la aparición de un pergamino grasiento que, deslizándose de entre las hojas del libro, cayó al suelo.
+
+87. [81|narrative] Posee una imaginación ardorosa, y, por hacer lo que otros geólogos no han hecho, sería capaz de arriesgar su propia vida.
+
+88. [81|narrative] Como nuestros equipajes habían sido facturados hasta Copenhague, no tuvimos que ocuparnos de ellos para nada.
+
+89. [81|narrative] Un guardia, que permanecía apostado en el otro lado de la calle, entregónos una llave y comenzó la ascensión.
+
+90. [81|narrative] Decididamente las prácticas que yo había efectuado en la Frelsers-Kirk de Copenhague, no habían sido suficientes.
+
+91. [81|narrative] Esto me hacía pensar en las inmensas riquezas sepultadas en las entrañas del globo, que la codicia humana no disfrutará jamás.
+
+92. [81|narrative] Levantan montañas de agua que llegan hasta la bolsa, y nos ponen veinte veces a punto de zozobrar.
+
+93. [81|narrative] Durante el almuerzo, propuso mi tío que calculasemos el lugar en donde a la sazón nos hallábamos.
+
+94. [81|narrative] Y estábamos allí, solos, en las entrañas del globo, a merced de sus feroces habitantes Mi tío miraba atónito.
+
+95. [81|narrative] Mientras nos entregábamos a todas las delicias del reposo, apareció un chiquillo entre dos grupos de olivos.
+
+96. [80|dialogue] Quedéme estupefacto, faltóme la voz para hablar, y a duras penas pude articular estas palabras: -¿Pero es que nos marchamos?
+
+97. [80|poetic] A la mañana siguiente nos despertó, medio helados, un aíre bastante vivo; el sol brillaba esplendente.
+
+98. [80|descriptive] La galería se llenaba de vapores, en tanto que se formaba un arroyo que iba a perderse en las sinuosidades subterráneas.
+
+99. [80|poetic] Era tan profundo el silencio que reinaba en el subterráneo, que hasta los latidos de mi corazón oía.
+
+100. [80|descriptive] Pero ya lo verás con tus ojos y comprenderás entonces que la ciencia geológica no ha pronunciado aún su última palabra.
+
+101. [80|dialogue] ¿Qué monstruo puede tragar tan gran cantidad de agua y arrójarla de este modo sin interrupción alguna?
+
+102. [80|dialogue] ¿Ibamos a ser arrójados por el cráter del Hecla, o por alguno de los siete montes ignívomos de la isla?
+
+103. [80|narrative] Que lo adivine si puede; no quiero el día de mañana tener que reprocharme el haber sido causa de su perdición.
+
+104. [80|narrative] El día 2, a las seis de la mañana, nuestros inestimables equipajes encontrábanse ya a bordo de la Valkyria.
+
+105. [80|narrative] Habríase dicho que los genios del abismo iluminaban su palacio para recibir dignamente a sus huéspedes de la tierra.
+
+106. [80|narrative] Distendiéronse los músculos de mi garganta, contraídos hasta entonces, y cedió un poco la irritación de mis labios, permitiéndome hablar.
+
+107. [80|narrative] Aunque algo fatigados, nuestra salud conservábase en estado satisfactorio, y aún no había sido preciso estrenar el botiquín de viaje.
+
+108. [80|narrative] Escuchando con mayor atención, oí realmente un murmullo de voces, aunque mi debilidad no me permitiese entender lo que me decía..
+
+109. [80|narrative] La tempestad continúa; los relámpagos se desencadenan como una nidada de serpientes que alguien hubiera soltado en la atmósfera.
+
+110. [80|narrative] Yo no podía hablar: hallábame rendido de emoción y de fatiga, y tardé más de una hora en reponer.
+
+111. [80|narrative] Tomó mi tío el trozo de carne y las pocas galletas salvados del naufragio, hizo tres partes iguales y las distribuyó.
+
+
+## HARD (572 frases)
+
+1. [100|poetic] Fuente: http://es.wikipedia.org/wiki/Archivo: %27Journey_to_the_Center_of_the_Earth%27_by_%C3%89douard_Riou_38.jpg VIAJE AL CENTRO DE LA TIERRA El domingo 24 de mayo de 1863, mi tío, el profesor Lidenbrock, regresó precipitadamente a su casa, situada en el número 19 de la König-strasse, una de las calles más antiguas del barrio viejo de Hamburgo.
+
+2. [100|dialogue] Ese sabio bajó al fondo del Sneffels, vió la sombra del Scertaris acariciar los bordes del cráter antes de las calendas de julio y enseñáronle las leyendas de su tiempo que aquel cráter conducía al centro del globo: hasta aquí, estamos conformes; pero admitir que él en persona fue al centro de la tierra y que volvió de allá sano y salvo, eso, no; ¡mil veces no!
+
+3. [100|descriptive] Si no te hubieses marchado como un necio, hubieras venido conmigo a la oficina de los señores Liffender y Compañía, donde habrías visto que de Copenhague a Reykiavik no hay más que una expedición mensual, el 22 de cada mes; y que, si esperásemos a la del 22 de junio, llegaríatnos demasiado tarde para ver la sombra del Scartaris acariciar el créter del Sneffels: es precise llegar a Copenhague lo antes posible para buscar allí un medio de transporte.
+
+4. [100|dialogue] ¡Qué deliciosos paseos habría dado con mi bella curlandesa por los muelles de aquel puerto, donde dormían tranquilos navíos y fragatas bájo sus rojas techumbres, junto a las verdes orillas del estrecho, en medio de las espesas sombras entre las cuales se oculta la ciudadela, cuyos cañones asotnan sus negras bocas a través de las ramas de los saúcos y sauces!
+
+5. [100|dialogue] Mientras marchamos por la hélice interior que formaba la escalera, todo fue bien; pero después de haber subido ciento cincuenta peldaños, el aire azotóme la cara: habíamos llegado a la plataforma del campanario donde comenzaba la escalera aérea, que no tenía más resguardo que una frágil barandilla, y cuyos escalonas cada vez más éstrechos, parecían subir hasta lo infinito, -¡Me es imposible subir!
+
+6. [100|descriptive] Sobra una eminencia inmediata vi la Escuela Nacional, donde, según supe después por nuestro huésped, se enseñaba el hebreo, el inglés, el francés y el danés, cuatro lenguas de las cuales no conocía una palabra, cosa que me llenaba de bochorno, pues hubiera sido el más atrasado de los cuarenta alumnos matricuiados en el pequeño colegio, e indigno de acostarme con ellos en aquellos armarios de dos compartimientos donde otros más delicados se asfixíarían la primera noche.
+
+7. [100|descriptive] Montamos a caballo, y el señor Fridriksson espetóme con su último adiós este verso de Virgilio, que parecía hecho expresamente para nosotros, pobres viájeros que mirábamos con incertidumbre el camino: El quacumque viam dederit fortuna sequamur.
+
+8. [100|descriptive] Hubo después que cruzar algunos pequeños fïordos que carecían de importancia, y, por último, un verdadero golfo; la marea, parada a la sazón, nos permitió pasarlo y llegar al caserío de Alftanes, una milla más allá.
+
+9. [100|descriptive] Creía hallarme transportado a algún planeta remoto, a Neptuno o Urano, por ejemplo, y que en él presenciaba fenómenos de los que mi naturaleza terrenal no tenía noción alguna.
+
+10. [100|descriptive] Después de contemplar por espacio de una hora aquel maravilloso espectáculo, emprendimos otra vez el camino de la playa para regresar a la gruta: y bajo la impresión de las más extrañas ideas, me dormí profundamente.
+
+11. [100|poetic] Desde nuestra sida de Puerto-Graüben, habíame confiado el profesor Lidenbrock la tarea de llevar el Diario de Navegación, anotando en él las menores observaciones, y consignando los fenómenos más interesantes, como la dirección del viento, la velocidad de la márcha, el camino recorrido, en una palabra, todos los incidences de aquella extraña navegación.
+
+12. [100|poetic] El hombre, pues, subió de un solo salto en la escala de los tiempos un gran número de siglos; era anterior al mastodonte y contemporáneo del elephas meridionalis; tenía, en una palabra, cien mil años de existencia, toda vez que ésta es la antiguedad asignada por los más afamados geólogos a la formación de los terrenos pliocénicos.
+
+13. [100|narrative] Algunos años atrás, en la época en que trabajaba mi tío en su gran clasificación mineralógica, permaneció sin comer cuarenta y ocho horas y toda su familia tuvo que soportar esta dieta científica.
+
+14. [100|narrative] La rapidez de las pendientes iba cada vez en aumento, pero aquellos escalones de piedra permitían remontarlos fácilmente y hasta con rapidez tal que, como me retrasase un momento mientras que mis compañeros proseguían la ascensión, llegué a verlos reducidos a una pequeñez microscópica por efecto de la distancia.
+
+15. [100|narrative] Sin rellexionar, sin preguntarme siquiera si no habría algún medio de procurarse aquel agua me abandoné otra vez, momentáneamente, a la desesperación.
+
+16. [100|narrative] Esta sorprendente conversación, sostenida a través de la masa terrestre, a más de una legua de distancia, terminó con estas palabras de esperanza, y di gracias a Dios por haberme conducido, por entre aquellas inmensidades tenebrosas, al único punto tal vez en que podía llegar hasta mi la voz de mis compañeros.
+
+17. [100|narrative] Hoy estás demasiado débil aún; te he llenado la cabeza de compresas y no conviene que se corran: duerme, pues, hijo mío; mañana lo sabrás todo.
+
+18. [100|narrative] Cuando llegó a la roca, mi tío tomó el compás, colocólo horizontalmente y observó la aguja, que, después de haber oscilado, detúvose en una posición fija bájo la influencia del magnetismo.
+
+19. [100|narrative] Varios sabios de Instituto francés, las señores de Quatrefages y Milne-Edwards entre otros, tomaron el asunto muy a pecho, demostraron la incontestable autenticidad de la osamenta en cuestión, y fueran los más ardientes defensores del proceso de la quijada, según la expresión inglesa.
+
+20. [100|narrative] Una vez hecho esto, debería reunirme a mis compañeros sobre la balsa que no había sido descargada, y en seguida nos alejaríamos, con el fin de substraemos a lös peligros de la explosión, cuyos efectos podrán no limitarse al interior del macizo.
+
+21. [100|narrative] Acerqué rápidameñte a la llama mi punta de la mecha que empezó a chisporrotear en seguida, y corriendo como una exalación, volví a la orilla.
+
+22. [100|narrative] Antes de volverse loca la brújula, nos había indicado siempre que marchábamos hacia el Norte; y, a partir del Cabo Saknussemm, habíamos sido arrastrados centenares de leguas en esta dirección.
+
+23. [100|narrative] Nos proporcionarón vestidos y víveres: y, después de cuarenta y ocho horas de espera, el 31 de agosto, una embarcación pequeña condújonos a Mesina, donde algunos días do reposo bastarán para reponer nuestras fuerzas.
+
+24. [99|dialogue] Quiero dar a conocer al lector tan extravagantes signos, por haber sido ellos los que impulsaron al profesor Lidenbrock y a su sobrino a emprender la expedición más extraña del siglo XIX: El profesor examinó atentamente, durante algunos instantes, esta serie de garabatos, y al fin dijo quitándose las gafas: -Estos caracteres son rúnicos, no me cabe dudá alguna; son exactamente iguales a los del manuscrito de Snorri Sturluson.
+
+25. [99|poetic] Mis deslumbradas miradas bañábanse en la transparente irradiación de los rayos solares; olvidéme de mi propia persona y del lugar en que me encontraba para vivir la vida de los trasgos o de los silfos, imaginarios habitantes de la mitología escandinava; embriaguéme con las voluptuosidades de las alturas, sin acordarme de los abismos en que dentro de poco me sumergiría mi destino.
+
+26. [99|descriptive] Hacia poniente, lejanas costas divisábanse en el horizonte, perfilándose sobre algunas de aquellas montañas azules de armoniosa conformación, y sobre otras, más remotas aún, elevábase un cono de prodigiosa altura, en cuya cima agitábase un penacho de humo.
+
+27. [99|narrative] Durante la comida, dió muestras el profesor de cierta jovialidad, permitiéndose esos chistes de sabio, que no encierran peligro jamás; y, terminados los postres, me hizo señas para que le siguiese a su despacho.
+
+28. [99|narrative] Las corrientes atmosféricas no parecían ejercer efecto alguno sobre su folláje, y, en medio de las ráfagas de aire, permanecían inmóviles, como un bosque de cedros petrificados.
+
+29. [99|narrative] El 28 de marzo de 1863, unos trabajadores, haciendo excavaciones en las canteras de Moulin-Quignon, cerca de Abbeville, en el departamento del Soma de Francia, bájo la dirección del señor Boucher de Perthes, encontraron una mandíbula humana a catorce pies de profundidad.
+
+30. [98|poetic] Él empezó a dictarme y yo a escribir las letras, unas a continuación de las otras, formando todas juntas la incomprensible sucesión de palabras siguientes: mm.rnlls esreuel seecJde sgtssmf unteief niedrke kt,samn atrateS Saodrrn erntnael nuaect rrilSa Atvaar .nxcrc ieaabs Ccdrmi eeutul frantu dt,iac oseibo kediiY Una vez terminado este trabajo arrebatóme vivamente mi tío el papel que acababa de escribir, y lo examinó atentamente durante bastante tiempo.
+
+31. [98|descriptive] La noche estaba obscura: la brisa soplaba fresca levantando imponente marejada; algunas luces de la costa distinguíanse en medio de las tinieblas: más tarde, no sé qué faro enviónos sus destellos por encima de las olas.
+
+32. [98|poetic] Fuimos muy bien recibidos, y, sin abusar de la amabilidad de aquellas buenas gentes, de buena gana hubiera permanecido en su compañía algún tiempo con objeto de reponerrne de las fatigas del viaje; pero mi tío, que no experimentaba necesidad de descanso, no lo entendió de igual modo, y a la mañana siguiente no hubo otra solución que montar nuevamente nuestras pobres cabalgaduras.
+
+33. [98|descriptive] Entretanto, ponía Hans al kyrkoherde al corriente de la situación; suspendió entonces éste su trabajo, lanzó una especie de grito en uso, sin duda alguna, entre caballos y chalanes, y salió de la cabaña en seguida una mujer que parecía una furia; no le faltaría mucho para medir seis pies de estatura.
+
+34. [98|descriptive] La luz de los aparatos, reflejada por las pequeñas facetas de la masa rocosa, cruzaba bájo todos los ángulos sus efluvios de fuego, y me parecía que viájábamos a través de un diamante hueco, en cuyo interior se quebraban los rayos luminosos en mil caprichosos destellos.
+
+35. [98|descriptive] Entonces comprendí la razón de aquel silencio extraño, cuando escuché la vez última con la esperanza de que a mis oídos llegase la voz de alguno de ellos.
+
+36. [98|poetic] Fácil era reconocerles, pues tratábase de los humildes arbustos de la tierra dotados de fenomenales dimensiones licopodios de cien pies de elevación, sigilarias gigantescas, helechos arborescentes, del tamaño de los abetos de las altas latitudes, lepidodendrones de tallo cilíndrico bifurcado, que terminaban en largas hojas y erizados de pelos rudos como las monstruosas plantas grasientas.
+
+37. [98|dialogue] Otto Lidenbrock, dejándose llevar de su temperamento, olvidó las circunstancias de nuestro viáje, el medio en que nos hallábamos, la inmensa caverna que nos cobijaba; y, creyéndose sin duda en el Johannaeum, dando una conferencia a sus discípulos, dijo en tono doctoral, dirigiéndose a un auditorio imaginario: -Señores: tengo el honor de presentaros un hombre de la época cuaternaria.
+
+38. [98|descriptive] Era una especie de pordioserillo miserablemente vestido, de aspecto bastante enfermizo, a quien nuestra presencia pareció intimidar extraordinariamente; cosa que a la verdad, no tenía nada de extraña, pues medio desnudos y con nuestras barbas incultas, teníamos muy mal cariz; y al menos que no nos hallásemos en un país de ladrones, nuestras extrañas figuras tenían necesariamente que amedrentar a sus habitantes.
+
+39. [98|narrative] Arrepentíme, ya tarde, de haber aventurado esta última palabra; frunció el profesor su poblado entrecejo, y creí que había malogrado el éxito que esperaba obtener de aquella conversación.
+
+40. [98|narrative] Si, pues, estos vapores mantiénense en su estado habitual, si no aumenta su energía, y si añades a esta observación que la lluvia y el viento no son reemplazados por un aire pesado y en calma, puedes desde luego afirmar que no habrá erupción próxima.
+
+41. [98|narrative] A las centelleantes vibraciones del rayo, se mezclan los mugidos espantosos del trueno: un sinnúmero de relámpagos se entrecruzan en medio de las detonaciones; la masa de vapores se pone incandescente; el pedrisco que choca contra el metal de nuestras armas y herramientas, adquiere luminosidad; y las hinchadas olas parecen cerros ignívomos en cuyas entrañas se incuba un fuego en extremo violento y cuyas crestas ostentan un vivo penacho de llamas.
+
+42. [97|descriptive] Vivía en su modesta casita de König-strasse, en cuya construcción entraban por partes iguales la madera y el ladrillo, y que daba a uno de esos canales tortuosos que cruzan el barrio más antiguo de Hamburgo, felizmente respetado por el incendio de 1842.
+
+43. [97|poetic] Estas razones, que con indignación hubiera rechazado la víspera, pareciéronme entonces excelentes; llegué hasta juzgar un absurdo el haber aguardado tanto tiempo, y resolví decir cuanto sabía.
+
+44. [97|descriptive] Dicho esto, tomó con una mano el aparato de Ruhmkorff, que llevaba suspendido del cuello: puso en comunicación, con la otra, la corriente eléctrica del serpentín de la linterna, y una luz bastante viva disipó las tinieblas de la galeria.
+
+45. [97|descriptive] La lava de la última erupción de 1229 habíase abierto paso a lo largo de aquel túnel, tapizando su interior con una capa espesa y brillante, en la que se reflejaba la luz eléctrica centuplicándose su intensidad natural.
+
+46. [97|descriptive] La corteza aún elástica del globo obedecía a los movimientos de la masa líquida que le cubría, produciéndose numerosas hendeduras y grietas; y las plantar, arrastradas debajo de las aguas, formaron poco a poco masas considerables.
+
+47. [97|descriptive] Por lo demás, no tardé en habituarme a esta idea, porque el corredor, unas veces sinuoso, otras recto, tan caprichoso en sus pendientes como en sus revueltas, pero marchando siempre en dirección Sudeste y hundiéndose más cada vez, condújonos rápidamente a grandes profundidades.
+
+48. [97|descriptive] Este sorprendente efecto de acústica se explicaba fácilmente por las solas leyes físicas; provenía de la forma del corredor y de la conductibilidad de la roca; existen muchos ejemplos de la propagación de sonidos que no se perciben en los espacios intermedios.
+
+49. [97|poetic] La casa de la König-strasse, mi pobre Graüben, la excelente Marta pasaron, cual visiones, por delante de mis ojos, y, en los lúgubres ruidos que se transmitían a través del macizo de granito, creía sorprender el ruido de las ciudades de la tierra.
+
+50. [97|descriptive] A la dudosa luz de la antorcha, advertí en las capas graníticas movimientos desordenados; iba evidentemente a producirse un fenómeno en el que la electricidad desempeñaba un papel; además, aquel calor excesivo, aquel agua en ebullición...
+
+51. [97|poetic] Aquel mismo día depositó en los archivos de la ciudad el documento de Saknussemm, expresando el vivo sentimiento que le causaba el hecho de que las circunstancias, más poderosas que su voluntad, no le hubiesen permitido seguir hasta el centro de la tierra las huellas del explorador islandés.
+
+52. [97|narrative] Mi tío contaba con rellenar nuestras vasijas en los manantiales subterráneos; pero, hasta aquel instante, no habíamos tropezado con ninguno, y el fin me decidí a llamarle la atención sobre el particular.
+
+53. [97|narrative] Sin embargo, me parece evidente que no nos encontrábamos en la chimenea principal del volcán, sino en algún conducto accesible donde repercutían los fenómenos que en aquélla tenían efecto.
+
+54. [96|poetic] Por lo que respecta a mí, después de resistir durante mucho tiempo, sentíme acometido por un sueño invencible, y dormime en un extremo del sofá, mientras mi tío proseguía sus complicados cálculos.
+
+55. [96|poetic] Las rugosas cumbres de las masas traquíticas esbozábanse en el horizonte, entre las brumas del Este; a veces, algunas manchas de nieve, concentrando la luz difusa resplandecían en las vertientes de las cimas lejanas; ciertos picos más osados que otros, atravesaban las nubes grises y reaparecían después por encima de los movedizos vapores, cual escollos que emergiesen en las llanuras etéreas.
+
+56. [96|descriptive] Mi tío se llenaba la boca para concluir más pronto; pero como aquel alto tenía también por objeto el reparar nuestras fuerzas, tuvo que someterse a la voluntad del guía que no dio la señal de partida hasta después de una hora.
+
+57. [96|poetic] Si me volvía hacia el Oeste, contemplaba las aguas del Océano, en toda su majestuosa extensión, cual si fuese continuación de aquellas aborregadas cimas.
+
+58. [96|dialogue] al ver que no tropezábamos con el manantial anunciado, reprodujéronse mis angustias; pero entonces explicóme mi tío el origen de los ruidos que escucháhamos.
+
+59. [96|poetic] Mi tío quería recurrir a las medidas extremas, costándome no poco el detenerle; pero al ir a empuñar su piqueta, oyóse de repente un silbido, y surgió del orificio, con violencia, un gran chorro de agua que fue a estrellarse contra la pared opuesta.
+
+60. [96|descriptive] No me atreví a avanzar más en el campo de las hipótesis, porque hubiera tropezado con alguna otra imposibilidad que habría hecho dar un salto al profesor, Era, sin embargo, evidente que el aire, bajo una presión que podía llegar a ser de millares de atmósferas, acabaría por solidificarse, y entonces, aun dando de barato que hubiesen resistido nuestros cuerpos, sería necesario detenerse a pesar de todos los razonamientos del mundo.
+
+61. [96|descriptive] Debo confesar, sin embargo, que hasta ahora hemos tenido mucha suerte y que, por razones que no se me alcanzan, se efectúa este viaje en condiciones especiales de temperatura ; pero para mí es evidente que algún día habremos de llegar a esas regiones en que el calor central alcanza sus más altos límites y supera todas las graduaciones de los termómetros.
+
+62. [96|poetic] La lluvia forma, entretanto, una mugidora catarata delante del horizonte hacia el cual como insensatos corremos; pero antes de que llegue hasta nosotros, desgárrose el velo formado por las nubes, entra el mar en ebullición, y entra en juego la electricidad producida por una vasta acción química que se opera en las capas superiores de la atmósfera.
+
+63. [96|poetic] Mire usted, hay grietas recientes que surcan este techo de granito, construido con trazos de piedras enormes, como si la mano de algún gigante hubiera trabajado en esta obstrucción; pero un día, el empuja fue más fuerte, y este bloque, cual clave de una bóveda que falla, deslizóse hasta el suelo, dejando obstruido el paso.
+
+64. [96|descriptive] Nos hallábamos en pleno Mediterráneo, en medio del archipiélago eolio, de mitológica memoria, en la antigua Strongyle, donde Eolo tenía encadenados los vientos y tempestades.
+
+65. [96|narrative] Confieso que me dediqué con gran entusiasmo a las ciencias mineralógicas; por mis venas circulaba sangre de mineralogista y no me aburría, jamás en compañía de mis valiosos pedruscos.
+
+66. [96|narrative] Constituían éste una extensa serie de llanuras sin interés, monótonas, cenagosas y bastante fértiles: una campiña en extremo favorable al tendido de una línea férrea y que se prestaba de un modo maravilloso a esas rectas que son las delicias de las empresas explotadoras de los caminos de hierro.
+
+67. [96|narrative] Marchamos por orden suya en dirección hacia él, nos embarcamos en un vaporcito que transportaba pasájeros a través de los canales, y, algunos momentos después, atracarnos al muelle de Dock-Yard.
+
+68. [96|narrative] lo que me hizo advertir en seguida la presencia en aquella galería de una gran cantidad de ese peligroso fluido que los mineros designan con el nombre de grisú, cuya explosión ha causado con frecuencia tan espantosas catástrofes.
+
+69. [96|narrative] Si, por desgracia, hubiésemos imprudentemente explorado aquella galería con antorchas en las manos, una explosión terrible hubiera puesto fin al viaje, suprimiendo radicalmente a los viajeros.
+
+70. [96|narrative] Despertéme, pues, el domingo por la mañana sin la preocupación habitual de tener que emprender inmediatamente la marcha; y por más que esto ocurriese en el más profundo abismo, no dejaha de ser agradable.
+
+71. [96|narrative] Y, cosa extraña, pensó que si se encontraha algún día mi cuerpo en estado fósil, su aparición en las entrañas de la tierra, a treinta leguas de su superfïcie, suscitaría graves cuestiones científicas.
+
+72. [96|narrative] A los geólogos del Reino Unido señores Falconer, Busk, Carpenter, etc., que admitieron el hecho como cierto, sumáronse los sabios alemanes, destacándose entre ellos por su calor y entusiasmo mi tío Lidenbrock.
+
+73. [95|descriptive] Además de lo dicho era mi tío conservador del museo mineralógico del señor Struve, embajador de Rusia, preciosa colección que gozaba de merecida y justa fama en Europa.
+
+74. [95|descriptive] Cierto que la tal casa estaba un poco inclinada y amenazaba con su vientre a los transeúntes; que tenía el techo caído sobre la oreja, como las gorras de los estudiantes de Tugendbund; que la verticalidad de sus líneas no era lo más perfecta; pero se mantenía firme gracias a un olmo secular y vigoroso en que se apoyaba la fachada, y que al cubrirse de hojas, llegada la primavera, remozábala con un alegre verdor.
+
+75. [95|poetic] En ella compartíamos con él la vida su ahijada Graüben, una joven curlandesa de diez y siete años de edad, la criada Marta y yo, que, en mi doble calidad de huérfano y sobrino, le ayudaba a preparar sus experimentos.
+
+76. [95|descriptive] Estas exclamaciones recordáronme que el profesor Lidenbrock era también bibliómano en sus momentos de ocio; si bien no había ningún libro que tuviese valor para él como no fuese inhallable o, al menos, ilegible.
+
+77. [95|dialogue] Mi tío comprendió que allí estaba la clave del secreto, y ayudado de su lente, trabajó con tesón hasta que logró distinguir los caracteres únicos que a continuación transcribo, los cuales leyó de corrido: -¡Ame Saknussemm!
+
+78. [95|dialogue] Tras algunos momentos de reflexión, que fueron para mí un rayo de esperanza, respondióme en estos términos: -Lo que tú llamas obscuridad resulta para mí luz, pues me demuestra el ingenio desplegado por Saknussemm para precisar su descubrimiento.
+
+79. [95|descriptive] En seguida llega el cazador, o, por mejor decir, el cosechero, se apodera del nido y se ve precisada el ave a comenzar de nuevo su trabajo, y la operación se repite mientras aquélla conserva algún plumón.
+
+80. [95|poetic] No era la luz del sol con sus haces brillantes y la espléndida irradiación de sus rayos ni la claridad vaga y pálida del astro de la noche, que es sólo una reflexión sin calor.
+
+81. [95|descriptive] Por sus flancos deslizábanse innumerables cascadas; algunos ligeros vapores que saltaban de unas rocas en otras marcaban el lugar de los manantiales calientes, y los arroyos corrían silenciosos hacia el depósito común buscando en los declives la ocasión de murmurar más agradablemente.
+
+82. [95|descriptive] Yo sabía que el Lyco perdon giganteum alcanzaba, según Bulliard, ocho o nueve pies de circunferencia: pero aquéllos eran hongos blancos, de treinta a cuarenta pies de altura, con una copa de este mismo diámetro.
+
+83. [95|poetic] Los siglos transcurren como días; me remonto a la serie de las transformaciones terrestres; las plantas desaparecen; las rocas graníticas pierden su dureza: el estado líquido va a reemplazar al sólido bajo la acción de un calor más intenso; las aguas corren por la superficie del globo; hierven y se volatilizan; los vapores envuelven la tierra, que lentamente se reduce a una masa gaseosa, a la temperatura del rojo blanco, de un volumen igual al del sol y con brillo igual al suyo.
+
+84. [95|descriptive] La pendiente de las aguas que nos arrastraban excedía a la de las rápidos más insuperables de América; su superficie parecía formada por un haz de flechas líquidas, lanzadas con extremada violencia.
+
+85. [95|descriptive] Entretanto, seguíamos subiendo, no cesando en toda la noche nuestro movimiento ascensional; el estrépito que nos rodeaba crecía constantemente; me sentía casi asfixiado, y estaba convencido de que mi última hora se acercaba; sin embargo, la imaginación es tan rara, que me entregué a una serie de reflexiones verdaderamente pueriles.
+
+86. [95|narrative] Mi tío se registró los bolsillos y el saco de viaje con minuciosa atención, y observé que no le faltaba ninguno de los mil requisitos que exigía la ejecución de sus arriesgados proyectos.
+
+87. [95|narrative] Se conversó en islandés, intercalando mi tío algunas palabras en alemán y el señor Fridriksson otras en latín, para evitar que yo me quedase por completo en ayunas de lo que decían.
+
+88. [95|narrative] Por último, marchábamos mi tío y yo, y a la verdad que no hacíamos muy mala figura montados en aquellos animalitos vigorosos, a pesar de su carta alzada.
+
+89. [95|narrative] Ahora bien, las erupciones volcánicas van siempre precedidas de fenómenos perfectamente conocidos; por eso, después de interrogar a los habitantes del país y de estudiar el terreno, puedo asegurarte, Axel, que no habrá por ahora erupción.
+
+90. [95|narrative] En las paredes veíanse distintamente huellas de ovas y licopodios; el profesor Lidenbrock no podía engañarse; pero me parece que cerraba los ójos y proseguía su camino con paso invariable.
+
+91. [95|narrative] No estamos bien preparados para un viaje por mar: quinientas leguas no se recorren fácilmente sobre una mala balsa, con una manta por vela y mi débil bastón por mástil y teniendo que luchar contra los vientos desencadenados.
+
+92. [95|narrative] Pero, en mi opinión, aquella masa de agua debía perderse poco a poco en las entrañas de la tierra, y provenía, evidentemente, de las aguas del Océano que se abrieron paso hasta allí a través de alguna fenda.
+
+93. [95|narrative] Después, la brújula, enloquecida, sacudida por los fenómenos eléctricos, confirmábame en mi opinión; la corteza mineral amenazaba romperse ; los macizos graníticos, juntarse; el vacío, llenarse; el pozo, rebosar, y nosotros, pobres átomos, íbamos a ser triturados en aquella formidable compresión.
+
+94. [94|descriptive] Cuando se hacía caer sobre su superficie un finísimo rocío, hinchábase aquélla, oxidábase y formaba una pequeña montaña, en cuya cumbre se abría momentos después mi cráter.
+
+95. [94|descriptive] El único liquido que llevábamos era ginebra, con absoluta exclusión de toda agua: pero íbamos provistos de calabazas, y mi tío contaba con encontrar manantiales en donde llenarlas, siendo inútiles cuantas observaciones le hice relativas a su calidad, a su temperatura y hasta sobre su ausencia absoluta.
+
+96. [94|poetic] Imaginábame los torrentes de fuego que se estrellarían contra los ángulos de la galería, y la acumulación de los vapores recalentados en aquel estrecho lugar.
+
+97. [94|descriptive] A pesar de mi irritación, conmoviéronme estas palabras de mi tío y la violencia que tenía que hacerse a sí mismo para emplear semejante lenguáje.
+
+98. [94|poetic] En vez de un cielo tachonado de estrellas, adivinaba por encirna de aquellos nubarrones una bóveda de granito que me oprimía con su peso, y todo aquel espacio, por muy grande que fuese, no hubiera bastado para una evolución del menos ambicioso de todos los satélites.
+
+99. [94|descriptive] La vegetación se exagera; paso como una sombra en medio de los helechos arborescentes, hollando con mis pasos inciertos las irisadas arcillas y los abigarrados asperones del suelo; apóyome en los troncos de las inmensas coníferas; acuéstome a la sombra de las esfenofilos, de los asterofilos y de los licopodios que miden cien pies de altura.
+
+100. [94|dialogue] ¿No hubiera dicho cualquiera que nos hallábamos en nuestra casita de la König-strasse, que bajaba a almorzar tranquilamente y que mi matrimonio con la pobre Graüben se iba a verificar aquel día mismo?
+
+101. [94|descriptive] Encontrábamos también enormes carapachos, cuyo diámetro era superior, con frecuencia, a quince pies, que habían pertenecido a los gigantescas gliptodonios del período pliocénico, de los que la moderna tortuga es sólo una pequeña reducción.
+
+102. [94|poetic] Mas otros hechos, ciertos detalles sui generis, no pudieron engañarme por más tiempo; las detonaciones se multiplicaban con una espantosa intensidad; sólo podía compararlas con el ruido que producirían un gran número de carros arrastrados rápidamente sobre un brusco empedrado.
+
+103. [94|descriptive] El talud del volcán presentaba muy rápidas pendientes; nos deslizábamos a lo largo de verdaderos barrancos de ceniza, evitando las corrientes de lava que descendían como serpientes de fuego; y yo, mientras, conversaba con volubilidad, porque mi imaginación se hallaba demasiado repleta de ideas, y era preciso darle algún desahogo.
+
+104. [94|narrative] Quedaban en la chimenea aún rescoldos, y, apoderándome con mano febril no sólo de la hoja de papel, sino tambión del pergamino de Saknussemm, iba ya a arrojarlo todo al fuego y a destruir de esta suerte tan peligroso secreto, cuando se abrió la puerta del despacho y apareció mi tío en el umbral.
+
+105. [94|narrative] Soporté bastante bien las inclemencias del mar; pero mi tío se pasó todo al viaje mareado, lo que, a más de llenarle de vergüenza, contribuyó a agriar más todavía su carácter.
+
+106. [94|narrative] Pero, cuando se enteró de que se trataba de millas dinamarquesas, de 24.000 pies, tuvo que rehacer sus cálculos y contar con que emplearíamos siete a ocho días en hacer aquel recorrido, dado el pésimo estado de las vías de comunicación.
+
+107. [94|narrative] Después, tranquilamente, automáticamente, sin que ninguno de los ósculos fuese más acentuado que cualquiera de los demás, besó al dueño de la casa, a su esposa y a sus diez y nueve hijos.
+
+108. [94|narrative] Proseguimos nuestra ascensión en zigzag; empleamos aún cerca de cinco horas en recorrer los 1.500 pies que nos quedaban que subir todavía; en revueltas, contramarchas y sesgos perdimos lo menos tres leguas.
+
+109. [94|narrative] Resultaba evidente que, en un cierto momento, el túnel se había bifurcado, y, mientras el Hans-Bach, obedeciendo los caprichosos mandatos de otra pendiente, había proseguido su ruta hacia profundidades desconocidas, en unión de mis compañeros, yo me había internado solo en la galería en que me hallaba.
+
+110. [94|narrative] Si bien es cierto que la gruta de Guachara, en Colombia, visitada por el señor de Humboldt, no había revelado el secreto de su profundidad al sabio que la reconoció en una longitud de 2.500 pies, no es verosírnil que se extendiese mucho más allá.
+
+111. [94|narrative] Cierto es que este sistema había tenido un adversario encarnizado en el señor Elías de Beaumant, sabio de autoridad bien sentada, quien sostenía que el terreno de MoulinQuignon no pertenecía al diluvium, sino a una capa menos antigua, y, de acuerdo en este particular con Cuvier, no admitía que la especie humana hubiese sido contemporánea de los animales de la época cuaternaria.
+
+112. [93|poetic] hallábase ésta formada de una gran cantidad de metales, tales como el potasio y el sodio, quc ticnen la propiedad de inflamarse al solo contacto del aire y del agua; estos metales ardieron cuando los vapores atmosféricos precipitáronse sobre ellos en forma de lluvia, y, poco a poco, a medida que penetraban las aguas por las hendeduras de la corteza terrestre, fueron determinando nuevos incendios, acompañados de explosiones y erupciones.
+
+113. [93|descriptive] Subí a rni habitación, seguido de Graüben, y ella fue la que se encargó de colocar en una maleta los objetos que precisaba para tan largo viaje, con la misma tranquilidad que si se tratase de hacer una excursión a Lubeck o a Heligoland.
+
+114. [93|poetic] Cuando lo agota del todo, le llega la vez al macho de despójarse del suyo; sólo que, como la pluma de éste es dura y grosera, y carece de valor comercial, no se toma el cazador la molestia de robarle el lecho de sus pequeñuelos, y el nido se concluye por fin.
+
+115. [93|dialogue] La dueña de la casa ofrecióse, según era costumbre, a quitarnos los pantalones y medias; pero renunciamos a tan estimable honor, dándole, sin embargo, las gracias del modo más expresivo; la mujer no insistió, y pude, al fin, arrojarme sobre mi cama de heno.
+
+116. [93|descriptive] Por la derecha, la serie de montañas prolongábase indefinidamente como un inmenso sistema de fortificaciones naturales cuya contraescarpa seguíamos, presentándose a menudo arroyuelos que era preciso vadear sin mojar demasiado la impedimenta.
+
+117. [93|dialogue] Estos vapores blancos, llamados reykir en islandés, procedían de manantiales termales, y su violencia indicaba la actividad volcánica del suelo, lo cual me parecía confirmar mis temores; júzguese, pues, cuál no sería mi sorpresa cuando mi tío me dijo: -¿Ves esos humos, Axel?
+
+118. [93|poetic] Dirigí hacia la llanura la vista y vi una inmensa columna de piedra pómez pulverizada, de arena y de polvo que se elevaba girando como una tromba; el viento la empujaba hacia el flanco del Sneffels sobre el cual nos encontrábamos; aquella cortina opaca, tendida delante del sol, producía una gran sombra que se proyectaba sobre la montaña.
+
+119. [93|descriptive] Terminado el almuerzo, sacó mi tío del bolsillo un pequeño cuaderno destinado a las observaciones: examinó, sucesivamente los diversos instrumentos y anotó los datos siguientes LUNES 1.° DE JULIO.
+
+120. [93|poetic] Comparábalo yo a algún genio familiar que nos guiase a través de la tierra y acariciaba con mi mano la tibia náyade cuyos cantos acompañaban nuestros pasos.
+
+121. [93|descriptive] Trataba de reconocer el camino por la forma del túnel, por los picos salientes de las rocas, por la disposición de las fragosidades: pero ninguna señal especial llamóme la atención, y pronto me convencí de que aquella galería no podía conducirme a la bifurcación.
+
+122. [93|poetic] Lo seguí, lo aspiré con la mirada, reconcentré sobre él todo el poder de mis ojos, cual si fuese la última sensación de luz que les fuera dado gozar, y quedé sumergido en las más espantosas tinieblas.
+
+123. [93|poetic] Pensé que un baño seríame altamente beneficioso, y me fui a sumergir, durante algunos minutos, en las aguas de aquel mar que es, sin género de duda, el que tiene más derecho que todos al nombre de Mediterráneo.
+
+124. [93|poetic] Llega la noche, o, por mejor decir, el momento en que el sueño quiere cerrar nuestros párpados; porque en este mar no hay noche, y la implacable luz fatiga nuestros ojos de una manera obstinada, como si navegásemos bajo el sol de los océanos árticos.
+
+125. [93|descriptive] La intensidad de la luz me deslumbra los ójos, y el estrépito del trueno me destroza los oídos; no tengo más remedio que asirme fuertemente al mástol de la balsa, que se dobla como una débil caña bájo la violencia del huracán.
+
+126. [93|descriptive] Pero no: el disco deslumbrador se separa; se aproximo o Hans, que la mira fijamente; a mi tío, que se pone de rodillas para evitar su choque; a mí, que palidezco y tiemblo bajo la impresión de su luz y su color; dí vueltas alrededor de mi pie, que trato de retirar sin poderlo conseguir.
+
+127. [93|narrative] Para completar la nomenclatura exacta de nuestros artículos de viaje, haré mención de un botiquín portátil que contenía unas tijeras de punta redonda, tablillas para fracturas, una pieza de cinta de hilo crudo, vendas y compresas, esparadrapo, y una lanceta para sangrar, cosas que ponían los pelos de punta.
+
+128. [93|narrative] El señor Fridriksson no se hallaba entre los invitados; pero supe más tarde quc el gobernador y él hallábanse en desacuerdo acerca de una cuestión administrativa, por lo que no se trataban.
+
+129. [93|narrative] Cuando tengamos que atravesar algún fiordo o algún río, ya le verás arrojarse al agua sin titubear, lo mismo que un anfibio, y llegar a la orilla opuesta.
+
+130. [93|narrative] Marchábamos a la sazón hacia el Oeste, después de haber rodeado la gran bahía de Faxa, y la doble cima blanca del Sneffels erguíase entre las nubes a menos de cinco millas.
+
+131. [93|narrative] Pero no éramos dueños de elegir, y en tanto que nos aproximásemos al centro, por muy poco que fuese, no había derecho a quejarse.
+
+132. [93|narrative] Mi tío puso en actividad su aparato de Ruhmkorlf; dejamos la balsa bien amarrada a la orilla, y nos dirigimos, marchando yo a la cabeza, a la boca de la galería que sólo distaba de allí veinte pasos.
+
+133. [93|narrative] Ya nada existía para mí en la superficie del esferoide en cuyo seno habíame engolfado: ni ciudades, ni campos, ni Hamburgo, ni la König-strasse, ni mi pobre Graüben, que, a la sazón, debía creerme para siempre perdido en las entrañas de la tierra.
+
+134. [93|narrative] Hasta entonces, los hechos habían dado la razón a las teorías de Davy y de Lidenbrock; hasta entonces lass condiciones particulares de las rocas refractarias, de la electricidad, del magnetismo, habían modificado las leyes generales de la Naturaleza, proporcionándonos una temperatura moderada; porque la teoría del fuego central siendo; en mi opinión, la única verdadera, la única explicable.
+
+135. [93|narrative] Era evidente que subíamos, empujados por un aluvión eruptivo; debajo de la balsa había aguas hirvientes, y debájo de éstas, una pasta de lavas, un conglomerado de rocas que, al llegar a la boca del cráter, se dispersarían en todos direcciones.
+
+136. [93|narrative] El hecho de la brújula seguía sin explicación, y el que semejante fenómeno no hubiese sido explicado constituía verdaderamente un suplicio para la inteligencia de un sabio.
+
+137. [92|descriptive] Hallábase arrellanado en su gran butacón, forrado de terciopelo de Utrecht, y tenía entre sus manos un libro que contemplaba con profunda admiracion.
+
+138. [92|dialogue] Entretanto, el tiempo pasaba, la noche se echó encima y cesaron los ruidos de la calle; mas mi tío, abismado por completo en su tarea, no veía ni entendía absolutamente nada, ni aun siquiera a la buena Marta que entreabrió la puerta y dijo: -¿Cenará esta noche el señor?
+
+139. [92|descriptive] Sus ojos enrójecidos, su tez pálida, sus cabellos desordenados por sus dedos febriles, sus pómulos amoratados delataban bien a las claras la lucha desesperada que contra lo imposible había sostenido, y las fatigas de espíritu y la contención cerebral que, durante muchas horas, había experimentado.
+
+140. [92|descriptive] Esta parte de la conversación habíase desarrollado en latín, de manera que me enteré de todo, y tuve que contenerme para no soltar el trapo a reír al ver cómo mi tío contenía su satisfacción que pugnaba por escapársele por todas partes adoptando un aire candoroso que parecía la mueca de un diablo.
+
+141. [92|descriptive] Quiso hacer una observación al guía; pero éste, sin escucharle, volvió a ponerse delante de los caballos y emprendió de nuevo la marcha.
+
+142. [92|poetic] Faltábanos el tiempo para observar estos fenómenos; era necesario avanzar, y los cascos de nuestros caballos no tardaron en hundirse de nuevo en terrenos pantanosos, sembrados de pequeñas lagunas.
+
+143. [92|descriptive] La habitación destinada a los huéspedes, infecta, sucia y estrecha, parecióme que era la peor de la rectoría; pero fue necesario contentarse con ella, pues el rector no parecía practicar la hospitalidad antigua.
+
+144. [92|poetic] Ignoro cuánto tiempo permanecí sumido en mis reflexiones; lo que sé únicamente es que, al levantar la cabeza, sólo vi a mi tío y a Hans en el fondo del cráter.
+
+145. [92|descriptive] Desenrolló una cuerda del grueso del pulgar y de cuatrocientos pies de longitud; dejó caer primero la mitad, arrollóla después alrededor de un salience que la lava formaba, y echó al pozo la otra mitad.
+
+146. [92|dialogue] Pero el profesor hizo algunas observaciones o tomó ciertas notas, sin duda, porque, en uno de los altos, me dijo: -Cuanto más veo, mayor es mi confianza; la disposición de estos terrenos volcánicos confirma en absoluto la teoría de Devy.
+
+147. [92|dialogue] "¡Con tal" pense "que el viejo volcán no se vea asaltado por algún capricho senil!" Me guardaba muy bien de comunicar a mi tío semejantes reflexiones, porque no las hubiera comprendido.
+
+148. [92|descriptive] Tomé otra vez mi fardo con denuedo y seguí con paso rápido a Hans, que precedía a mi tío, procurando no distanciarme, pues mi principal cuidado era no perder jamás de vista a mis compañeros.
+
+149. [92|poetic] Era evidente que remontábamos la escala de la vida animal, cuyo último y más elevado peldaño ocupan las criaturas humanas: pero el profesor Lidenbrock no parecía fijar mientes en ella.
+
+150. [92|poetic] Entonces recordé aquella teoría de un capitán inglés que comparaba a la tierra con una vasta esfera hueca, en el interior de la cual el aire se mantenía luminoso por efecto de su presión, mientras dos astros, Plutón y Proserpina, describían en ella sus misteriosas órbitas.
+
+151. [92|poetic] Se comprenderá fácilmente que, después de un encarcelamiento de cuarenta y siete días en una estrecha galería, era un goce infinito el aspirar aquella brisa cargada de húmedas entanaciones salinas.
+
+152. [92|descriptive] Después de una marcha de una milla, llegamos al lindero de una selva inmensa, que en nada se parecía al bosque de hongos próximo a Puerto-Graüben.
+
+153. [92|descriptive] Por fortuna, después de dos horas de marcha, presentóse ante nuestras ojos una hermosa campiña, enteramente cubierta de olivos, de granados y de vides que parecían pertenecer a todo el mundo.
+
+154. [92|narrative] Salí como aturdido del despacho de mi tío, y, pareciéndome que no había aire bastante en las calles de Hamburgo para refrescarme, dirigíme a las orillas del Elba, y me fui derecho al sitio donde atraca la barca de vapor que pone en comunicación la ciudad con el ferrocarril de Hamburgo.
+
+155. [92|narrative] El señor Fridriksson prestó a mi tío un gran servicio regalándole un mapa de Islandia incomparablemente más perfecto que el de Henderson: el mapa de Olaf Nikolás Olsen, hecho en escala de 1/480.000, y .
+
+156. [92|narrative] Ya no tuve valor para hundir mis miradas en ellas; pero el profesor Lidenbrock había hecho un rápido examen de su disposición, y corría jadeante de una a otra, gesticulando y profiriendo palabras ininteligibles.
+
+157. [92|narrative] Sobre aquella playa ligeramente inclinada, a cien toesas, aproximadamente de la orilla del agua, venían a morir los contrafuertes de enormes rocas que, ensanchándose, se elevaban a una altura tremenda.
+
+158. [92|narrative] Me sentí precipitado en el agua, y, si me libré de la muerte, si mi cuerpo no se destrozó contra los agudos peñascos, fue porque el brazo vigoroso de Hans sacóme del abismo.
+
+159. [92|narrative] Imaginaos a un apasionado bibliómano transportado de repente a la famosa biblioteca de Alejandría, incendiada por Omar, y que un portentoso milagro hubiera hecho renacer de sus cenizas, y tendréis una idea del estado de ánimo del profesor Lidenbrock.
+
+160. [92|narrative] Otras mandíbulas idénticas, aunque pertenecientes a individuos de tipos diversos y de naciones diferentes, fueron halladas, en las tierras livianas y grises de ciertas grutas, en Francia, Suiza y Bélgica, como asimismo armas, herramientas, utensilios y osamentas de niños, adolescentes, adultos y ancianos.
+
+161. [92|narrative] Cierto que estos despójos no eran osamentas del hombre, sino productos de su industria, como tibias y fémures de animales lósiles, estriados de un modo regular, esculpidos, por decirlo así, y que ostentaban señales evidentes del trabajo humano.
+
+162. [92|narrative] E impulsados por un vivo interés, empezamos a recorrer la elevada muralla, examinando atentamente las más insignificantes grietas que podían ser principio de alguna galería.
+
+163. [92|narrative] Entre dos protuberancias avanzadas de la roca, encontramos entonces la entrada de un túnel obscuro; y en una de estas peñas de granito descubrieron nuestras ójos, atónitos, dos letras misteriosas, medio borradas ya: las dos iniciales del intrépido y fantástico explorador: -¡A.
+
+164. [91|dialogue] En efecto, ¿a qué tanto entusiasmo por un viejo libro en cuarto, cuyas tapas y lomo parecían forrados de grosero cordobán, y de cuyas amarillentas hojas pendía un descolorido registro?
+
+165. [91|poetic] No era yo ciertamente quien hubiera podido explicárselo, pero esta pregunta no iba dirigida a mí, y por eso prosiguió sin detenerse: -Esto es lo que se llama un criptograma, en el cual el sentido se halla oculto bájo letras alteradas de intento, y que, combinadas de un modo conveniente, formarían una frase inteligible.
+
+166. [91|descriptive] Los penachos de humo del Ellenora elevábanse en la atmósfera ; su cubierta retemblaba bajo los estertores de la caldera; estábamos a bordo, instalados en dos literas colocadas en la única cámara que poseía el vapor.
+
+167. [91|dialogue] Mi tío se apresuró a abandonar su presidio flotante, por no decir su hospital; pero, antes de dejar la cubierta de la goleta, llevóme hasta la proa, y desde allí, mostrándome con el dedo en la parte septentrional de la bahía una elevada montaña, que remataba en dos picos un doble cono cubierto da nieves eternos, me dijo entusiasmado: -¡El Sneffels!
+
+168. [91|poetic] En este momento entró el cazador que venía de tomar sus medidas para que los caballos comiesen, es decir, que los había económicamente soltado en el campo, donde los infelices animales tendrían que contentarse con pacer el escaso musgo de las rocas y algunas ovas bien poco nutritivas; lo cual no sería obstáculo, para que, al día siguiente, viniesen voluntariamente a reanudar, sumisos, el trabajo de la víspera.
+
+169. [91|poetic] Yo empezaba a sentirme fatigado, mas mi tío permanecía firme y derecho como el primer día, inspirándome una sincera admiración, lo mismo que el cazador, que consideraba aquella expedición como un sencillo paseo.
+
+170. [91|descriptive] Si en todas sus otras manifestaciones desarrolla su arte formando moles inmensas y deformes, conos apenas esbozados, pirámides imperfectas cuyas líneas generales no obedecen a un plan deterrninado, por lo que respecta al basalto, queriendo dar, sin duda, un ejemplo de regularidad, y adelantándose a los arquitectos de las primeras edades, ha creado un orden severo que ni los esplendores de Babilonia ni las maravillas de Grecia han sobrepujado jamás.
+
+171. [91|descriptive] Hans avanzaba tranquilamente como si fuese por un terreno llano; a veces desaparecía detrás de los grandes peñascos, y le perdíamos de vista un instante; pero entonces oíamos un agudo silbido salido de sus labios, que nos indicaba el camino que debíamos seguir.
+
+172. [91|poetic] Entonces comenzamos a subir las vertientes del Sneffels; su nevada cumbre, por una ilusión de óptica frecuente en las montañas, parecíame muy próxima, a pesar de lo cual nos restaban aún muchas horas de camino y muchísimas fatigas, sobre todo, para llegar hasta ella.
+
+173. [91|poetic] Mi tío los soportó con la cólera de un hombre que no se siente ya más fuerte que ellos mismos; Hans, con la resignación de su naturaleza pacífica; yo, fuerza es que lo confiese, quejándome y desesperándome, sin valor para luchar contra mi mala estrella.
+
+174. [91|dialogue] No habíamos avanzado aún cien pasos, cuando exclamó el profesor, paseando su lámpara a lo largo de las paredes: -¡Aquí tenemos los terrenos primitivos!
+
+175. [91|dialogue] Pero no hice valer este argumento, pues mi tío me hubiera en seguida sacado a colación a su eterno Saknussemm, precedente sin valor, porque, aun suponiendo que fuese cierto su viaje, siempre podría responderse que, no habiéndose inventado el barómetro ni el manómetro en el siglo XVI, ¿cómo pudo determinar este sabio islandés su llegada al centro del globo?
+
+176. [91|dialogue] Y al hacerme esta pregunta, abrí desmesuradamente los ojos, en los cuáles retratóse el espanto; y, observado por mi tío, preguntóme: -¿Qué tienes Axel?
+
+177. [91|poetic] Y acompañando la acción a la palabra, anejó al mar uno de aquellos trozos de madera, el cual, después de sumergirse, volvió a subir a la superficie del agua, donde flotó mecido por las olas.
+
+178. [91|poetic] Érame conocido el poder vegetativo de estas plantas, que se arrastran, a una profundidad de mas de 12.000 pies, sobre en fondo de los mares, se reproducen bája una presión de cerca de 400 atmósferas y forman a menudo bancos bastante considerables para detener la marcha de los buques; pero creo que jamás hubo algas tan gigantescas como las del mar de Lidenbrock.
+
+179. [91|dialogue] ¿Será un monstruo perteneciente a alguna especie extinguida que se agita en las profundidades del mar, más voraz que el tiburón y mas terrible que la ballena?
+
+180. [91|descriptive] Sus largos cabellos, desordenados por el huracán y acumulados sobre su inmóvil semblante, le dan un extraño aspecto, porque en cada una de sus puntas brillo un penachilla luminoso.
+
+181. [91|dialogue] Aquellos seres animados, ¿se habían deslizado, mediante una conmoción del suelo, hasta las playas del mar de Lidenbrock cuando ya estaban convertidos en polvo, o vivieron allí, en aquel mundo subterráneo, bajo aquel cielo fantástico, naciendo y muriendo como los habitantes de la superficie de la tierra?
+
+182. [91|descriptive] Algunos arroyos murmuraban debajo de aquellas sombras, si es que puede aplicárseles tal nombre, toda vez que, en realidad, no había sombra alguna.
+
+183. [91|descriptive] Aunque estaba seguro de pisar un suelo que jamás hollaron mis pasos, advertía con frecuencia ciertos grupos de rocas cuya forma me recordaba los de Puerto-Graüben.
+
+184. [91|descriptive] No tardaron en penetrar en la galería vertical, que iba aumentando en anchura, reflejos amarillentos, a cuya luz distinguía a derecha a izquierda, profundos corredores que semejaban túneles imnensos de los que se escapaban espesos vapores, y largas lenguas de fuego lamían chisporroteando sus paredes.
+
+185. [91|poetic] Cuando rebasaba la vista aquel cinturón de verdura, iba rápidamente a perderse en las aguas de un mar admirable o de un lago, que hacían de aquella tierra encantada una isla que apenas medía de extensión unas leguas.
+
+186. [91|dialogue] Mi tío comenzó por tranquilizarlo como Dios le dio a entender, y, en correcto alemán, preguntóle: -¿Cómo se llama esta montaña, amiguito?
+
+187. [91|poetic] El viernes, 4 de septiembre, nos embarcamos a bordo del Volturne, uno de las vapores de las mensajerías imperiales de Francia, y, tres días más tarde tomamos tierra en Marsella, sin más preocupación en nuestro espíritu que nuestra maldita brújula.
+
+188. [91|narrative] Cuando haya dicho que mi tío caminaba a pasos matemáticamente iguales, que medía cada uno media toesa de longitud, y añadido que siempre lo hacía con los puños sólidamente apretados, señal de su impetuoso carácter, lo conocerá lo bastante el lector para no desear su compañía.
+
+189. [91|narrative] Callaré, por consiguiente; guardaré eternamente el secreto de que la casualidad me ha hecho dueño; revelárselo a él sería ocasionarle la muerte.
+
+190. [91|narrative] El portero del hotel hablaha alemán e inglés; pero el profesor, en su calidad de políglota, interrogóle en dinamarqués correcto, y en este mismo idioma indicóle el otro la situación del Museo de Antiguedades del Norte.
+
+191. [91|narrative] Por fin, con la ayuda de mi tío, que tiraba de mí, asiéndome por el cuello de la chaqueta, llegué cerca de la cúpula.
+
+192. [91|narrative] No habría sido fácil perderse en las dos calles de Reykiavik de suerte que no tuve necesidad de preguntar a nadie el camino lo cual, hecho por signos, expone las más de las veces a muchas equivocaciones.
+
+193. [91|narrative] Al llegar a la puerta de la casa del cura, cabaña sencilla y de un único piso, ni más bella ni más cómoda que las otras, vi un hombre herrando un caballo, con el martillo en la mano y el mandil de cuero a la cintura.
+
+194. [91|narrative] Guiado por un instinto peculiar a los rnontañeses y a los hidroscopios, sintió, por decirlo así, este torrente a través de las rocas, pero no vió, en realidad, el líquido precioso; así que no había bebido.
+
+195. [91|narrative] Me inclinaba a creer que aquella chimenea de volcán apagado se hallaba recubierta por las lavas de un forro refractario que impedía que el calor se propagase a través de sus paredes.
+
+196. [91|narrative] Más allá el paquidermo lofiodón, ese gigantesco tapir que se oculta detrás de las rocas para disputar su presa al anoploterio, animal extraño que participa del rinoceronte, del caballo, del hipopótamo y del camello, como si el Creador, queriendo acabar pronto en los primeros días del mundo, hubiese reunido varios animales en uno solo.
+
+197. [91|narrative] La caída del globo eléctrico ha imanado todo el hierro de a bordo; los instrumentos, los herramientas, las armas se gitan, entrechocándose con un tintineo agudo: los clavos de mis zapatos se hallan fuertemente adheridos a una placa de hierra incrustada en la madera.
+
+198. [91|narrative] Nuevos despójos exhumados del terreno terciario plioceno habían permitido a otros sabios más audaces aún asignar a la raza humana una antigüedad muy remota.
+
+199. [91|narrative] Marchábamos con la espalda vuelta al aire, para que no nos asfixiase la rapidez de un movimiento que ningún poder humano podía contrarrestar.
+
+200. [90|descriptive] El profesor Lidenbrock tenía más razón que nadie para saberlo; porque, si bien no poseía correctamente las dos mil lenguas y los cuatro mil dialectos que se hablan en la superficie del globo.
+
+201. [90|descriptive] Iba y venía precipitadamente; oprimíase la cabeza entre las manos; echaba a rodar las sillas; amontonaba los libros: tiraba por alto, aunque en él parezca increíble, sus inestimables geodas: repartía a diestro y siniestro patadas y puñetazos.
+
+202. [90|dialogue] ¿Era posible que Graüben me animase a tomar parte en tan descabellada expedición, que fuese ella misma capaz de acometer, sin miedo, la aventura, que me incitase a ella, a pesar del cariño que decía profesarme?
+
+203. [90|descriptive] El viento me atolondraba; sentía el campanario oscilar bajo sus ráfagas; las piernas me flaqueaban; no tardé en subir de rodillas y acabé por trepar arrastrándome y con los ojos cerrados; el vértigo de las alturas se había apoderado de mí.
+
+204. [90|descriptive] La calle más larga de Reykiavik es paralela a la playa, y en ella se hallan instalados los mercaderes y negociantes, en cabañas de madera, hechas de vigas rojas horizontalmcnte dispuestas; la otra calle, situada más al Oeste corre hacia un pequeño lago, pasando entre la casa del obispo y las de otros personajes extraños al comercio.
+
+205. [90|descriptive] Su voluminosa cabeza hallábase cubierta por una larga cabellera de un color que hubiera pasado por rojo hasta en la misma Inglaterra y que caía sobre sus espaldas atléticas.
+
+206. [90|descriptive] A ciertos intervalos, y debajo de aquel cobertizo natural, sorprendía la mirada aberturas ojivales de un admirable dibujo, a través de las cuáles venían a precipitarse, formando montañas de espuma, las olas irritadas del mar.
+
+207. [90|poetic] Nos hallábamos, por fortuna, en la vertiente opuesta y al abrigo de todo peligro; pero, a no ser por la precaución del guía, nuestros cuerpos, desmenuzados, convertidos en polvo impalpable, hubieran ido a caer lejos como el producto de algún desconocido meteoro.
+
+208. [90|descriptive] Un descenso de siete horas consecutivas no se efectúa sin un gran derroche de fuerzas, y me encontraba agotado: así que la palabra alto sonó en mi oído como una melodía.
+
+209. [90|descriptive] A veces desarrollábase delante de nuestros pasos una sucesión de arcadas que recordaban las naves laterales de una catedral gótica; los artistas de la Edad Media hubieran podido estudiar allí todas las formas de esa arquitectura religiosa que tiene por generatriz a la ojiva.
+
+210. [90|descriptive] He aquí, pues, lo que quiero proponerte: cuando Colón pidió a sus tripulaciones un plazo de tres días para hallar las nuevas tierras, aquellos esforzados marinos, a pesar de hallarse enfermos y consternados, accedieron a su demanda, y el insigne genovés descubrió el Nuevo Mundo.
+
+211. [90|poetic] El resto de la jornada transcurrió en conversaciones y cálculos, mostrándome siempre conforme con el parecer del profesor, y envidiando la perfecta indiferencia de Hans, que, sin meterse a buscar las causas de los efectos, marchaba ciegamente por donde le llevaba el destino.
+
+212. [90|descriptive] Los rayos argentados de la luz eléctrica, reflejados acá y allá por algunas grietas, hacían brotar puntos luminósos sobre los costados de la embarcación.
+
+213. [90|poetic] Mi tío no se equivoca, porque, después de un corto examen, dice: -Este pez pertenece a una familia extinguida hace ya siglos, de la cual se encuentran restos fósiles de los terrenos devonianos.
+
+214. [90|descriptive] Las hojas no poseían su natural verdor, y las flores, tan abundantes en aquella época terciaria que las vio nacer, sin color ni perfume a la sazón, parecían hechos de papel descolorido bajo la acción de la luz.
+
+215. [90|dialogue] Puesto que la Naturaleza había acumulado allí una abundante alimentación vegetal, ¿quién nos aseguraba que no había en su interior formidables mamíferos?
+
+216. [90|dialogue] Aun cuando hubiésemos tenido víveres suficientes para meses y aun para años, ¿cómo salir de los abismos a que nos arrastraba aquel irresistible torrente?
+
+217. [90|narrative] Júzguese mi sorpresa cuando, en una de estas rápidas vueltas, en el momento de quedar el reverso ante mis ojos, creí ver aparecer palabras perfectamente latinas, como craterem y terrestre entre otras.
+
+218. [90|narrative] Pero no había contado con la impaciencia del profesor, a quien hallé gritando y corriendo de un lado para otro, en medio de la porción de mozos de cordel que descargaban en la calle una multitud de objetos.
+
+219. [90|narrative] A las siete de la mañana desembarcamos en Korsör, pequeña ciudad situada en la costa occidental, donde trasbordamos a otro fèrrocarril que nos condujo a través de un país no menos llano que las campiñas de Holstein.
+
+220. [90|narrative] a las diez de la mañana, descendimos en Copcnhague; los equipajes fueron cargados en un coche y conducidos con nosotros al hotel del Fénix, en Bred-Gade.
+
+221. [90|narrative] Conversaba en dinamarqués con un hombre de elevada estatura y constitución vigorosa; un mocetón que debía hallarse dotado de unas fuerzas hercúleas.
+
+222. [90|narrative] A una orden suya, hizo Hans un solo lío con los objetos no frágiles, y después de bien amarrado el paquete, se le dejó caer en el abismo.
+
+223. [90|narrative] De repente, el terreno faltó bájo mis pies, y me sentí caer, rebotando sobre las asperezas de una galería vertical, de un verdadero pozo: mi cabeza chocó contra una roca aguda, y perdí el conocimiento.
+
+224. [90|narrative] Me apresuré a recoger aquellos despojos seculares, hechos de una substancia mineral indestructible (fosfato de cal), y apliqué sin vacilar sus nombres científïcos a aquellos huesos gigantescos que parecían troncos de árboles secos.
+
+225. [90|narrative] A la hora de los postres, nos sirvió algunas tazas de café, y jamás este delicioso brebaje parecióme tan exquisito al paladar.
+
+226. [90|narrative] Prefiero admitir la existencia de algún animal cuya estructura se aproxime a la humana, de algún enorme simio de las primeras épocas geológicas, de algún protopiteco, de algún mesopiteco parecido al que descubrió el señor Lartet en el lecho osifero de Sansan.
+
+227. [90|narrative] Después de almorzar muy de prisa, se embarcaron mi tío y el cazador, quedándome ya en la orilla, provisto de una linterna encendida que debía servirme para dar fuego a la mecha.
+
+228. [90|narrative] Por lo que a mí respecta, olvidando las fatigas y las necesidades, habría permanecido en aquel sitio durante muchas horas aún; pero fueme preciso seguir a mis compañeros.
+
+229. [90|narrative] No creo necesario añadir que su tío fue el ilustre profesor Otto Lidenbrock, miembro correspondiente de todas las sociedades científicas, geográtïcas y mineralógicas de las cinco partes del mundo.
+
+230. [89|poetic] En la ciudad era conocido de todos este bien disculpahle defecto de mi tío, que muchos desahogados aprovechaban para burlarse de él, cosa que le exasperaba en extremo; y su furor era causa de que arreciasen las risas, lo cual es de muy malgusto hasta en la misma Alemania.
+
+231. [89|poetic] Aquí había llegado en mis sueños, cuando mi tío, descargando sobre la mesa un terrible puñetazo, volvióme a la realidad de una manera violenta.
+
+232. [89|descriptive] Sólo la primera y la última podían coordinarse fácilmente, pues nada tenía de extraño que en un documento redactado en Islandia se hablase de un rnar de hielo.
+
+233. [89|poetic] Ahora bien, como el documento constaba de ciento treinta y dos letras, y el número que expresa el de frases distintas compuesta de ciento treinta y tres letras, tiene, por la parte más corta, ciento treinta y tres cifras, cantidad que no puede enunciarse ni aun concebirse siquiera, tenía la seguridad de que, por este método, no resolvería el problema.
+
+234. [89|poetic] Es preciso, no obstante, confesar que una hora después cesó la sobreexcitación por completo, aplacáronse mis nervios, y desde los profundos abismos de la tierra subí a su superficie.
+
+235. [89|descriptive] No era posible dudar: mi tío había empleado la tarde en adquirir una serie de objetos y utensilios necesarios para nuestro viaje: la calle estaba llena de escalas, de cuerdas con nudos, de antorchas, de calabazas para líquidos, de grapas de hierro, de picos, de bastones, de azadas y de otros objetos para cuyo transporte precisábanse por lo menos diez hombres.
+
+236. [89|dialogue] Hice entrar conmigo a Graühen en el despacho del profesor Lidenhrock, y dije a éste: -Tío, ¿está usted decidido, por fin, a que emprendamos la marcha?
+
+237. [89|descriptive] Sus vestidos consistían en una basta chaqueta de lana negra, conocida en todos los países escandinavos con el nombre de vadmel, sombrero de amplias alas, pantalón orillado de rojo y unos trozos de cuero arrollados en los pies a manera de calzado.
+
+238. [89|descriptive] Permanecía inmóvil y con los brazos cruzados ante los múltiples gestos de mi tío; para negar, movía la cabeza de izquierda a derecha, y, para afirmar, la inclinaba; apenas se movía; era la economía del movimiento llevada hasta la avaricia.
+
+239. [89|dialogue] respondió con monosílabos a las preguntas de mi tío relativas a la naturaleza del camino, y cuando le preguntó dónde tenía pensada que pasásemos la noche, respondió secamente.
+
+240. [89|dialogue] A los juramentos y latigazos de mi tío contestó encabritándose la bestia, faltando pocó para que despidiese al jinete: y por fin el caballejo, doblando los corvejones, escurrióse de entre las piernas del profesor, dejándole plantado sobre dos piedras de la orílla como el coloso do Rodas.
+
+241. [89|descriptive] Un corredor largo, estrecho y obscuro daba acceso a esta cabaña, construida con maderos apenas labrados, y permitía llegar a todas sus habitaciones, que eran cuatro: la cocina, el taller de tejidos, la badstofa, alcoba de la familia, y la destinada a los huéspedes, que era la mejor de todas.
+
+242. [89|descriptive] Introdujéronnos en nuestra habitación, que era una especie de salón espacioso, de suelo terrizo, y que recibía la luz a través de una ventana cuyos vidrios estaban hechos de membranes de carnero bien poco transparentes.
+
+243. [89|descriptive] Nuestro huésped sirviónos una sopa de liquen que no era desagradable, y después, una enorme porción de pescado seco, nadando en mantequilla agria, que tenía lo menos veinte años.
+
+244. [89|descriptive] Mi tío no tardó en darse cuenta de la clase de hombre con quien tenía que habérselas; en vez de un digno y honrado sabio, halló un grosero y descortés campesino, y resolvió emprender lo más pronto posible su gran expedición, y abandonar cuanto antes a aquel cura tan poco hospitalario.
+
+245. [89|descriptive] Pero los que bajo nuestros pies servían de peldaños, en las otras paredes convertíanse en estalactitas: la lava, porosa en algunos lugares, presentaba en otros pequeñas ampollas redondas: cristales de cuarzo opaco, ornados de límpidas gotas de vidrio y suspendidos de la bóveda a manera de arañas, parecían encenderse a nuestro paso.
+
+246. [89|descriptive] La luz eléctrica arrancaba vivos destellos a los esquistos, las calizas y los viejos asperones rojos de las paredes; parecía que nos hallábamos dentro de una zanja profunda, abierta en el condado de Devon, que da su nombre a esta clase de terrenos.
+
+247. [89|descriptive] Toda la historia del período de la hulla estaba escrita sobre aquellas paredes sombrías, cuyas diversas fases podía seguir fácilmente un geólogo.
+
+248. [89|descriptive] Erramos por espacio de media hora entre aquellas húmedas tinieblas, y experimentó una sensación de verdadero placer cuando regresé de nuevo a las orillas del mar.
+
+249. [89|poetic] En el centro de esta nebulosa, un millón cuatrocientas mil veces más voluminosa que el globo que ha de formar un día soy arrastrado por los espacios interplanetarios; el cuerpo se sutiliza, se sublima a su vez, y se mezcla como un átomo imponderable a estos inmensos vapores que trazan en el infinito su órbita intlada.
+
+250. [89|poetic] Las cajas que las contenían hallábanse alineadas sobre la arena, en perfecto estado de conservación; el mar las había respetado casi en su totalidad; y, entre galleta, carne salada, ginebra y pescado seco, se podía calcular que teníamos aún víveres para unos cuatro meses.
+
+251. [89|descriptive] Pero aquel cadáver de piel tersa y apergaminada, con los miembros aún jugosos -por lo menos a la vista-, con los dientes intactos, la cabellera abundante y las uñas de los pies y de las manos prodigiosamente largas, se presentaba ante nuestros ojos tal como había vivido.
+
+252. [89|dialogue] ¡En efecto, a menos de un cuarto de hora, apoyado sobre el tronco de un enorme kauris, un ser humano, un Proteo de aquellas subterráneas regiones, un nuevo hijo de Neptuno, apacentaba aquel innumerahie rebaño de mastodontes!
+
+253. [89|descriptive] La abertura, que era casi circular, tenía un diámetro de cinco pies aproximadamente; el obscuro túnel estaba abierto en la roca viva y cuidadosamente barnizado por las materias eruptivas a las cuales dio paso en otra época su parte inferior encontrábase al nivel del suelo, de tal suerte que podía penetrarse en él sin dificultad alguna.
+
+254. [89|descriptive] Bien se comprenderá que estas ideas asaltaron mi mente de un moda vago y obscuro, costándome mucho trabajo asociarlas durante aquella vertiginosa carrera que parecía una caída.
+
+255. [89|poetic] Esperábame ver en un cono cubierto de nieves eternas, en medio de los áridos desiertos de las regiones septentrionales, bajo los pálidos rayos de un cielo polar, más allá de las más elevadas latitudes: mas, en contra de todas mis suposiciones mi tío, el islandés y yo nos hallábamos tendidos hacia la mitad de la escarpada vertiente de una montaña calcinada por las ardores de un sol que nos abrasaba.
+
+256. [89|descriptive] Por lo que a mí respecta, no puedo aceptar su teoría relativa al enfriamiento; a pesar de cuanto he visto, creo y seguiré creyendo siempre en el calor central; pero confieso que ciertas circunstancias, aún no muy bien definidas, pueden modificar esta ley bajo la acción de ciertos fenómenos naturales.
+
+257. [89|narrative] Con sólo descender a una profundidad de diez leguas, habríamos llegado al límite de la corteza terrestre, porque ya la temperatura sería allí superior a 300°.
+
+258. [89|narrative] Subí, pues, a mi cuarto, y cogiendo la maleta, la dejé que se deslizase por los peldaños de la escalera, y bajé detrás de ella.
+
+259. [89|narrative] Todo me lo expliqué, sin embargo, cuando supe por el señor Fridriksson que aquel tranquilo personaje sólo se dedicaba a la caza del ganso llamado eidero, cuyo plumón constituye la principal riqueza de la isla.
+
+260. [89|narrative] Ya verás, Axel, cómo no existe ningún bruto que aventaje en inteligencia al caballo islandés; ni nieves, ni tempestades, ni rocas, ni ventisqueros..
+
+261. [89|narrative] Necesitan, por consiguiente, trabajar para vivir; pero pescando, cazando y herrando caballos, se acaba por adquirir las maneras, los hábitos y el tono de los pescadores, cazadores y otras gentes no menos rudas; y por eso aquella misma noche advertí que entre las virtudes del párroco no se hallaba la de la templanza.
+
+262. [89|narrative] Al contemplar la altura de la cumbre del Sneffels, parecíame imposible poder llegar por aquel lado hasta ella, si el ángulo de inclinación de las pendientes no se cerraba algo.
+
+263. [89|narrative] Pero no; lo vi en seguida con los brazos extendidos y las piernas abiertas, de pie ante una roca de granito que se erguía en el centro del cráter como un pedestal enorme hecho para sustentar la estatua de Plutón.
+
+264. [89|narrative] El hábil cazador había lograda encender la linterna, y, aunque su llama vacilaba, amenazando apagarse, lanzó algunas resplandores en aquella espantosa obscuridad.
+
+265. [89|narrative] A partir de aquel día, fue mi tío el más feliz de los sabios, y yo el más dichoso de los hombres; porque mi bella curlandesa, renunciando a su calidad de pupila, ocupó en la modesta casa de to Kónig-strasse el doble puesto de sobrina y de esposa.
+
+266. [88|dialogue] No había tenido aún tiempo material de moverme, cuando me gritó el profesor con acento descompuesto: -Pero, ¿qué haces que no estás aquí ya?
+
+267. [88|descriptive] Caminábamos cogidos de la mano, refïriéndole yo historietas que provocaban su risa, y llegábamos de este modo hasta las orillas del Elba; y, después de despedirnos de los cisnes que nadaban entre los grandes nenúfares blancos, volvíamos en un vaporcito al desemharcadero.
+
+268. [88|descriptive] Entonces sucedieron los fenómenos volcánicos a los eruptivos; por las recién formadas aberturas escapáronse, ante todo, las deyecciones basálticas, de las cuáles ofrecía a nuestras miradas los más maravillosos ejemplares la planicie que a la sazón cruzábamos.
+
+269. [88|poetic] Sin embargo, mi sueño fue tan tranquilo aquella noche, una de las mejores que había pasado desde hacía mucho tiempo, que ni siquiera soñé.
+
+270. [88|descriptive] A la mañana siguiente, nos despertamos descansados y ágiles, y reanudamos en seguida la marcha, a lo largo de una galería cubierta de lava, lo mismo que la víspera.
+
+271. [88|poetic] Este es el fundamento de la teoría de que las temperaturas elevadas no provenían de dicho astro, el cual es muy posible que aún no se hallase en estado de desempeñar su esplendoroso papel.
+
+272. [88|descriptive] El guía, por el contrario, tranquilo y moderado, desgastó poco a poco la roca mediante una serie de pequeños golpes repetidos, hasta abrir un orificio de medio pie de diámetro.
+
+273. [88|descriptive] Sin embargo, lo mismo era que gravitasen sobre nuestras cabezas las llanuras y montañas de Islandia o las olas del Atlántico, si el armazón granítico que nos cobijaba era lo bastante sólido.
+
+274. [88|descriptive] Lo imprevisto de aquel espectáculo había devuelto a mi rostro su color saludable: encontrábame en vías de combatir mi enfermedad por medio del terror y de lograr mi curación por medio de esta nueva terapéutica.
+
+275. [88|poetic] Me acuerdo entonces que el profesor, antes de nuestra partida, calculaba en treinta leguas la longitud de aquel mar subterráneo, y habíamos recorrido ya un espacio tres veces mayor sin que las costas del Sur se divisasen aún.
+
+276. [88|descriptive] Cuando tenemos a bordo el pico, háceme notar Hans unas señales claramente mareadas que se observan en él diríase que este trozo de hierro ha sido vigorosamente oprimido entre dos cuerpos duros.
+
+277. [88|poetic] Ocurrióseme la idea de decírselo todo a mi tío, de manifestarle el desamparo en que nos encontrábamos, y de hacer el cálculo exacto del tiempo que nos quedaba de vida; pero tuve el valor de callarme.
+
+278. [88|narrative] Esta iglesia no ofrecía nada notable: pero su campanario había llamado la atención del profesor porque, a partir de su base, una escalera exterior subía dando vueltas alrededor de su cuerpo central, desarrollándose sus espirales al aire libre.
+
+279. [88|narrative] Algunos instantes después, largó al velacho, el juanete, los foques y la cangreja, y, después de largar las amarras, orientó convenientemente el aparejo y penetró a toda vela en el estrecho.
+
+280. [88|narrative] Mi tío no cabía en sí de júbilo al oír hablar de su héroe de un modo tan encomiástico, y devoraba con los ójos al señor Fridriksson.
+
+281. [88|narrative] Durante la comida, mi tío acababa de saber cosas en extremo importantes, entre otras la historia de Saknussemm, la razón de su misterioso documento, que el señor Fridriksson no le acompañaría en su expedición y que desde el día siguiente podría contar ya con un guía a sus órdenes.
+
+282. [88|narrative] Mas no para aquí la cosa: si se presenta un camino para descender a las entrañas de la tierra, si ese malhadado Saknussemm ha dicho la verdad, nos vamos a perder en medio de las galerías subterráneas del volcan, Ahora bien.
+
+283. [88|narrative] Al asomar la cabeza fuera de le estrecha plataforma donde nos encontrábamos, observé que no se veía aún el fondo del precipicio.
+
+284. [88|narrative] Pronto se echó de ver que, si proseguíamos la marcha, nos alejaríamos del torrente toda vez que su murmullo tendía a disminuir.
+
+285. [88|narrative] Mi tío anotaba cada hora las indicaciones de la brújula, del cronómetro del manómetro y del termómetro, las mismas que ha publicado en la narración científica de su viaje: de suerte que podía fácilmente darse cuenta de su situación.
+
+286. [88|narrative] Esta fue la única palabra de reproche que se escapó de mis labios; porque comprendí que el pobre hombre debía padecer también buscándome sin descanso.
+
+287. [88|narrative] Al concebir esta idea, escudriñé, no sin cierto pavor, los diversos puntos del horizonte: pero ningún ser viviente descubrí en aquellas playas desiertas.
+
+288. [88|narrative] Y, sin embargo, la señal de unos dientes poderosos está bien marcada en la barra de hierro, y bien se echa de ver, por sus huellas, que son cónicos como los del cocodrilo.
+
+289. [88|narrative] Este cálculo, o por mejor decir esta apreciación, tan sólo podía ser aproximada para un sabio que es siempre un sabio, cuando logra conservar su sangre fría, y hay que reconocer que el profesor Lidenbrock poseía esta cualidad en un grado poco común.
+
+290. [87|dialogue] ¡Cuántas veces, en vez de irme a jugar con los muchachos de mi edad, me había entretenido en quitar el polvo a aquellos grafïtos, y antracitas, y hullas, y lignitos y turbas!
+
+291. [87|dialogue] Y mientras me dirigía a mí mismo estas preguntas, cogí maquinalmente la hoja de papel en la cual se hallaba escrita la incomprensible serie de letras trazadas por mi mano, diciéndome varias veces: -¿Qué signifïca esto?
+
+292. [87|dialogue] Creí que mi aire abatido, mi palidez, mis ójos enrojecidos por el insomnio producirían sobre Graüben un doloroso efecto y le haría cambiar de parecer: pero ella, por el contrario, me dijo: -¡Ah, mi querido Axel!
+
+293. [87|descriptive] Sin embargo, aunque ninguno de estos deliciosos parajes llamaron la atención de mi tío, causóle viva impresión la vista de un campanario que se erguía en la isla de Amak, que forma parte del barrio SO.
+
+294. [87|poetic] Entrególe las cartas que traía de Copenhague, y entablóse entre ellos una corta conversación en danés, en la cual no tomé parte, como era natural.
+
+295. [87|descriptive] Pasé la noche inmediata sumido en una horrible pesadilla, en medio de un volcán; y desde las profundidades de la tierra, sentíme lanzado a los espacios interplanetarios en forma de roca eruptiva.
+
+296. [87|dialogue] Por otra parte, ¿qué necesidad había de ello, toda vez que la hulla se halla repartida, por decirlo así, por toda la superficic de la tierra, en un gran número de regiones?
+
+297. [87|descriptive] A los esquistos sucedieron los gneis, de estructura estratiforme, notables por la regularidad y paralelismo de sus hojas; y después los micaesquistos, dispuestos en grandes láminas, cuya visibilidad realzaban los centelleos de la mica blanca.
+
+298. [87|descriptive] Muy dueño era el profesor de encontrar nuestra situación muy sencilla; pero la idea de pasearme por debájo de la enorme masa líquida teníame preocupado.
+
+299. [87|poetic] En su fondo existía un pequeño puerto natural, formado por rocas piramidales, cuyas tranquilas aguas dormían al abrigo del viento, y en el cual hubieran podido hallar seguro asilo un bergantín y dos o tres goletas.
+
+300. [87|poetic] ¡La flor de lis miraba hacia la playa en lugar de dirigirse hacia el mar Moví la brújula y la examiné con todo detenimiento, cerciorándome de que no había sufrido el menor desperfecto.
+
+301. [87|dialogue] Hasta entonces, sólo se nos habían presentado vivos los peces y los monstruos marinos; ¿erraría aún por aquellas playas desiertas algún hombre del abismo?
+
+302. [87|poetic] Veía en los amplios claros que dejaban los árboles derribados y carcomidos por la acción del tiempo, plantas leguminosas acerinas, rubráceas y mil otras especies comestibles, codiciadas por los rumiantes de todas las períodos.
+
+303. [87|dialogue] Y ahora que pienso en ello con tranquilidad, ahora que ha renacido la calma en mi espíritu, y han transcurrido meses desde este extraño y sobrenatural encuentro, ¿qué debo pensar, qué creer?
+
+304. [87|descriptive] Algunos pasos más lejos, la disposición de las estribaciones del monte, la aparición de un mochuelo, el perfil sorprendente de una roca venía a sumergirme de nuevo en un piélago de dudas.
+
+305. [87|descriptive] El viento no era favorable para aquel artefacto que no lo podía ceñir, así que en muchos lugares tuvimos que avanzar con la ayuda de los bastones herrados.
+
+306. [87|poetic] Sentía las convulsiones de la montaña, que respiraba como las ballenas, arrojando de tiempo en tiempo fuego y aire por sus enormes respiraderos.
+
+307. [87|narrative] Aquellas letras, pronunciadas una a una, no tenían ningún sentido, y esperé a que el profesor dejase escapar de sus labios alguna pomposa frase latina.
+
+308. [87|narrative] El profesor miróme por encima de las gafas y debió observar sin duda algo extraño en mi fisonomía, pues me asió enérgicamente del brazo, y, sin poder hablar, me interrogó con la mirada.
+
+309. [87|narrative] Pude ver, entre otras cosas, una hoja de papel, cuidadosamente doblada, que ostentaba el menlbrete de la cancillería danesa, con la firma del señor Cristiensen, cónsul de Dinamarca en Hamhurgo y amigo del profesor.
+
+310. [87|narrative] Cuarenta y ocho horas después, sorteada una tempestad que obligó a la goleta a correr a palo seco, descubrimos por el Este la baliza de la punta Skagen, cuyos peligrosos arrecifes se prolongan a gran distancia por debajo del mar.
+
+311. [87|narrative] Al día siguiente, a las cinco, nos despedimos del campesino islandés, costándole gran trabájo a mi tío el hacerle aceptar una remuneración adecuada, y dió Hans la señal de partida.
+
+312. [87|narrative] No quiero hablar mal de estos pobres sacerdotes que, al fin y al cabo, son unos infelices; reciben del Gobierno danés una asignación ridícula y perciben la cuarta parte de los diezmos de sus parroquias, lo que en total ni llega a sumar sesenta rnarcos.
+
+313. [87|narrative] Contrató Hans tres islandeses que debían reemplazar a los caballos en el transporte de nuestra impedimenta: pero, una vez llegados al fondo del cráter, estos indígenas debían desandar el camino y dejarnos a los tres solos.
+
+314. [87|narrative] Sin embargo, todavía conservaba la esperanza de que, al bájar al fondo del cráter, nos fuese materialmente imposible el proseguir la endiablada excursión por no existir ninguna galería, a pesar de las afirmaciones de todos los Saknussemm del mundo.
+
+315. [87|narrative] Más allá de la muralla basáltica del fïordo de Stapi, encontramos un terreno de turba herbácea y fibrosa, restos de la antigua vegetación de los pantanos de la península.
+
+316. [87|narrative] Por lo que respecta a mí, no me preocupé de ello: me importaba muy poco que fuesen pliocenos, miocenos, eocenos, cretáceos, jurásicos, triásicos, pérmicos, carboníferos, devonianos, silúricos o primitivos.
+
+317. [87|narrative] Por fortuna, ciertas abolladuras y erosiones servían de peldaños, y no teníamos que hacer más que bájar dejando que descendiesen por su propio peso nuestros fardos y cuidando de retenerlos con una larga cuerda.
+
+318. [87|narrative] Veinte minutos más tarde, llegamos a una vasta excavación, y me convencí entonces de que la mano del hombre no podía haber abierto aquella mina, supuesto que sus bóvedas no estaban apuntaladas y no se derrumbaban por un verdadero milagro de equilibrio.
+
+319. [87|narrative] Entonces nos sentábamos sobre algún saliente rocoso, con las piernas colgando, conversábamos, mientras hacíamos alguna frugal comida, y apagábamos después nuestra sed en el arroyo.
+
+320. [87|narrative] Yo tengo a mi favor un precedente, y es que, lo que quiero hacer, otro lo ha hecho primero: y si el éxito coronó sus esfuerzos, de esperar es que premie también los míos.
+
+321. [87|narrative] Observo que su chorro es irregular, disminuyendo a veces de intensidad, para recobrar después mucho vigor; lo que atribuyo a las variaciones de presión de los vapores acumulados en su interior.
+
+322. [87|narrative] Esta roca debe haber obstruido la entrada de una manera brusca a consecuencia de alguna sacudida sísmica o de uno de esos fenómenos magnéticos que agitan todavía la superficie terrestre.
+
+323. [86|descriptive] En sus explicaciones en el Johannaeum, se detenía a lo mejor luchando con un recalcitrance vocablo que no quería salir do sus labios; con una de esas palabras que se resisten, se hinchan y acaban por ser expelidas bajo la forma de un taco, siendo éste el origen de su cólera.
+
+324. [86|descriptive] Lo cual, se podía traducir así: Desciende al cráterdel Yocul de Sneffels que la sombra del Scartaris acaricia antes de las calendas de Julio, audaz viajero, y llegarás al centro de la tierra, como he llegado yo.
+
+325. [86|descriptive] en los últimos días del mes de junio, uno de los picos de la montaña, el Scartaris, proyectaba su sombra hasta la abertura del cráter en cuestión, y consignó en el documento este hecho.
+
+326. [86|dialogue] ¡Qué hermoso es consagrarse de ese modo al estudio de las ciencias ¡Qué gloria tan inmensa aguarda al señor Lidenbrock, que se reflejará sobre su compañero!
+
+327. [86|descriptive] A las cinco y media, oyóse fuera el rodar de un carruaje, deteniéndose en nuestra puerta un espacioso coche que había de conducirnos a la estación del ferrocarril de Altona.
+
+328. [86|poetic] No tardaron las olas del Atlántico en azotar los costados de nuestra goleta ; y como, al mismo tiempo, tuvimos que navegar de vuelta y vuelta para avanzar hacia el Norte, venciendo la resistencia que el viento nos oponía, costónos gran trabájo el llegar a las Feroe.
+
+329. [86|descriptive] A veces entreveía una mancha de césped descolorido, que semejaha una vieja alfombra de lana, raída a consecuencia del uso, o algo que parecía un huerto cuyas raras legumbres, patatas.
+
+330. [86|descriptive] Cuando nos hubimos desembarazado de nuestros arreos de viaje, oímos la voz del dueño de la casa que nos invitaba a pasar a la coc:ina, única pieza en que se encendía lumbre, hasta en los mayores fríos.
+
+331. [86|descriptive] Aquel vasto hornaguero, medido desde el fondo de ciertos barrancos, tenía con frecuencia setenta pies de altura, y presentaba capas sucesivas de detritus carbonizados, separados por vetas de piedra pómez y toba.
+
+332. [86|dialogue] En el momento de abismarme en aquel tenebroso corredor, levanté la cabeza y vi por última vez, en el campo del inmenso tubo, aquel cielo de Islandia "que no debía volver a ver jamás".
+
+333. [86|descriptive] En ciertos lugares, esta disposición cedía el puesto a subestructuras bajas que recordaban las obras de los castores, y teníamos, para avanzar, que arrastrarnos a lo largo de estrechos pasadizos.
+
+334. [86|poetic] No pude reprimirme por más tiempo; tomé una concha perfectamente conservada, que había pertenecido a un animal semejante a la cucaracha actual, me aproximé a mi tío, y, mostrándosela, le dije: -Mire usted.
+
+335. [86|descriptive] Magníficos ejemplares de mármoles recubrían las paredes: unos de color gris ágata, surcados de venas blancas caprichosamente dispuestas; otros de color encarnado o amarillo con manchas rojizas; mas lejos, ejemplares de esos jaspes de matices sombríos, en los que se revela la existencia de la caliza con más vivo color.
+
+336. [86|poetic] Nuestros gestos indicaban claramente las diferentes caminos que cada cual proponía: pero a Hans parecía interesarle muy poco una cuestión de la cual dependía tal vez su existencia, y se hallaba dispuesto a partir, si así se le ordenaba, o a quedarse, si ésta era la voluntad de quien le tenía a su servicio.
+
+337. [86|descriptive] Cuando sumergí mis manos en el líquido, lancé a mi vez una exclamación violenta y me expliqué el lamento del guía: el agua estaba hirviendo.
+
+338. [86|descriptive] Levántate, pues, y emprende de nuevo el camino; marcha, arrástrate, si es preciso, deslízate por las pendientes rápidas, que nuestros brazos te esperan para recibirte al final de tu viaje.
+
+339. [86|descriptive] La orilla, sumamente escabrosa, ofrecía a las últimas ondulaciones de las olas que reventaban en ella, una arena fina, dorada, sembrada de esos pequeños caparazones donde vivieron los primeros seres de la creación.
+
+340. [86|poetic] Sí, nos hallamos en un parque zoológico, porque estas osamentas no pueden haber sido transportadas hasta aquí por un cataclismo: los animales a los cuales pertenecen han vivido en las orillas de este mar subterráneo a la sombra de estas plantas arborescentes.
+
+341. [86|dialogue] ¿Qué son los arcos de los puentes y las bóvedas de las catedrales al lado de esta nave de tres leguas de radio, bajo la cual puede desarrollarse libremente un océano con todas sus tempestades?
+
+342. [86|poetic] Pero si los océanos no son, propiamente hablando, más que lagos, puesto que se hallan rodeados de tierra, con mayor razón lo es este mar interior que se halla circunscrito por el macizo de granito.
+
+343. [86|descriptive] Después de un cuarto de hora de marcha, descubrí a Hans trabajando, al otro lado del promontorio que formaba el puerto natural; y unos momentos después, hallábame a su lado.
+
+344. [86|poetic] especies de guijarros redondeados por el trabajo de las olas y dispuestos en líneas sucesivas, lo que me hizo deducir que el mar debió, en otro tiempo ocupar aquel espacio.
+
+345. [86|descriptive] Las rocas, las montañas lejanas, algunas masas confusas de selvas alejadas adquirían un extraño aspecto bajo la equitativa distribución del fluido luminoso.
+
+346. [86|narrative] El señor Thomson se puso a nuestra disposición por completo, y juntos recorrimos los muelles buscando un buque que fuese a partir en breve.
+
+347. [86|narrative] Un manómetro de aire comprimido, dispuesto de manera que marcase las presiones superiores a las de la atmósfera al nivel del mar, toda vez que, debiendo aumentar la presión atmosférica a medida que descendiésemos bájo la superficie de la tierra, el barómetro ordinario no sería suficiente.
+
+348. [86|narrative] En el grupo de las herramientas figuraban también seis pares de zapatos de excelente calidad, impermeabilizados merced a una capa de alquitrán y goma elástica.
+
+349. [86|narrative] Llegó, pues, un momento en que la potencia mecánica de estos gases fue tal, que levantaron la pesada corteza y se abrieron elevadas chimeneas.
+
+350. [86|narrative] Hans tiró de la cuerda por uno de sus extremos; elevóse el otro en el aire, y, después de haber rebasado la roca superior, volvió a caer, arrastrando consigo numerosos pedazos de piedras y de lavas, que cayeron a manera de lluvia, o mejor, de granizada, con grave peligro nuestro.
+
+351. [86|narrative] La verdad es que toda vacilación ante aquellos dos caminos se habría prolongado indefïnidamente, porque no existía indicio alguno que aconsejase el dar la preferencia a uno a otro.
+
+352. [86|narrative] El macizo terrestre habíase dislocado cediendo a alguna violenta impulsión y dejando este amplio vacío en el que penetraban por primera vez los habitantes de la tierra.
+
+353. [86|narrative] Había pocos árboles, pero abundaban las plantas herbáceas, como céspedes inmensos, helechos, licopodios, siguarias y asterofilitas, familias raras cuyas especies se contaban entonces por millares.
+
+354. [86|narrative] Recurrí a la oración, por derechos que tuviese a ser escuchado por Dios, de quien me acordaba tan tarde, y le imploré con fervor.
+
+355. [86|narrative] Por espacio de diez minutos pude desarrollar este serie de razonamientos todos ellos refutables, sin ser interrumpido: pero esto se debió a que, absorbido por otras ideas, no oyó mi tío ni una palabra de mi argumentación.
+
+356. [86|narrative] Sentí que renacía un nueva fuerza en el interior de mi pecho; olvidé los padecimientos del viáje y los peligros del regreso.
+
+357. [86|narrative] La constitución del hombre es tal, que su salud es un efecto puramente negativo; una vez satisfecha la necesidad de comer, es dilícil imaginarse los horrores del hambre; es preciso experimentarlos para comprenderlos.
+
+358. [86|narrative] Celebróse una sesión pública en el Jahannaeum, en la que el profesor hizo un detallado relato de su expedición, omitiendo, naturalmente, los hechos extraordinarios relativos a la brújula.
+
+359. [85|descriptive] Todos los ejemplares del reino mineral se hallaban rotulados en él y ordenados del modo más perfecto, con arreglo a las tres grandes divisiones que los clasifican en inflamables, metálicos y litoideos.
+
+360. [85|descriptive] Mí tío Lidenbrock ha resuelto ponernos a dieta hasta que haya descifrado un antiguo pergamino, lleno de garrapatas, que, a mi modo de ver, es del todo indescifrable.
+
+361. [85|descriptive] los gases de ignición, procedentes do las substancias fundidas, adquirirían una tensión tal que la corteza terrestre no podría soportarla y estallaría como una caldera bajo la presión del vapor.
+
+362. [85|descriptive] A fuerza de pasearnos por las verdes costas de la bahía, en cuyo fondo se eleva la pequeña ciudad; de recorrer los espesos bosques que le dan el aspecto de un nido colocado entre un grupo de ramas; de admirar las quintas, provistas todas ellas de su caseta de baños de mar, y de correr y aburrirnos, sonaron, por fin, las diez de la noche.
+
+363. [85|poetic] El viejo lobo de mar sorprendióse ante tan extemporánea alegría, pareciéndole la cosa más natural del mundo el ir a Islandia, toda vez que aquel era su ofïcio.
+
+364. [85|dialogue] La verdad es que, al ver a aquel hombre, no hubiera adivinado jamás su profesión de cazador; a buen seguro que no espantaría la caza; mas, ¿cómo la buscaba?
+
+365. [85|descriptive] Ahora bien, como estas aves no eligen para la construcción de sus nidos las rocas escarpadas, sino las de pendiente suave que van a perderse en el mar, el cazador islandés podía ejercer su oficio sin darse mucho trabajo.
+
+366. [85|descriptive] Al salir de Reykiavik, guiónos Hans por la orilla del mar, marchando sobre pastos muy poco frondosos que pugnaban por parecer verdes sin poder pasar de amarillos.
+
+367. [85|poetic] Una vez agotada la erupción basáltica, el volcán, cuya fuerza acrecentóse con la de los cráteres apagados, dio paso a las lavas y a aquellas tobas de cenizas y de escorias cuyos amplios derrames contemplaban mis ójos esparcidos, por sus flancos cual cabellera opulenta.
+
+368. [85|poetic] Aquella cuerda perecíame demasiado frágil para soportar el peso de tres personas; por eso la utilizaba lo menos posible, realizando milagros de equilibro sobre los salientes de lava, a los cuales trataba de agarrarme con los pies cual si éstos fuesen manos.
+
+369. [85|descriptive] Añadiré, además, que en las proximidades de un volcán apagado, y a través del gneis, se ha observado que la elevación de la temperatura era sólo de 1° por cada 125 pies.
+
+370. [85|descriptive] Creía yo que, bajo una presión atmosférica tan grande, era imposible la evaporación del agua; pero, en virtud de alguna ley física que ignoraba, gruesas nubes cruzaban el aire.
+
+371. [85|descriptive] Las corrientes eléctricas producían sorprendentes juegos de luz sobre las nubes más elevadas: dibujábanse vivas sombras en sus bóvedas inferiores, y, a menudo, entre dos masas separadas, deslizábase hasta nosotros un rayo de luz de notable intensidad.
+
+372. [85|poetic] Había millares de ellos, y, no pudiendo la luz atravesar su espesa contextura, reinaba debájo de sus cúpulas, yuxtapuestas cual los redondos techos de una ciudad africana, la obscuridad más completa.
+
+373. [85|dialogue] Pero sí en estas regiones subterráncas han vivido animales antediluvianos, ¿quién nos dice que algunos de estos monstruos no anden todavía errantes por estas selvas umbrosas o detrás de esas rocas escarpadas?
+
+374. [85|poetic] Las vigas de surtarbrandr, amarradas unas a otras con resistentes cuerdas, ofrecían una superficie bien sólida, y una vez lanzada al agua, la improvisada embarcación flotó tranquilamente sobre las olas del mar de Lidenbrock.
+
+375. [85|poetic] Evidentemente la atmósfera se halla saturada de fluido, del cual también yo me encuentro impregnado, pues se me eriza el cabello como si me hallase en contacto con una máquina eléctrica.
+
+376. [85|descriptive] Cuando se acostumbraron mis ojos a aquellos resplandores, a los cuales se habían desbabituado, valíme de ellos para rectificar los errores de mi imaginación.
+
+377. [85|narrative] rotulados y cargados nuevamente en el furgón de equipajes, y, a las siete, nos hallábamos sentados frente a frente en el mismo coche.
+
+378. [85|narrative] Nos trasladamos a Tongens-Nye-Torw, plaza irregular donde existe un cuerpo de guardia con dos inofensivos cañones fijos que no asustan a nadie.
+
+379. [85|narrative] Conducía a Reykiavik carbón, utensilios de cocina, loza, vestidos da lana y un cargamento de trigo; e iba tripulada por cinco lobos de mar, todos éllos daneses, que bastaban para maniobrar su aparejo.
+
+380. [85|narrative] Tampoco olvidó mi tío el aprovisionarse de tabaco, de pólvora de caza y de yesca, ni un cinturón de cuero, que llevaba ceñido a los riñones, y encerraba una buena cantidad de monedas de oro y plata, y de billetes de banco.
+
+381. [85|narrative] Nada más fácil que conocer con toda exactitud la profundidad alcanzada; el profesor medía con la mayor escrupulosidad los ángulos de desviación a inclinación del camino; pero se reservaba el resultado de sus observaciones.
+
+382. [85|narrative] Esta disposición hízose tan patente a eso de las diez de la mañana, y tan fatigosa por tanto, que me vi precisado a moderar la marcha.
+
+383. [85|narrative] existía un fuego violento en las entrañas de nuestro esferoide, cuya acción se hacía sentir hasta en las últimas capas de la corteza terrestre.
+
+384. [85|narrative] Tomé con el compás mis medidas sobre el mapa, y dije en seguida a mi tío: -No me engañaba, no; hemos rebasado el Cabo Portland, y estas cincuenta leguas caminadas hacia el Sudeste nos sitúan en pleno Océano.
+
+385. [85|narrative] Supe entonces que mi providencial caída me había conducido a la extremidad de una galería casi perpendicular, y, como había llegado en medio de un torrente de piedras, la menor de las cuáles hubiera bastado para aplastarme, había que deducir que una parte del macizo se había deslizado conmigo.
+
+386. [85|narrative] Estábamos realmente aprisionados en una enorme excavación, cuya anchura no podía saberse exactamente, toda vez que la playa dilatábase hasta perderse de vista, ni su longitud tampoco, pues la vista no tardaba en quedar detenida por la línea algo indecisa del horizonte.
+
+387. [85|narrative] Entre estos arroyos reconocía nuestro fïel compañero de viaje, el Hans-Bach, que iba a perderse tranquilamente en el mar, como si desde el principio del mundo no hubiese hecho otra cosa.
+
+388. [85|narrative] Jamás botánico alguno ha asistido a una fiesta semejante -Tiene usted razón, tío; la Providencia parece haber querido conservar en este invernáculo inmnenso estas plantas antediluvianas que la sagacidad de los sabios ha reconstruido con tan notable acierto.
+
+389. [85|narrative] Este agua sale, pues, de un foco ardiente, lo que está en contradicción con los teorías del profesor Lidenbrock, no puedo resistir la tentación de hacérselo notar.
+
+390. [85|narrative] Avanzábamos con dificultad sobre aquellas fragosidades de granito, mezclado con sílice, cuarzo y depósitos aluvionarios, cuando descubrió nuestra vista una vasta llanura cubierta de osamentas.
+
+391. [85|narrative] El cráneo de este fósil es regularmente ovoideo, sin un desarrollo excesivo de los pómulos, ni un avance exagerada de la mandíbula.
+
+392. [85|narrative] No se trataba ya del ser fósil cuyo cadáver habíamos levantado en el osario, sino de un gigante capaz de imponer su voluntad a aquellos monstruos.
+
+393. [85|narrative] Por eso me devanaba los sesos pensando en cuál podía ser aquella montaña y en qué parte del mundo íbamos a ser vomitados.
+
+394. [85|narrative] Entonces mi tío llegó a ser un personáje importante, y yo, el sobrino de un ilustre sabio, lo que ya es alguna cosa.
+
+395. [84|descriptive] Sus grandes ojos giraban sin cesar detrás de sus amplias gafas; su larga y afilada nariz parecía una lámina de acero; los que le perseguían con sus burlas decían que estaba imanada y que atraía las limaduras de hierro.
+
+396. [84|descriptive] Pero, a mi modo de ver, aquello lo que presagiaba era un escándalo horrible que iba a promover mi tío tan pronto se percatase de que había devorado su ración.
+
+397. [84|descriptive] Al dorso de la segunda, que hacía de anteportada, descubrió una especie de mancha, que parecía un borrón de tinta; pero, examinada de cerca.
+
+398. [84|descriptive] Era Graüben una encantadora muchacha, rubia, de ójos azules, de carácter algo grave y espíritu algo serio; mas no por eso me amaba menos.
+
+399. [84|poetic] Luchaba, pues, contra una dificultad insuperable; mi cerebro echaba fuego, mi vista se obscurecía de tanto mirar el papel; las ciento treinta y dos letras parecían revolotear en torno mío como esas lágrimas de plata que vemos moverse en el aire alrededor de nuestra cabeza cuando se nos agolpa en ella la sangre.
+
+400. [84|descriptive] Después de atravesar algunas calles estrechas en donde los galeotes, con pantalones amarillos y grises por partes iguales, trabajaban bajo la amenaza de la vara de los sotacómitres.
+
+401. [84|descriptive] Llevábamos, además, una serie de frascos que contenían dextrina, árnica, acetato de plomo líquido, éter, vinagre y amoníaco, drogas todas cuyo empleo no era muy deseable por cierto.
+
+402. [84|descriptive] de toba y de todos los conglomerados volcánicos, las corrientcs de lava y de pórfido en fusión, han formado un país que inspira un horror sobrenatural.
+
+403. [84|descriptive] Si las revueltas del camino nos acercaban inopinadamente a uno de estos espectros, sentía yo una invencible repugnancia a la vista de una cabeza hinchada, una piel reluciente, desprovista de cabellos, y de asquerosas llagas que dejaban al descubierto los grandes desgarrones de sus miserables harapos.
+
+404. [84|descriptive] Nuestro guía, que era hombre precavido, había añadido a nuestra impedimenta un odre lleno que, unido a nuestras calabazas, nos aseguraba agua para ocho días.
+
+405. [84|descriptive] El fenómeno se verifïcó entonces sin violencia; la salida fue enorme, y las materias fundidas, arrojadas de las entrañas del globo, se extendieron tranquilamente, formando vastas sabanas o masas apezonadas.
+
+406. [84|poetic] Los viajeros que se ven precisados a engolfarse en los desiertos del Africa, o en las selvas del Nuevo Mundo, tienen que velar los unos el sueño de los otros; pero allí, la soledad era absoluta y la seguridad completa.
+
+407. [84|descriptive] En aquel momento, recordábame a mi dignísimo tío, con sus impetuosidades y cóleras: mientras que, en las pendientes suaves, su calma me hacía pensar en la del cazador islandés.
+
+408. [84|dialogue] ¿Quién hubiera imaginado jamás que dentro de la certeza terrestre existiera un verdadero océano, con sus flujos y reflujos, sus brisas y sus tempestades?
+
+409. [84|poetic] ¡Qué fantástico aspecto debió presentar la tierra en los primeros siglos de su formación, cuando, bájo la acción del calor y la humedad.
+
+410. [84|descriptive] Conozco perfectamente la historia de la rótula de Ajax, del supuesto cadáver de Orestes, hallado por los esparteros, y del cadáver de Asterio, de diez codos de largo de que nos habla Pausanias.
+
+411. [84|dialogue] ¡El sueño en que había visto renacer todo el mundo de los tiempos prehistóricos, de las épocas ternaria y cuaternaria tomaba forma real!
+
+412. [84|descriptive] Cuando se aproximaba a las paredes de la galería, acercaba a ellas la linterna, y su luz me permitía apreciar la velocidad que llevábamos al ver que los salientes de las rocas trazaban líneas continuas, de suerte que nos hallábamos, al parecer, encerrados en una red de líneas movedizas.
+
+413. [84|descriptive] Oí casi en seguida -porque fue un verdadero acto de audición-, oí, repito, restablecerse el silencio dentro de la galería, reemplazando a los rugidos que durante muchas horas aturdieron mis oídos.
+
+414. [84|poetic] Por el Norte, divisábase una inmensa extensión de mar, que relumbraba al influjo de los rayos solares, sobre la cual sc veía de trecho en trecho la extremidad de un mástil o la convexidad de una vela hinchada por el viento.
+
+415. [84|poetic] Profesábamos un verdadero afecto a aquel hombre singular que nos había salvado la vida en varias ocasiones; su ausencia no nos hará olvidar la deuda de gratitud que tenemos con él contraída, y abrigo la esperanza de no abandonar este mundo sin volver a verle otra vez.
+
+416. [84|narrative] Pero cuando se trata de las cristalizaciones romboédricas, de las resinas retinasfálticas, de las selenitas, de las tungstitas, de los molibdatos de plomo, de los tunsatatos de magnesio y de los titanatos de circonio, bien se puede perdonar a la lengua más expedita que tropiece y se haga un lío.
+
+417. [84|narrative] Y si bien es muy cierto que contaba siempre con gran número de oyentes en su aula, no lo es menos que la mayoría de ellos iban sólo a divertirse a costa del catedrático.
+
+418. [84|narrative] Es la obra original, en islandés, ese magnífïco idioma, sencillo y rico a la vez, que autoriza las más variadas combinaciones gramaticales y numerosas modificaciones de palabras.
+
+419. [84|narrative] Encendí mi larga pipa de espuma, que representaba una náyade voluptuosamente recostada, y me entretuve después en observar cómo el humo iba ennegreciendo mi ninfa de un modo paulatino.
+
+420. [84|narrative] Esto no le permitió interrogar al capitán Biarne acerca de la cuestión del Sneffels, los medios de comunicación y la facilidad de los transportes, y tuvo que aplazar para más adelante todas estas investigaciones; se pasó todo el viaje tendido en su camarote, cuyos mamparos crujían a cada cabezada del buque.
+
+421. [84|narrative] El alcalde señor Finsen, no menos militar por su indumentaria que el gobernador, pero tan pacífico como éste, hubo de dispensar a mi tío la más favorable acogida.
+
+422. [84|narrative] Pocos pasos después, encontréme delante de la casa del gobernador, que es una mala choza si se la compara con la casa Ayuntamiento de Hamhurgo: pero que resulta un palacio al lado de las cabañas en las cuales se aloja la población islandesa.
+
+423. [84|narrative] Los hombres parecían vigorosos, pero tardos; una especie de alemanes rubios, de mirada pensativa, que se creen separados de la humanidad, infelices desterrados en aquellas heladas regiones, a quienes la Naturaleza hubiera debido hacer esquimales, ya que los condenó a vivir dentro de los límites del Círculo Polar Artico.
+
+424. [84|narrative] Vile entonces coger la calabaza que llevaba colgada de la cintura, y con gran asombro mío, me la aproximó a los labios, diciéndome: -Bebe.
+
+425. [84|narrative] Hay maderas de éstas que se convierten en verdaderas antracitas; pero otras, como las que ves, no han experimentado aún más que un principio de fosilización.
+
+426. [84|narrative] A partir de aquel momento, nuestra razón, nuestro juicio y nuestro ingenio dejaron de tener participación alguna en los acontecimientos, convirtiéndonos en meros juguetes de los fenómenos de la tierra.
+
+427. [84|narrative] La explosión había provocado una especie de terremoto en aquel terreno agrietado; el abismo se había abierto, y convertido en torrente, nos arrastraba hacia él.
+
+428. [83|descriptive] Puse manos a la obra, y escogí, rotulé y coloqué en su vitrina todas aquellas piedras huecas en cuyo interior se agitaban pequeños cristales.
+
+429. [83|descriptive] Me lo imaginaba corriendo bájo los frondosos árboles de la calzada de Altona, gesticulando, golpeando las tapias con su pesado bastón, pisoteando las hierbas, decapitando los cardos a interrumpiendo el reposo de las solitarias cigueñas.
+
+430. [83|poetic] El castillo de Krongborg no tardó en desaparecer entre la bruma, así como la torre de Helsinborg, que se eleva en la costa sueca, y la goleta inclinóse ligeramente, impedida por las brisas del Cattegat.
+
+431. [83|poetic] Algunos trozos de basaltos arrancados por los furores del Océano, yacían a lo largo del suelo cual ruinas de un templo antiguo; ruinas eternamente jóvenes, sobre las cuales pasaban los siglos sin corroerlas.
+
+432. [83|poetic] Mi tío se volvió hacia el Oeste y me señaló con la mano un ligero vapor, una bruma, una apariencia de tierra que dominaba la línaa de las olas.
+
+433. [83|descriptive] Su luz incierta comenzó a reflejarse sobre las paredes, y brilló luego en la abertura del corredor, tras ella, apareció el guía.
+
+434. [83|descriptive] Su ruta se alejaba indefinidamente y, en vez de deslizarse a lo largo de un radio terrestre, según su propia expresión, se marchaba por la hipotenusa.
+
+435. [83|descriptive] Los días 6 y 7 de julio seguimos descendiendo por las espirales de la grieta, penetrando dos leguas más en la corteza terrestre, lo que nos colocaba a cinco leguas bajo el nivel del mar.
+
+436. [83|descriptive] Pensé que si, en mi situación, aún conservaba una sombra de esperanza, sería signo evidente de locura, y que era preferible, por tanto, desesperar del todo.
+
+437. [83|dialogue] En efecto, ¿qué poder humano podría conducirme de nuevo a la superficie de la tierra, y abrir las enormes bóvedas que sobre mi cabeza se cerraban?
+
+438. [83|poetic] Oía, además, un murmullo indefinido y vago, semejante al que producen las olas al reventar en la playa, y a veces percibía también algo así como el silbido del viento.
+
+439. [83|descriptive] Esta explicación de los fenómenos que habíamos presenciado pareciame satisfacitoria: porque, por grandes que sean las maravillas de la Naturaleza, hay siempre razones físicas que puedan explicarlas.
+
+440. [83|poetic] De esta suerte llegamos a un lugar en que se angostaba la playa, Ilegando el mar casi a bañar las estribaciones del acantilado, y no dejando más que un paso de una toesa a lo sumo de anchura.
+
+441. [83|descriptive] Hans no sin dificultades, logró, al fin, encenderla, y, aunque la llama de la luz dirigióse de arriba abajo, a consecuencia del movimiento ascensional, produjo claridad suficiente para alumbrar toda la escena.
+
+442. [83|descriptive] Mi tío tenía razón en todo absolutamente, y jamás parecióme ni más audaz ni más convencido que en aquellos instantes en que esperaba y veía venir con calma las temibles contingencias de una erupción.
+
+443. [83|descriptive] Habíamos salido medio desnudos del cráter, y el astro esplendoroso, cuyos favores no habíamos solicitado durante los dos últimas meses, se nos mostraba pródigo de luz y de calor y nos envolvía en oleadas de sus espléndidos rayos.
+
+444. [83|poetic] Encima de nuestras cabezas, a quinientos pies a lo sumo, se abría el cráter de un volcán, por el cual se escapaba, de cuarto en cuarto de hora, con fuerte detonación, una alta columna de llamas, mezcladas con piedra pómez, cenizas y lavas.
+
+445. [83|narrative] Maria se marchó asustada; yo salí detrás de ella, y, sin explicarme cómo, me encontré sentado a la mesa, en mi sitio de costu mbre.
+
+446. [83|narrative] Y, atravesando el despacho como un proyectil y bajando la escalera lo mismo que un alud, engolfóse en la König-strasse, y huyó a todo correr.
+
+447. [83|narrative] Durante mi excursión, encontré muy pocas personas; mas cuando volví a pasar por la calle del comercio, vi que la mayoría de la población se hallaba ocupada en secar, salar y cargar bacalaos, que constituyen allí el principal artículo de exportación.
+
+448. [83|narrative] La comida, más danesa que islandesa, nada tuvo de notable; pero nuestro anfïtrión, más islandés que danés, me hizo recordar a los héroes de la antigua hospitalidad.
+
+449. [83|narrative] De repente, interrogó el señor Fridriksson a mi tío acerca de los resultados de las investigaciones por él practicadas en la biblioteca.
+
+450. [83|narrative] Como herramientas llevábamos dos picos, dos azadones, una escala de seda, tres bastones herrados, un hacha, un martillo, una docena de cuñas y armellas de hierro, y largas cuerdas con nudos de trecho en trecho.
+
+451. [83|narrative] En aquel país no hay caminos, ni tan siquiera senderos, y la vegetación, a pesar de ser tan lenta, no tarda en borrar las huellas de los escasos viajeros.
+
+452. [83|narrative] Preferible habría sido que me hubiese reservado mis observaciones: pero mi temperamento de geólogo pudo más que la prudencia, y el profesor Lidenbrock oyó mis exclamaciones.
+
+453. [83|narrative] Es posible que me haya equivocado: pero no me cenvenceré de mi error hasta que no haya llegado al extremo de esta galería.
+
+454. [83|narrative] Los climas no existían todavía, y en toda la superficie del globo reinaba un calor tórrido, que media la misma intensidad en él Ecuador que en los polos.
+
+455. [83|narrative] De esta suerte, aquel bienhechor manantial, después de satisfacer nuestra sed durante todo el camino, iba a guiarme ahora a través de las sinuosidades de la corteza terrestre.
+
+456. [83|narrative] Entreteníame en seguir con la mirada sus cintas infinitas, con la esperanza de descubrir su extremidad; mas, después de algunas horas, se cansaba mi impaciencia, aunque no mi admiración.
+
+457. [83|narrative] Me limitaré, pues, a reproducir aquí estas notas cotidianas, dictadas, por decirlo así, por los mismos acontecimientos, a fin de que resulte más exacta la narración de nuestra travesía.
+
+458. [83|narrative] En este océano debe abundarla pesca de un modo extraordinario, porque, en dos horas, cogemos una gran cantidad de pterichthys, y de otros peces pertenecientes a otra familia extinguida también, los diptéridos, mas cuyo género no puede determinar mi tío.
+
+459. [83|narrative] Allá veremos, que es la frase sacramental del profesor; quien, después de haber bautizado este islote volcánico con el nombre de su sobrino, da la señal de embarcar.
+
+460. [83|narrative] Una vez llegados al centro del esferoide o hallaremos otra nueva vía para volver a la superficie de la tierra, o efectuaremos el viáje de regreso por el mismo camino que ahora vamos recorriendo.
+
+461. [83|narrative] Observe usted esas paredes que se agitan, ese macizo que se disloca, esa agua en ebullición, los vapores que se espesan, esta aguja que oscila, este calor insufrible, indicios todos de tan enorme terremoto.
+
+462. [83|narrative] No nos pareció prudente divulgar la manera cómo habíamos llegado a la isla: el espíritu supersticioso de los italianos no hubiera visto en nosotros otra cosa que demonios vomitados por las entrañas del infierno: así que nos resignamos a posar por pobres naufragos.
+
+463. [83|narrative] Una hora después de haber abandonado el bosque de los olivos, llegamos al puerto de San Vicenzo, donde Hans reclamó el importe de su décimotercia semana de servicio, que le fué religiosamente pagado, cruzándose entre todos los más calurosos apretones de manos.
+
+464. [82|descriptive] Imaginaos un hombre alto, delgado, con una salud de hierro y un aspecto juvenil que le hacía aparentar diez años menos de los cincuenta que contaba.
+
+465. [82|descriptive] Pensé que yo exageraba la importancia del documento; que mi tío no le daría crédito: que sólo vería en él una farsa; que, en el caso más desfavorable, lograríamos detenerle a su pesar; y, en fin, que era posible diese él mismo con la clave del enigma, resultando en este caso infructuosos los sacrificios que suponía mi abstinencia.
+
+466. [82|poetic] De trecho en trecho aparecía el margen de una hondonada, cual pobre mendigante, alguna granja aislada, algún böer solitario, hecho de madera, tierra y lava.
+
+467. [82|descriptive] Consulté el mapa para ver lo que era Gardär, y viendo un caserío de este nombre a orillas del Hvalfjörd, a cuatro millas de Reykiavik, mostréselo a mi tío.
+
+468. [82|descriptive] Sin embargo, y a pesar de las dificultades del descenso por pendientes que Hans desconocía, efectuóse aquél sin el menor incidente, si se exceptúa la caída de un lío de cuerdas que se le escapó al islandés de las manos y rodó sin detenerse hasta el fondo del abismo.
+
+469. [82|dialogue] ¿No le causan a usted admiración esos ricos matices de la lave que varían del rojo obscuro al más deslumbrante amarillo, por degradaciones insensibles?¿Y estos cristales que vemos como globos luminosos?
+
+470. [82|descriptive] En efecto, era preciso economizar este líquido, pues nuestra previsión no podía durar más de tres días, como pude comprobar por la noche, a la hora de cenar.
+
+471. [82|poetic] En aquella edad del mundo que precedió al período secundario, la tierra se cubrió de inmensas vegetaciones, debidas a la acción combinada del calor tropical y de una humedad persistente.
+
+472. [82|descriptive] A través de la capa de los esquistos, coloreados de bellos matices verdes, serpenteaban filones metálicos de cobre y de manganeso con algunos vestigios de oro y de platino.
+
+473. [82|descriptive] Estos peligros nada tenían de quiméricos; pero, en aquellas circunstancias, los temores de provocar una inundación o un hundimiento no podían detenernos, y era nuestra sed tan intensa que, con tal de aplacarla, hubiéramos sido capaces de abrir un orificio en el fondo del mismo Océano.
+
+474. [82|poetic] Por fin, el miércoles 15 nos hallábamos a siete leguas bajo tierra y a cincuenta del Sneffels, sobre poco más o menos.
+
+475. [82|poetic] Para nada me acordaba del sol, de la luna, de las estrellas, de los árboles, de las casas, de las ciudades, ni de ninguna de esas superfluidades terrestres que los seres que viven debajo del astro de la noche consideran de imprescindible necesidad.
+
+476. [82|poetic] De este modo, la mitad del tiempo que transcurra entre mi pregunta y tu respuesta será el que mi voz emplea para llegar hasta ti.
+
+477. [82|descriptive] Mi lecho, formado con todas las mantas de que se disponía, hallábase instalado en una gruta preciosa, ornamentada de magníficas estalagmitas, y cuyo suelo se hallaba recubierto de finísima arena.
+
+478. [82|descriptive] Pero si este ruido proviene de una catarata o de un salto de agua; si todo este Océano se precipita en un estuario inferior; si estos mugidos son producidos por la caída de una gran masa de agua, debe la corriente activarse, y su creciente velocidad puede darme la medida del peligro que nos amenaza.
+
+479. [82|dialogue] ¡Por poco que la tempestad hubiese desviado la balsa hacia el Este, habríamos pasado por debajo de Alemania, por debájo de mi querida ciudad de Hamburgo, por debájo de aquella calle donde habitaba la elegida de mi corazón!
+
+480. [82|descriptive] Y ésta era la explicación de aquellas nubes suspendidas sobre nuestras cabezas y de la producción de la electricidad que creaba tan violentas tempestades en el interior del macizo terrestre.
+
+481. [82|dialogue] Conocéis, lo mismo que yo, el análisis practicado cerca de Lucerna, en 1577, de las grandes osamentas que el célebre médico Félix Plater dijo pertenecían a un gigante de diez y nueve pies.
+
+482. [82|poetic] Volvió el islandés a la bolsa y pronto regresó con un pico, del cual hubo de servirse para abrir un pequeño barreno.
+
+483. [82|poetic] Y, cosa rara, mi tío disfrutó todo el resto de su vida de la gloria que había conquistado, y no faltó un señor Barnuim que le propusiese exhibirle, a muy elevado precio, en los Estados Unidos.
+
+484. [82|narrative] Precisamente recibí, no hace mucho, una carta de mi amigo Paterman, de Leipzig, que no ha podido llegar en fecha rnás oportuna.
+
+485. [82|narrative] El Sneffels figura entre estos últitnos, y no hay noticia en los fastos de la historia de que haya experimentado más que una sola erupción: la de 1219.
+
+486. [82|narrative] Destinados nos hallábamos a conocerlas más tarde: pero, al consultar el mapa do Olsen, vi que siguiendo los tortuosos contornos de la playa nos apartábamos de ellos, toda vez que el gran movimiento plutónico se ha concentrado espccialmente en el interior de la isla.
+
+487. [82|narrative] El sábado 20 de junio, a las seis de la tarde, llegamos a Büdir, aldea situada a la orilla del mar, y el guía reclamó el salario convenido.
+
+488. [82|narrative] Marchábamos en fila, precedidos del cazador, quien nos guiaba por estrechos senderos, por los que no podían caminar dos personas de frente.
+
+489. [82|narrative] Como digno sobrino del profesor Lidenbrock, y a pesar de mis preocupaciones, observaba con verdadero interés las curiosidades mineralógicas expuestas en aquel vasto gabinete de historia natural, al par que rehacía en mi mente toda la historia geológica de Islandia.
+
+490. [82|narrative] Se concibe la gran cantidad de fluidos elásticos que se almacenó en su seno, al ver que todas las salidas se obstruyeron después del enfriamiento de la costra traquítica.
+
+491. [82|narrative] Con frecuencia también recogía algunas piedras, colocábalas de modo que fuese fácil reconocerlas después, y fijaba de esta suerte jalones destinados a indicarnos el camino de regreso.
+
+492. [82|narrative] Afortunadamente, tras una hora de trabajos y de inauditos esfuerzos, en medio de la vasta alfombra de nieve que se extendía sobre la cumbre del volcán, descubrieron nuestros ójos de improviso una especie do escalera que simplifcó nuestra ascensión.
+
+493. [82|narrative] Así prosiguió la marcha hasta las doce y diez minutos de la noche, instante preciso en que nos reunimos con Hans, que acababa de detenerse.
+
+494. [82|narrative] Los cataclismos de los primeros días hubieron de enterrarlas en tales profundidades, que ni el azadón ni el pico lograrán arrancarlas de sus tumbas.
+
+495. [82|narrative] Hasta después de un minuto de goce, no exclamé: -Es agua ferruginosa -Excelente para el estómago -replicó mi tío-, y de una mineralización muy intensa.
+
+496. [82|narrative] Imposible me sería describir la serie de sentimientos que agitaron al profesor Lidenbrock: la estupefacción, primero, la incredulidad, después, y, por último, la cólera.
+
+497. [82|narrative] Si se hallasen aquí los Santo Tomás de la paleontología lo tocarían con el dedo y se verían obligados a reconocer su error.
+
+498. [82|narrative] Mientras Hans trabajaba ayudé activamente a mi tío a preparar una larga mecha hecha de pólvora mojada y encerrada en una especie de tripa de tela.
+
+499. [82|narrative] Como tratase de arreglar un poco la carga, vi que la mayor parte de los objetos que componían nuestro impedimento habían desaparecido en el momento de la explosión, cuando fuimos envueltos por el mar.
+
+500. [82|narrative] Por lo que a mí respecta, mis pensamientos encontrábanse llenos de recuerdos y éstos me conducían a la superficie del globo, que nunca hubiera debido abandonar.
+
+501. [81|dialogue] Al expresarse de esta suerte, abría y cerraba mi tío el feo y repugnante libraco; y yo, por pura fórmula, pues no me interesaba lo más mínimo: -.¿Cuál es el título de ese maravilloso volumen?
+
+502. [81|dialogue] No tuve, pues, ocasión de comprender ni una palabra de nada de lo que se dijo durante aquella comida semioficial; pero observé que mi tío no cesó de hablar un momento.
+
+503. [81|dialogue] Al entrar, nuestro huésped, como si no nos hubiese visto hasta entonces, saludónos con le palabra soellvertu, que significa "sed felices'", y nos besó en las mejillas.
+
+504. [81|descriptive] No tardó mucho la tromba en chocar contra la montaña, que se estremeció a su contacto; las piedras, suspendidas por los remolinos del viento, volaron en forma de lluvia, como en las erupciones.
+
+505. [81|descriptive] El fondo de este embudo no debía medir arriba de 500 pies de circunferencia, de suerte que sus pendientes eran bastante suaves y permitían llegar fácilmente a su parte inferior.
+
+506. [81|dialogue] " Introducirse en el interior de un trabuco" pensaba en mi fuero interno, "que puede estar cargado y dispararse al menor choque, sólo puede ocurrírsele a unos locos".
+
+507. [81|poetic] A las dos horas de marcha, sólo marcaba 10°, es decir, que había experimentado una subida de 4, lo cual me inducía a pensar que nuestra marcha era más horizontal que vertical.
+
+508. [81|descriptive] Entretanto, seguíamos caminando, y era yo, a buen seguro, el único de los tres que olvidaba la largura del camino para abismarme en consideraciones geológicas.
+
+509. [81|descriptive] En aquel momento llegó Hans: y, al ver mi mano entre las de mi tío, me atreveré a afirmar que sus ojos delataron una viva satisfacción interior.
+
+510. [81|poetic] Me remonto a las épocas bíblicas de la creación, mucho antes del nacimiento del hombre, cuando la tierra incompleta no era aún suficiente para éste.
+
+511. [81|descriptive] que arrastran consigo la electricidad engendrada por la evaporación de las aguas salinas; descienden sensiblemente las nubes y tornan un marcado color de aceituna; los rayos de luz eléctrica apenas pueden atravesar este opaco telón corrido sobre la escena donde va a representarse ei drama de las tempestades.
+
+512. [81|dialogue] ¡He tenido tiempo de ver a mi tío tendido sobre la balsa, y a Hans con la caña del timón en la mano, escupiendo fuego bajo la influencia de la electricidad que le invade!
+
+513. [81|descriptive] A cada paso que dábamos, encontrábamos otros nuevos, de suerte que mi tío tenía donde elegir el más maravilloso ejemplar para convencer a los incrédulos.
+
+514. [81|descriptive] Las modifïcaciones originadas por la descomposición de las materias internas, la agitación producida por las grandes corrientes líquidas, la acción del magnetismo, tienden incesantemente a conmoverla, aunque los seres diseminados en su superficie no sospechen siquiera la existencia de estas agitaciones.
+
+515. [81|narrative] Y no porque le preocupase el deseo de tener discípulos aplicados, ni el grado de atención que éstos prestasen a sus explicaciones, ni el éxito que como consecuencia de ella, pudiesen obtener en sus estudios; semejantes detalles teníanle sin cuidado.
+
+516. [81|narrative] Había evidentemente escudriñado y analizado el asunto poniendo en juego, durante su paseo, todos los recursos de su imaginación, y volvía dispuesto a ensayar alguna combinación nueva.
+
+517. [81|narrative] En cuanto al coadjutor, señor Pictursson, giraba a la sazón una visita pastoral a la región septentrional de su diócesis, y tuvimos que renunciar, por lo pronto, al gusto de serle presentados.
+
+518. [81|narrative] Allí dimos descanso a los caballos, los cuales, tomando después por un ribazo comprendido entre una cordillera y el mar, lleváronnos de un tirón al aoalkirkja de Brantar y una mil más adelante.
+
+519. [81|narrative] Hasta las seis de la tarde no llegó el momento propicio; y, a esta hora, mi tío, yo, el guía, dos pasajeros y los cuatro caballos nos instalamos en una especie de barca del fondo plano, bastante frágil.
+
+520. [81|narrative] Mi tío, con cuya talla no se había contado al construir la cabaña, dió en tres o cuatro ocasiones con la cabeza contra las vigas del techo.
+
+521. [81|narrative] Los que ya sabían hablar, repetían soellvertu en todos los tonos imaginables, y los que aún no habían aprendido, gritaban con todas sus fuerzas.
+
+522. [81|narrative] En el fondo del crater se abrían tres chimeneas a través de las cuáles arrojaba el foco central sus lavas y vapores en las épocas de las erupciones del Sneffels.
+
+523. [81|narrative] De este modo podíamos bajar todos conservando en la mano las dos mitades de la cuerda, que no podía desligarse; y después que hubiésemos descendido doscientos pies, nada nos sería tan fácil como recuperarla, soltando una extremidad y halando de la otra.
+
+524. [81|narrative] En efecto, el mercurio, después de haber subido poco a poco en su tubo a medida que se efectuaba nuestro descenso, habíase detenido en la división correspondiente a 29 pulgadas.
+
+525. [81|narrative] He aquí una cuestión que no traté siquiera de resolver en aquellos momentos; el cansancio y el hambre me incapacitaban para todo raciocinio.
+
+526. [81|narrative] Como lo había previsto, faltó el agua por completo al finalizar la primera jornada; nuestra provisión de líquido quedó entonces reducida a ginebra; pero este licor infernal nos abrasaba el gaznate, y ni siquiera su vista podía soportar.
+
+527. [81|narrative] Por lo que respecta a mi tío, renegaba de la horizontalidad del camino, cosa que en él, no podía llamar la atención.
+
+528. [81|narrative] El viernes 10 de julio, por la tarde, debíamos, según nuestros cálculos, encontramos a treinta leguas de Reykiavik, y a una profundidad de diez leguas y media.
+
+529. [81|narrative] No es preciso decir que dentro de aquella grieta el Hans-Bach se había convertido en cascada, con detrimento de su volumen; pero aún bastaba con creces a satisfacer nuestra sed.
+
+530. [81|narrative] La que has seguido tú no tiene más remedio que conducirte a ella, porque parece que todas estas fendas, todas estas fracturas del globo convergen hacia la inmensa caverna donde estamos.
+
+531. [81|narrative] efectivamente, animales gigantescos; todo un rebaño de mastodontes, no ya fósiles, sino vivos, parecidos a aquellas cuyos restos fueron descubiertos en 1801 en las pantanos del Ohio.
+
+532. [81|narrative] Era, pues, imposible encender una antorcha en tales condiciones, y nuestro último aparato eléctrico habíase destrozado en el momento de la explosión.
+
+533. [81|narrative] La aguja saltaba de un polo al otro con bruscas sacudidas; recorría todos los puntos del cuadrante, y giraba como si se hallase poseída de un vértigo.
+
+534. [81|narrative] Cráteres no faltaban, ciertamente, y bastante espaciosos para vomitar un ejército entero; pero yo pretendía adivinar por cuál de ellos íbamos a ser arrojados.
+
+535. [80|descriptive] Esta ciencia le era deudora de magníficos decubrimientos, y, en 1853, había aparecido en Leipzig un Tratado do Cristalogiafía trascendental, por el profesor Otto Lidenbrock, obra en folio, ilustrada con numerosos grabados, que no llegó, sin embargo, a cubrir los gascos de su impresión.
+
+536. [80|descriptive] La pupila de mi tío se encontraba a la sazón en Altona, en casa de un pariente suyo, y su ausencia me tenía muy triste; porque, ahora ya puedo confesarlo, la bella curlandesa y el sobrino del catedrático se amaban con toda la paciencia y toda la flema alemanas.
+
+537. [80|descriptive] Todas sus fuerzas vivas hallábanse reconcentradas en un solo punto, y como no hallaban salida por su evacuatorio ordinario, era muy de temer que su extraordinaria tensión le hiciese estallar de un momento a otro.
+
+538. [80|descriptive] El director de este curioso establecimiento, donde se hallan acumuladas tantas y tales maravillas que permitirían reconstruir la historia del país con sus viejas armas de piedra, sus cuencos y sus joyas, era el profesor Thomson, un verdadero sabio, amigo del cónsul de Hamburgo.
+
+539. [80|poetic] Pero como a mi tío parecíale una cosa sublime, el taimado del capitán aprovechó su entusiasmo para cobrarnos el doble de lo que el pasaje valía de ordinario.
+
+540. [80|descriptive] Hablaron de cuestiones científicas, como era natural tratándose de dos sabios; pero el profesor Lidenbrock guardó la más escrupulosa reserva, y sus ojos a cada frase recomendábanme el más absoluto silencio en todo lo relativo a nuestros futuros proyectos.
+
+541. [80|poetic] Por muy grande quc fuese la inteligencia de nuestros caballos, no me hacia mucha gracia el tener que atravesar un verdadero brazo de mar sobre el lomo de un cuadrúpedo.
+
+542. [80|poetic] Incapaz de callar por más tiempo, decidí fnalmente someter el caso a mi tío con la mayor prudencia posible, y en forma de hipótesis perfectamente irrealizable.
+
+543. [80|descriptive] Yo no tenía ni ganas de levantarme ni fuerzas para hacerlo, y, siguiendo el ejemplo del guía, me entregué a un doloroso sopor, creyendo oír ruidos o sentir sacudidas en los flancos de la montaña.
+
+544. [80|descriptive] Según el sabio islandés, debía reconocérsela por la particularidad, señalada en el criptograma, de que la sombra del Seartaris acariciaba sus bordes durantes los últimos días del mes de junio.
+
+545. [80|poetic] La ciencia geológica considera este terreno primitivo como la base de la corteza mineral, y ha descubierto que se compone de tres capas diferentes: los esquistos, los gneis y los micaesquistos, que reposan sobre esa inquebrantable roca que llamamos granito.
+
+546. [80|descriptive] Una procesión fatídica de somhras movedizas desfilóse a lo largo de las obscuras paredes, y no me atreví ni a pestañear, temiendo perder el menor átomo de la fugitiva claridad.
+
+547. [80|descriptive] Sentía ya que me iba a desvancccr nuevamente, y que el aniquilamiento supremo se me apoderaba, cuando llegó hasta mí un violento ruido semejante al retumbar prolongado del trueno: y oí las ondas sonoras perderse poco a poco en las lejanas profundidades del abismo.
+
+548. [80|descriptive] Al pasear el oído a lo largo de la pared, hallé un punto matemático donde las voces parecían adquirir su máximo intensidad.
+
+549. [80|poetic] Toda la vida de la tierra queda resumida en mí, y mi corazón es el único que late en este mundo despoblado.
+
+550. [80|descriptive] Sin embargo, era preciso admitir que esta fenda estaba en la actualidád taponada, porque, de lo contrario, toda aquella inmensa caverna se habría llenado en un plazo muy corto.
+
+551. [80|poetic] Acumulábase allí, en un espacio de unas tres millas cuadradas, toda la vida de la historia animal, que apenas si ha empezado a escribirse en los demasiado recientes terrenos del mundo habitado.
+
+552. [80|descriptive] Nuestros pies trituraban con un ruido seco los restos de aquellos animales prehistóricos; aquellos fósiles cuyos raros a interesantes despojos disputaríanse los museos de las grandes ciudades.
+
+553. [80|poetic] He leído las memorias relativas al esqueleto de Trapani, descubierto en el siglo XIV, en el cual se creyó reconocer a Polifemo, y la historia del gigante desterrado durante el siglo XVI en los alrededores de Palermo.
+
+554. [80|descriptive] A media noche, nuestro trabajo de zapa estaba terminado por completo; la carga de algodón pólvora había sido depositada en el barreno, y la mecha se prolongaba a lo largo de la galería hasta salir al exterior.
+
+555. [80|poetic] Mis compañeros padecían también, a pesar de lo cual ninguno de las tres nos atrevíamos a tocar aquel miserable resto de alimentos.
+
+556. [80|descriptive] Por otra parte, en el estado de desnudez y abandono en que nos encontrábamos, no era ocasión de andarse con muchos escrúpulos.
+
+557. [80|narrative] Axel, escribe en ese papel una frase cualquiera; pero, en vez de disponer las letras unas a continuación de otras, colócalas de arriba abájo, agrupadas de modo que formen cuatro o cinco columnas verticales.
+
+558. [80|narrative] proseguí: -Es un hecho por todos admitido que la temperatura aumenta un grado por cada setenta pies que se desciende en la corteza terrestre; y admitiendo quc este aumento sea constante, y siendo de 1.500 leguas la longitud del radio de la tierra, claro es que se disfruta en su centro de una temperatura de dos millones de grados.
+
+559. [80|narrative] Axel -añadio-, que el estado del núcleo central ha suscitado muy diversas hipótesis entre los mismos geólogos: no hay nada que demuestre la existencia de ese calor interior; a mi entender, no existe ni puede existir; pero ya lo comprobaremos nosotros.
+
+560. [80|narrative] Me guiaba un presentimiento, que bien pronto quedó justificado, pues no tardé en descubrir a mi querida Graüben que, a pie, regresaba a Hamburgo.
+
+561. [80|narrative] Subió a bordo un práctico islandés, y, tres horas más tarde, fondeaba la Valkyria delante de Reykiavik, en la bahía de Faxa.
+
+562. [80|narrative] En 1816 fundamos una Sociedad Literaria que funciona admirablemente, siendo muchos los sabios extranjeros que se honran con pertenecer a ella, Esta sociedad publica obras destinadas a educar a nuestros compatriotas y presta verdaderos servicios al país.
+
+563. [80|narrative] Mi tío, que pertenecía ya a un centenar de corporaciones científicas, aceptó el ofrecimiento con tales muestras de agrado, que el señor Fridriksson sintióse conmovido.
+
+564. [80|narrative] Ahora me explico por qué Saknussemm, al verse inscrito en al índice y obligado a ocultar los descubrimientos de su genio, decidió sepultar su secreto en un incomprensible criptograma...
+
+565. [80|narrative] Temí que viniese a ofrecer a los viájeros el ósculo islandés: pero no fue así, por fortuna; al contrario, nos puso muy mala cara al introducirnos en la casa.
+
+566. [80|narrative] Por fin, el 8 de julio, arrastrándonos sobre las rodillas y las manos, llegamos, medio muertos, al punto de intersección de las dos galerías.
+
+567. [80|narrative] Ningún rumor podía llegar a través de aquellas paredes, la más delgada de las cuales me diría, por lo menos, cinco millas de espesor.
+
+568. [80|narrative] Subí por espacio de media hora, escuchando atentamente si me llamaban, que de bien lejos se oía en aquella atmósfera tan densa.
+
+569. [80|narrative] Hans, inmóvil, con la caña del timón en la mano, dejaba deslizarse la balsa, que, impelida por el viento en popa cerrada, no necesitaba siquiera ser dirigida.
+
+570. [80|narrative] Mi tío Lidenbroek, de acuerdo con la gran mayoría de los geólogos, se había mantenido en sus trece, sosteniendo numerosas controversias y disputas, en tanto que el señor Elías de Beaumont se quedó casi solo en el bando opuesto.
+
+571. [80|narrative] Si está escrito que esta comida nuestra sea la última, tengamos resignación; pero, al menos, en vez de estar extenuados, volveremos o ser hombres.
+
+572. [80|narrative] Nuestro género de locomoción no podía dejar en mi ánimo la más ligera duda sobre este particular; una fuerza enorme, una fuerza de varios centenares de atmósferas, engendrada por los vapores acumulados en el seno de la tierra, nos impulsaba con energía irresistible.
+

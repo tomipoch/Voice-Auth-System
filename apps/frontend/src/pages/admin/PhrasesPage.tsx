@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Search, BookOpen, Filter, Trash2 } from 'lucide-react';
+import { Search, BookOpen, Filter, Trash2, Pencil, X } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
@@ -21,6 +21,10 @@ export const PhrasesPage = () => {
   const [loading, setLoading] = useState(true);
   const [loadingTable, setLoadingTable] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Edit modal
+  const [editingPhrase, setEditingPhrase] = useState<Phrase | null>(null);
+  const [editText, setEditText] = useState('');
 
   // Filters
   const [filters, setFilters] = useState<PhraseFilters>({
@@ -117,6 +121,39 @@ export const PhrasesPage = () => {
       loadStats();
     } catch (err) {
       toast.error('Error al eliminar frase');
+    }
+  };
+
+  const handleOpenEdit = (phrase: Phrase) => {
+    setEditingPhrase(phrase);
+    setEditText(phrase.text);
+  };
+
+  const handleCloseEdit = () => {
+    setEditingPhrase(null);
+    setEditText('');
+  };
+
+  const handleSaveEdit = async () => {
+    if (!editingPhrase) return;
+
+    try {
+      const response = await phraseService.updatePhraseText(editingPhrase.id, editText);
+      toast.success('Frase actualizada');
+
+      // Update local state
+      setPhrases((prev) =>
+        prev.map((p) =>
+          p.id === editingPhrase.id
+            ? { ...p, text: response.text, word_count: response.word_count, char_count: response.char_count }
+            : p
+        )
+      );
+
+      handleCloseEdit();
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { detail?: string } } };
+      toast.error(error.response?.data?.detail || 'Error al actualizar frase');
     }
   };
 
@@ -373,17 +410,24 @@ export const PhrasesPage = () => {
                           />
                         </div>
                       </td>
-                      <td className="py-3 px-4 text-center">
-                        <div className="flex justify-center">
-                          <button
-                            onClick={() => handleDelete(phrase.id)}
-                            className="flex items-center justify-center h-8 w-8 rounded-full bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50 transition-colors"
-                            title="Eliminar frase"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </td>
+                        <td className="py-3 px-4 text-center">
+                          <div className="flex justify-center gap-2">
+                            <button
+                              onClick={() => handleOpenEdit(phrase)}
+                              className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50 transition-colors"
+                              title="Editar frase"
+                            >
+                              <Pencil className="h-4 w-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(phrase.id)}
+                              className="flex items-center justify-center h-8 w-8 rounded-full bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50 transition-colors"
+                              title="Eliminar frase"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
+                        </td>
                     </tr>
                   ))}
                 </tbody>
@@ -417,6 +461,62 @@ export const PhrasesPage = () => {
           </>
         )}
       </Card>
+
+      {/* Edit Modal */}
+      {editingPhrase && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-2xl mx-4 overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                ✏️ Editar Frase
+              </h3>
+              <button
+                onClick={handleCloseEdit}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <X className="h-5 w-5 text-gray-500" />
+              </button>
+            </div>
+            <div className="p-6">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Texto de la frase
+              </label>
+              <textarea
+                value={editText}
+                onChange={(e) => setEditText(e.target.value)}
+                rows={4}
+                className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 resize-none"
+                placeholder="Escribe el texto de la frase..."
+              />
+              <div className="flex justify-between items-center mt-2 text-sm text-gray-500">
+                <span>{editText.length} caracteres</span>
+                <span>{editText.split(/\s+/).filter(Boolean).length} palabras</span>
+              </div>
+              {editText.length < 20 && (
+                <p className="text-red-500 text-sm mt-2">⚠️ Mínimo 20 caracteres</p>
+              )}
+              {editText.length > 500 && (
+                <p className="text-red-500 text-sm mt-2">⚠️ Máximo 500 caracteres</p>
+              )}
+            </div>
+            <div className="flex justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
+              <button
+                onClick={handleCloseEdit}
+                className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleSaveEdit}
+                disabled={editText.length < 20 || editText.length > 500}
+                className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                💾 Guardar Cambios
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </MainLayout>
   );
 };
