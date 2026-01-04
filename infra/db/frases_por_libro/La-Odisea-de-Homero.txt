@@ -118,7 +118,7 @@
 
 32. [84|dialogue] Le contestó el porquero: —Ese perro que ves perteneció antiguamente a un hombre que murió lejos de aquí.
 
-33. [84|descriptive] Y tomó el escabel89 que tenía a sus pies, lo arrojó contra Odiseo y alcanzó a golpearlo en el hombro derecho.
+33. [84|descriptive] Y tomó el escabel que tenía a sus pies, lo arrojó contra Odiseo y alcanzó a golpearlo en el hombro derecho.
 
 34. [84|dialogue] Así dijo la criada, y se alegró Odiseo al ver las dos señales, sabiendo que tendría éxito en su venganza.
 
@@ -180,7 +180,7 @@
 
 63. [81|narrative] Es la compañera inseparable de Odiseo, a quien aconseja y guía en su vuelta a Ítaca.
 
-64. [81|narrative] Acto seguido ordenó a los heraldos26 que llamaran al ágora a todos los aqueos,27 que muy pronto empezaron a acudir.
+64. [81|narrative] Acto seguido ordenó a los heraldos que llamaran al ágora a todos los aqueos,27 que muy pronto empezaron a acudir.
 
 65. [81|narrative] El anciano Haliterses, que sabía interpretar el vuelo de las aves, intentó señalarles sus fechorías a los pretendientes.
 
@@ -311,7 +311,7 @@
 
 40. [94|poetic] Yo no soy adivino ni intérprete de sueños, pero igual te diré lo que va a suceder: no estará mucho tiempo alejado 19 Aedo: recitador de poesía.
 
-41. [94|poetic] Se irritan contra mí porque amo a un mortal, cuando Orión46 amó a Eos, y la diosa Deméter a Yasión,47 y cuando quien hundió la nave de Odiseo en el océano no fue otro que Zeus.48 En el medio del mar murieron todos sus compañeros: no quedó ninguno.
+41. [94|poetic] Se irritan contra mí porque amo a un mortal, cuando Orión amó a Eos, y la diosa Deméter a Yasión,47 y cuando quien hundió la nave de Odiseo en el océano no fue otro que Zeus.48 En el medio del mar murieron todos sus compañeros: no quedó ninguno.
 
 42. [94|dialogue] Ella le habló de esta manera: —Desdichado Odiseo, no te lamentes más ni consumas tu vida de esta forma, puesto que gustosamente dejaré que partas.
 
@@ -325,7 +325,7 @@
 
 47. [94|dialogue] Odiseo también los abrazó, y así se habrían quedado hasta el anochecer, de no haberles hablado Odiseo de este modo: —Dejen ya de llorar, no sea cosa que alguno que salga del palacio nos vea y vaya con el cuento adentro.
 
-48. [94|narrative] Yo, por mi parte, partiré hacia Ítaca, donde le infundiré a su hijo Telémaco14 coraje para que llame a una asamblea15 y se enfrente a los crueles pretendientes16 que consumen su hacienda; más tarde lo haré ir a 12 Atenea: hija de Zeus y Metis, Atenea es la diosa de la sabiduría, las labores, la inteligencia y la guerra.
+48. [94|narrative] Yo, por mi parte, partiré hacia Ítaca, donde le infundiré a su hijo Telémaco coraje para que llame a una asamblea y se enfrente a los crueles pretendientes que consumen su hacienda; más tarde lo haré ir a 12 Atenea: hija de Zeus y Metis, Atenea es la diosa de la sabiduría, las labores, la inteligencia y la guerra.
 
 49. [94|narrative] Si me dicen que vive y que va a regresar, aunque estoy afligido, soportaré todo esto un año más; pero si llego a escuchar que él ha muerto, volveré inmediatamente, le levantaré un túmulo, lo honraré con exequias y casaré a mi madre.
 
@@ -363,7 +363,7 @@
 
 66. [92|narrative] Allá se dirigió, empuñando la lanza de bronce y con dos perros que le seguían los pasos; en el camino, Palas Atenea adornó su figura con la gracia de los dioses, y cuando llegó al ágora, la gente lo miraba con asombro.
 
-67. [92|narrative] Corrió la negra sangre y al instante vinieron desde el Érebo78 las almas de los muertos: doncellas y muchachos fallecidos en la flor de la edad, ancianos agobiados por mil penas, y varones caídos en 78 Érebo: lugar infernal al que llegan las almas de los muertos.
+67. [92|narrative] Corrió la negra sangre y al instante vinieron desde el Érebo las almas de los muertos: doncellas y muchachos fallecidos en la flor de la edad, ancianos agobiados por mil penas, y varones caídos en 78 Érebo: lugar infernal al que llegan las almas de los muertos.
 
 68. [91|dialogue] Pronto los troyanos corrieron con ventaja: ante la ausencia de Aquiles, Héctor —uno de los hijos de Príamo, el rey de Troya— atemorizaba a los enemigos, que estaban desgastados por tantos años de guerra y querían regresar a sus hogares.
 
@@ -433,7 +433,7 @@
 
 101. [90|narrative] Debemos tener presente que han pasado veinte años desde que partió rumbo a la guerra de Troya y que, además, Atenea lo avejentó y lo vistió con ropas de mendigo.
 
-102. [89|dialogue] Nuestra colección 8 Si bien en esta colección encontrarán no solamente obras consideradas clásicas, sino también algunas de las que no se han incluido en esta categoría —ciertamente amplia y variable—, coincidimos con el escritor italiano Italo Calvino, quien comienza su libro Por qué leer los clásicos1 proponiendo varias definiciones de “obra clásica”.
+102. [89|dialogue] Nuestra colección 8 Si bien en esta colección encontrarán no solamente obras consideradas clásicas, sino también algunas de las que no se han incluido en esta categoría —ciertamente amplia y variable—, coincidimos con el escritor italiano Italo Calvino, quien comienza su libro Por qué leer los clásicos proponiendo varias definiciones de “obra clásica”.
 
 103. [89|dialogue] Palabra de expertos 14 Hacia finales del siglo xix, el arqueólogo Heinrich Schliemann —convencido de que la Ilíada y la Odisea eran obras que contenían valiosos testimonios de hechos que habían ocurrido en el pasado, y no el simple fruto de la fantasía de un poeta— descubrió, luego de numerosas excavaciones, las ruinas de la antigua ciudad de Troya.
 
@@ -501,7 +501,7 @@
 
 135. [88|narrative] La importancia de leer este texto tiene que ver también, para los lectores jóvenes, con el hecho de que, de alguna manera, toda la literatura posterior está contenida en este primer gran relato.
 
-136. [88|narrative] Solo la nave Argo,86 por todos conocida, logró sortear con éxito este imponente escollo, y eso fue porque Hera87 quería bien a Jasón.
+136. [88|narrative] Solo la nave Argo,86 por todos conocida, logró sortear con éxito este imponente escollo, y eso fue porque Hera quería bien a Jasón.
 
 137. [88|narrative] Y no bien surgió Eos, la de rosados dedos, todos se encaminaron a la nave llevando los regalos y los víveres y allí mismo gozaron de un banquete, donde cantó Demódoco, e hicieron sacrificios a Zeus, por el éxito del viaje.
 
@@ -517,11 +517,11 @@
 
 143. [87|descriptive] La ninfa fue a la playa, donde encontró a Odiseo llorando sin cesar: anhelaba el regreso, y aunque Calipso estaba enamorada de él, no la correspondía.
 
-144. [87|poetic] Por Gea49 y por el cielo que la cubre, y por las aguas subterráneas de la Estigia,50 juro que no maquino contra ti ningún daño.
+144. [87|poetic] Por Gea y por el cielo que la cubre, y por las aguas subterráneas de la Estigia,50 juro que no maquino contra ti ningún daño.
 
 145. [87|dialogue] Nausícaa, la hermosa hija de Alcínoo y la reina Arete, se paró en el umbral y admirando a Odiseo le dijo estas palabras: —Ojalá que los dioses, oh huésped, quieran que cuando estés de regreso en tu patria aún te acuerdes de mí, a quien debes la vida.
 
-146. [87|poetic] Homero • 76 • ”Y aun cuando Calipso me tuvo prisionero para hacerme su esposo, y la engañosa Circe62 me retuvo en su palacio, jamás me persuadieron en mi ánimo ni una ni la otra: para quien alejado de los suyos habita en tierra extraña, por más que sea en un palacio espléndido, nada es más grato que la propia casa y la propia familia.
+146. [87|poetic] Homero • 76 • ”Y aun cuando Calipso me tuvo prisionero para hacerme su esposo, y la engañosa Circe me retuvo en su palacio, jamás me persuadieron en mi ánimo ni una ni la otra: para quien alejado de los suyos habita en tierra extraña, por más que sea en un palacio espléndido, nada es más grato que la propia casa y la propia familia.
 
 147. [87|poetic] Allí, cuando te salga al paso un caminante y te pregunte por el rastrillo que en el hombro cargas, clava el remo en la tierra y sacrifica tres animales al que mueve el suelo, Poseidón soberano.
 
@@ -551,7 +551,7 @@
 
 160. [87|poetic] Pero yace en la tierra el culpable de todo, Antínoo, que fue quien promovió aquellas acciones, no por necesidad ni afán de matrimonio, sino para reinar sobre el pueblo de Ítaca, tras matar a tu hijo.
 
-161. [87|dialogue] Y una vez que el salón estuvo limpio, los hombres se lavaron, y Odiseo llamó a Euriclea y le dijo: —Anciana, trae azufre91 y también fuego, así purificamos el salón.
+161. [87|dialogue] Y una vez que el salón estuvo limpio, los hombres se lavaron, y Odiseo llamó a Euriclea y le dijo: —Anciana, trae azufre y también fuego, así purificamos el salón.
 
 162. [87|dialogue] Le contestó Euriclea: —No lo sé, no lo he visto, solamente oí los suspiros de los que caían muertos, pues nosotras permanecimos llenas de pavor en nuestra habitación con las puertas cerradas, hasta que luego tu hijo vino desde la sala y me llamó por orden de su padre.
 
@@ -565,7 +565,7 @@
 
 167. [87|narrative] Estos no tienen otra ocupación más que la música y el canto, y nada les importa, pues consumen impunes la hacienda de otro hombre, un varón cuyos huesos se pudren lejos en alguna playa, o las olas arrastran por los mares.
 
-168. [87|narrative] En el momento de llegar al ágora, las aves giraron velozmente y miraron a todos a la cara, en presagio32 de muerte, antes de desgarrarse con las uñas la cabeza y el cuello; y luego se marcharon por la derecha, encima de las casas, y a través de la ciudad.
+168. [87|narrative] En el momento de llegar al ágora, las aves giraron velozmente y miraron a todos a la cara, en presagio de muerte, antes de desgarrarse con las uñas la cabeza y el cuello; y luego se marcharon por la derecha, encima de las casas, y a través de la ciudad.
 
 169. [87|narrative] Antínoo nuevamente lo insultó, y el hijo de Odiseo, contrariado, bajó hasta la bodega de su padre, en donde se guardaban oro, bronce, vestidos y aromático aceite, y vasijas de un dulce vino añejo, por si un día llegara a volver Odiseo a su casa.
 
@@ -639,9 +639,9 @@
 
 204. [85|dialogue] Aunque no hayamos leído la Odisea todavía, todos hemos escuchado hablar de las sirenas1 —esas terribles mujeres con cuerpo 1 En la mitología griega, las sirenas tienen cuerpo de ave, aunque posteriormente se las representó con cola de pez.
 
-205. [85|poetic] Ya todos los que habían conseguido escapar de la muerte estaban sanos y salvos en sus casas, a excepción de Odiseo, que se hallaba cautivo de la ninfa4 Calipso.
+205. [85|poetic] Ya todos los que habían conseguido escapar de la muerte estaban sanos y salvos en sus casas, a excepción de Odiseo, que se hallaba cautivo de la ninfa Calipso.
 
-206. [85|poetic] Ya había llegado el tiempo decretado por los dioses para que regresara a Ítaca,5 su patria, y todas las deidades se apiadaban de él, excepto Poseidón,6 a cuyo hijo Polifemo7 había cegado.
+206. [85|poetic] Ya había llegado el tiempo decretado por los dioses para que regresara a Ítaca,5 su patria, y todas las deidades se apiadaban de él, excepto Poseidón,6 a cuyo hijo Polifemo había cegado.
 
 207. [85|dialogue] Una vez que hubo hablado, se levantó el buen Méntor,33 amigo de Odiseo, y con benevolencia arengó a los presentes: —Habitantes de Ítaca, escuchen mis palabras.
 
@@ -737,7 +737,7 @@
 
 253. [84|narrative] A partir de ese momento, llevará a cabo una cuidadosa estrategia para enfrentar a los numerosos pretendientes de Penélope que se comen su hacienda y malgastan sus bienes día tras día.
 
-254. [84|narrative] Como ya hemos disfrutado del banquete y del canto, salgamos y midamos nuestras fuerzas en competencias56 de distinto tipo, de modo que, al volver entre los suyos, el huésped les refiera a sus amigos cómo nos destacamos los feacios en la lucha, en el salto y las carreras.
+254. [84|narrative] Como ya hemos disfrutado del banquete y del canto, salgamos y midamos nuestras fuerzas en competencias de distinto tipo, de modo que, al volver entre los suyos, el huésped les refiera a sus amigos cómo nos destacamos los feacios en la lucha, en el salto y las carreras.
 
 255. [84|narrative] Telémaco abrazó a su padre, y los dos lloraron largamente, como gimen las aves cuando los campesinos les roban los pichones que no saben volar.
 
@@ -759,11 +759,11 @@
 
 264. [83|poetic] Echemos, pues, al mar un barco no estrenado con cincuenta y dos jóvenes, de los mejores entre los feacios, que llevarán los remos.
 
-265. [83|poetic] Te pido que nos cantes sobre el caballo de madera58 que, con el auxilio de Atenea, Epeo59 construyó: aquella máquina que el divino Odiseo llevó con sus engaños a la acrópolis,60 con el vientre repleto de soldados, que destruyeron Troya.
+265. [83|poetic] Te pido que nos cantes sobre el caballo de madera que, con el auxilio de Atenea, Epeo construyó: aquella máquina que el divino Odiseo llevó con sus engaños a la acrópolis,60 con el vientre repleto de soldados, que destruyeron Troya.
 
 266. [83|poetic] Y mientras en la costa mis hombres comían y bebían con exceso, los cícones que habían conseguido escapar llamaron a los otros que vivían tierra adentro.
 
-267. [83|poetic] Pero antes de que vuelvas a tu casa, te espera un nuevo viaje: irás a la mansión de Hades73 y Perséfone,74 para pedirle oráculo75 al alma de Tiresias,76 el adivino ciego, que conserva su mente intacta todavía.
+267. [83|poetic] Pero antes de que vuelvas a tu casa, te espera un nuevo viaje: irás a la mansión de Hades y Perséfone,74 para pedirle oráculo al alma de Tiresias,76 el adivino ciego, que conserva su mente intacta todavía.
 
 268. [83|poetic] Pero ahora respóndeme: allá está el alma de mi madre muerta, que se queda en silencio al lado de la sangre, negándose a mirar a su hijo de frente y a conversar con él.
 
@@ -851,7 +851,7 @@
 
 310. [82|narrative] Aquiles murió poco después, sorprendido por una flecha del cobarde Paris, quien lo hirió justo en el talón, la única parte vulnerable de su cuerpo.
 
-311. [82|narrative] Hace tres años ya, y pronto vendrá el cuarto, que teje una mortaja30 para que use Laertes, el padre de Odiseo, el día de su entierro.
+311. [82|narrative] Hace tres años ya, y pronto vendrá el cuarto, que teje una mortaja para que use Laertes, el padre de Odiseo, el día de su entierro.
 
 312. [82|narrative] El hijo de Odiseo tomó asiento en la popa, y a su lado se ubicó Atenea, mientras los compañeros quitaban las amarras y ya se disponían en los bancos.
 

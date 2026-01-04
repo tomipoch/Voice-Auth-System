@@ -269,7 +269,7 @@
 
 25. [98|descriptive] Había callejas pobladas de graciosas y aromáticas flores, en cuya multitud pastaban rebaños de abejas y mariposas; había grandes zarzales llenos del negro fruto que tanto apetecen los chicos; había grupos de guinderos, en cuyos troncos se columpiaban las madreselvas, y había también corpulentas encinas, grandes, anchas, redondas, hermosas, oscuras, que parece se recreaban contemplando su propia sombra.
 
-26. [98|narrative] Los mineros derrumbaban aquí, horadaban allá, cavaban más lejos, rasguñaban en otra parte, rompían la roca cretácea, desbarataban las graciosas láminas de pizarra samnita8 y esquistosa, despreciaban la caliza arcillosa, apartaban la limonita y el oligisto, destrozaban la preciosa dolomía, revolviendo incesantemente hasta dar con el silicato de zinc, esa plata de Europa, que, no por ser la materia de que se hacen las cacerolas, deja de ser grandiosa fuente de bienestar y civilización.
+26. [98|narrative] Los mineros derrumbaban aquí, horadaban allá, cavaban más lejos, rasguñaban en otra parte, rompían la roca cretácea, desbarataban las graciosas láminas de pizarra samnita y esquistosa, despreciaban la caliza arcillosa, apartaban la limonita y el oligisto, destrozaban la preciosa dolomía, revolviendo incesantemente hasta dar con el silicato de zinc, esa plata de Europa, que, no por ser la materia de que se hacen las cacerolas, deja de ser grandiosa fuente de bienestar y civilización.
 
 27. [97|descriptive] Golfín, hundiendo los pies en la tierra, resbalando aquí y bailoteando más allá, tocó al fin el benéfico suelo de la vereda, y su primera acción fue examinar al bondadoso joven.
 
@@ -689,7 +689,7 @@
 
 235. [84|descriptive] Alguien decía que era una mujer mirada con vidrio de disminución; alguno que era una niña con ojos y expresión de adolescente.
 
-236. [84|dialogue] Decía esto en el tono más convincente, y el gesto de que acompañaba su firme protesta parecía añadir: «Es usted un majadero en suponer que yo sirvo para algo.» -¿No verías con gusto que tu amito recibía5 de Dios el don de la vista?
+236. [84|dialogue] Decía esto en el tono más convincente, y el gesto de que acompañaba su firme protesta parecía añadir: «Es usted un majadero en suponer que yo sirvo para algo.» -¿No verías con gusto que tu amito recibía de Dios el don de la vista?
 
 237. [84|descriptive] Ella apandaba bonitamente el jornal de su marido y de sus hijos, que era una hermosa suma, y cada vez que había cobranza, parecíale que entraba por las puertas de su casa el mismo Jesús Sacramentado; tal era el gusto que la vista de las monedas le producía.
 

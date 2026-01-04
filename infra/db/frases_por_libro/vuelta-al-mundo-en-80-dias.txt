@@ -1,5 +1,5 @@
 # vuelta-al-mundo-en-80-dias
-# Total frases: 682 (filtradas y balanceadas)
+# Total frases: 683 (filtradas y balanceadas)
 # ========================================
 
 
@@ -289,143 +289,143 @@
 106. [80|narrative] A los cincuenta y cinco se oyó fuera un estrépito atronador, aplausos, vítores, y hasta imprecaciones que prolongaron en redoble continuo.
 
 
-## HARD (542 frases)
+## HARD (543 frases)
 
-1. [100|dialogue] contacto@pruebat.org 3 Capítulo En el año 1872, la casa número 7 de Saville-Row, Burlington Gardens —donde murió Sheridan en 1814— estaba habitada por Phileas Fogg, quien a pesar de que parecía haber tomado el partido de no hacer nada que pudiese llamar la atención, era uno de los miembros más notables y singulares del Reform Club de Londres.
+1. [100|dialogue] Su último señor, el joven lord Longsferry, miembro del Parlamento después de pasar las noches en los "oysters-rooms" (Literalmente traducido es "casa de té", pero realmente era una casa de prostitución), de HayMarquet, volvía a su casa muy a menudo sobre los hombros de los "policemen".
 
-2. [100|dialogue] Su último señor, el joven lord Longsferry, miembro del Parlamento después de pasar las noches en los "oysters-rooms" (Literalmente traducido es "casa de té", pero realmente era una casa de prostitución), de HayMarquet, volvía a su casa muy a menudo sobre los hombros de los "policemen".
+2. [100|dialogue] El legajo de billetes de banco no volvió, y cuando el magnífico reloj colocado encima del "drawing office" dio las cinco, la hora en que debía cerrarse el despacho, el Banco de Inglaterra no tenía más recurso que asentar cincuenta y cinco mil libras en la cuenta de ganancias y de pérdidas.
 
-3. [100|dialogue] El legajo de billetes de banco no volvió, y cuando el magnífico reloj colocado encima del "drawing office" dio las cinco, la hora en que debía cerrarse el despacho, el Banco de Inglaterra no tenía más recurso que asentar cincuenta y cinco mil libras en la cuenta de ganancias y de pérdidas.
+3. [100|dialogue] ¡Figuraos, caballero, que yo me imaginaba no ir más lejos de París, y me he tenido que contentar con ver esa famosa capital, desde las siete y veinte de la mañana hasta las ocho y cuarenta, entre la Estación del Norte y la de Lyón, a través de los cristales de un coche y lloviendo a chaparrones!
 
-4. [100|dialogue] ¡Figuraos, caballero, que yo me imaginaba no ir más lejos de París, y me he tenido que contentar con ver esa famosa capital, desde las siete y veinte de la mañana hasta las ocho y cuarenta, entre la Estación del Norte y la de Lyón, a través de los cristales de un coche y lloviendo a chaparrones!
+4. [100|dialogue] Según su costumbre, aquellos indios debían hallarse entregados a la pesada embriaguez del "hag", opio líquido, mezclado con infusión de cáñamo, y tal vez sería posible deslizarse entre ellos hasta el templo.
 
-5. [100|dialogue] Según su costumbre, aquellos indios debían hallarse entregados a la pesada embriaguez del "hag", opio líquido, mezclado con infusión de cáñamo, y tal vez sería posible deslizarse entre ellos hasta el templo.
+5. [100|descriptive] Allí, los setos de arbustos de pimienta, reemplazaban las cambroneras de las campiñas europeas; los sagús y los grandes helechos con su soberbio follaje, variaban el aspecto de aquella región tropical; los árboles de moscada con sus barnizadas hojas saturaban el aire con penetrantes perfumes.
 
-6. [100|descriptive] Allí, los setos de arbustos de pimienta, reemplazaban las cambroneras de las campiñas europeas; los sagús y los grandes helechos con su soberbio follaje, variaban el aspecto de aquella región tropical; los árboles de moscada con sus barnizadas hojas saturaban el aire con penetrantes perfumes.
+6. [100|poetic] El primer cuidado de Picaporte, así japonizado, fue el de entrar en una casa de té, de modesta apariencia, y allí almorzó un resto de ave y algunos puñados de arroz, cual hombre para quien la comida era todavía problemática.
 
-7. [100|poetic] El primer cuidado de Picaporte, así japonizado, fue el de entrar en una casa de té, de modesta apariencia, y allí almorzó un resto de ave y algunos puñados de arroz, cual hombre para quien la comida era todavía problemática.
+7. [100|dialogue] Allí encontró el mandamiento que, corriendo detrás de él desde Bombay, tenía ya cuarenta días de fecha, mandamiento que le había sido enviado de Hong-Kong por el mismo "Carnatic", a cuyo bordo se le creía.
 
-8. [100|dialogue] Allí encontró el mandamiento que, corriendo detrás de él desde Bombay, tenía ya cuarenta días de fecha, mandamiento que le había sido enviado de Hong-Kong por el mismo "Carnatic", a cuyo bordo se le creía.
+8. [100|dialogue] Pero el hermano mayor, sin dársele cuidado por esta deserción, refirió con detalles "cómo Joe Smith quebró en 1837; cómo los arruinados accionistas le embrearon y emplumaron; cómo se le volvió a ver, más honorable y más honrado que nunca, algunos años después, en Independencia en el Missouri, y jefe de una comunidad floreciente, y que no contaba menos de tres mil discípulos, y entonces perseguido por el odio de los gentiles, tuvo que huir al "Far West americano".
 
-9. [100|dialogue] Pero el hermano mayor, sin dársele cuidado por esta deserción, refirió con detalles "cómo Joe Smith quebró en 1837; cómo los arruinados accionistas le embrearon y emplumaron; cómo se le volvió a ver, más honorable y más honrado que nunca, algunos años después, en Independencia en el Missouri, y jefe de una comunidad floreciente, y que no contaba menos de tres mil discípulos, y entonces perseguido por el odio de los gentiles, tuvo que huir al "Far West americano".
+9. [100|descriptive] Alrededor del lago, la campiña estaba admirablemente cultivada, porque los mormones entienden bien los trabajos de la tierra; ranchos y corrales para los animales domésticos, campos de trigo, maíz sorgo; praderas de exuberante vegetación; en todas partes setos de rosales silvestres, matorrales de acacias y de euforbios; tal hubiera sido el aspecto de esa comarca seis meses más tarde; pero entonces el suelo estaba cubierto por una delgada capa de nieve que lo emblanquecía ligeramente.
 
-10. [100|descriptive] Alrededor del lago, la campiña estaba admirablemente cultivada, porque los mormones entienden bien los trabajos de la tierra; ranchos y corrales para los animales domésticos, campos de trigo, maíz sorgo; praderas de exuberante vegetación; en todas partes setos de rosales silvestres, matorrales de acacias y de euforbios; tal hubiera sido el aspecto de esa comarca seis meses más tarde; pero entonces el suelo estaba cubierto por una delgada capa de nieve que lo emblanquecía ligeramente.
+10. [100|dialogue] El "Pereire", de la Compañía Transatlántica Francesa, cuyos admirables buques igualan en velocidad y sobrepujan en comodidades a los de las demás líneas sin excepción, no partía hasta tres días después, el 14 de diciembre, y además, no iba directamente a Liverpool o Londres, sino al Havre, y lo mismo sucedía con los de la Compañía "Hamburguesa"; así es que la travesía suplementaria del Havre a Southampton hubiera anulado los últimos esfuerzos de Phileas Fogg.
 
-11. [100|dialogue] El "Pereire", de la Compañía Transatlántica Francesa, cuyos admirables buques igualan en velocidad y sobrepujan en comodidades a los de las demás líneas sin excepción, no partía hasta tres días después, el 14 de diciembre, y además, no iba directamente a Liverpool o Londres, sino al Havre, y lo mismo sucedía con los de la Compañía "Hamburguesa"; así es que la travesía suplementaria del Havre a Southampton hubiera anulado los últimos esfuerzos de Phileas Fogg.
+11. [100|dialogue] En el momento en que el reloj del gran salón señaló las ocho y veinticinco, Andrés Stuart, levantándose dijo: —Señores, dentro de veinte minutos, el plazo convenido con míster Fogg habrá expirado.
 
-12. [100|dialogue] En el momento en que el reloj del gran salón señaló las ocho y veinticinco, Andrés Stuart, levantándose dijo: —Señores, dentro de veinte minutos, el plazo convenido con míster Fogg habrá expirado.
+12. [100|narrative] Almorzando y comiendo en el club a horas cronométricamente determinadas, en el mismo comedor, en la misma mesa, sin tratarse nunca con sus colegas, sin convidar jamás a ningún extraño, sólo volvía a su casa para acostarse a la media noche exacta, sin hacer uso en ninguna ocasión de los cómodos dormitorios que el Reform-Club pone a disposición de los miembros del círculo.
 
-13. [100|narrative] Almorzando y comiendo en el club a horas cronométricamente determinadas, en el mismo comedor, en la misma mesa, sin tratarse nunca con sus colegas, sin convidar jamás a ningún extraño, sólo volvía a su casa para acostarse a la media noche exacta, sin hacer uso en ninguna ocasión de los cómodos dormitorios que el Reform-Club pone a disposición de los miembros del círculo.
+13. [100|narrative] Eran los compañeros habituales de juego de míster Phileas Fogg, decididamente aficionados al whist como él: el ingeniero Andrés Stuart, los banqueros John Sullivan y Samuel Falientin, el fabricante de cervezas Tomás Flanagan, y Gualterio Ralph, uno de los administradores del Banco de Inglaterra, personajes ricos y considerados en aquel mismo club, que cuenta entre sus miembros las mayores notabilidades de la industria y de la banca.
 
-14. [100|narrative] Eran los compañeros habituales de juego de míster Phileas Fogg, decididamente aficionados al whist como él: el ingeniero Andrés Stuart, los banqueros John Sullivan y Samuel Falientin, el fabricante de cervezas Tomás Flanagan, y Gualterio Ralph, uno de los administradores del Banco de Inglaterra, personajes ricos y considerados en aquel mismo club, que cuenta entre sus miembros las mayores notabilidades de la industria y de la banca.
+14. [100|narrative] De un puñetazo y un puntapié derribó a dos adversarios muy entorpecidos por su traje talar y lanzándose fuera de la pagoda con toda la velocidad de sus piernas, dejó muy presto atrás al tercer indio, que había salido en su seguimiento amotinando a la multitud.
 
-15. [100|narrative] De un puñetazo y un puntapié derribó a dos adversarios muy entorpecidos por su traje talar y lanzándose fuera de la pagoda con toda la velocidad de sus piernas, dejó muy presto atrás al tercer indio, que había salido en su seguimiento amotinando a la multitud.
+15. [100|narrative] Algunos elefantes y cebús de protuberancia iban a bañarse a las aguas del río sagrado; y también, a pesar de la estación adelantada y de la temperatura, ya fría, se veían cuadrillas de indios de ambos sexos, que cumplían piadosamente sus santas abluciones.
 
-16. [100|narrative] Algunos elefantes y cebús de protuberancia iban a bañarse a las aguas del río sagrado; y también, a pesar de la estación adelantada y de la temperatura, ya fría, se veían cuadrillas de indios de ambos sexos, que cumplían piadosamente sus santas abluciones.
+16. [100|narrative] Picaporte se había tornado más impaciente a medida que se acercaba el término del viaje, y Fix, a su vez, hubiera querido haber salido ya de aquella región extraña.
 
-17. [100|narrative] Picaporte se había tornado más impaciente a medida que se acercaba el término del viaje, y Fix, a su vez, hubiera querido haber salido ya de aquella región extraña.
+17. [100|narrative] Había corrido muchas millas, y, después, apagándose el fuego, por falta de combustible, la velocidad se fue amortiguando, hasta que la máquina se detuvo, veinte millas más allá de la estación de Kearney.
 
-18. [100|narrative] Había corrido muchas millas, y, después, apagándose el fuego, por falta de combustible, la velocidad se fue amortiguando, hasta que la máquina se detuvo, veinte millas más allá de la estación de Kearney.
+18. [100|narrative] Si algún incidente hubiese detenido entonces el trineo, los viajeros atacados por esas encarnizadas fieras, hubieran corrido los mas graves peligros; pero el trineo seguía firme, y tomando buena delantera, no tardó en quedarse atrás aquella aulladora tropa.
 
-19. [100|narrative] Si algún incidente hubiese detenido entonces el trineo, los viajeros atacados por esas encarnizadas fieras, hubieran corrido los mas graves peligros; pero el trineo seguía firme, y tomando buena delantera, no tardó en quedarse atrás aquella aulladora tropa.
+19. [99|dialogue] Así es que no había lector, cualquiera que fuese la clase a que perteneciese, que no devorase las columnas consagradas al caso de Phileas Fogg Durante los primeros días algunos ánimos atrevidos —las mujeres principalmente — se decidieron por él, sobre todo cuando el "llustrated London News" publicó su retrato, tomado de una fotografía depositada en los archivos del Reform-Club.
 
-20. [99|dialogue] Así es que no había lector, cualquiera que fuese la clase a que perteneciese, que no devorase las columnas consagradas al caso de Phileas Fogg Durante los primeros días algunos ánimos atrevidos —las mujeres principalmente — se decidieron por él, sobre todo cuando el "llustrated London News" publicó su retrato, tomado de una fotografía depositada en los archivos del Reform-Club.
+20. [99|dialogue] A la hora fijada, el hermano mayor William Hitch, se levantó, y con voz bastante irritada, como si de antemano le hubieran contradicho, exclamó: —¡Os digo yo que Joe Smith es un mártir, que su hermano Hyrames es un mártir, y que las persecuciones del gobierno de la Unión contra los profetas van a hacer también un mártir de Brigham Young!
 
-21. [99|dialogue] A la hora fijada, el hermano mayor William Hitch, se levantó, y con voz bastante irritada, como si de antemano le hubieran contradicho, exclamó: —¡Os digo yo que Joe Smith es un mártir, que su hermano Hyrames es un mártir, y que las persecuciones del gobierno de la Unión contra los profetas van a hacer también un mártir de Brigham Young!
+21. [99|narrative] Picaporte ignoraba que, si la muestra de su reloj hubiese estado dividida en veinticuatro horas, en vez de doce, como los relojes italianos, no hubiera tenido motivo ninguno de triunfo, porque las manecillas de su instrumento, cuando fuesen las nueve de la mañana, señalarían las de la noche; es decir, la hora vigésima primera después de medianoche, diferencia precisamente igual a la que existe entre Londres y el meridiano, que está a 180 grados.
 
-22. [99|narrative] Picaporte ignoraba que, si la muestra de su reloj hubiese estado dividida en veinticuatro horas, en vez de doce, como los relojes italianos, no hubiera tenido motivo ninguno de triunfo, porque las manecillas de su instrumento, cuando fuesen las nueve de la mañana, señalarían las de la noche; es decir, la hora vigésima primera después de medianoche, diferencia precisamente igual a la que existe entre Londres y el meridiano, que está a 180 grados.
+22. [99|narrative] Allí, colgado por una mano entre el furgón y el ténder, desenganchó con la otra las cadenas de seguridad; pero a consecuencia de la tracción, no hubiera conseguido desenroscar la barra de enganche, si un sacudimiento que la máquina experimentó, no la hubiera hecho saltar, de modo que el tren, desprendido, se fue quedando atrás, mientras que la locomotora huía con mayor velocidad.
 
-23. [99|narrative] Allí, colgado por una mano entre el furgón y el ténder, desenganchó con la otra las cadenas de seguridad; pero a consecuencia de la tracción, no hubiera conseguido desenroscar la barra de enganche, si un sacudimiento que la máquina experimentó, no la hubiera hecho saltar, de modo que el tren, desprendido, se fue quedando atrás, mientras que la locomotora huía con mayor velocidad.
+23. [98|dialogue] Los que tenían el honor de conocerle más a fondo que los demás, atestiguaban que — excepción hecha del camino diariamente recorrido por él desde su casa al club— nadie podía pretender haberlo visto en otra parte.
 
-24. [98|dialogue] Los que tenían el honor de conocerle más a fondo que los demás, atestiguaban que — excepción hecha del camino diariamente recorrido por él desde su casa al club— nadie podía pretender haberlo visto en otra parte.
+24. [98|poetic] Míster Fogg se despidió de sus compañeros, salió del vapor, dio a su criado la orden de hacer algunas compras, le recomendó expresamente que estuviera antes de las ocho en la estación, y con su paso regular, que batía como el péndulo de un reloj astronómico, se dirigió a la oficina de pasaportes.
 
-25. [98|poetic] Míster Fogg se despidió de sus compañeros, salió del vapor, dio a su criado la orden de hacer algunas compras, le recomendó expresamente que estuviera antes de las ocho en la estación, y con su paso regular, que batía como el péndulo de un reloj astronómico, se dirigió a la oficina de pasaportes.
+25. [98|dialogue] "Rangoon", uno de los buques que la Compañía Peninsular y Oriental emplea para el servicio del mar de China y del Japón, era un vapor de hierro, de hélice, con el aforo en bruto de mil setecientas toneladas, y la fuerza nominal de cuatrocientos caballos.
 
-26. [98|dialogue] Capítulo El "Rangoon", uno de los buques que la Compañía Peninsular y Oriental emplea para el servicio del mar de China y del Japón, era un vapor de hierro, de hélice, con el aforo en bruto de mil setecientas toneladas, y la fuerza nominal de cuatrocientos caballos.
+26. [98|poetic] No había cedro majestuoso que no abrigase alguna águila, ni sauce bajo el cual no se encontrase alguna garza, melancólicamente posada sobre una pata; en fin, por todas partes había cornejas, patos, gavilanes, gansos silvestres y muchas de esas grullas, a las cuales tratan los japoneses de señorías, porque simbolizan, para ellos, la longevidad y la dicha.
 
-27. [98|poetic] No había cedro majestuoso que no abrigase alguna águila, ni sauce bajo el cual no se encontrase alguna garza, melancólicamente posada sobre una pata; en fin, por todas partes había cornejas, patos, gavilanes, gansos silvestres y muchas de esas grullas, a las cuales tratan los japoneses de señorías, porque simbolizan, para ellos, la longevidad y la dicha.
+27. [98|dialogue] Ese cartel decía, en inglés, lo siguiente: Compañía Japonesa Acrobática HONORABLE WILLIAN BATULCAR Ultimas representaciones antes de su salida para los Estados Unidos de los NARIGUDOS—NARIGUDOS (bajo la invocación directa del dios Tingú) ¡GRAN ATRACCIÓN!
 
-28. [98|dialogue] Ese cartel decía, en inglés, lo siguiente: Compañía Japonesa Acrobática HONORABLE WILLIAN BATULCAR Ultimas representaciones antes de su salida para los Estados Unidos de los NARIGUDOS—NARIGUDOS (bajo la invocación directa del dios Tingú) ¡GRAN ATRACCIÓN!
+28. [98|descriptive] En efecto, la estación de Fuerte Kearney no estaba más que a dos millas de distancia, y una vez pasado el fuerte y la estación siguiente, los sioux serían dueños del tren.
 
-29. [98|descriptive] En efecto, la estación de Fuerte Kearney no estaba más que a dos millas de distancia, y una vez pasado el fuerte y la estación siguiente, los sioux serían dueños del tren.
+29. [98|dialogue] ¿Habríase formado en él una de esas iras secretas, terribles, porque están contenidas, y que sólo estallan en el último momento con irresistible fuerza?
 
-30. [98|dialogue] ¿Habríase formado en él una de esas iras secretas, terribles, porque están contenidas, y que sólo estallan en el último momento con irresistible fuerza?
+30. [98|dialogue] Se fue hacia el "detective", lo miró de hito en hito, y ejecutando el único movimiento rápido que en toda su vida había hecho, echó sus brazos atrás, y luego, con la precisión de un autómata, golpeó con sus dos puños al desgraciado inspector.
 
-31. [98|dialogue] Se fue hacia el "detective", lo miró de hito en hito, y ejecutando el único movimiento rápido que en toda su vida había hecho, echó sus brazos atrás, y luego, con la precisión de un autómata, golpeó con sus dos puños al desgraciado inspector.
+31. [98|dialogue] Aquella misma noche, míster Fogg, tan impasible y tan flemático como siempre dijo a mistress Aouda: —¿Os conviene aún el casamiento, señora?
 
-32. [98|dialogue] Aquella misma noche, míster Fogg, tan impasible y tan flemático como siempre dijo a mistress Aouda: —¿Os conviene aún el casamiento, señora?
+32. [98|narrative] El buen muchacho, ora despedido hacia el cuello del elefante, ora hacia las ancas, daba volteretas como un clown sobre el trampolín; pero en medio de sus saltos de carpa se reía y bromeaba, sacando de vez en cuando un terrón de azúcar, que el inteligente Kiouni tomaba con la trompa, sin interrumpir un solo instante su trote regular.
 
-33. [98|narrative] El buen muchacho, ora despedido hacia el cuello del elefante, ora hacia las ancas, daba volteretas como un clown sobre el trampolín; pero en medio de sus saltos de carpa se reía y bromeaba, sacando de vez en cuando un terrón de azúcar, que el inteligente Kiouni tomaba con la trompa, sin interrumpir un solo instante su trote regular.
+33. [98|narrative] Así, pues, en ese trayecto, la subvención del gobierno de la Unión ha ascendido a cuarenta y ocho mil dólares por milla, al paso que no eran más que dieciséis en la llanura; pero los ingenieros, como hemos dicho, no han violentado a la naturaleza, sino que han usado con ella la astucia, sesgando las dificultades, no habiendo tenido necesidad de perforar más que un túnel de catorce mil pies para llegar a la gran cuenca.
 
-34. [98|narrative] Así, pues, en ese trayecto, la subvención del gobierno de la Unión ha ascendido a cuarenta y ocho mil dólares por milla, al paso que no eran más que dieciséis en la llanura; pero los ingenieros, como hemos dicho, no han violentado a la naturaleza, sino que han usado con ella la astucia, sesgando las dificultades, no habiendo tenido necesidad de perforar más que un túnel de catorce mil pies para llegar a la gran cuenca.
+34. [98|narrative] La distancia que hay entre Liverpool y Londres debía correrse en cinco horas y media, cosa muy fácil estando la vía libre; pero hubo atrasos forzosos, y cuando el gentleman llegó a la estación, todos los relojes de Londres señalaban las nueve menos diez.
 
-35. [98|narrative] La distancia que hay entre Liverpool y Londres debía correrse en cinco horas y media, cosa muy fácil estando la vía libre; pero hubo atrasos forzosos, y cuando el gentleman llegó a la estación, todos los relojes de Londres señalaban las nueve menos diez.
+35. [97|dialogue] Desde 1756 —época en que se fundó el primer establecimiento inglés en el sitio ocupado hoy por la ciudad de Madrás—, hasta el año en que estalló la gran insurrección de los cipayos, la célebre Compañía de las Indias fue omnipotente.
 
-36. [97|dialogue] Desde 1756 —época en que se fundó el primer establecimiento inglés en el sitio ocupado hoy por la ciudad de Madrás—, hasta el año en que estalló la gran insurrección de los cipayos, la célebre Compañía de las Indias fue omnipotente.
+36. [97|dialogue] Durante la relación del brigadier general, el guía movía la cabeza, y cuando aquél concluyó de hablar, éste último dijo: —El sacrificio que ha de verificarse mañana al amanecer no es voluntario.
 
-37. [97|dialogue] Durante la relación del brigadier general, el guía movía la cabeza, y cuando aquél concluyó de hablar, éste último dijo: —El sacrificio que ha de verificarse mañana al amanecer no es voluntario.
+37. [97|dialogue] ¡Cuál fue después su alegría al verlo aquella misma mañana bajar del vagón en compañía, es cierto, de una joven cuya presencia no podía explicar!
 
-38. [97|dialogue] ¡Cuál fue después su alegría al verlo aquella misma mañana bajar del vagón en compañía, es cierto, de una joven cuya presencia no podía explicar!
+38. [97|descriptive] En efecto, según él, Fix no era ni podía ser, más que un agente enviado en seguimiento de Phileas Fogg por sus compañeros del Reform-Club, a fin de reconocer si el viaje se hacía efectivamente alrededor del mundo, según el itinerario convenido.
 
-39. [97|descriptive] En efecto, según él, Fix no era ni podía ser, más que un agente enviado en seguimiento de Phileas Fogg por sus compañeros del Reform-Club, a fin de reconocer si el viaje se hacía efectivamente alrededor del mundo, según el itinerario convenido.
+39. [97|dialogue] El corredor a quien se dirigió míster Fogg conocía en efecto al negociante parsi; pero hacía dos años que éste, después de haber hecho fortuna, había ido a establecerse a Europa —en Holanda, según se creía— lo cual se explicaba por las numerosas relaciones que había tenido con este país durante su existencia comercial.
 
-40. [97|dialogue] El corredor a quien se dirigió míster Fogg conocía en efecto al negociante parsi; pero hacía dos años que éste, después de haber hecho fortuna, había ido a establecerse a Europa —en Holanda, según se creía— lo cual se explicaba por las numerosas relaciones que había tenido con este país durante su existencia comercial.
+40. [97|poetic] A las diez de la noche, el tren se detenía en la estación de Fort Bridger, de la cual se separó al punto, y veinte millas más allá entraba en el estado de Wyoming, el antiguo Dakota, siguiendo todo el valle de BitterCreek, de donde surgen parte de las aguas que forman el sistema hidrográfico del Colorado.
 
-41. [97|poetic] A las diez de la noche, el tren se detenía en la estación de Fort Bridger, de la cual se separó al punto, y veinte millas más allá entraba en el estado de Wyoming, el antiguo Dakota, siguiendo todo el valle de BitterCreek, de donde surgen parte de las aguas que forman el sistema hidrográfico del Colorado.
+41. [97|dialogue] Sin embargo, míster Fogg no le dirigió reconvención alguna, y al abandonar el muelle de los vapores transatlánticos, no dijo más que estas palabras: —Mañana veremos lo que se hace, venid.
 
-42. [97|dialogue] Sin embargo, míster Fogg no le dirigió reconvención alguna, y al abandonar el muelle de los vapores transatlánticos, no dijo más que estas palabras: —Mañana veremos lo que se hace, venid.
+42. [97|narrative] En cuanto a Juan, alias Picaporte, verdadero parisiense de París, durante los cinco años que había habitado en Inglaterra desempeñando la profesión de ayuda de cámara, en vano había tratado de hallar un amo a quien poder tomar cariño.
 
-43. [97|narrative] En cuanto a Juan, alias Picaporte, verdadero parisiense de París, durante los cinco años que había habitado en Inglaterra desempeñando la profesión de ayuda de cámara, en vano había tratado de hallar un amo a quien poder tomar cariño.
+43. [97|narrative] Con algunas horas más, el trayecto de las Montañas Rocosas quedaría hecho, y, por consiguiente, podía esperarse que ningún incidente perturbaría el paso del tren por tan áspera región.
 
-44. [97|narrative] Con algunas horas más, el trayecto de las Montañas Rocosas quedaría hecho, y, por consiguiente, podía esperarse que ningún incidente perturbaría el paso del tren por tan áspera región.
+44. [96|descriptive] Picaporte oyó por primera vez el ruido de la puerta que se cerraba; era su nuevo amo que salía; luego, escuchó por segunda vez el mismo ruido; era James Foster que se marchaba también.
 
-45. [96|descriptive] Picaporte oyó por primera vez el ruido de la puerta que se cerraba; era su nuevo amo que salía; luego, escuchó por segunda vez el mismo ruido; era James Foster que se marchaba también.
+45. [96|descriptive] Tenía azules los ojos, animado el color, la cara suficientemente gruesa para que pudieran verse sus mismos pómulos, ancho el pecho, fuertes las caderas, vigorosa la musculatura, y con una fuerza hercúlea que los ejercicios de su juventud habían desarrollado admirablemente.
 
-46. [96|descriptive] Tenía azules los ojos, animado el color, la cara suficientemente gruesa para que pudieran verse sus mismos pómulos, ancho el pecho, fuertes las caderas, vigorosa la musculatura, y con una fuerza hercúlea que los ejercicios de su juventud habían desarrollado admirablemente.
+46. [96|dialogue] Su almuerzo se componía de un entremés, un pescado cocido sazonado por una "readins sauce" de primera elección, un "rosbif escarlata, de una torta rellena con tallos de ruibarbo y grosellas verdes, y de un pedazo de Chéster, rociado todo por algunas tazas de ese excelente té, que especialmente es cosecha para el servicio de Reform-Club.
 
-47. [96|dialogue] Su almuerzo se componía de un entremés, un pescado cocido sazonado por una "readins sauce" de primera elección, un "rosbif escarlata, de una torta rellena con tallos de ruibarbo y grosellas verdes, y de un pedazo de Chéster, rociado todo por algunas tazas de ese excelente té, que especialmente es cosecha para el servicio de Reform-Club.
+47. [96|dialogue] ¡Pero con qué ojo Brahma, Shiva y Vishma debían considerar a esa India, ahora britanizada, cuando algún barco de vapor pasaba silbando y turbaba las aguas consagradas del Ganges, espantando a las gaviotas que revoloteaban en la superficie, a las tortugas que pululaban en sus orillas y a los devotos tendidos a lo largo de sus márgenes!
 
-48. [96|dialogue] ¡Pero con qué ojo Brahma, Shiva y Vishma debían considerar a esa India, ahora britanizada, cuando algún barco de vapor pasaba silbando y turbaba las aguas consagradas del Ganges, espantando a las gaviotas que revoloteaban en la superficie, a las tortugas que pululaban en sus orillas y a los devotos tendidos a lo largo de sus márgenes!
+48. [96|dialogue] Después de afeitarse se fue al muelle de embarque del "Carnatic", y allí vio a Fix que se paseaba de arriba abajo y viceversa, de lo cual no se extrañó.
 
-49. [96|dialogue] Después de afeitarse se fue al muelle de embarque del "Carnatic", y allí vio a Fix que se paseaba de arriba abajo y viceversa, de lo cual no se extrañó.
+49. [96|narrative] La mayor parte de los viajeros conocían esa interrupción de la vía, y al apearse del tren se habían apoderado de los vehículos de todo género que había en el villorrio, paikigharis de cuatro ruedas, carretas arrastradas por unos zebús, especie de bueyes de giba, carros de viaje semejantes a pagodas ambulantes, palanquines, caballos, etc.
 
-50. [96|narrative] La mayor parte de los viajeros conocían esa interrupción de la vía, y al apearse del tren se habían apoderado de los vehículos de todo género que había en el villorrio, paikigharis de cuatro ruedas, carretas arrastradas por unos zebús, especie de bueyes de giba, carros de viaje semejantes a pagodas ambulantes, palanquines, caballos, etc.
+50. [96|narrative] Se pidieron dos botellas de Oporto, a las cuales hizo el francés mucho honor; mientras que Fix, más reservado, observaba a su compañero, con suma atención.
 
-51. [96|narrative] Se pidieron dos botellas de Oporto, a las cuales hizo el francés mucho honor; mientras que Fix, más reservado, observaba a su compañero, con suma atención.
+51. [96|narrative] Creía que no había llegado el momento de decir a su amo lo ocurrido; así es que, en la relación que hizo de sus aventuras, se culpó a sí propio, excusándose con haber sido sorprendido por la embriaguez del opio de un fumadero de Hong-Kong.
 
-52. [96|narrative] Creía que no había llegado el momento de decir a su amo lo ocurrido; así es que, en la relación que hizo de sus aventuras, se culpó a sí propio, excusándose con haber sido sorprendido por la embriaguez del opio de un fumadero de Hong-Kong.
+52. [96|narrative] Añado que vuestro interés es igual al mío, porque sólo en Inglaterra es donde sabréis si estáis al servicio de un criminal o de un hombre de bien.
 
-53. [96|narrative] Añado que vuestro interés es igual al mío, porque sólo en Inglaterra es donde sabréis si estáis al servicio de un criminal o de un hombre de bien.
+53. [96|narrative] Así fue celebrada la inauguración de ese gran ferrocarril, instrumento de progreso y de civilización, trazado a través del desierto y destinado a enlazar entre sí ciudades que no existían aún.
 
-54. [96|narrative] Así fue celebrada la inauguración de ese gran ferrocarril, instrumento de progreso y de civilización, trazado a través del desierto y destinado a enlazar entre sí ciudades que no existían aún.
+54. [96|narrative] Bien se comprende que el casamiento se hizo cuarenta y ocho horas más tarde; y Picaporte, engreído, resplandeciente, deslumbrador, figuró en él como testigo de la novia.
 
-55. [96|narrative] Bien se comprende que el casamiento se hizo cuarenta y ocho horas más tarde; y Picaporte, engreído, resplandeciente, deslumbrador, figuró en él como testigo de la novia.
+55. [95|dialogue] Pero conviene hacer observar aquí —y esto da más fácil explicación al hecho— que el Banco de Inglaterra parece que se desvive por demostrar al público la alta idea que tiene de su dignidad.
 
-56. [95|dialogue] Pero conviene hacer observar aquí —y esto da más fácil explicación al hecho— que el Banco de Inglaterra parece que se desvive por demostrar al público la alta idea que tiene de su dignidad.
+56. [95|dialogue] Le ofrecía a menudo en el bar del "Mongolia" algunos vasos de whisky o de paleale, que el buen muchacho aceptaba sin ceremonia, y hacía repetir para no ser menos, pareciéndole el señor Fix un caballero muy honrado.
 
-57. [95|dialogue] Le ofrecía a menudo en el bar del "Mongolia" algunos vasos de whisky o de paleale, que el buen muchacho aceptaba sin ceremonia, y hacía repetir para no ser menos, pareciéndole el señor Fix un caballero muy honrado.
+57. [95|descriptive] Para él no había habido más que una chistosa ocurrencia, y se reía al pensar que durante algunos instantes, él, Picaporte, antiguo gimnasta, ex sargento de bomberos, había sido el viudo de la linda dama, un viejo rajá embalsamado.
 
-58. [95|descriptive] Para él no había habido más que una chistosa ocurrencia, y se reía al pensar que durante algunos instantes, él, Picaporte, antiguo gimnasta, ex sargento de bomberos, había sido el viudo de la linda dama, un viejo rajá embalsamado.
+58. [95|dialogue] ¡Habéis entrado a servirle el día de su partida, y se marchó precipitadamente con ese pretexto insensato, sin equipaje y llevándose una gruesa suma de billetes de banco!
 
-59. [95|dialogue] ¡Habéis entrado a servirle el día de su partida, y se marchó precipitadamente con ese pretexto insensato, sin equipaje y llevándose una gruesa suma de billetes de banco!
+59. [95|descriptive] Phileas Fogg apaciguó su furor echándole un puñado de billetes de banco, y a las seis y media, en el momento en que iba a partir, míster Fogg y mistress Aouda ponían el pie en el vapor americano, seguidos de Picaporte, con las alas a la espalda y llevando en el rostro la nariz de seis pies, que todavía no había podido quitarse.
 
-60. [95|descriptive] Phileas Fogg apaciguó su furor echándole un puñado de billetes de banco, y a las seis y media, en el momento en que iba a partir, míster Fogg y mistress Aouda ponían el pie en el vapor americano, seguidos de Picaporte, con las alas a la espalda y llevando en el rostro la nariz de seis pies, que todavía no había podido quitarse.
+60. [95|descriptive] Un enorme mocetón de perilla roja, tez encendida, ancho de espalda, que parecía ser el jefe de la cuadrilla, levantó su formidable puño sobre míster Fogg, y hubiera lastimado mucho al gentleman si Fix, por salvarlo, no hubiese recibido el golpe en su lugar.
 
-61. [95|descriptive] Un enorme mocetón de perilla roja, tez encendida, ancho de espalda, que parecía ser el jefe de la cuadrilla, levantó su formidable puño sobre míster Fogg, y hubiera lastimado mucho al gentleman si Fix, por salvarlo, no hubiese recibido el golpe en su lugar.
+61. [95|dialogue] Phileas Fogg no respondió a Fix; pero éste le enseñó el hombre de que se trataba, y el gentleman después, Phileas Fogg y el americano, llamado Mudge, entraban en una covacha construida junto al fuerte Kearney.
 
-62. [95|dialogue] Phileas Fogg no respondió a Fix; pero éste le enseñó el hombre de que se trataba, y el gentleman después, Phileas Fogg y el americano, llamado Mudge, entraban en una covacha construida junto al fuerte Kearney.
+62. [95|dialogue] Había olvidado el pasado, los disgustos, los peligros, y no pensaba más que en el término del viaje, tan próximo ya, hirviendo de impaciencia, como si lo hubiesen caldeado las hornillas de la "Enriqueta".
 
-63. [95|dialogue] Había olvidado el pasado, los disgustos, los peligros, y no pensaba más que en el término del viaje, tan próximo ya, hirviendo de impaciencia, como si lo hubiesen caldeado las hornillas de la "Enriqueta".
+63. [95|poetic] Al día siguiente, míster Fogg lo llamó y le recomendó, en breves, y concisas palabras, que se ocupase del almuerzo de Aouda, pues él tendría bastante con una taza de té y una tostada, y que la joven le dispensara por no poderla acompañar tampoco a la comida pues tenía que consagrar todo su tiempo a ordenar sus asuntos.
 
-64. [95|poetic] Al día siguiente, míster Fogg lo llamó y le recomendó, en breves, y concisas palabras, que se ocupase del almuerzo de Aouda, pues él tendría bastante con una taza de té y una tostada, y que la joven le dispensara por no poderla acompañar tampoco a la comida pues tenía que consagrar todo su tiempo a ordenar sus asuntos.
+64. [95|narrative] Era éste el único medio de retener a Phileas Fogg durante algunos días en HongKong Al salir del despacho, Fix ofreció a su compañero convidarlo en una taberna.
 
-65. [95|narrative] Era éste el único medio de retener a Phileas Fogg durante algunos días en HongKong Al salir del despacho, Fix ofreció a su compañero convidarlo en una taberna.
+65. [95|narrative] Cuando el palanquín llegó a la puerta de la fonda, míster Fogg y mistress Aouda subieron al confortable vehículo, y el equipaje siguió detrás en una carretilla.
 
-66. [95|narrative] Cuando el palanquín llegó a la puerta de la fonda, míster Fogg y mistress Aouda subieron al confortable vehículo, y el equipaje siguió detrás en una carretilla.
+66. [95|narrative] Viendo el capitán la bandera de auxilio, se dirigió a la goleta, y algunos instantes después, Phileas Fogg, pagando su pasaje según lo convenido, metía en el bolsillo del patrón John Bunsby ciento cincuenta libras.
 
-67. [95|narrative] Viendo el capitán la bandera de auxilio, se dirigió a la goleta, y algunos instantes después, Phileas Fogg, pagando su pasaje según lo convenido, metía en el bolsillo del patrón John Bunsby ciento cincuenta libras.
+67. [95|narrative] Siguiendo circularmente el paralelo 50, que es el de Londres, la distancia no hubiera sido más que unas doce mil millas, mientras que por los caprichosos medios de locomoción, 111 había que recorrer veintiséis mil, de las cuales el se habían andado ya diecisiete mil quinientas el 23 de noviembre.
 
-68. [95|narrative] Siguiendo circularmente el paralelo 50, que es el de Londres, la distancia no hubiera sido más que unas doce mil millas, mientras que por los caprichosos medios de locomoción, 111 había que recorrer veintiséis mil, de las cuales el se habían andado ya diecisiete mil quinientas el 23 de noviembre.
+68. [94|dialogue] contacto@pruebat.org 3 1872, la casa número 7 de Saville-Row, Burlington Gardens —donde murió Sheridan en 1814— estaba habitada por Phileas Fogg, quien a pesar de que parecía haber tomado el partido de no hacer nada que pudiese llamar la atención, era uno de los miembros más notables y singulares del Reform Club de Londres.
 
 69. [94|dialogue] Por consiguiente— añadió consultando un calendario del bolsillo—: puesto que hoy es miércoles 2 de octubre deberé estar de vuelta en Londres, en este mismo salón del Reform-Club, el sábado 21 de diciembre a las ocho y cuarenta y cinco minutos de la tarde, sin lo cual las veinte mil libras depositadas actualmente en la casa de Baring Hermanos os pertenecen de hecho y de derecho, señores.
 
@@ -919,459 +919,461 @@
 
 314. [85|descriptive] Mistress Aouda, cuando el tren echó de nuevo a andar, aprovechó un momento en que míster Fogg dormitaba para poner a Fix y Picaporte al corriente de lo que ocurría.
 
-315. [85|dialogue] El conductor les preguntó si querían dejar un momento libre sitio a dos caballeros, que tenían que arreglar un negocio de honor.
+315. [85|dialogue] Caballero —dijo cortésmente míster Fogg—, después de nuestro encuentro en San Francisco, había formado el proyecto de volver a buscaros a América, tan luego como hubiese terminado los negocios que me llaman al antiguo continente.
 
-316. [85|poetic] Entretanto, Picaporte, tan luego como llegó, había buscado el tren en la estación, creyendo encontrarle allí dispuesto a correr hacia Omaba, y esperando que se podría ganar aún el tiempo perdido.
+316. [85|dialogue] El conductor les preguntó si querían dejar un momento libre sitio a dos caballeros, que tenían que arreglar un negocio de honor.
 
-317. [85|dialogue] En cuanto a los vapores Imman, uno de los cuales, el "City of Paris", se daba a la mar al día siguiente, no debía pensarse en ellos, porque, estando dedicados al transporte de emigrantes, son de máquinas débiles, navegan lo mismo a vela que a vapor, y su velocidad es mediana.
+317. [85|poetic] Entretanto, Picaporte, tan luego como llegó, había buscado el tren en la estación, creyendo encontrarle allí dispuesto a correr hacia Omaba, y esperando que se podría ganar aún el tiempo perdido.
 
-318. [85|descriptive] En cuanto al capitán Speedy, estaba buenamente encerrado con llave en su cámara, y prorrumpía en alaridos que denotaban una cólera bien perdonable, llevada al paroxismo.
+318. [85|dialogue] En cuanto a los vapores Imman, uno de los cuales, el "City of Paris", se daba a la mar al día siguiente, no debía pensarse en ellos, porque, estando dedicados al transporte de emigrantes, son de máquinas débiles, navegan lo mismo a vela que a vapor, y su velocidad es mediana.
 
-319. [85|dialogue] Es verdad que, una vez llegados allí, lo ocurrido en la "Enriqueta", combinado con el negocio del banco, podía llevar al gentleman un poco más lejos de lo que quisiera, razonaba Fix.
+319. [85|descriptive] En cuanto al capitán Speedy, estaba buenamente encerrado con llave en su cámara, y prorrumpía en alaridos que denotaban una cólera bien perdonable, llevada al paroxismo.
 
-320. [85|narrative] De aquí cierta reputación debida a la regularidad con que sus cheques eran pagados a la vista por el saldo de su cuenta corriente, invariablemente acreedor.
+320. [85|dialogue] Es verdad que, una vez llegados allí, lo ocurrido en la "Enriqueta", combinado con el negocio del banco, podía llevar al gentleman un poco más lejos de lo que quisiera, razonaba Fix.
 
-321. [85|narrative] Picaporte, a las once y media dadas, se hallaba solo en la casa de Saville-Row, y no podía sino considerarla recorriendo desde la cueva al tejado; y esta casa limpia, arreglada, severa, puritana, bien organizada para el servicio, le gustó.
+321. [85|narrative] De aquí cierta reputación debida a la regularidad con que sus cheques eran pagados a la vista por el saldo de su cuenta corriente, invariablemente acreedor.
 
-322. [85|narrative] Nadie extrañará, pues, que los miembros del Reform-Club tratasen la misma cuestión, con tanto más motivo cuanto que se hallaba entre ellos uno de los subgobernadores del banco.
+322. [85|narrative] Picaporte, a las once y media dadas, se hallaba solo en la casa de Saville-Row, y no podía sino considerarla recorriendo desde la cueva al tejado; y esta casa limpia, arreglada, severa, puritana, bien organizada para el servicio, le gustó.
 
-323. [85|narrative] Era uno de los de mayor velocidad de la Compañía, habiendo sobrepujado siempre la marcha reglamentaria de diez millas por hora entre Brindisi y Suez, y de nueve millas cincuenta y tres centésimas entre Suez y Bombay.
+323. [85|narrative] Nadie extrañará, pues, que los miembros del Reform-Club tratasen la misma cuestión, con tanto más motivo cuanto que se hallaba entre ellos uno de los subgobernadores del banco.
 
-324. [85|narrative] Y entretanto, a pesar de la ráfaga y a pesar de las olas, el vapor, impelido por su poderosa máquina, corría sin tardanza hacia el estrecho de Bab-el-Mandeb.
+324. [85|narrative] Era uno de los de mayor velocidad de la Compañía, habiendo sobrepujado siempre la marcha reglamentaria de diez millas por hora entre Brindisi y Suez, y de nueve millas cincuenta y tres centésimas entre Suez y Bombay.
 
-325. [85|narrative] Mucho decir es que una notable parte del territorio se haya librado hasta hoy de la autoridad de la Reina; y en efecto, entre algunos rajaes del interior, fieros y terribles, la independencia india es todavía absoluta.
+325. [85|narrative] Y entretanto, a pesar de la ráfaga y a pesar de las olas, el vapor, impelido por su poderosa máquina, corría sin tardanza hacia el estrecho de Bab-el-Mandeb.
 
-326. [85|narrative] Por la tarde, el piloto reconocía como recorridas doscientas veinte millas desde Hong-Kong, y Phileas Fogg podía esperar que al llegar a Yokohama no tendría tardanza ninguna que apuntar en su programa.
+326. [85|narrative] Mucho decir es que una notable parte del territorio se haya librado hasta hoy de la autoridad de la Reina; y en efecto, entre algunos rajaes del interior, fieros y terribles, la independencia india es todavía absoluta.
 
-327. [85|narrative] Durante toda la jornada, corrió así hacia el Norte, arrastrada por olas monstruosas, y conservando, felizmente, una velocidad igual a la de ellas.
+327. [85|narrative] Por la tarde, el piloto reconocía como recorridas doscientas veinte millas desde Hong-Kong, y Phileas Fogg podía esperar que al llegar a Yokohama no tendría tardanza ninguna que apuntar en su programa.
 
-328. [85|narrative] Llegó la noche, y Picaporte regresó a la ciudad indígena, vagando por las calles, en medio de faroles multicolores, viendo a los farsantes ejecutar sus maravillosos ejercicios, y a los astrólogos que, al aire libre, reunían a la gente alrededor de su telescopio.
+328. [85|narrative] Durante toda la jornada, corrió así hacia el Norte, arrastrada por olas monstruosas, y conservando, felizmente, una velocidad igual a la de ellas.
 
-329. [85|narrative] Fix creyó conveniente sonreír al oír esta observación, y a fin de ver sin ser atropellados, mistress Aouda, Phileas Fogg y él tomaron sitio en el descanso superior de unas gradas que dominaban la calle.
+329. [85|narrative] Llegó la noche, y Picaporte regresó a la ciudad indígena, vagando por las calles, en medio de faroles multicolores, viendo a los farsantes ejecutar sus maravillosos ejercicios, y a los astrólogos que, al aire libre, reunían a la gente alrededor de su telescopio.
 
-330. [85|narrative] Los respaldos de los bancos se doblaron; unos colchoncitos, curiosamente empaquetados, se desarrollaron por un sistema ingenioso; quedaron improvisados, en pocos instantes, unos camarotes y cada viajero pudo tener a su disposición una cama confortable, defendida por recias cortinas contra toda indiscreta mirada.
+330. [85|narrative] Fix creyó conveniente sonreír al oír esta observación, y a fin de ver sin ser atropellados, mistress Aouda, Phileas Fogg y él tomaron sitio en el descanso superior de unas gradas que dominaban la calle.
 
-331. [85|narrative] Después se dirigió al Hudson, y entre los buques amarrados al muelle o anclados en el río, buscó cuidadosamente los que estaban listos para salir.
+331. [85|narrative] Los respaldos de los bancos se doblaron; unos colchoncitos, curiosamente empaquetados, se desarrollaron por un sistema ingenioso; quedaron improvisados, en pocos instantes, unos camarotes y cada viajero pudo tener a su disposición una cama confortable, defendida por recias cortinas contra toda indiscreta mirada.
 
-332. [85|narrative] Algunas veces la hélice también salía fuera de las aguas, batiendo el aire con sus enloquecidas alas, cuando alguna montaña de agua levantaba la popa; pero el buque iba siempre avanzando.
+332. [85|narrative] Después se dirigió al Hudson, y entre los buques amarrados al muelle o anclados en el río, buscó cuidadosamente los que estaban listos para salir.
 
-333. [85|narrative] Las cartas se llevan a Dublín por un expreso siempre dispuesto, y de Dublín llegan a Liverpool por vapores de gran velocidad, adelantando doce horas a los rápidos buques de las compañías marítimas.
+333. [85|narrative] Algunas veces la hélice también salía fuera de las aguas, batiendo el aire con sus enloquecidas alas, cuando alguna montaña de agua levantaba la popa; pero el buque iba siempre avanzando.
 
-334. [84|descriptive] No formaba parte ni del Instituto Real de la Gran Bretaña ni del Instituto de Londres, ni del Instituto de los Artistas, ni del Instituto Russel, ni del Instituto Literario del Oeste, ni del Instituto de Derecho, ni de ese Instituto de las Ciencias y las Artes Reunidas que está colocado bajo la protección de Su Graciosa Majestad.
+334. [85|narrative] Las cartas se llevan a Dublín por un expreso siempre dispuesto, y de Dublín llegan a Liverpool por vapores de gran velocidad, adelantando doce horas a los rápidos buques de las compañías marítimas.
 
-335. [84|descriptive] En todo caso, aun cuando no se prodigaba mucho, no era tampoco avaro, porque en cualquier parte donde faltase auxilio para una cosa noble, útil o generosa, solía prestarlo con sigilo y hasta con el velo del anónimo.
+335. [84|descriptive] No formaba parte ni del Instituto Real de la Gran Bretaña ni del Instituto de Londres, ni del Instituto de los Artistas, ni del Instituto Russel, ni del Instituto Literario del Oeste, ni del Instituto de Derecho, ni de ese Instituto de las Ciencias y las Artes Reunidas que está colocado bajo la protección de Su Graciosa Majestad.
 
-336. [84|dialogue] Pero el incrédulo Stuart no estaba convencido, y dijo al concluirse la partida: —Hay que reconocer que habéis encontrado un chistoso modo de decir que la Tierra se ha empequeñecido.
+336. [84|descriptive] En todo caso, aun cuando no se prodigaba mucho, no era tampoco avaro, porque en cualquier parte donde faltase auxilio para una cosa noble, útil o generosa, solía prestarlo con sigilo y hasta con el velo del anónimo.
 
-337. [84|descriptive] Tomó el saco de las manos de Picaporte, lo abrió, y deslizó en él un paquete de esos hermosos billetes de banco que corren en todos los países.
+337. [84|dialogue] Pero el incrédulo Stuart no estaba convencido, y dijo al concluirse la partida: —Hay que reconocer que habéis encontrado un chistoso modo de decir que la Tierra se ha empequeñecido.
 
-338. [84|dialogue] Marineros de diversas nacionalidades, comerciantes, corredores, mozos de cordel y "fellahs" afluían allí para esperar la llegada del vapor, que no debía estar muy lejos.
+338. [84|descriptive] Tomó el saco de las manos de Picaporte, lo abrió, y deslizó en él un paquete de esos hermosos billetes de banco que corren en todos los países.
 
-339. [84|descriptive] Hizo hablar todavía más al francés, y adquirió la convicción de que ese mozo no conocía a su amo; que éste vivía aislado en Londres; que se le suponía rico sin saber el origen de su fortuna: que era un hombre impenetrable, etc.
+339. [84|dialogue] Marineros de diversas nacionalidades, comerciantes, corredores, mozos de cordel y "fellahs" afluían allí para esperar la llegada del vapor, que no debía estar muy lejos.
 
-340. [84|dialogue] ¿Pudiera creerse que siempre inquieto y ansioso se preocupaba de los cambios de viento perjudiciales a la marcha del buque, de los movimientos desordenados del oleaje que podían ocasionar un accidente a la maquina, en fin, de todas las averías posibles que obligando al "Mongolia" a arribar a algún puerto hubiesen comprometido el viaje?
+340. [84|descriptive] Hizo hablar todavía más al francés, y adquirió la convicción de que ese mozo no conocía a su amo; que éste vivía aislado en Londres; que se le suponía rico sin saber el origen de su fortuna: que era un hombre impenetrable, etc.
 
-341. [84|poetic] Estos tres personajes tenían por el whist igual pasión que míster Fogg, y jugaban horas enteras con no menos silencio que él.
+341. [84|dialogue] ¿Pudiera creerse que siempre inquieto y ansioso se preocupaba de los cambios de viento perjudiciales a la marcha del buque, de los movimientos desordenados del oleaje que podían ocasionar un accidente a la maquina, en fin, de todas las averías posibles que obligando al "Mongolia" a arribar a algún puerto hubiesen comprometido el viaje?
 
-342. [84|descriptive] No sabía el buen muchacho que lo que era posible en un vapor no tenía aplicación en un ferrocarril, cuya velocidad era reglamentaria.
+342. [84|poetic] Estos tres personajes tenían por el whist igual pasión que míster Fogg, y jugaban horas enteras con no menos silencio que él.
 
-343. [84|dialogue] A las ocho de la mañana, y a quince millas antes de la estación de Rothal, el tren se detuvo en medio de un extenso claro del bosque, rodeado de "bungalows" y de cabañas de obreros.
+343. [84|descriptive] No sabía el buen muchacho que lo que era posible en un vapor no tenía aplicación en un ferrocarril, cuya velocidad era reglamentaria.
 
-344. [84|poetic] Tres meses después enviudó, y sabiendo la suerte que le esperaba se escapó, fue alcanzada en su fuga, y los parientes del rajá, que tenían interés en su muerte, la condenaron a este suplicio, del cual era difícil que escapara.
+344. [84|dialogue] A las ocho de la mañana, y a quince millas antes de la estación de Rothal, el tren se detuvo en medio de un extenso claro del bosque, rodeado de "bungalows" y de cabañas de obreros.
 
-345. [84|descriptive] El parsi, guiando a míster Fogg, a sir Francis Cromarty y a Picaporte, se adelantó sin hacer ruido a través del bosque.
+345. [84|poetic] Tres meses después enviudó, y sabiendo la suerte que le esperaba se escapó, fue alcanzada en su fuga, y los parientes del rajá, que tenían interés en su muerte, la condenaron a este suplicio, del cual era difícil que escapara.
 
-346. [84|poetic] Phileas Fogg debía pues llegar a tiempo para tomar el vapor que partía al día siguiente, 25 de octubre a mediodía, en dirección a Hong-Kong.
+346. [84|descriptive] El parsi, guiando a míster Fogg, a sir Francis Cromarty y a Picaporte, se adelantó sin hacer ruido a través del bosque.
 
-347. [84|dialogue] Pero todo este espectáculo variado, ofrecido a las miradas por el grupo de las Andaman, paso pronto, y el "Rangoon" se dirigió con rapidez hacia el estrecho de Malaca, que debía darle acceso a los mares de la China.
+347. [84|poetic] Phileas Fogg debía pues llegar a tiempo para tomar el vapor que partía al día siguiente, 25 de octubre a mediodía, en dirección a Hong-Kong.
 
-348. [84|dialogue] "Por consiguiente —decía Fix para sí durante las dilatadas horas que pasaba en el camarote— o el mandamiento estará en Hong-Kong y prendo a mi hombre, o no estará y será necesario retrasar su viaje a toda costa.
+348. [84|dialogue] Pero todo este espectáculo variado, ofrecido a las miradas por el grupo de las Andaman, paso pronto, y el "Rangoon" se dirigió con rapidez hacia el estrecho de Malaca, que debía darle acceso a los mares de la China.
 
-349. [84|poetic] Apoyado un día en el pasamanos de la máquina, estaba mirando cómo de vez en cuando precipitaba éste su movimiento, cuando la hélice salió de punta fuera de las olas por un violento cabeceo, escapándose el vapor por las válvulas, lo cual provocó las iras de tan digno mozo.
+349. [84|dialogue] "Por consiguiente —decía Fix para sí durante las dilatadas horas que pasaba en el camarote— o el mandamiento estará en Hong-Kong y prendo a mi hombre, o no estará y será necesario retrasar su viaje a toda costa.
 
-350. [84|poetic] Era una extensa sala bien adornada, en el fondo de la cual había una tarima de campaña, guarnecida de almohadas, y sobre la cual se hallaba cierto número de durmientes.
+350. [84|poetic] Apoyado un día en el pasamanos de la máquina, estaba mirando cómo de vez en cuando precipitaba éste su movimiento, cuando la hélice salió de punta fuera de las olas por un violento cabeceo, escapándose el vapor por las válvulas, lo cual provocó las iras de tan digno mozo.
 
-351. [84|poetic] Así es que, si bien hace algún tiempo que he adivinado vuestro oficio, me he guardado muy bien de revelárselo a míster Fogg.
+351. [84|poetic] Era una extensa sala bien adornada, en el fondo de la cual había una tarima de campaña, guarnecida de almohadas, y sobre la cual se hallaba cierto número de durmientes.
 
-352. [84|descriptive] Míster Fogg, que esperaba encontrar, a la vez, el buque y a su criado, tuvo que pasar sin el uno y sin el otro; pero en su rostro, no apareció ninguna señal de inquietud, y se contentó con responder.
+352. [84|poetic] Así es que, si bien hace algún tiempo que he adivinado vuestro oficio, me he guardado muy bien de revelárselo a míster Fogg.
 
-353. [84|dialogue] ¡Habiendo terminado el "Carnatic" sus reparaciones, ha salido de Hong-Kong, doce horas antes, sin avisar a nadie, y ahora será menester aguardar ocho días la próxima salida!
+353. [84|descriptive] Míster Fogg, que esperaba encontrar, a la vez, el buque y a su criado, tuvo que pasar sin el uno y sin el otro; pero en su rostro, no apareció ninguna señal de inquietud, y se contentó con responder.
 
-354. [84|dialogue] Júzguese del golpe que recibió cuando oyó decir a Phileas Fogg, con sosegada voz: —Pero me parece que en el puerto de Hong-Kong hay otros buques.
+354. [84|dialogue] ¡Habiendo terminado el "Carnatic" sus reparaciones, ha salido de Hong-Kong, doce horas antes, sin avisar a nadie, y ahora será menester aguardar ocho días la próxima salida!
 
-355. [84|poetic] En esta última travesía nos separaríamos poco de la costa china, lo cual sería una gran ventaja, tanto más cuanto que las corrientes van hacia el Norte.
+355. [84|dialogue] Júzguese del golpe que recibió cuando oyó decir a Phileas Fogg, con sosegada voz: —Pero me parece que en el puerto de Hong-Kong hay otros buques.
 
-356. [84|dialogue] Durante la noche, hacia las primeras horas de la mañana, la "Tankadera" entraba francamente en el estrecho de Fo-Kien, que separa la costa china de la gran isla de Formosa, y cortaba el trópico de Cáncer.
+356. [84|poetic] En esta última travesía nos separaríamos poco de la costa china, lo cual sería una gran ventaja, tanto más cuanto que las corrientes van hacia el Norte.
 
-357. [84|descriptive] Los juegos de la escalera, de la percha, de la bola, de los toneles, etc., fueron ejecutados con admirable precisión; pero el principal atractivo de la función era la exhibición de los narigudos, asombrosos equilibristas que Europa no conoce todavía.
+357. [84|dialogue] Durante la noche, hacia las primeras horas de la mañana, la "Tankadera" entraba francamente en el estrecho de Fo-Kien, que separa la costa china de la gran isla de Formosa, y cortaba el trópico de Cáncer.
 
-358. [84|descriptive] Seguramente que no hubiera reconocido a su criado bajo aquel excéntrico atavío de heraldo; pero éste, en su posición invertida, vio a su amo en la galería.
+358. [84|descriptive] Los juegos de la escalera, de la percha, de la bola, de los toneles, etc., fueron ejecutados con admirable precisión; pero el principal atractivo de la función era la exhibición de los narigudos, asombrosos equilibristas que Europa no conoce todavía.
 
-359. [84|descriptive] Una hora después, el dormitorio era de nuevo un vagón ordinario, y los viajeros podían ver por los cristales los pintorescos puntos de vista de aquel montañoso país.
+359. [84|descriptive] Seguramente que no hubiera reconocido a su criado bajo aquel excéntrico atavío de heraldo; pero éste, en su posición invertida, vio a su amo en la galería.
 
-360. [84|descriptive] Phileas Fogg, la joven Aouda y sus compañeros, confortablemente instalados, miraban el paisaje variado que se presentaba a la vista; vastas praderas, montañas que se perfilaban en el horizonte, torrentes que rodaban sus aguas espumosas.
+360. [84|descriptive] Una hora después, el dormitorio era de nuevo un vagón ordinario, y los viajeros podían ver por los cristales los pintorescos puntos de vista de aquel montañoso país.
 
-361. [84|dialogue] Y vos, adicto mío —añadió el hermano mayor, fijando sobre su único oyente su enojada mirada—, ¿plantaréis la vuestra a la sombra de nuestra bandera?
+361. [84|descriptive] Phileas Fogg, la joven Aouda y sus compañeros, confortablemente instalados, miraban el paisaje variado que se presentaba a la vista; vastas praderas, montañas que se perfilaban en el horizonte, torrentes que rodaban sus aguas espumosas.
 
-362. [84|poetic] Temía las tardanzas, recelaba los accidentes, y aún tenía más prisa que el mismo Phileas Fogg en poner el pie sobre la tierra inglesa.
+362. [84|dialogue] Y vos, adicto mío —añadió el hermano mayor, fijando sobre su único oyente su enojada mirada—, ¿plantaréis la vuestra a la sombra de nuestra bandera?
 
-363. [84|descriptive] A las nueve, se llegaba a la importante ciudad de North Platte, construida entre los dos brazos de ese gran río, que se vuelven a reunir alrededor de ella para no formar, en adelante ya, más que una sola arteria, afluyente considerable cuyas aguas se confunden con las del Missouri, un poco más allá de Omaha.
+363. [84|poetic] Temía las tardanzas, recelaba los accidentes, y aún tenía más prisa que el mismo Phileas Fogg en poner el pie sobre la tierra inglesa.
 
-364. [84|poetic] Tomaron unas habitaciones, y la noche transcurrió corta para Phileas Fogg, que durmió con profundo sueño, pero muy larga para mistress Aouda y sus compañeros, a quienes la agitación no permitió descansar.
+364. [84|descriptive] A las nueve, se llegaba a la importante ciudad de North Platte, construida entre los dos brazos de ese gran río, que se vuelven a reunir alrededor de ella para no formar, en adelante ya, más que una sola arteria, afluyente considerable cuyas aguas se confunden con las del Missouri, un poco más allá de Omaha.
 
-365. [84|poetic] El semblante de Picaporte se nubló al mismo tiempo que el cielo, y durante dos días sufrió el honrado muchacho mortales angustias; pero Phileas Fogg era audaz marino, y como sabía hacer frente al mar, no perdió rumbo, ni aun disminuyó la fuerza del vapor.
+365. [84|poetic] Tomaron unas habitaciones, y la noche transcurrió corta para Phileas Fogg, que durmió con profundo sueño, pero muy larga para mistress Aouda y sus compañeros, a quienes la agitación no permitió descansar.
 
-366. [84|dialogue] Ya sabéis que el "China", único vapor de Nueva York que ha podido tomar para llegar a Liverpool a tiempo, ha llegado ayer.
+366. [84|poetic] El semblante de Picaporte se nubló al mismo tiempo que el cielo, y durante dos días sufrió el honrado muchacho mortales angustias; pero Phileas Fogg era audaz marino, y como sabía hacer frente al mar, no perdió rumbo, ni aun disminuyó la fuerza del vapor.
 
-367. [84|descriptive] El vasto salón del club estaba tranquilo; pero afuera se oía la algazara de la muchedumbre, dominada algunas veces por agudos gritos.
+367. [84|dialogue] Ya sabéis que el "China", único vapor de Nueva York que ha podido tomar para llegar a Liverpool a tiempo, ha llegado ayer.
 
-368. [84|narrative] Allahabad es la Ciudad de Dios, una de las más veneradas de la India, en razón de estar construida sobre la confluencia de los dos ríos sagrados, el Ganges y el Jumna, cuyas aguas atraen a los peregrinos de todo el Indostán.
+368. [84|descriptive] El vasto salón del club estaba tranquilo; pero afuera se oía la algazara de la muchedumbre, dominada algunas veces por agudos gritos.
 
-369. [84|narrative] Algunos instantes después, Phileas Fogg, sir Francis Cromarty y Picaporte, instalados en un confortable vagón, cuyo mejor asiento iba ocupado por Aouda, corrían a todo vapor hacia Benarés.
+369. [84|narrative] Allahabad es la Ciudad de Dios, una de las más veneradas de la India, en razón de estar construida sobre la confluencia de los dos ríos sagrados, el Ganges y el Jumna, cuyas aguas atraen a los peregrinos de todo el Indostán.
 
-370. [84|narrative] El agente pasó algunas horas angustiosas, creyéndolo algunas veces todo perdido, esperando otras que Fogg ignoraba la situación, y por último, no sabiendo qué partido tomar.
+370. [84|narrative] Algunos instantes después, Phileas Fogg, sir Francis Cromarty y Picaporte, instalados en un confortable vagón, cuyo mejor asiento iba ocupado por Aouda, corrían a todo vapor hacia Benarés.
 
-371. [84|narrative] Los mares de la China son generalmente malos; están expuestos a borrascas terribles, principalmente durante los equinoccios, y todavía no habían transcurrido los primeros días de noviembre.
+371. [84|narrative] El agente pasó algunas horas angustiosas, creyéndolo algunas veces todo perdido, esperando otras que Fogg ignoraba la situación, y por último, no sabiendo qué partido tomar.
 
-372. [84|narrative] Pero, tres horas más tarde, Picaporte, perseguido hasta en sus pesadillas por una idea fija, se despertaba y luchaba contra la acción enervante del narcótico.
+372. [84|narrative] Los mares de la China son generalmente malos; están expuestos a borrascas terribles, principalmente durante los equinoccios, y todavía no habían transcurrido los primeros días de noviembre.
 
-373. [84|narrative] Los juglares jugueteaban con ellos y los hacían girar hasta en el aire; los despedían como volantes, con paletillas de madera, y seguían girando siempre; se los metían en el bolsillo, y cuando los sacaban, todavía daban vueltas, hasta el momento en que la distensión de un muelle los hacía desplegar en haces de fuegos artificiales.
+373. [84|narrative] Pero, tres horas más tarde, Picaporte, perseguido hasta en sus pesadillas por una idea fija, se despertaba y luchaba contra la acción enervante del narcótico.
 
-374. [84|narrative] Se dirigió en vano a los agentes consulares inglés y francés, y, después de haber recorrido inútilmente las calles de Yokohama, desesperaba ya de encontrar a Picaporte, cuando la casualidad, o tal vez una especie de presentimiento, lo hizo entrar en el barracón del honorable Batulcar.
+374. [84|narrative] Los juglares jugueteaban con ellos y los hacían girar hasta en el aire; los despedían como volantes, con paletillas de madera, y seguían girando siempre; se los metían en el bolsillo, y cuando los sacaban, todavía daban vueltas, hasta el momento en que la distensión de un muelle los hacía desplegar en haces de fuegos artificiales.
 
-375. [84|narrative] Míster Fogg escuchó esta relación con frialdad y sin responder, y después abrió a su criado un crédito suficiente para procurarse a bordo un traje más conveniente.
+375. [84|narrative] Se dirigió en vano a los agentes consulares inglés y francés, y, después de haber recorrido inútilmente las calles de Yokohama, desesperaba ya de encontrar a Picaporte, cuando la casualidad, o tal vez una especie de presentimiento, lo hizo entrar en el barracón del honorable Batulcar.
 
-376. [84|narrative] Nueva York y San Francisco están, por consiguiente, unidas por una cinta no interrumpida de metal, que no mide menos de tres mil setecientas ochenta y seis millas.
+376. [84|narrative] Míster Fogg escuchó esta relación con frialdad y sin responder, y después abrió a su criado un crédito suficiente para procurarse a bordo un traje más conveniente.
 
-377. [84|narrative] Más allá de Sacramento, el tren, después de pasar las estaciones de Junction, Roclin, Aubum y Colfax, penetró en el macizo de Sierra Nevada.
+377. [84|narrative] Nueva York y San Francisco están, por consiguiente, unidas por una cinta no interrumpida de metal, que no mide menos de tres mil setecientas ochenta y seis millas.
 
-378. [84|narrative] En esta parte de territorio, comprendida entre esos montes y las Montañas Rocosas, propiamente dichas, los ingenieros americanos han tenido que vencer las más serias dificultades.
+378. [84|narrative] Más allá de Sacramento, el tren, después de pasar las estaciones de Junction, Roclin, Aubum y Colfax, penetró en el macizo de Sierra Nevada.
 
-379. [84|narrative] Estaba arrepentido de haberse dejado subyugar en el primer momento por míster Fogg, y comprendía la necedad en que había incurrido dejándolo marchar.
+379. [84|narrative] En esta parte de territorio, comprendida entre esos montes y las Montañas Rocosas, propiamente dichas, los ingenieros americanos han tenido que vencer las más serias dificultades.
 
-380. [84|narrative] Míster Fogg abandonó el hotel solo, después de haber recomendado a su criado que lo aguardase y de haber prevenido a mistress Aouda que estuviese dispuesta.
+380. [84|narrative] Estaba arrepentido de haberse dejado subyugar en el primer momento por míster Fogg, y comprendía la necedad en que había incurrido dejándolo marchar.
 
-381. [84|narrative] Picaporte se había marchado muy alegre, yendo con paso rápido al domicilio del reverendo Samuel Wilson, que no había vuelto aún a casa.
+381. [84|narrative] Míster Fogg abandonó el hotel solo, después de haber recomendado a su criado que lo aguardase y de haber prevenido a mistress Aouda que estuviese dispuesta.
 
-382. [84|narrative] Sin embargo, como se ha dicho, el excéntrico gentleman no había buscado en esta apuesta más que la lucha y no la fortuna.
+382. [84|narrative] Picaporte se había marchado muy alegre, yendo con paso rápido al domicilio del reverendo Samuel Wilson, que no había vuelto aún a casa.
 
-383. [83|dialogue] Llevaba debajo del brazo el "Brandshaw's Continental Railway, Steam Transit and general Guide", que debía suministrar todas las indicaciones necesarias para el viaje.
+383. [84|narrative] Sin embargo, como se ha dicho, el excéntrico gentleman no había buscado en esta apuesta más que la lucha y no la fortuna.
 
-384. [83|dialogue] En Europa, donde las distancias son relativamente cortas, se puede en rigor contar con que los trenes 20 llegarán a hora fija; pero cuando tardan tres días en atravesar la India y siete en cruzar los Estados Unidos, ¿podían fundarse sobre su exactitud los elementos de semejante problema?
+384. [83|dialogue] Llevaba debajo del brazo el "Brandshaw's Continental Railway, Steam Transit and general Guide", que debía suministrar todas las indicaciones necesarias para el viaje.
 
-385. [83|dialogue] ¡Ya comprenderéis que no es permitido a un hombre de entendimiento sano pasar la vida saltando de un vapor a un ferrocarril, y de un ferrocarril a un vapor, con el pretexto de dar la vuelta al mundo en ochenta días!
+385. [83|dialogue] En Europa, donde las distancias son relativamente cortas, se puede en rigor contar con que los trenes 20 llegarán a hora fija; pero cuando tardan tres días en atravesar la India y siete en cruzar los Estados Unidos, ¿podían fundarse sobre su exactitud los elementos de semejante problema?
 
-386. [83|dialogue] Al siguiente día, 22 de octubre, respondiendo a una pregunta de sir Francis Cromarty, Picaporte, después de consultar su reloj, dijo que eran las tres de la 44 mañana.
+386. [83|dialogue] ¡Ya comprenderéis que no es permitido a un hombre de entendimiento sano pasar la vida saltando de un vapor a un ferrocarril, y de un ferrocarril a un vapor, con el pretexto de dar la vuelta al mundo en ochenta días!
 
-387. [83|descriptive] Y trató de hacerle comprender que debía arreglar su reloj por cada nuevo meridiano, y que, caminando constantemente hacia el sol, los días eran más cortos tantas veces cuatro minutos como grados se recorrían.
+387. [83|dialogue] Al siguiente día, 22 de octubre, respondiendo a una pregunta de sir Francis Cromarty, Picaporte, después de consultar su reloj, dijo que eran las tres de la 44 mañana.
 
-388. [83|dialogue] Por fortuna había ido también de descubierta por su parte, y titubeando un poco, dijo: —Señor, me parece que he hallado un medio de transporte.
+388. [83|descriptive] Y trató de hacerle comprender que debía arreglar su reloj por cada nuevo meridiano, y que, caminando constantemente hacia el sol, los días eran más cortos tantas veces cuatro minutos como grados se recorrían.
 
-389. [83|dialogue] Por eso están muy cuidados; y cuando míster Fogg preguntó al indio si quería alquilarle su elefante, el indio se negó a ello resueltamente.
+389. [83|dialogue] Por fortuna había ido también de descubierta por su parte, y titubeando un poco, dijo: —Señor, me parece que he hallado un medio de transporte.
 
-390. [83|dialogue] Picaporte estaba dispuesto a apostar sus babuchas —las había preciosamente conservado— que Fix saldría de Hong-Kong al mismo tiempo que ellos, y probablemente sobre el mismo vapor.
+390. [83|dialogue] Por eso están muy cuidados; y cuando míster Fogg preguntó al indio si quería alquilarle su elefante, el indio se negó a ello resueltamente.
 
-391. [83|descriptive] El encanto de Aouda no tenía acción alguna, con gran sorpresa de Picaporte, y las perturbaciones, si existían, hubieran sido más difíciles de calcular que las de Urano, que han ocasionado el descubrimiento de Neptuno.
+391. [83|dialogue] Picaporte estaba dispuesto a apostar sus babuchas —las había preciosamente conservado— que Fix saldría de Hong-Kong al mismo tiempo que ellos, y probablemente sobre el mismo vapor.
 
-392. [83|dialogue] Sin la necesidad de reparar sus calderas el "Carnatic" se hubiera marchado el 5 de noviembre, y los viajeros para el Japón hubieran tenido que aguardar durante ocho días la salida del vapor siguiente.
+392. [83|descriptive] El encanto de Aouda no tenía acción alguna, con gran sorpresa de Picaporte, y las perturbaciones, si existían, hubieran sido más difíciles de calcular que las de Urano, que han ocasionado el descubrimiento de Neptuno.
 
-393. [83|dialogue] Media hora más tarde, los viajeros bajaban al muelle de embarque, y allí supieron que el "Carnatic" se había marchado la víspera.
+393. [83|dialogue] Sin la necesidad de reparar sus calderas el "Carnatic" se hubiera marchado el 5 de noviembre, y los viajeros para el Japón hubieran tenido que aguardar durante ocho días la salida del vapor siguiente.
 
-394. [83|dialogue] Pero míster Fogg no se desanimaba, e iba a continuar sus investigaciones, aun cuando para ello tuviera que ir hasta Macao, cuando le salió al encuentro un marino que, descubriéndose, le dijo: —¿Busca Vuestro Honor un barco?
+394. [83|dialogue] Media hora más tarde, los viajeros bajaban al muelle de embarque, y allí supieron que el "Carnatic" se había marchado la víspera.
 
-395. [83|dialogue] El cañón se cargó hasta la boca; pero, en el momento en que el piloto iba a aplicar la mecha, dijo míster Fogg: —¡La bandera!
+395. [83|dialogue] Pero míster Fogg no se desanimaba, e iba a continuar sus investigaciones, aun cuando para ello tuviera que ir hasta Macao, cuando le salió al encuentro un marino que, descubriéndose, le dijo: —¿Busca Vuestro Honor un barco?
 
-396. [83|dialogue] Cierto es que el buen muchacho había almorzado, por previsión, todo lo copiosamente que pudo, antes de salir del "Carnatic", pero después de un día de paseo, se sintió muy hueco el estómago.
+396. [83|dialogue] El cañón se cargó hasta la boca; pero, en el momento en que el piloto iba a aplicar la mecha, dijo míster Fogg: —¡La bandera!
 
-397. [83|dialogue] ¡Es necesario, pues, discurrir el medio de dejar lo más pronto posible este país del Sol, del cual no guardaré más que un lamentable recuerdo!
+397. [83|dialogue] Cierto es que el buen muchacho había almorzado, por previsión, todo lo copiosamente que pudo, antes de salir del "Carnatic", pero después de un día de paseo, se sintió muy hueco el estómago.
 
-398. [83|poetic] Una docena de los sectarios del dios Tingú se echaron de espaldas, y sus compañeros se pusieron a jugar sobre sus narices enhiestas cual pararrayos, saltando, volteando de una a otra y ejecutando suertes inverosímiles.
+398. [83|dialogue] ¡Es necesario, pues, discurrir el medio de dejar lo más pronto posible este país del Sol, del cual no guardaré más que un lamentable recuerdo!
 
-399. [83|dialogue] El vapor que hacía la travesía de Yokohama a San Francisco pertenecía a la compañía del "Pacific Mail Steam", y se llamaba "General Grant".
+399. [83|poetic] Una docena de los sectarios del dios Tingú se echaron de espaldas, y sus compañeros se pusieron a jugar sobre sus narices enhiestas cual pararrayos, saltando, volteando de una a otra y ejecutando suertes inverosímiles.
 
-400. [83|dialogue] En el momento en que míster Fogg iba a entrar en el vagón, se dirigió a un empleado, diciéndole: —Amigo mío ¿no ha habido algunos disturbios hoy en San Francisco?
+400. [83|dialogue] El vapor que hacía la travesía de Yokohama a San Francisco pertenecía a la compañía del "Pacific Mail Steam", y se llamaba "General Grant".
 
-401. [83|descriptive] Advirtieron pocas iglesias o ninguna, y como monumentos, la casa del Profeta, los tribunales y el arsenal; después, unas casas de ladrillos azulados con cancelas y galerías, rodeadas de jardines, adornadas con acacias, palmera y algarrobos.
+401. [83|dialogue] En el momento en que míster Fogg iba a entrar en el vagón, se dirigió a un empleado, diciéndole: —Amigo mío ¿no ha habido algunos disturbios hoy en San Francisco?
 
-402. [83|descriptive] Un muro de arcilla y piedras, hecho en 1853, ceñía la ciudad; en la calle principal, donde estaba el mercado, se elevaban algunos palacios adornados de banderas, y entre otros, Lake-Salt-House.
+402. [83|descriptive] Advirtieron pocas iglesias o ninguna, y como monumentos, la casa del Profeta, los tribunales y el arsenal; después, unas casas de ladrillos azulados con cancelas y galerías, rodeadas de jardines, adornadas con acacias, palmera y algarrobos.
 
-403. [83|descriptive] La locomotora, que andaba a corto vapor y dando grandes silbidos, era la que, después de haberse separado del tren, había continuado su marcha con tan espantosa velocidad, llevando al maquinista y fogonero inanimados.
+403. [83|descriptive] Un muro de arcilla y piedras, hecho en 1853, ceñía la ciudad; en la calle principal, donde estaba el mercado, se elevaban algunos palacios adornados de banderas, y entre otros, Lake-Salt-House.
 
-404. [83|dialogue] Y Fix acabó por creer naturalmente que la "Enriqueta" dirigida por Fogg, no iba a Liverpool, sino a algún punto del mundo donde el ladrón, convertido en pirata, se pondría tranquilamente en seguridad.
+404. [83|descriptive] La locomotora, que andaba a corto vapor y dando grandes silbidos, era la que, después de haberse separado del tren, había continuado su marcha con tan espantosa velocidad, llevando al maquinista y fogonero inanimados.
 
-405. [83|descriptive] Sus colegas no lo esperaban, puesto que la víspera, sábado, fecha fatal del 21 de diciembre a las ocho y cuarenta y cinco minutos, Phileas Fogg no se había presentado en el salón del Reform-Club, y tenía la apuesta perdida.
+405. [83|dialogue] Y Fix acabó por creer naturalmente que la "Enriqueta" dirigida por Fogg, no iba a Liverpool, sino a algún punto del mundo donde el ladrón, convertido en pirata, se pondría tranquilamente en seguridad.
 
-406. [83|poetic] En otros términos: mientras que Phileas Fogg, marchando hacia Oriente, vio el sol pasar ochenta veces por el meridiano, sus colegas de Londres no lo habían visto más que setenta y nueve.
+406. [83|descriptive] Sus colegas no lo esperaban, puesto que la víspera, sábado, fecha fatal del 21 de diciembre a las ocho y cuarenta y cinco minutos, Phileas Fogg no se había presentado en el salón del Reform-Club, y tenía la apuesta perdida.
 
-407. [83|narrative] En el fondo, entre las masas de árboles, se alzaba confusamente el templo de Pillaji; pero, con gran despecho de parte del guía, los guardias del rajá, alumbrados por antorchas fuliginosas, vigilaban la puerta, paseándose sable en mano.
+407. [83|poetic] En otros términos: mientras que Phileas Fogg, marchando hacia Oriente, vio el sol pasar ochenta veces por el meridiano, sus colegas de Londres no lo habían visto más que setenta y nueve.
 
-408. [83|narrative] El parsi no se adelantó más porque había reconocido la imposibilidad de forzar la entrada del templo, e hizo retroceder a sus compañeros.
+408. [83|narrative] En el fondo, entre las masas de árboles, se alzaba confusamente el templo de Pillaji; pero, con gran despecho de parte del guía, los guardias del rajá, alumbrados por antorchas fuliginosas, vigilaban la puerta, paseándose sable en mano.
 
-409. [83|narrative] Les había prometido resarcimiento de perjuicios, sabiendo muy bien que el gobierno inglés se mostraba muy severo con esos delitos, y después por el tren siguiente los había hecho ir en seguimiento de los culpables.
+409. [83|narrative] El parsi no se adelantó más porque había reconocido la imposibilidad de forzar la entrada del templo, e hizo retroceder a sus compañeros.
 
-410. [83|narrative] Fix esperaba todavía que el ladrón no se decidiera a perder la suma de dos mil libras y que cumpliría sus ocho días de cárcel.
+410. [83|narrative] Les había prometido resarcimiento de perjuicios, sabiendo muy bien que el gobierno inglés se mostraba muy severo con esos delitos, y después por el tren siguiente los había hecho ir en seguimiento de los culpables.
 
-411. [83|narrative] En efecto, los vapores de la Compañía Peninsular que hacen el servicio de los mares de China, tienen un defecto de construcción muy grave.
+411. [83|narrative] Fix esperaba todavía que el ladrón no se decidiera a perder la suma de dos mil libras y que cumpliría sus ocho días de cárcel.
 
-412. [83|narrative] Se fuma el opio en todas partes, entregándose a esa inhalación no pueden pasar sin ella, porque experimentan horribles contracciones en el estómago.
+412. [83|narrative] En efecto, los vapores de la Compañía Peninsular que hacen el servicio de los mares de China, tienen un defecto de construcción muy grave.
 
-413. [83|narrative] John Bunsby había recomendado a sus pasajeros que bajasen a la cámara; pero, en tan estrecho espacio, casi privado de aire, y con los sacudimientos de la marejada, no podía tener nada de agradable aquel encierro.
+413. [83|narrative] Se fuma el opio en todas partes, entregándose a esa inhalación no pueden pasar sin ella, porque experimentan horribles contracciones en el estómago.
 
-414. [83|narrative] Después de haber recorrido la parte europea de la ciudad, sin que el azar le hubiese servido, entró en la parte japonesa, decidido, en caso necesario, a llegar hasta Yedo.
+414. [83|narrative] John Bunsby había recomendado a sus pasajeros que bajasen a la cámara; pero, en tan estrecho espacio, casi privado de aire, y con los sacudimientos de la marejada, no podía tener nada de agradable aquel encierro.
 
-415. [83|narrative] Los japoneses debían, seguramente, ser aficionados a la música, puesto que todo se hace entre ellos a son de timbales, tamtams y tambores, no pudiendo menos de apreciar, por consiguiente, el talento de un cantor europeo.
+415. [83|narrative] Después de haber recorrido la parte europea de la ciudad, sin que el azar le hubiese servido, entró en la parte japonesa, decidido, en caso necesario, a llegar hasta Yedo.
 
-416. [83|narrative] Era el establecimiento del honorable Batulcar, especie de Barnum americano, director de una compañía de saltimbanquis, juglares, clowns, acróbatas, equilibristas, gimnastas, que, según el cartel, daban sus últimas representaciones antes de dejar el Imperio del Sol, para irse a los Estados Unidos.
+416. [83|narrative] Los japoneses debían, seguramente, ser aficionados a la música, puesto que todo se hace entre ellos a son de timbales, tamtams y tambores, no pudiendo menos de apreciar, por consiguiente, el talento de un cantor europeo.
 
-417. [83|narrative] Esto es lo que supo Picaporte de boca de la misma mistress Aouda, que le refirió entonces cómo se había efectuado la travesía de Hong-Kong a Yokohama, en compañía de un tal Fix.
+417. [83|narrative] Era el establecimiento del honorable Batulcar, especie de Barnum americano, director de una compañía de saltimbanquis, juglares, clowns, acróbatas, equilibristas, gimnastas, que, según el cartel, daban sus últimas representaciones antes de dejar el Imperio del Sol, para irse a los Estados Unidos.
 
-418. [83|narrative] Sobre cubierta se elevaba y bajaba, alternativamente, un enorme balancín, en una de cuyas extremidades se articulaba la barra de un pistón y en la otra la de una biela, que, transformando el movimiento rectilíneo en circular, se aplicaba 110 directamente al árbol de las ruedas.
+418. [83|narrative] Esto es lo que supo Picaporte de boca de la misma mistress Aouda, que le refirió entonces cómo se había efectuado la travesía de Hong-Kong a Yokohama, en compañía de un tal Fix.
 
-419. [83|narrative] Desde el sitio elevado que ocupaba, Picaporte observaba con curiosidad la gran ciudad americana: anchas calles; casas bajas bien alineadas; iglesias y templos de estilo gótico anglosajón; docks inmensos; depósitos como palacios, unos de madera, otros de ladrillo; en las calles muchos coches, ómnibus, tranvías y las aceras atestadas, no sólo de americanos y europeos, sino de chinos e indianos con que componer una población de doscientos mil habitantes.
+419. [83|narrative] Sobre cubierta se elevaba y bajaba, alternativamente, un enorme balancín, en una de cuyas extremidades se articulaba la barra de un pistón y en la otra la de una biela, que, transformando el movimiento rectilíneo en circular, se aplicaba 110 directamente al árbol de las ruedas.
 
-420. [83|narrative] Botas y zapatos describían 117 por el aire largas trayectorias, y hasta pareció que algunos revólveres mezclaban con las vociferaciones sus detonaciones nacionales.
+420. [83|narrative] Desde el sitio elevado que ocupaba, Picaporte observaba con curiosidad la gran ciudad americana: anchas calles; casas bajas bien alineadas; iglesias y templos de estilo gótico anglosajón; docks inmensos; depósitos como palacios, unos de madera, otros de ladrillo; en las calles muchos coches, ómnibus, tranvías y las aceras atestadas, no sólo de americanos y europeos, sino de chinos e indianos con que componer una población de doscientos mil habitantes.
 
-421. [83|narrative] Míster Fogg, no menos flemático que de costumbre, quiso defender con esas armas naturales que la naturaleza ha puesto en el extremo de los brazos de todo inglés, pero inútilmente.
+421. [83|narrative] Botas y zapatos describían 117 por el aire largas trayectorias, y hasta pareció que algunos revólveres mezclaban con las vociferaciones sus detonaciones nacionales.
 
-422. [83|narrative] El ferrocarril seguía los contornos de las montañas no buscando en la línea recta el camino más corto de uno a otro punto, y no violentando a la naturaleza.
+422. [83|narrative] Míster Fogg, no menos flemático que de costumbre, quiso defender con esas armas naturales que la naturaleza ha puesto en el extremo de los brazos de todo inglés, pero inútilmente.
 
-423. [83|narrative] No comprendía, sin duda, toda la profundidad del sentimiento que le inspiraba su salvador, y aunque no daba a este sentimiento otro nombre que el de agradecimiento, había más que esto, sin sospecharlo ella misma.
+423. [83|narrative] El ferrocarril seguía los contornos de las montañas no buscando en la línea recta el camino más corto de uno a otro punto, y no violentando a la naturaleza.
 
-424. [83|narrative] Según su costumbre, sin aguardar la parada del convoy, se habían arrojado sobre el estribo un centenar de ellos, escalando los vagones como lo hace un clown al saltar sobre un caballo al galope.
+424. [83|narrative] No comprendía, sin duda, toda la profundidad del sentimiento que le inspiraba su salvador, y aunque no daba a este sentimiento otro nombre que el de agradecimiento, había más que esto, sin sospecharlo ella misma.
 
-425. [83|narrative] Un jefe sioux, queriendo detener el tren, había abierto la introducción 139 del vapor en lugar de cerrarla, y la locomotora, arrastrada, corría con una velocidad espantosa.
+425. [83|narrative] Según su costumbre, sin aguardar la parada del convoy, se habían arrojado sobre el estribo un centenar de ellos, escalando los vagones como lo hace un clown al saltar sobre un caballo al galope.
 
-426. [83|narrative] Atravesó como un relámpago los Estados de Indiana, Ohio, Pensylvania y New Jersey, pasando por ciudades de nombres históricos, algunas de las cuales tenían calles y tranvías, pero no casas todavía.
+426. [83|narrative] Un jefe sioux, queriendo detener el tren, había abierto la introducción 139 del vapor en lugar de cerrarla, y la locomotora, arrastrada, corría con una velocidad espantosa.
 
-427. [82|descriptive] Cómo había realizado su fortuna, es lo que los mejor informados no podían decir, y para saberlo, el último a quien convenía dirigirse era míster Fogg.
+427. [83|narrative] Atravesó como un relámpago los Estados de Indiana, Ohio, Pensylvania y New Jersey, pasando por ciudades de nombres históricos, algunas de las cuales tenían calles y tranvías, pero no casas todavía.
 
-428. [82|descriptive] He sido cantor ambulante, he sido artista de circo donde daba el salto como Leotard y bailaba en la cuerda como Blondín; luego, al fin de hacer más útiles mis servicios, he llegado a profesor de gimnasia, y por último, era sargento de bomberos en París, y aún tengo en mi hoja de servicios algunos incendios notables.
+428. [82|descriptive] Cómo había realizado su fortuna, es lo que los mejor informados no podían decir, y para saberlo, el último a quien convenía dirigirse era míster Fogg.
 
-429. [82|descriptive] Y hallándome desacomodado y habiendo sabido que el señor Phileas Fogg era el hombre más exacto y sedentario del Reino Unido, me he presentado en casa del señor, esperando vivir con tranquilidad y olvidar hasta el apodo de Picaporte.
+429. [82|descriptive] He sido cantor ambulante, he sido artista de circo donde daba el salto como Leotard y bailaba en la cuerda como Blondín; luego, al fin de hacer más útiles mis servicios, he llegado a profesor de gimnasia, y por último, era sargento de bomberos en París, y aún tengo en mi hoja de servicios algunos incendios notables.
 
-430. [82|dialogue] Las indagaciones habían permitido reunir con bastante exactitud las señas de ese caballero, que fueron al punto transmitidas a todos los "detectives" del Reino Unido y del gobierno.
+430. [82|descriptive] Y hallándome desacomodado y habiendo sabido que el señor Phileas Fogg era el hombre más exacto y sedentario del Reino Unido, me he presentado en casa del señor, esperando vivir con tranquilidad y olvidar hasta el apodo de Picaporte.
 
-431. [82|dialogue] Fix dijo a su compañero que hiciera sus compras, le recomendó que no faltase a la salida del "Mongolia", y volvió con premura al despacho del agente consular.
+431. [82|dialogue] Las indagaciones habían permitido reunir con bastante exactitud las señas de ese caballero, que fueron al punto transmitidas a todos los "detectives" del Reino Unido y del gobierno.
 
-432. [82|poetic] No tenía duda de que allí permanecería algún tiempo Phileas Fogg, convicción de que participaba Picaporte, lo cual daría lugar a la llegada del mandato.
+432. [82|dialogue] Fix dijo a su compañero que hiciera sus compras, le recomendó que no faltase a la salida del "Mongolia", y volvió con premura al despacho del agente consular.
 
-433. [82|dialogue] Detrás de esta joven —contraste violento a la vista— unos guardias, armados de sables desnudos que llevaban en el cinto y largas pistolas damasquinadas, conducían un cadáver sobre un palanquín.
+433. [82|poetic] No tenía duda de que allí permanecería algún tiempo Phileas Fogg, convicción de que participaba Picaporte, lo cual daría lugar a la llegada del mandato.
 
-434. [82|dialogue] Phileas Fogg había oído la palabra pronunciada por sir Francis Cromarty, y tan luego como la procesión desapareció, preguntó: —¿Qué es un sutty?
+434. [82|dialogue] Detrás de esta joven —contraste violento a la vista— unos guardias, armados de sables desnudos que llevaban en el cinto y largas pistolas damasquinadas, conducían un cadáver sobre un palanquín.
 
-435. [82|poetic] Míster Fogg iba a arriesgar su vida o al menos su libertad, y por consiguiente el éxito de sus proyectos, pero no vaciló.
+435. [82|dialogue] Phileas Fogg había oído la palabra pronunciada por sir Francis Cromarty, y tan luego como la procesión desapareció, preguntó: —¿Qué es un sutty?
 
-436. [82|dialogue] Y después, llevándola su pensamiento a las escenas del "sutty", y viendo sus miradas esa tierra indígena donde tantos peligros la 61 amenazaban, fue acometida de un estremecimiento de terror.
+436. [82|poetic] Míster Fogg iba a arriesgar su vida o al menos su libertad, y por consiguiente el éxito de sus proyectos, pero no vaciló.
 
-437. [82|dialogue] Al salir de Calcuta, después de haber dejado instrucciones para que, si llegase el mandamiento, le fuese remitido a Hong-Kong, había podido embarcar a bordo del "Rangoon" sin haber sido visto de Picaporte, y confiaba en disimular su presencia hasta la llegada a puerto.
+437. [82|dialogue] Y después, llevándola su pensamiento a las escenas del "sutty", y viendo sus miradas esa tierra indígena donde tantos peligros la 61 amenazaban, fue acometida de un estremecimiento de terror.
 
-438. [82|descriptive] Fix puso una en manos de Picaporte, quien la tomó, la llevó a los labios, la encendió, respiró algunas bocanadas, y cayó con la cabeza aturdida bajo la influencia del narcótico.
+438. [82|dialogue] Al salir de Calcuta, después de haber dejado instrucciones para que, si llegase el mandamiento, le fuese remitido a Hong-Kong, había podido embarcar a bordo del "Rangoon" sin haber sido visto de Picaporte, y confiaba en disimular su presencia hasta la llegada a puerto.
 
-439. [82|poetic] Tenemos cuatro días para llegar, esto es, noventa y seis horas; y con un promedio de ocho millas por hora, si tenemos fortuna, si el viento es del Sureste, si la mar está bonancible, podemos salvar las ochocientas millas que nos separan de Shangai.
+439. [82|descriptive] Fix puso una en manos de Picaporte, quien la tomó, la llevó a los labios, la encendió, respiró algunas bocanadas, y cayó con la cabeza aturdida bajo la influencia del narcótico.
 
-440. [82|descriptive] Estaba contratado para hacerlo todo en la célebre compañía japonesa, lo cual, si era poco halagüeño, le permitiría estar en San Francisco antes de ocho días.
+440. [82|poetic] Tenemos cuatro días para llegar, esto es, noventa y seis horas; y con un promedio de ocho millas por hora, si tenemos fortuna, si el viento es del Sureste, si la mar está bonancible, podemos salvar las ochocientas millas que nos separan de Shangai.
 
-441. [82|poetic] Para terminar, se había anunciado especialmente al público la pirámide humana, en la cual unos cincuenta narigudos debían figurar la carroza de Jaggemaut.
+441. [82|descriptive] Estaba contratado para hacerlo todo en la célebre compañía japonesa, lo cual, si era poco halagüeño, le permitiría estar en San Francisco antes de ocho días.
 
-442. [82|poetic] Las sábanas eran blancas, las almohadas blandas, y no había más que acostarse y dormir, lo que cada cual hizo como si se hubiese encontrado en el cómodo camarote de un vapor, mientras que el tren corría a todo vapor el estado de California.
+442. [82|poetic] Para terminar, se había anunciado especialmente al público la pirámide humana, en la cual unos cincuenta narigudos debían figurar la carroza de Jaggemaut.
 
-443. [82|descriptive] Algunas, las más ricas sin duda, llevaban un jubón de seda negro, abierto en la cintura, bajo una capucha o chal muy modesto.
+443. [82|poetic] Las sábanas eran blancas, las almohadas blandas, y no había más que acostarse y dormir, lo que cada cual hizo como si se hubiese encontrado en el cómodo camarote de un vapor, mientras que el tren corría a todo vapor el estado de California.
 
-444. [82|dialogue] Algunos instantes después, míster Fogg, después de estrechar la mano de la joven y entregarle su precioso saco de viaje, partía con el sargento y su reducida tropa, diciendo a los soldados: —¡Amigos míos, hay mil libras para vosotros, si salváis a los prisioneros!
+444. [82|descriptive] Algunas, las más ricas sin duda, llevaban un jubón de seda negro, abierto en la cintura, bajo una capucha o chal muy modesto.
 
-445. [82|descriptive] Proseguir el camino en dirección de Omaha, era prudente; volver hacia el tren, en cuyo saqueo estarían quizá ocupados los indios, era peligro...
+445. [82|dialogue] Algunos instantes después, míster Fogg, después de estrechar la mano de la joven y entregarle su precioso saco de viaje, partía con el sargento y su reducida tropa, diciendo a los soldados: —¡Amigos míos, hay mil libras para vosotros, si salváis a los prisioneros!
 
-446. [82|dialogue] Desembarcar de la "Enriqueta", subir a un coche, dirigirse al hotel de San Nicolás, traer a Aouda, Picaporte y el inseparable Fix, a quien ofreció pasaje "gratis" todo lo hizo el gentleman con la calma que no le abandonaba nunca.
+446. [82|descriptive] Proseguir el camino en dirección de Omaha, era prudente; volver hacia el tren, en cuyo saqueo estarían quizá ocupados los indios, era peligro...
 
-447. [82|narrative] Estuvo en diez casas, y en todas ellas los amos eran caprichosos, desiguales, amigos de correr aventuras o de recorrer países, cosas todas ellas que ya no podían convenir a Picaporte.
+447. [82|dialogue] Desembarcar de la "Enriqueta", subir a un coche, dirigirse al hotel de San Nicolás, traer a Aouda, Picaporte y el inseparable Fix, a quien ofreció pasaje "gratis" todo lo hizo el gentleman con la calma que no le abandonaba nunca.
 
-448. [82|narrative] En el dormitorio había una arca de hierro de tamaño regular, cuya especial construcción la ponía fuera del alcance de los peligros de incendio y robo.
+448. [82|narrative] Estuvo en diez casas, y en todas ellas los amos eran caprichosos, desiguales, amigos de correr aventuras o de recorrer países, cosas todas ellas que ya no podían convenir a Picaporte.
 
-449. [82|narrative] La discusión continuó por consiguiente entre aquellos caballeros que se habían sentado en la mesa de whist, Stuart delante de Fianagan, Falientin delante de Phileas Fogg.
+449. [82|narrative] En el dormitorio había una arca de hierro de tamaño regular, cuya especial construcción la ponía fuera del alcance de los peligros de incendio y robo.
 
-450. [82|narrative] Quizás se llegaría hasta París, y ciertamente que volvería a ver con gusto la gran capital, porque un gentleman tan economizador de sus pasos se detendría allí...
+450. [82|narrative] La discusión continuó por consiguiente entre aquellos caballeros que se habían sentado en la mesa de whist, Stuart delante de Fianagan, Falientin delante de Phileas Fogg.
 
-451. [82|narrative] Por eso, no tan sólo fueron los individuos del Reform-Club quienes establecieron apuestas considerables en pro o en contra de Phileas Fogg, sino que también entró en ellas la masa del público.
+451. [82|narrative] Quizás se llegaría hasta París, y ciertamente que volvería a ver con gusto la gran capital, porque un gentleman tan economizador de sus pasos se detendría allí...
 
-452. [82|narrative] El miércoles último a las ocho de la noche, míster Fogg, contra su costumbre, volvió de su círculo, y tres cuartos de hora después nos habíamos marchado.
+452. [82|narrative] Por eso, no tan sólo fueron los individuos del Reform-Club quienes establecieron apuestas considerables en pro o en contra de Phileas Fogg, sino que también entró en ellas la masa del público.
 
-453. [82|narrative] He calculado que sale a dos chelines cada veinticuatro horas, justo seis peniques más de lo que gano, y ya comprenderéis que a poco que el viaje se prolongue...
+453. [82|narrative] El miércoles último a las ocho de la noche, míster Fogg, contra su costumbre, volvió de su círculo, y tres cuartos de hora después nos habíamos marchado.
 
-454. [82|narrative] Era el brigadier general sir Francis Cromarty, uno de los compañeros de juego de míster Fogg durante la travesía de Suez a Bombay, que iba a reunirse con sus tropas acantonadas cerca de Benarés.
+454. [82|narrative] He calculado que sale a dos chelines cada veinticuatro horas, justo seis peniques más de lo que gano, y ya comprenderéis que a poco que el viaje se prolongue...
 
-455. [82|narrative] Al punto envió contra él un agente de policía, y de esa manera Fogg, Picaporte y la viuda del rajá de Bundelkund fueron conducidos ante el juez Obadiah.
+455. [82|narrative] Era el brigadier general sir Francis Cromarty, uno de los compañeros de juego de míster Fogg durante la travesía de Suez a Bombay, que iba a reunirse con sus tropas acantonadas cerca de Benarés.
 
-456. [82|narrative] En efecto, difícil le hubiera sido explicar por qué se hallaba a bordo sin excitar las sospechas de Picaporte, que debía creerle en Bombay.
+456. [82|narrative] Al punto envió contra él un agente de policía, y de esa manera Fogg, Picaporte y la viuda del rajá de Bundelkund fueron conducidos ante el juez Obadiah.
 
-457. [82|narrative] A quien se asombre de que en tan pequeña isla no hayan sido destruidos esos terribles carnívoros, les responderemos que vienen de Malaca atravesando el estrecho a nado.
+457. [82|narrative] En efecto, difícil le hubiera sido explicar por qué se hallaba a bordo sin excitar las sospechas de Picaporte, que debía creerle en Bombay.
 
-458. [82|narrative] A las diez volvían al vapor, después de haber sido seguidos sin sospecharlo por el inspector, que también había tenido que hacer gasto de coche.
+458. [82|narrative] A quien se asombre de que en tan pequeña isla no hayan sido destruidos esos terribles carnívoros, les responderemos que vienen de Malaca atravesando el estrecho a nado.
 
-459. [82|narrative] No había, por consiguiente, escota que no se hallase bien tendida, ni vela que no estuviese bien reclamada, ni podía imputarse al timonel ningún falso borneo.
+459. [82|narrative] A las diez volvían al vapor, después de haber sido seguidos sin sospecharlo por el inspector, que también había tenido que hacer gasto de coche.
 
-460. [82|narrative] Por los puentecillos circulaban, sin cesar, vendedores de libros y periódicos, ofreciendo su mercancía, y vendedores de licores, comestibles y cigarros, que no carecían de compradores.
+460. [82|narrative] No había, por consiguiente, escota que no se hallase bien tendida, ni vela que no estuviese bien reclamada, ni podía imputarse al timonel ningún falso borneo.
 
-461. [82|narrative] Dos horas bastaban apenas para visitar esa ciudad 126 completamente americana, y como tal, construida por el estilo de todas las ciudades de la Unión; vastos tableros de largas líneas monótonas, con la tristeza lúgubre de los ángulos rectos, según la expresión de Víctor Hugo.
+461. [82|narrative] Por los puentecillos circulaban, sin cesar, vendedores de libros y periódicos, ofreciendo su mercancía, y vendedores de licores, comestibles y cigarros, que no carecían de compradores.
 
-462. [82|narrative] Se lanzó a la vía, saltó al estribo del último coche, y cayó sin aliento sobre una de las banquetas del vagón.
+462. [82|narrative] Dos horas bastaban apenas para visitar esa ciudad 126 completamente americana, y como tal, construida por el estilo de todas las ciudades de la Unión; vastos tableros de largas líneas monótonas, con la tristeza lúgubre de los ángulos rectos, según la expresión de Víctor Hugo.
 
-463. [82|narrative] En todo caso, había una cosa que Picaporte no olvidaría jamás, esto es: el sacrificio de míster Fogg para librarlos de los sioux arriesgando su fortuna y su vida.
+463. [82|narrative] Se lanzó a la vía, saltó al estribo del último coche, y cayó sin aliento sobre una de las banquetas del vagón.
 
-464. [82|narrative] Algunas veces se acordaba de Fix, pero sin encono, porque al fin, equivocado el agente, como todo el mundo, respecto de Phileas Fogg, no había hecho otra cosa que cumplir con su deber siguiéndolo hasta prenderlo, mientras que él...
+464. [82|narrative] En todo caso, había una cosa que Picaporte no olvidaría jamás, esto es: el sacrificio de míster Fogg para librarlos de los sioux arriesgando su fortuna y su vida.
 
-465. [82|narrative] En efecto, marchando hacia Oriente, Phileas Fogg iba al encuentro del sol, y por consiguiente, los días disminuían para él tantas veces cuatro minutos como grados recorría.
+465. [82|narrative] Algunas veces se acordaba de Fix, pero sin encono, porque al fin, equivocado el agente, como todo el mundo, respecto de Phileas Fogg, no había hecho otra cosa que cumplir con su deber siguiéndolo hasta prenderlo, mientras que él...
 
-466. [81|descriptive] Si los antiguos escultores conocían dieciocho modos distintos de arreglar la cabeza de Minerva, Picaporte, para componer la suya, sólo conocía uno: con tres pases de batidor estaba peinado.
+466. [82|narrative] En efecto, marchando hacia Oriente, Phileas Fogg iba al encuentro del sol, y por consiguiente, los días disminuían para él tantas veces cuatro minutos como grados recorría.
 
-467. [81|dialogue] De Londres a Suez por el Monte Cenis y Brindisi, ferrocarril y vapores De Suez a Bombay, vapores De Bombay a Calcuta, ferrocarril De Calcuta a Hong-Kong (China), vapores De Hong-Kong a Yokohama (Japón), vapor De Yokohama a San Francisco, vapor De San Francisco a Nueva York, ferrocarril De Nueva York a Londres, vapor y ferrocarril TOTAL —¡Sí, ochenta días!
+467. [81|descriptive] Si los antiguos escultores conocían dieciocho modos distintos de arreglar la cabeza de Minerva, Picaporte, para componer la suya, sólo conocía uno: con tres pases de batidor estaba peinado.
 
-468. [81|descriptive] Todos recordaron lo que tenía de místeriosa la existencia de Phileas Fogg, su aislamiento, su partida repentina, y pareció evidente que este personaje, pretextando un viaje alrededor del mundo y apoyándose en una apuesta insensata, no tenía otro objeto que hacer perder la pista a los agentes de la policía inglesa.
+468. [81|dialogue] De Londres a Suez por el Monte Cenis y Brindisi, ferrocarril y vapores De Suez a Bombay, vapores De Bombay a Calcuta, ferrocarril De Calcuta a Hong-Kong (China), vapores De Hong-Kong a Yokohama (Japón), vapor De Yokohama a San Francisco, vapor De San Francisco a Nueva York, ferrocarril De Nueva York a Londres, vapor y ferrocarril TOTAL —¡Sí, ochenta días!
 
-469. [81|dialogue] Se vivía por lo tanto, bien, a bordo del "Mongolia" entre aquella sociedad de funcionarios, con los cuales alternaban algunos jóvenes ingleses que con un millón en el bolsillo iban a fundar a lo lejos establecimientos de comercio.
+469. [81|descriptive] Todos recordaron lo que tenía de místeriosa la existencia de Phileas Fogg, su aislamiento, su partida repentina, y pareció evidente que este personaje, pretextando un viaje alrededor del mundo y apoyándose en una apuesta insensata, no tenía otro objeto que hacer perder la pista a los agentes de la policía inglesa.
 
-470. [81|descriptive] El viaje se hizo con las mejores condiciones y Picaporte estaba muy gozoso de la amable compañía que la suerte le había deparado en la persona del señor Fix.
+470. [81|dialogue] Se vivía por lo tanto, bien, a bordo del "Mongolia" entre aquella sociedad de funcionarios, con los cuales alternaban algunos jóvenes ingleses que con un millón en el bolsillo iban a fundar a lo lejos establecimientos de comercio.
 
-471. [81|descriptive] Sus cejas de ébano tienen la forma y la fuerza del arco de Kama, dios del amor, y bajo sus pestañas sedosas, en la pupila negra de sus grandes ojos límpidos, nadan como en los lagos sagrados del Himalaya los más puros reflejos de la celeste luz.
+471. [81|descriptive] El viaje se hizo con las mejores condiciones y Picaporte estaba muy gozoso de la amable compañía que la suerte le había deparado en la persona del señor Fix.
 
-472. [81|descriptive] Fix sintió frío en sus fibras, pero recobró su tranquilidad cuando oyó que el juez, atendida la cualidad de extranjeros de Phileas Fogg y su criado, fijaba la caución para cada uno de ellos en la enorme suma de mil libras.
+472. [81|descriptive] Sus cejas de ébano tienen la forma y la fuerza del arco de Kama, dios del amor, y bajo sus pestañas sedosas, en la pupila negra de sus grandes ojos límpidos, nadan como en los lagos sagrados del Himalaya los más puros reflejos de la celeste luz.
 
-473. [81|descriptive] Si algo debiera haberlo asombrado, era no haber visto a su criado a la hora de acostarse; pero, sabiendo que el vapor no salía de Hong-Kong hasta el siguiente día, no se preocupó de ello.
+473. [81|descriptive] Fix sintió frío en sus fibras, pero recobró su tranquilidad cuando oyó que el juez, atendida la cualidad de extranjeros de Phileas Fogg y su criado, fijaba la caución para cada uno de ellos en la enorme suma de mil libras.
 
-474. [81|poetic] Viniendo el viento de tierra, la mar era menos fuerte; circunstancia feliz para la goleta, porque las embarcaciones de poca cabida sufren por el oleaje, que corta su velocidad y las mata, empleando la expresión de aquellos marinos.
+474. [81|descriptive] Si algo debiera haberlo asombrado, era no haber visto a su criado a la hora de acostarse; pero, sabiendo que el vapor no salía de Hong-Kong hasta el siguiente día, no se preocupó de ello.
 
-475. [81|dialogue] Era una modificación favorable, y la "Tankadera" hizo rumbo de nuevo en aquel mar bravío, cuyas olas se estrellaban entonces con las producidas por la nueva dirección del viento.
+475. [81|poetic] Viniendo el viento de tierra, la mar era menos fuerte; circunstancia feliz para la goleta, porque las embarcaciones de poca cabida sufren por el oleaje, que corta su velocidad y las mata, empleando la expresión de aquellos marinos.
 
-476. [81|poetic] El traje europeo gustó al ropavejero, y no tardó Picaporte en salir ataviado con un viejo ropaje japonés y cubierto con una especie de turbante de estrías, desteñido por la acción del tiempo.
+476. [81|dialogue] Era una modificación favorable, y la "Tankadera" hizo rumbo de nuevo en aquel mar bravío, cuyas olas se estrellaban entonces con las producidas por la nueva dirección del viento.
 
-477. [81|descriptive] Una segunda sección de equilibristas se colocó sobre los largos apéndices, una tercera después, y luego una cuarta, y sobre aquellas narices, que sólo se tocaban por la punta, se levantó un monumento humano hasta la cornisa del teatro.
+477. [81|poetic] El traje europeo gustó al ropavejero, y no tardó Picaporte en salir ataviado con un viejo ropaje japonés y cubierto con una especie de turbante de estrías, desteñido por la acción del tiempo.
 
-478. [81|descriptive] Y Mudge tenía interés en llegar dentro del plazo convenido, porque míster Fogg, fiel a su sistema, lo había engolosinado con una crecida oferta.
+478. [81|descriptive] Una segunda sección de equilibristas se colocó sobre los largos apéndices, una tercera después, y luego una cuarta, y sobre aquellas narices, que sólo se tocaban por la punta, se levantó un monumento humano hasta la cornisa del teatro.
 
-479. [81|dialogue] La elegante locomotora del "PittsburgFort Waine-Chicago", partió a toda velocidad, como si hubiese comprendido que el honorable gentleman no tenía tiempo que perder.
+479. [81|descriptive] Y Mudge tenía interés en llegar dentro del plazo convenido, porque míster Fogg, fiel a su sistema, lo había engolosinado con una crecida oferta.
 
-480. [81|dialogue] Cuando Fix había revelado su condición de inspector de policía y la misión de que estaba encargado, ¿por qué no se lo había revelado a su amo?
+480. [81|dialogue] La elegante locomotora del "PittsburgFort Waine-Chicago", partió a toda velocidad, como si hubiese comprendido que el honorable gentleman no tenía tiempo que perder.
 
-481. [81|descriptive] Así es que, durante todo el día, que era domingo, la casa de Saville-Row parecía deshabitada, y por la vez primera, desde que vivía allí, Phileas Fogg no fue al club, cuando daban las once y media en la torre del Pa rlamento.
+481. [81|dialogue] Cuando Fix había revelado su condición de inspector de policía y la misión de que estaba encargado, ¿por qué no se lo había revelado a su amo?
 
-482. [81|narrative] En fin, no pertenecía a ninguna de las numerosas Sociedades que pueblan la capital de Inglaterra, desde la Sociedad de la Armónica hasta la Sociedad Entomológica, fundada principalmente con el fin de destruir los insectos nocivos.
+482. [81|descriptive] Así es que, durante todo el día, que era domingo, la casa de Saville-Row parecía deshabitada, y por la vez primera, desde que vivía allí, Phileas Fogg no fue al club, cuando daban las once y media en la torre del Pa rlamento.
 
-483. [81|narrative] Al que hubiese extrañado que un gentleman tan místerioso alternase con los miembros de esta digna asociación, se le podría haber respondido que entró en ella recomendado por los señores Baring Hermanos.
+483. [81|narrative] En fin, no pertenecía a ninguna de las numerosas Sociedades que pueblan la capital de Inglaterra, desde la Sociedad de la Armónica hasta la Sociedad Entomológica, fundada principalmente con el fin de destruir los insectos nocivos.
 
-484. [81|narrative] Aquel mismo día, 2 de octubre, Phileas Fogg había despedido a James Foster, por el enorme delito de haberle llevado el agua para afeitarse a 84 grados Fahrenheit en vez de 85, y esperaba a su sucesor, que debía presentarse entre once y once y media.
+484. [81|narrative] Al que hubiese extrañado que un gentleman tan místerioso alternase con los miembros de esta digna asociación, se le podría haber respondido que entró en ella recomendado por los señores Baring Hermanos.
 
-485. [81|narrative] Dicho esto, Phileas Fogg se levantó, tomó su sombrero con la mano izquierda, lo colocó en su cabeza mediante un movimiento automático, y desapareció sin decir palabra.
+485. [81|narrative] Aquel mismo día, 2 de octubre, Phileas Fogg había despedido a James Foster, por el enorme delito de haberle llevado el agua para afeitarse a 84 grados Fahrenheit en vez de 85, y esperaba a su sucesor, que debía presentarse entre once y once y media.
 
-486. [81|narrative] No había ni biblioteca ni libros que hubieran sido inútiles para míster Fogg, puesto que el Reform-Club ponía a su disposición dos bibliotecas, consagradas una a la literatura, y otra al derecho y a la política.
+486. [81|narrative] Dicho esto, Phileas Fogg se levantó, tomó su sombrero con la mano izquierda, lo colocó en su cabeza mediante un movimiento automático, y desapareció sin decir palabra.
 
-487. [81|narrative] Se han enviado inspectores de policía de los más hábiles a todos los principales puertos de embarque y desembarque de América y Europa, y le será muy difícil a ese caballero poder escapar.
+487. [81|narrative] No había ni biblioteca ni libros que hubieran sido inútiles para míster Fogg, puesto que el Reform-Club ponía a su disposición dos bibliotecas, consagradas una a la literatura, y otra al derecho y a la política.
 
-488. [81|narrative] Aquella salida precipitada de Londres poco después del robo; aquella fuerte suma con que se hacía el viaje; aquella prisa de llegar a países remotos: aquel pretexto de una apuesta excéntrica, todo confirmaba y debía confirmar a Fix en sus ideas.
+488. [81|narrative] Se han enviado inspectores de policía de los más hábiles a todos los principales puertos de embarque y desembarque de América y Europa, y le será muy difícil a ese caballero poder escapar.
 
-489. [81|narrative] Había encontrado compañeros para el juego tan rabiosamente aficionados como él; un recaudador de impuestos que iba a Goa, un ministro, el reverendo Décimo Smith, que regresaba a Bombay, y un brigadier general del ejército inglés, que se iba a reunir con su cuerpo a Benarés.
+489. [81|narrative] Aquella salida precipitada de Londres poco después del robo; aquella fuerte suma con que se hacía el viaje; aquella prisa de llegar a países remotos: aquel pretexto de una apuesta excéntrica, todo confirmaba y debía confirmar a Fix en sus ideas.
 
-490. [81|narrative] Entonces sir Francis y el guía retuvieron a Phileas Fogg, que en un momento de generosa demencia quiso arrojarse sobre la hoguera...
+490. [81|narrative] Había encontrado compañeros para el juego tan rabiosamente aficionados como él; un recaudador de impuestos que iba a Goa, un ministro, el reverendo Décimo Smith, que regresaba a Bombay, y un brigadier general del ejército inglés, que se iba a reunir con su cuerpo a Benarés.
 
-491. [81|narrative] Fix le ocultó cuidadosamente su satisfacción personal, e hizo bien, porque, si Picaporte hubiera adivinado la alegría secreta de Fix, éste lo hubiera pasado mal.
+491. [81|narrative] Entonces sir Francis y el guía retuvieron a Phileas Fogg, que en un momento de generosa demencia quiso arrojarse sobre la hoguera...
 
-492. [81|narrative] En algunos años el genio colonizador de la Gran Bretaña había fundado allí una ciudad importante y creado un puerto, el puerto Victoria.
+492. [81|narrative] Fix le ocultó cuidadosamente su satisfacción personal, e hizo bien, porque, si Picaporte hubiera adivinado la alegría secreta de Fix, éste lo hubiera pasado mal.
 
-493. [81|narrative] Fix y Picaporte comprendieron que habían entrado en un fumadero frecuentado por esos miserables, alelados, enflaquecidos, idiotas, a quienes la mercantil Inglaterra vende anualmente millones de libras de esa funesta droga, llamada opio.
+493. [81|narrative] En algunos años el genio colonizador de la Gran Bretaña había fundado allí una ciudad importante y creado un puerto, el puerto Victoria.
 
-494. [81|narrative] Veinte veces estuvo a pique de quedar anegada por una de esas montañas de agua que se levantan por popa, pero la catástrofe se evitaba por un diestro golpe de timón dado por el piloto.
+494. [81|narrative] Fix y Picaporte comprendieron que habían entrado en un fumadero frecuentado por esos miserables, alelados, enflaquecidos, idiotas, a quienes la mercantil Inglaterra vende anualmente millones de libras de esa funesta droga, llamada opio.
 
-495. [81|narrative] En 1862 fue cuando, a pesar de la oposición de los diputados del Sur, que querían una línea más meridional, se fijó el trazado del ferrocarril entre los 41 y 42 grados de latitud.
+495. [81|narrative] Veinte veces estuvo a pique de quedar anegada por una de esas montañas de agua que se levantan por popa, pero la catástrofe se evitaba por un diestro golpe de timón dado por el piloto.
 
-496. [81|narrative] Una locomotora, rodando sobre los raíles de la víspera, traía los del día siguiente y corría sobre ellos a medida que se iban colocando.
+496. [81|narrative] En 1862 fue cuando, a pesar de la oposición de los diputados del Sur, que querían una línea más meridional, se fijó el trazado del ferrocarril entre los 41 y 42 grados de latitud.
 
-497. [81|narrative] Ahora bien; a través del cristal 129 reconoció entre ellos al coronel Steam Proctor, aquel americano que tan groseramente se había conducido con Phileas Fogg, durante el mitin de San Francisco.
+497. [81|narrative] Una locomotora, rodando sobre los raíles de la víspera, traía los del día siguiente y corría sobre ellos a medida que se iban colocando.
 
-498. [81|narrative] Tomaban parte de la discusión algunos viajeros que se habían acercado, y entre otros, el referido coronel Proctor, con altaneras palabras e imperiosos ademanes.
+498. [81|narrative] Ahora bien; a través del cristal 129 reconoció entre ellos al coronel Steam Proctor, aquel americano que tan groseramente se había conducido con Phileas Fogg, durante el mitin de San Francisco.
 
-499. [81|narrative] Muchos tenían la señal de partida y se disponían a tomar la mar, aprovechando la marea de la mañana, porque en ese inmenso y admirable puerto de Nueva York no hay día en que cien embarcaciones no salgan con rumbo a todos los puntos del orbe; pero casi todas eran de vela, y no podían convenir a Phileas Fogg.
+499. [81|narrative] Tomaban parte de la discusión algunos viajeros que se habían acercado, y entre otros, el referido coronel Proctor, con altaneras palabras e imperiosos ademanes.
 
-500. [81|narrative] Si hubiera avisado a míster Fogg, si le hubiera descubierto los proyectos del agente Fix, aquél no hubiera, probablemente, llevado a éste a Liverpool, y entonces...
+500. [81|narrative] Muchos tenían la señal de partida y se disponían a tomar la mar, aprovechando la marea de la mañana, porque en ese inmenso y admirable puerto de Nueva York no hay día en que cien embarcaciones no salgan con rumbo a todos los puntos del orbe; pero casi todas eran de vela, y no podían convenir a Phileas Fogg.
 
-501. [81|narrative] Los polizontes podían apenas contener al pueblo, y a medida que avanzaba la hora en que debía llegar Phileas Fogg, la emoción adquiría proporciones inverosímiles.
+501. [81|narrative] Si hubiera avisado a míster Fogg, si le hubiera descubierto los proyectos del agente Fix, aquél no hubiera, probablemente, llevado a éste a Liverpool, y entonces...
 
-502. [80|descriptive] Solía ganar a ese silencioso juego, tan apropiado a su natural carácter, pero sus beneficios nunca entraban en su bolsillo, sino que figuraban por una suma respetable en su presupuesto de caridad.
+502. [81|narrative] Los polizontes podían apenas contener al pueblo, y a medida que avanzaba la hora en que debía llegar Phileas Fogg, la emoción adquiría proporciones inverosímiles.
 
-503. [80|descriptive] Para él, el juego era un combate, una lucha contra una dificultad; pero lucha sin movimiento y sin fatigas, condiciones ambas que convenían mucho a su manera de ser.
+503. [80|descriptive] Solía ganar a ese silencioso juego, tan apropiado a su natural carácter, pero sus beneficios nunca entraban en su bolsillo, sino que figuraban por una suma respetable en su presupuesto de caridad.
 
-504. [80|dialogue] Finalmente, anunciaba un apacible desahogo en esta casa de Saville-Row —casa que debía haber sido el templo del desorden en la época del ilustre pero crapuloso Sheridan— la delicadeza con que estaba amueblada.
+504. [80|descriptive] Para él, el juego era un combate, una lucha contra una dificultad; pero lucha sin movimiento y sin fatigas, condiciones ambas que convenían mucho a su manera de ser.
 
-505. [80|dialogue] Algunos se quedaron en el entrepuente contemplando el pintoresco panorama de la ciudad, pero la mayor parte desembarcaron en las lanchas que se habían arrimado al "Mongolia".
+505. [80|dialogue] Finalmente, anunciaba un apacible desahogo en esta casa de Saville-Row —casa que debía haber sido el templo del desorden en la época del ilustre pero crapuloso Sheridan— la delicadeza con que estaba amueblada.
 
-506. [80|descriptive] Ignoraba dos cosas: primero, que la entrada de ciertas pagodas hindúes está formalmente prohibida a los cristianos, y segundo, que aun los mismos creyentes no pueden entrar sino dejando el calzado a la puerta.
+506. [80|dialogue] Algunos se quedaron en el entrepuente contemplando el pintoresco panorama de la ciudad, pero la mayor parte desembarcaron en las lanchas que se habían arrimado al "Mongolia".
 
-507. [80|poetic] Tenía, pues, fundamento para indagar si el corazón humano que latía bajo aquella corteza, si Phileas Fogg, poseía un alma sensible a las bellezas de la naturaleza y a las aspiraciones morales.
+507. [80|descriptive] Ignoraba dos cosas: primero, que la entrada de ciertas pagodas hindúes está formalmente prohibida a los cristianos, y segundo, que aun los mismos creyentes no pueden entrar sino dejando el calzado a la puerta.
 
-508. [80|poetic] Volvía a sus caprichosas ideas de la juventud, tomaba por lo serio los proyectos de su amo, creía en la realidad de la apuesta, y por consiguiente en la vuelta al mundo y en el maximum de tiempo que no debía excederse.
+508. [80|poetic] Tenía, pues, fundamento para indagar si el corazón humano que latía bajo aquella corteza, si Phileas Fogg, poseía un alma sensible a las bellezas de la naturaleza y a las aspiraciones morales.
 
-509. [80|descriptive] Y en efecto, ese famoso reloj, siempre arreglado por el meridiano de Greenwich, que estaba a cerca de setenta grados al Oeste, debía atrasar y atrasaba en efecto cuatro horas.
+509. [80|poetic] Volvía a sus caprichosas ideas de la juventud, tomaba por lo serio los proyectos de su amo, creía en la realidad de la apuesta, y por consiguiente en la vuelta al mundo y en el maximum de tiempo que no debía excederse.
 
-510. [80|descriptive] Pronto apareció bajo los árboles la cabeza de la procesión, a unos cincuenta pasos del puesto ocupado por míster Fogg y sus compañeros.
+510. [80|descriptive] Y en efecto, ese famoso reloj, siempre arreglado por el meridiano de Greenwich, que estaba a cerca de setenta grados al Oeste, debía atrasar y atrasaba en efecto cuatro horas.
 
-511. [80|dialogue] Pero en el momento en que iba a excitarlo con un silbido particular, míster Fogg lo detuvo, y dirigiéndose a sir Francis Cromarty, le dijo: —¿Y si salvásemos a esa mujer?
+511. [80|descriptive] Pronto apareció bajo los árboles la cabeza de la procesión, a unos cincuenta pasos del puesto ocupado por míster Fogg y sus compañeros.
 
-512. [80|descriptive] Se ocultaron de nuevo bajo la espesura del bosque, aguardando que la alarma, si la había, se desvaneciese, y dispuestos a proseguir la operación.
+512. [80|dialogue] Pero en el momento en que iba a excitarlo con un silbido particular, míster Fogg lo detuvo, y dirigiéndose a sir Francis Cromarty, le dijo: —¿Y si salvásemos a esa mujer?
 
-513. [80|descriptive] Allí arrancaba de nuevo la interrumpida vía, cuyos trenes recorren en menos de un día y una noche la distancia que separa a Allahabad de Calcuta.
+513. [80|descriptive] Se ocultaron de nuevo bajo la espesura del bosque, aguardando que la alarma, si la había, se desvaneciese, y dispuestos a proseguir la operación.
 
-514. [80|poetic] El parsi había en efecto arriesgado voluntariamente la vida en el lance de Pillaji, y si más tarde los indios llegasen a saberlo, con dificultad se libraría de su venganza.
+514. [80|descriptive] Allí arrancaba de nuevo la interrumpida vía, cuyos trenes recorren en menos de un día y una noche la distancia que separa a Allahabad de Calcuta.
 
-515. [80|poetic] La joven viuda, sentada a popa, se sentía conmovida al contemplar el océano, obscurecido ya por el crepúsculo, y sobre el cual se arriesgaba en una débil embarcación.
+515. [80|poetic] El parsi había en efecto arriesgado voluntariamente la vida en el lance de Pillaji, y si más tarde los indios llegasen a saberlo, con dificultad se libraría de su venganza.
 
-516. [80|dialogue] Después de meditar mucho, no le pareció imposible que, por mala inteligencia, el pobre mozo se hubiese embarcado en el "Carnatic" en el último momento.
+516. [80|poetic] La joven viuda, sentada a popa, se sentía conmovida al contemplar el océano, obscurecido ya por el crepúsculo, y sobre el cual se arriesgaba en una débil embarcación.
 
-517. [80|descriptive] Aquel silencioso carácter, tan generoso en suma, le impresionaba más de lo que creía, y, casi sin percatarse de ello, se dejaba llevar por sentimientos cuya influencia no parecía hacer mella sobre el enigmático Fogg.
+517. [80|dialogue] Después de meditar mucho, no le pareció imposible que, por mala inteligencia, el pobre mozo se hubiese embarcado en el "Carnatic" en el último momento.
 
-518. [80|dialogue] Cuando Picaporte acabó, se encontró más tranquilo y como aliviado, Fix se levantó en bastante mal estado, y mirando a su adversario, le dijo con frialdad: —¿Habéis concluido?
+518. [80|descriptive] Aquel silencioso carácter, tan generoso en suma, le impresionaba más de lo que creía, y, casi sin percatarse de ello, se dejaba llevar por sentimientos cuya influencia no parecía hacer mella sobre el enigmático Fogg.
 
-519. [80|descriptive] Picaporte quedó bastante sorprendido de lo que veía, porque no tenía idea más que de la antigua ciudad de 1849, población de bandidos, incendiarios y asesinos, que acudían a la rebusca de pepitas, inmenso tropel de todos los miserables, donde se jugaba el polvo de oro con revólver en una mano y navaja en la otra.
+519. [80|dialogue] Cuando Picaporte acabó, se encontró más tranquilo y como aliviado, Fix se levantó en bastante mal estado, y mirando a su adversario, le dijo con frialdad: —¿Habéis concluido?
 
-520. [80|poetic] Teniendo en cuenta las paradas, no recorría más de veinte millas por hora, velocidad que, sin embargo, permitía atravesar los estados Unidos en el tiempo reglamentario.
+520. [80|descriptive] Picaporte quedó bastante sorprendido de lo que veía, porque no tenía idea más que de la antigua ciudad de 1849, población de bandidos, incendiarios y asesinos, que acudían a la rebusca de pepitas, inmenso tropel de todos los miserables, donde se jugaba el polvo de oro con revólver en una mano y navaja en la otra.
 
-521. [80|descriptive] La locomotora, brillante como unas andas, con su gran fanal, que despedía rojizos fulgores, su campana plateada, mezclaba sus silbidos y bramidos con los de los torrentes y cascadas, retorciendo su humo por las ennegrecidas ramas de los pinos.
+521. [80|poetic] Teniendo en cuenta las paradas, no recorría más de veinte millas por hora, velocidad que, sin embargo, permitía atravesar los estados Unidos en el tiempo reglamentario.
 
-522. [80|descriptive] Llegaba hasta lo último del andén, tratando de penetrar la bruma con su vista y procurando escuchar sí se percibía algún ruido.
+522. [80|descriptive] La locomotora, brillante como unas andas, con su gran fanal, que despedía rojizos fulgores, su campana plateada, mezclaba sus silbidos y bramidos con los de los torrentes y cascadas, retorciendo su humo por las ennegrecidas ramas de los pinos.
 
-523. [80|descriptive] La nieve estaba endurecida, y Mudge tenía grandes esperanzas de llegar en pocas horas 148 a la estación de Omaha, donde los trenes son frecuentes y las vías numerosas en dirección a Chicago y Nueva York.
+523. [80|descriptive] Llegaba hasta lo último del andén, tratando de penetrar la bruma con su vista y procurando escuchar sí se percibía algún ruido.
 
-524. [80|dialogue] Por eso Phileas Fogg mandaba, en lugar del capitán Speedy, que estaba encerrado en su cámara, mientras que la "Enriqueta" se dirigía a Liverpool.
+524. [80|descriptive] La nieve estaba endurecida, y Mudge tenía grandes esperanzas de llegar en pocas horas 148 a la estación de Omaha, donde los trenes son frecuentes y las vías numerosas en dirección a Chicago y Nueva York.
 
-525. [80|dialogue] El mar no estaba muy duro, y el viento parecía fijado al Nordeste; las velas se establecieron, y la "Enriqueta" marchaba como un verdadero transatlántico.
+525. [80|dialogue] Por eso Phileas Fogg mandaba, en lugar del capitán Speedy, que estaba encerrado en su cámara, mientras que la "Enriqueta" se dirigía a Liverpool.
 
-526. [80|dialogue] ¡Faltaban veinticuatro horas para el plazo, y era precisamente el tiempo que se necesitaba para llegar a Liverpool, aun marchando a todo vapor, el cual iba a faltar también!
+526. [80|dialogue] El mar no estaba muy duro, y el viento parecía fijado al Nordeste; las velas se establecieron, y la "Enriqueta" marchaba como un verdadero transatlántico.
 
-527. [80|dialogue] Y entonces ocurrió a Picaporte una idea terrible: ¡la de que él tenía la culpa ocultando a míster Fogg lo que sabía!
+527. [80|dialogue] ¡Faltaban veinticuatro horas para el plazo, y era precisamente el tiempo que se necesitaba para llegar a Liverpool, aun marchando a todo vapor, el cual iba a faltar también!
 
-528. [80|dialogue] La misma policía no sabía lo que había sido del "detective" Fix, que se había, con tan mala fortuna, lanzado tras de equivocada pista, lo cual no impidió que las apuestas se empeñasen de nuevo en vasta escala.
+528. [80|dialogue] Y entonces ocurrió a Picaporte una idea terrible: ¡la de que él tenía la culpa ocultando a míster Fogg lo que sabía!
 
-529. [80|narrative] Aquel día celebraban una especie de carnaval religioso, con procesiones y festejos, en los cuales figuraban bayaderas vestidas de gasas bordadas de oro y plata, y que al son de gaitas y tamtams danzaban maravillosamente, y por otra parte con perfecta cadencia.
+529. [80|dialogue] La misma policía no sabía lo que había sido del "detective" Fix, que se había, con tan mala fortuna, lanzado tras de equivocada pista, lo cual no impidió que las apuestas se empeñasen de nuevo en vasta escala.
 
-530. [80|narrative] Habría evidentemente veinticuatro horas de atraso en Yokohama, pero durante los veintidós días que dura la travesía del Pacífico sería fácil recobrarlas.
+530. [80|narrative] Aquel día celebraban una especie de carnaval religioso, con procesiones y festejos, en los cuales figuraban bayaderas vestidas de gasas bordadas de oro y plata, y que al son de gaitas y tamtams danzaban maravillosamente, y por otra parte con perfecta cadencia.
 
-531. [80|narrative] La bandera se arrió a medio mástil, en demanda de auxilio, esperando que, al verla, el vapor americano modificaría su rumbo para acudir a la embarcación.
+531. [80|narrative] Habría evidentemente veinticuatro horas de atraso en Yokohama, pero durante los veintidós días que dura la travesía del Pacífico sería fácil recobrarlas.
 
-532. [80|narrative] Bien había observado que en la muestra de los carniceros faltaba el carnero, la cabra o el cerdo, y como sabía que es un sacrilegio matar bueyes, únicamente reservados a las necesidades de la agricultura, había deducido que la carne andaba escasa en el Japón.
+532. [80|narrative] La bandera se arrió a medio mástil, en demanda de auxilio, esperando que, al verla, el vapor americano modificaría su rumbo para acudir a la embarcación.
 
-533. [80|narrative] Europeos e indígenas, chinos y japoneses, hombres, mujeres y niños, se apiñaban sobre las estrechas banquetas y en los palcos que daban frente al escenario.
+533. [80|narrative] Bien había observado que en la muestra de los carniceros faltaba el carnero, la cabra o el cerdo, y como sabía que es un sacrilegio matar bueyes, únicamente reservados a las necesidades de la agricultura, había deducido que la carne andaba escasa en el Japón.
 
-534. [80|narrative] Desconcertado del modo con que se había apeado, dio un grito formidable, que hizo volar una bandada de cuervos marinos y pelícanos, huéspedes habituales de los muelles movedizos.
+534. [80|narrative] Europeos e indígenas, chinos y japoneses, hombres, mujeres y niños, se apiñaban sobre las estrechas banquetas y en los palcos que daban frente al escenario.
 
-535. [80|narrative] Ciertas calles, entre otras, Montgomery Street, similar a la Regent Street de Londres, al boulevard de los italianos de París, al Broadway en Nueva York estaban llenas de espléndidas tiendas que ofrecían en sus escaparates los productos del mundo entero.
+535. [80|narrative] Desconcertado del modo con que se había apeado, dio un grito formidable, que hizo volar una bandada de cuervos marinos y pelícanos, huéspedes habituales de los muelles movedizos.
 
-536. [80|narrative] Por las ventanillas ya no se veía más que una inmensa alfombra blanca, sobre la cual, desarrollando sus espirales, se destacaba el ceniciento vapor de la locomotora.
+536. [80|narrative] Ciertas calles, entre otras, Montgomery Street, similar a la Regent Street de Londres, al boulevard de los italianos de París, al Broadway en Nueva York estaban llenas de espléndidas tiendas que ofrecían en sus escaparates los productos del mundo entero.
 
-537. [80|narrative] La máquina, después de haber amortiguado la velocidad, intentó introducir su espolón en tan inmensa columna, pero tuvo que detenerse ante la impenetrable masa.
+537. [80|narrative] Por las ventanillas ya no se veía más que una inmensa alfombra blanca, sobre la cual, desarrollando sus espirales, se destacaba el ceniciento vapor de la locomotora.
 
-538. [80|narrative] Se había hecho dueño de Utah, sometiéndolo a las leyes de la Unión, después de haber encarcelado a Brigham Young, acusado de rebelión y de poligamia.
+538. [80|narrative] La máquina, después de haber amortiguado la velocidad, intentó introducir su espolón en tan inmensa columna, pero tuvo que detenerse ante la impenetrable masa.
 
-539. [80|narrative] Desde aquella época los discípulos del profeta redoblaron sus esfuerzos, y aguardando los actos, resistían con la palabra las pretensiones del Congreso.
+539. [80|narrative] Se había hecho dueño de Utah, sometiéndolo a las leyes de la Unión, después de haber encarcelado a Brigham Young, acusado de rebelión y de poligamia.
 
-540. [80|narrative] Los que vienen del Jordán, del Weber y de otros ríos, perecen en seguida; pero no es verdad que la densidad de las aguas es tal, que un hombre no pueda sumergirse.
+540. [80|narrative] Desde aquella época los discípulos del profeta redoblaron sus esfuerzos, y aguardando los actos, resistían con la palabra las pretensiones del Congreso.
 
-541. [80|narrative] Mientras que cada uno de los viajeros se entregaba a reflexiones diversas, el trineo volaba sobre la inmensa alfombra de nieve, y si atravesaba algunos ríos, afluentes o subafluentes del Little-Blue, no se percataba nadie de ello.
+541. [80|narrative] Los que vienen del Jordán, del Weber y de otros ríos, perecen en seguida; pero no es verdad que la densidad de las aguas es tal, que un hombre no pueda sumergirse.
 
-542. [80|narrative] Ocho mil dólares que ganar, sin modificar el viaje, valían bien la pena de dejar a un lado sus antipatías hacia todo pasajero, pasajeros a dos mil dólares, por otra parte, no son ya pasajeros, sino mercancía preciosa.
+542. [80|narrative] Mientras que cada uno de los viajeros se entregaba a reflexiones diversas, el trineo volaba sobre la inmensa alfombra de nieve, y si atravesaba algunos ríos, afluentes o subafluentes del Little-Blue, no se percataba nadie de ello.
+
+543. [80|narrative] Ocho mil dólares que ganar, sin modificar el viaje, valían bien la pena de dejar a un lado sus antipatías hacia todo pasajero, pasajeros a dos mil dólares, por otra parte, no son ya pasajeros, sino mercancía preciosa.
 

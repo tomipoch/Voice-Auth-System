@@ -22,7 +22,7 @@
 
 ## MEDIUM (7 frases)
 
-1. [87|dialogue] Suspiró nostálgico y se dijo aún: 49 —Éste es el único de quien pude haberme hecho amigo.
+1. [87|dialogue] Suspiró nostálgico y se dijo aún: Éste es el único de quien pude haberme hecho amigo.
 
 2. [86|dialogue] Imaginaos, pues, mi sorpresa cuando, al romper el día, me despertó una extraña vocecita que decía: —Por favor…; ¡dibújame un cordero!
 
@@ -45,9 +45,9 @@
 
 3. [100|dialogue] No respondió nada a mi pregunta, pero agregó: —Yo también, hoy vuelvo a mi casa… Luego, melancólico: —Es mucho más lejos… Es mucho más difícil… Sentí que estaba ocurriendo algo extraordinario.
 
-4. [99|descriptive] Comencé a correr, mientras buscaba el revólver en mi bolsillo, pero, al oír el ruido que hice, la serpiente se dejó deslizar suavemente por la arena, como un cho76 rro de agua que muere, y, sin apresurarse demasiado, se escurrió entre las piedras con un ligero sonido metálico.
+4. [99|descriptive] Comencé a correr, mientras buscaba el revólver en mi bolsillo, pero, al oír el ruido que hice, la serpiente se dejó deslizar suavemente por la arena, como un chorro de agua que muere, y, sin apresurarse demasiado, se escurrió entre las piedras con un ligero sonido metálico.
 
-5. [98|dialogue] Mi estrella se encontrará exactamente sobre el lugar donde caí el año pasado… —Hombrecito, ¿verdad que es un mal sueño esa histo78 ria de la serpiente, de la cita y de la estrella?… Pero no contestó a mi pregunta, y dijo: —No se ve lo que es importante… —Seguramente… —Es como con la flor.
+5. [98|dialogue] Mi estrella se encontrará exactamente sobre el lugar donde caí el año pasado… —Hombrecito, ¿verdad que es un mal sueño esa historia de la serpiente, de la cita y de la estrella?… Pero no contestó a mi pregunta, y dijo: —No se ve lo que es importante… —Seguramente… —Es como con la flor.
 
 6. [96|poetic] Si los dos mil millones de habitantes que pueblan la Tierra se tuviesen de pie y un poco apretados, como en un mitin, podrían alojarse fácilmente en una plaza pública de veinte millas de largo por veinte millas de ancho.
 

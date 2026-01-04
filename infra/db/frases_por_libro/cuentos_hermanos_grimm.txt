@@ -723,81 +723,81 @@
 
 165. [92|poetic] Una noche cuando la luna brillaba en el cielo y descansaban ya las ovejas, sacó el pastor la flauta de su zurrón y tocó una sonata muy melodiosa, pero también muy triste; cuando acabó vio que la pastora lloraba amargamente.
 
-166. [92|descriptive] El ebanista y sus compañeros pasaron alegremente una parte de la noche y al fin fueron a acostarse; el joven al meterse en la cama, colocó su mesa cerca de la pared; mas el posadero no podía dormir, agitado por diferentes pensamientos; recordó que tenía en el granero una mesa vieja exactamente igual y fue a buscarla en silencio y la colocó en lugar de la otra.
+166. [92|poetic] Así fue como el erizo en el erial de Buxtehuder corrió hasta que hizo morir a la liebre, y desde aquel tiempo ninguna liebre se ha atrevido a correr con ningún erizo de Buxtehuder.
 
-167. [92|dialogue] En cuanto llegó a la presencia del rico, le dijo de esta manera: -Sé no os gusta socorrer a nadie, pero me dirijo a vos con desesperación, como un hombre que, estando próximo a ahogarse, se agarra a la más débil rama.
+167. [92|descriptive] El ebanista y sus compañeros pasaron alegremente una parte de la noche y al fin fueron a acostarse; el joven al meterse en la cama, colocó su mesa cerca de la pared; mas el posadero no podía dormir, agitado por diferentes pensamientos; recordó que tenía en el granero una mesa vieja exactamente igual y fue a buscarla en silencio y la colocó en lugar de la otra.
 
-168. [92|poetic] Cuando ya no le quedaban más lágrimas, salió al campo en compañía de su pequeña y al llegar al prado vio al lobo dormido debajo del árbol, roncando tan fuertemente que hacía temblar las ramas.
+168. [92|dialogue] En cuanto llegó a la presencia del rico, le dijo de esta manera: -Sé no os gusta socorrer a nadie, pero me dirijo a vos con desesperación, como un hombre que, estando próximo a ahogarse, se agarra a la más débil rama.
 
-169. [92|dialogue] Había hecho voto de no aceptar a nadie por marido y señor, que no prometiese antes solemnemente que en caso de morir ella, se haría enterrar vivo en su misma sepultura: -Si de verdad me ama -decía la princesa-, ¿para qué querrá seguir viviendo?
+169. [92|poetic] Cuando ya no le quedaban más lágrimas, salió al campo en compañía de su pequeña y al llegar al prado vio al lobo dormido debajo del árbol, roncando tan fuertemente que hacía temblar las ramas.
 
-170. [92|descriptive] Pero ocurrió que la casita encantada tenía un jardincito, en el que crecían doce lirios de esos que también se llaman “estudiantes.” La niña, queriendo obsequiar a sus hermanos, cortó las doce flores, para regalar una a cada uno durante la comida.
+170. [92|dialogue] Había hecho voto de no aceptar a nadie por marido y señor, que no prometiese antes solemnemente que en caso de morir ella, se haría enterrar vivo en su misma sepultura: -Si de verdad me ama -decía la princesa-, ¿para qué querrá seguir viviendo?
 
-171. [92|dialogue] Poco después le vino al gato otro antojo y dijo al ratón: -Tendrás que volver a hacerme el favor de cuidar de la casa, pues otra vez me piden que sea padrino y como el pequeño ha nacido con una faja blanca en torno al cuello, no puedo negarme.
+171. [92|descriptive] Pero ocurrió que la casita encantada tenía un jardincito, en el que crecían doce lirios de esos que también se llaman “estudiantes.” La niña, queriendo obsequiar a sus hermanos, cortó las doce flores, para regalar una a cada uno durante la comida.
 
-172. [92|dialogue] En el mismo instante sintió la mujer una gran angustia y pensó: “¡Ojalá no lo hubiese hecho!” Bajó a su habitación y sacó de la cómoda un paño blanco; colocó nuevamente la cabeza sobre el cuello, le ató el paño a modo de bufanda, de manera que no se notara la herida y sentó al niño muerto en una silla delante de la puerta, con una manzana en la mano.
+172. [92|dialogue] Poco después le vino al gato otro antojo y dijo al ratón: -Tendrás que volver a hacerme el favor de cuidar de la casa, pues otra vez me piden que sea padrino y como el pequeño ha nacido con una faja blanca en torno al cuello, no puedo negarme.
 
-173. [92|narrative] Arrojose sobre ella en seguida, la levantó y la llevó a su cuarto; y allí, echándola en la cama, se inclinó sobre ella y le chupó tres gotas de sangre del hombro derecho, que escupió en seguida.
+173. [92|dialogue] En el mismo instante sintió la mujer una gran angustia y pensó: “¡Ojalá no lo hubiese hecho!” Bajó a su habitación y sacó de la cómoda un paño blanco; colocó nuevamente la cabeza sobre el cuello, le ató el paño a modo de bufanda, de manera que no se notara la herida y sentó al niño muerto en una silla delante de la puerta, con una manzana en la mano.
 
-174. [92|narrative] Después buscó la barra de hierro más gruesa que pudo hallar en la fragua y cogiéndola como un bastón, continuó su camino.
+174. [92|narrative] Arrojose sobre ella en seguida, la levantó y la llevó a su cuarto; y allí, echándola en la cama, se inclinó sobre ella y le chupó tres gotas de sangre del hombro derecho, que escupió en seguida.
 
-175. [92|narrative] Se echó en un banco y se durmió; poco después llegaron los ladrones y preguntaron incomodados por qué se hallaba allí aquel forastero.
+175. [92|narrative] Después buscó la barra de hierro más gruesa que pudo hallar en la fragua y cogiéndola como un bastón, continuó su camino.
 
-176. [92|narrative] Corrió al estanque y cuando vio la escopeta a la orilla no dudó ya de su desgracia: llamó a su marido por su nombre, lamentándose y retorciéndose las manos, pero todo fue en vano; corrió al otro lado del estanque, dirigió a la ondina las injurias más violentas, mas no recibió respuesta alguna.
+176. [92|narrative] Se echó en un banco y se durmió; poco después llegaron los ladrones y preguntaron incomodados por qué se hallaba allí aquel forastero.
 
-177. [92|narrative] El rey viendo que un solo hombre se llevaba todas las riquezas del reino, se puso muy enfadado y mandó montar a toda su caballería, con la orden de perseguir a los compañeros y quitarles el saco.
+177. [92|narrative] Corrió al estanque y cuando vio la escopeta a la orilla no dudó ya de su desgracia: llamó a su marido por su nombre, lamentándose y retorciéndose las manos, pero todo fue en vano; corrió al otro lado del estanque, dirigió a la ondina las injurias más violentas, mas no recibió respuesta alguna.
 
-178. [92|narrative] Fueron juntos al prado, donde permanecieron hasta la noche; entonces ya por vanidad o porque habían comido demasiado, no quisieron volver a pie a su casa y el gallo se vio obligado a hacer un carrito con cáscaras de nuez.
+178. [92|narrative] El rey viendo que un solo hombre se llevaba todas las riquezas del reino, se puso muy enfadado y mandó montar a toda su caballería, con la orden de perseguir a los compañeros y quitarles el saco.
 
-179. [92|narrative] Y así diciendo los examinó-: Tu, la niña -dijo mirando a Gretelme servirás para ayudarme mientras engordamos al otro que está muy flacucho y así no me lo puedo comer, pues solo lamería los huesos.
+179. [92|narrative] Fueron juntos al prado, donde permanecieron hasta la noche; entonces ya por vanidad o porque habían comido demasiado, no quisieron volver a pie a su casa y el gallo se vio obligado a hacer un carrito con cáscaras de nuez.
 
-180. [92|narrative] Luego, sujetándose al otro pie con ambas manos, tiró y tiró hasta que pudo salir; y entonces, sin dejar de protestar, se marchó corriendo y saltando sobre una sola pierna, mientras en palacio todos se reían de él por haber pasado en vano tantos trabajos.
+180. [92|narrative] Y así diciendo los examinó-: Tu, la niña -dijo mirando a Gretelme servirás para ayudarme mientras engordamos al otro que está muy flacucho y así no me lo puedo comer, pues solo lamería los huesos.
 
-181. [92|narrative] Había andado un cierto trecho, cuando vio en la linde de un bosque una zorra y, descolgándose la escopeta, dispúsose a disparar contra ella.
+181. [92|narrative] Luego, sujetándose al otro pie con ambas manos, tiró y tiró hasta que pudo salir; y entonces, sin dejar de protestar, se marchó corriendo y saltando sobre una sola pierna, mientras en palacio todos se reían de él por haber pasado en vano tantos trabajos.
 
-182. [91|descriptive] Las tres se parecían completamente y la única cosa que las distinguía era que antes de dormirse la mayor había comido un terrón de azúcar, mientras que la segunda había bebido un sorbo de almíbar, y la tercera había tomado una cucharada de miel.
+182. [92|narrative] Había andado un cierto trecho, cuando vio en la linde de un bosque una zorra y, descolgándose la escopeta, dispúsose a disparar contra ella.
 
-183. [91|descriptive] Entonces buscó musgo para que pudiera descansar el corzo, y todas las mañanas salía, cogía raíces, frutas salvajes y nueces, y cogía también yerbas frescas que comía el corzo en su mano y estaba muy contento y saltaba de alegría delante de ella.
+183. [91|descriptive] Las tres se parecían completamente y la única cosa que las distinguía era que antes de dormirse la mayor había comido un terrón de azúcar, mientras que la segunda había bebido un sorbo de almíbar, y la tercera había tomado una cucharada de miel.
 
-184. [91|descriptive] Por la noche, cuando la niña estaba ya cansada, y había rezado sus oraciones, reclinaba su cabeza en la espalda del corzo, que le servía de alfombra y se dormía dulcemente, y se hubiese creído feliz con este género de vida, con sólo que su hermano hubiera tenido todavía su forma humana.
+184. [91|descriptive] Entonces buscó musgo para que pudiera descansar el corzo, y todas las mañanas salía, cogía raíces, frutas salvajes y nueces, y cogía también yerbas frescas que comía el corzo en su mano y estaba muy contento y saltaba de alegría delante de ella.
 
-185. [91|descriptive] La hija fue conducida a un bosque, donde la despedazaron las bestias salvajes apenas la vieron y la hechicera fue condenada a la hoguera, pereciendo miserablemente entre las llamas; apenas la hubo consumido el fuego, volvió el corzo a su forma natural, y hermanito y hermanita vivieron felices hasta el fin de sus días.
+185. [91|descriptive] Por la noche, cuando la niña estaba ya cansada, y había rezado sus oraciones, reclinaba su cabeza en la espalda del corzo, que le servía de alfombra y se dormía dulcemente, y se hubiese creído feliz con este género de vida, con sólo que su hermano hubiera tenido todavía su forma humana.
 
-186. [91|descriptive] Eran las dos niñas lo mas bueno, obediente y trabajador que se había visto nunca en el mundo, pero Blancanieve tenía un carácter más tranquilo y bondadoso; a Rojarosa le gustaba mucho más correr por los prados y los campos en busca de flores y de mariposas.
+186. [91|descriptive] La hija fue conducida a un bosque, donde la despedazaron las bestias salvajes apenas la vieron y la hechicera fue condenada a la hoguera, pereciendo miserablemente entre las llamas; apenas la hubo consumido el fuego, volvió el corzo a su forma natural, y hermanito y hermanita vivieron felices hasta el fin de sus días.
 
-187. [91|descriptive] Las niñas cogieron entonces la escoba y le barrieron toda la piel; después se extendió delante de la lumbre manifestando con sus gruñidos que estaba contento y satisfecho.
+187. [91|descriptive] Eran las dos niñas lo mas bueno, obediente y trabajador que se había visto nunca en el mundo, pero Blancanieve tenía un carácter más tranquilo y bondadoso; a Rojarosa le gustaba mucho más correr por los prados y los campos en busca de flores y de mariposas.
 
-188. [91|poetic] Cuando cumplió doce años la encerró la hechicera en una torre que había en un bosque, la cual no tenía escalera ni puerta, sino únicamente una ventana muy pequeña y alta.
+188. [91|descriptive] Las niñas cogieron entonces la escoba y le barrieron toda la piel; después se extendió delante de la lumbre manifestando con sus gruñidos que estaba contento y satisfecho.
 
-189. [91|dialogue] Al día siguiente, cuando se marcharon sus padres y hermanas, fue también la Cenicienta al sepulcro de su madre y dijo al arbolito: Arbolito pequeño, dame un vestido; que sea, de oro y plata, muy bien tejido.
+189. [91|poetic] Cuando cumplió doce años la encerró la hechicera en una torre que había en un bosque, la cual no tenía escalera ni puerta, sino únicamente una ventana muy pequeña y alta.
 
-190. [91|dialogue] Cuando se acercó al mar, estaba de un color gris, el agua subía a borbotones desde el fondo a la superficie y tenía un olor fétido; se adelantó y dijo: Tararira ondino, tararira ondino, hermoso pescado, pequeño vecino, mi pobre Isabel grita y se enfurece; es preciso darle lo que se merece.
+190. [91|dialogue] Al día siguiente, cuando se marcharon sus padres y hermanas, fue también la Cenicienta al sepulcro de su madre y dijo al arbolito: Arbolito pequeño, dame un vestido; que sea, de oro y plata, muy bien tejido.
 
-191. [91|descriptive] El desgraciado, obligado a aceptar este horrible contrato para conservar la vida, lloró con los dos ojos por última vez y se ofreció a su verdugo, que le sacó el ojo derecho con la punta de su cuchillo.
+191. [91|dialogue] Cuando se acercó al mar, estaba de un color gris, el agua subía a borbotones desde el fondo a la superficie y tenía un olor fétido; se adelantó y dijo: Tararira ondino, tararira ondino, hermoso pescado, pequeño vecino, mi pobre Isabel grita y se enfurece; es preciso darle lo que se merece.
 
-192. [91|descriptive] Pasó por delante del estanque donde había hecho amistad con los patos; la ánade vieja, a la que había dejado sus hijuelos, estaba de pie a la orilla, arreglándose las plumas con el pico.
+192. [91|descriptive] El desgraciado, obligado a aceptar este horrible contrato para conservar la vida, lloró con los dos ojos por última vez y se ofreció a su verdugo, que le sacó el ojo derecho con la punta de su cuchillo.
 
-193. [91|dialogue] El rey hizo llamar al sastre y le dijo: -Si mañana no hay en mi patio un juego de agua, tal como el de que tú te has alabado, mi verdugo te cortará la cabeza en ese mismo patio.
+193. [91|descriptive] Pasó por delante del estanque donde había hecho amistad con los patos; la ánade vieja, a la que había dejado sus hijuelos, estaba de pie a la orilla, arreglándose las plumas con el pico.
 
-194. [91|poetic] Pero una hermosa tarde, cuando el sol iluminaba la verde yerba del bosque a través de las copas de los árboles y las tórtolas expresaban sus quejas en animados gorjeos, Juanita se puso a escucharlas y comenzó a llorar, y al verla Juanito echó a llorar también.
+194. [91|dialogue] El rey hizo llamar al sastre y le dijo: -Si mañana no hay en mi patio un juego de agua, tal como el de que tú te has alabado, mi verdugo te cortará la cabeza en ese mismo patio.
 
-195. [91|dialogue] Arrojose entonces a los pies de aquella mujer y le suplicó le permitiese llevarse a su Juanita, mas ella le dijo que no lo conseguiría jamás y se marchó.
+195. [91|poetic] Pero una hermosa tarde, cuando el sol iluminaba la verde yerba del bosque a través de las copas de los árboles y las tórtolas expresaban sus quejas en animados gorjeos, Juanita se puso a escucharlas y comenzó a llorar, y al verla Juanito echó a llorar también.
 
-196. [91|dialogue] Estando allí se apareció un gigante muy grande que venía del otro lado de las montañas: -Mira, el coco, -le dijo su padre-, que quería meter miedo a su hijo para que fuera más obediente; viene a cogerte.
+196. [91|dialogue] Arrojose entonces a los pies de aquella mujer y le suplicó le permitiese llevarse a su Juanita, mas ella le dijo que no lo conseguiría jamás y se marchó.
 
-197. [91|descriptive] En cuanto al joven gigante, aró toda la tierra, que tendría muy bien dos fanegas, por sí solo, y enseguida la rastrilló arrastrando dos rastrillos a la vez.
+197. [91|dialogue] Estando allí se apareció un gigante muy grande que venía del otro lado de las montañas: -Mira, el coco, -le dijo su padre-, que quería meter miedo a su hijo para que fuera más obediente; viene a cogerte.
 
-198. [91|descriptive] El reyezuelo convocó por su parte a todos los que vuelan por los aires, no solo a los pájaros grandes y pequeños, sino también a los insectos alados: tales como las moscas, cínifes, abejas y avispas.
+198. [91|descriptive] En cuanto al joven gigante, aró toda la tierra, que tendría muy bien dos fanegas, por sí solo, y enseguida la rastrilló arrastrando dos rastrillos a la vez.
 
-199. [91|poetic] Los doce cazadores seguían al rey constantemente a la caza, el cual había llegado a tenerles verdadero cariño; pero un día, estando cazando, llegó la noticia de que había llegado la esposa del rey; su antigua novia, al oírlo, lo sintió tanto, que la faltaron las fuerzas y cayó desmayada en el suelo.
+199. [91|descriptive] El reyezuelo convocó por su parte a todos los que vuelan por los aires, no solo a los pájaros grandes y pequeños, sino también a los insectos alados: tales como las moscas, cínifes, abejas y avispas.
 
-200. [91|dialogue] Se puso en marcha seguido de los cien caballos y cuando llegó a la entrada del bosque, les dijo que le esperaran que él solo se las compondría con los dos gigantes.
+200. [91|poetic] Los doce cazadores seguían al rey constantemente a la caza, el cual había llegado a tenerles verdadero cariño; pero un día, estando cazando, llegó la noticia de que había llegado la esposa del rey; su antigua novia, al oírlo, lo sintió tanto, que la faltaron las fuerzas y cayó desmayada en el suelo.
 
-201. [91|descriptive] Apenas recibió la carta, ejecutó la reina lo que decía en su contenido, se celebraron las bodas con magnificencia, la hija del rey se casó con el niño nacido de pie y como era guapo y amable vivía a gusto con él.
+201. [91|dialogue] Se puso en marcha seguido de los cien caballos y cuando llegó a la entrada del bosque, les dijo que le esperaran que él solo se las compondría con los dos gigantes.
 
-202. [91|descriptive] Cuando se retiró el agua y pusieron el pie en un terreno seco, volvieron a tomar su forma humana, pero ninguno de los dos sabía lo que había sucedido al otro, se hallaban entre hombres extraños que no conocían su país; los separaban altas montañas y profundos valles.
+202. [91|descriptive] Apenas recibió la carta, ejecutó la reina lo que decía en su contenido, se celebraron las bodas con magnificencia, la hija del rey se casó con el niño nacido de pie y como era guapo y amable vivía a gusto con él.
 
-203. [91|poetic] Así fue como el erizo en el erial de Buxtehuder3 corrió hasta que hizo morir a la liebre, y desde aquel tiempo ninguna liebre se ha atrevido a correr con ningún erizo de Buxtehuder.
+203. [91|descriptive] Cuando se retiró el agua y pusieron el pie en un terreno seco, volvieron a tomar su forma humana, pero ninguno de los dos sabía lo que había sucedido al otro, se hallaban entre hombres extraños que no conocían su país; los separaban altas montañas y profundos valles.
 
 204. [91|descriptive] La moral de esta historia es mucho más importante de lo que puede imaginarse; nadie, en primer lugar, debe burlarse del más pequeño, aunque sea un erizo; y, en segundo lugar, es bueno si tomáis mujer, que la toméis de vuestra clase y semejante a vos en un todo.
 

@@ -98,7 +98,7 @@
 
 30. [83|dialogue] ¡Dios mío, más blanco que las sábanas, qué miserable me pareció aquel cuerpecillo, qué descarnado: era sólo piel y huesos!
 
-31. [83|dialogue] A la primera frase don Cosme se irguió bruscamente y con los ojos chispeantes interrogó: 99 —¿Estás seguro?
+31. [83|dialogue] A la primera frase don Cosme se irguió bruscamente y con los ojos chispeantes interrogó: ¿Estás seguro?
 
 32. [83|dialogue] ¡Ah, cómo le hizo sufrir, a él, emancipado de toda sensiblería aquella naturaleza débil, crédula y enfermiza!
 
@@ -273,7 +273,7 @@
 
 56. [97|narrative] Junto a él, montado en un caballo alazán de magnífica estampa, va don Simón Antonio, y más atrás, jinetes en ágiles cabalgaduras, siguen al patrón a respetuosa distancia el mayordomo y un vaquero de la hacienda.
 
-57. [96|dialogue] Obediente al conjuro, acudió el genio envuelto en una tempestuosa nube preñada de rayos y de relámpagos, y dijo al rey con una voz semejante al redoble del trueno: 5 —¿Qué me quieres, oh, tú, a quién he ensalzado y puesto sobre todos los tronos de la tierra?
+57. [96|dialogue] Obediente al conjuro, acudió el genio envuelto en una tempestuosa nube preñada de rayos y de relámpagos, y dijo al rey con una voz semejante al redoble del trueno: ¿Qué me quieres, oh, tú, a quién he ensalzado y puesto sobre todos los tronos de la tierra?
 
 58. [96|poetic] Y tanto clamó, que el sol, compadecido, la tocó una mañana con uno de sus rayos al contacto del cual vibraron sus moléculas, y penetrada de un calor dulcísimo perdió su rigidez e inmovilidad, y como una diminuta esfera de diamante, rodó por la pendiente hasta un pequeño arroyuelo, cuyas aguas turbias la envolvieron y arrastraron en su caída vertiginosa por los flancos de la montaña.
 
@@ -491,33 +491,33 @@
 
 165. [90|poetic] Por algún tiempo nada se supo de él hasta que llegó la noticia de que, jurando vengarse de su descalabro, se había embarcado a bordo de un ballenero que zarpaba para una larga expedición a los mares del sur.
 
-166. [90|dialogue] Una violeta, cuyos pétalos estaban ya mustios, se inclinó sobre su tallo y díjole a la viajera: 40 —Hace dos días que mis raíces no alcanzan el agua.
+166. [90|dialogue] El viento zumba, sacude las coronas y modula una lúgubre cantinela, que acompañan con su fru—fru, de cosas muertas los pétalos de tela y de papel pintado: —¡Mañana es día de difuntos!
 
-167. [90|dialogue] El viento zumba, sacude las coronas y modula una lúgubre cantinela, que acompañan con su fru—fru, de cosas muertas los pétalos de tela y de papel pintado: —¡Mañana es día de difuntos!
+167. [90|poetic] Los que sucumbían eran sin duda aquellos que conservaban en sus corazones un vestigio de sentimientos adversos, y cada cual confiado en el poder victorioso de su ambición, proseguía la caza interminable, sin desmayos y sin recelos, seguros del éxito final.
 
-168. [90|poetic] Los que sucumbían eran sin duda aquellos que conservaban en sus corazones un vestigio de sentimientos adversos, y cada cual confiado en el poder victorioso de su ambición, proseguía la caza interminable, sin desmayos y sin recelos, seguros del éxito final.
+168. [90|poetic] Y el rayo erró por los cuatro ámbitos del planeta, marcando su paso con aquel reguero de polvo dorado y brillante que, arrastrado por las aguas, penetró a través de la tierra y se depositó en las grietas de las rocas y en el lecho de los torrentes.
 
-169. [90|poetic] Y el rayo erró por los cuatro ámbitos del planeta, marcando su paso con aquel reguero de polvo dorado y brillante que, arrastrado por las aguas, penetró a través de la tierra y se depositó en las grietas de las rocas y en el lecho de los torrentes.
+169. [90|dialogue] Un día el Amor desplegó sus alas y se remontó al infinito y como hallase a su paso al águila que bogaba en el azul, le dijo: —Mi reinado ha concluido.
 
-170. [90|dialogue] Un día el Amor desplegó sus alas y se remontó al infinito y como hallase a su paso al águila que bogaba en el azul, le dijo: —Mi reinado ha concluido.
+170. [90|poetic] De repente se enderezó y se quedó quieto, afirmado en la pared con la cabeza echada atrás y resoplando como el fuelle de una fragua movido a todo vapor.
 
-171. [90|poetic] De repente se enderezó y se quedó quieto, afirmado en la pared con la cabeza echada atrás y resoplando como el fuelle de una fragua movido a todo vapor.
+171. [90|dialogue] Trascurrieron así algunos minutos y aquellas sordas detonaciones semejantes a truenos lejanos fueron creciendo y aumentando hasta tal punto que ya la duda no fue posible: el «San Jorge» derivaba hacia los bajíos de la Punta de Lavapié.
 
-172. [90|dialogue] Trascurrieron así algunos minutos y aquellas sordas detonaciones semejantes a truenos lejanos fueron creciendo y aumentando hasta tal punto que ya la duda no fue posible: el «San Jorge» derivaba hacia los bajíos de la Punta de Lavapié.
+172. [90|poetic] Este contratiempo llenó de amargura el alma del hacendado, pues consideraba que aquel pedazo de tierra enclavado dentro de las suyas era un lunar, algo así como una afrenta para la magnífica propiedad.
 
-173. [90|poetic] Este contratiempo llenó de amargura el alma del hacendado, pues consideraba que aquel pedazo de tierra enclavado dentro de las suyas era un lunar, algo así como una afrenta para la magnífica propiedad.
+173. [90|dialogue] A una señal del mayordomo echó pie a tierra, y cogiendo por una mano al muerto, lo tumbó boca arriba, mientras decía convencido: —Es seguro, señor, que se ha dejado morir de hambre.
 
-174. [90|dialogue] A una señal del mayordomo echó pie a tierra, y cogiendo por una mano al muerto, lo tumbó boca arriba, mientras decía convencido: —Es seguro, señor, que se ha dejado morir de hambre.
+174. [90|dialogue] Don Simón paseó su fiera mirada interrogadora por aquellas cabezas que se bajaban obstinadamente y prosiguió: —¡Yo no sé que gentes son ustedes!
 
-175. [90|dialogue] Don Simón paseó su fiera mirada interrogadora por aquellas cabezas que se bajaban obstinadamente y prosiguió: —¡Yo no sé que gentes son ustedes!
+175. [90|descriptive] Su huesosa diestra oprime un grueso bastón en que apoya su cuerpo anguloso, descarnado, de cuyos hombros estrechos arranca el largo cuello que se dobla fláccidamente bajo la pesadumbre de la cabeza redonda y pelada como una bola de billar.
 
-176. [90|descriptive] Su huesosa diestra oprime un grueso bastón en que apoya su cuerpo anguloso, descarnado, de cuyos hombros estrechos arranca el largo cuello que se dobla fláccidamente bajo la pesadumbre de la cabeza redonda y pelada como una bola de billar.
+176. [90|descriptive] Pues, que la mano estuviese ahora libre, despegada, para ellos significaba sencillamente que el castigo acarreado por la maldición materna se había cumplido y que la justicia de Dios estaba satisfecha con la penitencia del criminal.
 
-177. [90|descriptive] Pues, que la mano estuviese ahora libre, despegada, para ellos significaba sencillamente que el castigo acarreado por la maldición materna se había cumplido y que la justicia de Dios estaba satisfecha con la penitencia del criminal.
+177. [90|descriptive] Abrí los ojos y lo primero que vi fueron los gruesos caracteres que en la décima página de El Mercurio decían: “Choque de trenes en Tinguiririca”.
 
-178. [90|descriptive] Abrí los ojos y lo primero que vi fueron los gruesos caracteres que en la décima página de El Mercurio decían: “Choque de trenes en Tinguiririca”.
+178. [90|narrative] De un salto salvó el espacio que de ella lo separaba y vio al aborrecido rival que, sujetando por un brazo a la indignada muchacha, trataba, entre las risas de las demás, de cogerla por la cintura.
 
-179. [90|narrative] De un salto salvó el espacio que de ella lo separaba y vio al aborrecido rival que, sujetando por un brazo a la indignada muchacha, trataba, entre las risas de las demás, de cogerla por la cintura.
+179. [90|narrative] Una violeta, cuyos pétalos estaban ya mustios, se inclinó sobre su tallo y díjole a la viajera: Hace dos días que mis raíces no alcanzan el agua.
 
 180. [90|narrative] Mientras los de Playa Negra, que no podían adivinar ni remotamente lo que había pasado, achacaban el accidente a un simple atascamiento de su barrena y hacían los esfuerzos imaginables para desatascarla, ensanchando el orificio, nosotros habíamos colocado frente a él un gran bracero de carbón encendido.
 
@@ -943,33 +943,33 @@
 
 391. [83|poetic] Y luego, cuando en silencio, con los ojos llorosos, veíala ir y venir colocando en su sitio las sillas derribadas por el suelo, sentía el corazón como en un puño.
 
-392. [83|dialogue] El abuelo hizo una pausa, y después de tomar entre sus dedos temblorosos el cigarrillo encendido que uno de sus atentos oyentes le alargaba, continuó: 60 —Lo que me falta que contarles es muy poca cosa.
+392. [83|poetic] Petaca vestía una chaqueta, desecho de su padre, a la cual se le había recortado las mangas y el contorno inferior a la altura de los bolsillos, los cuales quedaron, con este arreglo, eliminados.
 
-393. [83|poetic] Petaca vestía una chaqueta, desecho de su padre, a la cual se le había recortado las mangas y el contorno inferior a la altura de los bolsillos, los cuales quedaron, con este arreglo, eliminados.
+393. [83|descriptive] Petaca, pasado ya el acceso de furor, reflexionaba y casi se arrepentía de su dureza porque, a la verdad, matar un pájaro con una escopeta descargada no le parecía ya tan claro y evidente, por muy bien que se hiciese la puntería.
 
-394. [83|descriptive] Petaca, pasado ya el acceso de furor, reflexionaba y casi se arrepentía de su dureza porque, a la verdad, matar un pájaro con una escopeta descargada no le parecía ya tan claro y evidente, por muy bien que se hiciese la puntería.
+394. [83|descriptive] Hubiera dado con gusto el cartucho de dinamita que tenía allá en el rancho, oculto debajo de la cama por haber matado la maldita loica que tanto los había hecho padecer.
 
-395. [83|descriptive] Hubiera dado con gusto el cartucho de dinamita que tenía allá en el rancho, oculto debajo de la cama por haber matado la maldita loica que tanto los había hecho padecer.
+395. [83|dialogue] Tuve durante un segundo la visión de la muerte, fatal e inevitable, cuando una ola 83 abordando por la proa al «San Jorge», se precipitó hacia la popa como una avalancha, derribándonos y arrastrándonos a lo largo de la cubierta.
 
-396. [83|dialogue] Tuve durante un segundo la visión de la muerte, fatal e inevitable, cuando una ola 83 abordando por la proa al «San Jorge», se precipitó hacia la popa como una avalancha, derribándonos y arrastrándonos a lo largo de la cubierta.
+396. [83|dialogue] Había llegado el instante de volver a tierra y mientras nos aproximábamos a la escala para descender al bote, nuestro amigo nos dijo: —Lo demás de la historia carece de interés.
 
-397. [83|dialogue] Había llegado el instante de volver a tierra y mientras nos aproximábamos a la escala para descender al bote, nuestro amigo nos dijo: —Lo demás de la historia carece de interés.
+397. [83|descriptive] Dos rayas en forma de cruz trazadas al pie del documento eran la firma del vendedor, firma que con toda llaneza estampó el indígena Colipí, previo el pago de una botella de aguardiente.
 
-398. [83|descriptive] Dos rayas en forma de cruz trazadas al pie del documento eran la firma del vendedor, firma que con toda llaneza estampó el indígena Colipí, previo el pago de una botella de aguardiente.
+398. [83|descriptive] Don Cosme había dado orden a sus inquilinos de arrojarlo a latigazos si tenía la osadía de penetrar en la hacienda, pero aquella ocasión no se había presentado, pues, el indígena se mantenía siempre fuera de los límites prohibidos.
 
-399. [83|descriptive] Don Cosme había dado orden a sus inquilinos de arrojarlo a latigazos si tenía la osadía de penetrar en la hacienda, pero aquella ocasión no se había presentado, pues, el indígena se mantenía siempre fuera de los límites prohibidos.
+399. [83|dialogue] Mi madre, que andaba atareadísima aquella mañana, me había gritado ya tres veces desde la puerta de la cocina: —¡Pascual, tráeme unas astillas secas para encender el horno!
 
-400. [83|dialogue] Mi madre, que andaba atareadísima aquella mañana, me había gritado ya tres veces desde la puerta de la cocina: —¡Pascual, tráeme unas astillas secas para encender el horno!
+400. [83|dialogue] Oí un grito, una nube me pasó por la vista y vislumbré a mi madre, que sin soltar el rebenque, se enderezaba en el suelo con la cara llena de sangre, al mismo tiempo que me decía con una voz que me heló hasta la médula de los huesos: «¡Maldito seas, hijo maldito!» Sentí que el mundo se me venía encima y caí redondo como si me hubiese partido un rayo...
 
-401. [83|dialogue] Oí un grito, una nube me pasó por la vista y vislumbré a mi madre, que sin soltar el rebenque, se enderezaba en el suelo con la cara llena de sangre, al mismo tiempo que me decía con una voz que me heló hasta la médula de los huesos: «¡Maldito seas, hijo maldito!» Sentí que el mundo se me venía encima y caí redondo como si me hubiese partido un rayo...
+401. [83|descriptive] El sitio elegido era un espacio de terreno de más o menos una cuadra de extensión y cerrado por gruesos tranqueros de pellín.
 
-402. [83|descriptive] El sitio elegido era un espacio de terreno de más o menos una cuadra de extensión y cerrado por gruesos tranqueros de pellín.
+402. [83|descriptive] Y ahí, justamente debajo de la tetilla, veíase la mano, una mano pálida con dedos largos y uñas descomunales, adherida por la palma a esa parte del cuerpo como si estuviese soldada o cosida en él.
 
-403. [83|descriptive] Y ahí, justamente debajo de la tetilla, veíase la mano, una mano pálida con dedos largos y uñas descomunales, adherida por la palma a esa parte del cuerpo como si estuviese soldada o cosida en él.
+403. [83|poetic] Parece mentira, pero así lo aseguran algunos ancianos, de que los cambiadores se reclutaban en un tiempo entre los últimos empleados de la línea férrea.
 
-404. [83|poetic] Parece mentira, pero así lo aseguran algunos ancianos, de que los cambiadores se reclutaban en un tiempo entre los últimos empleados de la línea férrea.
+404. [83|narrative] Allí una corriente de viento la arrastró por encima del océano a un punto donde, descendiendo, volvió a ver otra vez valles, colinas y montañas.
 
-405. [83|narrative] Allí una corriente de viento la arrastró por encima del océano a un punto donde, descendiendo, volvió a ver otra vez valles, colinas y montañas.
+405. [83|narrative] El abuelo hizo una pausa, y después de tomar entre sus dedos temblorosos el cigarrillo encendido que uno de sus atentos oyentes le alargaba, continuó: Lo que me falta que contarles es muy poca cosa.
 
 406. [83|narrative] Y su primera mirada fue para el ave, y no viéndola en la rama, lanzó un grito de júbilo y se precipitó adelante seguro de encontrarla en el suelo, patas arriba.
 

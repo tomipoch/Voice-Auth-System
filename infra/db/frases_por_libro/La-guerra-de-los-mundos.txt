@@ -254,7 +254,7 @@
 
 91. [81|narrative] Me pareció que allí tendría más posibilidades de enterarme de lo que hacían los marcianos y mis semejantes.
 
-92. [80|dialogue] E 33 —El terreno estará muy caliente durante varios días debido a las agujas de pino — agregó.
+92. [80|dialogue] E El terreno estará muy caliente durante varios días debido a las agujas de pino — agregó.
 
 93. [80|narrative] Yo 36 corrí hasta la puerta de mi vecino y llamé para convencerme de lo que ya sabía.
 

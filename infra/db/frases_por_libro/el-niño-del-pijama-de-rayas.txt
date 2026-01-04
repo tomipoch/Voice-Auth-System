@@ -1,9 +1,9 @@
 # el-niño-del-pijama-de-rayas
-# Total frases: 375 (filtradas y balanceadas)
+# Total frases: 374 (filtradas y balanceadas)
 # ========================================
 
 
-## EASY (16 frases)
+## EASY (15 frases)
 
 1. [86|dialogue] «Es curioso que nunca me haya preguntado qué hace esa gente ahí —pensó el niño—.
 
@@ -21,21 +21,19 @@
 
 8. [81|dialogue] Bruno pensó que iba a echarse a llorar, aunque no entendía por qué—.
 
-9. [81|narrative] Y quién sabe, quizá estemos más seguros si nosj marchamos.
+9. [81|narrative] El Furias les estrechó la mano y Gretel hizo la reverencia que tanto había ensayado.
 
-10. [81|narrative] El Furias les estrechó la mano y Gretel hizo la reverencia que tanto había ensayado.
+10. [81|narrative] Sus botas chapoteaban por el barro y Bruno disfrutó más que nunca con el trayecto.
 
-11. [81|narrative] Sus botas chapoteaban por el barro y Bruno disfrutó más que nunca con el trayecto.
+11. [80|poetic] Ahora lo estaba haciendo solo, lo cual comportaba que la operación resultara mucho más arriesgada.
 
-12. [80|poetic] Ahora lo estaba haciendo solo, lo cual comportaba que la operación resultara mucho más arriesgada.
+12. [80|dialogue] Y añadió—: Cuando te marches, ya no tendré nadie con quien hablar.
 
-13. [80|dialogue] Y añadió—: Cuando te marches, ya no tendré nadie con quien hablar.
+13. [80|narrative] Como no sabía qué significaba aquello, Bruno fingió no haberla oído.
 
-14. [80|narrative] Como no sabía qué significaba aquello, Bruno fingió no haberla oído.
+14. [80|narrative] Padre no había viajado desde Berlín en el mismo coche que ellos aquella mañana.
 
-15. [80|narrative] Padre no había viajado desde Berlín en el mismo coche que ellos aquella mañana.
-
-16. [80|narrative] Bruno se quedó mirándolo, preguntándose cuánto tardaría en devolverle su libro.
+15. [80|narrative] Bruno se quedó mirándolo, preguntándose cuánto tardaría en devolverle su libro.
 
 
 ## MEDIUM (53 frases)
@@ -195,17 +193,17 @@
 
 23. [96|narrative] Gretel también regresó a Berlín, y pasaba mucho rato a solas en su habitación, llorando, pero no porque había tirado todas sus muñecas y dejado todos sus mapas en Auchviz, sino porque echaba mucho de menos a Bruno.
 
-24. [95|dialogue] Queda rigurosamente prohibida, sin la autorización escrita de los titulares del "Copyright", bajo las sanciones establecidas en las leyes, la reproducción parcial o total de esta obra por cualquier medio o procedimiento, incluidos la reprografía y el tratamiento informático, así como la distribución de ejemplares mediante alquiler o préstamo públicos.
+24. [95|descriptive] Subió despacio la escalera, sujetándose a la barandilla con una mano mientras se preguntaba si en la casa nueva de aquel sitio nuevo donde estaba el trabajo nuevo de su padre habría una barandilla tan fabulosa como aquélla para deslizarse.
 
-25. [95|descriptive] Subió despacio la escalera, sujetándose a la barandilla con una mano mientras se preguntaba si en la casa nueva de aquel sitio nuevo donde estaba el trabajo nuevo de su padre habría una barandilla tan fabulosa como aquélla para deslizarse.
+25. [95|descriptive] Él estaba tan tranquilo, jugando en su casa, con sus tres mejores amigos para toda la vida, deslizándose por la barandilla de la escalera, intentando ponerse de puntillas para contemplar todo Berlín, y de pronto se encontraba atrapado allí, en aquella casa fría y horrible con tres criadas que hablaban en susurros y un camarero de aspecto desdichado y malhumorado, donde parecía que nadie podría estar alegre nunca.
 
-26. [95|descriptive] Él estaba tan tranquilo, jugando en su casa, con sus tres mejores amigos para toda la vida, deslizándose por la barandilla de la escalera, intentando ponerse de puntillas para contemplar todo Berlín, y de pronto se encontraba atrapado allí, en aquella casa fría y horrible con tres criadas que hablaban en susurros y un camarero de aspecto desdichado y malhumorado, donde parecía que nadie podría estar alegre nunca.
+26. [95|dialogue] Acto seguido rodeó el escritorio y le estrechó la mano con firmeza, porque Padre no era de la clase de personas que dan abrazos, a diferencia de Madre y la Abuela, que los daban casi con demasiada frecuencia, acompañándolos de húmedos besos—.
 
-27. [95|dialogue] Acto seguido rodeó el escritorio y le estrechó la mano con firmeza, porque Padre no era de la clase de personas que dan abrazos, a diferencia de Madre y la Abuela, que los daban casi con demasiada frecuencia, acompañándolos de húmedos besos—.
+27. [95|descriptive] El árbol parecía tan viejo que Bruno estimó que lo habían plantado a finales de la Edad Media, una época que había estudiado recientemente y que encontraba fascinante, sobre todo por los caballeros que vivían grandes aventuras en tierras lejanas y hacían interesantes descubrimientos.
 
-28. [95|descriptive] El árbol parecía tan viejo que Bruno estimó que lo habían plantado a finales de la Edad Media, una época que había estudiado recientemente y que encontraba fascinante, sobre todo por los caballeros que vivían grandes aventuras en tierras lejanas y hacían interesantes descubrimientos.
+28. [95|descriptive] Si en Auchviz eso era normal, más valía no llevarle la contraria a nadie; de hecho, lo mejor que podía hacer era mantener la boca cerrada y no causar ningún problema.
 
-29. [95|descriptive] Si en Auchviz eso era normal, más valía no llevarle la contraria a nadie; de hecho, lo mejor que podía hacer era mantener la boca cerrada y no causar ningún problema.
+29. [95|dialogue] Gracias —dijo Bruno, rascándose la pelada cabeza y preguntándose cómo no se le había ocurrido llevar una bolsa donde guardar su ropa, porque si la dejaba en el suelo se pondría perdida.
 
 30. [95|narrative] Así pues, se sentó en el suelo, en su lado de la alambrada, cruzando las piernas igual que el otro niño, y lamentó no haber llevado un poco de chocolate o quizá una pasta que podrían haber compartido.
 
@@ -567,71 +565,71 @@
 
 209. [84|dialogue] Pero Bruno se había acostumbrado a la vida en Auchviz: no le importaba tener que aguantar a herr Liszt, se llevaba muy bien con Maria —mucho mejor que cuando vivían en Berlín—, Gretel seguía con su mala racha y lo dejaba en paz (y ya no parecía tan tonta de remate), y sus tardes conversando con Shmuel lo llenaban de alegría.
 
-210. [84|narrative] John Boyne EL NIÑO CON EL PIJAMA DE RAYAS Traducción del inglés de Gemma Rovira Ortega salamandra Título original: The Boy in the Striped Pyjamas Ilustración de la cubierta: Reproducida por acuerdo con Random House Children's Books, parte de Random House Group Ltd.
+210. [84|narrative] Para empezar, se entretenía demasiado en el cuarto de baño por las mañanas, sin importarle que Bruno estuviese esperando fuera dando saltitos, aguantándose el pis.
 
-211. [84|narrative] Para empezar, se entretenía demasiado en el cuarto de baño por las mañanas, sin importarle que Bruno estuviese esperando fuera dando saltitos, aguantándose el pis.
+211. [84|narrative] Cuando por fin logró ponerse en pie, le dolían mucho un brazo y una pierna, pues había caído sobre ellos, aunque no creía que los tuviera rotos.
 
-212. [84|narrative] Cuando por fin logró ponerse en pie, le dolían mucho un brazo y una pierna, pues había caído sobre ellos, aunque no creía que los tuviera rotos.
+212. [84|narrative] Madre había dicho a Bruno que felicitara a Padre y él lo había hecho, aunque sinceramente (y él siempre procuraba ser sincero consigo mismo) no entendía muy bien el motivo de esa felicitación.
 
-213. [84|narrative] Madre había dicho a Bruno que felicitara a Padre y él lo había hecho, aunque sinceramente (y él siempre procuraba ser sincero consigo mismo) no entendía muy bien el motivo de esa felicitación.
+213. [84|narrative] Aquello debió de poner fin a la conversación, porque entonces Madre salió del despacho de Padre y el niño se quedó dormido.
 
-214. [84|narrative] Aquello debió de poner fin a la conversación, porque entonces Madre salió del despacho de Padre y el niño se quedó dormido.
+214. [84|narrative] Bruno la oyó hablar con sus muñecas en el dormitorio del otro lado del pasillo y regañarlas por haber armado tanto jaleo durante su ausencia, puesto que ahora ella tendría que volver a ordenarlo todo, como si no tuviera nada mejor que hacer.
 
-215. [84|narrative] Bruno la oyó hablar con sus muñecas en el dormitorio del otro lado del pasillo y regañarlas por haber armado tanto jaleo durante su ausencia, puesto que ahora ella tendría que volver a ordenarlo todo, como si no tuviera nada mejor que hacer.
+215. [84|narrative] Shmuel asintió rápidamente con la cabeza y empezó a temblar un poco mientras cogía otra servilleta y la mojaba en el agua del cuenco.
 
-216. [84|narrative] Shmuel asintió rápidamente con la cabeza y empezó a temblar un poco mientras cogía otra servilleta y la mojaba en el agua del cuenco.
+216. [84|narrative] Y entonces sucedió algo que hizo que pudiera salir de Auchviz durante dos días y regresar a su antigua casa: la Abuela había muerto y la familia debía volver a Berlín para el funeral.
 
-217. [84|narrative] Y entonces sucedió algo que hizo que pudiera salir de Auchviz durante dos días y regresar a su antigua casa: la Abuela había muerto y la familia debía volver a Berlín para el funeral.
+217. [84|narrative] Bruno frunció el entrecejo, pero sintió alivio al ver que todos los ataviados con pijama de rayas de aquella parte se estaban congregando, y que a la mayoría los juntaban los soldados a empujones, así que Shmuel y él quedaron escondidos en el centro del grupo, donde no se los veía.
 
-218. [84|narrative] Bruno frunció el entrecejo, pero sintió alivio al ver que todos los ataviados con pijama de rayas de aquella parte se estaban congregando, y que a la mayoría los juntaban los soldados a empujones, así que Shmuel y él quedaron escondidos en el centro del grupo, donde no se los veía.
+218. [83|descriptive] Era un hombre mucho más joven y más bajo que Padre, aunque vestía el mismo tipo de uniforme, sólo que sin tantos adornos.
 
-219. [83|descriptive] Era un hombre mucho más joven y más bajo que Padre, aunque vestía el mismo tipo de uniforme, sólo que sin tantos adornos.
+219. [83|descriptive] Bruno estaba convencido de que si entrara en la habitación de Gretel para explorar cuando ella no estuviese en casa, luego las muñecas se lo contarían todo.
 
-220. [83|descriptive] Bruno estaba convencido de que si entrara en la habitación de Gretel para explorar cuando ella no estuviese en casa, luego las muñecas se lo contarían todo.
+220. [83|descriptive] Su hermano nunca había conseguido engañarla y suponía que tampoco la estaba engañando en aquel momento, pero algo en su actitud la hacía dudar sobre si de verdad quería ver a aquellos niños.
 
-221. [83|descriptive] Su hermano nunca había conseguido engañarla y suponía que tampoco la estaba engañando en aquel momento, pero algo en su actitud la hacía dudar sobre si de verdad quería ver a aquellos niños.
+221. [83|poetic] Su antigua vida en Berlín ya parecía un lejano recuerdo, y casi no se acordaba del aspecto de Karl, Daniel y Martin, salvo que uno de ellos era pelirrojo.
 
-222. [83|poetic] Su antigua vida en Berlín ya parecía un lejano recuerdo, y casi no se acordaba del aspecto de Karl, Daniel y Martin, salvo que uno de ellos era pelirrojo.
+222. [83|descriptive] Yo le cuento cómo era nuestra casa de Berlín, y las otras casas y las calles y los puestos de fruta y verdura y las cafeterías, y que no podías ir al centro los sábados por la tarde porque la gente te empujaba; y de Karl y Daniel y Martin, que eran mis tres mejores amigos para toda la vida.
 
-223. [83|descriptive] Yo le cuento cómo era nuestra casa de Berlín, y las otras casas y las calles y los puestos de fruta y verdura y las cafeterías, y que no podías ir al centro los sábados por la tarde porque la gente te empujaba; y de Karl y Daniel y Martin, que eran mis tres mejores amigos para toda la vida.
+223. [83|narrative] En Berlín la gente sacaba mesas a la calle, y a veces, cuando Bruno volvía caminando de la escuela con Karl, Daniel y Martin, había hombres y mujeres sentados a aquellas mesas, tomando bebidas espumosas y riendo a carcajadas; la gente que se sentaba a aquellas mesas debía de ser muy graciosa, pensaba él, porque dijeran lo que dijesen siempre había alguien que se reía.
 
-224. [83|narrative] En Berlín la gente sacaba mesas a la calle, y a veces, cuando Bruno volvía caminando de la escuela con Karl, Daniel y Martin, había hombres y mujeres sentados a aquellas mesas, tomando bebidas espumosas y riendo a carcajadas; la gente que se sentaba a aquellas mesas debía de ser muy graciosa, pensaba él, porque dijeran lo que dijesen siempre había alguien que se reía.
+224. [83|narrative] En los días siguientes, Madre, Gretel, Maria, el cocinero, Lars y Bruno se habían dedicado a meter sus cosas en cajas y cargarlas en un gran camión que las trasladaría a su nueva casa de Auchviz.
 
-225. [83|narrative] En los días siguientes, Madre, Gretel, Maria, el cocinero, Lars y Bruno se habían dedicado a meter sus cosas en cajas y cargarlas en un gran camión que las trasladaría a su nueva casa de Auchviz.
+225. [83|narrative] El accidente se produjo dos horas después de que Bruno hubiera encontrado un neumático adecuado y Pavel lo hubiera arrastrado hasta el gran roble que se veía desde la ventana de Gretel.
 
-226. [83|narrative] El accidente se produjo dos horas después de que Bruno hubiera encontrado un neumático adecuado y Pavel lo hubiera arrastrado hasta el gran roble que se veía desde la ventana de Gretel.
+226. [83|narrative] Servía los platos y, mientras ellos comían y hablaban, se retiraba hacia 142 la pared y se quedaba inmóvil, sin mirar al frente ni a ningún otro sitio.
 
-227. [83|narrative] Servía los platos y, mientras ellos comían y hablaban, se retiraba hacia 142 la pared y se quedaba inmóvil, sin mirar al frente ni a ningún otro sitio.
+227. [83|narrative] Asimismo, Bruno recordaba el día que un perro se acercó a la alambrada y se puso a ladrar: cuando lo oyó, el teniente Kotler fue derecho hacia el animal y le pegó un tiro.
 
-228. [83|narrative] Asimismo, Bruno recordaba el día que un perro se acercó a la alambrada y se puso a ladrar: cuando lo oyó, el teniente Kotler fue derecho hacia el animal y le pegó un tiro.
+228. [83|narrative] Echó una última ojeada a la puerta y entonces tomó una decisión: se metió de golpe los tres trozos de pollo en la boca y se los zam-'pó en sólo veinte segundos.
 
-229. [83|narrative] Echó una última ojeada a la puerta y entonces tomó una decisión: se metió de golpe los tres trozos de pollo en la boca y se los zam-'pó en sólo veinte segundos.
+229. [83|narrative] Aunque intentaba no ser como los niños que se dedican a escuchar por el ojo de la cerradura y por las chimeneas, una tarde Bruno pasó por delante del despacho de Padre mientras Madre y Padre estaban dentro manteniendo una de sus conversaciones.
 
-230. [83|narrative] Aunque intentaba no ser como los niños que se dedican a escuchar por el ojo de la cerradura y por las chimeneas, una tarde Bruno pasó por delante del despacho de Padre mientras Madre y Padre estaban dentro manteniendo una de sus conversaciones.
+230. [83|narrative] Acabó sentándose en el suelo y adoptando casi la misma postura que Bruno había adoptado todas las tardes durante un año, aunque sin cruzar las piernas debajo del cuerpo.
 
-231. [83|narrative] Acabó sentándose en el suelo y adoptando casi la misma postura que Bruno había adoptado todas las tardes durante un año, aunque sin cruzar las piernas debajo del cuerpo.
+231. [82|descriptive] En cambio sí había gente que entraba y salía, y mientras trataba de decidir qué era lo mejor que podía hacer, Bruno oyó un gran alboroto proveniente de abajo; salió al pasillo y se asomó a la barandilla.
 
-232. [82|descriptive] En cambio sí había gente que entraba y salía, y mientras trataba de decidir qué era lo mejor que podía hacer, Bruno oyó un gran alboroto proveniente de abajo; salió al pasillo y se asomó a la barandilla.
+232. [82|descriptive] La mayoría de los días, el joven oficial presentaba un aspecto muy elegante, se paseaba con aire resuelto y daba la impresión de que le hubieran planchado el uniforme una vez puesto.
 
-233. [82|descriptive] La mayoría de los días, el joven oficial presentaba un aspecto muy elegante, se paseaba con aire resuelto y daba la impresión de que le hubieran planchado el uniforme una vez puesto.
+233. [82|descriptive] Kotler estaba absorto en una conversación con Gretel y lo que decía debía de ser tremendamente gracioso, puesto que ella reía a carcajadas y se enroscaba el cabello con los dedos formando tirabuzones.
 
-234. [82|descriptive] Kotler estaba absorto en una conversación con Gretel y lo que decía debía de ser tremendamente gracioso, puesto que ella reía a carcajadas y se enroscaba el cabello con los dedos formando tirabuzones.
+234. [82|dialogue] Entonces vio a Pavel —el anciano que por las tardes acudía a la cocina a pelar las hortalizas para la cena, antes de ponerse la chaqueta blanca y servir la mesa— dirigiéndose hacia la casa, y por lo visto se decidió.
 
-235. [82|dialogue] Entonces vio a Pavel —el anciano que por las tardes acudía a la cocina a pelar las hortalizas para la cena, antes de ponerse la chaqueta blanca y servir la mesa— dirigiéndose hacia la casa, y por lo visto se decidió.
+235. [82|descriptive] Pero no tuvo que preguntárselo mucho rato, ya que el roble donde había construido el columpio estaba en el mismo lado de la casa que la cocina, y Pavel, que se encontraba junto a la ventana pelando patatas, había visto el accidente.
 
-236. [82|descriptive] Pero no tuvo que preguntárselo mucho rato, ya que el roble donde había construido el columpio estaba en el mismo lado de la casa que la cocina, y Pavel, que se encontraba junto a la ventana pelando patatas, había visto el accidente.
+236. [82|descriptive] Los galones del uniforme fue lo que más impresionó a Bruno, y tras comprobar que tenía las manos limpias le dejaron ponerse la gorra un rato.
 
-237. [82|descriptive] Los galones del uniforme fue lo que más impresionó a Bruno, y tras comprobar que tenía las manos limpias le dejaron ponerse la gorra un rato.
+237. [82|descriptive] Pese a que en general se mostraba simpático y nunca le levantaba la mano como hacía su antiguo profesor de Berlín, algo en su mirada sugería que albergaba mucha rabia acumulada que podía liberarse en cualquier momento.
 
-238. [82|descriptive] Pese a que en general se mostraba simpático y nunca le levantaba la mano como hacía su antiguo profesor de Berlín, algo en su mirada sugería que albergaba mucha rabia acumulada que podía liberarse en cualquier momento.
+238. [82|descriptive] No estaba muy seguro de tener una Patria, porque, aunque la casa de Berlín era grande y cómoda, no había mucho jardín alrededor.
 
-239. [82|descriptive] No estaba muy seguro de tener una Patria, porque, aunque la casa de Berlín era grande y cómoda, no había mucho jardín alrededor.
+239. [82|descriptive] Y era lo bastante mayor para saber que sus padres no eran los propietarios de Auchviz, pese a que allí sí había mucha tierra.
 
-240. [82|descriptive] Y era lo bastante mayor para saber que sus padres no eran los propietarios de Auchviz, pese a que allí sí había mucha tierra.
+240. [82|descriptive] La mayoría de las veces los exploradores tropezaban con algo interesante que sencillamente estaba allí, sin molestar a nadie, esperando a que lo descubrieran (por ejemplo, América).
 
-241. [82|descriptive] La mayoría de las veces los exploradores tropezaban con algo interesante que sencillamente estaba allí, sin molestar a nadie, esperando a que lo descubrieran (por ejemplo, América).
+241. [82|poetic] Llegué a casa y mi madre nos estaba haciendo brazaletes con una tela que le habían dado y dibujando una estrella en cada uno.
 
-242. [82|poetic] Llegué a casa y mi madre nos estaba haciendo brazaletes con una tela que le habían dado y dibujando una estrella en cada uno.
+242. [82|dialogue] Verás —dijo Bruno, escogiendo con cuidado sus palabras para no decir nada indebido—, ¿recuerdas que poco después de llegar aquí monté el columpio en el roble y me caí y me hice una herida en la rodilla?
 
 243. [82|dialogue] Se preguntó si la chaqueta blanca que se ponía para hacer de camarero era la misma chaqueta blanca que antes se ponía para hacer de médico.
 

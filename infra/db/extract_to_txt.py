@@ -184,6 +184,9 @@ def clean_text(text: str) -> str:
     # Fix hyphenated words split across lines (e.g., "Ma- condo" -> "Macondo")
     text = re.sub(r'(\w+)-\s+(\w+)', r'\1\2', text)
     
+    # Fix soft hyphens (­) that split words across lines (e.g., "ciu­ dad" -> "ciudad")
+    text = re.sub(r'(\w+)\u00ad\s*(\w+)', r'\1\2', text)
+    
     # Remove roman numerals at the start of text or after punctuation (chapter markers)
     text = re.sub(r'^[IVXLCDM]+\s+', '', text)
     text = re.sub(r'\.\s+[IVXLCDM]+\s+', '. ', text)
@@ -212,12 +215,27 @@ def clean_text(text: str) -> str:
         r'Página \d+',
         r'página \d+',
         r'- \d+ -',
+        r'\b\d{1,3}\s+—',  # Page number before em dash like "49 —"
+        r'(?<=[a-záéíóúüñ])\d{1,3}\s+(?=[a-záéíóúüñ])',  # Page number splitting words like "cho76 rro"
         # Chapter markers
         r'\b[IVXLCDM]+\s+[A-ZÁÉÍÓÚÜÑ][a-záéíóúüñ]+\s+años\s+después',
         r'CAPÍTULO\s+[IVXLCDM]+\.?',  # CAPÍTULO VIII.
         r'capítulo\s+[ivxlcdm]+\s+\d+',  # capítulo i 29
+        r'CAPÍTULO\s+[A-Z][a-záéíóúüñ]+(?:\s+[a-záéíóúüñ]+)*',  # CAPÍTULO El señor Thomas Marvel
         # Don Quijote page headers
         r'don quijote de la mancha\s+\d+',
+        # Dan Brown book headers
+        r'Dan Brown El código Da Vinci\s+\d+',
+        # El jardín secreto headers
+        r'El jardín secreto\s+\d+',
+        # El Diario de Ana Frank headers/footers
+        r'EL DIARIO DE ANA FRANK © Pehuén Editores, 2001\.',
+        r'\)\d+\(',  # Inverted page numbers like )16(
+        # El niño con el pijama de rayas
+        r'John Boyne EL NIÑO CON EL PIJAMA DE RAYAS[^.]*',
+        r'Queda rigurosamente prohibida[^.]*\.',
+        # El Señor de los anillos headers
+        r'El Señor de los anillos:\s*La Comunidad del anillo\s+\d+',
     ]
     
     for pattern in pdf_artifacts:
@@ -251,6 +269,12 @@ def clean_text(text: str) -> str:
         "Ros¡": "Rosi",
         " 1a ": " la ",
         " tina ": " una ",
+        " nosj ": " nos ",
+        # Words split by page breaks
+        "cho rro": "chorro",
+        "histo ria": "historia",
+        # Missing characters
+        "ara tenía diez años": "Clara tenía diez años",
     }
     
     for wrong, correct in ocr_corrections.items():

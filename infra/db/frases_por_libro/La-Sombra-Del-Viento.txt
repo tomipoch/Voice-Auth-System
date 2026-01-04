@@ -1,5 +1,5 @@
 # La-Sombra-Del-Viento
-# Total frases: 1574 (filtradas y balanceadas)
+# Total frases: 1575 (filtradas y balanceadas)
 # ========================================
 
 
@@ -210,7 +210,7 @@
 102. [80|narrative] Sentí que mis pies se levantaban del suelo, pero nunca llegué a recobrar el contacto.
 
 
-## MEDIUM (298 frases)
+## MEDIUM (299 frases)
 
 1. [100|dialogue] Al día siguiente, la señora me hizo llamar y me preguntó qué sabía yo de Julián.
 
@@ -236,21 +236,21 @@
 
 12. [93|narrative] Empezaba a anochecer cuando llegué a la puerta del cementerio y supuse que ya había perdido el último autobús.
 
-13. [92|dialogue] Encerraron a Penélope bajo llave en su habitación y la señora me dijo que recogiese mis cosas.
+13. [92|dialogue] Carlos Ruiz Zafón La sombra del viento de ¿Oyó mencionar alguna vez a Julián a una muchacha llamada Penélope?
 
-14. [92|descriptive] Me aproximé hasta allí y escruté la tiniebla que arañaba la llama azul del mechero de gasolina.
+14. [92|dialogue] Encerraron a Penélope bajo llave en su habitación y la señora me dijo que recogiese mis cosas.
 
-15. [92|descriptive] El viejo Cabestany, que murió aquel año, había pronosticado que su hijo conseguiría arruinar la empresa en seis meses.
+15. [92|descriptive] Me aproximé hasta allí y escruté la tiniebla que arañaba la llama azul del mechero de gasolina.
 
-16. [92|narrative] Un día, intrigada, le pregunté por qué continuaba publicando novelas de Julián Carax y perdiendo dinero en el empeño.
+16. [92|descriptive] El viejo Cabestany, que murió aquel año, había pronosticado que su hijo conseguiría arruinar la empresa en seis meses.
 
-17. [92|narrative] Subíamos al terrado y cruzábamos hasta el edificio contiguo para salir a la calle Joaquín Costa.
+17. [92|narrative] Un día, intrigada, le pregunté por qué continuaba publicando novelas de Julián Carax y perdiendo dinero en el empeño.
 
-18. [91|descriptive] El extraño permaneció en silencio, inmóvil, envuelto en el humo azul de aquel cigarrillo que nunca parecía acabarse.
+18. [92|narrative] Subíamos al terrado y cruzábamos hasta el edificio contiguo para salir a la calle Joaquín Costa.
 
-19. [91|poetic] Imaginé las manos de Julián Carax trazando aquellos garabatos, jeroglíficos cuyo sentido se había llevado el tiempo.
+19. [91|descriptive] El extraño permaneció en silencio, inmóvil, envuelto en el humo azul de aquel cigarrillo que nunca parecía acabarse.
 
-20. [91|dialogue] Carlos Ruiz Zafón La sombra del viento de 288 —¿Oyó mencionar alguna vez a Julián a una muchacha llamada Penélope?
+20. [91|poetic] Imaginé las manos de Julián Carax trazando aquellos garabatos, jeroglíficos cuyo sentido se había llevado el tiempo.
 
 21. [91|descriptive] Fumero sabía también que Julián nunca aceptaría enfrentarse a su antiguo compañero, moribundo y reducido a un lamento.
 
@@ -462,351 +462,353 @@
 
 125. [85|narrative] Le dije que el señor Moliner no vivía allí desde principios de la guerra, que había partido hacia el extranjero.
 
-126. [84|dialogue] Carlos Ruiz Zafón La sombra del viento de 288 —Durante años busqué otros libros de Julián Carax —continuó Clara—.
+126. [84|dialogue] Jamás me había sentido atrapada, seducida y envuelta por una historia como la que narraba aquel libro —explicó Clara—.
 
-127. [84|descriptive] Su madre era francesa, maestra de música, creo, y él había vivido en París desde que tenía diecinueve o veinte años.
+127. [84|dialogue] Carlos Ruiz Zafón La sombra del viento de Durante años busqué otros libros de Julián Carax —continuó Clara—.
 
-128. [84|descriptive] Ella era la que mantenía toda la correspondencia con Carax y, a lo largo de los años, habían entablado cierta amistad.
+128. [84|descriptive] Su madre era francesa, maestra de música, creo, y él había vivido en París desde que tenía diecinueve o veinte años.
 
-129. [84|descriptive] Tomás era un muchacho meditabundo y reservado al que la gente temía por su aspecto de matón, serio y amenazador.
+129. [84|descriptive] Ella era la que mantenía toda la correspondencia con Carax y, a lo largo de los años, habían entablado cierta amistad.
 
-130. [84|descriptive] Aquél era el último año para Julián y sus compañeros en el colegio de San Gabriel.
+130. [84|descriptive] Tomás era un muchacho meditabundo y reservado al que la gente temía por su aspecto de matón, serio y amenazador.
 
-131. [84|dialogue] Contestó doña Encarna, que dijo con voz de cazalla que no había visto a Fermín desde aquella mañana.
+131. [84|descriptive] Aquél era el último año para Julián y sus compañeros en el colegio de San Gabriel.
 
-132. [84|descriptive] Penélope Aldaya dio a luz un niño que nació cadáver el 26 de septiembre de 1919.
+132. [84|dialogue] Contestó doña Encarna, que dijo con voz de cazalla que no había visto a Fermín desde aquella mañana.
 
-133. [84|dialogue] La enfermera que me encontró caída en el suelo, llorando, me preguntó si sabía quién era.
+133. [84|descriptive] Penélope Aldaya dio a luz un niño que nació cadáver el 26 de septiembre de 1919.
 
-134. [84|dialogue] El señor Fortuny me preguntó si era una vieja amiga de su hijo y le dije que sí.
+134. [84|dialogue] La enfermera que me encontró caída en el suelo, llorando, me preguntó si sabía quién era.
 
-135. [84|descriptive] En una ocasión recibí una carta del administrador diciéndome que algunos vecinos habían notado ruidos en el piso de los Fortuny.
+135. [84|dialogue] El señor Fortuny me preguntó si era una vieja amiga de su hijo y le dije que sí.
 
-136. [84|dialogue] ¿O los locos son los demás, que se empeñan en convencerle de su sinrazón para salvaguardar su existencia de quimeras?
+136. [84|descriptive] En una ocasión recibí una carta del administrador diciéndome que algunos vecinos habían notado ruidos en el piso de los Fortuny.
 
-137. [84|narrative] Aquella noche, a mi regreso del Ateneo, le encontré esperándome en el comedor, luciendo aquella misma cara de derrota y anhelo.
+137. [84|dialogue] ¿O los locos son los demás, que se empeñan en convencerle de su sinrazón para salvaguardar su existencia de quimeras?
 
-138. [84|narrative] Tras darle muchas vueltas, concluí sellar aquel episodio en algún rincón de mi memoria e ignorar sus implicaciones.
+138. [84|narrative] Aquella noche, a mi regreso del Ateneo, le encontré esperándome en el comedor, luciendo aquella misma cara de derrota y anhelo.
 
-139. [84|narrative] Pensé en lo mucho que deseaba refugiarme en aquella mirada huidiza que se temía transparente, vacía.
+139. [84|narrative] Tras darle muchas vueltas, concluí sellar aquel episodio en algún rincón de mi memoria e ignorar sus implicaciones.
 
-140. [84|narrative] Me guió a través del corredor hasta la galería que presidía el patio interior de la casa.
+140. [84|narrative] Pensé en lo mucho que deseaba refugiarme en aquella mirada huidiza que se temía transparente, vacía.
 
-141. [84|narrative] Quince minutos más tarde replegué velas y me reuní con Fermín para ver si él había tenido más suerte.
+141. [84|narrative] Me guió a través del corredor hasta la galería que presidía el patio interior de la casa.
 
-142. [84|narrative] Colabora un poco, joder, y así me ahorras hacerle una cara nueva al niñato este que te has echado de mecenas.
+142. [84|narrative] Quince minutos más tarde replegué velas y me reuní con Fermín para ver si él había tenido más suerte.
 
-143. [84|narrative] Permaneció quince segundos en su mesa, debatiéndose entre fuerzas insondables, y luego se lanzó al galope hacia la calle.
+143. [84|narrative] Colabora un poco, joder, y así me ahorras hacerle una cara nueva al niñato este que te has echado de mecenas.
 
-144. [84|narrative] Me pareció un gesto noble y admirable que no casaba con la imagen fenicia que me había hecho del señor Cabestany.
+144. [84|narrative] Permaneció quince segundos en su mesa, debatiéndose entre fuerzas insondables, y luego se lanzó al galope hacia la calle.
 
-145. [84|narrative] Me entregaba su afecto y su devoción sin pedir a cambio más que mi compañía y quizá mi discreción.
+145. [84|narrative] Me pareció un gesto noble y admirable que no casaba con la imagen fenicia que me había hecho del señor Cabestany.
 
-146. [84|narrative] Aldaya, sin embargo, como civil, podía desplazarse a París y asegurarse de que aquella boda no se celebrase jamás.
+146. [84|narrative] Me entregaba su afecto y su devoción sin pedir a cambio más que mi compañía y quizá mi discreción.
 
-147. [84|narrative] Aquella noche, Julián había salido por fin a la calle dispuesto a recobrar el rastro de Penélope.
+147. [84|narrative] Aldaya, sin embargo, como civil, podía desplazarse a París y asegurarse de que aquella boda no se celebrase jamás.
 
-148. [84|narrative] Tan pronto colgué, cerré la puerta del despacho y me mordí los puños por no gritar.
+148. [84|narrative] Aquella noche, Julián había salido por fin a la calle dispuesto a recobrar el rastro de Penélope.
 
-149. [84|narrative] Se derramó tanta o más sangre durante aquellos días que durante los combates, sólo que en secreto y a hurtadillas.
+149. [84|narrative] Tan pronto colgué, cerré la puerta del despacho y me mordí los puños por no gritar.
 
-150. [84|narrative] Descubrí que Laín Coubert, disfrazado de Julián, había estado recorriendo la ciudad, visitando el caserón de los Aldaya.
+150. [84|narrative] Se derramó tanta o más sangre durante aquellos días que durante los combates, sólo que en secreto y a hurtadillas.
 
-151. [84|narrative] Entre muebles caídos, cajones y estanterías derribadas, encontré mi ropa hecha jirones y los libros de Miquel destrozados.
+151. [84|narrative] Descubrí que Laín Coubert, disfrazado de Julián, había estado recorriendo la ciudad, visitando el caserón de los Aldaya.
 
-152. [84|narrative] Los músculos del vientre que habían encajado el primer golpe de Tomás ardían en una agonía que sólo ahora empezaba.
+152. [84|narrative] Entre muebles caídos, cajones y estanterías derribadas, encontré mi ropa hecha jirones y los libros de Miquel destrozados.
 
-153. [84|narrative] Escuché unos pasos apresurados acercándose y comprendí que Palacios había acudido en auxilio de su jefe alertado por los disparos.
+153. [84|narrative] Los músculos del vientre que habían encajado el primer golpe de Tomás ardían en una agonía que sólo ahora empezaba.
 
-154. [84|narrative] Con los años he visto brotar en ella una amargura que quiere vestir de ironía y despego.
+154. [84|narrative] Escuché unos pasos apresurados acercándose y comprendí que Palacios había acudido en auxilio de su jefe alertado por los disparos.
 
-155. [83|descriptive] En otra ocasión, Clara aseguró que le había rogado al supuesto extraño que la dejase leer su rostro con las manos.
+155. [84|narrative] Con los años he visto brotar en ella una amargura que quiere vestir de ironía y despego.
 
-156. [83|descriptive] Estaba casi llorando cuando me tendió un pequeño paquete que contenía su regalo y me besó ambas mejillas.
+156. [83|descriptive] En otra ocasión, Clara aseguró que le había rogado al supuesto extraño que la dejase leer su rostro con las manos.
 
-157. [83|dialogue] Desde aquel día, Tomás Aguilar se convirtió en mi mejor —y yo en su único—, amigo.
+157. [83|descriptive] Estaba casi llorando cuando me tendió un pequeño paquete que contenía su regalo y me besó ambas mejillas.
 
-158. [83|descriptive] Él no parecía tener más de diecisiete o dieciocho años, con el cabello claro y los rasgos aristocráticos, frágiles.
+158. [83|dialogue] Desde aquel día, Tomás Aguilar se convirtió en mi mejor —y yo en su único—, amigo.
 
-159. [83|poetic] De chiquillo se pasaba la vida contándole historias a los críos de aquí por el barrio.
+159. [83|descriptive] Él no parecía tener más de diecisiete o dieciocho años, con el cabello claro y los rasgos aristocráticos, frágiles.
 
-160. [83|descriptive] Si a Julián le quedaba alguien a quien recurrir en Barcelona, era yo, o como mucho el señor Cabestany.
+160. [83|poetic] De chiquillo se pasaba la vida contándole historias a los críos de aquí por el barrio.
 
-161. [83|descriptive] Irene bromeaba que ellas estaban casi tan solas como él y lo único que querían era algo de cariño.
+161. [83|descriptive] Si a Julián le quedaba alguien a quien recurrir en Barcelona, era yo, o como mucho el señor Cabestany.
 
-162. [83|descriptive] El trazo era inequívoco, pero no creyó por un momento que Penélope hubiera escrito aquella carta por propia voluntad.
+162. [83|dialogue] Carlos Ruiz Zafón La sombra del viento de ¿Sabía usted que Jorge Aldaya era el hermano de Penélope?
 
-163. [83|dialogue] Llamé a un médico que tan pronto le reconoció me preguntó por qué había esperado hasta entonces para llamarle.
+163. [83|descriptive] Irene bromeaba que ellas estaban casi tan solas como él y lo único que querían era algo de cariño.
 
-164. [83|dialogue] El sombrerero respondió que su hijo estaba muerto y que nos largásemos o llamaría a la policía.
+164. [83|descriptive] El trazo era inequívoco, pero no creyó por un momento que Penélope hubiera escrito aquella carta por propia voluntad.
 
-165. [83|poetic] Vio formarse lágrimas en el rostro del sombrerero, que se arrastró hacia la puerta y salió a la calle mudo.
+165. [83|dialogue] Llamé a un médico que tan pronto le reconoció me preguntó por qué había esperado hasta entonces para llamarle.
 
-166. [83|dialogue] Un anciano que acompañaba a una niña de blanco nos miraba, sonriente, y nos preguntó si éramos novios.
+166. [83|dialogue] El sombrerero respondió que su hijo estaba muerto y que nos largásemos o llamaría a la policía.
 
-167. [83|descriptive] Conduje a Bea de nuevo al interior de la habitación y le indiqué que permaneciese allí, oculta tras la puerta.
+167. [83|poetic] Vio formarse lágrimas en el rostro del sombrerero, que se arrastró hacia la puerta y salió a la calle mudo.
 
-168. [83|descriptive] Me retiré de nuevo al corredor y rodeé la galería de habitaciones hasta la fachada principal del caserón.
+168. [83|dialogue] Un anciano que acompañaba a una niña de blanco nos miraba, sonriente, y nos preguntó si éramos novios.
 
-169. [83|descriptive] Vi a Fermín llorando en brazos de la Bernarda, y a mi viejo amigo Tomás, que había enmudecido para siempre.
+169. [83|dialogue] Carlos Ruiz Zafón La sombra del viento de Ésa la guardas para mí —le dije, arrepintiéndome al instante.
 
-170. [83|narrative] Poco después de la guerra civil, un brote de cólera se había llevado a mi madre.
+170. [83|descriptive] Conduje a Bea de nuevo al interior de la habitación y le indiqué que permaneciese allí, oculta tras la puerta.
 
-171. [83|narrative] Aquel libro me enseñó que leer podía hacerme vivir más y más intensamente, que podía devolverme la vista que había perdido.
+171. [83|descriptive] Me retiré de nuevo al corredor y rodeé la galería de habitaciones hasta la fachada principal del caserón.
 
-172. [83|narrative] Sin más ceremonial me alejé de allí, guiándome por las muescas que había ido dejando en el camino.
+172. [83|descriptive] Vi a Fermín llorando en brazos de la Bernarda, y a mi viejo amigo Tomás, que había enmudecido para siempre.
 
-173. [83|narrative] Seis meses más tarde, Sophie anunció a su esposo que llevaba un hijo en las entrañas.
+173. [83|narrative] Poco después de la guerra civil, un brote de cólera se había llevado a mi madre.
 
-174. [83|narrative] El tirón del regaliz pareció lubricarle un poco más la lengua sobre aquella rocambolesca historia del palacete Aldaya.
+174. [83|narrative] Aquel libro me enseñó que leer podía hacerme vivir más y más intensamente, que podía devolverme la vista que había perdido.
 
-175. [83|narrative] Después de dos días sin que nadie reclamase el cadáver, fue enterrado en una fosa común en el cementerio de Montjuïc.
+175. [83|narrative] Sin más ceremonial me alejé de allí, guiándome por las muescas que había ido dejando en el camino.
 
-176. [83|narrative] Isaac iba enfundado en lo que me pareció un extraño mestizaje de bata, albornoz y abrigo del ejército ruso.
+176. [83|narrative] Seis meses más tarde, Sophie anunció a su esposo que llevaba un hijo en las entrañas.
 
-177. [83|narrative] Julián ignoraba estos planes y, para cuando averiguase lo que unos y otros habían preparado para él, ya sería tarde.
+177. [83|narrative] El tirón del regaliz pareció lubricarle un poco más la lengua sobre aquella rocambolesca historia del palacete Aldaya.
 
-178. [83|narrative] En aquella planta sólo se encontraban las habitaciones de la servidumbre y Julián quiso creer que nadie les encontraría.
+178. [83|narrative] Después de dos días sin que nadie reclamase el cadáver, fue enterrado en una fosa común en el cementerio de Montjuïc.
 
-179. [83|narrative] Me despojé de mi ropa manchada de sangre y mugre y me aupé a la bañera imperial de Gustavo Barceló.
+179. [83|narrative] Isaac iba enfundado en lo que me pareció un extraño mestizaje de bata, albornoz y abrigo del ejército ruso.
 
-180. [83|narrative] Pregunté en la secretaría por el aula del profesor Velázquez y me dispuse a esperar la salida de los estudiantes.
+180. [83|narrative] Julián ignoraba estos planes y, para cuando averiguase lo que unos y otros habían preparado para él, ya sería tarde.
 
-181. [83|narrative] La policía alegó que el cadáver había sido encontrado en un callejón del Raval poco antes del amanecer.
+181. [83|narrative] En aquella planta sólo se encontraban las habitaciones de la servidumbre y Julián quiso creer que nadie les encontraría.
 
-182. [83|narrative] Don Manuel explica que al caer la tarde llegó un hombrecillo tembloroso en compañía de unos agentes de la policía.
+182. [83|narrative] Me despojé de mi ropa manchada de sangre y mugre y me aupé a la bañera imperial de Gustavo Barceló.
 
-183. [83|narrative] Cuando salí a la calle me pareció que la negrura se arrastraba por el empedrado, pisándome los talones.
+183. [83|narrative] Pregunté en la secretaría por el aula del profesor Velázquez y me dispuse a esperar la salida de los estudiantes.
 
-184. [83|narrative] Decidió arrancar a Julián de aquel mundo irrespirable de mediocridad y pobreza para abrirle las puertas de su paraíso financiero.
+184. [83|narrative] La policía alegó que el cadáver había sido encontrado en un callejón del Raval poco antes del amanecer.
 
-185. [83|narrative] Las sábanas y los despojos fueron arrojados a las calderas y la habitación sellada con un muro de adoquines.
+185. [83|narrative] Don Manuel explica que al caer la tarde llegó un hombrecillo tembloroso en compañía de unos agentes de la policía.
 
-186. [83|narrative] Se escucharon disparos aislados a lo lejos, como todas las noches desde que había empezado la guerra.
+186. [83|narrative] Cuando salí a la calle me pareció que la negrura se arrastraba por el empedrado, pisándome los talones.
 
-187. [83|narrative] Había leído la fisonomía de aquella casa en mil encarnaciones y ángulos en las páginas de Julián.
+187. [83|narrative] Decidió arrancar a Julián de aquel mundo irrespirable de mediocridad y pobreza para abrirle las puertas de su paraíso financiero.
 
-188. [83|narrative] Horas después, cuando acudí a la editorial a media mañana, Alvaro Cabestany me hizo llamar a su despacho.
+188. [83|narrative] Las sábanas y los despojos fueron arrojados a las calderas y la habitación sellada con un muro de adoquines.
 
-189. [83|narrative] Durante años había querido creer que Julián seguía siendo el hombre de quien me había enamorado, o sus cenizas.
+189. [83|narrative] Se escucharon disparos aislados a lo lejos, como todas las noches desde que había empezado la guerra.
 
-190. [83|narrative] Alcé la mano para arrebatársela al cuchillo, pero el contacto helado del revólver de Fumero en la nuca me detuvo.
+190. [83|narrative] Había leído la fisonomía de aquella casa en mil encarnaciones y ángulos en las páginas de Julián.
 
-191. [83|narrative] Lo arrancó de una sacudida y se desplomó de rodillas, sosteniéndose el brazo herido que le sangraba sobre el costado.
+191. [83|narrative] Horas después, cuando acudí a la editorial a media mañana, Alvaro Cabestany me hizo llamar a su despacho.
 
-192. [82|descriptive] Fermín Romero de Torres, quizá bajo los efectos de las sales de baño, se había embalado.
+192. [83|narrative] Durante años había querido creer que Julián seguía siendo el hombre de quien me había enamorado, o sus cenizas.
 
-193. [82|poetic] Observé a aquel gigante tímido y silencioso que vagaba por las aulas y pasillos del colegio como alma sin dueño.
+193. [83|narrative] Alcé la mano para arrebatársela al cuchillo, pero el contacto helado del revólver de Fumero en la nuca me detuvo.
 
-194. [82|descriptive] Hombre de convicciones profundas, estaba seguro, entre otras cosas, de que su hijo era un espíritu pusilánime y un deficiente mental.
+194. [83|narrative] Lo arrancó de una sacudida y se desplomó de rodillas, sosteniéndose el brazo herido que le sangraba sobre el costado.
 
-195. [82|descriptive] La puerta estaba asegurada con un candado que parecía llevar allí por lo menos diez años.
+195. [82|descriptive] Fermín Romero de Torres, quizá bajo los efectos de las sales de baño, se había embalado.
 
-196. [82|descriptive] Fermín resopló, decepcionado, pues a la vista estaba que el jefe del Estado seguía gozando de excelente salud.
+196. [82|poetic] Observé a aquel gigante tímido y silencioso que vagaba por las aulas y pasillos del colegio como alma sin dueño.
 
-197. [82|dialogue] Carlos Ruiz Zafón La sombra del viento de 288 —¿Sabía usted que Jorge Aldaya era el hermano de Penélope?
+197. [82|descriptive] Hombre de convicciones profundas, estaba seguro, entre otras cosas, de que su hijo era un espíritu pusilánime y un deficiente mental.
 
-198. [82|descriptive] Sonreí, reconociendo en su rostro la misma expresión que mi padre debía de haber visto en el mío años atrás.
+198. [82|descriptive] La puerta estaba asegurada con un candado que parecía llevar allí por lo menos diez años.
 
-199. [82|descriptive] Si se tercia, claro está, no sea Carlos Ruiz Zafón La sombra del viento de 288 mojigato y aprovéchese.
+199. [82|descriptive] Fermín resopló, decepcionado, pues a la vista estaba que el jefe del Estado seguía gozando de excelente salud.
 
-200. [82|descriptive] Apenas distinguía su silueta, pero supo que le estaba sonriendo y que, de alguna manera, también, ella le había reconocido.
+200. [82|descriptive] Sonreí, reconociendo en su rostro la misma expresión que mi padre debía de haber visto en el mío años atrás.
 
-201. [82|descriptive] Miquel Moliner, sin embargo, no las tenía todas consigo y observaba al extraño muchacho con celo, y recelo, casi científico.
+201. [82|descriptive] Si se tercia, claro está, no sea Carlos Ruiz Zafón La sombra del viento de 288 mojigato y aprovéchese.
 
-202. [82|descriptive] Cuando finalmente Julián decidió abordar a don Ricardo y preguntarle qué estaba sucediendo entre él y su madre, el industrial rió.
+202. [82|descriptive] Apenas distinguía su silueta, pero supo que le estaba sonriendo y que, de alguna manera, también, ella le había reconocido.
 
-203. [82|poetic] Mi madre yacía enterrada a un centenar de metros de aquella senda flanqueada por galerías interminables de muerte y desolación.
+203. [82|descriptive] Miquel Moliner, sin embargo, no las tenía todas consigo y observaba al extraño muchacho con celo, y recelo, casi científico.
 
-204. [82|descriptive] Una noche en que yo tampoco podía dormir por el ruido de la lluvia arañando el tejado salí a la sala.
+204. [82|descriptive] Cuando finalmente Julián decidió abordar a don Ricardo y preguntarle qué estaba sucediendo entre él y su madre, el industrial rió.
 
-205. [82|dialogue] Carlos Ruiz Zafón La sombra del viento de 288 —Ésa la guardas para mí —le dije, arrepintiéndome al instante.
+205. [82|poetic] Mi madre yacía enterrada a un centenar de metros de aquella senda flanqueada por galerías interminables de muerte y desolación.
 
-206. [82|dialogue] Me dijo que lo sentía mucho y partió con su sonrisa aceitosa y su acné de aprendiz de chivato.
+206. [82|descriptive] Una noche en que yo tampoco podía dormir por el ruido de la lluvia arañando el tejado salí a la sala.
 
-207. [82|descriptive] Carlos Ruiz Zafón La sombra del viento de 288 Aquella noche acudí al piso de la Ronda de San Antonio.
+207. [82|dialogue] Me dijo que lo sentía mucho y partió con su sonrisa aceitosa y su acné de aprendiz de chivato.
 
-208. [82|narrative] Neuval publicaba sobre todo folletines, y me parece que el género se le había subido a la cabeza.
+208. [82|descriptive] Carlos Ruiz Zafón La sombra del viento de 288 Aquella noche acudí al piso de la Ronda de San Antonio.
 
-209. [82|narrative] Miquel Moliner, que nunca se había fiado de Fumero, se abalanzó sobre él y le detuvo en el último momento.
+209. [82|narrative] Neuval publicaba sobre todo folletines, y me parece que el género se le había subido a la cabeza.
 
-210. [82|narrative] Fermín farfulló algunas incoherencias sobre unos recados pendientes y nos escurrimos por el foro con celeridad.
+210. [82|narrative] Miquel Moliner, que nunca se había fiado de Fumero, se abalanzó sobre él y le detuvo en el último momento.
 
-211. [82|narrative] Menuda jauría de sanguijuelas, capaces de robarle a uno hasta los calzoncillos mientras aún están tibios.
+211. [82|narrative] Fermín farfulló algunas incoherencias sobre unos recados pendientes y nos escurrimos por el foro con celeridad.
 
-212. [82|narrative] Ahora bien, la próxima vez que se plantee una negociación de esta naturaleza, déjeme hablar a mí.
+212. [82|narrative] Menuda jauría de sanguijuelas, capaces de robarle a uno hasta los calzoncillos mientras aún están tibios.
 
-213. [82|narrative] Evidentemente, el inspector Fumero está en esto hasta el frenillo, aunque cómo y por qué es algo que se me escapa.
+213. [82|narrative] Ahora bien, la próxima vez que se plantee una negociación de esta naturaleza, déjeme hablar a mí.
 
-214. [82|narrative] Julián se disculpó diciendo que las había conseguido a un precio excepcional, pero que eran de primera calidad.
+214. [82|narrative] Evidentemente, el inspector Fumero está en esto hasta el frenillo, aunque cómo y por qué es algo que se me escapa.
 
-215. [82|narrative] Nos abrazamos en la oscuridad y le pedí perdón por todo el daño que le había hecho.
+215. [82|narrative] Julián se disculpó diciendo que las había conseguido a un precio excepcional, pero que eran de primera calidad.
 
-216. [82|narrative] Todos menos Sophie, que sabía perfectamente que don Ricardo Aldaya seguía acordándose de ella en el día de su matrimonio.
+216. [82|narrative] Nos abrazamos en la oscuridad y le pedí perdón por todo el daño que le había hecho.
 
-217. [82|narrative] Las dos lápidas estaban recubiertas por un velo de telaraña que se deshizo como seda podrida a la llama del mechero.
+217. [82|narrative] Todos menos Sophie, que sabía perfectamente que don Ricardo Aldaya seguía acordándose de ella en el día de su matrimonio.
 
-218. [82|narrative] Fermín Romero de Torres se había erigido en dictador absoluto y factótum de la ceremonia, banquete y miscelánea varia.
+218. [82|narrative] Las dos lápidas estaban recubiertas por un velo de telaraña que se deshizo como seda podrida a la llama del mechero.
 
-219. [81|dialogue] Sólo está dormido —dijo el doctor, examinando las cicatrices que cubrían el cuerpo famélico de Fermín.
+219. [82|narrative] Fermín Romero de Torres se había erigido en dictador absoluto y factótum de la ceremonia, banquete y miscelánea varia.
 
-220. [81|descriptive] La única amiga que tenía esa pobre mujer era una chica joven, la Viçenteta, que vivía en el cuarto segunda.
+220. [81|dialogue] Sólo está dormido —dijo el doctor, examinando las cicatrices que cubrían el cuerpo famélico de Fermín.
 
-221. [81|descriptive] Pensé en lo poco que tenía que ofrecerle y en lo mucho que quería recibir de ella.
+221. [81|descriptive] La única amiga que tenía esa pobre mujer era una chica joven, la Viçenteta, que vivía en el cuarto segunda.
 
-222. [81|descriptive] Poco hubiera importado que la escoltase un ejército de sirvientes: Javier sólo tenía ojos para la muchacha.
+222. [81|descriptive] Pensé en lo poco que tenía que ofrecerle y en lo mucho que quería recibir de ella.
 
-223. [81|dialogue] Carlos Ruiz Zafón La sombra del viento de 288 —No me diga que sospecha usted que el aya también ha desaparecido.
+223. [81|descriptive] Poco hubiera importado que la escoltase un ejército de sirvientes: Javier sólo tenía ojos para la muchacha.
 
-224. [81|descriptive] Poco imaginaba Julián que esa vida, o la parte que él quería vivir de ella, se estaba acercando a su fin.
+224. [81|descriptive] Carlos Ruiz Zafón La sombra del viento de No me diga que sospecha usted que el aya también ha desaparecido.
 
-225. [81|descriptive] Sentí un latigazo de frío en el estómago pero rápidamente reconocí los ronquidos y el perfil de aquella nariz sin parangón.
+225. [81|descriptive] Poco imaginaba Julián que esa vida, o la parte que él quería vivir de ella, se estaba acercando a su fin.
 
-226. [81|descriptive] Al quinto tono, alguien alzó el teléfono al otro lado y escuchó en silencio, sin contestar.
+226. [81|descriptive] Sentí un latigazo de frío en el estómago pero rápidamente reconocí los ronquidos y el perfil de aquella nariz sin parangón.
 
-227. [81|poetic] Prefirió que Julián creyese aquella mentira, y rehiciese su vida a la sombra de una traición, que entregarle ha verdad.
+227. [81|descriptive] Al quinto tono, alguien alzó el teléfono al otro lado y escuchó en silencio, sin contestar.
 
-228. [81|dialogue] Se escribían con regularidad, «siempre hablando de ti», según confesó el sombrerero, «porque es lo único que nos une».
+228. [81|poetic] Prefirió que Julián creyese aquella mentira, y rehiciese su vida a la sombra de una traición, que entregarle ha verdad.
 
-229. [81|poetic] Porque alguien más lo sabía, alguien que presentía que, con el tiempo, tú le conducirías a Julián: Fumero.
+229. [81|dialogue] Se escribían con regularidad, «siempre hablando de ti», según confesó el sombrerero, «porque es lo único que nos une».
 
-230. [81|descriptive] Escuché el chasquido de sus dientes desgarrando la piel muerta y vi los labios de Fumero rezumando sangre.
+230. [81|poetic] Porque alguien más lo sabía, alguien que presentía que, con el tiempo, tú le conducirías a Julián: Fumero.
 
-231. [81|descriptive] Antes de que Carax pudiese arrebatarle el cuchillo a Fumero, Palacios penetró en la biblioteca con el arma en alto.
+231. [81|descriptive] Escuché el chasquido de sus dientes desgarrando la piel muerta y vi los labios de Fumero rezumando sangre.
 
-232. [81|poetic] La vi tomar al abuelillo con infinita delicadeza y besarle las lágrimas que le caían por las mejillas.
+232. [81|descriptive] Antes de que Carax pudiese arrebatarle el cuchillo a Fumero, Palacios penetró en la biblioteca con el arma en alto.
 
-233. [81|narrative] Aquel mismo lunes, Monsieur Roquefort llamó a la editorial de París para solicitar información sobre el tal Julián Carax.
+233. [81|poetic] La vi tomar al abuelillo con infinita delicadeza y besarle las lágrimas que le caían por las mejillas.
 
-234. [81|narrative] Hacía ya años que no embarcábamos en una golondrina, aunque yo sabía que él a veces iba solo.
+234. [81|narrative] Aquel mismo lunes, Monsieur Roquefort llamó a la editorial de París para solicitar información sobre el tal Julián Carax.
 
-235. [81|narrative] Tenía una sombrerería en la ronda de San Antonio, y por lo que sé no se llevaba mucho con su hijo.
+235. [81|narrative] Hacía ya años que no embarcábamos en una golondrina, aunque yo sabía que él a veces iba solo.
 
-236. [81|narrative] Una noche, días después del incendio del almacén de Cabestany, mi hija Nuria se presentó aquí.
+236. [81|narrative] Tenía una sombrerería en la ronda de San Antonio, y por lo que sé no se llevaba mucho con su hijo.
 
-237. [81|narrative] El cinematógrafo nació como invento para entretener a las masas analfabetas, y cincuenta años más tarde no ha cambiado mucho.
+237. [81|narrative] Una noche, días después del incendio del almacén de Cabestany, mi hija Nuria se presentó aquí.
 
-238. [81|narrative] Pensé que sería Fermín, que se había dejado algo, o quizá mi padre que ya había vuelto de Argentona.
+238. [81|narrative] El cinematógrafo nació como invento para entretener a las masas analfabetas, y cincuenta años más tarde no ha cambiado mucho.
 
-239. [81|narrative] Escuché la respiración nerviosa de la portera y percibí el vahído agrio a sudor que desprendía.
+239. [81|narrative] Pensé que sería Fermín, que se había dejado algo, o quizá mi padre que ya había vuelto de Argentona.
 
-240. [81|narrative] En seguida simpaticé con él, porque ambos formábamos parte del reducido grupo de alumnos que no proveníamos de familias acaudaladas.
+240. [81|narrative] Escuché la respiración nerviosa de la portera y percibí el vahído agrio a sudor que desprendía.
 
-241. [81|narrative] Las palabras de Aldaya parecieron caer como puñales en el muchacho, aunque no cedió su sonrisa ni un milímetro.
+241. [81|narrative] En seguida simpaticé con él, porque ambos formábamos parte del reducido grupo de alumnos que no proveníamos de familias acaudaladas.
 
-242. [81|narrative] Las figuras miserables seguían observándonos, con miradas que iban desde la curiosidad al temor, y en algún caso, la codicia.
+242. [81|narrative] Las palabras de Aldaya parecieron caer como puñales en el muchacho, aunque no cedió su sonrisa ni un milímetro.
 
-243. [81|narrative] Jacinta lo reconoció, porque muchas noches la Ramoneta le había pedido si podía leerle una o dos páginas.
+243. [81|narrative] Las figuras miserables seguían observándonos, con miradas que iban desde la curiosidad al temor, y en algún caso, la codicia.
 
-244. [81|narrative] Doña Yvonne, encendida de rabia, les anunció que no sabían con quién se las estaban jugando.
+244. [81|narrative] Jacinta lo reconoció, porque muchas noches la Ramoneta le había pedido si podía leerle una o dos páginas.
 
-245. [81|narrative] Sólo el círculo de Aldaya, Moliner, Fernando y Julián, se volvió y se quedó mirando al muchacho, sin comprender.
+245. [81|narrative] Doña Yvonne, encendida de rabia, les anunció que no sabían con quién se las estaban jugando.
 
-246. [81|narrative] Contemplé a aquel hombre al que una vez había imaginado fuerte, casi invencible, y le vi frágil, vencido sin saberlo él.
+246. [81|narrative] Sólo el círculo de Aldaya, Moliner, Fernando y Julián, se volvió y se quedó mirando al muchacho, sin comprender.
 
-247. [81|narrative] Tan pronto me reuní con él, hizo un gesto con las cejas y me indicó que echara a andar.
+247. [81|narrative] Contemplé a aquel hombre al que una vez había imaginado fuerte, casi invencible, y le vi frágil, vencido sin saberlo él.
 
-248. [81|narrative] Me pregunté si aquél sería el primer agujero que iba a señalarle a Nuria Monfort en su historia.
+248. [81|narrative] Tan pronto me reuní con él, hizo un gesto con las cejas y me indicó que echara a andar.
 
-249. [81|narrative] Ni una sola vez se me ocurrió que tal vez yo había sido una decepción todavía mayor para ella.
+249. [81|narrative] Me pregunté si aquél sería el primer agujero que iba a señalarle a Nuria Monfort en su historia.
 
-250. [81|narrative] Advertí que el hombre me contemplaba con cierta curiosidad, quizá esperando a otra persona, al igual que yo.
+250. [81|narrative] Ni una sola vez se me ocurrió que tal vez yo había sido una decepción todavía mayor para ella.
 
-251. [81|narrative] Trabajaba sin cesar sentado a la máquina de escribir, destilando lo que él llamaba papanaterías y pábulo para lectores de tranvía.
+251. [81|narrative] Advertí que el hombre me contemplaba con cierta curiosidad, quizá esperando a otra persona, al igual que yo.
 
-252. [81|narrative] Cuando le preguntaba por qué trabajaba tanto se limitaba a sonreír, o me decía que sin hacer nada se aburriría.
+252. [81|narrative] Trabajaba sin cesar sentado a la máquina de escribir, destilando lo que él llamaba papanaterías y pábulo para lectores de tranvía.
 
-253. [81|narrative] Aunque hacía diecisiete años que no le veía, Miquel reconoció en Julián aquel andar leve, casi felino.
+253. [81|narrative] Cuando le preguntaba por qué trabajaba tanto se limitaba a sonreír, o me decía que sin hacer nada se aburriría.
 
-254. [81|narrative] Cuando Julián acudió a su padre, el sombrerero le advirtió del peligro que se cernía sobre él.
+254. [81|narrative] Aunque hacía diecisiete años que no le veía, Miquel reconoció en Julián aquel andar leve, casi felino.
 
-255. [81|narrative] Al introducir la llave en la puerta del piso comprendí que el cerrojo había sido forzado.
+255. [81|narrative] Cuando Julián acudió a su padre, el sombrerero le advirtió del peligro que se cernía sobre él.
 
-256. [81|narrative] Nunca mostró interés en conocer a aquel marido invisible y yo nunca me ofrecí a presentárselo.
+256. [81|narrative] Al introducir la llave en la puerta del piso comprendí que el cerrojo había sido forzado.
 
-257. [81|narrative] Me asaltó una punzada en el oído izquierdo y me llevé la mano a la cabeza, retorciéndome de dolor.
+257. [81|narrative] Nunca mostró interés en conocer a aquel marido invisible y yo nunca me ofrecí a presentárselo.
 
-258. [80|poetic] El corazón me batía en el pecho como si el alma quisiera abrirse camino y echar a correr escaleras abajo.
+258. [81|narrative] Me asaltó una punzada en el oído izquierdo y me llevé la mano a la cabeza, retorciéndome de dolor.
 
-259. [80|dialogue] Mi padre asintió lentamente —En tiempos de guerra ocurren cosas que son muy difíciles de explicar, Daniel.
+259. [80|poetic] El corazón me batía en el pecho como si el alma quisiera abrirse camino y echar a correr escaleras abajo.
 
-260. [80|descriptive] La tenue claridad a nuestras espaldas nos precedió como un aliento que apenas conseguía arañar las sombras.
+260. [80|dialogue] Mi padre asintió lentamente —En tiempos de guerra ocurren cosas que son muy difíciles de explicar, Daniel.
 
-261. [80|descriptive] Molins era un individuo risueño y orondo aferrado a un puro a medio fumar que parecía crecerle del bigote.
+261. [80|descriptive] La tenue claridad a nuestras espaldas nos precedió como un aliento que apenas conseguía arañar las sombras.
 
-262. [80|descriptive] Pese a su empeño, no sentía al pequeño Julián como hijo de su sangre, ni se reconocía en él.
+262. [80|descriptive] Molins era un individuo risueño y orondo aferrado a un puro a medio fumar que parecía crecerle del bigote.
 
-263. [80|descriptive] Me asomé al pasillo y vi que mi padre se había retirado a su habitación con el nuevo despertador.
+263. [80|descriptive] Pese a su empeño, no sentía al pequeño Julián como hijo de su sangre, ni se reconocía en él.
 
-264. [80|descriptive] Don Ricardo Aldaya tenía un cráneo que, según Julián, bordeaba el terreno de lo amelonado y agreste.
+264. [80|descriptive] Me asomé al pasillo y vi que mi padre se había retirado a su habitación con el nuevo despertador.
 
-265. [80|poetic] Mientras se entregaba a su tarea, Fermín iba lanzando miradas furtivas guiñando el ojo como el proverbial diablillo cojuelo.
+265. [80|descriptive] Don Ricardo Aldaya tenía un cráneo que, según Julián, bordeaba el terreno de lo amelonado y agreste.
 
-266. [80|dialogue] La que parecía la líder de la congregación advirtió mi presencia e interrumpió su monólogo para acribillarme con una mirada inquisitiva.
+266. [80|poetic] Mientras se entregaba a su tarea, Fermín iba lanzando miradas furtivas guiñando el ojo como el proverbial diablillo cojuelo.
 
-267. [80|descriptive] El agente, que a la luz de la bombilla me pareció una pequeña comadreja, me miró de arriba abajo.
+267. [80|dialogue] La que parecía la líder de la congregación advirtió mi presencia e interrumpió su monólogo para acribillarme con una mirada inquisitiva.
 
-268. [80|dialogue] Él dijo que era un catarro mal curado, un mal menor de solterona que ya se marcharía por aburrimiento.
+268. [80|descriptive] El agente, que a la luz de la bombilla me pareció una pequeña comadreja, me miró de arriba abajo.
 
-269. [80|descriptive] Al cumplirse un año del incendio, los médicos me dijeron que cuanto podía hacerse en un hospital estaba hecho.
+269. [80|dialogue] Él dijo que era un catarro mal curado, un mal menor de solterona que ya se marcharía por aburrimiento.
 
-270. [80|descriptive] Fue ella quien me contó que Sanmartí era un gran amigo del cada día más condecorado inspector jefe Francisco Javier Fumero.
+270. [80|descriptive] Al cumplirse un año del incendio, los médicos me dijeron que cuanto podía hacerse en un hospital estaba hecho.
 
-271. [80|descriptive] Quise asentir, pero los ojos se me fueron a Fumero, que estaba forcejeando con el cuchillo que le atravesaba la muñeca.
+271. [80|descriptive] Fue ella quien me contó que Sanmartí era un gran amigo del cada día más condecorado inspector jefe Francisco Javier Fumero.
 
-272. [80|narrative] Para mí, esas páginas embrujadas siempre serán las que encontré entre los pasillos del Cementerio de los Libros Olvidados.
+272. [80|descriptive] Quise asentir, pero los ojos se me fueron a Fumero, que estaba forcejeando con el cuchillo que le atravesaba la muñeca.
 
-273. [80|narrative] El portero, o quizá tan sólo fuera una estatua de uniforme, apenas pestañeó a mi llegada.
+273. [80|narrative] Para mí, esas páginas embrujadas siempre serán las que encontré entre los pasillos del Cementerio de los Libros Olvidados.
 
-274. [80|narrative] Me acerqué al balcón y me asomé hasta ver el reluz vaporoso que vertían las farolas en la Puerta del Ángel.
+274. [80|narrative] El portero, o quizá tan sólo fuera una estatua de uniforme, apenas pestañeó a mi llegada.
 
-275. [80|narrative] Es madera vieja y tiene tantos arañazos y estrías que nadie lo advertirá, a menos que sepa lo que está buscando...
+275. [80|narrative] Me acerqué al balcón y me asomé hasta ver el reluz vaporoso que vertían las farolas en la Puerta del Ángel.
 
-276. [80|narrative] Con mucha oratoria y tácticas subrepticias conseguimos meterlo en la bañera y despojarlo de sus andrajos.
+276. [80|narrative] Es madera vieja y tiene tantos arañazos y estrías que nadie lo advertirá, a menos que sepa lo que está buscando...
 
-277. [80|narrative] Más tarde, caminando de vuelta por el paseo de Gracia, observé que nuestro detective bibliográfico seguía en trance.
+277. [80|narrative] Con mucha oratoria y tácticas subrepticias conseguimos meterlo en la bañera y despojarlo de sus andrajos.
 
-278. [80|narrative] Acto seguido pasaron a enzarzarse en una incomprensible discusión sobre matemática arcana que a mí me sonó a mandarín.
+278. [80|narrative] Más tarde, caminando de vuelta por el paseo de Gracia, observé que nuestro detective bibliográfico seguía en trance.
 
-279. [80|narrative] Dios, en su infinita sabiduría, y quizá abrumado por la avalancha de peticiones de tantas almas atormentadas, no respondía.
+279. [80|narrative] Acto seguido pasaron a enzarzarse en una incomprensible discusión sobre matemática arcana que a mí me sonó a mandarín.
 
-280. [80|narrative] Insultos y recriminaciones afiladas volaban por el piso como cuchillos, acribillando a quien osara interponerse en su trayectoria, habitualmente Julián.
+280. [80|narrative] Dios, en su infinita sabiduría, y quizá abrumado por la avalancha de peticiones de tantas almas atormentadas, no respondía.
 
-281. [80|narrative] Al poco se escucharon unos pasos leves acercándose al portón y nos llegó la voz cansina del guardián.
+281. [80|narrative] Insultos y recriminaciones afiladas volaban por el piso como cuchillos, acribillando a quien osara interponerse en su trayectoria, habitualmente Julián.
 
-282. [80|narrative] Al término de aquella semana, Aldaya cogió al sombrerero por banda y se lo llevó a un rincón para hablarle confidencialmente.
+282. [80|narrative] Al poco se escucharon unos pasos leves acercándose al portón y nos llegó la voz cansina del guardián.
 
-283. [80|narrative] En la mesa contigua, un hombre observaba a Fermín de refilón por encima del periódico, probablemente pensando lo mismo que yo.
+283. [80|narrative] Al término de aquella semana, Aldaya cogió al sombrerero por banda y se lo llevó a un rincón para hablarle confidencialmente.
 
-284. [80|narrative] Por un instante, Fermín Romero de Torres me pareció el hombre más lúcido y sabio del universo.
+284. [80|narrative] En la mesa contigua, un hombre observaba a Fermín de refilón por encima del periódico, probablemente pensando lo mismo que yo.
 
-285. [80|narrative] Aprendió a vivir a través de otros, de aquella familia que cabalgaba en una fortuna que apenas podía llegar a comprender.
+285. [80|narrative] Por un instante, Fermín Romero de Torres me pareció el hombre más lúcido y sabio del universo.
 
-286. [80|narrative] Francisco Javier mostraba la misma frialdad automática con que desempeñaba las tareas de limpieza en el jardín.
+286. [80|narrative] Aprendió a vivir a través de otros, de aquella familia que cabalgaba en una fortuna que apenas podía llegar a comprender.
 
-287. [80|narrative] Me adentré en la escalera y comprobé que el nombre Miquel Moliner seguía en el buzón.
+287. [80|narrative] Francisco Javier mostraba la misma frialdad automática con que desempeñaba las tareas de limpieza en el jardín.
 
-288. [80|narrative] Llevaba encima sólo un libro y un pasaporte que le identificaba como Julián Fortuny Carax, natural de Barcelona, nacido en 1900.
+288. [80|narrative] Me adentré en la escalera y comprobé que el nombre Miquel Moliner seguía en el buzón.
 
-289. [80|narrative] Vestía un impecable traje de lana gris y sostenía un cigarrillo que no se había molestado en encender.
+289. [80|narrative] Llevaba encima sólo un libro y un pasaporte que le identificaba como Julián Fortuny Carax, natural de Barcelona, nacido en 1900.
 
-290. [80|narrative] Sin saber qué otra cosa hacer, hice un ovillo con la hoja de papel de fumar y me la tragué.
+290. [80|narrative] Vestía un impecable traje de lana gris y sostenía un cigarrillo que no se había molestado en encender.
 
-291. [80|narrative] Metí el manuscrito de la novela en mi maleta y me marché antes de que Julián regresara.
+291. [80|narrative] Sin saber qué otra cosa hacer, hice un ovillo con la hoja de papel de fumar y me la tragué.
 
-292. [80|narrative] Sentía que al entregarme a él, me vengaba de Julián y de Penélope y de todo aquello que se me negaba.
+292. [80|narrative] Metí el manuscrito de la novela en mi maleta y me marché antes de que Julián regresara.
 
-293. [80|narrative] No había muebles ni cuadros ni lámparas ni objeto alguno que identificase aquel espacio como una vivienda.
+293. [80|narrative] Sentía que al entregarme a él, me vengaba de Julián y de Penélope y de todo aquello que se me negaba.
 
-294. [80|narrative] Al principio creí que se trataba de alguien del periódico, pero me pareció oír el nombre de Julián en la conversación.
+294. [80|narrative] No había muebles ni cuadros ni lámparas ni objeto alguno que identificase aquel espacio como una vivienda.
 
-295. [80|narrative] Me pregunté si realmente no se daba cuenta del daño que me hacían sus palabras, o si apenas le importaba.
+295. [80|narrative] Al principio creí que se trataba de alguien del periódico, pero me pareció oír el nombre de Julián en la conversación.
 
-296. [80|narrative] Me esperaba casi todos los jueves y me ofrecía café, galletas y dulces que él apenas probaba.
+296. [80|narrative] Me pregunté si realmente no se daba cuenta del daño que me hacían sus palabras, o si apenas le importaba.
 
-297. [80|narrative] Me deslicé hasta el pie de la escalinata y eché un vistazo hacia el corredor que conducía a la entrada.
+297. [80|narrative] Me esperaba casi todos los jueves y me ofrecía café, galletas y dulces que él apenas probaba.
 
-298. [80|narrative] Julián Carax me acercó un vaso de agua a los labios y me sostuvo la cabeza mientras los humedecía.
+298. [80|narrative] Me deslicé hasta el pie de la escalinata y eché un vistazo hacia el corredor que conducía a la entrada.
+
+299. [80|narrative] Julián Carax me acercó un vaso de agua a los labios y me sostuvo la cabeza mientras los humedecía.
 
 
 ## HARD (1174 frases)
@@ -961,7 +963,7 @@
 
 75. [97|poetic] Su único compañero era un muchacho extravagante llamado Miquel Moliner, que habría de convertirse con el tiempo en el mejor amigo que Julián hizo jamás en aquella escuela.
 
-76. [97|dialogue] Carlos Ruiz Zafón La sombra del viento de 288 —La casa principal de los Aldaya era un palacio que fue derribado en 1925 para levantar un bloque de pisos, en lo que hoy es el cruce de las calles Bruch y Mallorca, diseñado por Puig i Cadafalch por encargo del abuelo de Penélope y Jorge, Simón Aldaya, en 1896, cuando aquello no eran más que campos y acequias.
+76. [97|descriptive] Carlos Ruiz Zafón La sombra del viento de La casa principal de los Aldaya era un palacio que fue derribado en 1925 para levantar un bloque de pisos, en lo que hoy es el cruce de las calles Bruch y Mallorca, diseñado por Puig i Cadafalch por encargo del abuelo de Penélope y Jorge, Simón Aldaya, en 1896, cuando aquello no eran más que campos y acequias.
 
 77. [97|dialogue] En ausencia de Zacarías (a quien tomaba por emisario de los cielos, pues de negro o no, era un ángel luminoso —y el hombre más guapo que había visto o soñado jamás—), la Jacinta hablaba con Dios a solas, en los rincones, sin verle y sin esperar que él se molestase en contestar porque había mucha pena en el mundo y lo suyo al fin y al cabo eran pequeñeces.
 
@@ -2321,7 +2323,7 @@
 
 755. [84|descriptive] Ya lo Carlos Ruiz Zafón La sombra del viento de 288 decía el maestro, enséñeme usted un donjuán y le enseño yo a un mariposón enmascarado.
 
-756. [84|dialogue] Carlos Ruiz Zafón La sombra del viento de 288 —Medicinas y ungüentos ya tenían para abrir una botica, por lo cual me he permitido llevarle unas flores, una botella de colonia Nenuco y tres frascos de Fruco de melocotón, que es el favorito de don Federico.
+756. [84|poetic] Carlos Ruiz Zafón La sombra del viento de Medicinas y ungüentos ya tenían para abrir una botica, por lo cual me he permitido llevarle unas flores, una botella de colonia Nenuco y tres frascos de Fruco de melocotón, que es el favorito de don Federico.
 
 757. [84|descriptive] Supuse que debía de rondar los cuarenta y pocos, dejándome llevar, si acaso, por los trazos de cabello plateado y las líneas que ajaban un rostro que, a media luz, hubiera podido pasar por diez años más joven.
 
