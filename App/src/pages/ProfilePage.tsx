@@ -289,13 +289,14 @@ const ProfilePage = () => {
                       <input
                         type="text"
                         name="company"
-                        value={formData.company}
-                        onChange={handleChange}
-                        disabled={!isEditing}
-                        placeholder="Opcional"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-60 disabled:bg-gray-50 dark:disabled:bg-gray-900 transition-all"
+                        value={formData.company || 'No especificada'}
+                        disabled={true}
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                       />
                     </div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      La empresa no se puede cambiar
+                    </p>
                   </div>
                 </div>
 
