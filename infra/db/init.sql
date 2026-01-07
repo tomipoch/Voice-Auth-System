@@ -45,8 +45,10 @@ CREATE TABLE IF NOT EXISTS "user" (
   password TEXT,                       -- bcrypt hashed password
   first_name TEXT,                     -- user's first name
   last_name TEXT,                      -- user's last name
+  rut TEXT,                            -- Chilean RUT identifier
   role TEXT DEFAULT 'user' CHECK (role IN ('user', 'admin', 'superadmin')),
   company TEXT,                        -- organization affiliation
+  settings JSONB,                      -- user preferences and settings
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   deleted_at TIMESTAMPTZ,              -- nullo = activo; si no nullo = usuario eliminado / anonimizado
   failed_auth_attempts INT NOT NULL DEFAULT 0,

@@ -1,69 +1,65 @@
 # la-maquina-del-tiempo
-# Total frases: 415 (filtradas y balanceadas)
+# Total frases: 395 (filtradas y balanceadas)
 # ========================================
 
 
-## EASY (30 frases)
+## EASY (28 frases)
 
-1. [90|descriptive] Su chillido era tan lúgubre, que me estremecí, asentándome con más firmeza en la máquina.
+1. [90|narrative] Y resulta también extraño cuán rápidamente llegué a no hacer caso de aquella gente menuda.
 
-2. [90|narrative] Y resulta también extraño cuán rápidamente llegué a no hacer caso de aquella gente menuda.
+2. [89|narrative] Pero aquella mañana su pérdida me dejó otra vez solo por completo, terriblemente solo.
 
-3. [89|narrative] Pero aquella mañana su pérdida me dejó otra vez solo por completo, terriblemente solo.
+3. [88|narrative] Así pues, seguimos en aquella ciudad, y el crepúsculo se adensó en la noche.
 
-4. [88|narrative] Así pues, seguimos en aquella ciudad, y el crepúsculo se adensó en la noche.
+4. [87|narrative] Había también aquellos pozos sin agua, aquellas columnas de aireación.
 
-5. [87|narrative] Había también aquellos pozos sin agua, aquellas columnas de aireación.
+5. [86|dialogue] Luego el Viajero a través del Tiempo nos preguntó qué pensábamos de todo aquello.
 
-6. [86|dialogue] Luego el Viajero a través del Tiempo nos preguntó qué pensábamos de todo aquello.
+6. [83|descriptive] El Muchacho Muy joven se erguía detrás del Psicólogo.
 
-7. [83|descriptive] El Muchacho Muy joven se erguía detrás del Psicólogo.
+7. [83|descriptive] Apreté los puños y miré con decisión aquellos brillantes ojos.
 
-8. [83|descriptive] Apreté los puños y miré con decisión aquellos brillantes ojos.
+8. [83|poetic] Dentro había un pequeño aposento, y en un rincón elevado estaba la Máquina del Tiempo.
 
-9. [83|poetic] Dentro había un pequeño aposento, y en un rincón elevado estaba la Máquina del Tiempo.
+9. [82|descriptive] Busqué de nuevo las huellas de Weena, pero allí no encontré ninguna.
 
-10. [82|descriptive] Busqué de nuevo las huellas de Weena, pero allí no encontré ninguna.
+10. [82|descriptive] Creí ver algún objeto negro aleteando sobre aquel banco, pero cuando lo observé permaneció inmóvil.
 
-11. [82|descriptive] Creí ver algún objeto negro aleteando sobre aquel banco, pero cuando lo observé permaneció inmóvil.
+11. [82|narrative] Por un momento sospeché que mi intelecto me había engañado.
 
-12. [82|narrative] Por un momento sospeché que mi intelecto me había engañado.
+12. [82|narrative] Por ella supe también que el temor no había desaparecido aún de la Tierra.
 
-13. [82|narrative] Por ella supe también que el temor no había desaparecido aún de la Tierra.
+13. [81|narrative] Vi un verdor más rico extenderse sobre la colina, y permanecer allí sin interrupción invernal.
 
-14. [81|narrative] Vi un verdor más rico extenderse sobre la colina, y permanecer allí sin interrupción invernal.
+14. [81|narrative] El varón perseguía a la hembra, arrojándole flores en su huida.
 
-15. [81|narrative] El varón perseguía a la hembra, arrojándole flores en su huida.
+15. [80|descriptive] Un murmullo vertiginoso llenaba mis oídos, y una extraña, silenciosa confusión descendía sobre mi mente.
 
-16. [80|descriptive] Un murmullo vertiginoso llenaba mis oídos, y una extraña, silenciosa confusión descendía sobre mi mente.
+16. [80|poetic] Aun a través del velo de mi confusión la tierra parecía muy bella.
 
-17. [80|poetic] Aun a través del velo de mi confusión la tierra parecía muy bella.
+17. [80|dialogue] ¿Qué hacer si la crueldad se había convertido en una pasión común?
 
-18. [80|dialogue] ¿Qué hacer si la crueldad se había convertido en una pasión común?
+18. [80|descriptive] Creo que fue después de aquello cuando llegué a un pequeño patio abierto del palacio.
 
-19. [80|descriptive] Creo que fue después de aquello cuando llegué a un pequeño patio abierto del palacio.
+19. [80|descriptive] El bosque también estaba lleno de un soñoliento murmullo que no podía yo comprender.
 
-20. [80|descriptive] El bosque también estaba lleno de un soñoliento murmullo que no podía yo comprender.
+20. [80|poetic] Sólo el légamo verde sobre las rocas atestiguaba que la vida no se había extinguido.
 
-21. [80|poetic] Sólo el légamo verde sobre las rocas atestiguaba que la vida no se había extinguido.
+21. [80|descriptive] Estaban en la obscuridad, y pequeñas manchas de color flotaban ante ellos.
 
-22. [80|descriptive] Estaban en la obscuridad, y pequeñas manchas de color flotaban ante ellos.
+22. [80|narrative] No llevaba en ellos más que unos calcetines harapientos y manchados de sangre.
 
-23. [80|narrative] No llevaba en ellos más que unos calcetines harapientos y manchados de sangre.
+23. [80|narrative] El gris aguacero había pasado y se desvaneció como las vestiduras arrastradas por un fantasma.
 
-24. [80|narrative] El gris aguacero había pasado y se desvaneció como las vestiduras arrastradas por un fantasma.
+24. [80|narrative] Un momento después sufrí un ataque de miedo y corrí con largas zancadas ladera abajo.
 
-25. [80|narrative] Mis guías se sentaron sobre ellos, indicándome que hiciese otro tanto.
+25. [80|narrative] Pero aquí y allá, cubiertas acartonadas y cierres metálicos decían bastante sobre aquella historia.
 
-26. [80|narrative] Un momento después sufrí un ataque de miedo y corrí con largas zancadas ladera abajo.
+26. [80|narrative] Además, de un modo bastante singular, encontré una substancia más inverosímil, que fue alcanfor.
 
-27. [80|narrative] Pero aquí y allá, cubiertas acartonadas y cierres metálicos decían bastante sobre aquella historia.
+27. [80|narrative] La extraña exultación que con tanta frecuencia parece acompañar una lucha encarnizada me invadió.
 
-28. [80|narrative] Además, de un modo bastante singular, encontré una substancia más inverosímil, que fue alcanfor.
-
-29. [80|narrative] La extraña exultación que con tanta frecuencia parece acompañar una lucha encarnizada me invadió.
-
-30. [80|narrative] Creo que aquel último esfuerzo representaba algo más inmediato que la lucha en la selva.
+28. [80|narrative] Creo que aquel último esfuerzo representaba algo más inmediato que la lucha en la selva.
 
 
 ## MEDIUM (87 frases)
@@ -243,7 +239,7 @@
 87. [80|narrative] Pero aquel perfecto estado carecía aún de una cosa para alcanzar la perfección mecánica: la estabilidad absoluta.
 
 
-## HARD (298 frases)
+## HARD (280 frases)
 
 1. [100|poetic] Por eso no creo que ninguno de nosotros haya hablado mucho del viaje a través del tiempo en el intervalo entre aquel jueves y el siguiente, aunque sus extrañas capacidades cruzasen indudablemente por muchas de nuestras mentes: su plausibilidad, es decir, su incredibilidad práctica, las curiosas posibilidades de anacronismo y de completa confusión que sugería.
 
@@ -275,569 +271,533 @@
 
 15. [99|poetic] El hecho es que el Viajero a través del Tiempo era uno de esos hombres demasiado inteligentes para ser creídos; con él se tenía la sensación de que nunca se le percibía por entero; sospechaba uno siempre en él alguna sutil reserva, alguna genialidad emboscada, detrás de su lúcida franqueza.
 
-16. [99|dialogue] Me importa estar tranquilo, ser paciente, aprender el modo de ser de esta gente, adquirir una idea clara de cómo se ha perdido mi aparato, y los medios de conseguir materiales y herramientas; a fin de poder, al final, construir tal vez otro.» Tenía que ser aquélla mi única esperanza, una mísera esperanza tal vez, pero mejor que la desesperación.
+16. [99|descriptive] Era más grande que el mayor de los palacios o ruinas que conocía, y la fachada tenía un aspecto oriental: mostraba ésta el brillo de un tono gris pálido, de cierta clase de porcelana china, Esta diferencia de aspecto sugería una diferencia de uso, y se me ocurrió llevar hasta allí mi exploración.
 
-17. [99|descriptive] Era más grande que el mayor de los palacios o ruinas que conocía, y la fachada tenía un aspecto oriental: mostraba ésta el brillo de un tono gris pálido, de cierta clase de porcelana china, Esta diferencia de aspecto sugería una diferencia de uso, y se me ocurrió llevar hasta allí mi exploración.
+17. [99|dialogue] «—Adiós, pequeña Weena, —dije, besándola, y luego, dejándola sobre el suelo, comencé a buscar sobre el brocal los escalones y los ganchos.» Más bien de prisa —debo confesarlo—, ¡pues temía que flaquease mi valor!
 
-18. [99|dialogue] «—Adiós, pequeña Weena, —dije, besándola, y luego, dejándola sobre el suelo, comencé a buscar sobre el brocal los escalones y los ganchos.» Más bien de prisa —debo confesarlo—, ¡pues temía que flaquease mi valor!
+18. [99|poetic] Ahora, en lugar de poner las palancas en marcha atrás las había puesto en posición de marcha hacia delante, y cuando consulté aquellos indicadores vi que la aguja de los millares tan de prisa como la del segundero de un reloj giraba hacia el futuro.
 
-19. [99|poetic] Ahora, en lugar de poner las palancas en marcha atrás las había puesto en posición de marcha hacia delante, y cuando consulté aquellos indicadores vi que la aguja de los millares tan de prisa como la del segundero de un reloj giraba hacia el futuro.
+19. [99|poetic] Al final, poco antes de hacer yo alto, el Sol rojo e inmenso se quedó inmóvil sobre el horizonte: una amplia cúpula que brillaba con un resplandor empañado, y que sufría de vez en cuando una extinción momentánea.
 
-20. [99|poetic] Al final, poco antes de hacer yo alto, el Sol rojo e inmenso se quedó inmóvil sobre el horizonte: una amplia cúpula que brillaba con un resplandor empañado, y que sufría de vez en cuando una extinción momentánea.
+20. [99|dialogue] Y tengo, para consuelo mío, dos extrañas flores blancas —encogidas ahora, ennegrecidas, aplastadas y frágiles— para atestiguar que aun cuando la inteligencia y la fuerza habían desaparecido, la gratitud y una mutua ternura aún se alojaban en el corazón del hombre.
 
-21. [99|dialogue] Y tengo, para consuelo mío, dos extrañas flores blancas —encogidas ahora, ennegrecidas, aplastadas y frágiles— para atestiguar que aun cuando la inteligencia y la fuerza habían desaparecido, la gratitud y una mutua ternura aún se alojaban en el corazón del hombre.
+21. [99|narrative] También, después de un rato, llegué a relacionar aquellos pozos con altas torres que se elevaban aquí y allá sobre las laderas; pues había con frecuencia por encima de ellas esa misma fluctuación que se percibe en un día caluroso sobre una playa abrasada por el Sol.
 
-22. [99|narrative] También, después de un rato, llegué a relacionar aquellos pozos con altas torres que se elevaban aquí y allá sobre las laderas; pues había con frecuencia por encima de ellas esa misma fluctuación que se percibe en un día caluroso sobre una playa abrasada por el Sol.
+22. [98|descriptive] Recuerdo vivamente la luz vacilante, la silueta de su extraña y gruesa cabeza, la danza de las sombras, cómo le seguíamos todos, perplejos pero incrédulos, y cómo allí, en el laboratorio, contemplamos una reproducción en gran tamaño de la maquinita que habíamos visto desvanecerse ante nuestros ojos.
 
-23. [98|descriptive] Recuerdo vivamente la luz vacilante, la silueta de su extraña y gruesa cabeza, la danza de las sombras, cómo le seguíamos todos, perplejos pero incrédulos, y cómo allí, en el laboratorio, contemplamos una reproducción en gran tamaño de la maquinita que habíamos visto desvanecerse ante nuestros ojos.
+23. [98|descriptive] Les daré a ustedes una idea, por tanto, de la extraña imperfección de aquellas criaturas, cuando les diga que ninguna hizo el más leve gesto para intentar salvar al pequeño ser que gritando débilmente se estaba ahogando ante sus ojos.
 
-24. [98|descriptive] Les daré a ustedes una idea, por tanto, de la extraña imperfección de aquellas criaturas, cuando les diga que ninguna hizo el más leve gesto para intentar salvar al pequeño ser que gritando débilmente se estaba ahogando ante sus ojos.
+24. [98|poetic] Estaba ahora seguro de lo que era aquello, y desde el fondo de mi corazón me apiadé de aquel último y débil arroyuelo del gran río de la Humanidad.
 
-25. [98|poetic] Estaba ahora seguro de lo que era aquello, y desde el fondo de mi corazón me apiadé de aquel último y débil arroyuelo del gran río de la Humanidad.
+25. [98|narrative] Viendo la desenvoltura y la seguridad en que vivían aquellas gentes, comprendí que aquel estrecho parecido de los sexos era, después de todo, lo que podía esperarse; pues la fuerza de un hombre y la delicadeza de una mujer, la institución de la familia y la diferenciación de ocupaciones son simples necesidades militantes de una edad de fuerza física.
 
-26. [98|narrative] Nuestros sillones, construidos según sus diseños, nos abrazaban y acariciaban en lugar de someterse a que nos sentásemos sobre ellos; y había allí esa sibarítica atmósfera de sobremesa, cuando los pensamientos vuelan gráciles, libres de las trabas de la exactitud.
+26. [98|narrative] Así pues, con la maza en una mano y llevando de la otra a Weena, salí de aquella galería y entré en otra más amplia aún, que a primera vista me recordó una capilla militar con banderas desgarradas colgadas.
 
-27. [98|narrative] Viendo la desenvoltura y la seguridad en que vivían aquellas gentes, comprendí que aquel estrecho parecido de los sexos era, después de todo, lo que podía esperarse; pues la fuerza de un hombre y la delicadeza de una mujer, la institución de la familia y la diferenciación de ocupaciones son simples necesidades militantes de una edad de fuerza física.
+27. [98|narrative] Al mirar luego hacia atrás, pude ver, entre los apiñados troncos, que de mi montón de ramaje la llama se había extendido a algunas matas contiguas y que una línea curva de fuego se arrastraba por la hierba de la colina.
 
-28. [98|narrative] Así pues, con la maza en una mano y llevando de la otra a Weena, salí de aquella galería y entré en otra más amplia aún, que a primera vista me recordó una capilla militar con banderas desgarradas colgadas.
+28. [97|descriptive] Como no hacían esfuerzo alguno para comunicarse conmigo, sino que me rodeaban simplemente, sonriendo y hablando entre ellos en suave tono arrullado, inicié la conversación.
 
-29. [98|narrative] Al mirar luego hacia atrás, pude ver, entre los apiñados troncos, que de mi montón de ramaje la llama se había extendido a algunas matas contiguas y que una línea curva de fuego se arrastraba por la hierba de la colina.
+29. [97|dialogue] Allí donde la población es equilibrada y abundante, muchos nacimientos llegan a ser un mal más que un beneficio para el Estado; allí donde la violencia es rara y la prole es segura, hay menos necesidad —realmente no existe la, necesidad— de una familia eficaz, y la especialización de los sexos con referencia a las necesidades de sus hijos desaparece Vemos algunos indicios de esto hasta en nuestro propio tiempo, y en esa edad futura era un hecho consumado.
 
-30. [97|descriptive] Como no hacían esfuerzo alguno para comunicarse conmigo, sino que me rodeaban simplemente, sonriendo y hablando entre ellos en suave tono arrullado, inicié la conversación.
+30. [97|descriptive] Contemplando esto, comencé a urdir mi interpretación acerca de las cosas que había visto, y dada la forma que tomó para mí aquella noche, mi interpretación fue algo por el siguiente estilo (después vi que había encontrado solamente una semiverdad, o vislumbrado únicamente una faceta de la verdad): Me pareció encontrarme en la decadencia de la Humanidad.
 
-31. [97|dialogue] Allí donde la población es equilibrada y abundante, muchos nacimientos llegan a ser un mal más que un beneficio para el Estado; allí donde la violencia es rara y la prole es segura, hay menos necesidad —realmente no existe la, necesidad— de una familia eficaz, y la especialización de los sexos con referencia a las necesidades de sus hijos desaparece Vemos algunos indicios de esto hasta en nuestro propio tiempo, y en esa edad futura era un hecho consumado.
+31. [97|poetic] Me volví con el corazón en la garganta, y vi una extraña figurilla de aspecto simiesco, sujetándose la cabeza de una manera especial, cruzar corriendo el espacio iluminado por el Sol, a mi espalda.
 
-32. [97|descriptive] Contemplando esto, comencé a urdir mi interpretación acerca de las cosas que había visto, y dada la forma que tomó para mí aquella noche, mi interpretación fue algo por el siguiente estilo (después vi que había encontrado solamente una semiverdad, o vislumbrado únicamente una faceta de la verdad): Me pareció encontrarme en la decadencia de la Humanidad.
+32. [97|poetic] Hasta aquí, excepto durante mi noche angustiosa después de la pérdida de la Máquina del Tiempo, había yo tenido la confortadora esperanza de una última escapatoria, pero esa esperanza se desvanecía con los nuevos descubrimientos.
 
-33. [97|poetic] Me volví con el corazón en la garganta, y vi una extraña figurilla de aspecto simiesco, sujetándose la cabeza de una manera especial, cruzar corriendo el espacio iluminado por el Sol, a mi espalda.
+33. [97|dialogue] Así cargado, avanzábamos más lentamente de lo que había previsto —y además Weena estaba rendida y yo empezaba también a tener sueño— de modo que era noche cerrada cuando llegamos al bosque.
 
-34. [97|poetic] Hasta aquí, excepto durante mi noche angustiosa después de la pérdida de la Máquina del Tiempo, había yo tenido la confortadora esperanza de una última escapatoria, pero esa esperanza se desvanecía con los nuevos descubrimientos.
+34. [97|descriptive] Allí, bajo la vacilante luz de la lámpara, estaba en toda su realidad la máquina, rechoncha, fea y sesgada; un artefacto de bronce, ébano, marfil y cuarzo translúcido y reluciente.
 
-35. [97|dialogue] Así cargado, avanzábamos más lentamente de lo que había previsto —y además Weena estaba rendida y yo empezaba también a tener sueño— de modo que era noche cerrada cuando llegamos al bosque.
+35. [97|narrative] Y él nos la expuso de este modo, señalando los puntos con su afilado índice, mientras que nosotros, arrellanados perezosamente, admirábamos su seriedad al tratar de aquella nueva paradoja (eso la creíamos) y su fecundidad.
 
-36. [97|descriptive] Allí, bajo la vacilante luz de la lámpara, estaba en toda su realidad la máquina, rechoncha, fea y sesgada; un artefacto de bronce, ébano, marfil y cuarzo translúcido y reluciente.
+36. [97|narrative] La cosa me desconcertaba, y acabé por hacer una observación ulterior que me desconcertó más aún: que no había entre aquella gente ningún ser anciano o achacoso.
 
-37. [97|narrative] Y él nos la expuso de este modo, señalando los puntos con su afilado índice, mientras que nosotros, arrellanados perezosamente, admirábamos su seriedad al tratar de aquella nueva paradoja (eso la creíamos) y su fecundidad.
+37. [96|dialogue] ¡Qué extraños desenvolvimientos de la Humanidad, qué maravillosos avances sobre nuestra rudimentaria civilización, pensé, se me iban a aparecer cuando llegase a contemplar de cerca el vago y fugaz Mundo que desfilaba rápido y que fluctuaba ante mis ojos!
 
-38. [97|narrative] La cosa me desconcertaba, y acabé por hacer una observación ulterior que me desconcertó más aún: que no había entre aquella gente ningún ser anciano o achacoso.
+38. [96|descriptive] Divisé un gran número de extrañas flores blancas, de altos tallos, que medían quizá un pie en sus pétalos de cera extendidos.
 
-39. [96|dialogue] ¡Qué extraños desenvolvimientos de la Humanidad, qué maravillosos avances sobre nuestra rudimentaria civilización, pensé, se me iban a aparecer cuando llegase a contemplar de cerca el vago y fugaz Mundo que desfilaba rápido y que fluctuaba ante mis ojos!
+39. [96|poetic] En seguida tropecé, caí de cabeza y me hice un corte en la cara; no perdí el tiempo en restañar la sangre, sino que salté de nuevo en pie y seguí corriendo, mientras me escurría la sangre caliente por la mejilla y el mentón.
 
-40. [96|descriptive] Después, uno de ellos sugirió que su juguete debía ser exhibido en el edificio más próximo y así me llevaron más allá de la esfinge de mármol blanco, que parecía haber estado mirándome entretanto con una sonrisa ante mi asombro, hacia un amplio edificio gris de piedra desgastada.
+40. [96|descriptive] Sucedió que, cuando estaba yo contemplando a algunos de aquellos seres bañándose en un bajío, uno de ellos sufrió un calambre, y empezó a ser arrastrado por el agua.
 
-41. [96|descriptive] Divisé un gran número de extrañas flores blancas, de altos tallos, que medían quizá un pie en sus pétalos de cera extendidos.
+41. [96|descriptive] La impresión que recogí de aquel ser fue, naturalmente, imperfecta; pero sé que era de un blanco desvaído, y, que tenía unos ojos grandes y extraños de un rojo grisáceo, y también unos cabellos muy rubios que le caían por la espalda.
 
-42. [96|poetic] En seguida tropecé, caí de cabeza y me hice un corte en la cara; no perdí el tiempo en restañar la sangre, sino que salté de nuevo en pie y seguí corriendo, mientras me escurría la sangre caliente por la mejilla y el mentón.
+42. [96|poetic] Allí estaba, evidentemente, la Sección de Paleontología, que debía haber encerrado una espléndida serie de fósiles, aunque el inevitable proceso de descomposición, que había sido detenido por un tiempo, perdiendo gracias a la extinción de las bacterias y del moho las noventa y nueve centésimas de su fuerza, se había, sin embargo, puesto de nuevo a la obra con extrema seguridad, aunque con suma lentitud, para la destrucción de todos sus tesoros.
 
-43. [96|descriptive] Sucedió que, cuando estaba yo contemplando a algunos de aquellos seres bañándose en un bajío, uno de ellos sufrió un calambre, y empezó a ser arrastrado por el agua.
+43. [96|descriptive] Aquí y allá encontré vestigios de los pequeños seres en forma de raros fósiles rotos en pedazos o ensartados con fibra de cañas.
 
-44. [96|descriptive] La impresión que recogí de aquel ser fue, naturalmente, imperfecta; pero sé que era de un blanco desvaído, y, que tenía unos ojos grandes y extraños de un rojo grisáceo, y también unos cabellos muy rubios que le caían por la espalda.
+44. [96|descriptive] Creo haberles dicho a ustedes que, cuando partí, antes de que mi velocidad llegase a ser muy grande, la señora Watchets, mi ama de llaves, había cruzado la habitación, moviéndose, eso me pareció a mí, como un cohete.
 
-45. [96|poetic] Allí estaba, evidentemente, la Sección de Paleontología, que debía haber encerrado una espléndida serie de fósiles, aunque el inevitable proceso de descomposición, que había sido detenido por un tiempo, perdiendo gracias a la extinción de las bacterias y del moho las noventa y nueve centésimas de su fuerza, se había, sin embargo, puesto de nuevo a la obra con extrema seguridad, aunque con suma lentitud, para la destrucción de todos sus tesoros.
+45. [96|narrative] Pues, por estar simplemente en apariencia enamorada de mí, por su manera fútil de mostrar que yo le preocupaba, aquella humana muñequita pronto dio a mi regreso a las proximidades de la Esfinge Blanca casi el sentimiento de la vuelta al hogar; y acechaba la aparición de su delicada figurita, blanca y oro, no bien llegaba yo a la colina.
 
-46. [96|descriptive] Aquí y allá encontré vestigios de los pequeños seres en forma de raros fósiles rotos en pedazos o ensartados con fibra de cañas.
+46. [95|dialogue] Era allí donde estaba yo destinado, en una fecha posterior, a llevar a cabo una experiencia muy extraña —primer indicio de un descubrimiento más extraño aún—, pero de la cual hablaré en su adecuado lugar.
 
-47. [96|descriptive] Creo haberles dicho a ustedes que, cuando partí, antes de que mi velocidad llegase a ser muy grande, la señora Watchets, mi ama de llaves, había cruzado la habitación, moviéndose, eso me pareció a mí, como un cohete.
+47. [95|descriptive] Se mostraba ella bastante intrépida durante el día y tenía una extraña confianza en mí; pues una vez, en un momento estúpido, le hice muecas amenazadoras y, ella se echó a reír simplemente.
 
-48. [96|narrative] Pues, por estar simplemente en apariencia enamorada de mí, por su manera fútil de mostrar que yo le preocupaba, aquella humana muñequita pronto dio a mi regreso a las proximidades de la Esfinge Blanca casi el sentimiento de la vuelta al hogar; y acechaba la aparición de su delicada figurita, blanca y oro, no bien llegaba yo a la colina.
+48. [95|poetic] Al parecer, estaba mal considerado el fijarse en aquellas aberturas; pues cuando señalé ésta junto a la cual estaba yo e intenté dirigirles una pregunta sobre ello en su lengua, se mostraron más angustiados aún y se dieron la vuelta.
 
-49. [95|dialogue] Era allí donde estaba yo destinado, en una fecha posterior, a llevar a cabo una experiencia muy extraña —primer indicio de un descubrimiento más extraño aún—, pero de la cual hablaré en su adecuado lugar.
+49. [95|dialogue] Tenía ahora una pista para averiguar la importancia de aquellos pozos, de aquellas torres de ventilación, de aquel misterio de los fantasmas; ¡y esto sin mencionar la indicación relativa al significado de las puertas de bronce y de la suerte de la Máquina del Tiempo!
 
-50. [95|descriptive] Se mostraba ella bastante intrépida durante el día y tenía una extraña confianza en mí; pues una vez, en un momento estúpido, le hice muecas amenazadoras y, ella se echó a reír simplemente.
+50. [95|descriptive] Hay una tendencia a utilizar el espacio subterráneo para los fines menos decorativos de la civilización; hay, por ejemplo, en Londres el Metro, hay los nuevos tranvías eléctricos, hay pasos subterráneos, talleres y restaurantes subterráneos, que aumentan y se multiplican.
 
-51. [95|poetic] Al parecer, estaba mal considerado el fijarse en aquellas aberturas; pues cuando señalé ésta junto a la cual estaba yo e intenté dirigirles una pregunta sobre ello en su lengua, se mostraron más angustiados aún y se dieron la vuelta.
+51. [95|dialogue] Pero le señalé los distantes pináculos del Palacio de Porcelana Verde, y me las ingenié para hacerle comprender que íbamos a buscar allí un refugio contra su miedo ¿Conocen ustedes esa gran inmovilidad que cae sobre las cosas antes de anochecer?
 
-52. [95|dialogue] Tenía ahora una pista para averiguar la importancia de aquellos pozos, de aquellas torres de ventilación, de aquel misterio de los fantasmas; ¡y esto sin mencionar la indicación relativa al significado de las puertas de bronce y de la suerte de la Máquina del Tiempo!
+52. [95|poetic] Imaginé que sentía incluso la tierra hueca bajo mis pies: y que podía, realmente, casi ver a través de ella a los Morlocks en su hormiguero, yendo de aquí para allá en espera de la obscuridad.
 
-53. [95|descriptive] Hay una tendencia a utilizar el espacio subterráneo para los fines menos decorativos de la civilización; hay, por ejemplo, en Londres el Metro, hay los nuevos tranvías eléctricos, hay pasos subterráneos, talleres y restaurantes subterráneos, que aumentan y se multiplican.
+53. [95|descriptive] Avancé despacio, intentando averiguar el uso de las máquinas, y prestándoles demasiada atención para advertir la disminución gradual de la luz del día, hasta que las crecientes inquietudes de Weena atrajeron mi atención hacia ello.
 
-54. [95|dialogue] Pero le señalé los distantes pináculos del Palacio de Porcelana Verde, y me las ingenié para hacerle comprender que íbamos a buscar allí un refugio contra su miedo ¿Conocen ustedes esa gran inmovilidad que cae sobre las cosas antes de anochecer?
+54. [95|dialogue] Vi que una de las esquinas de aquella galería estaba carbonizada y derruida; quizá — me figuro yo— por la explosión de alguna de las muestras.
 
-55. [95|poetic] Imaginé que sentía incluso la tierra hueca bajo mis pies: y que podía, realmente, casi ver a través de ella a los Morlocks en su hormiguero, yendo de aquí para allá en espera de la obscuridad.
+55. [95|poetic] Durante un tiempo indefinido me agarré a la máquina que oscilaba y vibraba sin preocuparme en absoluto cómo iba, y cuando quise mirar los cuadrantes de nuevo, me dejó asombrado ver adónde había llegado.
 
-56. [95|descriptive] Avancé despacio, intentando averiguar el uso de las máquinas, y prestándoles demasiada atención para advertir la disminución gradual de la luz del día, hasta que las crecientes inquietudes de Weena atrajeron mi atención hacia ello.
+56. [95|poetic] Al final, a más de treinta millones de años de aquí, la inmensa e intensamente roja cúpula del Sol acabó por obscurecer cerca de una décima parte de los cielos sombríos.
 
-57. [95|dialogue] Vi que una de las esquinas de aquella galería estaba carbonizada y derruida; quizá — me figuro yo— por la explosión de alguna de las muestras.
+57. [95|narrative] Esto le inquietó a ella mucho, pero al final su extraño afecto por mí triunfó, y durante las cinco noches de nuestro conocimiento, incluyendo la última de todas, durmió ella con la cabeza recostada sobre mi brazo.
 
-58. [95|poetic] Durante un tiempo indefinido me agarré a la máquina que oscilaba y vibraba sin preocuparme en absoluto cómo iba, y cuando quise mirar los cuadrantes de nuevo, me dejó asombrado ver adónde había llegado.
+58. [95|narrative] En segundo lugar, esperaba proporcionarme algún medio de hacer fuego, teniendo así el arma de una antorcha en la mano, porque yo sabía que nada sería más eficaz que eso contra aquellos Morlocks.
 
-59. [95|poetic] Al final, a más de treinta millones de años de aquí, la inmensa e intensamente roja cúpula del Sol acabó por obscurecer cerca de una décima parte de los cielos sombríos.
+59. [94|descriptive] Pronto observé que el círculo solar oscilaba de arriba abajo, solsticio a solsticio, en un minuto o menos, y que, por consiguiente, mi marcha era de más de un año por minuto; y minuto por minuto la blanca nieve destellaba sobre el Mundo, y se disipaba, siendo seguida por el verdor brillante y corto de la primavera.
 
-60. [95|narrative] Esto le inquietó a ella mucho, pero al final su extraño afecto por mí triunfó, y durante las cinco noches de nuestro conocimiento, incluyendo la última de todas, durmió ella con la cabeza recostada sobre mi brazo.
+60. [94|descriptive] Afortunadamente, entonces, cuando no era todavía demasiado tarde, pensó en un peligro del que me había olvidado hasta aquel momento, y, tomando las barras de la máquina, desprendí las pequeñas palancas que la hubieran puesto en movimiento y las metí en mi bolsillo.
 
-61. [95|narrative] En segundo lugar, esperaba proporcionarme algún medio de hacer fuego, teniendo así el arma de una antorcha en la mano, porque yo sabía que nada sería más eficaz que eso contra aquellos Morlocks.
+61. [94|dialogue] Hasta la preocupación por la Máquina del Tiempo se alejó un tanto de mi mente A juzgar por el tamaño del lugar, aquel Palacio de Porcelana Verde contenía muchas más cosas que una Galería de Paleontología; posiblemente tenía galerías históricas; ¡e incluso podía haber allí una biblioteca!
 
-62. [94|descriptive] Pronto observé que el círculo solar oscilaba de arriba abajo, solsticio a solsticio, en un minuto o menos, y que, por consiguiente, mi marcha era de más de un año por minuto; y minuto por minuto la blanca nieve destellaba sobre el Mundo, y se disipaba, siendo seguida por el verdor brillante y corto de la primavera.
+62. [94|poetic] Había allí flecos de hielo a lo largo de la orilla del mar, con masas flotantes más lejos; pero la mayor extensión de aquel océano salado, todo sangriento bajo el eterno Sol poniente, no estaba helada aún.
 
-63. [94|descriptive] Afortunadamente, entonces, cuando no era todavía demasiado tarde, pensó en un peligro del que me había olvidado hasta aquel momento, y, tomando las barras de la máquina, desprendí las pequeñas palancas que la hubieran puesto en movimiento y las metí en mi bolsillo.
+63. [93|dialogue] En un pequeño sendero que ascendía a la colina, por ejemplo, había un amontonamiento de granito, ligado por masas de aluminio, un amplio laberinto de murallas escarpadas y de piedras desmoronadas, entre las cuales crecían espesos macizos de bellas plantas en forma de pagoda —ortigas probablemente—, pero de hojas maravillosamente coloridas de marrón y que no podían pinchar.
 
-64. [94|poetic] Intentaba seguirme por todas partes, y en mi viaje siguiente sentí el corazón oprimido, teniendo que dejarla, al final, exhausta y llamándome quejumbrosamente, Pues me era preciso conocer a fondo los problemas de aquel Mundo.
+64. [93|descriptive] Pero en todos ellos oí cierto ruido: un toc-toc-toc, parecido a la pulsación de alguna enorme máquina; y descubrí, por la llama de mis cerillas, que una corriente continua de aire soplaba abajo, dentro del hueco de los pozos.
 
-65. [94|dialogue] Hasta la preocupación por la Máquina del Tiempo se alejó un tanto de mi mente A juzgar por el tamaño del lugar, aquel Palacio de Porcelana Verde contenía muchas más cosas que una Galería de Paleontología; posiblemente tenía galerías históricas; ¡e incluso podía haber allí una biblioteca!
+65. [93|poetic] Cuando el cielo se tornó brillante al este, y la luz del Sol subió y esparció una vez más sus vivos colores sobre el Mundo, escruté profundamente el paisaje, pero no percibí ningún vestigio de mis figuras blancas.
 
-66. [94|poetic] Había allí flecos de hielo a lo largo de la orilla del mar, con masas flotantes más lejos; pero la mayor extensión de aquel océano salado, todo sangriento bajo el eterno Sol poniente, no estaba helada aún.
+66. [93|narrative] El hecho es que, insensiblemente, la absoluta rareza de todo aquello, la débil sacudida y el bamboleo de la máquina, y sobre todo la sensación de caída prolongada, habían alterado por completo mis nervios.
 
-67. [93|dialogue] En un pequeño sendero que ascendía a la colina, por ejemplo, había un amontonamiento de granito, ligado por masas de aluminio, un amplio laberinto de murallas escarpadas y de piedras desmoronadas, entre las cuales crecían espesos macizos de bellas plantas en forma de pagoda —ortigas probablemente—, pero de hojas maravillosamente coloridas de marrón y que no podían pinchar.
+67. [93|narrative] Encontré continuamente más grupos de aquellos hombres del futuro, que me seguían a corta distancia, parloteando y riendo a mi costa, y habiéndome sonreído y hecho gestos de una manera amistosa, me dejaban entregado a mis propios pensamientos.
 
-68. [93|descriptive] Pero en todos ellos oí cierto ruido: un toc-toc-toc, parecido a la pulsación de alguna enorme máquina; y descubrí, por la llama de mis cerillas, que una corriente continua de aire soplaba abajo, dentro del hueco de los pozos.
+68. [93|narrative] Nuestra agricultura y nuestra horticultura destruyen una mala hierba sólo aquí y allá y cultivan quizá una veintena aproximadamente de plantas saludables, dejando que la mayoría luche por equilibrarse como pueda.
 
-69. [93|poetic] Cuando el cielo se tornó brillante al este, y la luz del Sol subió y esparció una vez más sus vivos colores sobre el Mundo, escruté profundamente el paisaje, pero no percibí ningún vestigio de mis figuras blancas.
+69. [93|narrative] Enlazando estas cosas, llegué a la firme presunción de un amplio sistema de ventilación subterránea, cuya verdadera significación me resultaba difícil imaginar.
 
-70. [93|narrative] El hecho es que, insensiblemente, la absoluta rareza de todo aquello, la débil sacudida y el bamboleo de la máquina, y sobre todo la sensación de caída prolongada, habían alterado por completo mis nervios.
+70. [93|narrative] Weena se mostró contentísima cuando empecé a llevarla, pero pasado un rato quiso que la dejase en el suelo, para correr a mi lado, precipitándose a veces a coger flores que introducía en mis bolsillos.
 
-71. [93|narrative] Encontré continuamente más grupos de aquellos hombres del futuro, que me seguían a corta distancia, parloteando y riendo a mi costa, y habiéndome sonreído y hecho gestos de una manera amistosa, me dejaban entregado a mis propios pensamientos.
+71. [93|narrative] Pero tal como era, la cosa que me impresionó con más honda fuerza fue el enorme derroche de trabajo que aquella sombría mezcolanza de papel podrido atestiguaba.
 
-72. [93|narrative] Nuestra agricultura y nuestra horticultura destruyen una mala hierba sólo aquí y allá y cultivan quizá una veintena aproximadamente de plantas saludables, dejando que la mayoría luche por equilibrarse como pueda.
+72. [93|narrative] En una ocasión las llamas avanzaron tan rápidamente a mi derecha, mientras corría, que fui adelantado y tuve que desviarme hacia la izquierda.
 
-73. [93|narrative] Enlazando estas cosas, llegué a la firme presunción de un amplio sistema de ventilación subterránea, cuya verdadera significación me resultaba difícil imaginar.
+73. [92|descriptive] Había allí también una docena de bujías aproximadamente, dos en candelabros de bronce sobre la repisa de la chimenea y otras varias en brazos de metal, así es que la habitación estaba profusamente iluminada.
 
-74. [93|narrative] Weena se mostró contentísima cuando empecé a llevarla, pero pasado un rato quiso que la dejase en el suelo, para correr a mi lado, precipitándose a veces a coger flores que introducía en mis bolsillos.
+74. [92|poetic] De haber sido Filby quien nos hubiese enseñado el modelo y explicado la cuestión con las palabras del Viajero a través del Tiempo, le habríamos mostrado mucho menos escepticismo.
 
-75. [93|narrative] Pero tal como era, la cosa que me impresionó con más honda fuerza fue el enorme derroche de trabajo que aquella sombría mezcolanza de papel podrido atestiguaba.
+75. [92|dialogue] El Director del diario quiso que le explicasen aquello, y el Psicólogo le hizo gustoso un relato de «la ingeniosa paradoja y del engaño» de que habíamos sido testigos días antes.
 
-76. [93|narrative] En una ocasión las llamas avanzaron tan rápidamente a mi derecha, mientras corría, que fui adelantado y tuve que desviarme hacia la izquierda.
+76. [92|poetic] Luego mi mirada corrió a lo largo de la figura de la Esfinge Blanca sobre su pedestal de bronce, cada vez más visible a medida que la luz de la Luna ascendente se hacía más brillante.
 
-77. [92|descriptive] Había allí también una docena de bujías aproximadamente, dos en candelabros de bronce sobre la repisa de la chimenea y otras varias en brazos de metal, así es que la habitación estaba profusamente iluminada.
+77. [92|descriptive] Pero, poco a poco, la verdad se abrió paso en mí: el Hombre no había seguido siendo una especie única, sino que se había diferenciado en dos animales distintos; las graciosas criaturas del Mundo Superior no eran los únicos descendientes de nuestra generación, sino que aquel ser, pálido, repugnante, nocturno, que había pasado fugazmente ante mí, era también el heredero de todas las edades.
 
-78. [92|poetic] De haber sido Filby quien nos hubiese enseñado el modelo y explicado la cuestión con las palabras del Viajero a través del Tiempo, le habríamos mostrado mucho menos escepticismo.
+78. [92|descriptive] El descenso lo efectuaba por medio de los barrotes metálicos que salían de las paredes del pozo, y como estaban adaptados a las necesidades de unos mucho más pequeños que yo, pronto me sentí entumecido y fatigado por la bajada.
 
-79. [92|dialogue] El Director del diario quiso que le explicasen aquello, y el Psicólogo le hizo gustoso un relato de «la ingeniosa paradoja y del engaño» de que habíamos sido testigos días antes.
+79. [92|poetic] Al mirar hacia arriba, vi la abertura, un pequeño disco azul, en el cual era visible una estrella, mientras que la cabeza de la pequeña Weena aparecía como una proyección negra y redonda.
 
-80. [92|poetic] Luego mi mirada corrió a lo largo de la figura de la Esfinge Blanca sobre su pedestal de bronce, cada vez más visible a medida que la luz de la Luna ascendente se hacía más brillante.
+80. [92|descriptive] Me levanté de un salto en la obscuridad y, sacando mis cerillas, encendí una rápidamente: vi tres seres encorvados y blancos semejantes a aquel que había visto sobre la tierra, en las ruinas, y que huyó velozmente de la luz.
 
-81. [92|descriptive] Entonces la llama me quemó los dedos y la solté, apagándose al caer; y cuando encendí otra, el pequeño monstruo había desaparecido.
+81. [92|poetic] Aun ahora, pienso que el hecho de haber escapado aquella caja de cerillas al desgaste del tiempo durante años memoriales resultaba muy extraño, y para mí la cosa más afortunada.
 
-82. [92|descriptive] Pero, poco a poco, la verdad se abrió paso en mí: el Hombre no había seguido siendo una especie única, sino que se había diferenciado en dos animales distintos; las graciosas criaturas del Mundo Superior no eran los únicos descendientes de nuestra generación, sino que aquel ser, pálido, repugnante, nocturno, que había pasado fugazmente ante mí, era también el heredero de todas las edades.
+82. [92|descriptive] Una de ellas quedó tan cegada por la luz que vino en derechura hacia mí, y sentí sus huesos partirse bajo mi violento puñetazo.
 
-83. [92|descriptive] El descenso lo efectuaba por medio de los barrotes metálicos que salían de las paredes del pozo, y como estaban adaptados a las necesidades de unos mucho más pequeños que yo, pronto me sentí entumecido y fatigado por la bajada.
+83. [92|narrative] Sin embargo, fui tan estúpido que no comprendí la lección de ese temor, y, pese a la angustia de Weena, me obstiné en acostarme apartado de aquellas multitudes adormecidas.
 
-84. [92|poetic] Al mirar hacia arriba, vi la abertura, un pequeño disco azul, en el cual era visible una estrella, mientras que la cabeza de la pequeña Weena aparecía como una proyección negra y redonda.
+84. [92|narrative] Cuando la quietud del anochecer se difundía sobre el Mundo y avanzábamos más allá de la cima de la colina hacia Wimbledon, Weena se sintió cansada y quiso volver a la casa de piedra gris.
 
-85. [92|descriptive] Me levanté de un salto en la obscuridad y, sacando mis cerillas, encendí una rápidamente: vi tres seres encorvados y blancos semejantes a aquel que había visto sobre la tierra, en las ruinas, y que huyó velozmente de la luz.
+85. [92|narrative] Allí me encontraba más en mi elemento, pues de cada lado se levantaban las enormes masas de unas gigantescas máquinas, todas muy corroídas y muchas rotas, pero algunas aún bastante completas.
 
-86. [92|poetic] Aun ahora, pienso que el hecho de haber escapado aquella caja de cerillas al desgaste del tiempo durante años memoriales resultaba muy extraño, y para mí la cosa más afortunada.
+86. [91|descriptive] Llegó la noche de mañana, después el día de nuevo, otra vez la noche; luego, volvió el día, y así sucesivamente más y más de prisa.
 
-87. [92|descriptive] Una de ellas quedó tan cegada por la luz que vino en derechura hacia mí, y sentí sus huesos partirse bajo mi violento puñetazo.
+87. [91|descriptive] Estaba sobre lo que parecía ser un pequeño prado de un jardín, rodeado de macizos de rododendros; y observé que sus flores malva y púrpura caían como una lluvia bajo el golpeteo de las piedras de granizo.
 
-88. [92|narrative] Sin embargo, fui tan estúpido que no comprendí la lección de ese temor, y, pese a la angustia de Weena, me obstiné en acostarme apartado de aquellas multitudes adormecidas.
+88. [91|descriptive] Inmediatamente una figura pequeña, lindamente arcaica, vestida con una estofa blanca y púrpura, siguió mi gesto y, después, me dejó atónito imitando el ruido del trueno.
 
-89. [92|narrative] Cuando la quietud del anochecer se difundía sobre el Mundo y avanzábamos más allá de la cima de la colina hacia Wimbledon, Weena se sintió cansada y quiso volver a la casa de piedra gris.
+89. [91|descriptive] El enorme edificio que acababa de abandonar estaba situado sobre la ladera de un valle por el que corría un ancho río; pero el Támesis había sido desviado, a una milla aproximadamente de su actual posición.
 
-90. [92|narrative] Allí me encontraba más en mi elemento, pues de cada lado se levantaban las enormes masas de unas gigantescas máquinas, todas muy corroídas y muchas rotas, pero algunas aún bastante completas.
+90. [91|descriptive] Allí encontré un asiento hecho de un metal amarillo, que no reconocí, corroído a trechos por una especie de orín rosado y semicubierto de blando musgo; tenía los brazos vaciados y bruñidos en forma de cabezas de grifo.
 
-91. [91|descriptive] Llegó la noche de mañana, después el día de nuevo, otra vez la noche; luego, volvió el día, y así sucesivamente más y más de prisa.
+91. [91|dialogue] Aprende sus usos, obsérvale, abstente de hacer conjeturas demasiado precipitadas en cuanto a sus intenciones; al final encontrarás la pista de todo esto.» Entonces, me di cuenta de repente de lo cómico de la situación: el recuerdo de los años que había gastado en estudios y trabajos para adentrarme en el tiempo futuro y, ahora, una ardiente ansiedad por salir de él.
 
-92. [91|descriptive] Estaba sobre lo que parecía ser un pequeño prado de un jardín, rodeado de macizos de rododendros; y observé que sus flores malva y púrpura caían como una lluvia bajo el golpeteo de las piedras de granizo.
+92. [91|poetic] Pero el día declinaba ya, y llegué a la vista de aquel lugar después de un largo y extenuante rodeo; por lo cual decidí aplazar la aventura para el día siguiente, y volví hacia la bienvenida y las caricias de la pequeña Weena.
 
-93. [91|descriptive] Inmediatamente una figura pequeña, lindamente arcaica, vestida con una estofa blanca y púrpura, siguió mi gesto y, después, me dejó atónito imitando el ruido del trueno.
+93. [91|dialogue] El Viajero a través del Tiempo se interrumpió, metió la mano en el bolsillo y colocó silenciosamente sobre la mesita dos flores marchitas, que no dejaban de parecerse a grandes malvas blancas.
 
-94. [91|descriptive] El enorme edificio que acababa de abandonar estaba situado sobre la ladera de un valle por el que corría un ancho río; pero el Támesis había sido desviado, a una milla aproximadamente de su actual posición.
+94. [91|descriptive] Durante un rato no oí más que los crujidos de las ramitas bajo mis pies, el débil susurro de la brisa sobre mí, mi propia respiración y los latidos de los vasos sanguíneos en mis oídos.
 
-95. [91|descriptive] Allí encontré un asiento hecho de un metal amarillo, que no reconocí, corroído a trechos por una especie de orín rosado y semicubierto de blando musgo; tenía los brazos vaciados y bruñidos en forma de cabezas de grifo.
+95. [91|poetic] Viajé así, deteniéndome de vez en cuando, a grandes zancadas de mil años o más, arrastrado por el misterio del destino de la Tierra, viendo con una extraña fascinación cómo el Sol se tornaba más grande y más empañado en el cielo de occidente, y la vida de la vieja Tierra iba decayendo.
 
-96. [91|dialogue] Aprende sus usos, obsérvale, abstente de hacer conjeturas demasiado precipitadas en cuanto a sus intenciones; al final encontrarás la pista de todo esto.» Entonces, me di cuenta de repente de lo cómico de la situación: el recuerdo de los años que había gastado en estudios y trabajos para adentrarme en el tiempo futuro y, ahora, una ardiente ansiedad por salir de él.
+96. [91|narrative] Ustedes que no han visto nunca nada parecido, apenas podrán figurarse qué flores delicadas y maravillosas han creado innumerables años de cultura.
 
-97. [91|poetic] En algunas de aquellas visiones de Utopía y de los tiempos por venir que he leído, hay una gran cantidad de detalles sobre la construcción, las ordenaciones sociales, y demás cosas de ese género.
+97. [91|narrative] Aquí y allá surgía una figura blanca o plateada en el devastado jardín de la Tierra, aquí y allá aparecía la afilada línea vertical de alguna cúpula u obelisco.
 
-98. [91|poetic] Pero el día declinaba ya, y llegué a la vista de aquel lugar después de un largo y extenuante rodeo; por lo cual decidí aplazar la aventura para el día siguiente, y volví hacia la bienvenida y las caricias de la pequeña Weena.
+98. [91|narrative] Y ya les contaré más adelante que hasta el proceso de la putrefacción y de la vejez había sido profundamente afectado por aquellos cambios.
 
-99. [91|dialogue] El Viajero a través del Tiempo se interrumpió, metió la mano en el bolsillo y colocó silenciosamente sobre la mesita dos flores marchitas, que no dejaban de parecerse a grandes malvas blancas.
+99. [91|narrative] Me senté en el frescor de la mañana, intentando recordar cómo había llegado hasta allí, y por qué experimentaba una tan profunda sensación de abandono y desesperación.
 
-100. [91|descriptive] Durante un rato no oí más que los crujidos de las ramitas bajo mis pies, el débil susurro de la brisa sobre mí, mi propia respiración y los latidos de los vasos sanguíneos en mis oídos.
+100. [91|narrative] Pronto dejé de notar las paredes a mis lados, llegué a un espacio amplio y abierto, y encendiendo otra cerilla, vi que había entrado en una vasta caverna arqueada que se extendía en las profundas tinieblas más allá de la claridad de mi cerilla.
 
-101. [91|poetic] Viajé así, deteniéndome de vez en cuando, a grandes zancadas de mil años o más, arrastrado por el misterio del destino de la Tierra, viendo con una extraña fascinación cómo el Sol se tornaba más grande y más empañado en el cielo de occidente, y la vida de la vieja Tierra iba decayendo.
+101. [90|dialogue] Es más, tengo ahí una gran máquina casi terminada —y señaló hacia el laboratorio—, y cuando esté montada por completo, pienso hacer un viaje por mi propia cuenta.
 
-102. [91|dialogue] Él, lo sé —porque la cuestión había sido discutida entre nosotros mucho antes de ser construida la Máquina del Tiempo—, no pensaba alegremente acerca del Progreso de la Humanidad, y veía tan sólo en el creciente acopio de civilización una necia acumulación que debía inevitablemente venirse abajo al final y destrozar a sus artífices.
+102. [90|descriptive] La máquina estaba casi completa, pero unas barras de cristal retorcido sin terminar estaban colocadas sobre un banco de carpintero, junto a algunos planos; cogí una de aquéllas para examinarla mejor.
 
-103. [91|narrative] Ustedes que no han visto nunca nada parecido, apenas podrán figurarse qué flores delicadas y maravillosas han creado innumerables años de cultura.
+103. [90|descriptive] Desde cada colina a la que yo subía, vi la misma profusión de edificios espléndidos, infinitamente variados de materiales y de estilos; los mismos amontonamientos de árboles de hoja perenne, los mismos árboles cargados de flores, y los mismos altos helechos.
 
-104. [91|narrative] Aquí y allá surgía una figura blanca o plateada en el devastado jardín de la Tierra, aquí y allá aparecía la afilada línea vertical de alguna cúpula u obelisco.
+104. [90|descriptive] Pero a la mañana siguiente me di cuenta con suficiente claridad que mi curiosidad referente al Palacio de Porcelana Verde era un acto de autodecepción, capaz de evitarme, por un día más, la experiencia que yo temía.
 
-105. [91|narrative] Y ya les contaré más adelante que hasta el proceso de la putrefacción y de la vejez había sido profundamente afectado por aquellos cambios.
+105. [90|poetic] Contemplé a la pequeña Weena durmiendo junto a mí, su cara blanca y radiante bajo las estrellas, e inmediatamente deseché aquel pensamiento.
 
-106. [91|narrative] Me senté en el frescor de la mañana, intentando recordar cómo había llegado hasta allí, y por qué experimentaba una tan profunda sensación de abandono y desesperación.
+106. [90|poetic] Durante aquella larga noche aparté de mi mente lo mejor que pude a los Morlocks, y entretuve el tiempo intentando imaginar que, podía encontrar las huellas de las viejas constelaciones en la nueva confusión.
 
-107. [91|narrative] Pronto dejé de notar las paredes a mis lados, llegué a un espacio amplio y abierto, y encendiendo otra cerilla, vi que había entrado en una vasta caverna arqueada que se extendía en las profundas tinieblas más allá de la claridad de mi cerilla.
+107. [90|narrative] Había allí, quizá, un par de centenares de personas comiendo en el vestíbulo; y muchas de ellas, sentadas tan cerca de mí como podían, me contemplaban con interés, brillándoles los ojillos sobre el fruto que comían.
 
-108. [90|dialogue] Es más, tengo ahí una gran máquina casi terminada —y señaló hacia el laboratorio—, y cuando esté montada por completo, pienso hacer un viaje por mi propia cuenta.
+108. [90|narrative] La pequeña Weena vino corriendo conmigo, Bailaba junto al pozo, pero, cuando vio que me inclinaba yo sobre el brocal mirando hacia abajo, pareció singularmente desconcertada.
 
-109. [90|descriptive] La máquina estaba casi completa, pero unas barras de cristal retorcido sin terminar estaban colocadas sobre un banco de carpintero, junto a algunos planos; cogí una de aquéllas para examinarla mejor.
+109. [90|narrative] Pensé incluso entablar la lucha matando a algunos de ellos antes de que sucediese aquello; pero el fuego volvió a brillar voraz, y contuve mi mano.
 
-110. [90|descriptive] Desde cada colina a la que yo subía, vi la misma profusión de edificios espléndidos, infinitamente variados de materiales y de estilos; los mismos amontonamientos de árboles de hoja perenne, los mismos árboles cargados de flores, y los mismos altos helechos.
+110. [90|narrative] Giraron cada vez más despacio las agujas hasta que la de los millares pareció inmovilizarse y la de los días dejó de ser una simple nube sobre su cuadrante.
 
-111. [90|descriptive] Pero a la mañana siguiente me di cuenta con suficiente claridad que mi curiosidad referente al Palacio de Porcelana Verde era un acto de autodecepción, capaz de evitarme, por un día más, la experiencia que yo temía.
+111. [89|dialogue] El jueves siguiente fui a Richmond —supongo que era yo uno de los más asiduos invitados del Viajero a través del Tiempo—, y como llegué tarde, encontré a cuatro o cinco hombres reunidos ya en su sala.
 
-112. [90|poetic] Contemplé a la pequeña Weena durmiendo junto a mí, su cara blanca y radiante bajo las estrellas, e inmediatamente deseché aquel pensamiento.
+112. [89|poetic] Miré alrededor con un repentino pensamiento, desde una terraza en la cual descansé un rato, y me di cuenta de que no había allí ninguna casa pequeña.
 
-113. [90|poetic] Durante aquella larga noche aparté de mi mente lo mejor que pude a los Morlocks, y entretuve el tiempo intentando imaginar que, podía encontrar las huellas de las viejas constelaciones en la nueva confusión.
+113. [89|descriptive] En seguida, como un latigazo en la cara, se me ocurrió la posibilidad de perder mi propia época, de quedar abandonado e impotente en aquel extraño Mundo nuevo.
 
-114. [90|narrative] Había allí, quizá, un par de centenares de personas comiendo en el vestíbulo; y muchas de ellas, sentadas tan cerca de mí como podían, me contemplaban con interés, brillándoles los ojillos sobre el fruto que comían.
+114. [89|poetic] Todo el tiempo, con la certeza que algunas veces acompaña a un miedo excesivo, yo sabía que tal seguridad era una locura, sabía instintivamente que la máquina había sido transportada fuera de mi alcance.
 
-115. [90|narrative] La pequeña Weena vino corriendo conmigo, Bailaba junto al pozo, pero, cuando vio que me inclinaba yo sobre el brocal mirando hacia abajo, pareció singularmente desconcertada.
+115. [89|descriptive] Pude haberme consolado a mí mismo imaginando que los pequeños seres habían llevado por mí el aparato a algún refugio, de no haber tenido la seguridad de su incapacidad física e intelectual.
 
-116. [90|narrative] Pensé incluso entablar la lucha matando a algunos de ellos antes de que sucediese aquello; pero el fuego volvió a brillar voraz, y contuve mi mano.
+116. [89|poetic] Aquí y allá el agua brillaba como plata, y más lejos la tierra se elevaba en azules ondulaciones de colinas, y desaparecía así en la serenidad del cielo.
 
-117. [90|narrative] Giraron cada vez más despacio las agujas hasta que la de los millares pareció inmovilizarse y la de los días dejó de ser una simple nube sobre su cuadrante.
+117. [89|descriptive] Hasta ahora me había creído simplemente obstaculizado por la pueril simplicidad de aquella pequeña raza, y por algunas fuerzas desconocidas que me era preciso comprender para superarlas; pero había un elemento nuevo por completo en la repugnante especie de los Morlocks, algo inhumano y maligno.
 
-118. [89|dialogue] El jueves siguiente fui a Richmond —supongo que era yo uno de los más asiduos invitados del Viajero a través del Tiempo—, y como llegué tarde, encontré a cuatro o cinco hombres reunidos ya en su sala.
+118. [89|poetic] Por la parte sur (según pude apreciar) había una estrella roja muy brillante, nueva para mí; parecía aún más espléndida que nuestra propia y verde Sirio.
 
-119. [89|poetic] Miré alrededor con un repentino pensamiento, desde una terraza en la cual descansé un rato, y me di cuenta de que no había allí ninguna casa pequeña.
+119. [89|descriptive] Había yo decidido llegar a la Esfinge Blanca a la mañana siguiente muy temprano y tenía el propósito de atravesar antes de anochecer el bosque que me había detenido en mi anterior trayecto.
 
-120. [89|descriptive] En seguida, como un latigazo en la cara, se me ocurrió la posibilidad de perder mi propia época, de quedar abandonado e impotente en aquel extraño Mundo nuevo.
+120. [89|descriptive] Los ruidos se hicieron más claros, y capté los mismos extraños sonidos y las voces que había oído en el Mundo Subterráneo.
 
-121. [89|poetic] Todo el tiempo, con la certeza que algunas veces acompaña a un miedo excesivo, yo sabía que tal seguridad era una locura, sabía instintivamente que la máquina había sido transportada fuera de mi alcance.
+121. [89|narrative] Tal vez los obstáculos por ellos ideados para detener el aumento de población habían tenido demasiado buen éxito, y su número, en lugar de permanecer estacionario, había más bien disminuido.
 
-122. [89|descriptive] Pude haberme consolado a mí mismo imaginando que los pequeños seres habían llevado por mí el aparato a algún refugio, de no haber tenido la seguridad de su incapacidad física e intelectual.
+122. [89|narrative] Pero aunque tales detalles son bastante fáciles de obtener cuando el Mundo entero se halla contenido en la sola imaginación, son por completo inaccesibles para un auténtico viajero mezclado con la realidad, como me encontré allí.
 
-123. [89|poetic] Aquí y allá el agua brillaba como plata, y más lejos la tierra se elevaba en azules ondulaciones de colinas, y desaparecía así en la serenidad del cielo.
+123. [89|narrative] Ahora iba yo a contemplar la cosa más fantasmagórica y horripilante, creo, de todas las que había visto en aquella edad futura.
 
-124. [89|descriptive] Hasta ahora me había creído simplemente obstaculizado por la pueril simplicidad de aquella pequeña raza, y por algunas fuerzas desconocidas que me era preciso comprender para superarlas; pero había un elemento nuevo por completo en la repugnante especie de los Morlocks, algo inhumano y maligno.
+124. [88|descriptive] Le di un último toque, probé todos los tornillos de nuevo, eché una gota de aceite más en la varilla de cuarzo y me senté en el soporte.
 
-125. [89|poetic] Por la parte sur (según pude apreciar) había una estrella roja muy brillante, nueva para mí; parecía aún más espléndida que nuestra propia y verde Sirio.
+125. [88|poetic] Pronto, mientras avanzaba con velocidad creciente aún, la palpitación de la noche y del día se fundió en una continua grisura; el cielo tomó una maravillosa intensidad azul, un espléndido y luminoso color como el de un temprano amanecer; el Sol saltarín se convirtió en una raya de fuego, en un arco brillante en el espacio, la Luna en una débil faja oscilante; y no pude ver nada de estrellas, sino de vez en cuando un círculo brillante fluctuando en el azul.
 
-126. [89|descriptive] Había yo decidido llegar a la Esfinge Blanca a la mañana siguiente muy temprano y tenía el propósito de atravesar antes de anochecer el bosque que me había detenido en mi anterior trayecto.
+126. [88|poetic] Por último aparté mis ojos de ella por un momento, y vi que la cortina de granizo aparecía más transparente, y que el cielo se iluminaba con la promesa del Sol.
 
-127. [89|descriptive] Los ruidos se hicieron más claros, y capté los mismos extraños sonidos y las voces que había oído en el Mundo Subterráneo.
+127. [88|descriptive] Ellos charlaron y se explicaron largamente la cuestión unos a otros, y mis primeras tentativas de imitar los exquisitos y suaves sonidos de su lenguaje produjeron una enorme e ingenua, ya que no cortés, diversión.
 
-128. [89|narrative] Tal vez los obstáculos por ellos ideados para detener el aumento de población habían tenido demasiado buen éxito, y su número, en lugar de permanecer estacionario, había más bien disminuido.
+128. [88|poetic] Pero era una tarea lenta, y aquellos pequeños seres se cansaron pronto y quisieron huir de mis interrogaciones, por lo cual decidí, más bien por necesidad, dejar que impartiesen sus lecciones en pequeñas dosis cuando se sintieran inclinados a ello.
 
-129. [89|narrative] Pero aunque tales detalles son bastante fáciles de obtener cuando el Mundo entero se halla contenido en la sola imaginación, son por completo inaccesibles para un auténtico viajero mezclado con la realidad, como me encontré allí.
+129. [88|poetic] Volvamos, entonces, a la Máquina del Tiempo: alguien, no sabía yo quién, la había encerrado en el pedestal hueco de la Esfinge Blanca.
 
-130. [89|narrative] Encaramándome sobre aquel montón de mampostería, encontré una estrecha galería, cuyo final y respiradero laterales estaban obstruidos por masas de piedras caídas.
+130. [88|descriptive] Por dos veces me pareció divisar una criatura solitaria, blanca, con el aspecto de un mono, subiendo más bien rápidamente por la colina, y una vez cerca de las ruinas vi tres de aquellas figuras arrastrando un cuerpo obscuro.
 
-131. [89|narrative] Ahora iba yo a contemplar la cosa más fantasmagórica y horripilante, creo, de todas las que había visto en aquella edad futura.
+131. [88|descriptive] Pero la broma no era convincente y me pasé toda la mañana pensando en aquellas figuras, hasta que gracias a Weena logré desechar ese pensamiento.
 
-132. [88|descriptive] Le di un último toque, probé todos los tornillos de nuevo, eché una gota de aceite más en la varilla de cuarzo y me senté en el soporte.
+132. [88|poetic] La gente del Mundo Superior podía haber sido antaño la favorecida aristocracia y los Morlocks sus servidores mecánicos; pero aquello había acabado hacía largo tiempo.
 
-133. [88|poetic] Pronto, mientras avanzaba con velocidad creciente aún, la palpitación de la noche y del día se fundió en una continua grisura; el cielo tomó una maravillosa intensidad azul, un espléndido y luminoso color como el de un temprano amanecer; el Sol saltarín se convirtió en una raya de fuego, en un arco brillante en el espacio, la Luna en una débil faja oscilante; y no pude ver nada de estrellas, sino de vez en cuando un círculo brillante fluctuando en el azul.
+133. [88|dialogue] Lo vadeé y ascendí al lado opuesto del valle, más allá de muchos edificios-dormitorios y de una estatua —un Fauno o una figura por el estilo— sin cabeza.
 
-134. [88|poetic] Por último aparté mis ojos de ella por un momento, y vi que la cortina de granizo aparecía más transparente, y que el cielo se iluminaba con la promesa del Sol.
+134. [88|dialogue] Aunque no existiese allí ningún peligro emboscado —un peligro sobre el cual no quería yo dar rienda suelta a la imaginación—, habría, sin embargo, raíces en que tropezar y troncos contra los cuales chocar.
 
-135. [88|descriptive] Ellos charlaron y se explicaron largamente la cuestión unos a otros, y mis primeras tentativas de imitar los exquisitos y suaves sonidos de su lenguaje produjeron una enorme e ingenua, ya que no cortés, diversión.
+135. [88|descriptive] Pero cuando hube observado los gestos de uno de ellos, yendo a tientas entre el espino bajo el rojo cielo, y oí sus quejidos, me convencí de su absoluta y desdichada impotencia bajo aquel resplandor, y no los golpeé más.
 
-136. [88|poetic] Pero era una tarea lenta, y aquellos pequeños seres se cansaron pronto y quisieron huir de mis interrogaciones, por lo cual decidí, más bien por necesidad, dejar que impartiesen sus lecciones en pequeñas dosis cuando se sintieran inclinados a ello.
+136. [88|narrative] Había alrededor otras señales de traslación, con extrañas y estrechas huellas de pasos tales que las pude creer hechas por un perezoso.
 
-137. [88|poetic] Volvamos, entonces, a la Máquina del Tiempo: alguien, no sabía yo quién, la había encerrado en el pedestal hueco de la Esfinge Blanca.
+137. [88|narrative] No sé si han pensado ustedes alguna vez qué extraña cosa es la llama en ausencia del hombre y en un clima templado.
 
-138. [88|descriptive] Por dos veces me pareció divisar una criatura solitaria, blanca, con el aspecto de un mono, subiendo más bien rápidamente por la colina, y una vez cerca de las ruinas vi tres de aquellas figuras arrastrando un cuerpo obscuro.
+138. [88|narrative] Al final me senté en la cima del montículo y contemplé aquel increíble tropel de seres ciegos arrastrándose de aquí para allá, y lanzando pavorosos gritos mientras el resplandor del incendio los envolvía.
 
-139. [88|descriptive] Pero la broma no era convincente y me pasé toda la mañana pensando en aquellas figuras, hasta que gracias a Weena logré desechar ese pensamiento.
+139. [87|descriptive] Advertirán ustedes que parece singularmente ambigua y que esta varilla rutilante presenta un extraño aspecto, como si fuese en cierto modo irreal.
 
-140. [88|descriptive] Yendo al sudoeste, hacia la comarca escarpada que se llama ahora Combe Wood, observé a lo lejos, en la dirección del Banstead del siglo XIX, una amplia construcción verde, de estilo diferente a las que había visto hasta entonces.
+140. [87|poetic] Mi impresión general del Mundo que veía sobre sus cabezas era la de un confuso derroche de hermosos arbustos y de flores, de un jardín largo tiempo descuidado y, sin embargo, sin malas hierbas.
 
-141. [88|poetic] La gente del Mundo Superior podía haber sido antaño la favorecida aristocracia y los Morlocks sus servidores mecánicos; pero aquello había acabado hacía largo tiempo.
+141. [87|descriptive] Tan pronto como calmé un poco mi apetito, decidí hacer una enérgica tentativa para aprender el lenguaje de aquellos nuevos compañeros míos.
 
-142. [88|dialogue] Lo vadeé y ascendí al lado opuesto del valle, más allá de muchos edificios-dormitorios y de una estatua —un Fauno o una figura por el estilo— sin cabeza.
+142. [87|descriptive] Las brillantes figuritas cesaron de moverse debajo de mí, un búho silencioso revoloteó, y me estremecí con el frío de la noche.
 
-143. [88|dialogue] Aunque no existiese allí ningún peligro emboscado —un peligro sobre el cual no quería yo dar rienda suelta a la imaginación—, habría, sin embargo, raíces en que tropezar y troncos contra los cuales chocar.
+143. [87|poetic] Intenté llamarles, pero su lenguaje era al parecer diferente del de los habitantes del Mundo Superior; por lo cual me quedé entregado a mis propios esfuerzos, y la idea de huir antes de iniciar la exploración pasó por mi mente.
 
-144. [88|descriptive] Pero cuando hube observado los gestos de uno de ellos, yendo a tientas entre el espino bajo el rojo cielo, y oí sus quejidos, me convencí de su absoluta y desdichada impotencia bajo aquel resplandor, y no los golpeé más.
+144. [87|descriptive] Me levanté, y vi que mi pie calzado con la bota sin tacón estaba hinchado por el tobillo y muy dolorido bajo el talón; de modo que me senté, me quité las botas, y las arrojé lejos.
 
-145. [88|narrative] Había alrededor otras señales de traslación, con extrañas y estrechas huellas de pasos tales que las pude creer hechas por un perezoso.
+145. [87|descriptive] Luego, llegamos a una galería de dimensiones sencillamente colosales, pero muy mal iluminada, y cuyo suelo en suave pendiente hacía un ligero ángulo con la última galería en que había entrado.
 
-146. [88|narrative] No sé si han pensado ustedes alguna vez qué extraña cosa es la llama en ausencia del hombre y en un clima templado.
+146. [87|dialogue] Muy confusamente comencé a ver a los Morlocks a mi alrededor —tres de ellos derribados a mis pies— y entonces reconocí con una sorpresa incrédula que los otros huían, en una oleada incesante, al parecer, por detrás de mí y que desaparecían en el bosque.
 
-147. [88|narrative] Al final me senté en la cima del montículo y contemplé aquel increíble tropel de seres ciegos arrastrándose de aquí para allá, y lanzando pavorosos gritos mientras el resplandor del incendio los envolvía.
+147. [87|descriptive] Todos los ruidos humanos, el balido del rebaño, los gritos de los pájaros, el zumbido de los insectos, el bullicio que forma el fondo de nuestras vidas, todo eso había desaparecido.
 
-148. [87|descriptive] Advertirán ustedes que parece singularmente ambigua y que esta varilla rutilante presenta un extraño aspecto, como si fuese en cierto modo irreal.
+148. [87|narrative] Veía yo la Humanidad alojada en espléndidas moradas, suntuosamente vestida; y, sin embargo, no había encontrado aquella gente ocupada en ninguna faena.
 
-149. [87|poetic] Mi impresión general del Mundo que veía sobre sus cabezas era la de un confuso derroche de hermosos arbustos y de flores, de un jardín largo tiempo descuidado y, sin embargo, sin malas hierbas.
+149. [87|narrative] Pensé en la pequeñez física de la gente, en su falta de inteligencia, en aquellas enormes y profundas ruinas; y esto fortaleció mi creencia en una conquista perfecta de la Naturaleza.
 
-150. [87|descriptive] Tan pronto como calmé un poco mi apetito, decidí hacer una enérgica tentativa para aprender el lenguaje de aquellos nuevos compañeros míos.
+150. [87|narrative] Supónganse que encuentran ustedes una inscripción, con frases aquí y allá en un excelente y claro inglés, e, interpoladas con esto, otras compuestas de palabras, incluso de letras, absolutamente desconocidas para ustedes.
 
-151. [87|descriptive] Las brillantes figuritas cesaron de moverse debajo de mí, un búho silencioso revoloteó, y me estremecí con el frío de la noche.
+151. [87|narrative] Y durante aquellas escasas revoluciones todas las actividades, todas las tradiciones las complejas organizaciones, las naciones, lenguas, literaturas, aspiraciones, hasta el simple recuerdo del Hombre tal como yo lo conocía, habían sido barridas de la existencia.
 
-152. [87|poetic] Intenté llamarles, pero su lenguaje era al parecer diferente del de los habitantes del Mundo Superior; por lo cual me quedé entregado a mis propios esfuerzos, y la idea de huir antes de iniciar la exploración pasó por mi mente.
+152. [87|narrative] Al principio no pensó que estuvieran cegados, y cuando se acercaron los golpeé furiosamente con mi barra, en un frenesí de pavor, matando a uno y lisiando a varios más.
 
-153. [87|descriptive] Me levanté, y vi que mi pie calzado con la bota sin tacón estaba hinchado por el tobillo y muy dolorido bajo el talón; de modo que me senté, me quité las botas, y las arrojé lejos.
+153. [87|narrative] Accedí, comprendiendo apenas entonces toda la importancia de sus palabras; y haciéndome unas señas con la cabeza se marchó por el corredor.
 
-154. [87|descriptive] Luego, llegamos a una galería de dimensiones sencillamente colosales, pero muy mal iluminada, y cuyo suelo en suave pendiente hacía un ligero ángulo con la última galería en que había entrado.
+154. [86|poetic] Si viaja a través del tiempo cincuenta o cien veces más de prisa que nosotros, si recorre un minuto mientras nosotros un segundo, la impresión producida será, naturalmente, tan sólo una cincuentésima o una centésima de lo que sería si no viajase a través del tiempo.
 
-155. [87|dialogue] Muy confusamente comencé a ver a los Morlocks a mi alrededor —tres de ellos derribados a mis pies— y entonces reconocí con una sorpresa incrédula que los otros huían, en una oleada incesante, al parecer, por detrás de mí y que desaparecían en el bosque.
+155. [86|descriptive] Su chaqueta estaba polvorienta y sucia, manchada de verde en las mangas, y su pelo enmarañado me pareció más gris, ya fuera por el polvo y la suciedad o porque estuviese ahora descolorido.
 
-156. [87|descriptive] Todos los ruidos humanos, el balido del rebaño, los gritos de los pájaros, el zumbido de los insectos, el bullicio que forma el fondo de nuestras vidas, todo eso había desaparecido.
+156. [86|descriptive] Había allí, por un lado, el macizo de rododendros, negro en la pálida claridad, y por el otro la pequeña pradera, que volví a contemplar.
 
-157. [87|narrative] Veía yo la Humanidad alojada en espléndidas moradas, suntuosamente vestida; y, sin embargo, no había encontrado aquella gente ocupada en ninguna faena.
+157. [86|descriptive] Sin embargo, su angustia cuando la dejé era muy grande, sus reproches al separarnos eran a veces frenéticos, y creo plenamente que sentí tanta inquietud como consuelo con su afecto.
 
-158. [87|narrative] Pensé en la pequeñez física de la gente, en su falta de inteligencia, en aquellas enormes y profundas ruinas; y esto fortaleció mi creencia en una conquista perfecta de la Naturaleza.
+158. [86|descriptive] El cráneo y los huesos superiores yacían al lado sobre la capa de polvo; y en un sitio en que el agua de la lluvia había caído por una gotera del techo, aquella osamenta estaba deteriorada.
 
-159. [87|narrative] Supónganse que encuentran ustedes una inscripción, con frases aquí y allá en un excelente y claro inglés, e, interpoladas con esto, otras compuestas de palabras, incluso de letras, absolutamente desconocidas para ustedes.
+159. [86|dialogue] Weena, que hacía rodar un erizo de mar sobre el cristal inclinado de una caja, se acercó pronto a mí —mientras miraba yo fijamente alrededor—, me cogió muy tranquilamente la mano y permaneció a mi lado, Al principio me dejó tan sorprendido aquel antiguo monumento de una época intelectual, que no me paré a pensar en las posibilidades que presentaba.
 
-160. [87|narrative] Y durante aquellas escasas revoluciones todas las actividades, todas las tradiciones las complejas organizaciones, las naciones, lenguas, literaturas, aspiraciones, hasta el simple recuerdo del Hombre tal como yo lo conocía, habían sido barridas de la existencia.
+160. [86|descriptive] Como ustedes saben, siento cierta debilidad por la mecánica, y estaba dispuesto a detenerme entre ellas; tanto más cuanto que la mayoría ofrecían el interés de un rompecabezas, y yo no podía hacer más que vagas conjeturas respecto a su utilidad.
 
-161. [87|narrative] Al principio no pensó que estuvieran cegados, y cuando se acercaron los golpeé furiosamente con mi barra, en un frenesí de pavor, matando a uno y lisiando a varios más.
+161. [86|descriptive] Sin embargo, era evidente que si tenía que agitar las cerillas con mis manos debería abandonar mi leña; así pues, la dejé en el suelo, más bien de mala gana.
 
-162. [87|narrative] Accedí, comprendiendo apenas entonces toda la importancia de sus palabras; y haciéndome unas señas con la cabeza se marchó por el corredor.
+162. [86|poetic] El calor del Sol es rara vez lo bastante fuerte para producir llama, aunque esté concentrado por gotas de rocío, como ocurre a veces en las comarcas más tropicales.
 
-163. [86|poetic] Si viaja a través del tiempo cincuenta o cien veces más de prisa que nosotros, si recorre un minuto mientras nosotros un segundo, la impresión producida será, naturalmente, tan sólo una cincuentésima o una centésima de lo que sería si no viajase a través del tiempo.
+163. [86|poetic] Caminaba despacio, pues estaba casi agotado, y asimismo cojo, y me sentía hondamente desdichado con la horrible muerte de la pequeña Weena.
 
-164. [86|descriptive] Su chaqueta estaba polvorienta y sucia, manchada de verde en las mangas, y su pelo enmarañado me pareció más gris, ya fuera por el polvo y la suciedad o porque estuviese ahora descolorido.
+164. [86|narrative] Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bellas flores, que me eran desconocidas por completo, y me la puso al cuello.
 
-165. [86|descriptive] Había allí, por un lado, el macizo de rododendros, negro en la pálida claridad, y por el otro la pequeña pradera, que volví a contemplar.
+165. [86|narrative] Transversalmente a su longitud había innumerables mesas hechas de losas de piedra pulimentada, elevadas, quizá, un pie del suelo, y sobre ellas montones de frutas.
 
-166. [86|descriptive] Sin embargo, su angustia cuando la dejé era muy grande, sus reproches al separarnos eran a veces frenéticos, y creo plenamente que sentí tanta inquietud como consuelo con su afecto.
+166. [86|narrative] Recuerdo también, ya muy avanzada la noche, haber aporreado las matas con mis puños cerrados hasta que mis articulaciones quedaron heridas y sangrantes por las ramas partidas.
 
-167. [86|descriptive] El cráneo y los huesos superiores yacían al lado sobre la capa de polvo; y en un sitio en que el agua de la lluvia había caído por una gotera del techo, aquella osamenta estaba deteriorada.
+167. [86|narrative] Cuando me di cuenta de ello, me despojé rápidamente de la ropa, y vadeando el agua por un sitio más abajo, agarré aquella cosa menuda y la puse a salvo en la orilla.
 
-168. [86|dialogue] Weena, que hacía rodar un erizo de mar sobre el cristal inclinado de una caja, se acercó pronto a mí —mientras miraba yo fijamente alrededor—, me cogió muy tranquilamente la mano y permaneció a mi lado, Al principio me dejó tan sorprendido aquel antiguo monumento de una época intelectual, que no me paré a pensar en las posibilidades que presentaba.
+168. [86|narrative] Así lo hice, y acreciendo un poco la llama con un pedazo de papel que saqué de mi bolsillo, llevé a cabo mi retirada hacia el estrecho túnel.
 
-169. [86|descriptive] Como ustedes saben, siento cierta debilidad por la mecánica, y estaba dispuesto a detenerme entre ellas; tanto más cuanto que la mayoría ofrecían el interés de un rompecabezas, y yo no podía hacer más que vagas conjeturas respecto a su utilidad.
+169. [86|narrative] Estaba rendido, además, después de las excitaciones del día; por eso decidí no afrontar aquello, y pasar en cambio la noche al aire libre en la colina.
 
-170. [86|descriptive] Sin embargo, era evidente que si tenía que agitar las cerillas con mis manos debería abandonar mi leña; así pues, la dejé en el suelo, más bien de mala gana.
+170. [86|narrative] Luché, apartando de mí aquellas ratas humanas, y sujetando la barra con fuerza, la hundí donde juzgué que debían estar sus caras.
 
-171. [86|poetic] El calor del Sol es rara vez lo bastante fuerte para producir llama, aunque esté concentrado por gotas de rocío, como ocurre a veces en las comarcas más tropicales.
+171. [85|descriptive] Supongo que lo leerán ustedes con la suficiente atención; pero no pueden ver al pálido narrador ni su franco rostro en el brillante círculo de la lamparita, ni oír el tono de su voz.
 
-172. [86|poetic] Caminaba despacio, pues estaba casi agotado, y asimismo cojo, y me sentía hondamente desdichado con la horrible muerte de la pequeña Weena.
+172. [85|poetic] Lo cual alteró la opinión que me había formado de ellos por sus vestiduras, sus miembros frágiles y ligeros y sus delicadas facciones.
 
-173. [86|narrative] Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bellas flores, que me eran desconocidas por completo, y me la puso al cuello.
+173. [85|descriptive] Bruscamente tiré la cerilla, y, chocando con algunos de aquellos seres en mi carrera, crucé otra vez, desatinado, el enorme comedor hasta llegar afuera bajo la luz de la Luna.
 
-174. [86|narrative] Transversalmente a su longitud había innumerables mesas hechas de losas de piedra pulimentada, elevadas, quizá, un pie del suelo, y sobre ellas montones de frutas.
+174. [85|poetic] Debo confesar que la satisfacción que sentí por mi primera teoría de una civilización automática y de una Humanidad en decadencia, no duró mucho tiempo.
 
-175. [86|narrative] Recuerdo también, ya muy avanzada la noche, haber aporreado las matas con mis puños cerrados hasta que mis articulaciones quedaron heridas y sangrantes por las ramas partidas.
+175. [85|descriptive] La explicación era tan plausible que la acepté inmediatamente y llegué hasta imaginar el porqué de aquella diferenciación de la especie humana.
 
-176. [86|narrative] Cuando me di cuenta de ello, me despojé rápidamente de la ropa, y vadeando el agua por un sitio más abajo, agarré aquella cosa menuda y la puse a salvo en la orilla.
+176. [85|poetic] Pero apenas hube entrado mi luz se apagó, y en tinieblas pude oír a los Morlocks susurrando como el viento entre las hojas, haciendo un ruido acompasado como la lluvia, mientras se Precipitaban detrás de mí.
 
-177. [86|narrative] Así lo hice, y acreciendo un poco la llama con un pedazo de papel que saqué de mi bolsillo, llevé a cabo mi retirada hacia el estrecho túnel.
+177. [85|dialogue] Difícilmente podrán ustedes imaginar lo nauseabundos e inhumanos que parecían —¡rostros lívidos y sin mentón, ojos grandes, sin párpados, de un gris rosado!— mientras que se paraban en su ceguera y aturdimiento.
 
-178. [86|narrative] Estaba rendido, además, después de las excitaciones del día; por eso decidí no afrontar aquello, y pasar en cambio la noche al aire libre en la colina.
+178. [85|poetic] Poseían todavía la Tierra por consentimiento tácito, desde que los Morlocks, subterráneos hacía innumerables generaciones, habían llegado a encontrar intolerable la superficie iluminada por el Sol.
 
-179. [86|narrative] Y allí, cediendo a un impulso irresistible, escribí mi nombre sobre la nariz de un monstruo de esteatita procedente de Sudamérica, que impresionó en especial mi imaginación.
+179. [85|descriptive] Entonces los altos pináculos del Palacio de Porcelana Verde y el bruñido fulgor de sus muros resurgieron en mi memoria; y al anochecer, llevando a Weena como una niña sobre mi hombro, subí a la colina, hacia el sudoeste.
 
-180. [86|narrative] Luché, apartando de mí aquellas ratas humanas, y sujetando la barra con fuerza, la hundí donde juzgué que debían estar sus caras.
+180. [85|descriptive] Sólo quedaban trozos de vidrio en sus ventanas, y extensas capas del verde revestimiento se habían desprendido de las armaduras metálicas corroídas.
 
-181. [85|descriptive] Supongo que lo leerán ustedes con la suficiente atención; pero no pueden ver al pálido narrador ni su franco rostro en el brillante círculo de la lamparita, ni oír el tono de su voz.
+181. [85|dialogue] Unos cuantos vestigios encogidos y ennegrecidos de lo que habían sido en otro tiempo animales disecados, momias disecadas en frascos que habían contenido antaño alcohol, un polvo marrón de plantas desaparecidas: ¡esto era todo!
 
-182. [85|poetic] Lo cual alteró la opinión que me había formado de ellos por sus vestiduras, sus miembros frágiles y ligeros y sus delicadas facciones.
+182. [85|dialogue] Pero al fin salí a un pequeño claro, y en el mismo momento un Morlock vino equivocado hacia mí, me pasó, ¡y se precipitó derechamente en el fuego!
 
-183. [85|descriptive] Bruscamente tiré la cerilla, y, chocando con algunos de aquellos seres en mi carrera, crucé otra vez, desatinado, el enorme comedor hasta llegar afuera bajo la luz de la Luna.
+183. [85|dialogue] La palpitación grisácea se tornó obscura; entonces —aunque estaba yo viajando todavía a una velocidad prodigiosa— la sucesión parpadeante del día y de la noche, que indicaba por lo general una marcha aminorada, volvió cada vez más acusada.
 
-184. [85|poetic] Debo confesar que la satisfacción que sentí por mi primera teoría de una civilización automática y de una Humanidad en decadencia, no duró mucho tiempo.
+184. [85|poetic] Las rocas a mi alrededor eran de un áspero color rojizo, y el único vestigio de vida que pude ver al principio fue la vegetación intensamente verde que cubría cada punto saliente sobre su cara del sudeste.
 
-185. [85|descriptive] La explicación era tan plausible que la acepté inmediatamente y llegué hasta imaginar el porqué de aquella diferenciación de la especie humana.
+185. [85|dialogue] ¿Pueden ustedes imaginar un cangrejo tan grande como aquella masa, moviendo lentamente sus numerosas patas, bamboleándose, cimbreando sus enormes pinzas, sus largas antenas, como látigos de carretero, ondulantes tentáculos, con sus ojos acechándoles centelleantes a cada lado de su frente metálica?
 
-186. [85|poetic] Pero apenas hube entrado mi luz se apagó, y en tinieblas pude oír a los Morlocks susurrando como el viento entre las hojas, haciendo un ruido acompasado como la lluvia, mientras se Precipitaban detrás de mí.
+186. [85|dialogue] Mientras permanecía así, angustiado y confuso, vi de nuevo aquella cosa movible sobre el banco —no había ahora equivocación posible de que la cosa se movía— resaltar contra el agua roja del mar.
 
-187. [85|dialogue] Difícilmente podrán ustedes imaginar lo nauseabundos e inhumanos que parecían —¡rostros lívidos y sin mentón, ojos grandes, sin párpados, de un gris rosado!— mientras que se paraban en su ceguera y aturdimiento.
+187. [85|dialogue] ¿O marchó hacia el futuro, hacia las edades próximas, en las cuales los hombres son hombres todavía, pero en las que los enigmas de nuestro tiempo están aclarados y sus problemas fastidiosos resueltos?
 
-188. [85|poetic] Poseían todavía la Tierra por consentimiento tácito, desde que los Morlocks, subterráneos hacía innumerables generaciones, habían llegado a encontrar intolerable la superficie iluminada por el Sol.
+188. [85|narrative] Aquí y allá entre la verdura había edificios semejantes a palacios, pero la casa normal y la de campo, que prestan unos rasgos tan característicos a nuestro paisaje inglés, habían desaparecido.
 
-189. [85|descriptive] Entonces los altos pináculos del Palacio de Porcelana Verde y el bruñido fulgor de sus muros resurgieron en mi memoria; y al anochecer, llevando a Weena como una niña sobre mi hombro, subí a la colina, hacia el sudoeste.
+189. [85|narrative] Me daba cuenta de muchas cosas invisibles que contribuían a mi bienestar; pero salvo por una impresión general de organización automática, temo no poder hacerles comprender a ustedes sino muy poco de esa diferencia.
 
-190. [85|descriptive] Sólo quedaban trozos de vidrio en sus ventanas, y extensas capas del verde revestimiento se habían desprendido de las armaduras metálicas corroídas.
+190. [85|narrative] Esto me recordó una pintura en sepia que había visto ejecutar una vez con la tinta de una belemnita fósil hacía millones de años.
 
-191. [85|poetic] El palacio estaba situado en lo más alto de una pendiente herbosa; mirando, antes de entrar allí, hacia el nordeste, me sorprendió ver un ancho estuario, o incluso una ensenada, donde supuse que Wandsworth y Battersea debían haber estado en otro tiempo.
+191. [85|narrative] Y por ello comprendí el olor a madera quemada, el murmullo monótono que se había convertido ahora en un borrascoso estruendo, el resplandor rojizo y la huida de los Morlocks.
 
-192. [85|dialogue] Unos cuantos vestigios encogidos y ennegrecidos de lo que habían sido en otro tiempo animales disecados, momias disecadas en frascos que habían contenido antaño alcohol, un polvo marrón de plantas desaparecidas: ¡esto era todo!
+192. [85|narrative] Algunos se bañaban en el sitio preciso en que había yo salvado a Weena, y esto me asestó de repente una aguda puñalada de dolor.
 
-193. [85|dialogue] Pero al fin salí a un pequeño claro, y en el mismo momento un Morlock vino equivocado hacia mí, me pasó, ¡y se precipitó derechamente en el fuego!
+193. [84|descriptive] Las gentes serias que le tomaban en serio no se sentían nunca seguras de su proceder; sabían en cierto modo que confiar sus reputaciones al juicio de él era como amueblar un cuarto para niños con loza muy fina.
 
-194. [85|dialogue] La palpitación grisácea se tornó obscura; entonces —aunque estaba yo viajando todavía a una velocidad prodigiosa— la sucesión parpadeante del día y de la noche, que indicaba por lo general una marcha aminorada, volvió cada vez más acusada.
+194. [84|descriptive] Muchos de sus oyentes estábamos en la sombra, pues las bujías del salón de fumar no habían sido encendidas, y únicamente estaban iluminadas la cara del Periodista y las piernas del Hombre Silencioso de las rodillas para abajo.
 
-195. [85|poetic] Las rocas a mi alrededor eran de un áspero color rojizo, y el único vestigio de vida que pude ver al principio fue la vegetación intensamente verde que cubría cada punto saliente sobre su cara del sudeste.
+195. [84|dialogue] Sin embargo, me sentí un maestro de escuela rodeado de niños, insistí, y conté con una veintena de nombres substantivos, por lo menos, a mi disposición; luego llegué a los pronombres demostrativos e incluso al verbo «comer».
 
-196. [85|dialogue] ¿Pueden ustedes imaginar un cangrejo tan grande como aquella masa, moviendo lentamente sus numerosas patas, bamboleándose, cimbreando sus enormes pinzas, sus largas antenas, como látigos de carretero, ondulantes tentáculos, con sus ojos acechándoles centelleantes a cada lado de su frente metálica?
+196. [84|dialogue] La obra de mejoramiento de las condiciones de vida —el verdadero proceso civilizador que hace la vida cada vez más segura— había avanzado constantemente hacia su culminación.
 
-197. [85|dialogue] Mientras permanecía así, angustiado y confuso, vi de nuevo aquella cosa movible sobre el banco —no había ahora equivocación posible de que la cosa se movía— resaltar contra el agua roja del mar.
+197. [84|poetic] La ciencia de nuestro tiempo no ha atacado más que una pequeña división del campo de las enfermedades humanas, pero, aun así, extiende sus operaciones de modo constante y persistente.
 
-198. [85|dialogue] ¿O marchó hacia el futuro, hacia las edades próximas, en las cuales los hombres son hombres todavía, pero en las que los enigmas de nuestro tiempo están aclarados y sus problemas fastidiosos resueltos?
+198. [84|poetic] El aire estaba libre de mosquitos, la tierra de malas hierbas y de hongos; por todas partes había frutas y flores deliciosas; brillantes mariposas revoloteaban aquí y allá.
 
-199. [85|narrative] Aquí y allá entre la verdura había edificios semejantes a palacios, pero la casa normal y la de campo, que prestan unos rasgos tan característicos a nuestro paisaje inglés, habían desaparecido.
+199. [84|descriptive] Recuerdo haber recorrido violentamente por dentro y por fuera, a la luz de la Luna, todos los arbustos que rodeaban a la esfinge, y asustado en la incierta claridad a algún animal blanco al que tomé por un cervatillo.
 
-200. [85|narrative] Corrí furiosamente alrededor, como si la máquina pudiera estar oculta en algún rincón, y luego me detuve en seco, agarrándome el pelo con las manos.
+200. [84|descriptive] Estoy seguro de que encontraron mi segunda aparición bastante extraña, surgiendo repentinamente de la tranquila obscuridad con ruidos inarticulados y el chasquido y la llama de una cerilla.
 
-201. [85|narrative] Me daba cuenta de muchas cosas invisibles que contribuían a mi bienestar; pero salvo por una impresión general de organización automática, temo no poder hacerles comprender a ustedes sino muy poco de esa diferencia.
+201. [84|descriptive] Y ese mismo abismo creciente que se debe a los procedimientos más largos y costosos de la educación superior y a las crecientes facilidades y tentaciones por parte de los ricos, hará que cada vez sea menos frecuente el intercambio entre las clases y el ascenso en la posición social por matrimonios entre ellas, que retrasa actualmente la división de nuestra especie a lo largo de líneas de estratificación social.
 
-202. [85|narrative] Esto me recordó una pintura en sepia que había visto ejecutar una vez con la tinta de una belemnita fósil hacía millones de años.
+202. [84|descriptive] Mi plan era ir lo más lejos posible aquella noche, y, luego, hacer un fuego y dormir bajo la protección de su resplandor.
 
-203. [85|narrative] Y por ello comprendí el olor a madera quemada, el murmullo monótono que se había convertido ahora en un borrascoso estruendo, el resplandor rojizo y la huida de los Morlocks.
+203. [84|poetic] La faja de luz que señalaba el Sol había desaparecido hacía largo rato, pues el Sol no se ponía; simplemente se levantaba y descendía por el oeste, mostrándose más grande y más rojo.
 
-204. [85|narrative] Algunos se bañaban en el sitio preciso en que había yo salvado a Weena, y esto me asestó de repente una aguda puñalada de dolor.
+204. [84|dialogue] Hice que la máquina me llevase cien años hacia delante; y había allí el mismo Sol rojo —un poco más grande, un poco más empañado—, el mismo mar moribundo, el mismo aire helado y el mismo amontonamiento de los bastos crustáceos entre la verde hierba y las rojas rocas.
 
-205. [84|descriptive] Las gentes serias que le tomaban en serio no se sentían nunca seguras de su proceder; sabían en cierto modo que confiar sus reputaciones al juicio de él era como amueblar un cuarto para niños con loza muy fina.
+205. [84|poetic] Puede que se haya deslizado en el pasado y caído entre los salvajes y cabelludos bebedores de sangre de la Edad de Piedra sin pulimentar; en los abismos del mar cretáceo; o entre los grotescos saurios, los inmensos animales reptadores de la época jurásica.
 
-206. [84|descriptive] Muchos de sus oyentes estábamos en la sombra, pues las bujías del salón de fumar no habían sido encendidas, y únicamente estaban iluminadas la cara del Periodista y las piernas del Hombre Silencioso de las rodillas para abajo.
+206. [84|narrative] Por ejemplo, he aquí el retrato de un hombre a los ocho años, otro a los quince, otro a los diecisiete, otro a los veintitrés, y así sucesivamente.
 
-207. [84|dialogue] Sin embargo, me sentí un maestro de escuela rodeado de niños, insistí, y conté con una veintena de nombres substantivos, por lo menos, a mi disposición; luego llegué a los pronombres demostrativos e incluso al verbo «comer».
+207. [84|narrative] Y la institución de la familia y las emociones que entraña, los celos feroces, la ternura por los hijos, la abnegación de los padres, todo ello encuentra su justificación y su apoyo en los peligros inminentes que amenazan a los jóvenes.
 
-208. [84|dialogue] La obra de mejoramiento de las condiciones de vida —el verdadero proceso civilizador que hace la vida cada vez más segura— había avanzado constantemente hacia su culminación.
+208. [84|narrative] Había yo calculado la resistencia de la palanca con bastante corrección, pues al minuto de esfuerzos se partió, y me uní a Weena con una maza en la mano, más que suficiente, creía yo, para romper el cráneo de cualquier Morlock que pudiese encontrar.
 
-209. [84|poetic] La ciencia de nuestro tiempo no ha atacado más que una pequeña división del campo de las enfermedades humanas, pero, aun así, extiende sus operaciones de modo constante y persistente.
+209. [84|narrative] Detrás, otra parte del bosque incendiado, con lenguas amarillas que se retorcían, cercando por completo el espacio con una barrera de fuego.
 
-210. [84|poetic] El aire estaba libre de mosquitos, la tierra de malas hierbas y de hongos; por todas partes había frutas y flores deliciosas; brillantes mariposas revoloteaban aquí y allá.
+210. [84|narrative] La puerta del extremo inferior se abrió, y ella se deslizó tranquilamente en el laboratorio, de espaldas, y desapareció detrás de la puerta por donde había entrado antes.
 
-211. [84|descriptive] Recuerdo haber recorrido violentamente por dentro y por fuera, a la luz de la Luna, todos los arbustos que rodeaban a la esfinge, y asustado en la incierta claridad a algún animal blanco al que tomé por un cervatillo.
+211. [83|descriptive] El fuego ardía fulgurante y el suave resplandor de las lámparas incandescentes, en forma de lirios de plata, se prendía en las burbujas que destellaban y subían dentro de nuestras copas.
 
-212. [84|descriptive] Estoy seguro de que encontraron mi segunda aparición bastante extraña, surgiendo repentinamente de la tranquila obscuridad con ruidos inarticulados y el chasquido y la llama de una cerilla.
+212. [83|dialogue] Los otros concurrentes eran Blank, el mencionado Director, cierto periodista, y otro —un hombre tranquilo, tímido, con barba— a quien yo no conocía y que, por lo que pude observar, no despegó los labios en toda la noche.
 
-213. [84|descriptive] Y ese mismo abismo creciente que se debe a los procedimientos más largos y costosos de la educación superior y a las crecientes facilidades y tentaciones por parte de los ricos, hará que cada vez sea menos frecuente el intercambio entre las clases y el ascenso en la posición social por matrimonios entre ellas, que retrasa actualmente la división de nuestra especie a lo largo de líneas de estratificación social.
+213. [83|descriptive] Su pelo, que estaba rizado por igual, terminaba en punta sobre el cuello y las mejillas; no se veía el más leve indicio de vello en su cara, y sus orejas eran singularmente menudas.
 
-214. [84|descriptive] Mi plan era ir lo más lejos posible aquella noche, y, luego, hacer un fuego y dormir bajo la protección de su resplandor.
+214. [83|dialogue] Pero las frutas eran en verdad deliciosas; una en particular, que pareció estar en sazón durante todo el tiempo que permanecí allí —una fruta harinosa de envoltura triangular—, era especialmente sabrosa, e hice de ella mi alimento habitual.
 
-215. [84|poetic] La faja de luz que señalaba el Sol había desaparecido hacía largo rato, pues el Sol no se ponía; simplemente se levantaba y descendía por el oeste, mostrándose más grande y más rojo.
+215. [83|dialogue] Mejoramos nuestras plantas y nuestros animales favoritos —¡y qué pocos son!— gradualmente, por vía selectiva; ora un melocotón mejor, ora unas uvas sin pepita, ora una flor más grande y perfumada, ora una raza de ganado vacuno más conveniente.
 
-216. [84|poetic] El cielo rojo al oriente, el norte entenebrecido, el salobre Mar Muerto, la playa cubierta de guijarros donde se arrastraban aquellos inmundos, lentos y excitados monstruos; el verde uniforme de aspecto venenoso de las plantas de liquen, aquel aire enrarecido que desgarraba los pulmones: todo contribuía a crear aquel aspecto aterrador.
+216. [83|poetic] Este reajuste, digo yo, debe haber sido hecho y bien hecho, realmente para siempre, en el espacio de tiempo a través del cual mi máquina había saltado.
 
-217. [84|dialogue] Hice que la máquina me llevase cien años hacia delante; y había allí el mismo Sol rojo —un poco más grande, un poco más empañado—, el mismo mar moribundo, el mismo aire helado y el mismo amontonamiento de los bastos crustáceos entre la verde hierba y las rojas rocas.
+217. [83|poetic] Era indudable que la exquisita belleza de los edificios que yo veía era el resultado de las últimas agitaciones de la energía ahora sin fin determinado de la Humanidad, antes de haberse asentado en la perfecta armonía con las condiciones bajo las cuales vivía: el florecimiento de ese triunfo que fue el comienzo de la última gran paz.
 
-218. [84|poetic] Puede que se haya deslizado en el pasado y caído entre los salvajes y cabelludos bebedores de sangre de la Edad de Piedra sin pulimentar; en los abismos del mar cretáceo; o entre los grotescos saurios, los inmensos animales reptadores de la época jurásica.
+218. [83|dialogue] ¿Qué podría él saber de las compañías de ferrocarriles, de los movimientos sociales, del teléfono y el telégrafo, de la compañía de envío de paquetes a domicilio, de los giros postales y de otras cosas parecidas?
 
-219. [84|narrative] Por ejemplo, he aquí el retrato de un hombre a los ocho años, otro a los quince, otro a los diecisiete, otro a los veintitrés, y así sucesivamente.
+219. [83|dialogue] Bien, pues una mañana muy calurosa —la cuarta, creo, de mi estancia—, cuando intentaba resguardarme del calor y de la reverberación entre algunas ruinas colosales cerca del gran edificio donde dormía y comía, ocurrió una cosa extraña.
 
-220. [84|narrative] Y la institución de la familia y las emociones que entraña, los celos feroces, la ternura por los hijos, la abnegación de los padres, todo ello encuentra su justificación y su apoyo en los peligros inminentes que amenazan a los jóvenes.
+220. [83|descriptive] Encendí una cerilla y, mirando hasta el fondo, vi agitarse una pequeña y blanca criatura con unos ojos brillantes que me miraban fijamente.
 
-221. [84|narrative] Había yo calculado la resistencia de la palanca con bastante corrección, pues al minuto de esfuerzos se partió, y me uní a Weena con una maza en la mano, más que suficiente, creía yo, para romper el cráneo de cualquier Morlock que pudiese encontrar.
+221. [83|descriptive] La presencia de tubos de ventilación y de los pozos a lo largo de las laderas de las colinas, por todas partes en realidad, excepto a lo largo del valle por donde corría el río, revelaba cuán universales eran sus ramificaciones.
 
-222. [84|narrative] Detrás, otra parte del bosque incendiado, con lenguas amarillas que se retorcían, cercando por completo el espacio con una barrera de fuego.
+222. [83|descriptive] Pero, en cuanto encendí una cerilla con objeto de verlos, huyeron veloces, desapareciendo dentro de unos sombríos canales y túneles, desde los cuales me miraban sus ojos del modo más extraño.
 
-223. [84|narrative] La puerta del extremo inferior se abrió, y ella se deslizó tranquilamente en el laboratorio, de espaldas, y desapareció detrás de la puerta por donde había entrado antes.
+223. [83|dialogue] Pero me dije a mí mismo: «Estás aquí ahora para eso», y avancé a lo largo del túnel, sintiendo que el ruido de la maquinaria se hacía más fuerte.
 
-224. [83|descriptive] El fuego ardía fulgurante y el suave resplandor de las lámparas incandescentes, en forma de lirios de plata, se prendía en las burbujas que destellaban y subían dentro de nuestras copas.
+224. [83|descriptive] Recordé que la tarde se hallaba ya muy avanzada y que yo no tenía aún ni arma, ni refugio, ni medios de hacer fuego.
 
-225. [83|dialogue] Los otros concurrentes eran Blank, el mencionado Director, cierto periodista, y otro —un hombre tranquilo, tímido, con barba— a quien yo no conocía y que, por lo que pude observar, no despegó los labios en toda la noche.
+225. [83|poetic] Luego, con una idea repentina, la solté y volví hacia una máquina de la cual sobresalía una palanca bastante parecida a las de las garitas de señales en las estaciones.
 
-226. [83|poetic] Vi una grande y espléndida arquitectura elevarse a mi alrededor, más sólida que cualquiera de los edificios de nuestro tiempo; y, sin embargo, parecía construida de trémula luz y de niebla.
+226. [83|poetic] Pronto noté lo seco que estaba el follaje encima de mí, pues desde mi llegada en la Máquina del Tiempo, una semana antes, no había llovido.
 
-227. [83|descriptive] Su pelo, que estaba rizado por igual, terminaba en punta sobre el cuello y las mejillas; no se veía el más leve indicio de vello en su cara, y sus orejas eran singularmente menudas.
+227. [83|descriptive] Pero al final, por encima de las encalmadas llamas del incendio, por encima de las flotantes masas de humo negro, el blancor y la negrura de los troncos, y el número decreciente de aquellos seres indistintos, se difundió la blanca luz del día.
 
-228. [83|dialogue] Pero las frutas eran en verdad deliciosas; una en particular, que pareció estar en sazón durante todo el tiempo que permanecí allí —una fruta harinosa de envoltura triangular—, era especialmente sabrosa, e hice de ella mi alimento habitual.
+228. [83|poetic] No puedo describir hasta qué punto alivió mi dolor el pensar que ella se había librado del horrible destino que parecía estarle reservado.
 
-229. [83|dialogue] Mejoramos nuestras plantas y nuestros animales favoritos —¡y qué pocos son!— gradualmente, por vía selectiva; ora un melocotón mejor, ora unas uvas sin pepita, ora una flor más grande y perfumada, ora una raza de ganado vacuno más conveniente.
+229. [83|narrative] Allí está ahora, un poco fatigado por el viaje, realmente; una de las barras de marfil está agrietada y uno de los carriles de bronce, torcido; pero el resto sigue bastante firme.
 
-230. [83|poetic] Este reajuste, digo yo, debe haber sido hecho y bien hecho, realmente para siempre, en el espacio de tiempo a través del cual mi máquina había saltado.
+230. [83|narrative] En un lugar me encontré de repente cerca del modelo de una mina de estaño, y entonces por el más simple azar descubrí dentro de una caja hermética dos cartuchos de dinamita.
 
-231. [83|poetic] Era indudable que la exquisita belleza de los edificios que yo veía era el resultado de las últimas agitaciones de la energía ahora sin fin determinado de la Humanidad, antes de haberse asentado en la perfecta armonía con las condiciones bajo las cuales vivía: el florecimiento de ese triunfo que fue el comienzo de la última gran paz.
+231. [83|narrative] No me habían hecho nunca la impresión de ser muy resistentes, y esperaba que mi barra de hierro no sería del todo inadecuada para aquella obra.
 
-232. [83|dialogue] ¿Qué podría él saber de las compañías de ferrocarriles, de los movimientos sociales, del teléfono y el telégrafo, de la compañía de envío de paquetes a domicilio, de los giros postales y de otras cosas parecidas?
+232. [82|poetic] Wells 1 - Introducción El Viajero a través del Tiempo (pues convendrá llamarle así al hablar de él) nos exponía una misteriosa cuestión.
 
-233. [83|dialogue] Bien, pues una mañana muy calurosa —la cuarta, creo, de mi estancia—, cuando intentaba resguardarme del calor y de la reverberación entre algunas ruinas colosales cerca del gran edificio donde dormía y comía, ocurrió una cosa extraña.
+233. [82|poetic] El Viajero a través del Tiempo empujó su copa hacia el Hombre Silencioso y la golpeó con la uña, a lo cual el Hombre Silencioso, que lo estaba mirando fijamente a la cara, se estremeció convulsivamente, y le sirvió vino.
 
-234. [83|descriptive] Encendí una cerilla y, mirando hasta el fondo, vi agitarse una pequeña y blanca criatura con unos ojos brillantes que me miraban fijamente.
+234. [82|dialogue] Era una ligera criatura —de una estatura quizá de cuatro pies— vestida con una túnica púrpura, ceñida al talle por un cinturón de cuero.
 
-235. [83|descriptive] La presencia de tubos de ventilación y de los pozos a lo largo de las laderas de las colinas, por todas partes en realidad, excepto a lo largo del valle por donde corría el río, revelaba cuán universales eran sus ramificaciones.
+235. [82|dialogue] Y, en seguida, uno de ellos me hacía de repente una pregunta que probaba que su nivel intelectual era el de un niño de cinco años, que me preguntaba en realidad ¡si había yo llegado del Sol con la tronada!
 
-236. [83|descriptive] Pero, en cuanto encendí una cerilla con objeto de verlos, huyeron veloces, desapareciendo dentro de unos sombríos canales y túneles, desde los cuales me miraban sus ojos del modo más extraño.
+236. [82|descriptive] El suelo estaba hecho de inmensos bloques de un metal muy duro, no de planchas ni de losas; pensó que debía estar tan desgastado por el ir y venir de pasadas generaciones, debido a los hondos surcos que había a lo largo de los caminos más frecuentados.
 
-237. [83|dialogue] Pero me dije a mí mismo: «Estás aquí ahora para eso», y avancé a lo largo del túnel, sintiendo que el ruido de la maquinaria se hacía más fuerte.
+237. [82|poetic] El Sol se había puesto ya por debajo del horizonte y el oeste era de oro llameante, tocado por algunas barras horizontales de púrpura y carmesí.
 
-238. [83|descriptive] Recordé que la tarde se hallaba ya muy avanzada y que yo no tenía aún ni arma, ni refugio, ni medios de hacer fuego.
+238. [82|poetic] Decidí apartar la idea de mi Máquina del Tiempo y el misterio de las puertas de bronce de la esfinge hasta donde fuera posible, en un rincón de mi memoria, esperando que mi creciente conocimiento me llevase a ella por un camino natural.
 
-239. [83|poetic] Luego, con una idea repentina, la solté y volví hacia una máquina de la cual sobresalía una palanca bastante parecida a las de las garitas de señales en las estaciones.
+239. [82|poetic] Los que habían nacido para ser desdichados o rebeldes, murieron; y finalmente, al ser permanente el equilibrio, los supervivientes acabaron por estar adaptados a las condiciones de la vida subterránea y tan satisfechos en su medio como la gente del Mundo Superior en el suyo.
 
-240. [83|poetic] Pronto noté lo seco que estaba el follaje encima de mí, pues desde mi llegada en la Máquina del Tiempo, una semana antes, no había llovido.
+240. [82|descriptive] No se me había ocurrido nunca hasta entonces que hubiera necesidad de economizarlas, y gasté casi la mitad de la caja en asombrar a los habitantes del Mundo Superior, para quienes el fuego era una novedad.
 
-241. [83|descriptive] Pero al final, por encima de las encalmadas llamas del incendio, por encima de las flotantes masas de humo negro, el blancor y la negrura de los troncos, y el número decreciente de aquellos seres indistintos, se difundió la blanca luz del día.
+241. [82|dialogue] Pensé entonces —aunque no seguí nunca más lejos este pensamiento—, qué debía haber sucedido, o qué sucedía, a los seres que vivían en el mar.
 
-242. [83|poetic] No puedo describir hasta qué punto alivió mi dolor el pensar que ella se había librado del horrible destino que parecía estarle reservado.
+242. [82|descriptive] Vi entonces, levantándose extraño y ahilado en el centro del vestíbulo, lo que era sin duda la parte inferior de un inmenso esqueleto.
 
-243. [83|narrative] Allí está ahora, un poco fatigado por el viaje, realmente; una de las barras de marfil está agrietada y uno de los carriles de bronce, torcido; pero el resto sigue bastante firme.
+243. [82|dialogue] En otro sitio había una amplia exposición de ídolos —polinésicos, mexicanos, griegos, fenicios —, creo que de todos los países de la Tierra.
 
-244. [83|narrative] No pude encontrarle al principio; pero después de un rato entre la profunda obscuridad, llegué a una de aquellas aberturas redondas y parecidas a un pozo de que ya les he hablado a ustedes, semiobstruida por una columna derribada.
+244. [82|narrative] Cogió él una de las mesitas octogonales que había esparcidas alrededor de la habitación y la colocó enfrente de la chimenea, con dos patas sobre la alfombra.
 
-245. [83|narrative] En un lugar me encontré de repente cerca del modelo de una mina de estaño, y entonces por el más simple azar descubrí dentro de una caja hermética dos cartuchos de dinamita.
+245. [82|narrative] Una vez allí, tuvieron, sin duda, que pagar un canon nada reducido por la ventilación de sus cavernas; y si se negaban, los mataban de hambre o los asfixiaban para hacerles pagar los atrasos.
 
-246. [83|narrative] No me habían hecho nunca la impresión de ser muy resistentes, y esperaba que mi barra de hierro no sería del todo inadecuada para aquella obra.
+246. [82|narrative] Temía yo abrirme camino entre toda aquella maquinaria en la obscuridad, y solamente con la última llama descubrí que mi provisión de cerillas se había agotado.
 
-247. [83|narrative] Sin embargo, de vez en cuando uno de ellos venía directamente hacia mí, causándome un estremecimiento de horror que hacía que le rehuyese con toda premura.
+247. [82|narrative] Parece extraño cómo aquel recuerdo me obsesionó; no lo despertó, por decirlo así, el curso de mis meditaciones, sino que surgió casi como una interrogación desde fuera.
 
-248. [82|poetic] Wells 1 - Introducción El Viajero a través del Tiempo (pues convendrá llamarle así al hablar de él) nos exponía una misteriosa cuestión.
+248. [82|narrative] Allí había aún el mismo bello paisaje, el mismo abundante follaje; los mismos espléndidos palacios y magníficas ruinas, el mismo río plateado corriendo entre sus fértiles orillas.
 
-249. [82|poetic] El Viajero a través del Tiempo empujó su copa hacia el Hombre Silencioso y la golpeó con la uña, a lo cual el Hombre Silencioso, que lo estaba mirando fijamente a la cara, se estremeció convulsivamente, y le sirvió vino.
+249. [81|descriptive] Luego, sonriendo aún levemente y con las manos hundidas en los bolsillos de sus pantalones, salió despacio de la habitación y oímos sus zapatillas arrastrarse por el largo corredor hacia su laboratorio.
 
-250. [82|dialogue] Era una ligera criatura —de una estatura quizá de cuatro pies— vestida con una túnica púrpura, ceñida al talle por un cinturón de cuero.
+250. [81|poetic] Su cara sonrosada me recordó mucho la clase de belleza de los tísicos, esa belleza hética de la que tanto hemos oído hablar.
 
-251. [82|dialogue] Y, en seguida, uno de ellos me hacía de repente una pregunta que probaba que su nivel intelectual era el de un niño de cinco años, que me preguntaba en realidad ¡si había yo llegado del Sol con la tronada!
+251. [81|dialogue] ¡Piensen, además, qué escasa distancia hay entre un negro y un blanco de nuestro propio tiempo, y qué extenso espacio existía entre aquellos seres de la Edad de oro y yo!
 
-252. [82|descriptive] El suelo estaba hecho de inmensos bloques de un metal muy duro, no de planchas ni de losas; pensó que debía estar tan desgastado por el ir y venir de pasadas generaciones, debido a los hondos surcos que había a lo largo de los caminos más frecuentados.
+252. [81|poetic] Al principio, procediendo conforme a los problemas de nuestra propia época, me parecía claro como la luz del día que la extensión gradual de las actuales diferencias meramente temporales y sociales entre el Capitalista y el Trabajador era la clave de la situación entera.
 
-253. [82|poetic] El Sol se había puesto ya por debajo del horizonte y el oeste era de oro llameante, tocado por algunas barras horizontales de púrpura y carmesí.
+253. [81|dialogue] Además, la tendencia exclusiva de la gente rica —debida, sin duda, al creciente refinamiento de su educación y al amplio abismo en aumento entre ella y la ruda violencia de la gente pobre— la lleva ya a acotar, en su interés, considerables partes de la superficie del país.
 
-254. [82|poetic] Sin embargo, estaba seguro de una cosa: salvo que alguna otra época hubiera construido un duplicado exacto, la máquina no podía haberse movido a través del tiempo.
+254. [81|poetic] Y fue ya largo rato después de ponerse el Sol cuando llegué a la vista del palacio, que se recortaba en negro sobre el amarillo pálido del cielo.
 
-255. [82|poetic] Decidí apartar la idea de mi Máquina del Tiempo y el misterio de las puertas de bronce de la esfinge hasta donde fuera posible, en un rincón de mi memoria, esperando que mi creciente conocimiento me llevase a ella por un camino natural.
+255. [81|dialogue] Globos blancos pendían, a intervalos, del techo —muchos de ellos rajados y rotos — indicando que aquel sitio había estado al principio iluminado artificialmente.
 
-256. [82|poetic] Los que habían nacido para ser desdichados o rebeldes, murieron; y finalmente, al ser permanente el equilibrio, los supervivientes acabaron por estar adaptados a las condiciones de la vida subterránea y tan satisfechos en su medio como la gente del Mundo Superior en el suyo.
+256. [81|descriptive] Recorrí galería tras galería, polvorientas, silenciosas, con frecuencia ruinosas; los objetos allí expuestos eran a veces meros montones de herrumbre y de lignito, en algunos casos recientes.
 
-257. [82|descriptive] No se me había ocurrido nunca hasta entonces que hubiera necesidad de economizarlas, y gasté casi la mitad de la caja en asombrar a los habitantes del Mundo Superior, para quienes el fuego era una novedad.
+257. [81|poetic] Creo, en realidad, que, de no haber sido así, me hubiese precipitado inmediatamente y hecho saltar la Esfinge, las puertas de bronce y (como quedó probado) mis probabilidades de encontrar la Máquina del Tiempo, acabando con todo.
 
-258. [82|dialogue] Pensé entonces —aunque no seguí nunca más lejos este pensamiento—, qué debía haber sucedido, o qué sucedía, a los seres que vivían en el mar.
+258. [81|descriptive] Si podíamos atravesarla y llegar a la ladera pelada, me parecía que encontraríamos un sitio donde descansar con plena seguridad; pensó que con mis cerillas y mi alcanfor lograría iluminar mi camino por el bosque.
 
-259. [82|descriptive] Vi entonces, levantándose extraño y ahilado en el centro del vestíbulo, lo que era sin duda la parte inferior de un inmenso esqueleto.
+259. [81|descriptive] Al maniobrar con mis cerillas y con Weena, había yo dado varias vueltas sobre mí mismo, y ahora no tenía ni la más ligera idea de la dirección en que estaba mi camino.
 
-260. [82|dialogue] En otro sitio había una amplia exposición de ídolos —polinésicos, mexicanos, griegos, fenicios —, creo que de todos los países de la Tierra.
+260. [81|descriptive] Empecé a pensar en esta casa mía, en este rincón junto al fuego, en algunos de ustedes, y con tales pensamientos se apoderó de mí un anhelo que era un sufrimiento.
 
-261. [82|narrative] Cogió él una de las mesitas octogonales que había esparcidas alrededor de la habitación y la colocó enfrente de la chimenea, con dos patas sobre la alfombra.
+261. [81|poetic] Las alternativas de día y de noche se hicieron más y más lentas, así como también el paso del Sol por el cielo, aunque parecían extenderse a través de las centurias.
 
-262. [82|narrative] Una vez allí, tuvieron, sin duda, que pagar un canon nada reducido por la ventilación de sus cavernas; y si se negaban, los mataban de hambre o los asfixiaban para hacerles pagar los atrasos.
+262. [81|descriptive] Sólida al tacto pues alargué la mano y palpé sus barras con manchas y tiznes color marrón sobre el marfil, y briznas de hierba y mechones de musgo adheridos a su parte inferior, y una de las barras torcida oblicuamente.
 
-263. [82|narrative] Temía yo abrirme camino entre toda aquella maquinaria en la obscuridad, y solamente con la última llama descubrí que mi provisión de cerillas se había agotado.
+263. [81|narrative] De ese Espacio, tal como nuestros matemáticos lo entienden, se dice que tiene tres dimensiones, que pueden llamarse Longitud, Anchura, y Espesor, y que es siempre definible por referencia a tres planos, cada uno de ellos en ángulo recto con los otros.
 
-264. [82|narrative] Parece extraño cómo aquel recuerdo me obsesionó; no lo despertó, por decirlo así, el curso de mis meditaciones, sino que surgió casi como una interrogación desde fuera.
+264. [81|narrative] Viniendo a través de los macizos que crecían junto a la Esfinge Blanca, veía las cabezas y los hombros de unos seres corriendo.
 
-265. [82|narrative] Allí había aún el mismo bello paisaje, el mismo abundante follaje; los mismos espléndidos palacios y magníficas ruinas, el mismo río plateado corriendo entre sus fértiles orillas.
+265. [81|narrative] Venían a mí con gritos anhelantes de asombro, como niños; pero cesaban en seguida de examinarme, y se apartaban para ir en pos de algún otro juguete.
 
-266. [81|descriptive] Luego, sonriendo aún levemente y con las manos hundidas en los bolsillos de sus pantalones, salió despacio de la habitación y oímos sus zapatillas arrastrarse por el largo corredor hacia su laboratorio.
+266. [80|dialogue] Luego, cuando todos hubimos imitado el acto del Doctor, aquél dijo: —Ahora quiero que comprendan ustedes claramente que, al apretar esta palanca, envía la máquina a planear en el futuro y esta otra invierte el movimiento.
 
-267. [81|dialogue] Esta posibilidad se me había ocurrido muchas veces mientras estaba construyendo la máquina; pero entonces la había yo aceptado alegremente, como un riesgo inevitable, ¡uno de esos riesgos que un hombre tiene que admitir!
+267. [80|descriptive] Yo podría parecer algún animal salvaje del viejo Mundo, pero el más espantoso por nuestra común semejanza, un ser inmundo que habría que matar inmediatamente.
 
-268. [81|poetic] Su cara sonrosada me recordó mucho la clase de belleza de los tísicos, esa belleza hética de la que tanto hemos oído hablar.
+268. [80|descriptive] Los cristales de color, que mostraban un solo modelo geométrico, estaban rotos en muchos sitios y las cortinas que colgaban sobre el extremo inferior aparecían cubiertas de polvo.
 
-269. [81|dialogue] ¡Piensen, además, qué escasa distancia hay entre un negro y un blanco de nuestro propio tiempo, y qué extenso espacio existía entre aquellos seres de la Edad de oro y yo!
+269. [80|poetic] Se origina aquí un sentimiento que crecerá contra los celos conyugales, contra la maternidad feroz, contra toda clase de pasiones; cosas inútiles ahora, cosas que nos hacen sentirnos molestos, supervivientes salvajes y discordantes en una vida refinada y grata.
 
-270. [81|poetic] Al principio, procediendo conforme a los problemas de nuestra propia época, me parecía claro como la luz del día que la extensión gradual de las actuales diferencias meramente temporales y sociales entre el Capitalista y el Trabajador era la clave de la situación entera.
+270. [80|descriptive] A menos que no haya tenido en cuenta algún punto sutil, su lengua parecía excesivamente simple, compuesta casi exclusivamente de substantivos concretos y verbos.
 
-271. [81|dialogue] Además, la tendencia exclusiva de la gente rica —debida, sin duda, al creciente refinamiento de su educación y al amplio abismo en aumento entre ella y la ruda violencia de la gente pobre— la lleva ya a acotar, en su interés, considerables partes de la superficie del país.
+271. [80|dialogue] Recuerdo haberme deslizado sin ruido en el gran vestíbulo donde aquellos seres dormían a la luz de la Luna —aquella noche Weena se hallaba entre ellas— y me sentía tranquilizado con su presencia.
 
-272. [81|poetic] Y fue ya largo rato después de ponerse el Sol cuando llegué a la vista del palacio, que se recortaba en negro sobre el amarillo pálido del cielo.
+272. [80|descriptive] Viviendo, como vivían, en las que me parecían tinieblas impenetrables, sus ojos eran de un tamaño anormal y muy sensibles, como lo son las pupilas de los peces de los fondos abisales, y reflejaban la luz de idéntica manera.
 
-273. [81|dialogue] Globos blancos pendían, a intervalos, del techo —muchos de ellos rajados y rotos — indicando que aquel sitio había estado al principio iluminado artificialmente.
+273. [80|descriptive] Vagué durante la tarde a lo largo del valle del Támesis, pero no pude encontrar nada que se ofreciese a mi mente como inaccesible.
 
-274. [81|descriptive] Recorrí galería tras galería, polvorientas, silenciosas, con frecuencia ruinosas; los objetos allí expuestos eran a veces meros montones de herrumbre y de lignito, en algunos casos recientes.
+274. [80|descriptive] Por grande que hubiera sido su degeneración intelectual, los Eloi habían conservado en demasía la forma humana para no tener derecho a mi simpatía y hacerme compartir a la fuerza su degradación y su miedo.
 
-275. [81|poetic] Creo, en realidad, que, de no haber sido así, me hubiese precipitado inmediatamente y hecho saltar la Esfinge, las puertas de bronce y (como quedó probado) mis probabilidades de encontrar la Máquina del Tiempo, acabando con todo.
+275. [80|narrative] Cogí la palanca de arranque con una mano y la de freno con la otra, apreté con fuerza la primera, y casi inmediatamente la segunda.
 
-276. [81|descriptive] Si podíamos atravesarla y llegar a la ladera pelada, me parecía que encontraríamos un sitio donde descansar con plena seguridad; pensó que con mis cerillas y mi alcanfor lograría iluminar mi camino por el bosque.
+276. [80|narrative] Con una grata ausencia de ceremonia comenzaron a comer las frutas con sus manos, arrojando las pieles, las pepitas y lo demás, dentro de unas aberturas redondas que había a los lados de las mesas.
 
-277. [81|descriptive] Al maniobrar con mis cerillas y con Weena, había yo dado varias vueltas sobre mí mismo, y ahora no tenía ni la más ligera idea de la dirección en que estaba mi camino.
+277. [80|narrative] Las frutas parecían una cosa adecuada para iniciar aquel aprendizaje, y cogiendo una la levanté esbozando una serie de sonidos y de gestos interrogativos.
 
-278. [81|descriptive] Empecé a pensar en esta casa mía, en este rincón junto al fuego, en algunos de ustedes, y con tales pensamientos se apoderó de mí un anhelo que era un sufrimiento.
+278. [80|narrative] Sentado sobre el borde de aquellos pozos, y escrutando su obscuro fondo, no pude divisar ningún centelleo de agua, ni conseguir ningún reflejo con la llama de una cerilla.
 
-279. [81|poetic] Las alternativas de día y de noche se hicieron más y más lentas, así como también el paso del Sol por el cielo, aunque parecían extenderse a través de las centurias.
+279. [80|narrative] Además, arrojé un pedazo de papel en el orificio de uno de ellos; y en vez de descender revoloteando lentamente, fue velozmente aspirado y se perdió de vista.
 
-280. [81|descriptive] Sólida al tacto pues alargué la mano y palpé sus barras con manchas y tiznes color marrón sobre el marfil, y briznas de hierba y mechones de musgo adheridos a su parte inferior, y una de las barras torcida oblicuamente.
-
-281. [81|narrative] De ese Espacio, tal como nuestros matemáticos lo entienden, se dice que tiene tres dimensiones, que pueden llamarse Longitud, Anchura, y Espesor, y que es siempre definible por referencia a tres planos, cada uno de ellos en ángulo recto con los otros.
-
-282. [81|narrative] Viniendo a través de los macizos que crecían junto a la Esfinge Blanca, veía las cabezas y los hombros de unos seres corriendo.
-
-283. [81|narrative] Venían a mí con gritos anhelantes de asombro, como niños; pero cesaban en seguida de examinarme, y se apartaban para ir en pos de algún otro juguete.
-
-284. [80|dialogue] Luego, cuando todos hubimos imitado el acto del Doctor, aquél dijo: —Ahora quiero que comprendan ustedes claramente que, al apretar esta palanca, envía la máquina a planear en el futuro y esta otra invierte el movimiento.
-
-285. [80|descriptive] Yo podría parecer algún animal salvaje del viejo Mundo, pero el más espantoso por nuestra común semejanza, un ser inmundo que habría que matar inmediatamente.
-
-286. [80|descriptive] Los cristales de color, que mostraban un solo modelo geométrico, estaban rotos en muchos sitios y las cortinas que colgaban sobre el extremo inferior aparecían cubiertas de polvo.
-
-287. [80|poetic] Se origina aquí un sentimiento que crecerá contra los celos conyugales, contra la maternidad feroz, contra toda clase de pasiones; cosas inútiles ahora, cosas que nos hacen sentirnos molestos, supervivientes salvajes y discordantes en una vida refinada y grata.
-
-288. [80|descriptive] A menos que no haya tenido en cuenta algún punto sutil, su lengua parecía excesivamente simple, compuesta casi exclusivamente de substantivos concretos y verbos.
-
-289. [80|dialogue] Recuerdo haberme deslizado sin ruido en el gran vestíbulo donde aquellos seres dormían a la luz de la Luna —aquella noche Weena se hallaba entre ellas— y me sentía tranquilizado con su presencia.
-
-290. [80|descriptive] Viviendo, como vivían, en las que me parecían tinieblas impenetrables, sus ojos eran de un tamaño anormal y muy sensibles, como lo son las pupilas de los peces de los fondos abisales, y reflejaban la luz de idéntica manera.
-
-291. [80|descriptive] Vagué durante la tarde a lo largo del valle del Támesis, pero no pude encontrar nada que se ofreciese a mi mente como inaccesible.
-
-292. [80|descriptive] Por grande que hubiera sido su degeneración intelectual, los Eloi habían conservado en demasía la forma humana para no tener derecho a mi simpatía y hacerme compartir a la fuerza su degradación y su miedo.
-
-293. [80|narrative] Cogí la palanca de arranque con una mano y la de freno con la otra, apreté con fuerza la primera, y casi inmediatamente la segunda.
-
-294. [80|narrative] Con una grata ausencia de ceremonia comenzaron a comer las frutas con sus manos, arrojando las pieles, las pepitas y lo demás, dentro de unas aberturas redondas que había a los lados de las mesas.
-
-295. [80|narrative] Las frutas parecían una cosa adecuada para iniciar aquel aprendizaje, y cogiendo una la levanté esbozando una serie de sonidos y de gestos interrogativos.
-
-296. [80|narrative] Sentado sobre el borde de aquellos pozos, y escrutando su obscuro fondo, no pude divisar ningún centelleo de agua, ni conseguir ningún reflejo con la llama de una cerilla.
-
-297. [80|narrative] Además, arrojé un pedazo de papel en el orificio de uno de ellos; y en vez de descender revoloteando lentamente, fue velozmente aspirado y se perdió de vista.
-
-298. [80|narrative] Según esa teoría habrían crecido de modo innumerable dentro de unos ochocientos mil años a contar de esta fecha, y no sería muy sorprendente ver cuatro a la vez.
+280. [80|narrative] Según esa teoría habrían crecido de modo innumerable dentro de unos ochocientos mil años a contar de esta fecha, y no sería muy sorprendente ver cuatro a la vez.
 

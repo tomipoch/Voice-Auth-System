@@ -1,5 +1,5 @@
 # El-Principito
-# Total frases: 52 (filtradas y balanceadas)
+# Total frases: 54 (filtradas y balanceadas)
 # ========================================
 
 
@@ -20,7 +20,7 @@
 7. [80|poetic] Yo poseo las estrellas porque jamás, nadie antes que yo, soñó con poseerlas.
 
 
-## MEDIUM (7 frases)
+## MEDIUM (8 frases)
 
 1. [87|dialogue] Suspiró nostálgico y se dijo aún: Éste es el único de quien pude haberme hecho amigo.
 
@@ -30,16 +30,18 @@
 
 4. [85|dialogue] Después de meditar en silencio, respondió: —Me gusta la caja que me has regalado porque de noche le servirá de casa.
 
-5. [82|narrative] Estaba allí, erguida hacia el principito, una de ésas serpientes amarillas que os ejecutan en treinta segundos.
+5. [83|narrative] Cuando encontré alguna que me pareció un poco lúcida, hice la experiencia de mi dibujo número 1, que siempre he conservado.
 
-6. [81|narrative] Las únicas montañas que había conocido eran los tres volcanes que le llegaban a la rodilla.
+6. [82|narrative] Estaba allí, erguida hacia el principito, una de ésas serpientes amarillas que os ejecutan en treinta segundos.
 
-7. [80|descriptive] Cuando era muchachito vivía yo en una antigua casa y la leyenda contaba que allí había un tesoro escondido.
+7. [81|narrative] Las únicas montañas que había conocido eran los tres volcanes que le llegaban a la rodilla.
+
+8. [80|descriptive] Cuando era muchachito vivía yo en una antigua casa y la leyenda contaba que allí había un tesoro escondido.
 
 
-## HARD (38 frases)
+## HARD (39 frases)
 
-1. [100|descriptive] Corrijo, pues, mi dedicatoria: A LEÓN WERTH CUANDO ERA NIÑO 6 7 CUANDO yo tenía seis años vi una vez una lámina magnífica en un libro sobre el Bosque Virgen que se llamaba “Historias Vividas”.
+1. [100|descriptive] Corrijo, pues, mi dedicatoria: A LEÓN WERTH CUANDO ERA NIÑO CUANDO yo tenía seis años vi una vez una lámina magnífica en un libro sobre el Bosque Virgen que se llamaba “Historias Vividas”.
 
 2. [100|descriptive] A la luz de la luna, miré su frente pálida, sus ojos cerrados, sus mechones de cabellos que temblaban al viento, y me dije: “Lo que veo, aquí, es sólo una corteza.
 
@@ -51,7 +53,7 @@
 
 6. [96|poetic] Si los dos mil millones de habitantes que pueblan la Tierra se tuviesen de pie y un poco apretados, como en un mitin, podrían alojarse fácilmente en una plaza pública de veinte millas de largo por veinte millas de ancho.
 
-7. [95|dialogue] El principito se sentó sobre una piedra y levantó los 55 ojos hacia el cielo: —Me pregunto —dijo— si las estrellas están encendidas a fin de que cada uno pueda encontrar la suya algún día.
+7. [95|dialogue] El principito se sentó sobre una piedra y levantó los ojos hacia el cielo: —Me pregunto —dijo— si las estrellas están encendidas a fin de que cada uno pueda encontrar la suya algún día.
 
 8. [95|narrative] Lo estreché en mis brazos como a un niño, y sin embargo, me pareció que se escurría verticalmente hacia un abismo sin que pudiera hacer nada por retenerlo.
 
@@ -59,7 +61,7 @@
 
 10. [92|dialogue] Me dijo simplemente: —El agua puede también ser buena para el corazón… No comprendí su respuesta, pero me callé… Sabía bien que no había que interrogarlo.
 
-11. [92|descriptive] Cuando yo era 73 pequeño, la luz del árbol de Navidad, la música de la misa de medianoche, la dulzura de las sonrisas formaban todo el resplandor del regalo de Navidad que recibía.
+11. [92|descriptive] Cuando yo era pequeño, la luz del árbol de Navidad, la música de la misa de medianoche, la dulzura de las sonrisas formaban todo el resplandor del regalo de Navidad que recibía.
 
 12. [91|dialogue] Te habré hecho una muy mala jugada… Y volvió a reír: —Será como si te hubiera dado en lugar de estrellas un montón de cascabelitos que saben reír… Y volvió a reír.
 
@@ -77,7 +79,7 @@
 
 19. [85|descriptive] Si entonces un niño llega hacia vosotros, si ríe, si tiene cabellos de oro, si no responde cuando se le interroga, adivinaréis quién es.
 
-20. [84|dialogue] Y con un poco de melancolía, quizá, agregó: —Derecho, siempre adelante de uno, no se puede ir muy lejos… El principito sobre el asteroide B 612.
+20. [84|dialogue] Y con un poco de melancolía, quizá, agregó: —Derecho, siempre adelante de uno, no se puede ir muy lejos… El principito sobre el asteroide .
 
 21. [84|dialogue] Sin embargo, se me ocurrió preguntar: —Entonces, no te paseabas por casualidad la mañana que te conocí, hace ocho días, así, solo, a mil millas de todas las regiones habitadas.
 
@@ -95,9 +97,9 @@
 
 28. [83|descriptive] Y cuando regó por última vez la flor, y se dispuso a ponerla al abrigo de su globo, descubrió que tenía deseos de llorar.
 
-29. [83|narrative] Hay 21 que dedicarse regularmente a arrancar los baobabs en cuanto se los distingue entre los rosales, a los que se parecen mucho cuando son muy jóvenes.
+29. [83|narrative] Hay que dedicarse regularmente a arrancar los baobabs en cuanto se los distingue entre los rosales, a los que se parecen mucho cuando son muy jóvenes.
 
-30. [82|descriptive] Mi dibujo número 2 era así: Las personas grandes me aconsejaron que dejara a un lado los dibujos de serpientes boas abiertas o cerradas y que me interesara un poco más en la geografía, la historia, el cálculo y la gramática.
+30. [82|descriptive] Mi dibujo número era así: Las personas grandes me aconsejaron que dejara a un lado los dibujos de serpientes boas abiertas o cerradas y que me interesara un poco más en la geografía, la historia, el cálculo y la gramática.
 
 31. [82|dialogue] Cuando vio mi avión por primera vez (no dibujaré mi avión porque es un dibujo demasiado complicado para mí), me preguntó: —¿Qué es esta cosa?
 
@@ -114,4 +116,6 @@
 37. [80|dialogue] Y la flor, que había trabajado con tanta precisión, dijo en medio de un bostezo: —¡Ah!, acabo de despertarme… Perdóname… Todavía estoy toda despeinada… El principito, entonces, no pudo contener su admiración: —¡Qué hermosa eres!
 
 38. [80|dialogue] Se enroscó alrededor del tobillo del principito como un brazalete de oro: —A quien toco, lo vuelvo a la tierra de donde salió — dijo aún—.
+
+39. [80|narrative] Propietario Biblioteca del Congreso de la Nación Director Responsable Alejandro Lorenzo César Santa Diseño, compaginación y corrección Subdirección Editorial Impresión Dirección Servicios Complementarios Alsina 1835, 4.º piso.
 

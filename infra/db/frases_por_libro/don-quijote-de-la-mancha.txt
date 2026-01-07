@@ -1,5 +1,5 @@
 # don-quijote-de-la-mancha
-# Total frases: 70 (filtradas y balanceadas)
+# Total frases: 71 (filtradas y balanceadas)
 # ========================================
 
 
@@ -10,144 +10,146 @@
 2. [80|poetic] Diose priesa a caminar y llegó a ella a tiempo que anochecía.
 
 
-## MEDIUM (6 frases)
+## MEDIUM (5 frases)
 
 1. [93|narrative] Cómo Sancho Panza fue llevado al gobierno, y de la extraña aventura que sucedió a don Quijote
 
 2. [86|narrative] La presente edición de El ingenioso hidalgo don Quijote de la Mancha reúne además dos características excepcionales.
 
-3. [83|poetic] Ruégote que no te olvides de mi buen Rocinante, compañero eterno mío en todos mis caminos y carreras.
+3. [83|narrative] Las mozas, que no estaban hechas a oír semejantes retóricas, no respondían palabra; solo le preguntaron si quería comer alguna cosa.
 
-4. [83|narrative] Las mozas, que no estaban hechas a oír semejantes retóricas, no respondían palabra; solo le preguntaron si quería comer alguna cosa.
+4. [81|narrative] Donde se concluye y da fin a la estupenda batalla que el gallardo vizcaíno y el valiente manchego tuvieron
 
-5. [81|narrative] Donde se concluye y da fin a la estupenda batalla que el gallardo vizcaíno y el valiente manchego tuvieron
-
-6. [81|narrative] Preguntáronle si por ventura comería su merced truchuela, que no había otro pescado que darle a comer.
+5. [81|narrative] Preguntáronle si por ventura comería su merced truchuela, que no había otro pescado que darle a comer.
 
 
-## HARD (62 frases)
+## HARD (64 frases)
 
 1. [100|descriptive] En 1813-1814 España lo estaba contra el francés, y en 1913 el director de la Academia, Antonio Maura, programó algunas actividades para la fecha exacta del segundo centenario de la Real Cédula mencionada, que el comienzo en agosto de 1914 de la guerra europea desaconsejaría finalmente realizar.
 
 2. [100|dialogue] Humor melancólico el de Cervantes, pues casi todas las peripecias del hidalgo desmañado y de su bonachón escudero Sancho –papel magistralmente recreado por Mario Moreno «Cantinflas» en la película de 1973 Don Quijote cabalga de nuevo, dirigida por el mexicano Roberto Gavaldón– derivan en auténticos gags en los que la pareja protagonista resulta burlada, apedreada, manteada, apaleada, perseguida, y siempre ridiculizada.
 
-3. [100|dialogue] Mas, en efecto, temiendo la máquina de tantos pertrechos, determinó de hablarle comedidamente y, así, le dijo: —Si vuestra merced, señor caballero, busca posada, amén del lecho, porque en esta venta no hay ninguno, todo lo demás se hallará en ella en mucha abundancia.
+3. [100|poetic] Que trata de la primera salida que de su tierra hizo el ingenioso don Quijote Hechas, pues, estas prevenciones, no quiso aguardar más tiempo a poner en efecto su pensamiento, apretándole a ello la falta que él pensaba que hacía en el mundo su tardanza, según eran los agravios que pensaba deshacer, tuertos que enderezar, sinrazones que enmendar, y abusos que mejorar y deudas que satisfacer.
 
-4. [100|dialogue] Pensó el huésped que el haberle llamado castellano había sido por haberle parecido de los sanos de Castilla, aunque él era andaluz, y de los de la playa de Sanlúcar, no menos ladrón que Caco, ni menos maleante que estudiante o paje y, así, le respondió: —Según eso, las camas de vuestra merced serán duras peñas, y su dormir, siempre velar; y siendo así bien se puede apear, con seguridad de hallar en esta choza ocasión y ocasiones para no dormir en todo un año, cuanto más en una noche.
+4. [100|dialogue] Mas, en efecto, temiendo la máquina de tantos pertrechos, determinó de hablarle comedidamente y, así, le dijo: —Si vuestra merced, señor caballero, busca posada, amén del lecho, porque en esta venta no hay ninguno, todo lo demás se hallará en ella en mucha abundancia.
 
-5. [100|dialogue] onde se cuenta la graciosa manera que tuvo don Quijote en armarse caballero Yasí, fatigado deste pensamiento, abrevió su venteril y limitada cena; la cual acabada, llamó al ventero y, encerrándose con él en la caballeriza, se hincó de rodillas ante él, diciéndole: —No me levantaré jamás de donde estoy, valeroso caballero, fasta que la vuestra cortesía me otorgue un don que pedirle quiero, el cual redundará en alabanza vuestra y en pro del género humano.
+5. [100|dialogue] Pensó el huésped que el haberle llamado castellano había sido por haberle parecido de los sanos de Castilla, aunque él era andaluz, y de los de la playa de Sanlúcar, no menos ladrón que Caco, ni menos maleante que estudiante o paje y, así, le respondió: —Según eso, las camas de vuestra merced serán duras peñas, y su dormir, siempre velar; y siendo así bien se puede apear, con seguridad de hallar en esta choza ocasión y ocasiones para no dormir en todo un año, cuanto más en una noche.
 
-6. [100|narrative] Una olla de algo más vaca que carnero, salpicón las más noches, duelos y quebrantos los sábados, lentejas los viernes, algún palomino de añadidura los domingos, consumían las tres partes de su hacienda.
+6. [100|dialogue] onde se cuenta la graciosa manera que tuvo don Quijote en armarse caballero Yasí, fatigado deste pensamiento, abrevió su venteril y limitada cena; la cual acabada, llamó al ventero y, encerrándose con él en la caballeriza, se hincó de rodillas ante él, diciéndole: —No me levantaré jamás de donde estoy, valeroso caballero, fasta que la vuestra cortesía me otorgue un don que pedirle quiero, el cual redundará en alabanza vuestra y en pro del género humano.
 
-7. [99|descriptive] Fue luego a ver a su rocín, y aunque tenía más cuartos que un real y más tachas que el caballo de Gonela, que tantum pellis et ossa fuit, le pareció que ni el Bucéfalo de Alejandro ni Babieca el del Cid con él se igualaban.
+7. [100|narrative] Una olla de algo más vaca que carnero, salpicón las más noches, duelos y quebrantos los sábados, lentejas los viernes, algún palomino de añadidura los domingos, consumían las tres partes de su hacienda.
 
-8. [99|narrative] Estos pensamientos le hicieron titubear en su propósito; mas, pudiendo más su locura que otra razón alguna, propuso de hacerse armar caballero del primero que topase, a imitación de otros muchos que así lo hicieron, según él había leído en los libros que tal le tenían.
+8. [99|descriptive] Fue luego a ver a su rocín, y aunque tenía más cuartos que un real y más tachas que el caballo de Gonela, que tantum pellis et ossa fuit, le pareció que ni el Bucéfalo de Alejandro ni Babieca el del Cid con él se igualaban.
 
-9. [98|dialogue] Tan sólo se corrigen, para facilitar una lectura fluida y evitar notas a pie de página —la única se destina a explicar quién fue Avellaneda—, algunos términos quizá confusos para un lector convencional y cuyo significado no puede deducirse con facilidad del contexto.
+9. [99|narrative] Estos pensamientos le hicieron titubear en su propósito; mas, pudiendo más su locura que otra razón alguna, propuso de hacerse armar caballero del primero que topase, a imitación de otros muchos que así lo hicieron, según él había leído en los libros que tal le tenían.
 
-10. [98|poetic] La cumplida extensión de las dos partes de El Quijote, acrecentada por la interpolación de narraciones secundarias, así como la riqueza de su léxico y el amplio juego sapiencial, erudito y retórico del que el autor echa mano, frecuentemente en clave irónica, pueden convertirse, sin embargo, en barreras que dificulten la lectura de los más jóvenes.
+10. [98|dialogue] Tan sólo se corrigen, para facilitar una lectura fluida y evitar notas a pie de página —la única se destina a explicar quién fue Avellaneda—, algunos términos quizá confusos para un lector convencional y cuyo significado no puede deducirse con facilidad del contexto.
 
-11. [98|dialogue] Ya a principios del nuevo siglo, la «Edición Calleja para las escuelas» será la más exitosa de todas estas ediciones que por lo general recurren asimismo, para favorecer el encuentro de los más jóvenes con El Quijote, a las ilustraciones, procedentes en muchos casos de la paleta de grandes dibujantes o pintores como el inglés William Heath Robinson o el francés Henri Morin.
+11. [98|poetic] La cumplida extensión de las dos partes de El Quijote, acrecentada por la interpolación de narraciones secundarias, así como la riqueza de su léxico y el amplio juego sapiencial, erudito y retórico del que el autor echa mano, frecuentemente en clave irónica, pueden convertirse, sin embargo, en barreras que dificulten la lectura de los más jóvenes.
 
-12. [98|dialogue] Es, pues, de saber que este sobredicho hidalgo, los ratos que estaba ocioso —que eran los más del año—, se daba a leer libros de caballerías, con tanta afición y gusto, que olvidó casi de todo punto el ejercicio de la caza y aun la administración de su hacienda.
+12. [98|dialogue] Ya a principios del nuevo siglo, la «Edición Calleja para las escuelas» será la más exitosa de todas estas ediciones que por lo general recurren asimismo, para favorecer el encuentro de los más jóvenes con El Quijote, a las ilustraciones, procedentes en muchos casos de la paleta de grandes dibujantes o pintores como el inglés William Heath Robinson o el francés Henri Morin.
 
-13. [97|dialogue] Y una de sus realizaciones más memorables fue precisamente la edición ilustrada de El Quijote que Ibarra editó en 1780, cuando la Real Academia Española había satisfecho ya sus compromisos más perentorios: historia de el quijote «popular y escolar» de la real academia española (1912-2014 ) la elaboración del llamado Diccionario de autoridades, que contiene la primera Ortographía de la lengua castellana, reeditada ya exenta en 1741, y la primera Gramática, de 1771.
+13. [98|dialogue] Es, pues, de saber que este sobredicho hidalgo, los ratos que estaba ocioso —que eran los más del año—, se daba a leer libros de caballerías, con tanta afición y gusto, que olvidó casi de todo punto el ejercicio de la caza y aun la administración de su hacienda.
 
-14. [97|dialogue] Y el mito, al que define con una de sus fulgurantes metáforas como «la hormona psíquica», le parecía «generatriz de inagotables entusiasmos», y «el niño debe ser envuelto en una atmósfera de sentimientos audaces y magnánimos, ambiciosos y entusiastas […] deberá apartarse de su derredor cuanto pueda deprimir su confianza en sí mismo y en la vida cósmica, cuanto siembre en su interior suspicacia y le haga presentir lo equívoco de la existencia».
+14. [97|dialogue] Y una de sus realizaciones más memorables fue precisamente la edición ilustrada de El Quijote que Ibarra editó en 1780, cuando la Real Academia Española había satisfecho ya sus compromisos más perentorios: historia de el quijote «popular y escolar» de la real academia española (1912-2014 ) la elaboración del llamado Diccionario de autoridades, que contiene la primera Ortographía de la lengua castellana, reeditada ya exenta en 1741, y la primera Gramática, de 1771.
 
-15. [97|descriptive] Y así, sin dar parte a persona alguna de su intención y sin que nadie le viese, una mañana, antes del día, que era uno de los calurosos del mes de julio, se armó de todas sus armas, subió sobre Rocinante, puesta su mal compuesta celada, embrazó su adarga, tomó su lanza, y, por la puerta falsa de un corral, salió al campo con grandísimo contento y alborozo de ver con cuánta facilidad había dado principio a su buen deseo.
+15. [97|dialogue] Y el mito, al que define con una de sus fulgurantes metáforas como «la hormona psíquica», le parecía «generatriz de inagotables entusiasmos», y «el niño debe ser envuelto en una atmósfera de sentimientos audaces y magnánimos, ambiciosos y entusiastas […] deberá apartarse de su derredor cuanto pueda deprimir su confianza en sí mismo y en la vida cósmica, cuanto siembre en su interior suspicacia y le haga presentir lo equívoco de la existencia».
 
-16. [97|descriptive] Pusiéronle la mesa a la puerta de la venta, por el fresco, y trújole el huésped una porción del mal remojado y peor cocido bacalao y un pan tan negro y mugriento como sus armas; pero era materia de grande risa verle comer, porque, como tenía puesta la celada y alzada la visera, no podía poner nada en la boca con sus manos si otro no se lo daba y ponía, y, así, una de aquellas señoras servía deste menester.
+16. [97|descriptive] Y así, sin dar parte a persona alguna de su intención y sin que nadie le viese, una mañana, antes del día, que era uno de los calurosos del mes de julio, se armó de todas sus armas, subió sobre Rocinante, puesta su mal compuesta celada, embrazó su adarga, tomó su lanza, y, por la puerta falsa de un corral, salió al campo con grandísimo contento y alborozo de ver con cuánta facilidad había dado principio a su buen deseo.
 
-17. [96|dialogue] Viendo don Quijote la humildad del alcaide de la fortaleza, que tal le pareció a él el ventero y la venta, respondió: —Para mí, señor castellano, cualquiera cosa basta, porque «mis arreos son las armas, mi descanso el pelear», etc.
+17. [97|descriptive] Pusiéronle la mesa a la puerta de la venta, por el fresco, y trújole el huésped una porción del mal remojado y peor cocido bacalao y un pan tan negro y mugriento como sus armas; pero era materia de grande risa verle comer, porque, como tenía puesta la celada y alzada la visera, no podía poner nada en la boca con sus manos si otro no se lo daba y ponía, y, así, una de aquellas señoras servía deste menester.
 
-18. [96|narrative] En 1867 se publicó en París El Quijote de la juventud extractado por Domingo López Sarmiento y en 1885 aparece El ingenioso hidalgo don Quijote de la Mancha arreglado para que sirva de texto de lectura en las escuelas de instrucción primaria, compendiado por Juan Manuel Villén.
+18. [96|dialogue] Viendo don Quijote la humildad del alcaide de la fortaleza, que tal le pareció a él el ventero y la venta, respondió: —Para mí, señor castellano, cualquiera cosa basta, porque «mis arreos son las armas, mi descanso el pelear», etc.
 
-19. [95|dialogue] Y así, después de muchos nombres que formó, borró y quitó, añadió, deshizo y tornó a hacer en su memoria e imaginación, al fin le vino a llamar «Rocinante»: nombre, a su parecer, alto, sonoro y significativo de lo que había sido cuando fue rocín, antes de lo que ahora era, que era antes y primero de todos los rocines del mundo.
+19. [96|narrative] En 1867 se publicó en París El Quijote de la juventud extractado por Domingo López Sarmiento y en 1885 aparece El ingenioso hidalgo don Quijote de la Mancha arreglado para que sirva de texto de lectura en las escuelas de instrucción primaria, compendiado por Juan Manuel Villén.
 
-20. [95|dialogue] Pero, acordándose que el valeroso Amadís no solo se había contentado con llamarse Amadís a secas, sino que añadió el nombre de su reino y patria, por hacerla famosa, y se llamó Amadís de Gaula, así quiso, como buen caballero, añadir al suyo el nombre de la suya y llamarse «don Quijote de la Mancha», con que, a su parecer, declaraba muy al vivo su linaje y patria, y la honraba con tomar el sobrenombre della.
+20. [95|dialogue] Y así, después de muchos nombres que formó, borró y quitó, añadió, deshizo y tornó a hacer en su memoria e imaginación, al fin le vino a llamar «Rocinante»: nombre, a su parecer, alto, sonoro y significativo de lo que había sido cuando fue rocín, antes de lo que ahora era, que era antes y primero de todos los rocines del mundo.
 
-21. [95|dialogue] Y añadió diciendo: —Dichosa edad y siglo dichoso aquel adonde saldrán a luz las famosas hazañas mías, dignas de entallarse en bronces, esculpirse en mármoles y pintarse en tablas, para memoria en lo futuro.
+21. [95|dialogue] Pero, acordándose que el valeroso Amadís no solo se había contentado con llamarse Amadís a secas, sino que añadió el nombre de su reino y patria, por hacerla famosa, y se llamó Amadís de Gaula, así quiso, como buen caballero, añadir al suyo el nombre de la suya y llamarse «don Quijote de la Mancha», con que, a su parecer, declaraba muy al vivo su linaje y patria, y la honraba con tomar el sobrenombre della.
 
-22. [95|dialogue] Mirábanle las mozas y andaban con los ojos buscándole el rostro, que la mala visera le encubría; mas, como se oyeron llamar doncellas, cosa tan fuera de su profesión, no pudieron tener la risa y fue de manera que don Quijote vino a correrse y a decirles: —Bien parece la mesura en las fermosas, y es mucha sandez además la risa que de leve causa procede; pero non vos lo digo porque os acuitedes ni mostredes mal talante, que el mío non es otro que de serviros.
+22. [95|dialogue] Y añadió diciendo: —Dichosa edad y siglo dichoso aquel adonde saldrán a luz las famosas hazañas mías, dignas de entallarse en bronces, esculpirse en mármoles y pintarse en tablas, para memoria en lo futuro.
 
-23. [95|poetic] Estando en esto, llegó acaso a la venta un castrador de puercos, y así como llegó, sonó su silbato de cañas cuatro o cinco veces, con lo cual acabó de confirmar don Quijote que estaba en algún famoso castillo y que le servían con música y que el abadejo eran truchas, el pan, candeal, y las rameras, damas, y el ventero, castellano del castillo, y con esto daba por bien empleada su determinación y salida.
+23. [95|dialogue] Mirábanle las mozas y andaban con los ojos buscándole el rostro, que la mala visera le encubría; mas, como se oyeron llamar doncellas, cosa tan fuera de su profesión, no pudieron tener la risa y fue de manera que don Quijote vino a correrse y a decirles: —Bien parece la mesura en las fermosas, y es mucha sandez además la risa que de leve causa procede; pero non vos lo digo porque os acuitedes ni mostredes mal talante, que el mío non es otro que de serviros.
 
-24. [94|descriptive] Llenósele la fantasía de todo aquello que leía en los libros, así de encantamientos como de pendencias, batallas, desafíos, heridas, requiebros, amores, tormentas y disparates imposibles; y asentósele de tal modo en la imaginación que era verdad toda aquella máquina de aquellas soñadas invenciones que leía, que para él no había otra historia más cierta en el mundo.
+24. [95|poetic] Estando en esto, llegó acaso a la venta un castrador de puercos, y así como llegó, sonó su silbato de cañas cuatro o cinco veces, con lo cual acabó de confirmar don Quijote que estaba en algún famoso castillo y que le servían con música y que el abadejo eran truchas, el pan, candeal, y las rameras, damas, y el ventero, castellano del castillo, y con esto daba por bien empleada su determinación y salida.
 
-25. [94|descriptive] Fuese llegando a la venta, que a él le parecía castillo, y a poco trecho della detuvo las riendas a Rocinante, esperando que algún enano se pusiese entre las almenas a dar señal con alguna trompeta de que llegaba caballero al castillo.
+25. [94|descriptive] Llenósele la fantasía de todo aquello que leía en los libros, así de encantamientos como de pendencias, batallas, desafíos, heridas, requiebros, amores, tormentas y disparates imposibles; y asentósele de tal modo en la imaginación que era verdad toda aquella máquina de aquellas soñadas invenciones que leía, que para él no había otra historia más cierta en el mundo.
 
-26. [94|narrative] En lo de las armas blancas, pensaba limpiarlas de manera, en teniendo lugar, que lo fuesen más que un armiño; y con esto se quietó y prosiguió su camino, sin llevar otro que el que su caballo quería, creyendo que en aquello consistía la fuerza de las aventuras.
+26. [94|descriptive] Fuese llegando a la venta, que a él le parecía castillo, y a poco trecho della detuvo las riendas a Rocinante, esperando que algún enano se pusiese entre las almenas a dar señal con alguna trompeta de que llegaba caballero al castillo.
 
-27. [93|descriptive] Hay, sin embargo, en su trabajo un borrón que no es fácil explicar: el rechazo de la ilustración inspirada en el episodio del rebuzno que un joven artista llamado Francisco de Goya y Lucientes entrega… y cobra.
+27. [94|narrative] En lo de las armas blancas, pensaba limpiarlas de manera, en teniendo lugar, que lo fuesen más que un armiño; y con esto se quietó y prosiguió su camino, sin llevar otro que el que su caballo quería, creyendo que en aquello consistía la fuerza de las aventuras.
 
-28. [93|poetic] Y así, desde mediados del siglo xix se favorece la difusión de la obra cervantina mediante ediciones como El Quijote de los niños y para el pueblo, abreviado por un entusiasta de su autor Miguel de Cervantes, que seguirá siendo reeditada incluso en el siglo xx por la Librería y Casa editorial Hernando.
+28. [93|descriptive] Hay, sin embargo, en su trabajo un borrón que no es fácil explicar: el rechazo de la ilustración inspirada en el episodio del rebuzno que un joven artista llamado Francisco de Goya y Lucientes entrega… y cobra.
 
-29. [93|narrative] Y cuando se trata de trabajar en colegios con el texto íntegro, las digresiones y relatos insertos en él perturban a veces la aproximación amena, eficaz, que una herramienta educativa o una lectura sencilla pueden reclamar.
+29. [93|poetic] Y así, desde mediados del siglo xix se favorece la difusión de la obra cervantina mediante ediciones como El Quijote de los niños y para el pueblo, abreviado por un entusiasta de su autor Miguel de Cervantes, que seguirá siendo reeditada incluso en el siglo xx por la Librería y Casa editorial Hernando.
 
-30. [92|dialogue] Puesto nombre, y tan a su gusto, a su caballo, quiso ponérsele a sí mismo, y en este pensamiento duró otros ocho días, y al cabo se vino a llamar «don Quijote»; de donde —como queda dicho— tomaron ocasión los autores desta tan verdadera historia que, sin duda, se debía llamar Quijada, y no Quesada, como otros quisieron decir.
+30. [93|narrative] Y cuando se trata de trabajar en colegios con el texto íntegro, las digresiones y relatos insertos en él perturban a veces la aproximación amena, eficaz, que una herramienta educativa o una lectura sencilla pueden reclamar.
 
-31. [91|poetic] Y fue, a lo que se cree, que en un lugar cerca del suyo había una moza labradora de muy buen parecer, de quien él un tiempo anduvo enamorado, aunque, según se entiende, ella jamás lo supo ni se dio cata dello.
+31. [92|dialogue] Puesto nombre, y tan a su gusto, a su caballo, quiso ponérsele a sí mismo, y en este pensamiento duró otros ocho días, y al cabo se vino a llamar «don Quijote»; de donde —como queda dicho— tomaron ocasión los autores desta tan verdadera historia que, sin duda, se debía llamar Quijada, y no Quesada, como otros quisieron decir.
 
-32. [91|narrative] Todo parece indicar que estas ilustraciones, atribuidas a Andreas Bretschneider, nacen relacionadas con otro de los aprovechamientos tempranos que de las imaginaciones cervantinas se hace enseguida para ilustrar e inspirar los desfiles, pantomimas y comparsas de las fiestas barrocas, pues las encontramos en una publicación de Leipzig conmemorativa de las celebraciones que tuvieron lugar en Dessau, en octubre de 1613, con motivo del bautizo de un vástago de la casa de Sajonia.
+32. [91|poetic] Que trata de la condición y ejercicio del famoso hidalgo don Quijote de la Mancha En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha mucho tiempo que vivía un hidalgo de los de lanza en astillero, adarga antigua, rocín flaco y galgo corredor.
 
-33. [91|narrative] Este ambicioso programa puede en justicia darse como conseguido con el trabajo rematado en 1780 por el impresor madrileño Joaquín Ibarra, que por fin sitúa el modelo iconográfico español de El Quijote a la altura que le correspondía.
+33. [91|poetic] Y fue, a lo que se cree, que en un lugar cerca del suyo había una moza labradora de muy buen parecer, de quien él un tiempo anduvo enamorado, aunque, según se entiende, ella jamás lo supo ni se dio cata dello.
 
-34. [91|narrative] Lo que ahora se imprime como ilustración del relato cervantino no son las láminas de 1780, sino los originales de los dibujantes (Arnal, Barranco, Brunete, Antonio e Isidro Carnicero, Castillo, Ferro, y Jerónimo Gil) sobre los que distinguidos grabadores como Ballester, Barcelón, Brieva, Cruz Cano y Olmedilla, Fabregat, el propio Gil, Minguet, Moles, Muntaner, Palomino, Salvador Carmona o Selma realizaron sus planchas.
+34. [91|poetic] Ruégote que no don quijote de la mancha te olvides de mi buen Rocinante, compañero eterno mío en todos mis caminos y carreras.
 
-35. [91|narrative] Imaginábase el pobre ya coronado por el valor de su brazo, por lo menos, del imperio de Trapisonda; y así, con estos tan agradables pensamientos, llevado del extraño gusto que en ellos sentía, se dio priesa a poner en efecto lo que deseaba.
+35. [91|narrative] Este ambicioso programa puede en justicia darse como conseguido con el trabajo rematado en 1780 por el impresor madrileño Joaquín Ibarra, que por fin sitúa el modelo iconográfico español de El Quijote a la altura que le correspondía.
 
-36. [90|descriptive] Limpias, pues, sus armas, hecho del morrión celada, puesto nombre a su rocín y confirmándose a sí mismo, se dio a entender que no le faltaba otra cosa sino buscar una dama de quien enamorarse, porque el caballero andante sin amores era árbol sin hojas y sin fruto y cuerpo sin alma.
+36. [91|narrative] Lo que ahora se imprime como ilustración del relato cervantino no son las láminas de 1780, sino los originales de los dibujantes (Arnal, Barranco, Brunete, Antonio e Isidro Carnicero, Castillo, Ferro, y Jerónimo Gil) sobre los que distinguidos grabadores como Ballester, Barcelón, Brieva, Cruz Cano y Olmedilla, Fabregat, el propio Gil, Minguet, Moles, Muntaner, Palomino, Salvador Carmona o Selma realizaron sus planchas.
 
-37. [90|descriptive] Estaban acaso a la puerta dos mujeres mozas, destas que llaman del partido, las cuales iban a Sevilla con unos arrieros que en la venta aquella noche acertaron a hacer jornada; y como a nuestro aventurero todo cuanto pensaba, veía o imaginaba le parecía ser hecho y pasar al modo de lo que había leído, luego que vio la venta se le representó que era un castillo con sus cuatro torres y chapiteles de luciente plata, sin faltarle su puente levadiza y 37 parte i.
+37. [91|narrative] Imaginábase el pobre ya coronado por el valor de su brazo, por lo menos, del imperio de Trapisonda; y así, con estos tan agradables pensamientos, llevado del extraño gusto que en ellos sentía, se dio priesa a poner en efecto lo que deseaba.
 
-38. [89|narrative] Con estas y semejantes razones perdía el pobre caballero el juicio, y desvelábase por entenderlas y desentrañarles el sentido, que no se lo sacara ni las entendiera el mesmo Aristóteles, si resucitara para solo ello.
+38. [90|descriptive] Limpias, pues, sus armas, hecho del morrión celada, puesto nombre a su rocín y confirmándose a sí mismo, se dio a entender que no le faltaba otra cosa sino buscar una dama de quien enamorarse, porque el caballero andante sin amores era árbol sin hojas y sin fruto y cuerpo sin alma.
 
-39. [87|narrative] A fin de facilitar una lectura sin interrupciones de la trama principal, se han retirado del texto original algunos obstáculos que pueden dificultar aquélla.
+39. [90|descriptive] Estaban acaso a la puerta dos mujeres mozas, destas que llaman del partido, las cuales iban a Sevilla con unos arrieros que en la venta aquella noche acertaron a hacer jornada; y como a nuestro aventurero todo cuanto pensaba, veía o imaginaba le parecía ser hecho y pasar al modo de lo que había leído, luego que vio la venta se le representó que era un castillo con sus cuatro torres y chapiteles de luciente plata, sin faltarle su puente levadiza y parte i.
 
-40. [86|narrative] Cumple destacar, sin embargo, la segunda característica que singulariza esta nueva edición de El Quijote que la Real Academia Española ha emprendido en el año de su tricentenario.
+40. [89|narrative] Con estas y semejantes razones perdía el pobre caballero el juicio, y desvelábase por entenderlas y desentrañarles el sentido, que no se lo sacara ni las entendiera el mesmo Aristóteles, si resucitara para solo ello.
 
-41. [85|poetic] En el año de su tricentenario, la Real Academia Española quiere rendir homenaje a aquella benemérita y primorosa publicación y saldar al tiempo su deuda con el genio de Fuendetodos recuperando su dibujo inédito.
+41. [87|narrative] A fin de facilitar una lectura sin interrupciones de la trama principal, se han retirado del texto original algunos obstáculos que pueden dificultar aquélla.
 
-42. [85|descriptive] pensamiento terrible, y tal, que por poco le hiciera dejar la comenzada empresa; y fue que le vino a la memoria que no era armado caballero, y que, conforme a la ley de la caballería, ni podía ni debía tomar armas con ningún caballero; y, puesto que lo fuera, había de llevar armas blancas, como novel caballero, sin empresa en el escudo, hasta que por su esfuerzo la ganase.
+42. [86|narrative] Cumple destacar, sin embargo, la segunda característica que singulariza esta nueva edición de El Quijote que la Real Academia Española ha emprendido en el año de su tricentenario.
 
-43. [85|narrative] De 1614, cuando aún no se había publicado esa segunda parte, datan las primeras imágenes conocidas de don Quijote, su escudero Panza y otros personajes de la novela.
+43. [85|poetic] En el año de su tricentenario, la Real Academia Española quiere rendir homenaje a aquella benemérita y primorosa publicación y saldar al tiempo su deuda con el genio de Fuendetodos recuperando su dibujo inédito.
 
-44. [84|poetic] Por esta razón, desde el siglo xviii se venían publicando en Francia e Inglaterra ediciones abreviadas y bellamente ilustradas con destino a ese público.
+44. [85|descriptive] pensamiento terrible, y tal, que por poco le hiciera dejar la comenzada empresa; y fue que le vino a la memoria que no era armado caballero, y que, conforme a la ley de la caballería, ni podía ni debía tomar armas con ningún caballero; y, puesto que lo fuera, había de llevar armas blancas, como novel caballero, sin empresa en el escudo, hasta que por su esfuerzo la ganase.
 
-45. [84|poetic] Zozaya consideraba que el tiempo dedicado a El Quijote no redundaría en beneficio de una formación útil para la vida práctica de los alumnos.
+45. [85|narrative] De 1614, cuando aún no se había publicado esa segunda parte, datan las primeras imágenes conocidas de don Quijote, su escudero Panza y otros personajes de la novela.
 
-46. [84|poetic] Cuanto más, que podría ser que fuesen estas truchuelas como la ternera, que es mejor que la vaca, y el cabrito que el cabrón.
+46. [84|poetic] Por esta razón, desde el siglo xviii se venían publicando en Francia e Inglaterra ediciones abreviadas y bellamente ilustradas con destino a ese público.
 
-47. [84|narrative] En España, la lectura es reconocida como una práctica fundamental en el proceso educativo desde el Reglamento de las Escuelas Públicas de Instrucción primaria elemental, que es de 1838, hasta la Ley de Instrucción Pública promovida en 1857 por el ministro Claudio Moyano.
+47. [84|poetic] Zozaya consideraba que el tiempo dedicado a El Quijote no redundaría en beneficio de una formación útil para la vida práctica de los alumnos.
 
-48. [84|narrative] Esta nueva edición de El ingenioso hidalgo don Quixote de la Mancha ha sido adaptada a partir de la de Ibarra de 1780 por Arturo Pérez-Reverte de acuerdo con los criterios que el propio escritor y académico expone en una nota que precede al presente prólogo.
+48. [84|poetic] Cuanto más, que podría ser que fuesen estas truchuelas como la ternera, que es mejor que la vaca, y el cabrito que el cabrón.
 
-49. [83|poetic] A favor, destacaba la opinión ya desde antes expresada por Miguel de Unamuno, autor en 1915 de Vida de don Quijote y Sancho.
+49. [84|narrative] En España, la lectura es reconocida como una práctica fundamental en el proceso educativo desde el Reglamento de las Escuelas Públicas de Instrucción primaria elemental, que es de 1838, hasta la Ley de Instrucción Pública promovida en 1857 por el ministro Claudio Moyano.
 
-50. [83|dialogue] Pero aquella otra edición «de carácter popular y escolar» es la que ahora aparece con la singularidad ya comentada en lo que a sus ilustraciones se refiere y otra que precisa comentario aparte, pues le confiere un indudable sello de excepcionalidad.
+50. [84|narrative] Esta nueva edición de El ingenioso hidalgo don Quixote de la Mancha ha sido adaptada a partir de la de Ibarra de 1780 por Arturo Pérez-Reverte de acuerdo con los criterios que el propio escritor y académico expone en una nota que precede al presente prólogo.
 
-51. [83|descriptive] Dijo luego al huésped que le tuviese mucho cuidado de su caballo, porque era la mejor pieza que comía pan en el mundo.
+51. [83|poetic] A favor, destacaba la opinión ya desde antes expresada por Miguel de Unamuno, autor en 1915 de Vida de don Quijote y Sancho.
 
-52. [83|narrative] El proyecto es objeto de detalladísimas directrices por parte de nuestra Academia, para lo que se comisiona a un grupo de tres de sus miembros de número entre los que está el mexicano Manuel de Lardizábal.
+52. [83|dialogue] Pero aquella otra edición «de carácter popular y escolar» es la que ahora aparece con la singularidad ya comentada en lo que a sus ilustraciones se refiere y otra que precisa comentario aparte, pues le confiere un indudable sello de excepcionalidad.
 
-53. [82|narrative] Y en lo que se refiere a las ilustraciones, en vez de las láminas grabadas por Salma y Carnicero, tan hermosas como conocidas, hemos preferido publicar los interesantes dibujos originales, inéditos hasta ahora, de donde proceden aquellas láminas.
+53. [83|descriptive] Dijo luego al huésped que le tuviese mucho cuidado de su caballo, porque era la mejor pieza que comía pan en el mundo.
 
-54. [82|narrative] Pero, con todo, alababa en su autor aquel acabar su libro con la promesa de aquella inacabable aventura, y muchas veces le vino deseo de tomar la pluma y dalle fin al pie de la letra, como allí se promete; y sin duda alguna lo hiciera, y aun saliera con ello, si otros mayores y continuos pensamientos no se lo estorbaran.
+54. [83|narrative] El proyecto es objeto de detalladísimas directrices por parte de nuestra Academia, para lo que se comisiona a un grupo de tres de sus miembros de número entre los que está el mexicano Manuel de Lardizábal.
 
-55. [82|narrative] En resolución, él se enfrascó tanto en su lectura, que se le pasaban las noches leyendo de claro en claro, y los días de turbio en turbio; y así, del poco dormir y del mucho leer, se le secó el celebro de manera que vino a perder el juicio.
+55. [82|narrative] Y en lo que se refiere a las ilustraciones, en vez de las láminas grabadas por Salma y Carnicero, tan hermosas como conocidas, hemos preferido publicar los interesantes dibujos originales, inéditos hasta ahora, de donde proceden aquellas láminas.
 
-56. [82|narrative] Pero como vio que se tardaban y que Rocinante se daba priesa por llegar a la caballeriza, se llegó a la puerta de la venta, y vio a las dos destraídas mozas que allí estaban, que a él le parecieron dos hermosas doncellas o dos graciosas damas que delante de la puerta del castillo se estaban solazando.
+56. [82|narrative] Pero, con todo, alababa en su autor aquel acabar su libro con la promesa de aquella inacabable aventura, y muchas veces le vino deseo de tomar la pluma y dalle fin al pie de la letra, como allí se promete; y sin duda alguna lo hiciera, y aun saliera con ello, si otros mayores y continuos pensamientos no se lo estorbaran.
 
-57. [81|dialogue] Ortega escribe en 1920 un amplio ensayo titulado «El Quijote en la escuela», en el que comienza afirmando que la «Real Orden quijotesca» le parece «en muchos sentidos un desatino», en la misma línea de las valoraciones hechas a este respecto en el diario La libertad por el académico de Ciencias Morales y Políticas don Antonio Zozaya.
+57. [82|narrative] En resolución, él se enfrascó tanto en su lectura, que se le pasaban las noches leyendo de claro en claro, y los días de turbio en turbio; y así, del poco dormir y del mucho leer, se le secó el celebro de manera que vino a perder el juicio.
 
-58. [81|narrative] Esa labor de poda, muy prudente y calculada, dedica especial atención a la limpieza de los puntos de sutura de los párrafos eliminados, para que la ausencia de éstos no se advierta en una lectura convencional.
+58. [82|narrative] Pero como vio que se tardaban y que Rocinante se daba priesa por llegar a la caballeriza, se llegó a la puerta de la venta, y vio a las dos destraídas mozas que allí estaban, que a él le parecieron dos hermosas doncellas o dos graciosas damas que delante de la puerta del castillo se estaban solazando.
 
-59. [81|narrative] A dicha, acertó a ser viernes aquel día, y no había en toda la venta sino unas raciones de un pescado que en Castilla llaman abadejo, y en Andalucía bacalao, y en otras partes curadillo, y en otras truchuela.
+59. [81|dialogue] Ortega escribe en 1920 un amplio ensayo titulado «El Quijote en la escuela», en el que comienza afirmando que la «Real Orden quijotesca» le parece «en muchos sentidos un desatino», en la misma línea de las valoraciones hechas a este respecto en el diario La libertad por el académico de Ciencias Morales y Políticas don Antonio Zozaya.
 
-60. [80|descriptive] Quieren decir que tenía el sobrenombre de Quijada o Quesada, que en esto hay alguna diferencia en los autores que deste caso escriben, aunque por conjeturas verosímiles se deja entender que se llamaba Quijana.
+60. [81|narrative] Esa labor de poda, muy prudente y calculada, dedica especial atención a la limpieza de los puntos de sutura de los párrafos eliminados, para que la ausencia de éstos no se advierta en una lectura convencional.
 
-61. [80|descriptive] Mas lo que más le fatigaba era el no verse armado caballero, por parecerle que no se podría poner legítimamente en aventura alguna sin recebir la orden de caballería.
+61. [81|narrative] A dicha, acertó a ser viernes aquel día, y no había en toda la venta sino unas raciones de un pescado que en Castilla llaman abadejo, y en Andalucía bacalao, y en otras partes curadillo, y en otras truchuela.
 
-62. [80|narrative] Y lo primero que hizo fue limpiar unas armas que habían sido de sus bisabuelos, que, tomadas de orín y llenas de moho, luengos siglos había que estaban puestas y olvidadas en un rincón.
+62. [80|descriptive] Quieren decir que tenía el sobrenombre de Quijada o Quesada, que en esto hay alguna diferencia en los autores que deste caso escriben, aunque por conjeturas verosímiles se deja entender que se llamaba Quijana.
+
+63. [80|descriptive] Mas lo que más le fatigaba era el no verse armado caballero, por parecerle que no se podría poner legítimamente en aventura alguna sin recebir la orden de caballería.
+
+64. [80|narrative] Y lo primero que hizo fue limpiar unas armas que habían sido de sus bisabuelos, que, tomadas de orín y llenas de moho, luengos siglos había que estaban puestas y olvidadas en un rincón.
 

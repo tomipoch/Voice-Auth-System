@@ -139,9 +139,24 @@ def is_valid_phrase(text: str) -> bool:
         r'\d{6,}',  # Only reject very long numbers (ISBN, etc)
     ]
     
+    # Patterns that indicate corruption anywhere in text (use re.search)
+    corruption_patterns = [
+        # Rayuela two-column corruption: intercalated page numbers like "34 116", "71 216"
+        r'\b\d{2}\s+\d{2,3}\b(?!\s*(años|días|horas|metros|kilómetros|pesos|dólares|mil|hombres|mujeres|páginas))',
+        # Rayuela merged words with impossible patterns
+        r'\blen[a-z]+recía\b',  # like "lenparecía" 
+        r'\b[a-z]+á[a-z]*crean\b',  # like "Conceptuácrean"
+        r'\b[a-z]+á[a-z]*brimiento\b',  # merged discoveries
+        r'\b[a-z]+degene[a-z]*familia\b',  # merged text
+    ]
+    
     text_lower = text.lower().strip()
     for pattern in reject_patterns:
         if re.match(pattern, text_lower, re.IGNORECASE):
+            return False
+    
+    for pattern in corruption_patterns:
+        if re.search(pattern, text, re.IGNORECASE):
             return False
     
     # Check for excessive special characters (more than 15%)
@@ -171,6 +186,18 @@ def is_valid_phrase(text: str) -> bool:
     if max_streak >= 4:
         return False
     
+    # Detect Rayuela two-column corruption: malformed merged words
+    # These are words with impossible Spanish letter combinations
+    malformed_patterns = [
+        r'\b\w+á[a-z]{2,}me\b',  # like "Conceptuácrean" - verb endings merged
+        r'\b\w+[aeiou][bcdfghjklmnpqrstvwxyz]{4,}\w*\b',  # 4+ consonants together
+        r'\b[a-záéíóúüñ]+[A-ZÁÉÍÓÚÜÑ][a-záéíóúüñ]+\b',  # CamelCase in middle
+        r'\b\w*[áéíóúü]\w*[áéíóúü]\w*[áéíóúü]\w*\b',  # 3+ accented vowels in one word
+    ]
+    for pattern in malformed_patterns:
+        if re.search(pattern, text):
+            return False
+    
     return True
 
 
@@ -186,6 +213,10 @@ def clean_text(text: str) -> str:
     
     # Fix soft hyphens (­) that split words across lines (e.g., "ciu­ dad" -> "ciudad")
     text = re.sub(r'(\w+)\u00ad\s*(\w+)', r'\1\2', text)
+    
+    # Fix OCR ligatures (common in scanned books)
+    text = text.replace('ﬁ', 'fi')  # fi ligature
+    text = text.replace('ﬂ', 'fl')  # fl ligature
     
     # Remove roman numerals at the start of text or after punctuation (chapter markers)
     text = re.sub(r'^[IVXLCDM]+\s+', '', text)
@@ -203,6 +234,9 @@ def clean_text(text: str) -> str:
         r'Gabriel García Márquez Cien años de soledad EDITADO POR[^.]*',
         r'Gabriel García Márquez Crónica de una muerte anunciada',
         r'Gabriel García Márquez \d+',
+        # Julio Verne book headers
+        r'JULIO VERNE\s*\d*',  # Author name with optional page number
+        r'Veinte Mil Leguas de Viaje Submarino',  # Book title intercalated
         # Editorial headers
         r'EDITADO POR\s*"[^"]*"\s*Prólogo\s*[A-Za-z]+\s*[A-Za-z]+',
         r'EDITADO POR[^.]*',
@@ -211,16 +245,39 @@ def clean_text(text: str) -> str:
         r'www\.philosophia\.cl',
         r'/ Escuela de Filosofía Universidad ARCIS\.?',
         r'Escuela de Filosofía Universidad ARCIS\.?',
+        # Lectulandia watermark (Sub-terra, etc)
+        r'www\.lectulandia\.com\s*-?\s*',
+        # Wikipedia and source URLs
+        r'Fuente:\s*http[^\s]*\s*',
+        r'http://es\.wikipedia\.org[^\s]*\s*',
+        # Email addresses (e.g., contacto@pruebat.org)
+        r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\s*',
+        # Generic www URLs and book sites
+        r'www\.\s*[A-Za-z0-9.-]+\.(com|org|net|ar|cl)[^\s]*\s*',
+        r'Libros\s*Tauro[^.]*',
+        # Editorial credits
+        r'Título original:[^.]*\.?',
+        r'Editor original:[^.]*\.?',
+        r'Traducción:[^.]*\.?',
+        r'Reservados todos los derechos\.?',
         # Page numbers
         r'Página \d+',
         r'página \d+',
         r'- \d+ -',
         r'\b\d{1,3}\s+—',  # Page number before em dash like "49 —"
         r'(?<=[a-záéíóúüñ])\d{1,3}\s+(?=[a-záéíóúüñ])',  # Page number splitting words like "cho76 rro"
+        # Sub-sole and other books: page numbers in middle of text like "la 51 volví" or ", 20 bebió"
+        r'(?<=[,;:\s])\s*\d{1,3}\s+(?=[a-záéíóúüñ])',  # After punctuation/space, before lowercase
+        r'(?<=[a-záéíóúüñ])\s+\d{1,3}\s+(?=[a-záéíóúüñ])',  # Between two lowercase words
         # Chapter markers
         r'\b[IVXLCDM]+\s+[A-ZÁÉÍÓÚÜÑ][a-záéíóúüñ]+\s+años\s+después',
         r'CAPÍTULO\s+[IVXLCDM]+\.?',  # CAPÍTULO VIII.
         r'capítulo\s+[ivxlcdm]+\s+\d+',  # capítulo i 29
+        r'CAPITULO\s+',  # CAPITULO without number (intercalated header)
+        r'CAPÍTULO\s+',  # CAPÍTULO without number
+        # Page numbers at start of sentence (e.g., "122 El hombre")
+        r'^\d{1,3}\s+(?=[A-ZÁÉÍÓÚÜÑ])',  # At line start before capital letter
+        r'(?<=…\s)\d{1,3}\s+(?=[A-ZÁÉÍÓÚÜÑ])',  # After ellipsis before capital
         r'CAPÍTULO\s+[A-Z][a-záéíóúüñ]+(?:\s+[a-záéíóúüñ]+)*',  # CAPÍTULO El señor Thomas Marvel
         # Don Quijote page headers
         r'don quijote de la mancha\s+\d+',
@@ -236,6 +293,14 @@ def clean_text(text: str) -> str:
         r'Queda rigurosamente prohibida[^.]*\.',
         # El Señor de los anillos headers
         r'El Señor de los anillos:\s*La Comunidad del anillo\s+\d+',
+        # La guerra de los mundos section markers (letter + number)
+        r'\b[A-Z]\s+\d{1,3}\b',  # Single letter + number like "E 94", "L 10"
+        r'\blo\s+\d{1,3}\s+',  # "lo 8 difícil"
+        # La Iliada verse numbers before quotes
+        r'\d{1,4}\s+[«¿¡]',  # "824 «" or "502 ¿"
+        r'[»"]\s+\d{1,4}\s+',  # "» 232 " after closing quote
+        # La sombra del viento page headers
+        r'Carlos Ruiz Zafón La sombra del viento de\s*\d*',
     ]
     
     for pattern in pdf_artifacts:
