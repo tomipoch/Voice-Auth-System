@@ -10,6 +10,7 @@ export interface User {
   name?: string; // Computed field from backend (first_name + last_name)
   role: UserRole;
   company?: string;
+  rut?: string; // Chilean national ID
   isVerified?: boolean;
   voiceProfile?: VoiceProfile;
   voice_template?: boolean; // Backend returns this
