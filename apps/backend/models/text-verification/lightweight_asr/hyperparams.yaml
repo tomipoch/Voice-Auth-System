@@ -52,7 +52,7 @@ enc: !new:speechbrain.nnet.containers.Sequential
   activation3: !new:torch.nn.LeakyReLU
 
 wav2vec2: !new:speechbrain.lobes.models.huggingface_transformers.wav2vec2.Wav2Vec2
-  source: /Users/tomipoch/Documents/Nueva carpeta con elementos/Ultimo Semestre/Tesis/Proyecto/Backend/models/text-verification/lightweight_asr/wav2vec2_checkpoint
+  source: /Users/tomipoch/Documents/Nueva carpeta con elementos/Ultimo Semestre/Tesis/Proyecto/apps/backend/models/text-verification/lightweight_asr/wav2vec2_checkpoint
   output_norm: True
   freeze: True
   save_path: wav2vec2_checkpoint
