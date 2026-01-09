@@ -143,8 +143,8 @@ def _transform_log_to_activity(log, default_timestamp) -> dict:
 
 
 def require_admin(current_user: dict = Depends(get_current_user)):
-    """Require admin role."""
-    if current_user["role"] != "admin":
+    """Require admin or superadmin role."""
+    if current_user["role"] not in ["admin", "superadmin"]:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Admin access required"

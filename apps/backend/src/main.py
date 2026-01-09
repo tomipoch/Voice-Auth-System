@@ -27,6 +27,7 @@ warnings.filterwarnings("ignore", message=".*custom_fwd.*")
 from .api.challenge_controller import challenge_router
 from .api.auth_controller import auth_router
 from .api.admin_controller import admin_router
+from .api.superadmin_controller import superadmin_router
 from .api.phrase_controller import router as phrase_router
 from .api.evaluation_controller import router as evaluation_router
 from .api.dataset_recording_controller import router as dataset_recording_router
@@ -264,6 +265,7 @@ def create_app() -> FastAPI:
                 "verification": "/api/verification",
                 "phrases": "/api/phrases",
                 "admin": "/api/admin",
+                "superadmin": "/api/superadmin",
                 "challenges": "/api/challenges"
             }
         }
@@ -271,6 +273,7 @@ def create_app() -> FastAPI:
     # Include routers
     app.include_router(auth_router, prefix="/api/auth", tags=["authentication"])
     app.include_router(admin_router, prefix="/api/admin", tags=["administration"])
+    app.include_router(superadmin_router, prefix="/api/superadmin", tags=["superadmin"])
     app.include_router(phrase_router, prefix="/api/phrases", tags=["phrases"])
     app.include_router(challenge_router, prefix="/api/challenges", tags=["challenges"])
     app.include_router(enrollment_router, prefix="/api/enrollment", tags=["enrollment"])

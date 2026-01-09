@@ -1,373 +1,404 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
-  LayoutDashboard,
   Building2,
   Users,
-  Settings,
   Activity,
-  Server,
   Shield,
-  Search,
-  Plus,
-  MoreVertical,
-  CheckCircle,
-  XCircle,
+  Server,
   Database,
   Cpu,
+  RefreshCw,
+  AlertCircle,
+  AlertTriangle,
+  FileText,
+  Settings,
+  Trash2,
+  CheckCircle,
+  Loader2,
 } from 'lucide-react';
 import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import { superadminService } from '../services/superadminService';
+import type {
+  GlobalStats,
+  CompanyStats,
+  SystemHealth,
+  ModelInfo,
+  AuditLogEntry,
+} from '../services/superadminService';
+import toast from 'react-hot-toast';
 
 const SuperAdminDashboard = () => {
-  const [activeSection, setActiveSection] = useState('overview');
-  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Mock Data
-  const globalStats = [
-    {
-      title: 'Total Empresas',
-      value: '12',
-      change: '+2',
-      trend: 'up',
-      icon: Building2,
-      color: 'blue',
-    },
-    {
-      title: 'Usuarios Globales',
-      value: '2,543',
-      change: '+156',
-      trend: 'up',
-      icon: Users,
-      color: 'purple',
-    },
-    {
-      title: 'Verificaciones (Mes)',
-      value: '15.2k',
-      change: '+12.5%',
-      trend: 'up',
-      icon: Shield,
-      color: 'emerald',
-    },
-    {
-      title: 'Salud del Sistema',
-      value: '99.9%',
-      change: 'Stable',
-      trend: 'neutral',
-      icon: Activity,
-      color: 'green',
-    },
-  ];
+  // Data states
+  const [globalStats, setGlobalStats] = useState<GlobalStats | null>(null);
+  const [companies, setCompanies] = useState<CompanyStats[]>([]);
+  const [systemHealth, setSystemHealth] = useState<SystemHealth | null>(null);
+  const [models, setModels] = useState<ModelInfo[]>([]);
+  const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>([]);
 
-  const companies = [
-    {
-      id: 1,
-      name: 'TechCorp Solutions',
-      plan: 'Enterprise',
-      users: 450,
-      status: 'active',
-      renewal: '2024-12-31',
-    },
-    {
-      id: 2,
-      name: 'Global Finance Inc',
-      plan: 'Professional',
-      users: 120,
-      status: 'active',
-      renewal: '2024-11-15',
-    },
-    {
-      id: 3,
-      name: 'StartUp Hub',
-      plan: 'Starter',
-      users: 15,
-      status: 'inactive',
-      renewal: '2024-10-01',
-    },
-  ];
+  useEffect(() => {
+    loadData();
+  }, []);
 
-  const renderSidebar = () => (
-    <div className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 hidden lg:block">
-      <div className="p-6">
-        <h2 className="text-xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Super Admin
-        </h2>
-        <p className="text-xs text-gray-500 mt-1">Global Management</p>
-      </div>
-      <nav className="px-4 space-y-2">
-        {[
-          { id: 'overview', label: 'Vista General', icon: LayoutDashboard },
-          { id: 'companies', label: 'Empresas', icon: Building2 },
-          { id: 'users', label: 'Usuarios Globales', icon: Users },
-          { id: 'system', label: 'Salud del Sistema', icon: Server },
-          { id: 'settings', label: 'Configuración', icon: Settings },
-        ].map((item) => {
-          const Icon = item.icon;
-          return (
-            <button
-              key={item.id}
-              onClick={() => setActiveSection(item.id)}
-              className={`w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                activeSection === item.id
-                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50'
-              }`}
-            >
-              <Icon className="h-5 w-5 mr-3" />
-              {item.label}
-            </button>
-          );
-        })}
-      </nav>
-    </div>
-  );
+  const loadData = async () => {
+    setLoading(true);
+    setError(null);
 
-  const renderOverview = () => (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {globalStats.map((stat, index) => {
-          const Icon = stat.icon;
-          return (
-            <Card key={index} className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className={`p-3 rounded-xl bg-${stat.color}-50 dark:bg-${stat.color}-900/20`}>
-                  <Icon className={`h-6 w-6 text-${stat.color}-600 dark:text-${stat.color}-400`} />
-                </div>
-                <span
-                  className={`text-xs font-medium px-2 py-1 rounded-full ${
-                    stat.trend === 'up'
-                      ? 'bg-green-100 text-green-700'
-                      : 'bg-gray-100 text-gray-700'
-                  }`}
-                >
-                  {stat.change}
-                </span>
-              </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300">{stat.title}</p>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stat.value}</h3>
-            </Card>
-          );
-        })}
-      </div>
+    try {
+      const [stats, companiesData, health, modelsData, logs] = await Promise.all([
+        superadminService.getGlobalStats(),
+        superadminService.getCompanies(),
+        superadminService.getSystemHealth(),
+        superadminService.getModelsStatus(),
+        superadminService.getAuditLogs({ limit: 10 }),
+      ]);
+      setGlobalStats(stats);
+      setCompanies(companiesData);
+      setSystemHealth(health);
+      setModels(modelsData);
+      setAuditLogs(logs);
+    } catch (err) {
+      console.error('Error loading data:', err);
+      setError('Error al cargar datos. Verifica que tienes permisos de superadmin.');
+      toast.error('Error al cargar datos');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="p-6">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Crecimiento de Empresas
-          </h3>
-          <div className="h-64 flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
-            <p className="text-gray-400">Gráfico de crecimiento aquí</p>
-          </div>
-        </Card>
-        <Card className="p-6">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Distribución de Planes
-          </h3>
-          <div className="h-64 flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
-            <p className="text-gray-400">Gráfico circular aquí</p>
-          </div>
-        </Card>
+  const handlePurge = async () => {
+    if (!confirm('¿Estás seguro de ejecutar la limpieza de datos expirados?')) {
+      return;
+    }
+
+    try {
+      const result = await superadminService.runDataPurge();
+      toast.success(result.message);
+    } catch (err) {
+      toast.error('Error al ejecutar purge');
+    }
+  };
+
+  /*
+   * Helper to render a consistent KPI card matching AdminDashboard style
+   */
+  const renderStatCard = (
+    title: string,
+    value: string | number,
+    subtext: string,
+    Icon: React.ComponentType<{ className?: string }>,
+    colorClasses: { bg: string; text: string }
+  ) => (
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4 transition-all hover:shadow-md">
+      <div className="flex items-center gap-4">
+        <div className={`p-3 rounded-lg shrink-0 ${colorClasses.bg} ${colorClasses.text}`}>
+          <Icon className="w-6 h-6" />
+        </div>
+        <div>
+          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+            {title}
+          </p>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-0.5">{value}</h3>
+          <p className="text-xs text-gray-500 mt-1">{subtext}</p>
+        </div>
       </div>
     </div>
   );
 
-  const renderCompanies = () => (
-    <Card className="p-6">
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Gestión de Empresas</h2>
-        <div className="flex gap-3 w-full md:w-auto">
-          <div className="relative flex-1 md:w-64">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Buscar empresa..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'healthy':
+      case 'loaded':
+        return 'text-green-400';
+      case 'degraded':
+      case 'loading':
+        return 'text-yellow-400';
+      default:
+        return 'text-red-400';
+    }
+  };
+
+  if (loading) {
+    return (
+      <MainLayout>
+        <div className="flex items-center justify-center h-96">
+          <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+        </div>
+      </MainLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <MainLayout>
+        <Card className="p-6">
+          <div className="flex items-center gap-3 text-red-500 mb-4">
+            <AlertCircle className="h-5 w-5" />
+            <span>{error}</span>
           </div>
-          <Button>
-            <Plus className="h-4 w-4 mr-2" />
-            Nueva Empresa
+          <Button onClick={loadData}>
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Reintentar
+          </Button>
+        </Card>
+      </MainLayout>
+    );
+  }
+
+  return (
+    <MainLayout>
+      {/* Header matching AdminDashboard style */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-purple-700 to-indigo-800 dark:from-gray-200 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+              Panel de Super Administrador
+            </h1>
+            <p className="text-lg text-purple-600/80 dark:text-purple-400/80 font-medium">
+              Control global del sistema y todas las empresas
+            </p>
+          </div>
+          <Button variant="ghost" onClick={loadData}>
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Actualizar
           </Button>
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full">
-          <thead>
-            <tr className="border-b border-gray-200 dark:border-gray-700">
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                Empresa
-              </th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                Plan
-              </th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                Usuarios
-              </th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                Estado
-              </th>
-              <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                Renovación
-              </th>
-              <th className="text-right py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-            {companies.map((company) => (
-              <tr key={company.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-medium text-gray-900 dark:text-gray-100">
-                  {company.name}
-                </td>
-                <td className="py-3 px-4">
-                  <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
-                    {company.plan}
-                  </span>
-                </td>
-                <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{company.users}</td>
-                <td className="py-3 px-4">
-                  <span
-                    className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${
-                      company.status === 'active'
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                        : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
-                    }`}
-                  >
-                    {company.status === 'active' ? (
-                      <CheckCircle className="h-3 w-3 mr-1" />
-                    ) : (
-                      <XCircle className="h-3 w-3 mr-1" />
-                    )}
-                    {company.status}
-                  </span>
-                </td>
-                <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{company.renewal}</td>
-                <td className="py-3 px-4 text-right">
-                  <Button variant="ghost" size="sm">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </Card>
-  );
-
-  const renderSystemHealth = () => (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="p-6 border-t-4 border-green-500">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-gray-900 dark:text-gray-100">API Server</h3>
-            <Server className="h-5 w-5 text-green-500" />
-          </div>
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Uptime</span>
-              <span className="font-medium text-green-600">99.99%</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Latency</span>
-              <span className="font-medium text-gray-900 dark:text-gray-100">45ms</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Requests</span>
-              <span className="font-medium text-gray-900 dark:text-gray-100">1.2k/min</span>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="p-6 border-t-4 border-blue-500">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-gray-900 dark:text-gray-100">Database</h3>
-            <Database className="h-5 w-5 text-blue-500" />
-          </div>
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Status</span>
-              <span className="font-medium text-green-600">Healthy</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Connections</span>
-              <span className="font-medium text-gray-900 dark:text-gray-100">85/100</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Size</span>
-              <span className="font-medium text-gray-900 dark:text-gray-100">1.4 GB</span>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="p-6 border-t-4 border-purple-500">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-gray-900 dark:text-gray-100">AI Engine</h3>
-            <Cpu className="h-5 w-5 text-purple-500" />
-          </div>
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Status</span>
-              <span className="font-medium text-green-600">Operational</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Load</span>
-              <span className="font-medium text-gray-900 dark:text-gray-100">32%</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Queue</span>
-              <span className="font-medium text-gray-900 dark:text-gray-100">0 jobs</span>
-            </div>
-          </div>
-        </Card>
-      </div>
-
-      <Card className="p-6">
-        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">System Logs</h3>
-        <div className="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-xs h-64 overflow-y-auto">
-          <p>[2024-11-30 14:45:22] INFO: API Gateway started on port 3000</p>
-          <p>[2024-11-30 14:45:23] INFO: Database connection established</p>
-          <p>[2024-11-30 14:45:25] INFO: AI Model loaded successfully (250ms)</p>
-          <p>[2024-11-30 14:46:01] INFO: Incoming request GET /api/verify</p>
-          <p>[2024-11-30 14:46:02] SUCCESS: Verification completed for user_123</p>
-          <p>[2024-11-30 14:48:15] WARN: High latency detected on node-3</p>
-          <p>[2024-11-30 14:50:00] INFO: Scheduled backup completed</p>
+      <div className="space-y-6">
+        {/* KPIs Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {renderStatCard(
+            'Total Empresas',
+            globalStats?.total_companies ?? 0,
+            `${companies.length} empresas activas`,
+            Building2,
+            { bg: 'bg-blue-50 dark:bg-blue-900/20', text: 'text-blue-600 dark:text-blue-400' }
+          )}
+          {renderStatCard(
+            'Usuarios Globales',
+            globalStats?.total_users?.toLocaleString() ?? '0',
+            `${globalStats?.total_enrollments ?? 0} enrolados`,
+            Users,
+            { bg: 'bg-purple-50 dark:bg-purple-900/20', text: 'text-purple-600 dark:text-purple-400' }
+          )}
+          {renderStatCard(
+            'Verificaciones (30d)',
+            globalStats?.total_verifications_30d?.toLocaleString() ?? '0',
+            `${((globalStats?.success_rate ?? 0) * 100).toFixed(1)}% éxito`,
+            Shield,
+            { bg: 'bg-green-50 dark:bg-green-900/20', text: 'text-green-600 dark:text-green-400' }
+          )}
+          {renderStatCard(
+            'Spoofing Detectado',
+            `${((globalStats?.spoof_detection_rate ?? 0) * 100).toFixed(2)}%`,
+            'Tasa de detección',
+            AlertTriangle,
+            { bg: 'bg-orange-50 dark:bg-orange-900/20', text: 'text-orange-600 dark:text-orange-400' }
+          )}
         </div>
-      </Card>
-    </div>
-  );
 
-  return (
-    <MainLayout>
-      <div className="flex flex-col lg:flex-row gap-6">
-        {renderSidebar()}
-        <div className="flex-1">
-          <div className="mb-8 lg:hidden">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Super Admin</h1>
-          </div>
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Companies Table */}
+          <Card className="lg:col-span-2 p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                Empresas por Usuarios
+              </h3>
+              <div className="p-1.5 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                <Building2 className="h-4 w-4 text-gray-500" />
+              </div>
+            </div>
 
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
-            {activeSection === 'overview' && renderOverview()}
-            {activeSection === 'companies' && renderCompanies()}
-            {activeSection === 'system' && renderSystemHealth()}
-            {activeSection === 'users' && (
-              <Card className="p-6">
-                <h2 className="text-xl font-bold mb-4">Usuarios Globales</h2>
-                <p className="text-gray-500">Gestión de usuarios a nivel global en desarrollo...</p>
-              </Card>
-            )}
-            {activeSection === 'settings' && (
-              <Card className="p-6">
-                <h2 className="text-xl font-bold mb-4">Configuración Global</h2>
-                <p className="text-gray-500">Configuración del sistema SaaS en desarrollo...</p>
-              </Card>
-            )}
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead>
+                  <tr className="border-b border-gray-200 dark:border-gray-700">
+                    <th className="text-left py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
+                      Empresa
+                    </th>
+                    <th className="text-center py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
+                      Usuarios
+                    </th>
+                    <th className="text-center py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
+                      Enrolados
+                    </th>
+                    <th className="text-center py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
+                      Verif. (30d)
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                  {companies.slice(0, 5).map((company, index) => (
+                    <tr key={index} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50">
+                      <td className="py-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                            <Building2 className="h-4 w-4 text-blue-600" />
+                          </div>
+                          <span className="font-medium text-gray-900 dark:text-gray-100 text-sm">
+                            {company.name}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="py-3 text-center text-sm text-gray-600 dark:text-gray-300">
+                        {company.user_count}
+                      </td>
+                      <td className="py-3 text-center">
+                        <span className="text-sm text-green-600 dark:text-green-400 font-medium">
+                          {company.enrolled_count}
+                        </span>
+                      </td>
+                      <td className="py-3 text-center text-sm text-gray-600 dark:text-gray-300">
+                        {company.verification_count_30d}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+
+          {/* Quick Actions & System Status */}
+          <div className="space-y-6">
+            <Card className="p-6">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                Accesos Rápidos
+              </h3>
+              <div className="space-y-3">
+                <button
+                  onClick={() => navigate('/admin/users')}
+                  className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600 dark:text-blue-400 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/30">
+                      <Users className="h-4 w-4" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                      Gestionar Usuarios
+                    </span>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => navigate('/admin/logs')}
+                  className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-purple-600 dark:text-purple-400 group-hover:bg-purple-100 dark:group-hover:bg-purple-900/30">
+                      <FileText className="h-4 w-4" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                      Auditoría Global
+                    </span>
+                  </div>
+                </button>
+
+                <button
+                  onClick={handlePurge}
+                  className="w-full flex items-center justify-between p-3 rounded-lg border border-orange-200 dark:border-orange-700/50 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg text-orange-600 dark:text-orange-400 group-hover:bg-orange-100 dark:group-hover:bg-orange-900/30">
+                      <Trash2 className="h-4 w-4" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                      Purgar Datos Expirados
+                    </span>
+                  </div>
+                </button>
+              </div>
+            </Card>
+
+            {/* System Status Card */}
+            <Card className="p-6 bg-gray-900 text-white border-none">
+              <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
+                <Settings className="h-5 w-5" /> Estado del Sistema
+              </h3>
+              <div className="space-y-3 mt-4">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-400 flex items-center gap-2">
+                    <Server className="h-4 w-4" /> API
+                  </span>
+                  <span className={`flex items-center font-medium ${getStatusColor(systemHealth?.api_status || 'down')}`}>
+                    <span className="h-2 w-2 bg-current rounded-full mr-2 animate-pulse"></span>
+                    {systemHealth?.api_status || 'Unknown'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-400 flex items-center gap-2">
+                    <Database className="h-4 w-4" /> Database
+                  </span>
+                  <span className={`flex items-center font-medium ${getStatusColor(systemHealth?.database_status || 'down')}`}>
+                    <span className="h-2 w-2 bg-current rounded-full mr-2 animate-pulse"></span>
+                    {systemHealth?.database_connections}/{systemHealth?.database_max_connections}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-400 flex items-center gap-2">
+                    <Cpu className="h-4 w-4" /> Modelos AI
+                  </span>
+                  <span className={`flex items-center font-medium ${getStatusColor(models[0]?.status || 'not_loaded')}`}>
+                    <span className="h-2 w-2 bg-current rounded-full mr-2 animate-pulse"></span>
+                    {models.filter(m => m.status === 'loaded').length}/{models.length} loaded
+                  </span>
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
+
+        {/* Recent Activity */}
+        <Card className="p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+              Actividad Reciente Global
+            </h3>
+            <Button variant="ghost" size="sm" onClick={() => navigate('/admin/logs')}>
+              Ver todos
+            </Button>
+          </div>
+          <div className="space-y-2">
+            {auditLogs.length === 0 ? (
+              <p className="text-gray-500 text-sm">No hay actividad reciente</p>
+            ) : (
+              auditLogs.map((log, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700 last:border-0"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`p-1.5 rounded-lg ${log.success ? 'bg-green-50 dark:bg-green-900/20' : 'bg-red-50 dark:bg-red-900/20'}`}>
+                      {log.success ? (
+                        <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                      ) : (
+                        <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        {log.action}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {log.actor} • {log.company || 'sistema'}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-xs text-gray-400">
+                    {new Date(log.timestamp).toLocaleTimeString()}
+                  </span>
+                </div>
+              ))
+            )}
+          </div>
+        </Card>
       </div>
     </MainLayout>
   );

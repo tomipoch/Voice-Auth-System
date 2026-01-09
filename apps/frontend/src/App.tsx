@@ -29,7 +29,16 @@ const UserDetailPage = lazy(() => import('./pages/admin/UserDetailPage'));
 const PhrasesPage = lazy(() => import('./pages/admin/PhrasesPage'));
 const AuditLogsPage = lazy(() => import('./pages/admin/AuditLogsPage'));
 const PhraseRulesPage = lazy(() => import('./pages/admin/PhraseRulesPage'));
+// Superadmin pages
 const SuperAdminDashboard = lazy(() => import('./pages/SuperAdminDashboard'));
+const GlobalUsersPage = lazy(() => import('./pages/superadmin/GlobalUsersPage'));
+const GlobalAuditPage = lazy(() => import('./pages/superadmin/GlobalAuditPage'));
+const ApiKeysPage = lazy(() => import('./pages/superadmin/ApiKeysPage'));
+const CompaniesPage = lazy(() => import('./pages/superadmin/CompaniesPage'));
+const SecurityDashboardPage = lazy(() => import('./pages/superadmin/SecurityDashboardPage'));
+const SessionsPage = lazy(() => import('./pages/superadmin/SessionsPage'));
+const SystemOperationsPage = lazy(() => import('./pages/superadmin/SystemOperationsPage'));
+const ConfigurationPage = lazy(() => import('./pages/superadmin/ConfigurationPage'));
 
 // Componente de carga simple
 const LoadingSpinner = () => (
@@ -84,13 +93,20 @@ interface PublicRouteProps {
 }
 
 const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
 
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
   if (isAuthenticated) {
+    // Redirigir según el rol del usuario
+    if (user?.role === 'superadmin') {
+      return <Navigate to="/superadmin" replace />;
+    }
+    if (user?.role === 'admin') {
+      return <Navigate to="/admin/dashboard" replace />;
+    }
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -231,11 +247,76 @@ const AppRoutes = () => {
             />
 
             {/* Rutas de super administrador */}
+            <Route path="/super-admin" element={<Navigate to="/superadmin" replace />} />
             <Route
-              path="/super-admin"
+              path="/superadmin"
               element={
                 <ProtectedRoute superAdminOnly>
                   <SuperAdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/superadmin/users"
+              element={
+                <ProtectedRoute superAdminOnly>
+                  <GlobalUsersPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/superadmin/audit"
+              element={
+                <ProtectedRoute superAdminOnly>
+                  <GlobalAuditPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/superadmin/api-keys"
+              element={
+                <ProtectedRoute superAdminOnly>
+                  <ApiKeysPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/superadmin/companies"
+              element={
+                <ProtectedRoute superAdminOnly>
+                  <CompaniesPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/superadmin/security"
+              element={
+                <ProtectedRoute superAdminOnly>
+                  <SecurityDashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/superadmin/sessions"
+              element={
+                <ProtectedRoute superAdminOnly>
+                  <SessionsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/superadmin/operations"
+              element={
+                <ProtectedRoute superAdminOnly>
+                  <SystemOperationsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/superadmin/config"
+              element={
+                <ProtectedRoute superAdminOnly>
+                  <ConfigurationPage />
                 </ProtectedRoute>
               }
             />

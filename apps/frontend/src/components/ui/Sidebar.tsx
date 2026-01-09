@@ -10,6 +10,7 @@ import {
   UserPlus as UserPlusIcon,
   Menu,
   X,
+  SlidersHorizontal,
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 
@@ -27,60 +28,80 @@ const Sidebar = () => {
   const closeMenu = () => setIsOpen(false);
 
   // Navigation items based on user role
-  const navigation =
-    user?.role === 'user'
-      ? [
-          {
-            id: 'dashboard',
-            label: 'Dashboard',
-            href: '/dashboard',
-            icon: Home,
-          },
-          {
-            id: 'enrollment',
-            label: 'Registro de Voz',
-            href: '/enrollment',
-            icon: UserPlusIcon,
-          },
-          {
-            id: 'verification',
-            label: 'Verificación',
-            href: '/verification',
-            icon: Shield,
-          },
-        ]
-      : [
-          {
-            id: 'admin-dashboard',
-            label: 'Dashboard',
-            href: '/admin/dashboard',
-            icon: Home,
-          },
-          {
-            id: 'users',
-            label: 'Usuarios',
-            href: '/admin/users',
-            icon: Users,
-          },
-          {
-            id: 'phrases',
-            label: 'Frases',
-            href: '/admin/phrases',
-            icon: Mic,
-          },
-          {
-            id: 'logs',
-            label: 'Logs',
-            href: '/admin/logs',
-            icon: Settings,
-          },
-          {
-            id: 'phrase-rules',
-            label: 'Reglas de Calidad',
-            href: '/admin/phrase-rules',
-            icon: Settings,
-          },
-        ];
+  const getNavigation = () => {
+    if (user?.role === 'superadmin') {
+      return [
+        { id: 'superadmin-dashboard', label: 'Dashboard', href: '/superadmin', icon: Home },
+        { id: 'superadmin-companies', label: 'Empresas', href: '/superadmin/companies', icon: Users },
+        { id: 'superadmin-users', label: 'Usuarios', href: '/superadmin/users', icon: Users },
+        { id: 'superadmin-security', label: 'Seguridad', href: '/superadmin/security', icon: Shield },
+        { id: 'superadmin-sessions', label: 'Sesiones', href: '/superadmin/sessions', icon: Shield },
+        { id: 'superadmin-audit', label: 'Auditoría', href: '/superadmin/audit', icon: Mic },
+        { id: 'superadmin-operations', label: 'Operaciones', href: '/superadmin/operations', icon: Settings },
+        { id: 'superadmin-api-keys', label: 'API Keys', href: '/superadmin/api-keys', icon: Settings },
+        { id: 'superadmin-config', label: 'Ajustes', href: '/superadmin/config', icon: SlidersHorizontal },
+      ];
+    }
+
+    if (user?.role === 'admin') {
+      return [
+        {
+          id: 'admin-dashboard',
+          label: 'Dashboard',
+          href: '/admin/dashboard',
+          icon: Home,
+        },
+        {
+          id: 'users',
+          label: 'Usuarios',
+          href: '/admin/users',
+          icon: Users,
+        },
+        {
+          id: 'phrases',
+          label: 'Frases',
+          href: '/admin/phrases',
+          icon: Mic,
+        },
+        {
+          id: 'logs',
+          label: 'Logs',
+          href: '/admin/logs',
+          icon: Settings,
+        },
+        {
+          id: 'phrase-rules',
+          label: 'Reglas de Calidad',
+          href: '/admin/phrase-rules',
+          icon: Settings,
+        },
+      ];
+    }
+
+    // Default: regular user
+    return [
+      {
+        id: 'dashboard',
+        label: 'Dashboard',
+        href: '/dashboard',
+        icon: Home,
+      },
+      {
+        id: 'enrollment',
+        label: 'Registro de Voz',
+        href: '/enrollment',
+        icon: UserPlusIcon,
+      },
+      {
+        id: 'verification',
+        label: 'Verificación',
+        href: '/verification',
+        icon: Shield,
+      },
+    ];
+  };
+
+  const navigation = getNavigation();
 
   return (
     <>
