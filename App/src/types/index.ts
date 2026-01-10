@@ -17,6 +17,22 @@ export interface User {
   createdAt?: string;
   created_at?: string; // Backend uses snake_case
   updatedAt?: string;
+  settings?: {
+    notifications?: {
+      email?: boolean;
+      push?: boolean;
+      verificationAlerts?: boolean;
+    };
+    security?: {
+      twoFactor?: boolean;
+      sessionTimeout?: number;
+      requireReauth?: boolean;
+    };
+    appearance?: {
+      theme?: string;
+      language?: string;
+    };
+  };
 }
 
 export enum UserRole {
