@@ -41,7 +41,7 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
 
   const systemChecks = [
     { label: 'Micrófono detectado', status: 'ready' },
-    { label: 'Conexión segura', status: 'ready' },
+    { label: 'Conexión Segura', status: 'ready' },
     { label: 'Navegador compatible', status: 'ready' },
   ];
 
@@ -77,10 +77,10 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
                 <Button
                   size="lg"
                   onClick={onStart}
-                  className="w-full sm:w-auto px-8 py-4 text-lg shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-300 bg-linear-to-r from-blue-600 to-indigo-600 border-0 rounded-xl"
+                  className="w-full sm:w-auto px-8 py-4 text-lg shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-300 bg-linear-to-r from-blue-600 to-indigo-600 border-0 rounded-xl flex items-center justify-center"
                 >
                   <Mic className="h-5 w-5 mr-2" />
-                  Iniciar Verificación
+                  Comenzar Verificación
                 </Button>
 
                 <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
@@ -131,7 +131,7 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
               <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-gray-100 dark:bg-gray-800" />
 
               <div className="relative flex items-start gap-6 group">
-                <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-2xl bg-white dark:bg-gray-800 border-2 border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 font-bold text-lg shadow-sm group-hover:scale-110 group-hover:border-blue-500 transition-all duration-300">
+                <div className="relative z-10 shrink-0 flex items-center justify-center w-12 h-12 rounded-2xl bg-white dark:bg-gray-800 border-2 border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 font-bold text-lg shadow-sm group-hover:scale-110 group-hover:border-blue-500 transition-all duration-300">
                   1
                 </div>
                 <div className="pt-1">
@@ -139,13 +139,13 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
                     Lee la frase
                   </h4>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Aparecerá una frase corta en tu pantalla. Léela con voz clara y natural.
+                    Lee la frase en pantalla con voz clara.
                   </p>
                 </div>
               </div>
 
               <div className="relative flex items-start gap-6 group">
-                <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-2xl bg-white dark:bg-gray-800 border-2 border-indigo-100 dark:border-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold text-lg shadow-sm group-hover:scale-110 group-hover:border-indigo-500 transition-all duration-300">
+                <div className="relative z-10 shrink-0 flex items-center justify-center w-12 h-12 rounded-2xl bg-white dark:bg-gray-800 border-2 border-indigo-100 dark:border-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold text-lg shadow-sm group-hover:scale-110 group-hover:border-indigo-500 transition-all duration-300">
                   2
                 </div>
                 <div className="pt-1">
@@ -153,7 +153,7 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
                     Análisis de Voz
                   </h4>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Nuestra IA analiza características únicas de tu voz en tiempo real.
+                    Analizamos tu voz en tiempo real.
                   </p>
                 </div>
               </div>
@@ -167,7 +167,7 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
                     Verificación
                   </h4>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Recibe confirmación inmediata de tu identidad.
+                    Obtén confirmación de tu identidad.
                   </p>
                 </div>
               </div>

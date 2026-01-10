@@ -129,22 +129,23 @@ async def add_enrollment_sample(
     from ..infrastructure.biometrics.audio_converter import ensure_wav_format
     
     try:
-        # Get user info from active session using public methods
-        session = enrollment_service.get_session(enrollment_uuid)
+        # Get user info from active session using async method (from database)
+        session = await enrollment_service.get_session_async(enrollment_uuid)
         user = await enrollment_service.get_session_user(enrollment_uuid)
         
         # Convert to WAV format
         wav_bytes = ensure_wav_format(audio_bytes)
         
         if wav_bytes and session:
-            # Save audio
+            # Save audio (session is a dict now, not an object)
+            user_id = session.get("user_id") if isinstance(session, dict) else session.user_id
             dataset_recorder.save_enrollment_audio(
-                user_id=str(session.user_id),
+                user_id=str(user_id),
                 audio_data=wav_bytes,
                 user_email=user.get("email") if user else None,
                 sample_number=sample_result["samples_completed"]
             )
-            logger.info(f"Saved enrollment audio for user {user.get('email') if user else session.user_id}, sample {sample_result['samples_completed']}")
+            logger.info(f"Saved enrollment audio for user {user.get('email') if user else user_id}, sample {sample_result['samples_completed']}")
         else:
             logger.warning("Failed to convert audio to WAV format or session not found")
     except Exception as e:

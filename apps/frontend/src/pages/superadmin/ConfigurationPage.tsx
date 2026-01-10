@@ -1,15 +1,9 @@
 import { useState, useEffect } from 'react';
-import {
-  RefreshCw,
-  Loader2,
-  Save,
-  Shield,
-  Lock,
-  AlertTriangle,
-} from 'lucide-react';
+import { RefreshCw, Loader2, Save, Shield, Lock, AlertTriangle } from 'lucide-react';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
 import toast from 'react-hot-toast';
 
 interface SecurityConfig {
@@ -79,49 +73,11 @@ const ConfigurationPage = () => {
     }
   };
 
-  const InputField = ({
-    label,
-    value,
-    onChange,
-    type = 'number',
-    min,
-    max,
-    step,
-    suffix,
-  }: {
-    label: string;
-    value: number;
-    onChange: (v: number) => void;
-    type?: string;
-    min?: number;
-    max?: number;
-    step?: number;
-    suffix?: string;
-  }) => (
-    <div>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-        {label}
-      </label>
-      <div className="flex items-center gap-2">
-        <input
-          type={type}
-          value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
-          min={min}
-          max={max}
-          step={step}
-          className="w-full px-3 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800"
-        />
-        {suffix && <span className="text-sm text-gray-500 whitespace-nowrap">{suffix}</span>}
-      </div>
-    </div>
-  );
-
   if (loading) {
     return (
       <MainLayout>
         <div className="flex items-center justify-center h-96">
-          <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
+          <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
         </div>
       </MainLayout>
     );
@@ -133,10 +89,10 @@ const ConfigurationPage = () => {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-purple-700 to-indigo-800 dark:from-gray-200 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+            <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
               Configuración del Sistema
             </h1>
-            <p className="text-lg text-purple-600/80 dark:text-purple-400/80 font-medium">
+            <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
               Umbrales y políticas de seguridad
             </p>
           </div>
@@ -145,7 +101,11 @@ const ConfigurationPage = () => {
               <RefreshCw className="h-4 w-4" />
             </Button>
             <Button onClick={handleSave} disabled={saving}>
-              {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
+              {saving ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Save className="h-4 w-4 mr-2" />
+              )}
               Guardar Cambios
             </Button>
           </div>
@@ -170,13 +130,15 @@ const ConfigurationPage = () => {
                 <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Umbral de Speaker Recognition
                 </label>
-                <span className={`text-sm font-bold px-2 py-1 rounded ${
-                  verificationConfig.speaker_threshold >= 0.7 
-                    ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' 
-                    : verificationConfig.speaker_threshold >= 0.55 
-                      ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' 
-                      : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                }`}>
+                <span
+                  className={`text-sm font-bold px-2 py-1 rounded ${
+                    verificationConfig.speaker_threshold >= 0.7
+                      ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                      : verificationConfig.speaker_threshold >= 0.55
+                        ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
+                        : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                  }`}
+                >
                   {verificationConfig.speaker_threshold.toFixed(2)}
                 </span>
               </div>
@@ -187,9 +149,12 @@ const ConfigurationPage = () => {
                 step={0.05}
                 value={verificationConfig.speaker_threshold}
                 onChange={(e) =>
-                  setVerificationConfig({ ...verificationConfig, speaker_threshold: Number(e.target.value) })
+                  setVerificationConfig({
+                    ...verificationConfig,
+                    speaker_threshold: Number(e.target.value),
+                  })
                 }
-                className="w-full accent-purple-600"
+                className="w-full accent-blue-600"
               />
               <div className="flex justify-between text-xs text-gray-500 mt-1">
                 <span>🟢 Menos estricto</span>
@@ -208,7 +173,10 @@ const ConfigurationPage = () => {
                 step={0.05}
                 value={verificationConfig.antispoofing_threshold}
                 onChange={(e) =>
-                  setVerificationConfig({ ...verificationConfig, antispoofing_threshold: Number(e.target.value) })
+                  setVerificationConfig({
+                    ...verificationConfig,
+                    antispoofing_threshold: Number(e.target.value),
+                  })
                 }
                 className="w-full"
               />
@@ -225,28 +193,49 @@ const ConfigurationPage = () => {
                 step={0.05}
                 value={verificationConfig.text_similarity_threshold}
                 onChange={(e) =>
-                  setVerificationConfig({ ...verificationConfig, text_similarity_threshold: Number(e.target.value) })
+                  setVerificationConfig({
+                    ...verificationConfig,
+                    text_similarity_threshold: Number(e.target.value),
+                  })
                 }
                 className="w-full"
               />
             </div>
 
-            <InputField
-              label="Máximo de Reintentos"
-              value={verificationConfig.max_retries}
-              onChange={(v) => setVerificationConfig({ ...verificationConfig, max_retries: v })}
-              min={1}
-              max={10}
-            />
+            <div className="flex items-end gap-2">
+              <Input
+                label="Máximo de Reintentos"
+                type="number"
+                value={verificationConfig.max_retries}
+                onChange={(e) =>
+                  setVerificationConfig({
+                    ...verificationConfig,
+                    max_retries: Number(e.target.value),
+                  })
+                }
+                min={1}
+                max={10}
+                className="flex-1"
+              />
+            </div>
 
-            <InputField
-              label="Expiración de Challenge"
-              value={verificationConfig.challenge_expiry_seconds}
-              onChange={(v) => setVerificationConfig({ ...verificationConfig, challenge_expiry_seconds: v })}
-              min={60}
-              max={600}
-              suffix="segundos"
-            />
+            <div className="flex items-end gap-2">
+              <Input
+                label="Expiración de Challenge"
+                type="number"
+                value={verificationConfig.challenge_expiry_seconds}
+                onChange={(e) =>
+                  setVerificationConfig({
+                    ...verificationConfig,
+                    challenge_expiry_seconds: Number(e.target.value),
+                  })
+                }
+                min={60}
+                max={600}
+                className="flex-1"
+              />
+              <span className="text-sm text-gray-500 whitespace-nowrap pb-3">segundos</span>
+            </div>
           </div>
         </Card>
 
@@ -262,49 +251,88 @@ const ConfigurationPage = () => {
           </div>
 
           <div className="space-y-4">
-            <InputField
+            <Input
               label="Intentos de Login Máximos"
+              type="number"
               value={securityConfig.max_login_attempts}
-              onChange={(v) => setSecurityConfig({ ...securityConfig, max_login_attempts: v })}
+              onChange={(e) =>
+                setSecurityConfig({ ...securityConfig, max_login_attempts: Number(e.target.value) })
+              }
               min={3}
               max={10}
             />
 
-            <InputField
-              label="Duración de Bloqueo"
-              value={securityConfig.lockout_duration_minutes}
-              onChange={(v) => setSecurityConfig({ ...securityConfig, lockout_duration_minutes: v })}
-              min={5}
-              max={60}
-              suffix="minutos"
-            />
+            <div className="flex items-end gap-2">
+              <Input
+                label="Duración de Bloqueo"
+                type="number"
+                value={securityConfig.lockout_duration_minutes}
+                onChange={(e) =>
+                  setSecurityConfig({
+                    ...securityConfig,
+                    lockout_duration_minutes: Number(e.target.value),
+                  })
+                }
+                min={5}
+                max={60}
+                className="flex-1"
+              />
+              <span className="text-sm text-gray-500 whitespace-nowrap pb-3">minutos</span>
+            </div>
 
-            <InputField
-              label="Timeout de Sesión"
-              value={securityConfig.session_timeout_minutes}
-              onChange={(v) => setSecurityConfig({ ...securityConfig, session_timeout_minutes: v })}
-              min={15}
-              max={480}
-              suffix="minutos"
-            />
+            <div className="flex items-end gap-2">
+              <Input
+                label="Timeout de Sesión"
+                type="number"
+                value={securityConfig.session_timeout_minutes}
+                onChange={(e) =>
+                  setSecurityConfig({
+                    ...securityConfig,
+                    session_timeout_minutes: Number(e.target.value),
+                  })
+                }
+                min={15}
+                max={480}
+                className="flex-1"
+              />
+              <span className="text-sm text-gray-500 whitespace-nowrap pb-3">minutos</span>
+            </div>
 
-            <InputField
-              label="Longitud Mínima de Contraseña"
-              value={securityConfig.min_password_length}
-              onChange={(v) => setSecurityConfig({ ...securityConfig, min_password_length: v })}
-              min={6}
-              max={20}
-              suffix="caracteres"
-            />
+            <div className="flex items-end gap-2">
+              <Input
+                label="Longitud Mínima de Contraseña"
+                type="number"
+                value={securityConfig.min_password_length}
+                onChange={(e) =>
+                  setSecurityConfig({
+                    ...securityConfig,
+                    min_password_length: Number(e.target.value),
+                  })
+                }
+                min={6}
+                max={20}
+                className="flex-1"
+              />
+              <span className="text-sm text-gray-500 whitespace-nowrap pb-3">caracteres</span>
+            </div>
 
-            <InputField
-              label="Expiración de Contraseña"
-              value={securityConfig.password_expiry_days}
-              onChange={(v) => setSecurityConfig({ ...securityConfig, password_expiry_days: v })}
-              min={0}
-              max={365}
-              suffix="días (0=nunca)"
-            />
+            <div className="flex items-end gap-2">
+              <Input
+                label="Expiración de Contraseña"
+                type="number"
+                value={securityConfig.password_expiry_days}
+                onChange={(e) =>
+                  setSecurityConfig({
+                    ...securityConfig,
+                    password_expiry_days: Number(e.target.value),
+                  })
+                }
+                min={0}
+                max={365}
+                className="flex-1"
+              />
+              <span className="text-sm text-gray-500 whitespace-nowrap pb-3">días (0=nunca)</span>
+            </div>
 
             <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
               <div>
@@ -313,10 +341,15 @@ const ConfigurationPage = () => {
               </div>
               <button
                 onClick={() =>
-                  setSecurityConfig({ ...securityConfig, require_2fa_admins: !securityConfig.require_2fa_admins })
+                  setSecurityConfig({
+                    ...securityConfig,
+                    require_2fa_admins: !securityConfig.require_2fa_admins,
+                  })
                 }
                 className={`relative w-12 h-6 rounded-full transition-colors ${
-                  securityConfig.require_2fa_admins ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600'
+                  securityConfig.require_2fa_admins
+                    ? 'bg-green-500'
+                    : 'bg-gray-300 dark:bg-gray-600'
                 }`}
               >
                 <span
@@ -339,7 +372,8 @@ const ConfigurationPage = () => {
               Cambios de configuración
             </p>
             <p className="text-xs text-yellow-600 dark:text-yellow-300 mt-1">
-              Los cambios en los umbrales y políticas afectarán a todas las verificaciones futuras. Los umbrales más estrictos pueden aumentar los falsos rechazos.
+              Los cambios en los umbrales y políticas afectarán a todas las verificaciones futuras.
+              Los umbrales más estrictos pueden aumentar los falsos rechazos.
             </p>
           </div>
         </div>

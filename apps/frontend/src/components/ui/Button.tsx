@@ -51,9 +51,9 @@ const Button = memo(
     };
 
     const sizeClasses = {
-      sm: 'px-4 py-2.5 text-sm',
-      md: 'px-6 py-3 text-sm',
-      lg: 'px-8 py-4 text-base',
+      sm: 'px-4 h-9 text-sm',
+      md: 'px-6 h-11 text-sm',
+      lg: 'px-8 h-14 text-base',
     };
 
     const disabledClasses =

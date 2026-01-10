@@ -97,7 +97,7 @@ const SecurityDashboardPage = () => {
     const colors: Record<string, string> = {
       replay: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
       tts: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400',
-      voice_clone: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
+      voice_clone: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400',
       unknown: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400',
     };
     const labels: Record<string, string> = {
@@ -107,7 +107,9 @@ const SecurityDashboardPage = () => {
       unknown: 'Desconocido',
     };
     return (
-      <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${colors[type]}`}>
+      <span
+        className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${colors[type]}`}
+      >
         {labels[type]}
       </span>
     );
@@ -134,7 +136,9 @@ const SecurityDashboardPage = () => {
             </div>
             <div>
               <p className="text-xs text-gray-500 uppercase">Intentos (24h)</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{stats.total_attempts_24h}</p>
+              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                {stats.total_attempts_24h}
+              </p>
             </div>
           </div>
         </div>
@@ -145,7 +149,9 @@ const SecurityDashboardPage = () => {
             </div>
             <div>
               <p className="text-xs text-gray-500 uppercase">Bloqueados</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{stats.blocked_24h}</p>
+              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                {stats.blocked_24h}
+              </p>
             </div>
           </div>
         </div>
@@ -169,7 +175,9 @@ const SecurityDashboardPage = () => {
             </div>
             <div>
               <p className="text-xs text-gray-500 uppercase">Ataque Top</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-gray-100 capitalize">{stats.top_attack_type}</p>
+              <p className="text-xl font-bold text-gray-900 dark:text-gray-100 capitalize">
+                {stats.top_attack_type}
+              </p>
             </div>
           </div>
         </div>
@@ -199,7 +207,9 @@ const SecurityDashboardPage = () => {
                   className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-700"
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${attempt.blocked ? 'bg-green-100 dark:bg-green-900/20' : 'bg-red-100 dark:bg-red-900/20'}`}>
+                    <div
+                      className={`p-2 rounded-lg ${attempt.blocked ? 'bg-green-100 dark:bg-green-900/20' : 'bg-red-100 dark:bg-red-900/20'}`}
+                    >
                       {attempt.blocked ? (
                         <CheckCircle className="h-4 w-4 text-green-600" />
                       ) : (
@@ -248,13 +258,15 @@ const SecurityDashboardPage = () => {
             {[
               { type: 'Replay Attack', count: 45, color: 'bg-red-500' },
               { type: 'TTS Síntesis', count: 30, color: 'bg-orange-500' },
-              { type: 'Voice Clone', count: 20, color: 'bg-purple-500' },
+              { type: 'Voice Clone', count: 20, color: 'bg-indigo-500' },
               { type: 'Desconocido', count: 5, color: 'bg-gray-500' },
             ].map((item) => (
               <div key={item.type}>
                 <div className="flex justify-between text-sm mb-1">
                   <span className="text-gray-600 dark:text-gray-300">{item.type}</span>
-                  <span className="font-medium text-gray-900 dark:text-gray-100">{item.count}%</span>
+                  <span className="font-medium text-gray-900 dark:text-gray-100">
+                    {item.count}%
+                  </span>
                 </div>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                   <div
@@ -277,7 +289,8 @@ const SecurityDashboardPage = () => {
               Sistema de detección activo
             </p>
             <p className="text-xs text-yellow-600 dark:text-yellow-300 mt-1">
-              El sistema anti-spoofing está funcionando correctamente. Todos los intentos detectados son bloqueados automáticamente.
+              El sistema anti-spoofing está funcionando correctamente. Todos los intentos detectados
+              son bloqueados automáticamente.
             </p>
           </div>
         </div>

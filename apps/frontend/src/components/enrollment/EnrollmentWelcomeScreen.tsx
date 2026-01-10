@@ -41,7 +41,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
 
   const systemChecks = [
     { label: 'Micrófono detectado', status: 'ready' },
-    { label: 'Ambiente verificado', status: 'ready' },
+    { label: 'Conexión Segura', status: 'ready' },
     { label: 'Navegador compatible', status: 'ready' },
   ];
 
@@ -77,7 +77,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                 <Button
                   size="lg"
                   onClick={onStart}
-                  className="w-full sm:w-auto px-8 py-4 text-lg shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-300 bg-linear-to-r from-blue-600 to-indigo-600 border-0 rounded-xl"
+                  className="w-full sm:w-auto px-8 py-4 text-lg shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-300 bg-linear-to-r from-blue-600 to-indigo-600 border-0 rounded-xl flex items-center justify-center"
                 >
                   <Mic className="h-5 w-5 mr-2" />
                   Comenzar Registro
@@ -131,7 +131,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
               <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-gray-100 dark:bg-gray-800" />
 
               <div className="relative flex items-start gap-6 group">
-                <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-2xl bg-white dark:bg-gray-800 border-2 border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 font-bold text-lg shadow-sm group-hover:scale-110 group-hover:border-blue-500 transition-all duration-300">
+                <div className="relative z-10 flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-2xl bg-white dark:bg-gray-800 border-2 border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 font-bold text-lg shadow-sm group-hover:scale-110 group-hover:border-blue-500 transition-all duration-300">
                   1
                 </div>
                 <div className="pt-1">
@@ -139,14 +139,13 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                     Preparación
                   </h4>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Busca un lugar silencioso y asegúrate de que tu micrófono funcione
-                    correctamente.
+                    Busca un lugar silencioso y verifica tu micrófono.
                   </p>
                 </div>
               </div>
 
               <div className="relative flex items-start gap-6 group">
-                <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-2xl bg-white dark:bg-gray-800 border-2 border-indigo-100 dark:border-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold text-lg shadow-sm group-hover:scale-110 group-hover:border-indigo-500 transition-all duration-300">
+                <div className="relative z-10 flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-2xl bg-white dark:bg-gray-800 border-2 border-indigo-100 dark:border-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold text-lg shadow-sm group-hover:scale-110 group-hover:border-indigo-500 transition-all duration-300">
                   2
                 </div>
                 <div className="pt-1">
@@ -154,7 +153,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                     Grabación
                   </h4>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Leerás 3 frases cortas. Nuestro sistema analizará tu voz en tiempo real.
+                    Lee 3 frases cortas para analizar tu voz.
                   </p>
                 </div>
               </div>
@@ -168,7 +167,7 @@ const EnrollmentWelcomeScreen = ({ onStart, className = '' }: EnrollmentWelcomeS
                     Confirmación
                   </h4>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Tu perfil de voz se creará y podrás usarlo para iniciar sesión de forma segura.
+                    Tu perfil se creará para iniciar sesión segura.
                   </p>
                 </div>
               </div>

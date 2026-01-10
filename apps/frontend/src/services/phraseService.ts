@@ -108,14 +108,10 @@ class PhraseService {
   /**
    * Update phrase text
    */
-  async updatePhraseText(
-    phraseId: string,
-    text: string
-  ): Promise<UpdatePhraseTextResponse> {
-    const response = await api.put<UpdatePhraseTextResponse>(
-      `${this.baseUrl}/${phraseId}`,
-      { text } as UpdatePhraseTextRequest
-    );
+  async updatePhraseText(phraseId: string, text: string): Promise<UpdatePhraseTextResponse> {
+    const response = await api.put<UpdatePhraseTextResponse>(`${this.baseUrl}/${phraseId}`, {
+      text,
+    } as UpdatePhraseTextRequest);
     return response.data;
   }
 }

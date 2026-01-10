@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Users,
@@ -9,11 +9,12 @@ import {
   XCircle,
   AlertCircle,
   Building2,
-  Filter,
 } from 'lucide-react';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
+import Select from '../../components/ui/Select';
 import adminService from '../../services/adminService';
 import { superadminService } from '../../services/superadminService';
 import type { AdminUser } from '../../services/adminService';
@@ -31,16 +32,7 @@ const GlobalUsersPage = () => {
   const [filterCompany, setFilterCompany] = useState<string>('');
   const [filterRole, setFilterRole] = useState<string>('');
 
-  useEffect(() => {
-    loadData();
-  }, [page]);
-
-  useEffect(() => {
-    // Load companies for filter dropdown
-    superadminService.getCompanies().then(setCompanies).catch(console.error);
-  }, []);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
     try {
       const data = await adminService.getUsers(page, 50);
@@ -52,17 +44,27 @@ const GlobalUsersPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page]);
 
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = 
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  useEffect(() => {
+    // Load companies for filter dropdown
+    superadminService.getCompanies().then(setCompanies).catch(console.error);
+  }, []);
+
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch =
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.last_name.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesCompany = !filterCompany || (user as unknown as { company?: string }).company === filterCompany;
+
+    const matchesCompany =
+      !filterCompany || (user as unknown as { company?: string }).company === filterCompany;
     const matchesRole = !filterRole || user.role === filterRole;
-    
+
     return matchesSearch && matchesCompany && matchesRole;
   });
 
@@ -100,12 +102,14 @@ const GlobalUsersPage = () => {
 
   const getRoleBadge = (role: string) => {
     const colors: Record<string, string> = {
-      superadmin: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
+      superadmin: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400',
       admin: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400',
       user: 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400',
     };
     return (
-      <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${colors[role] || colors.user}`}>
+      <span
+        className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${colors[role] || colors.user}`}
+      >
         {role}
       </span>
     );
@@ -115,10 +119,10 @@ const GlobalUsersPage = () => {
     <MainLayout>
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-purple-700 to-indigo-800 dark:from-gray-200 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+        <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
           Usuarios Globales
         </h1>
-        <p className="text-lg text-purple-600/80 dark:text-purple-400/80 font-medium">
+        <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
           Gestión de todos los usuarios del sistema
         </p>
       </div>
@@ -144,7 +148,7 @@ const GlobalUsersPage = () => {
             <div>
               <p className="text-xs text-gray-500 uppercase">Enrolados</p>
               <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {users.filter(u => u.enrollment_status === 'enrolled').length}
+                {users.filter((u) => u.enrollment_status === 'enrolled').length}
               </p>
             </div>
           </div>
@@ -157,19 +161,21 @@ const GlobalUsersPage = () => {
             <div>
               <p className="text-xs text-gray-500 uppercase">Admins</p>
               <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {users.filter(u => u.role === 'admin').length}
+                {users.filter((u) => u.role === 'admin').length}
               </p>
             </div>
           </div>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">
+            <div className="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400">
               <Building2 className="w-5 h-5" />
             </div>
             <div>
               <p className="text-xs text-gray-500 uppercase">Empresas</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{companies.length}</p>
+              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                {companies.length}
+              </p>
             </div>
           </div>
         </div>
@@ -179,43 +185,32 @@ const GlobalUsersPage = () => {
       <Card className="p-4 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
+          <div className="flex-1">
+            <Input
               placeholder="Buscar por nombre o email..."
-              className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              icon={<Search className="h-4 w-4" />}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
           {/* Company Filter */}
-          <div className="relative">
-            <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <select
-              className="pl-10 pr-8 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500/50 appearance-none"
-              value={filterCompany}
-              onChange={(e) => setFilterCompany(e.target.value)}
-            >
-              <option value="">Todas las empresas</option>
-              {companies.map((c, i) => (
-                <option key={i} value={c.name}>{c.name}</option>
-              ))}
-            </select>
-          </div>
+          <Select value={filterCompany} onChange={(e) => setFilterCompany(e.target.value)}>
+            <option value="">Todas las empresas</option>
+            {companies.map((c, i) => (
+              <option key={i} value={c.name}>
+                {c.name}
+              </option>
+            ))}
+          </Select>
 
           {/* Role Filter */}
-          <select
-            className="px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
-            value={filterRole}
-            onChange={(e) => setFilterRole(e.target.value)}
-          >
+          <Select value={filterRole} onChange={(e) => setFilterRole(e.target.value)}>
             <option value="">Todos los roles</option>
             <option value="user">Usuario</option>
             <option value="admin">Admin</option>
             <option value="superadmin">Superadmin</option>
-          </select>
+          </Select>
 
           <div className="flex gap-2 ml-auto">
             <Button variant="secondary" onClick={loadData} className="h-12">
@@ -229,7 +224,7 @@ const GlobalUsersPage = () => {
       <Card className="p-6">
         {loading ? (
           <div className="flex items-center justify-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
+            <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -265,28 +260,22 @@ const GlobalUsersPage = () => {
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                          <span className="text-sm font-bold text-purple-600 dark:text-purple-400">
-                            {user.first_name?.[0] || user.email[0].toUpperCase()}
+                        <div className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+                          <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
+                            {user?.first_name?.[0] || user?.email?.[0]?.toUpperCase() || '?'}
                           </span>
                         </div>
                         <span className="font-medium text-gray-900 dark:text-gray-100">
-                          {user.first_name} {user.last_name}
+                          {user.first_name || '-'} {user.last_name || ''}
                         </span>
                       </div>
                     </td>
                     <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-300">
                       {user.email}
                     </td>
-                    <td className="py-3 px-4">
-                      {getRoleBadge(user.role)}
-                    </td>
-                    <td className="py-3 px-4">
-                      {getStatusBadge(user.status)}
-                    </td>
-                    <td className="py-3 px-4">
-                      {getEnrollmentBadge(user.enrollment_status)}
-                    </td>
+                    <td className="py-3 px-4">{getRoleBadge(user.role)}</td>
+                    <td className="py-3 px-4">{getStatusBadge(user.status)}</td>
+                    <td className="py-3 px-4">{getEnrollmentBadge(user.enrollment_status)}</td>
                     <td className="py-3 px-4 text-sm text-gray-500">
                       {new Date(user.created_at).toLocaleDateString()}
                     </td>
@@ -296,9 +285,7 @@ const GlobalUsersPage = () => {
             </table>
 
             {filteredUsers.length === 0 && (
-              <div className="text-center py-12 text-gray-500">
-                No se encontraron usuarios
-              </div>
+              <div className="text-center py-12 text-gray-500">No se encontraron usuarios</div>
             )}
           </div>
         )}
@@ -313,7 +300,7 @@ const GlobalUsersPage = () => {
               variant="ghost"
               size="sm"
               disabled={page === 1}
-              onClick={() => setPage(p => p - 1)}
+              onClick={() => setPage((p) => p - 1)}
             >
               Anterior
             </Button>
@@ -321,7 +308,7 @@ const GlobalUsersPage = () => {
               variant="ghost"
               size="sm"
               disabled={users.length < 50}
-              onClick={() => setPage(p => p + 1)}
+              onClick={() => setPage((p) => p + 1)}
             >
               Siguiente
             </Button>

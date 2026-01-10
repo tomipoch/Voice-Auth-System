@@ -6,6 +6,9 @@ for processing with SpeechBrain ECAPA-TDNN model.
 
 import io
 import logging
+import subprocess
+import tempfile
+import os
 from typing import Optional
 from pydub import AudioSegment
 
@@ -41,28 +44,89 @@ class AudioConverter:
                 # It's a MIME type like "audio/webm" or "audio/webm;codecs=opus"
                 format_lower = format_lower.split('/')[1].split(';')[0]
             
-            logger.info(f"Converting audio from {format_lower} to WAV")
+            logger.info(f"Converting audio from {format_lower} to WAV ({len(audio_bytes)} bytes)")
             
-            # Load audio from bytes
-            audio_io = io.BytesIO(audio_bytes)
-            audio = AudioSegment.from_file(audio_io, format=format_lower)
-            
-            # Convert to WAV with optimal settings for speech recognition
-            audio = audio.set_frame_rate(16000)
-            audio = audio.set_channels(1)
-            audio = audio.set_sample_width(2)  # 16 bits
-            
-            # Export to WAV format
-            wav_io = io.BytesIO()
-            audio.export(wav_io, format="wav")
-            wav_bytes = wav_io.getvalue()
-            
-            logger.info(f"Converted audio: {len(audio_bytes)} -> {len(wav_bytes)} bytes")
-            return wav_bytes
+            # Try pydub first
+            try:
+                audio_io = io.BytesIO(audio_bytes)
+                audio = AudioSegment.from_file(audio_io, format=format_lower)
+                
+                # Convert to WAV with optimal settings for speech recognition
+                audio = audio.set_frame_rate(16000)
+                audio = audio.set_channels(1)
+                audio = audio.set_sample_width(2)  # 16 bits
+                
+                # Export to WAV format
+                wav_io = io.BytesIO()
+                audio.export(wav_io, format="wav")
+                wav_bytes = wav_io.getvalue()
+                
+                logger.info(f"Pydub conversion successful: {len(audio_bytes)} -> {len(wav_bytes)} bytes")
+                return wav_bytes
+                
+            except Exception as pydub_error:
+                logger.warning(f"Pydub failed: {pydub_error}, trying ffmpeg directly...")
+                return AudioConverter._convert_with_ffmpeg(audio_bytes, format_lower)
             
         except Exception as e:
             logger.error(f"Audio conversion failed: {e}")
             raise Exception(f"Audio conversion failed: {e}")
+    
+    @staticmethod
+    def _convert_with_ffmpeg(audio_bytes: bytes, source_format: str) -> bytes:
+        """
+        Convert audio using ffmpeg directly via subprocess.
+        This is a fallback when pydub fails with certain codecs.
+        """
+        input_file = None
+        output_file = None
+        
+        try:
+            # Create temporary files
+            with tempfile.NamedTemporaryFile(suffix=f'.{source_format}', delete=False) as f:
+                f.write(audio_bytes)
+                input_file = f.name
+            
+            output_file = tempfile.mktemp(suffix='.wav')
+            
+            # Run ffmpeg
+            cmd = [
+                'ffmpeg', '-y',  # Overwrite output
+                '-i', input_file,  # Input file
+                '-ar', '16000',  # Sample rate 16kHz
+                '-ac', '1',  # Mono
+                '-acodec', 'pcm_s16le',  # 16-bit PCM
+                '-f', 'wav',  # Output format
+                output_file
+            ]
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                timeout=30  # 30 second timeout
+            )
+            
+            if result.returncode != 0:
+                stderr = result.stderr.decode('utf-8', errors='ignore')
+                raise Exception(f"ffmpeg error: {stderr[:200]}")
+            
+            # Read output file
+            with open(output_file, 'rb') as f:
+                wav_bytes = f.read()
+            
+            logger.info(f"FFmpeg conversion successful: {len(audio_bytes)} -> {len(wav_bytes)} bytes")
+            return wav_bytes
+            
+        except FileNotFoundError:
+            raise Exception("ffmpeg not found. Please install ffmpeg.")
+        except subprocess.TimeoutExpired:
+            raise Exception("ffmpeg conversion timed out")
+        finally:
+            # Clean up temp files
+            if input_file and os.path.exists(input_file):
+                os.unlink(input_file)
+            if output_file and os.path.exists(output_file):
+                os.unlink(output_file)
     
     @staticmethod
     def is_wav_format(audio_bytes: bytes) -> bool:
@@ -104,8 +168,14 @@ def ensure_wav_format(
         return audio_bytes
     
     try:
-        logger.debug("Converting audio to WAV format")
+        logger.debug(f"Converting audio to WAV format (input size: {len(audio_bytes)} bytes)")
         return convert_to_wav(audio_bytes, "webm")
     except Exception as e:
-        logger.error(f"Failed to ensure WAV format: {e}")
-        return None
+        logger.error(f"Failed to ensure WAV format: {type(e).__name__}: {e}")
+        # Try with 'ogg' format as fallback (webm sometimes contains ogg codec)
+        try:
+            logger.debug("Trying ogg format as fallback...")
+            return convert_to_wav(audio_bytes, "ogg")
+        except Exception as e2:
+            logger.error(f"Fallback to ogg also failed: {type(e2).__name__}: {e2}")
+            return None

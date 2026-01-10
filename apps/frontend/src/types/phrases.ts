@@ -82,4 +82,3 @@ export interface UpdatePhraseTextResponse {
   word_count: number;
   char_count: number;
 }
-

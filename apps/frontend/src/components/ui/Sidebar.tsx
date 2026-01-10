@@ -32,14 +32,44 @@ const Sidebar = () => {
     if (user?.role === 'superadmin') {
       return [
         { id: 'superadmin-dashboard', label: 'Dashboard', href: '/superadmin', icon: Home },
-        { id: 'superadmin-companies', label: 'Empresas', href: '/superadmin/companies', icon: Users },
+        {
+          id: 'superadmin-companies',
+          label: 'Empresas',
+          href: '/superadmin/companies',
+          icon: Users,
+        },
         { id: 'superadmin-users', label: 'Usuarios', href: '/superadmin/users', icon: Users },
-        { id: 'superadmin-security', label: 'Seguridad', href: '/superadmin/security', icon: Shield },
-        { id: 'superadmin-sessions', label: 'Sesiones', href: '/superadmin/sessions', icon: Shield },
+        {
+          id: 'superadmin-security',
+          label: 'Seguridad',
+          href: '/superadmin/security',
+          icon: Shield,
+        },
+        {
+          id: 'superadmin-sessions',
+          label: 'Sesiones',
+          href: '/superadmin/sessions',
+          icon: Shield,
+        },
         { id: 'superadmin-audit', label: 'Auditoría', href: '/superadmin/audit', icon: Mic },
-        { id: 'superadmin-operations', label: 'Operaciones', href: '/superadmin/operations', icon: Settings },
-        { id: 'superadmin-api-keys', label: 'API Keys', href: '/superadmin/api-keys', icon: Settings },
-        { id: 'superadmin-config', label: 'Ajustes', href: '/superadmin/config', icon: SlidersHorizontal },
+        {
+          id: 'superadmin-operations',
+          label: 'Operaciones',
+          href: '/superadmin/operations',
+          icon: Settings,
+        },
+        {
+          id: 'superadmin-api-keys',
+          label: 'API Keys',
+          href: '/superadmin/api-keys',
+          icon: Settings,
+        },
+        {
+          id: 'superadmin-config',
+          label: 'Ajustes',
+          href: '/superadmin/config',
+          icon: SlidersHorizontal,
+        },
       ];
     }
 

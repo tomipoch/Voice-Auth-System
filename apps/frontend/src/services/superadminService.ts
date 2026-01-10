@@ -166,16 +166,14 @@ class SuperadminService {
    */
   async getAuditLogs(filters?: AuditLogFilters): Promise<AuditLogEntry[]> {
     const params = new URLSearchParams();
-    
+
     if (filters?.limit) params.append('limit', filters.limit.toString());
     if (filters?.action) params.append('action', filters.action);
     if (filters?.company) params.append('company', filters.company);
     if (filters?.start_date) params.append('start_date', filters.start_date);
     if (filters?.end_date) params.append('end_date', filters.end_date);
 
-    const response = await api.get<AuditLogEntry[]>(
-      `${this.baseUrl}/audit?${params.toString()}`
-    );
+    const response = await api.get<AuditLogEntry[]>(`${this.baseUrl}/audit?${params.toString()}`);
     return response.data;
   }
 
@@ -214,6 +212,127 @@ class SuperadminService {
     const response = await api.post<PurgeResult>(`${this.baseUrl}/system/purge`);
     return response.data;
   }
+
+  // =====================================================
+  // Company Management
+  // =====================================================
+
+  /**
+   * Create a new company
+   */
+  async createCompany(data: {
+    name: string;
+    max_users?: number;
+    max_verifications_month?: number;
+  }): Promise<{ success: boolean; message: string; company: CompanyStats }> {
+    const response = await api.post(`${this.baseUrl}/companies`, data);
+    return response.data;
+  }
+
+  /**
+   * Update a company
+   */
+  async updateCompany(
+    companyName: string,
+    data: {
+      name?: string;
+      max_users?: number;
+      max_verifications_month?: number;
+      status?: string;
+    }
+  ): Promise<{ success: boolean; message: string }> {
+    const response = await api.put(
+      `${this.baseUrl}/companies/${encodeURIComponent(companyName)}`,
+      data
+    );
+    return response.data;
+  }
+
+  /**
+   * Delete a company
+   */
+  async deleteCompany(companyName: string): Promise<{ success: boolean; message: string }> {
+    const response = await api.delete(
+      `${this.baseUrl}/companies/${encodeURIComponent(companyName)}`
+    );
+    return response.data;
+  }
+
+  // =====================================================
+  // API Keys Management
+  // =====================================================
+
+  /**
+   * Get all API keys
+   */
+  async getApiKeys(): Promise<ApiKeyInfo[]> {
+    const response = await api.get<ApiKeyInfo[]>(`${this.baseUrl}/api-keys`);
+    return response.data;
+  }
+
+  /**
+   * Create a new API key
+   */
+  async createApiKey(data: { name: string; company: string; scopes?: string[] }): Promise<{
+    success: boolean;
+    message: string;
+    api_key: { id: string; key: string; key_prefix: string };
+  }> {
+    const response = await api.post(`${this.baseUrl}/api-keys`, data);
+    return response.data;
+  }
+
+  /**
+   * Revoke an API key
+   */
+  async revokeApiKey(keyId: string): Promise<{ success: boolean; message: string }> {
+    const response = await api.delete(`${this.baseUrl}/api-keys/${keyId}`);
+    return response.data;
+  }
+
+  /**
+   * Toggle API key active status
+   */
+  async toggleApiKey(
+    keyId: string
+  ): Promise<{ success: boolean; is_active: boolean; message: string }> {
+    const response = await api.post(`${this.baseUrl}/api-keys/${keyId}/toggle`);
+    return response.data;
+  }
+
+  // =====================================================
+  // Sessions
+  // =====================================================
+
+  /**
+   * Get recent login sessions
+   */
+  async getRecentSessions(limit: number = 50): Promise<RecentSession[]> {
+    const response = await api.get<RecentSession[]>(`${this.baseUrl}/sessions?limit=${limit}`);
+    return response.data;
+  }
+}
+
+// Types for new endpoints
+export interface ApiKeyInfo {
+  id: string;
+  name: string;
+  key_prefix: string;
+  company: string;
+  created_at: string;
+  last_used?: string;
+  is_active: boolean;
+  scopes: string[];
+}
+
+export interface RecentSession {
+  id: string;
+  user_email: string;
+  user_name: string;
+  company: string;
+  ip_address: string;
+  login_time: string;
+  user_agent?: string;
 }
 
 export const superadminService = new SuperadminService();

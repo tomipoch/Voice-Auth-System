@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   FileText,
   Search,
@@ -6,13 +6,14 @@ import {
   Loader2,
   CheckCircle,
   XCircle,
-  Filter,
   Calendar,
   Download,
 } from 'lucide-react';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
+import Select from '../../components/ui/Select';
 import { superadminService } from '../../services/superadminService';
 import type { AuditLogEntry, CompanyStats } from '../../services/superadminService';
 import toast from 'react-hot-toast';
@@ -21,7 +22,7 @@ const GlobalAuditPage = () => {
   const [loading, setLoading] = useState(true);
   const [logs, setLogs] = useState<AuditLogEntry[]>([]);
   const [companies, setCompanies] = useState<CompanyStats[]>([]);
-  
+
   // Filters
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCompany, setFilterCompany] = useState<string>('');
@@ -30,12 +31,7 @@ const GlobalAuditPage = () => {
   const [page, setPage] = useState(1);
   const logsPerPage = 20;
 
-  useEffect(() => {
-    loadData();
-    superadminService.getCompanies().then(setCompanies).catch(console.error);
-  }, []);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
     try {
       const data = await superadminService.getAuditLogs({
@@ -50,7 +46,12 @@ const GlobalAuditPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filterCompany, filterAction]);
+
+  useEffect(() => {
+    loadData();
+    superadminService.getCompanies().then(setCompanies).catch(console.error);
+  }, [loadData]);
 
   const filteredLogs = logs.filter((log) => {
     const matchesSearch =
@@ -67,11 +68,8 @@ const GlobalAuditPage = () => {
   });
 
   // Paginated logs
-  const paginatedLogs = filteredLogs.slice(
-    (page - 1) * logsPerPage,
-    page * logsPerPage
-  );
-  const totalPages = Math.ceil(filteredLogs.length / logsPerPage);
+  const paginatedLogs = filteredLogs.slice((page - 1) * logsPerPage, page * logsPerPage);
+  const totalPagesCount = Math.ceil(filteredLogs.length / logsPerPage);
 
   const exportToCSV = () => {
     const headers = ['Fecha', 'Actor', 'Acción', 'Empresa', 'Éxito', 'Detalles'];
@@ -101,10 +99,10 @@ const GlobalAuditPage = () => {
     <MainLayout>
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-purple-700 to-indigo-800 dark:from-gray-200 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+        <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
           Auditoría Global
         </h1>
-        <p className="text-lg text-purple-600/80 dark:text-purple-400/80 font-medium">
+        <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
           Logs de actividad de todo el sistema
         </p>
       </div>
@@ -130,7 +128,7 @@ const GlobalAuditPage = () => {
             <div>
               <p className="text-xs text-gray-500 uppercase">Exitosos</p>
               <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {logs.filter(l => l.success).length}
+                {logs.filter((l) => l.success).length}
               </p>
             </div>
           </div>
@@ -143,19 +141,21 @@ const GlobalAuditPage = () => {
             <div>
               <p className="text-xs text-gray-500 uppercase">Fallidos</p>
               <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {logs.filter(l => !l.success).length}
+                {logs.filter((l) => !l.success).length}
               </p>
             </div>
           </div>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-purple-50 dark:bg-purple-900/20 text-purple-600">
+            <div className="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600">
               <Calendar className="w-5 h-5" />
             </div>
             <div>
               <p className="text-xs text-gray-500 uppercase">Acciones Únicas</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{actionTypes.length}</p>
+              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                {actionTypes.length}
+              </p>
             </div>
           </div>
         </div>
@@ -165,54 +165,41 @@ const GlobalAuditPage = () => {
       <Card className="p-4 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
+          <div className="flex-1">
+            <Input
               placeholder="Buscar por actor, acción o detalles..."
-              className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              icon={<Search className="h-4 w-4" />}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
           {/* Company Filter */}
-          <div className="relative">
-            <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <select
-              className="pl-10 pr-8 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none appearance-none"
-              value={filterCompany}
-              onChange={(e) => setFilterCompany(e.target.value)}
-            >
-              <option value="">Todas las empresas</option>
-              {companies.map((c, i) => (
-                <option key={i} value={c.name}>{c.name}</option>
-              ))}
-            </select>
-          </div>
+          <Select value={filterCompany} onChange={(e) => setFilterCompany(e.target.value)}>
+            <option value="">Todas las empresas</option>
+            {companies.map((c, i) => (
+              <option key={i} value={c.name}>
+                {c.name}
+              </option>
+            ))}
+          </Select>
 
           {/* Action Filter */}
-          <select
-            className="px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800"
-            value={filterAction}
-            onChange={(e) => setFilterAction(e.target.value)}
-          >
+          <Select value={filterAction} onChange={(e) => setFilterAction(e.target.value)}>
             <option value="">Todas las acciones</option>
             {actionTypes.map((action, i) => (
-              <option key={i} value={action}>{action}</option>
+              <option key={i} value={action}>
+                {action}
+              </option>
             ))}
-          </select>
+          </Select>
 
           {/* Success Filter */}
-          <select
-            className="px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800"
-            value={filterSuccess}
-            onChange={(e) => setFilterSuccess(e.target.value)}
-          >
-            <option value="">Todos</option>
+          <Select value={filterSuccess} onChange={(e) => setFilterSuccess(e.target.value)}>
+            <option value="">Todos los estados</option>
             <option value="true">Exitosos</option>
             <option value="false">Fallidos</option>
-          </select>
+          </Select>
 
           <div className="flex gap-2 ml-auto">
             <Button variant="secondary" onClick={loadData} className="h-12">
@@ -229,7 +216,7 @@ const GlobalAuditPage = () => {
       <Card className="p-6">
         {loading ? (
           <div className="flex items-center justify-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
+            <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -296,9 +283,7 @@ const GlobalAuditPage = () => {
             </table>
 
             {filteredLogs.length === 0 && (
-              <div className="text-center py-12 text-gray-500">
-                No se encontraron logs
-              </div>
+              <div className="text-center py-12 text-gray-500">No se encontraron logs</div>
             )}
           </div>
         )}
@@ -306,7 +291,8 @@ const GlobalAuditPage = () => {
         {/* Pagination */}
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
           <span className="text-sm text-gray-500">
-            Mostrando {Math.min((page - 1) * logsPerPage + 1, filteredLogs.length)}-{Math.min(page * logsPerPage, filteredLogs.length)} de {filteredLogs.length} logs
+            Mostrando {Math.min((page - 1) * logsPerPage + 1, filteredLogs.length)}-
+            {Math.min(page * logsPerPage, filteredLogs.length)} de {filteredLogs.length} logs
           </span>
           <div className="flex gap-2">
             <Button
@@ -318,12 +304,12 @@ const GlobalAuditPage = () => {
               Anterior
             </Button>
             <span className="px-3 py-1 text-sm text-gray-600 dark:text-gray-300">
-              Página {page} de {Math.ceil(filteredLogs.length / logsPerPage)}
+              Página {page} de {totalPagesCount}
             </span>
             <Button
               variant="ghost"
               size="sm"
-              disabled={page >= Math.ceil(filteredLogs.length / logsPerPage)}
+              disabled={page >= totalPagesCount}
               onClick={() => setPage((p) => p + 1)}
             >
               Siguiente

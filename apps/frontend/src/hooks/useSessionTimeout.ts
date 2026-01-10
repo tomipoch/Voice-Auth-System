@@ -12,7 +12,13 @@ export const useSessionTimeout = () => {
   const navigate = useNavigate();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const warningTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const lastActivityRef = useRef<number>(Date.now());
+  const lastActivityRef = useRef<number>(0);
+
+  useEffect(() => {
+    if (lastActivityRef.current === 0) {
+      lastActivityRef.current = Date.now();
+    }
+  }, []);
 
   // Get session timeout from user settings (in minutes)
   const sessionTimeout = user?.settings?.security?.sessionTimeout || 30;

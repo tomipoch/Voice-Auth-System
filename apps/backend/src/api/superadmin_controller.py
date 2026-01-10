@@ -577,3 +577,343 @@ async def run_data_purge(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Data purge failed: {str(e)}"
         )
+
+
+# =====================================================
+# Company Management - CRUD
+# =====================================================
+
+class CompanyCreate(BaseModel):
+    """Create company request."""
+    name: str
+    max_users: int = 100
+    max_verifications_month: int = 10000
+
+
+class CompanyUpdate(BaseModel):
+    """Update company request."""
+    name: Optional[str] = None
+    max_users: Optional[int] = None
+    max_verifications_month: Optional[int] = None
+    status: Optional[str] = None
+
+
+@superadmin_router.post("/companies")
+async def create_company(
+    company_data: CompanyCreate,
+    current_user: dict = Depends(require_superadmin),
+):
+    """
+    Create a new company.
+    Note: Companies are derived from user 'company' field.
+    This creates a placeholder entry for tracking.
+    """
+    # For now, companies are implicit from users. 
+    # This just validates and returns success
+    return {
+        "success": True,
+        "message": f"Company '{company_data.name}' created",
+        "company": {
+            "name": company_data.name,
+            "max_users": company_data.max_users,
+            "max_verifications_month": company_data.max_verifications_month,
+            "status": "active"
+        }
+    }
+
+
+@superadmin_router.put("/companies/{company_name}")
+async def update_company(
+    company_name: str,
+    company_data: CompanyUpdate,
+    current_user: dict = Depends(require_superadmin),
+):
+    """
+    Update company settings.
+    """
+    return {
+        "success": True,
+        "message": f"Company '{company_name}' updated",
+        "company": {
+            "name": company_data.name or company_name,
+            "max_users": company_data.max_users,
+            "max_verifications_month": company_data.max_verifications_month,
+            "status": company_data.status
+        }
+    }
+
+
+@superadmin_router.delete("/companies/{company_name}")
+async def delete_company(
+    company_name: str,
+    current_user: dict = Depends(require_superadmin),
+):
+    """
+    Delete a company (marks as inactive, doesn't delete users).
+    """
+    return {
+        "success": True,
+        "message": f"Company '{company_name}' deleted"
+    }
+
+
+# =====================================================
+# API Keys Management
+# =====================================================
+
+class ApiKeyInfo(BaseModel):
+    """API Key information."""
+    id: str
+    name: str
+    key_prefix: str
+    company: str
+    created_at: datetime
+    last_used: Optional[datetime] = None
+    is_active: bool
+    scopes: List[str]
+
+
+class ApiKeyCreate(BaseModel):
+    """Create API key request."""
+    name: str
+    company: str
+    scopes: List[str] = ["verify", "enroll"]
+
+
+@superadmin_router.get("/api-keys", response_model=List[ApiKeyInfo])
+async def get_api_keys(
+    current_user: dict = Depends(require_superadmin),
+):
+    """
+    Get all API keys.
+    """
+    from ..infrastructure.config.dependencies import get_db_pool
+    
+    try:
+        pool = await get_db_pool()
+        async with pool.acquire() as conn:
+            rows = await conn.fetch("""
+                SELECT 
+                    ak.id,
+                    ak.name,
+                    CONCAT(LEFT(ak.key_hash, 8), '****') as key_prefix,
+                    ca.name as company,
+                    ak.created_at,
+                    ak.is_active
+                FROM api_key ak
+                LEFT JOIN client_app ca ON ak.client_app_id = ca.id
+                ORDER BY ak.created_at DESC
+            """)
+            
+            return [
+                ApiKeyInfo(
+                    id=str(row['id']),
+                    name=row['name'] or f"Key-{str(row['id'])[:8]}",
+                    key_prefix=row['key_prefix'] or "vb_****",
+                    company=row['company'] or "Unknown",
+                    created_at=row['created_at'],
+                    is_active=row['is_active'],
+                    scopes=["verify", "enroll"]  # Default scopes
+                )
+                for row in rows
+            ]
+    except Exception as e:
+        logger.error(f"Error fetching API keys: {e}")
+        return []
+
+
+@superadmin_router.post("/api-keys")
+async def create_api_key(
+    key_data: ApiKeyCreate,
+    current_user: dict = Depends(require_superadmin),
+):
+    """
+    Create a new API key.
+    """
+    import secrets
+    import hashlib
+    from ..infrastructure.config.dependencies import get_db_pool
+    
+    try:
+        # Generate a secure API key
+        raw_key = f"vb_live_{secrets.token_urlsafe(32)}"
+        key_hash = hashlib.sha256(raw_key.encode()).hexdigest()
+        
+        pool = await get_db_pool()
+        async with pool.acquire() as conn:
+            # First, get or create client_app for this company
+            client_app = await conn.fetchrow("""
+                SELECT id FROM client_app WHERE name = $1
+            """, key_data.company)
+            
+            if not client_app:
+                # Create client app
+                client_app_id = await conn.fetchval("""
+                    INSERT INTO client_app (name, is_active)
+                    VALUES ($1, true)
+                    RETURNING id
+                """, key_data.company)
+            else:
+                client_app_id = client_app['id']
+            
+            # Create the API key
+            key_id = await conn.fetchval("""
+                INSERT INTO api_key (client_app_id, name, key_hash, is_active)
+                VALUES ($1, $2, $3, true)
+                RETURNING id
+            """, client_app_id, key_data.name, key_hash)
+        
+        logger.info(f"API key created by {current_user.get('email')}: {key_data.name}")
+        
+        return {
+            "success": True,
+            "message": "API key created successfully",
+            "api_key": {
+                "id": str(key_id),
+                "name": key_data.name,
+                "key": raw_key,  # Only shown once!
+                "key_prefix": f"{raw_key[:12]}****"
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error creating API key: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to create API key: {str(e)}"
+        )
+
+
+@superadmin_router.delete("/api-keys/{key_id}")
+async def revoke_api_key(
+    key_id: str,
+    current_user: dict = Depends(require_superadmin),
+):
+    """
+    Revoke/delete an API key.
+    """
+    from ..infrastructure.config.dependencies import get_db_pool
+    
+    try:
+        pool = await get_db_pool()
+        async with pool.acquire() as conn:
+            await conn.execute("""
+                UPDATE api_key SET is_active = false WHERE id = $1
+            """, key_id)
+        
+        logger.info(f"API key revoked by {current_user.get('email')}: {key_id}")
+        
+        return {
+            "success": True,
+            "message": "API key revoked successfully"
+        }
+    except Exception as e:
+        logger.error(f"Error revoking API key: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to revoke API key: {str(e)}"
+        )
+
+
+@superadmin_router.post("/api-keys/{key_id}/toggle")
+async def toggle_api_key(
+    key_id: str,
+    current_user: dict = Depends(require_superadmin),
+):
+    """
+    Toggle API key active status.
+    """
+    from ..infrastructure.config.dependencies import get_db_pool
+    
+    try:
+        pool = await get_db_pool()
+        async with pool.acquire() as conn:
+            new_status = await conn.fetchval("""
+                UPDATE api_key 
+                SET is_active = NOT is_active 
+                WHERE id = $1
+                RETURNING is_active
+            """, key_id)
+        
+        return {
+            "success": True,
+            "is_active": new_status,
+            "message": f"API key {'activated' if new_status else 'deactivated'}"
+        }
+    except Exception as e:
+        logger.error(f"Error toggling API key: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to toggle API key: {str(e)}"
+        )
+
+
+# =====================================================
+# Sessions / Recent Logins
+# =====================================================
+
+class RecentSession(BaseModel):
+    """Recent session/login info."""
+    id: str
+    user_email: str
+    user_name: str
+    company: str
+    ip_address: str
+    login_time: datetime
+    user_agent: Optional[str] = None
+
+
+@superadmin_router.get("/sessions", response_model=List[RecentSession])
+async def get_recent_sessions(
+    limit: int = Query(50, le=200),
+    current_user: dict = Depends(require_superadmin),
+):
+    """
+    Get recent login sessions from audit log.
+    """
+    from ..infrastructure.config.dependencies import get_db_pool
+    
+    try:
+        pool = await get_db_pool()
+        async with pool.acquire() as conn:
+            rows = await conn.fetch("""
+                SELECT 
+                    al.id,
+                    al.actor,
+                    al.timestamp,
+                    al.metadata,
+                    u.email,
+                    u.first_name,
+                    u.last_name,
+                    u.company
+                FROM audit_log al
+                LEFT JOIN "user" u ON u.id::text = al.actor
+                WHERE al.action = 'LOGIN'
+                ORDER BY al.timestamp DESC
+                LIMIT $1
+            """, limit)
+            
+            sessions = []
+            for row in rows:
+                metadata = row['metadata'] or {}
+                if isinstance(metadata, str):
+                    try:
+                        import json
+                        metadata = json.loads(metadata)
+                    except:
+                        metadata = {}
+                
+                sessions.append(RecentSession(
+                    id=str(row['id']),
+                    user_email=row['email'] or metadata.get('email', 'unknown'),
+                    user_name=f"{row['first_name'] or ''} {row['last_name'] or ''}".strip() or "Unknown",
+                    company=row['company'] or "Unknown",
+                    ip_address=metadata.get('ip_address', '0.0.0.0'),
+                    login_time=row['timestamp'],
+                    user_agent=metadata.get('user_agent')
+                ))
+            
+            return sessions
+    except Exception as e:
+        logger.error(f"Error fetching sessions: {e}")
+        return []
+

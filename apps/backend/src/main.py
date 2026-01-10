@@ -124,6 +124,13 @@ async def lifespan(app: FastAPI):
     if os.getenv("TESTING") != "True":
         try:
             await init_db_pool()
+            
+            # Restore dataset recording state from database
+            from .api.dataset_recording_controller import restore_dataset_state
+            from .infrastructure.config.dependencies import get_db_pool
+            pool = await get_db_pool()
+            await restore_dataset_state(pool)
+            
         except Exception as e:
             logger.error(f"Failed to initialize database: {e}")
             # Continue anyway - health check will report degraded status

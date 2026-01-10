@@ -67,7 +67,7 @@ const SystemOperationsPage = () => {
     try {
       // Load real system metrics from container
       const systemMetrics = await superadminService.getSystemMetrics();
-      
+
       setMetrics({
         cpu_usage: systemMetrics.cpu_usage_percent,
         memory_usage: systemMetrics.memory_usage_percent,
@@ -79,7 +79,11 @@ const SystemOperationsPage = () => {
         memory_total_mb: systemMetrics.memory_total_mb,
         disk_used_gb: systemMetrics.disk_used_gb,
         disk_total_gb: systemMetrics.disk_total_gb,
-        load_average: [systemMetrics.load_average_1m, systemMetrics.load_average_5m, systemMetrics.load_average_15m],
+        load_average: [
+          systemMetrics.load_average_1m,
+          systemMetrics.load_average_5m,
+          systemMetrics.load_average_15m,
+        ],
         process_count: systemMetrics.process_count,
       });
 
@@ -110,11 +114,36 @@ const SystemOperationsPage = () => {
 
       // Mock logs - TODO: Implement real logs API
       setLogs([
-        { timestamp: new Date().toISOString(), level: 'info', message: 'System health check passed', source: 'health' },
-        { timestamp: new Date(Date.now() - 5000).toISOString(), level: 'info', message: 'Verification completed for user_123', source: 'verification' },
-        { timestamp: new Date(Date.now() - 15000).toISOString(), level: 'warn', message: 'High latency detected on node-3', source: 'monitoring' },
-        { timestamp: new Date(Date.now() - 30000).toISOString(), level: 'info', message: 'Database connection pool refreshed', source: 'database' },
-        { timestamp: new Date(Date.now() - 60000).toISOString(), level: 'error', message: 'Failed login attempt from 192.168.1.100', source: 'auth' },
+        {
+          timestamp: new Date().toISOString(),
+          level: 'info',
+          message: 'System health check passed',
+          source: 'health',
+        },
+        {
+          timestamp: new Date(Date.now() - 5000).toISOString(),
+          level: 'info',
+          message: 'Verification completed for user_123',
+          source: 'verification',
+        },
+        {
+          timestamp: new Date(Date.now() - 15000).toISOString(),
+          level: 'warn',
+          message: 'High latency detected on node-3',
+          source: 'monitoring',
+        },
+        {
+          timestamp: new Date(Date.now() - 30000).toISOString(),
+          level: 'info',
+          message: 'Database connection pool refreshed',
+          source: 'database',
+        },
+        {
+          timestamp: new Date(Date.now() - 60000).toISOString(),
+          level: 'error',
+          message: 'Failed login attempt from 192.168.1.100',
+          source: 'auth',
+        },
       ]);
     } catch (error) {
       console.error('Error loading data:', error);
@@ -131,7 +160,7 @@ const SystemOperationsPage = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       const newBackup: BackupInfo = {
         id: Date.now().toString(),
-        name: `backup_${new Date().toISOString().split('T')[0].replace(/-/g, '_')}_manual.sql`,
+        name: `backup_${new Date().toISOString()?.split('T')?.[0]?.replace(/-/g, '_')}_manual.sql`,
         size_mb: Math.floor(Math.random() * 50) + 230,
         created_at: new Date().toISOString(),
         type: 'manual',
@@ -190,10 +219,12 @@ const SystemOperationsPage = () => {
         <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
           Backups, métricas y mantenimiento
         </p>
-        
+
         <div className="mt-4 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg flex items-center gap-2 text-sm text-green-800 dark:text-green-200 max-w-2xl">
           <CheckCircle className="h-4 w-4 shrink-0" />
-          <span>Las métricas del sistema se obtienen en tiempo real desde el contenedor Docker.</span>
+          <span>
+            Las métricas del sistema se obtienen en tiempo real desde el contenedor Docker.
+          </span>
         </div>
       </div>
 
@@ -204,46 +235,68 @@ const SystemOperationsPage = () => {
             <Cpu className="h-4 w-4 text-blue-500" />
             <span className="text-xs text-gray-500 uppercase">CPU</span>
           </div>
-          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{Math.round(metrics.cpu_usage)}%</p>
+          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            {Math.round(metrics.cpu_usage)}%
+          </p>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4">
           <div className="flex items-center gap-2 mb-2">
-            <MemoryStick className="h-4 w-4 text-purple-500" />
+            <MemoryStick className="h-4 w-4 text-indigo-500" />
             <span className="text-xs text-gray-500 uppercase">RAM</span>
           </div>
-          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{Math.round(metrics.memory_usage)}%</p>
-          <p className="text-xs text-gray-500">{(metrics.memory_used_mb / 1024).toFixed(1)} / {(metrics.memory_total_mb / 1024).toFixed(1)} GB</p>
+          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            {Math.round(metrics.memory_usage)}%
+          </p>
+          <p className="text-xs text-gray-500">
+            {(metrics.memory_used_mb / 1024).toFixed(1)} /{' '}
+            {(metrics.memory_total_mb / 1024).toFixed(1)} GB
+          </p>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4">
           <div className="flex items-center gap-2 mb-2">
             <HardDrive className="h-4 w-4 text-orange-500" />
             <span className="text-xs text-gray-500 uppercase">Disco</span>
           </div>
-          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{Math.round(metrics.disk_usage)}%</p>
-          <p className="text-xs text-gray-500">{metrics.disk_used_gb.toFixed(1)} / {metrics.disk_total_gb.toFixed(1)} GB</p>
+          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            {Math.round(metrics.disk_usage)}%
+          </p>
+          <p className="text-xs text-gray-500">
+            {metrics.disk_used_gb.toFixed(1)} / {metrics.disk_total_gb.toFixed(1)} GB
+          </p>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4">
           <div className="flex items-center gap-2 mb-2">
             <Activity className="h-4 w-4 text-green-500" />
             <span className="text-xs text-gray-500 uppercase">Load Avg</span>
           </div>
-          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{metrics.load_average[0]?.toFixed(2) || '0.00'}</p>
-          <p className="text-xs text-gray-500">{metrics.load_average[1]?.toFixed(2) || '0'} | {metrics.load_average[2]?.toFixed(2) || '0'}</p>
+          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            {metrics.load_average[0]?.toFixed(2) || '0.00'}
+          </p>
+          <p className="text-xs text-gray-500">
+            {metrics.load_average[1]?.toFixed(2) || '0'} |{' '}
+            {metrics.load_average[2]?.toFixed(2) || '0'}
+          </p>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4">
           <div className="flex items-center gap-2 mb-2">
             <Server className="h-4 w-4 text-cyan-500" />
             <span className="text-xs text-gray-500 uppercase">Procesos</span>
           </div>
-          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{metrics.process_count}</p>
+          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            {metrics.process_count}
+          </p>
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4">
           <div className="flex items-center gap-2 mb-2">
             <Clock className="h-4 w-4 text-indigo-500" />
             <span className="text-xs text-gray-500 uppercase">Uptime</span>
           </div>
-          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{metrics.uptime_hours}h</p>
-          <p className="text-xs text-gray-500">{Math.floor(metrics.uptime_hours / 24)}d {metrics.uptime_hours % 24}h</p>
+          <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            {metrics.uptime_hours}h
+          </p>
+          <p className="text-xs text-gray-500">
+            {Math.floor(metrics.uptime_hours / 24)}d {metrics.uptime_hours % 24}h
+          </p>
         </div>
       </div>
 
@@ -282,13 +335,17 @@ const SystemOperationsPage = () => {
                   className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg"
                 >
                   <div>
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{backup.name}</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                      {backup.name}
+                    </p>
                     <p className="text-xs text-gray-500">
                       {backup.size_mb} MB • {new Date(backup.created_at).toLocaleString()}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={`text-xs px-2 py-0.5 rounded ${backup.type === 'auto' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}`}>
+                    <span
+                      className={`text-xs px-2 py-0.5 rounded ${backup.type === 'auto' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}`}
+                    >
                       {backup.type}
                     </span>
                     <Button variant="ghost" size="sm">
@@ -312,11 +369,19 @@ const SystemOperationsPage = () => {
             <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-gray-100">Purgar Datos Expirados</p>
-                  <p className="text-sm text-gray-500">Eliminar audios temporales y challenges expirados</p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
+                    Purgar Datos Expirados
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    Eliminar audios temporales y challenges expirados
+                  </p>
                 </div>
                 <Button variant="secondary" onClick={handleRunPurge} disabled={isRunningPurge}>
-                  {isRunningPurge ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                  {isRunningPurge ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Trash2 className="h-4 w-4" />
+                  )}
                 </Button>
               </div>
             </div>
@@ -351,9 +416,7 @@ const SystemOperationsPage = () => {
       {/* Server Logs */}
       <Card className="p-6 mt-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
-            Logs del Servidor
-          </h3>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">Logs del Servidor</h3>
           <Button variant="ghost" size="sm" onClick={loadData}>
             <RefreshCw className="h-4 w-4" />
           </Button>

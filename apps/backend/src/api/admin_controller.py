@@ -410,15 +410,31 @@ async def get_recent_activity(
                 limit=10000
             )
             company_user_ids = {str(u["id"]) for u in company_users}
+            company_user_emails = {str(u.get("email", "")).lower() for u in company_users}
             
-            # Filter logs to only include actors from this company
+            # Filter logs to only include actors/entities from this company
             filtered_logs = []
             for log in logs:
-                actor = log.get('actor', '')
-                # Check if actor is a user ID from this company or an email from this company
-                if actor in company_user_ids or (
-                    '@' in actor and any(str(u.get('email')) == actor for u in company_users)
-                ):
+                actor = str(log.get('actor', ''))
+                entity_id = str(log.get('entity_id', ''))
+                metadata = log.get('metadata') or {}
+                if isinstance(metadata, str):
+                    try:
+                        import json
+                        metadata = json.loads(metadata)
+                    except:
+                        metadata = {}
+                metadata_user_id = str(metadata.get('user_id', ''))
+                
+                # Check if any identifier matches a company user
+                is_company_log = (
+                    actor in company_user_ids or
+                    actor.lower() in company_user_emails or
+                    entity_id in company_user_ids or
+                    metadata_user_id in company_user_ids
+                )
+                
+                if is_company_log:
                     filtered_logs.append(log)
                     if len(filtered_logs) >= limit:
                         break
@@ -644,4 +660,411 @@ async def toggle_phrase_quality_rule(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to toggle phrase quality rule"
+        )
+
+
+# =====================================================
+# Notifications / Alerts
+# =====================================================
+
+class AlertNotification(BaseModel):
+    """Alert notification for admin."""
+    id: str
+    type: str  # 'warning', 'error', 'info'
+    title: str
+    message: str
+    timestamp: datetime
+    user_id: Optional[str] = None
+    user_email: Optional[str] = None
+    is_read: bool = False
+
+
+@admin_router.get("/notifications", response_model=List[AlertNotification])
+async def get_notifications(
+    limit: int = 20,
+    current_user: dict = Depends(require_admin),
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository),
+    user_repo: UserRepositoryPort = Depends(get_user_repository)
+):
+    """
+    Get notifications/alerts for admin dashboard.
+    Shows failed verifications, suspicious activity, etc.
+    """
+    from datetime import timezone
+    
+    try:
+        notifications = []
+        
+        # Get company users if admin
+        company_user_ids = set()
+        if current_user["role"] == "admin":
+            company_users, _ = await user_repo.get_users_by_company(
+                current_user["company"], page=1, limit=10000
+            )
+            company_user_ids = {str(u["id"]) for u in company_users}
+        
+        # Get recent logs with failures or suspicious activity
+        logs = await audit_repo.get_logs(limit=500)
+        
+        for log in logs:
+            # Filter by company if admin
+            if current_user["role"] == "admin":
+                actor = log.get('actor', '')
+                if actor not in company_user_ids:
+                    continue
+            
+            action = log.get('action', '')
+            success = log.get('success', True)
+            metadata = log.get('metadata', {})
+            if isinstance(metadata, str):
+                try:
+                    metadata = json.loads(metadata)
+                except:
+                    metadata = {}
+            
+            # Failed verifications
+            if action in ['VERIFICATION', 'VERIFY', 'multi_verification_complete'] and not success:
+                notifications.append(AlertNotification(
+                    id=str(log.get('id', '')),
+                    type='warning',
+                    title='Verificación Fallida',
+                    message=f"Usuario no pudo verificarse. Razón: {metadata.get('reason', 'Desconocida')}",
+                    timestamp=log.get('timestamp', datetime.now(timezone.utc)),
+                    user_id=log.get('actor'),
+                    user_email=metadata.get('email'),
+                    is_read=False
+                ))
+            
+            # Failed logins
+            if action == 'LOGIN' and not success:
+                notifications.append(AlertNotification(
+                    id=str(log.get('id', '')),
+                    type='error',
+                    title='Login Fallido',
+                    message=f"Intento de login fallido desde {metadata.get('ip_address', 'IP desconocida')}",
+                    timestamp=log.get('timestamp', datetime.now(timezone.utc)),
+                    user_email=metadata.get('email'),
+                    is_read=False
+                ))
+            
+            # Suspicious activity (spoof detected)
+            if metadata.get('spoof_probability', 0) > 0.7:
+                notifications.append(AlertNotification(
+                    id=str(log.get('id', '')) + '_spoof',
+                    type='error',
+                    title='Posible Suplantación',
+                    message=f"Probabilidad de spoofing detectada: {metadata.get('spoof_probability', 0):.0%}",
+                    timestamp=log.get('timestamp', datetime.now(timezone.utc)),
+                    user_id=log.get('actor'),
+                    is_read=False
+                ))
+            
+            if len(notifications) >= limit:
+                break
+        
+        return sorted(notifications, key=lambda x: x.timestamp, reverse=True)[:limit]
+        
+    except Exception as e:
+        logger.error(f"Error getting notifications: {e}")
+        return []
+
+
+# =====================================================
+# Reset Voiceprint
+# =====================================================
+
+@admin_router.post("/users/{user_id}/reset-voiceprint")
+async def reset_user_voiceprint(
+    user_id: str,
+    current_user: dict = Depends(require_admin),
+    user_repo: UserRepositoryPort = Depends(get_user_repository),
+    voice_repo: VoiceSignatureRepositoryPort = Depends(get_voice_signature_repository),
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
+):
+    """
+    Reset a user's voiceprint, allowing them to re-enroll.
+    """
+    try:
+        from uuid import UUID
+        
+        # Verify user exists and belongs to company
+        user = await user_repo.find_by_id(UUID(user_id))
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found"
+            )
+        
+        # Admin can only reset users from their company
+        if current_user["role"] == "admin" and user.get("company") != current_user["company"]:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Cannot reset voiceprint for user from another company"
+            )
+        
+        # Delete the voiceprint
+        await voice_repo.delete_by_user_id(UUID(user_id))
+        
+        # Update user enrollment status
+        await user_repo.update(UUID(user_id), {"enrollment_status": "not_started"})
+        
+        # Log the action
+        await audit_repo.log_event(
+            actor=str(current_user["id"]),
+            action="RESET_VOICEPRINT",
+            entity_type="user",
+            entity_id=user_id,
+            metadata={
+                "reset_by": current_user["email"],
+                "user_email": user.get("email")
+            }
+        )
+        
+        logger.info(f"Voiceprint reset for user {user_id} by {current_user['email']}")
+        
+        return {
+            "success": True,
+            "message": f"Voiceprint eliminado exitosamente. El usuario puede volver a registrar su voz."
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error resetting voiceprint: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to reset voiceprint: {str(e)}"
+        )
+
+
+# =====================================================
+# Chart Data - Detailed verification history
+# =====================================================
+
+class ChartDataPoint(BaseModel):
+    """Data point for charts."""
+    date: str
+    verifications: int
+    successful: int
+    failed: int
+
+
+@admin_router.get("/stats/chart-data", response_model=List[ChartDataPoint])
+async def get_chart_data(
+    days: int = 30,
+    current_user: dict = Depends(require_admin),
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository),
+    user_repo: UserRepositoryPort = Depends(get_user_repository)
+):
+    """
+    Get detailed chart data for verification trends.
+    """
+    from datetime import timezone
+    from collections import defaultdict
+    
+    try:
+        # Calculate date range
+        end_date = datetime.now(timezone.utc)
+        start_date = end_date - timedelta(days=days)
+        
+        # Get company users if admin
+        company_user_ids = set()
+        if current_user["role"] == "admin":
+            company_users, _ = await user_repo.get_users_by_company(
+                current_user["company"], page=1, limit=10000
+            )
+            company_user_ids = {str(u["id"]) for u in company_users}
+        
+        # Get logs
+        logs = await audit_repo.get_logs(limit=5000)
+        
+        # Aggregate by date
+        daily_stats = defaultdict(lambda: {"verifications": 0, "successful": 0, "failed": 0})
+        verification_actions = {'VERIFICATION', 'VERIFY', 'multi_verification_complete'}
+        
+        for log in logs:
+            action = log.get('action', '')
+            if action not in verification_actions:
+                continue
+            
+            # Filter by company if admin
+            if current_user["role"] == "admin":
+                actor = log.get('actor', '')
+                if actor not in company_user_ids:
+                    continue
+            
+            timestamp = log.get('timestamp')
+            if not timestamp or timestamp < start_date:
+                continue
+            
+            date_str = timestamp.strftime('%Y-%m-%d')
+            daily_stats[date_str]["verifications"] += 1
+            
+            if log.get('success', False):
+                daily_stats[date_str]["successful"] += 1
+            else:
+                daily_stats[date_str]["failed"] += 1
+        
+        # Fill in missing dates
+        result = []
+        current = start_date
+        while current <= end_date:
+            date_str = current.strftime('%Y-%m-%d')
+            stats = daily_stats.get(date_str, {"verifications": 0, "successful": 0, "failed": 0})
+            result.append(ChartDataPoint(
+                date=date_str,
+                verifications=stats["verifications"],
+                successful=stats["successful"],
+                failed=stats["failed"]
+            ))
+            current += timedelta(days=1)
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error getting chart data: {e}")
+        return []
+
+
+# =====================================================
+# Export Report
+# =====================================================
+
+@admin_router.get("/export/users")
+async def export_users_csv(
+    current_user: dict = Depends(require_admin),
+    user_repo: UserRepositoryPort = Depends(get_user_repository)
+):
+    """
+    Export users data as CSV.
+    """
+    from fastapi.responses import StreamingResponse
+    import io
+    import csv
+    
+    try:
+        # Get users
+        if current_user["role"] == "superadmin":
+            users, _ = await user_repo.list_all(page=1, limit=10000)
+        else:
+            users, _ = await user_repo.get_users_by_company(
+                current_user["company"], page=1, limit=10000
+            )
+        
+        # Create CSV
+        output = io.StringIO()
+        writer = csv.writer(output)
+        
+        # Header
+        writer.writerow([
+            'ID', 'Email', 'Nombre', 'Apellido', 'Empresa', 
+            'Rol', 'Estado', 'Estado Enrollment', 'Fecha Registro', 'Último Login'
+        ])
+        
+        # Data
+        for user in users:
+            writer.writerow([
+                str(user.get('id', '')),
+                user.get('email', ''),
+                user.get('first_name', ''),
+                user.get('last_name', ''),
+                user.get('company', ''),
+                user.get('role', ''),
+                user.get('status', ''),
+                user.get('enrollment_status', ''),
+                str(user.get('created_at', ''))[:10],
+                str(user.get('last_login', ''))[:10] if user.get('last_login') else ''
+            ])
+        
+        output.seek(0)
+        
+        return StreamingResponse(
+            iter([output.getvalue()]),
+            media_type="text/csv",
+            headers={
+                "Content-Disposition": f"attachment; filename=usuarios_{datetime.now().strftime('%Y%m%d')}.csv"
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Error exporting users: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to export users: {str(e)}"
+        )
+
+
+@admin_router.get("/export/activity")
+async def export_activity_csv(
+    days: int = 30,
+    current_user: dict = Depends(require_admin),
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository),
+    user_repo: UserRepositoryPort = Depends(get_user_repository)
+):
+    """
+    Export activity logs as CSV.
+    """
+    from fastapi.responses import StreamingResponse
+    import io
+    import csv
+    
+    try:
+        # Get logs
+        logs = await audit_repo.get_logs(limit=5000)
+        
+        # Filter by company if admin
+        company_user_ids = set()
+        if current_user["role"] == "admin":
+            company_users, _ = await user_repo.get_users_by_company(
+                current_user["company"], page=1, limit=10000
+            )
+            company_user_ids = {str(u["id"]) for u in company_users}
+            logs = [l for l in logs if l.get('actor', '') in company_user_ids]
+        
+        # Create CSV
+        output = io.StringIO()
+        writer = csv.writer(output)
+        
+        # Header
+        writer.writerow([
+            'Fecha', 'Hora', 'Actor', 'Acción', 'Tipo Entidad', 
+            'ID Entidad', 'Éxito', 'Detalles'
+        ])
+        
+        # Data
+        for log in logs:
+            timestamp = log.get('timestamp', datetime.now())
+            metadata = log.get('metadata', {})
+            if isinstance(metadata, str):
+                try:
+                    metadata = json.loads(metadata)
+                except:
+                    metadata = {}
+            
+            writer.writerow([
+                timestamp.strftime('%Y-%m-%d'),
+                timestamp.strftime('%H:%M:%S'),
+                log.get('actor', ''),
+                log.get('action', ''),
+                log.get('entity_type', ''),
+                log.get('entity_id', ''),
+                'Sí' if log.get('success', True) else 'No',
+                str(metadata.get('message', ''))[:100]
+            ])
+        
+        output.seek(0)
+        
+        return StreamingResponse(
+            iter([output.getvalue()]),
+            media_type="text/csv",
+            headers={
+                "Content-Disposition": f"attachment; filename=actividad_{datetime.now().strftime('%Y%m%d')}.csv"
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Error exporting activity: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to export activity: {str(e)}"
         )

@@ -9,13 +9,12 @@ import {
   Smartphone,
   Laptop,
   Globe,
-  AlertCircle,
   Users,
-  CheckCircle,
 } from 'lucide-react';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import Select from '../../components/ui/Select';
 import toast from 'react-hot-toast';
 
 interface ActiveSession {
@@ -44,36 +43,26 @@ const SessionsPage = () => {
   const loadSessions = async () => {
     setLoading(true);
     try {
-      // Mock data - solo sesiones que tienen sentido
-      const mockSessions: ActiveSession[] = [
-        {
-          id: '1',
-          user_email: 'superadmin@sistema.com',
-          user_name: 'Super Admin',
-          company: 'sistema',
-          device_type: 'desktop',
-          browser: 'Chrome 120',
-          ip_address: '192.168.1.1',
-          location: 'Santiago, CL',
-          started_at: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-          last_activity: new Date().toISOString(),
-          is_current: true,
-        },
-        {
-          id: '2',
-          user_email: 'admin@example.com',
-          user_name: 'Admin Example',
-          company: 'Example Corp',
-          device_type: 'desktop',
-          browser: 'Firefox 121',
-          ip_address: '10.0.0.50',
-          location: 'Buenos Aires, AR',
-          started_at: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
-          last_activity: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
-          is_current: false,
-        },
-      ];
-      setSessions(mockSessions);
+      // Get real data from backend
+      const { superadminService } = await import('../../services/superadminService');
+      const recentSessions = await superadminService.getRecentSessions(100);
+
+      // Transform backend data to match interface
+      const transformedSessions: ActiveSession[] = recentSessions.map((s, index) => ({
+        id: s.id,
+        user_email: s.user_email,
+        user_name: s.user_name,
+        company: s.company,
+        device_type: 'desktop' as const, // Could parse from user_agent
+        browser: s.user_agent?.split(' ')[0] || 'Unknown',
+        ip_address: s.ip_address,
+        location: '', // Would need geoip service
+        started_at: s.login_time,
+        last_activity: s.login_time,
+        is_current: index === 0, // First one is most recent
+      }));
+
+      setSessions(transformedSessions);
     } catch (error) {
       console.error('Error loading sessions:', error);
       toast.error('Error al cargar sesiones');
@@ -132,10 +121,10 @@ const SessionsPage = () => {
     <MainLayout>
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-purple-700 to-indigo-800 dark:from-gray-200 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+        <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
           Sesiones Activas
         </h1>
-        <p className="text-lg text-purple-600/80 dark:text-purple-400/80 font-medium">
+        <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
           Monitoreo y control de sesiones de usuarios
         </p>
       </div>
@@ -149,7 +138,9 @@ const SessionsPage = () => {
             </div>
             <div>
               <p className="text-xs text-gray-500 uppercase">Sesiones Activas</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{sessions.length}</p>
+              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                {sessions.length}
+              </p>
             </div>
           </div>
         </div>
@@ -168,7 +159,7 @@ const SessionsPage = () => {
         </div>
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-purple-50 dark:bg-purple-900/20 text-purple-600">
+            <div className="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600">
               <Smartphone className="w-5 h-5" />
             </div>
             <div>
@@ -186,7 +177,9 @@ const SessionsPage = () => {
             </div>
             <div>
               <p className="text-xs text-gray-500 uppercase">Empresas</p>
-              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{companies.length}</p>
+              <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                {companies.length}
+              </p>
             </div>
           </div>
         </div>
@@ -195,10 +188,10 @@ const SessionsPage = () => {
       {/* Search and Actions */}
       <Card className="p-4 mb-6">
         <div className="flex flex-col md:flex-row gap-4 items-center">
-          <select
+          <Select
             value={filterCompany}
             onChange={(e) => setFilterCompany(e.target.value)}
-            className="flex-1 min-w-[200px] px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            className="flex-1"
           >
             <option value="">Todas las empresas</option>
             {companies.map((c) => (
@@ -206,7 +199,7 @@ const SessionsPage = () => {
                 {c}
               </option>
             ))}
-          </select>
+          </Select>
           <div className="flex gap-2 ml-auto">
             <Button variant="secondary" onClick={loadSessions} className="h-12">
               <RefreshCw className="h-4 w-4" />
@@ -222,7 +215,7 @@ const SessionsPage = () => {
       <Card className="p-6">
         {loading ? (
           <div className="flex items-center justify-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
+            <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
           </div>
         ) : (
           <div className="space-y-3">
@@ -236,7 +229,9 @@ const SessionsPage = () => {
                 }`}
               >
                 <div className="flex items-center gap-4">
-                  <div className={`p-3 rounded-lg ${session.is_current ? 'bg-green-100 dark:bg-green-900/30' : 'bg-gray-100 dark:bg-gray-700'}`}>
+                  <div
+                    className={`p-3 rounded-lg ${session.is_current ? 'bg-green-100 dark:bg-green-900/30' : 'bg-gray-100 dark:bg-gray-700'}`}
+                  >
                     {getDeviceIcon(session.device_type)}
                   </div>
                   <div>
@@ -288,9 +283,7 @@ const SessionsPage = () => {
             ))}
 
             {filteredSessions.length === 0 && (
-              <p className="text-center text-gray-500 py-12">
-                No hay sesiones activas
-              </p>
+              <p className="text-center text-gray-500 py-12">No hay sesiones activas</p>
             )}
           </div>
         )}

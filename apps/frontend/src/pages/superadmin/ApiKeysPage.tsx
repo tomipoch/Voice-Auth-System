@@ -16,6 +16,7 @@ import {
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
 import toast from 'react-hot-toast';
 
 interface ApiKey {
@@ -46,38 +47,20 @@ const ApiKeysPage = () => {
   const loadApiKeys = async () => {
     setLoading(true);
     try {
-      // Mock API keys - in production this would call the backend
-      setApiKeys([
-        {
-          id: '1',
-          name: 'Production API Key',
-          key_prefix: 'vb_prod_****',
-          company: 'Example Corp',
-          created_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-          last_used: new Date().toISOString(),
-          is_active: true,
-          scopes: ['verify', 'enroll'],
-        },
-        {
-          id: '2',
-          name: 'Development Key',
-          key_prefix: 'vb_dev_****',
-          company: 'Familia',
-          created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-          is_active: true,
-          scopes: ['verify'],
-        },
-        {
-          id: '3',
-          name: 'Legacy Integration',
-          key_prefix: 'vb_leg_****',
-          company: 'sistema',
-          created_at: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString(),
-          last_used: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
-          is_active: false,
-          scopes: ['verify', 'enroll', 'admin'],
-        },
-      ]);
+      const { superadminService } = await import('../../services/superadminService');
+      const keys = await superadminService.getApiKeys();
+      setApiKeys(
+        keys.map((k) => ({
+          id: k.id,
+          name: k.name,
+          key_prefix: k.key_prefix,
+          company: k.company,
+          created_at: k.created_at,
+          last_used: k.last_used,
+          is_active: k.is_active,
+          scopes: k.scopes,
+        }))
+      );
     } catch (error) {
       console.error('Error loading API keys:', error);
       toast.error('Error al cargar claves API');
@@ -87,9 +70,10 @@ const ApiKeysPage = () => {
   };
 
   // Filtered keys based on search
-  const filteredKeys = apiKeys.filter((key) =>
-    key.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    key.company.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredKeys = apiKeys.filter(
+    (key) =>
+      key.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      key.company.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleCreateKey = async () => {
@@ -98,22 +82,23 @@ const ApiKeysPage = () => {
       return;
     }
 
-    // Mock key generation
-    const newKey = `vb_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
-    setGeneratedKey(newKey);
-    
-    const key: ApiKey = {
-      id: Date.now().toString(),
-      name: newKeyName,
-      key_prefix: newKey.substring(0, 10) + '****',
-      company: newKeyCompany || 'sistema',
-      created_at: new Date().toISOString(),
-      is_active: true,
-      scopes: ['verify', 'enroll'],
-    };
-    
-    setApiKeys([key, ...apiKeys]);
-    toast.success('Clave API creada exitosamente');
+    try {
+      const { superadminService } = await import('../../services/superadminService');
+      const result = await superadminService.createApiKey({
+        name: newKeyName,
+        company: newKeyCompany || 'sistema',
+        scopes: ['verify', 'enroll'],
+      });
+
+      setGeneratedKey(result.api_key.key);
+
+      // Reload keys to get fresh data
+      await loadApiKeys();
+      toast.success('Clave API creada exitosamente');
+    } catch (error) {
+      console.error('Error creating API key:', error);
+      toast.error('Error al crear clave API');
+    }
   };
 
   const handleCopyKey = (key: string) => {
@@ -121,17 +106,31 @@ const ApiKeysPage = () => {
     toast.success('Clave copiada al portapapeles');
   };
 
-  const handleToggleKey = (id: string) => {
-    setApiKeys(keys => 
-      keys.map(k => k.id === id ? { ...k, is_active: !k.is_active } : k)
-    );
-    toast.success('Estado de la clave actualizado');
+  const handleToggleKey = async (id: string) => {
+    try {
+      const { superadminService } = await import('../../services/superadminService');
+      const result = await superadminService.toggleApiKey(id);
+      setApiKeys((keys) =>
+        keys.map((k) => (k.id === id ? { ...k, is_active: result.is_active } : k))
+      );
+      toast.success(result.message);
+    } catch (error) {
+      console.error('Error toggling API key:', error);
+      toast.error('Error al cambiar estado de clave');
+    }
   };
 
-  const handleDeleteKey = (id: string) => {
+  const handleDeleteKey = async (id: string) => {
     if (!confirm('¿Estás seguro de eliminar esta clave API?')) return;
-    setApiKeys(keys => keys.filter(k => k.id !== id));
-    toast.success('Clave API eliminada');
+    try {
+      const { superadminService } = await import('../../services/superadminService');
+      await superadminService.revokeApiKey(id);
+      setApiKeys((keys) => keys.filter((k) => k.id !== id));
+      toast.success('Clave API eliminada');
+    } catch (error) {
+      console.error('Error deleting API key:', error);
+      toast.error('Error al eliminar clave API');
+    }
   };
 
   const closeModal = () => {
@@ -146,10 +145,10 @@ const ApiKeysPage = () => {
     <MainLayout>
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-purple-700 to-indigo-800 dark:from-gray-200 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+        <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
           Gestión de API Keys
         </h1>
-        <p className="text-lg text-purple-600/80 dark:text-purple-400/80 font-medium">
+        <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
           Administra las claves de acceso a la API
         </p>
       </div>
@@ -175,7 +174,7 @@ const ApiKeysPage = () => {
             <div>
               <p className="text-xs text-gray-500 uppercase">Activas</p>
               <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {apiKeys.filter(k => k.is_active).length}
+                {apiKeys.filter((k) => k.is_active).length}
               </p>
             </div>
           </div>
@@ -188,7 +187,7 @@ const ApiKeysPage = () => {
             <div>
               <p className="text-xs text-gray-500 uppercase">Inactivas</p>
               <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {apiKeys.filter(k => !k.is_active).length}
+                {apiKeys.filter((k) => !k.is_active).length}
               </p>
             </div>
           </div>
@@ -199,14 +198,13 @@ const ApiKeysPage = () => {
       <Card className="p-4 mb-6">
         <div className="flex flex-col md:flex-row gap-4 items-center">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
+            <Input
               placeholder="Buscar por nombre de API Key..."
-              className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              className="pl-10"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           </div>
           <div className="flex gap-2 ml-auto">
             <Button variant="secondary" onClick={loadApiKeys} className="h-12">
@@ -223,7 +221,7 @@ const ApiKeysPage = () => {
       <Card className="p-6">
         {loading ? (
           <div className="flex items-center justify-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
+            <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -258,7 +256,7 @@ const ApiKeysPage = () => {
                   <tr key={key.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
-                        <Key className="h-4 w-4 text-purple-500" />
+                        <Key className="h-4 w-4 text-indigo-500" />
                         <span className="font-medium text-gray-900 dark:text-gray-100">
                           {key.name}
                         </span>
@@ -294,16 +292,18 @@ const ApiKeysPage = () => {
                         }`}
                       >
                         {key.is_active ? (
-                          <><CheckCircle className="h-3 w-3 mr-1" /> Activa</>
+                          <>
+                            <CheckCircle className="h-3 w-3 mr-1" /> Activa
+                          </>
                         ) : (
-                          <><AlertCircle className="h-3 w-3 mr-1" /> Inactiva</>
+                          <>
+                            <AlertCircle className="h-3 w-3 mr-1" /> Inactiva
+                          </>
                         )}
                       </button>
                     </td>
                     <td className="py-3 px-4 text-sm text-gray-500">
-                      {key.last_used
-                        ? new Date(key.last_used).toLocaleDateString()
-                        : 'Nunca'}
+                      {key.last_used ? new Date(key.last_used).toLocaleDateString() : 'Nunca'}
                     </td>
                     <td className="py-3 px-4 text-right">
                       <Button
@@ -321,9 +321,7 @@ const ApiKeysPage = () => {
             </table>
 
             {apiKeys.length === 0 && (
-              <div className="text-center py-12 text-gray-500">
-                No hay claves API configuradas
-              </div>
+              <div className="text-center py-12 text-gray-500">No hay claves API configuradas</div>
             )}
           </div>
         )}
@@ -334,8 +332,8 @@ const ApiKeysPage = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <Card className="p-6 w-full max-w-md mx-4">
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30">
-                <Shield className="h-5 w-5 text-purple-600" />
+              <div className="p-2 rounded-lg bg-indigo-100 dark:bg-indigo-900/30">
+                <Shield className="h-5 w-5 text-indigo-600" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
                 {generatedKey ? 'Clave API Generada' : 'Nueva Clave API'}
@@ -349,7 +347,7 @@ const ApiKeysPage = () => {
                     ⚠️ Guarda esta clave ahora. No podrás verla de nuevo.
                   </p>
                 </div>
-                
+
                 <div className="relative">
                   <input
                     type={showKey ? 'text' : 'password'}
@@ -379,31 +377,19 @@ const ApiKeysPage = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Nombre de la clave
-                  </label>
-                  <input
-                    type="text"
-                    value={newKeyName}
-                    onChange={(e) => setNewKeyName(e.target.value)}
-                    placeholder="Ej: Production API"
-                    className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800"
-                  />
-                </div>
+                <Input
+                  label="Nombre de la clave"
+                  value={newKeyName}
+                  onChange={(e) => setNewKeyName(e.target.value)}
+                  placeholder="Ej: Production API"
+                />
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Empresa (opcional)
-                  </label>
-                  <input
-                    type="text"
-                    value={newKeyCompany}
-                    onChange={(e) => setNewKeyCompany(e.target.value)}
-                    placeholder="Ej: Example Corp"
-                    className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800"
-                  />
-                </div>
+                <Input
+                  label="Empresa (opcional)"
+                  value={newKeyCompany}
+                  onChange={(e) => setNewKeyCompany(e.target.value)}
+                  placeholder="Ej: Example Corp"
+                />
 
                 <div className="flex gap-3">
                   <Button variant="ghost" onClick={closeModal} className="flex-1">

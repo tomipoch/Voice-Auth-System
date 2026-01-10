@@ -12,6 +12,7 @@ import {
   Eye,
   FileText,
   Trash2,
+  RotateCcw,
 } from 'lucide-react';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
@@ -240,7 +241,7 @@ const VerificationDetailModal = ({
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-xs font-semibold text-gray-500 uppercase">Genuinidad</span>
                   <Shield
-                    className={`w-4 h-4 ${hasAntiSpoofing ? 'text-purple-500' : 'text-gray-400'}`}
+                    className={`w-4 h-4 ${hasAntiSpoofing ? 'text-blue-500' : 'text-gray-400'}`}
                   />
                 </div>
                 <div className="flex items-end gap-1 mb-2">
@@ -252,7 +253,7 @@ const VerificationDetailModal = ({
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
                   {hasAntiSpoofing && (
                     <div
-                      className={`h-full rounded-full ${genuinenessScore > 0.8 ? 'bg-purple-500' : 'bg-red-500'}`}
+                      className={`h-full rounded-full ${genuinenessScore > 0.8 ? 'bg-blue-500' : 'bg-red-500'}`}
                       style={{ width: `${genuinenessScore * 100}%` }}
                     ></div>
                   )}
@@ -300,7 +301,7 @@ const VerificationDetailModal = ({
                       <th className="px-4 py-3 text-right text-blue-600 dark:text-blue-500">
                         Similitud
                       </th>
-                      <th className="px-4 py-3 text-right text-purple-600 dark:text-purple-500">
+                      <th className="px-4 py-3 text-right text-blue-600 dark:text-blue-500">
                         Genuinidad
                       </th>
                       <th className="px-4 py-3 text-right text-red-600 dark:text-red-500">
@@ -568,10 +569,10 @@ const UserDetailPage = () => {
         </Card>
 
         {/* Biometric Status Card */}
-        <Card className="p-6 bg-linear-to-br from-white to-purple-50/30 dark:from-gray-800 dark:to-purple-900/10 border-purple-100 dark:border-purple-800/30">
+        <Card className="p-6 bg-linear-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-blue-900/10 border-blue-100 dark:border-blue-800/30">
           <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
-            <div className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mr-3">
-              <Mic className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+            <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mr-3">
+              <Mic className="h-5 w-5 text-blue-600 dark:text-blue-400" />
             </div>
             Estado Biométrico
           </h3>
@@ -596,14 +597,38 @@ const UserDetailPage = () => {
             </p>
 
             {user.enrollment_status === 'enrolled' && (
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full"
-                onClick={() => setShowModelModal(true)}
-              >
-                Ver Detalles del Modelo
-              </Button>
+              <div className="space-y-2 w-full">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full"
+                  onClick={() => setShowModelModal(true)}
+                >
+                  Ver Detalles del Modelo
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50 dark:hover:bg-orange-900/20 border-orange-300 dark:border-orange-800"
+                  onClick={async () => {
+                    if (
+                      !confirm('¿Resetear voiceprint? El usuario deberá volver a registrar su voz.')
+                    )
+                      return;
+                    try {
+                      await adminService.resetVoiceprint(user.id);
+                      toast.success('Voiceprint reseteado. El usuario puede re-enrolarse.');
+                      if (id) fetchData(id);
+                    } catch (error) {
+                      console.error('Error resetting voiceprint:', error);
+                      toast.error('Error al resetear voiceprint');
+                    }
+                  }}
+                >
+                  <RotateCcw className="h-4 w-4 mr-2" />
+                  Resetear Voiceprint
+                </Button>
+              </div>
             )}
           </div>
         </Card>
@@ -657,11 +682,11 @@ const UserDetailPage = () => {
                   Intentos
                 </p>
               </div>
-              <div className="bg-linear-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/10 p-4 rounded-xl border border-purple-200 dark:border-purple-800/30">
-                <p className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">
+              <div className="bg-linear-to-br from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-800/10 p-4 rounded-xl border border-blue-200 dark:border-blue-800/30">
+                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
                   {stats.daysActive}
                 </p>
-                <p className="text-xs font-semibold text-purple-600/70 dark:text-purple-400/70 uppercase tracking-wide">
+                <p className="text-xs font-semibold text-blue-600/70 dark:text-blue-400/70 uppercase tracking-wide">
                   Días
                 </p>
               </div>

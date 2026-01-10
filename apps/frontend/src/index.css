@@ -160,6 +160,8 @@ html {
 /* Touch target sizes (mínimo 44x44px para accesibilidad táctil) */
 button,
 a,
+input,
+select,
 input[type='button'],
 input[type='submit'] {
   min-height: 44px;

@@ -1,4 +1,4 @@
-"""Enrollment service with dynamic phrase support."""
+"""Enrollment service with dynamic phrase support and persistent sessions."""
 
 import numpy as np
 from typing import List, Optional, Dict
@@ -16,23 +16,14 @@ from ..shared.constants.biometric_constants import MIN_ENROLLMENT_SAMPLES, MAX_E
 logger = logging.getLogger(__name__)
 
 
-class EnrollmentSession:
-    """Represents an active enrollment session."""
-    
-    def __init__(self, user_id: UUID, enrollment_id: UUID, challenges: List[dict]):
-        self.user_id = user_id
-        self.enrollment_id = enrollment_id
-        self.challenges = challenges  # List of challenge dicts
-        self.samples_collected = 0
-        self.challenge_index = 0
-        self.created_at = datetime.now(timezone.utc)
-
-
 from .services.BiometricValidator import BiometricValidator
 
 
 class EnrollmentService:
-    """Service for handling voice biometric enrollment with dynamic phrases."""
+    """Service for handling voice biometric enrollment with dynamic phrases.
+    
+    Sessions are now persisted in the database, so they survive server restarts.
+    """
     
     def __init__(
         self,
@@ -40,16 +31,53 @@ class EnrollmentService:
         user_repo: UserRepositoryPort,
         audit_repo: AuditLogRepositoryPort,
         challenge_service,  # ChallengeService
-        biometric_validator: BiometricValidator
+        biometric_validator: BiometricValidator,
+        session_repo=None  # PostgresEnrollmentSessionRepository (optional for backwards compat)
     ):
         self._voice_repo = voice_repo
         self._user_repo = user_repo
         self._audit_repo = audit_repo
         self._challenge_service = challenge_service
         self._biometric_validator = biometric_validator
-        # In-memory sessions (in production, use Redis or database)
-        # Moved to instance variable to avoid sharing state between instances
-        self._active_sessions: Dict[UUID, EnrollmentSession] = {}
+        self._session_repo = session_repo
+        # Fallback in-memory sessions (for backwards compatibility if no session_repo)
+        self._active_sessions: Dict[UUID, dict] = {}
+    
+    async def _get_session(self, enrollment_id: UUID) -> Optional[dict]:
+        """Get session from database or memory."""
+        if self._session_repo:
+            return await self._session_repo.get_session(enrollment_id)
+        return self._active_sessions.get(enrollment_id)
+    
+    async def _save_session(self, enrollment_id: UUID, user_id: UUID, challenges: List[dict]) -> None:
+        """Save session to database or memory."""
+        if self._session_repo:
+            await self._session_repo.create_session(enrollment_id, user_id, challenges)
+        else:
+            self._active_sessions[enrollment_id] = {
+                "id": enrollment_id,
+                "user_id": user_id,
+                "challenges": challenges,
+                "samples_collected": 0,
+                "challenge_index": 0,
+                "created_at": datetime.now(timezone.utc)
+            }
+    
+    async def _update_session(self, enrollment_id: UUID, samples_collected: int, challenge_index: int) -> None:
+        """Update session progress."""
+        if self._session_repo:
+            await self._session_repo.update_session(enrollment_id, samples_collected, challenge_index)
+        else:
+            if enrollment_id in self._active_sessions:
+                self._active_sessions[enrollment_id]["samples_collected"] = samples_collected
+                self._active_sessions[enrollment_id]["challenge_index"] = challenge_index
+    
+    async def _delete_session(self, enrollment_id: UUID) -> None:
+        """Delete/complete session."""
+        if self._session_repo:
+            await self._session_repo.complete_session(enrollment_id)
+        else:
+            self._active_sessions.pop(enrollment_id, None)
     
     async def start_enrollment(
         self,
@@ -59,9 +87,21 @@ class EnrollmentService:
         force_overwrite: bool = False
     ) -> Dict:
         """Start enrollment process for a user."""
-        # Create user if not provided
+        # Create or get user if not provided
         if not user_id:
-            user_id = await self._user_repo.create_user(external_ref=external_ref)
+            # First check if user with external_ref already exists
+            if external_ref:
+                existing_user = await self._user_repo.get_user_by_external_ref(external_ref)
+                if existing_user:
+                    user_id = existing_user.get("id") or existing_user.get("user_id")
+                    if isinstance(user_id, str):
+                        user_id = UUID(user_id)
+                    logger.info(f"Found existing user with external_ref {external_ref}: {user_id}")
+                else:
+                    user_id = await self._user_repo.create_user(external_ref=external_ref)
+                    logger.info(f"Created new user with external_ref {external_ref}: {user_id}")
+            else:
+                user_id = await self._user_repo.create_user(external_ref=external_ref)
         
         # Verify user exists
         if not await self._user_repo.user_exists(user_id):
@@ -97,10 +137,9 @@ class EnrollmentService:
         if len(challenges) < MIN_ENROLLMENT_SAMPLES:
             raise ValueError(f"Not enough challenges created. Need {MIN_ENROLLMENT_SAMPLES}")
         
-        # Create enrollment session
+        # Create enrollment session (stored in database)
         enrollment_id = uuid4()
-        session = EnrollmentSession(user_id, enrollment_id, challenges)
-        self._active_sessions[enrollment_id] = session
+        await self._save_session(enrollment_id, user_id, challenges)
         
         # Log enrollment start
         await self._audit_repo.log_event(
@@ -114,6 +153,8 @@ class EnrollmentService:
                 "challenge_count": len(challenges)
             }
         )
+        
+        logger.info(f"Started enrollment session {enrollment_id} for user {user_id}")
         
         return {
             "enrollment_id": str(enrollment_id),
@@ -132,24 +173,37 @@ class EnrollmentService:
     ) -> Dict:
         """Add an enrollment sample with challenge validation."""
         
-        # Get session
-        session = self._active_sessions.get(enrollment_id)
+        # Get session from database
+        session = await self._get_session(enrollment_id)
         if not session:
             raise ValueError("Invalid or expired enrollment session")
+        
+        user_id = session["user_id"]
+        if isinstance(user_id, str):
+            user_id = UUID(user_id)
+        
+        challenges = session["challenges"]
+        samples_collected = session["samples_collected"]
+        challenge_index = session["challenge_index"]
         
         # Validate embedding
         if not self._biometric_validator.is_valid_embedding(embedding):
             raise ValueError("Invalid voice embedding")
         
-        # Verify challenge belongs to this enrollment
-        challenge_found = any(c["challenge_id"] == challenge_id for c in session.challenges)
+        # Verify challenge belongs to this enrollment (flexible comparison)
+        challenge_id_str = str(challenge_id)
+        challenge_found = any(
+            str(c.get("challenge_id", "")) == challenge_id_str for c in challenges
+        )
+        
         if not challenge_found:
+            logger.warning(f"Challenge {challenge_id_str} not found. Available: {[c.get('challenge_id') for c in challenges]}")
             raise ValueError("Challenge does not belong to this enrollment session")
         
         # Validate challenge (strict validation)
         is_valid, reason = await self._challenge_service.validate_challenge_strict(
             challenge_id=challenge_id,
-            user_id=session.user_id
+            user_id=user_id
         )
         
         if not is_valid:
@@ -157,7 +211,7 @@ class EnrollmentService:
         
         # Store the sample
         sample_id = await self._voice_repo.save_enrollment_sample(
-            user_id=session.user_id,
+            user_id=user_id,
             embedding=embedding,
             snr_db=snr_db,
             duration_sec=duration_sec
@@ -167,14 +221,15 @@ class EnrollmentService:
         await self._challenge_service.mark_challenge_used(challenge_id)
         
         # Update session
-        session.samples_collected += 1
-        session.challenge_index += 1
+        samples_collected += 1
+        challenge_index += 1
+        await self._update_session(enrollment_id, samples_collected, challenge_index)
         
         # Check if enrollment is complete
-        is_complete = session.samples_collected >= MIN_ENROLLMENT_SAMPLES
+        is_complete = samples_collected >= MIN_ENROLLMENT_SAMPLES
         next_challenge = None if is_complete else (
-            session.challenges[session.challenge_index] 
-            if session.challenge_index < len(session.challenges) 
+            challenges[challenge_index] 
+            if challenge_index < len(challenges) 
             else None
         )
         
@@ -186,17 +241,19 @@ class EnrollmentService:
             entity_id=str(sample_id),
             metadata={
                 "enrollment_id": str(enrollment_id),
-                "user_id": str(session.user_id),
+                "user_id": str(user_id),
                 "challenge_id": str(challenge_id),
-                "sample_number": session.samples_collected,
+                "sample_number": samples_collected,
                 "snr_db": snr_db,
                 "duration_sec": duration_sec
             }
         )
         
+        logger.info(f"Added sample {samples_collected}/{MIN_ENROLLMENT_SAMPLES} for enrollment {enrollment_id}")
+        
         return {
             "sample_id": str(sample_id),
-            "samples_completed": session.samples_collected,
+            "samples_completed": samples_collected,
             "samples_required": MIN_ENROLLMENT_SAMPLES,
             "is_complete": is_complete,
             "next_challenge": next_challenge
@@ -209,18 +266,24 @@ class EnrollmentService:
     ) -> Dict:
         """Complete enrollment by creating final voiceprint."""
         
-        # Get session
-        session = self._active_sessions.get(enrollment_id)
+        # Get session from database
+        session = await self._get_session(enrollment_id)
         if not session:
             raise ValueError("Invalid or expired enrollment session")
         
-        if session.samples_collected < MIN_ENROLLMENT_SAMPLES:
+        user_id = session["user_id"]
+        if isinstance(user_id, str):
+            user_id = UUID(user_id)
+        
+        samples_collected = session["samples_collected"]
+        
+        if samples_collected < MIN_ENROLLMENT_SAMPLES:
             raise ValueError(
-                f"Insufficient samples. Need {MIN_ENROLLMENT_SAMPLES}, got {session.samples_collected}"
+                f"Insufficient samples. Need {MIN_ENROLLMENT_SAMPLES}, got {samples_collected}"
             )
         
         # Get all enrollment samples
-        samples = await self._voice_repo.get_enrollment_samples(session.user_id)
+        samples = await self._voice_repo.get_enrollment_samples(user_id)
         
         # Calculate average embedding
         embeddings = [np.array(sample['embedding']) for sample in samples[-MIN_ENROLLMENT_SAMPLES:]]
@@ -228,14 +291,14 @@ class EnrollmentService:
         average_embedding = average_embedding / np.linalg.norm(average_embedding)
         
         # Check if user already has a voiceprint
-        existing_voiceprint = await self._voice_repo.get_voiceprint_by_user(session.user_id)
+        existing_voiceprint = await self._voice_repo.get_voiceprint_by_user(user_id)
         if existing_voiceprint:
             await self._voice_repo.save_voiceprint_history(existing_voiceprint)
         
         # Create voiceprint
         voiceprint = VoiceSignature(
             id=uuid4(),
-            user_id=session.user_id,
+            user_id=user_id,
             embedding=average_embedding,
             created_at=datetime.now(timezone.utc)
         )
@@ -257,18 +320,20 @@ class EnrollmentService:
             entity_id=str(voiceprint.id),
             metadata={
                 "enrollment_id": str(enrollment_id),
-                "user_id": str(session.user_id),
+                "user_id": str(user_id),
                 "quality_score": quality_score,
                 "samples_used": len(embeddings)
             }
         )
         
         # Clean up session
-        del self._active_sessions[enrollment_id]
+        await self._delete_session(enrollment_id)
+        
+        logger.info(f"Completed enrollment {enrollment_id} with quality {quality_score:.2f}")
         
         return {
             "voiceprint_id": str(voiceprint.id),
-            "user_id": str(session.user_id),
+            "user_id": str(user_id),
             "quality_score": quality_score,
             "samples_used": len(embeddings)
         }
@@ -309,15 +374,22 @@ class EnrollmentService:
                 "required_samples": MIN_ENROLLMENT_SAMPLES
             }
     
-    def get_session(self, enrollment_id: UUID) -> Optional[EnrollmentSession]:
-        """Get an active enrollment session by ID (public accessor)."""
+    def get_session(self, enrollment_id: UUID) -> Optional[dict]:
+        """Get an active enrollment session by ID (sync fallback for in-memory)."""
         return self._active_sessions.get(enrollment_id)
+    
+    async def get_session_async(self, enrollment_id: UUID) -> Optional[dict]:
+        """Get an active enrollment session by ID (async, from database)."""
+        return await self._get_session(enrollment_id)
     
     async def get_session_user(self, enrollment_id: UUID) -> Optional[Dict]:
         """Get user data for an active enrollment session."""
-        session = self._active_sessions.get(enrollment_id)
+        session = await self._get_session(enrollment_id)
         if session:
-            return await self._user_repo.get_user(session.user_id)
+            user_id = session["user_id"]
+            if isinstance(user_id, str):
+                user_id = UUID(user_id)
+            return await self._user_repo.get_user(user_id)
         return None
 
     

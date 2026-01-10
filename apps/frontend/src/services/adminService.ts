@@ -205,6 +205,103 @@ class AdminService {
     );
     return response.data;
   }
+
+  // =====================================================
+  // Notifications
+  // =====================================================
+
+  /**
+   * Get notifications/alerts for admin
+   */
+  async getNotifications(limit: number = 20): Promise<AlertNotification[]> {
+    const response = await api.get<AlertNotification[]>(
+      `${this.baseUrl}/notifications?limit=${limit}`
+    );
+    return response.data;
+  }
+
+  // =====================================================
+  // Voiceprint Management
+  // =====================================================
+
+  /**
+   * Reset user's voiceprint
+   */
+  async resetVoiceprint(userId: string): Promise<{ success: boolean; message: string }> {
+    const response = await api.post(`${this.baseUrl}/users/${userId}/reset-voiceprint`);
+    return response.data;
+  }
+
+  // =====================================================
+  // Chart Data
+  // =====================================================
+
+  /**
+   * Get chart data for verifications
+   */
+  async getChartData(days: number = 30): Promise<ChartDataPoint[]> {
+    const response = await api.get<ChartDataPoint[]>(
+      `${this.baseUrl}/stats/chart-data?days=${days}`
+    );
+    return response.data;
+  }
+
+  // =====================================================
+  // Export
+  // =====================================================
+
+  /**
+   * Export users as CSV (triggers download)
+   */
+  async exportUsers(): Promise<void> {
+    const response = await api.get(`${this.baseUrl}/export/users`, {
+      responseType: 'blob',
+    });
+    this.downloadBlob(response.data, `usuarios_${new Date().toISOString().split('T')[0]}.csv`);
+  }
+
+  /**
+   * Export activity logs as CSV (triggers download)
+   */
+  async exportActivity(days: number = 30): Promise<void> {
+    const response = await api.get(`${this.baseUrl}/export/activity?days=${days}`, {
+      responseType: 'blob',
+    });
+    this.downloadBlob(response.data, `actividad_${new Date().toISOString().split('T')[0]}.csv`);
+  }
+
+  /**
+   * Helper to trigger file download
+   */
+  private downloadBlob(blob: Blob, filename: string): void {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }
+}
+
+// New interfaces
+export interface AlertNotification {
+  id: string;
+  type: 'warning' | 'error' | 'info';
+  title: string;
+  message: string;
+  timestamp: string;
+  user_id?: string;
+  user_email?: string;
+  is_read: boolean;
+}
+
+export interface ChartDataPoint {
+  date: string;
+  verifications: number;
+  successful: number;
+  failed: number;
 }
 
 export const adminService = new AdminService();

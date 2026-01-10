@@ -63,8 +63,8 @@ const SuperAdminDashboard = () => {
       setSystemHealth(health);
       setModels(modelsData);
       setAuditLogs(logs);
-    } catch (err) {
-      console.error('Error loading data:', err);
+    } catch (_err) {
+      console.error('Error loading data:', _err);
       setError('Error al cargar datos. Verifica que tienes permisos de superadmin.');
       toast.error('Error al cargar datos');
     } finally {
@@ -80,7 +80,7 @@ const SuperAdminDashboard = () => {
     try {
       const result = await superadminService.runDataPurge();
       toast.success(result.message);
-    } catch (err) {
+    } catch {
       toast.error('Error al ejecutar purge');
     }
   };
@@ -157,10 +157,10 @@ const SuperAdminDashboard = () => {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-purple-700 to-indigo-800 dark:from-gray-200 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+            <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
               Panel de Super Administrador
             </h1>
-            <p className="text-lg text-purple-600/80 dark:text-purple-400/80 font-medium">
+            <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
               Control global del sistema y todas las empresas
             </p>
           </div>
@@ -186,7 +186,10 @@ const SuperAdminDashboard = () => {
             globalStats?.total_users?.toLocaleString() ?? '0',
             `${globalStats?.total_enrollments ?? 0} enrolados`,
             Users,
-            { bg: 'bg-purple-50 dark:bg-purple-900/20', text: 'text-purple-600 dark:text-purple-400' }
+            {
+              bg: 'bg-indigo-50 dark:bg-indigo-900/20',
+              text: 'text-indigo-600 dark:text-indigo-400',
+            }
           )}
           {renderStatCard(
             'Verificaciones (30d)',
@@ -200,7 +203,10 @@ const SuperAdminDashboard = () => {
             `${((globalStats?.spoof_detection_rate ?? 0) * 100).toFixed(2)}%`,
             'Tasa de detección',
             AlertTriangle,
-            { bg: 'bg-orange-50 dark:bg-orange-900/20', text: 'text-orange-600 dark:text-orange-400' }
+            {
+              bg: 'bg-orange-50 dark:bg-orange-900/20',
+              text: 'text-orange-600 dark:text-orange-400',
+            }
           )}
         </div>
 
@@ -292,7 +298,7 @@ const SuperAdminDashboard = () => {
                   className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-purple-600 dark:text-purple-400 group-hover:bg-purple-100 dark:group-hover:bg-purple-900/30">
+                    <div className="p-2 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg text-indigo-600 dark:text-indigo-400 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/30">
                       <FileText className="h-4 w-4" />
                     </div>
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
@@ -327,7 +333,9 @@ const SuperAdminDashboard = () => {
                   <span className="text-gray-400 flex items-center gap-2">
                     <Server className="h-4 w-4" /> API
                   </span>
-                  <span className={`flex items-center font-medium ${getStatusColor(systemHealth?.api_status || 'down')}`}>
+                  <span
+                    className={`flex items-center font-medium ${getStatusColor(systemHealth?.api_status || 'down')}`}
+                  >
                     <span className="h-2 w-2 bg-current rounded-full mr-2 animate-pulse"></span>
                     {systemHealth?.api_status || 'Unknown'}
                   </span>
@@ -336,7 +344,9 @@ const SuperAdminDashboard = () => {
                   <span className="text-gray-400 flex items-center gap-2">
                     <Database className="h-4 w-4" /> Database
                   </span>
-                  <span className={`flex items-center font-medium ${getStatusColor(systemHealth?.database_status || 'down')}`}>
+                  <span
+                    className={`flex items-center font-medium ${getStatusColor(systemHealth?.database_status || 'down')}`}
+                  >
                     <span className="h-2 w-2 bg-current rounded-full mr-2 animate-pulse"></span>
                     {systemHealth?.database_connections}/{systemHealth?.database_max_connections}
                   </span>
@@ -345,9 +355,11 @@ const SuperAdminDashboard = () => {
                   <span className="text-gray-400 flex items-center gap-2">
                     <Cpu className="h-4 w-4" /> Modelos AI
                   </span>
-                  <span className={`flex items-center font-medium ${getStatusColor(models[0]?.status || 'not_loaded')}`}>
+                  <span
+                    className={`flex items-center font-medium ${getStatusColor(models[0]?.status || 'not_loaded')}`}
+                  >
                     <span className="h-2 w-2 bg-current rounded-full mr-2 animate-pulse"></span>
-                    {models.filter(m => m.status === 'loaded').length}/{models.length} loaded
+                    {models.filter((m) => m.status === 'loaded').length}/{models.length} loaded
                   </span>
                 </div>
               </div>
@@ -375,7 +387,9 @@ const SuperAdminDashboard = () => {
                   className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700 last:border-0"
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`p-1.5 rounded-lg ${log.success ? 'bg-green-50 dark:bg-green-900/20' : 'bg-red-50 dark:bg-red-900/20'}`}>
+                    <div
+                      className={`p-1.5 rounded-lg ${log.success ? 'bg-green-50 dark:bg-green-900/20' : 'bg-red-50 dark:bg-red-900/20'}`}
+                    >
                       {log.success ? (
                         <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
                       ) : (

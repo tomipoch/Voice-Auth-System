@@ -12,7 +12,7 @@ import { PhraseRuleCard } from '../../components/admin/PhraseRuleCard';
 import { PhraseRuleEditor } from '../../components/admin/PhraseRuleEditor';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
-
+import Input from '../../components/ui/Input';
 import EmptyState from '../../components/ui/EmptyState';
 
 export const PhraseRulesPage = () => {
@@ -113,42 +113,37 @@ export const PhraseRulesPage = () => {
         </p>
       </div>
 
-      {/* Main Content Card */}
-      <Card className="p-6">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-          <div className="flex items-center gap-4">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Reglas Activas</h2>
-            <div className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
-              {filteredRules.length}
-            </div>
+      {/* Search and Controls Card */}
+      <Card className="p-4 mb-6">
+        <div className="flex items-center gap-4">
+          <div className="relative flex-1">
+            <Input
+              placeholder="Buscar reglas por nombre o descripción..."
+              className="pl-10"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              aria-label="Buscar reglas de calidad"
+            />
+            <Search
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
+              aria-hidden="true"
+            />
           </div>
 
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            {/* Search Input */}
-            <div className="relative flex-1 md:w-64">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                placeholder="Buscar reglas..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 h-10 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder-gray-400"
-              />
-            </div>
-
-            <button
-              onClick={loadRules}
-              className="h-10 w-10 flex items-center justify-center rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 shrink-0"
-              title="Actualizar reglas"
-            >
-              <RefreshCw className="h-4 w-4" />
-            </button>
-          </div>
+          <button
+            onClick={loadRules}
+            disabled={isLoading}
+            className="h-11 w-11 flex items-center justify-center rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-700 transition-all shrink-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 shadow-sm"
+            title="Actualizar reglas"
+          >
+            <RefreshCw className={`h-5 w-5 ${isLoading ? 'animate-spin text-blue-500' : ''}`} />
+          </button>
         </div>
+      </Card>
 
-        {/* Grid View (Now the only view) */}
+      {/* Rules Grid Card */}
+      <Card className="p-6">
+        {/* Grid View */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredRules.map((rule) => (
             <PhraseRuleCard key={rule.id} rule={rule} onEdit={handleEdit} onToggle={handleToggle} />

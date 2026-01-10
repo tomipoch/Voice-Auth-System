@@ -7,21 +7,28 @@ import {
   FileText,
   CheckCircle,
   Settings,
+  Bell,
+  XCircle,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
-import adminService, { type SystemStats } from '../../services/adminService';
+import adminService, {
+  type SystemStats,
+  type AlertNotification,
+} from '../../services/adminService';
 import toast from 'react-hot-toast';
 
 const AdminDashboardPage = () => {
   const navigate = useNavigate();
   const [stats, setStats] = useState<SystemStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [notifications, setNotifications] = useState<AlertNotification[]>([]);
 
   useEffect(() => {
     fetchStats();
+    fetchNotifications();
   }, []);
 
   const fetchStats = async () => {
@@ -33,6 +40,15 @@ const AdminDashboardPage = () => {
       toast.error('Error al cargar estadísticas');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchNotifications = async () => {
+    try {
+      const data = await adminService.getNotifications(5);
+      setNotifications(data);
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
     }
   };
 
@@ -214,7 +230,7 @@ const AdminDashboardPage = () => {
                   className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-purple-600 dark:text-purple-400 group-hover:bg-purple-100 dark:group-hover:bg-purple-900/30">
+                    <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600 dark:text-blue-400 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/30">
                       <FileText className="h-4 w-4" />
                     </div>
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
@@ -239,22 +255,68 @@ const AdminDashboardPage = () => {
               </div>
             </Card>
 
-            <Card className="p-6 bg-gray-900 text-white border-none">
-              <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
-                <Settings className="h-5 w-5" /> Estado del Sistema
+            {/* Notifications Panel */}
+            <Card className="p-6">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+                <Bell className="h-5 w-5 text-orange-500" />
+                Alertas
+                {notifications.length > 0 && (
+                  <span className="bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full">
+                    {notifications.length}
+                  </span>
+                )}
+              </h3>
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {notifications.length === 0 ? (
+                  <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+                    Sin alertas recientes
+                  </p>
+                ) : (
+                  notifications.map((notif) => (
+                    <div
+                      key={notif.id}
+                      className={`p-3 rounded-lg text-sm ${
+                        notif.type === 'error'
+                          ? 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400'
+                          : notif.type === 'warning'
+                            ? 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400'
+                            : 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400'
+                      }`}
+                    >
+                      <div className="flex items-start gap-2">
+                        {notif.type === 'error' ? (
+                          <XCircle className="h-4 w-4 shrink-0 mt-0.5" />
+                        ) : (
+                          <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
+                        )}
+                        <div>
+                          <p className="font-medium">{notif.title}</p>
+                          <p className="text-xs opacity-80">{notif.message}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </Card>
+
+            {/* System Status */}
+            <Card className="p-6 bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700">
+              <h3 className="text-lg font-bold mb-2 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <Settings className="h-5 w-5 text-blue-600 dark:text-blue-400" /> Estado del Sistema
               </h3>
               <div className="space-y-3 mt-4">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-400">API Status</span>
-                  <span className="flex items-center text-green-400 font-medium">
-                    <span className="h-2 w-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                  <span className="text-gray-500 dark:text-gray-400">API Status</span>
+                  <span className="flex items-center text-green-600 dark:text-green-400 font-medium">
+                    <span className="h-2 w-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
                     Operational
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-400">Database</span>
-                  <span className="flex items-center text-green-400 font-medium">
-                    <span className="h-2 w-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                  <span className="text-gray-500 dark:text-gray-400">Database</span>
+                  <span className="flex items-center text-green-600 dark:text-green-400 font-medium">
+                    <span className="h-2 w-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
                     Operational
                   </span>
                 </div>

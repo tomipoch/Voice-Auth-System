@@ -279,7 +279,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
     <div className="space-y-8 max-h-96 overflow-y-auto pr-2">
       <div>
         <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center">
-          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-red-500 to-pink-600 flex items-center justify-center mr-3">
+          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-3">
             <Shield className="h-4 w-4 text-white" />
           </div>
           Configuración de Seguridad
@@ -288,7 +288,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           {/* Toggle mejorado para 2FA */}
           <div className="flex items-center justify-between p-6 rounded-2xl hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-500 to-indigo-600 flex items-center justify-center mr-4">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-4">
                 <Shield className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -384,7 +384,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
     <div className="space-y-8 max-h-96 overflow-y-auto overflow-x-hidden">
       <div>
         <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center">
-          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center mr-3">
+          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-3">
             <Bell className="h-4 w-4 text-white" />
           </div>
           Preferencias de Notificación
@@ -486,7 +486,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           {/* System Updates */}
           <div className="flex items-center justify-between p-6 rounded-2xl hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-500 to-pink-600 flex items-center justify-center mr-4">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-4">
                 <Download className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -510,7 +510,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                 }
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-purple-500 peer-checked:to-pink-600 shadow-lg"></div>
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-gray-900 after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-blue-500 peer-checked:to-indigo-600 shadow-lg"></div>
             </label>
           </div>
         </div>
@@ -522,7 +522,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
     <div className="space-y-8 max-h-96 overflow-y-auto overflow-x-hidden">
       <div>
         <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center">
-          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-purple-500 to-pink-600 flex items-center justify-center mr-3">
+          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-3">
             <Palette className="h-4 w-4 text-white" />
           </div>
           Personalización
@@ -531,7 +531,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           {/* Theme Selector */}
           <div className="p-6 rounded-2xl hover:shadow-lg bg-white dark:bg-gray-800/70 border border-gray-200/60 dark:border-gray-600/40">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
                 <Palette className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -551,14 +551,14 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
                   setAppearance({ ...appearance, theme: newTheme });
                   setTheme(newTheme);
                 }}
-                className="w-full px-6 py-4 bg-linear-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-indigo-200/50 dark:border-gray-600/50 rounded-2xl focus:ring-4 focus:ring-indigo-300/30 dark:focus:ring-indigo-500/30 focus:border-indigo-400 dark:focus:border-indigo-500 shadow-xl text-gray-800 dark:text-gray-100 font-semibold text-lg appearance-none cursor-pointer hover:bg-linear-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:shadow-2xl pr-14"
+                className="w-full px-6 py-4 bg-linear-to-r from-white/90 to-white/70 dark:from-gray-700/90 dark:to-gray-800/70 backdrop-blur-md border border-blue-200/50 dark:border-gray-600/50 rounded-2xl focus:ring-4 focus:ring-blue-300/30 dark:focus:ring-blue-500/30 focus:border-blue-400 dark:focus:border-blue-500 shadow-xl text-gray-800 dark:text-gray-100 font-semibold text-lg appearance-none cursor-pointer hover:bg-linear-to-r hover:from-white/95 hover:to-white/80 dark:hover:from-gray-700/95 dark:hover:to-gray-800/80 hover:shadow-2xl pr-14"
               >
                 <option value="light">🌞 Claro</option>
                 <option value="dark">🌙 Oscuro</option>
                 <option value="auto">🔄 Automático (Sistema)</option>
               </select>
               <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                <ChevronDown className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+                <ChevronDown className="h-6 w-6 text-blue-500 dark:text-blue-400" />
               </div>
             </div>
           </div>
@@ -631,12 +631,12 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar de configuración mejorado */}
         <div className="lg:col-span-1">
-          <div className="relative overflow-hidden rounded-2xl p-4 shadow-lg border bg-linear-to-br from-blue-50/80 to-purple-50/80 dark:from-gray-800/70 dark:to-gray-800/70 border-blue-200/40 dark:border-gray-600/40 backdrop-blur-xl">
+          <div className="relative overflow-hidden rounded-2xl p-4 shadow-lg border bg-linear-to-br from-blue-50/80 to-indigo-50/80 dark:from-gray-800/70 dark:to-gray-800/70 border-blue-200/40 dark:border-gray-600/40 backdrop-blur-xl">
             {/* Elemento decorativo */}
             <div
               className="absolute top-0 right-0 w-20 h-20 rounded-full opacity-30"
               style={{
-                background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+                background: 'linear-gradient(135deg, #3B82F6, #6366F1)',
                 filter: 'blur(20px)',
               }}
             />
@@ -685,7 +685,7 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
               <div
                 className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full opacity-10"
                 style={{
-                  background: 'linear-gradient(135deg, #8B5CF6, #3B82F6)',
+                  background: 'linear-gradient(135deg, #3B82F6, #6366F1)',
                   filter: 'blur(30px)',
                 }}
               />

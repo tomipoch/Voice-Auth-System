@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useState, ReactNode } from 'react';
 import { authStorage } from '../services/storage';
 
 interface Settings {
@@ -26,33 +26,33 @@ interface SettingsContextType {
 export const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
 export const SettingsProvider = ({ children }: { children: ReactNode }) => {
-  const [settings, setSettings] = useState<Settings>({
-    notifications: {
-      email: true,
-      push: false,
-      verificationAlerts: true,
-    },
-    security: {
-      twoFactor: false,
-      sessionTimeout: 30,
-      requireReauth: false,
-    },
-    appearance: {
-      theme: 'system',
-      language: 'es',
-    },
-  });
+  const [settings, setSettings] = useState<Settings>(() => {
+    const defaultSettings: Settings = {
+      notifications: {
+        email: true,
+        push: false,
+        verificationAlerts: true,
+      },
+      security: {
+        twoFactor: false,
+        sessionTimeout: 30,
+        requireReauth: false,
+      },
+      appearance: {
+        theme: 'system',
+        language: 'es',
+      },
+    };
 
-  // Load settings from user data if available
-  useEffect(() => {
     const user = authStorage.getUser();
     if (user?.settings) {
-      setSettings((prev) => ({
-        ...prev,
+      return {
+        ...defaultSettings,
         ...user.settings,
-      }));
+      };
     }
-  }, []);
+    return defaultSettings;
+  });
 
   const updateSettings = (newSettings: Settings) => {
     setSettings(newSettings);

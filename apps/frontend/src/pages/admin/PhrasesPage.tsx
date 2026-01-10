@@ -3,13 +3,15 @@
  * Admin page for managing phrases with stats, filters, and table
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Search, BookOpen, Filter, Trash2, Pencil, X } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
 import LoadingSpinner from '../../components/ui/LoadingSpinner';
 import EmptyState from '../../components/ui/EmptyState';
+import Select from '../../components/ui/Select';
+import Input from '../../components/ui/Input';
 import { PhraseStatsCards } from '../../components/admin/PhraseStatsCards';
 import { phraseService } from '../../services/phraseService';
 import type { Phrase, Book, PhraseStats, PhraseFilters } from '../../types/phrases';
@@ -40,18 +42,7 @@ export const PhrasesPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalPhrases, setTotalPhrases] = useState(0);
 
-  // Load stats and books on mount
-  useEffect(() => {
-    loadStats();
-    loadBooks();
-  }, []);
-
-  // Load phrases when filters change
-  useEffect(() => {
-    loadPhrases();
-  }, [filters]);
-
-  const loadStats = async () => {
+  const loadStats = useCallback(async () => {
     try {
       const data = await phraseService.getStats();
       setStats(data);
@@ -61,18 +52,18 @@ export const PhrasesPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const loadBooks = async () => {
+  const loadBooks = useCallback(async () => {
     try {
       const data = await phraseService.getBooks();
       setBooks(data);
     } catch (err) {
       console.error('Error loading books:', err);
     }
-  };
+  }, []);
 
-  const loadPhrases = async () => {
+  const loadPhrases = useCallback(async () => {
     setLoadingTable(true);
     setError(null);
     try {
@@ -88,7 +79,18 @@ export const PhrasesPage = () => {
     } finally {
       setLoadingTable(false);
     }
-  };
+  }, [filters]);
+
+  // Load stats and books on mount
+  useEffect(() => {
+    loadStats();
+    loadBooks();
+  }, [loadStats, loadBooks]);
+
+  // Load phrases when filters change
+  useEffect(() => {
+    loadPhrases();
+  }, [loadPhrases]);
 
   const handleToggleStatus = async (phraseId: string, currentStatus: boolean) => {
     try {
@@ -103,6 +105,7 @@ export const PhrasesPage = () => {
       // Reload stats
       loadStats();
     } catch (err) {
+      console.error('Error toggling status:', err);
       toast.error('Error al cambiar estado de la frase');
     }
   };
@@ -120,6 +123,7 @@ export const PhrasesPage = () => {
       // Reload stats
       loadStats();
     } catch (err) {
+      console.error('Error deleting phrase:', err);
       toast.error('Error al eliminar frase');
     }
   };
@@ -145,7 +149,12 @@ export const PhrasesPage = () => {
       setPhrases((prev) =>
         prev.map((p) =>
           p.id === editingPhrase.id
-            ? { ...p, text: response.text, word_count: response.word_count, char_count: response.char_count }
+            ? {
+                ...p,
+                text: response.text,
+                word_count: response.word_count,
+                char_count: response.char_count,
+              }
             : p
         )
       );
@@ -203,49 +212,44 @@ export const PhrasesPage = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
+          <div className="relative flex-1">
+            <Input
               placeholder="Buscar en frases..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="pl-10"
               value={filters.search || ''}
               onChange={(e) => handleFilterChange('search', e.target.value)}
             />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           </div>
 
           {/* Difficulty */}
-          <select
+          <Select
             value={filters.difficulty || ''}
             onChange={(e) => handleFilterChange('difficulty', e.target.value)}
-            className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
           >
             <option value="">Todas las dificultades</option>
             <option value="easy">🟢 Fácil</option>
             <option value="medium">🟡 Media</option>
             <option value="hard">🔴 Difícil</option>
-          </select>
+          </Select>
 
           {/* Status */}
-          <select
+          <Select
             value={filters.is_active === undefined ? '' : filters.is_active.toString()}
             onChange={(e) => {
               const value = e.target.value === '' ? undefined : e.target.value === 'true';
               handleFilterChange('is_active', value);
             }}
-            className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
           >
             <option value="">Todos los estados</option>
             <option value="true">✅ Activas</option>
             <option value="false">❌ Inactivas</option>
-          </select>
+          </Select>
 
           {/* Book */}
-          <select
+          <Select
             value={filters.book_id || ''}
             onChange={(e) => handleFilterChange('book_id', e.target.value)}
-            className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
           >
             <option value="">Todos los libros ({books.length})</option>
             {books.map((book) => (
@@ -253,13 +257,12 @@ export const PhrasesPage = () => {
                 📖 {book.title}
               </option>
             ))}
-          </select>
+          </Select>
 
           {/* Author */}
-          <select
+          <Select
             value={filters.author || ''}
             onChange={(e) => handleFilterChange('author', e.target.value)}
-            className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
           >
             <option value="">Todos los autores ({uniqueAuthors.length})</option>
             {uniqueAuthors.map((author) => (
@@ -267,7 +270,7 @@ export const PhrasesPage = () => {
                 ✍️ {author}
               </option>
             ))}
-          </select>
+          </Select>
 
           {/* Clear Filters */}
           <button
@@ -410,24 +413,24 @@ export const PhrasesPage = () => {
                           />
                         </div>
                       </td>
-                        <td className="py-3 px-4 text-center">
-                          <div className="flex justify-center gap-2">
-                            <button
-                              onClick={() => handleOpenEdit(phrase)}
-                              className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50 transition-colors"
-                              title="Editar frase"
-                            >
-                              <Pencil className="h-4 w-4" />
-                            </button>
-                            <button
-                              onClick={() => handleDelete(phrase.id)}
-                              className="flex items-center justify-center h-8 w-8 rounded-full bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50 transition-colors"
-                              title="Eliminar frase"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </button>
-                          </div>
-                        </td>
+                      <td className="py-3 px-4 text-center">
+                        <div className="flex justify-center gap-2">
+                          <button
+                            onClick={() => handleOpenEdit(phrase)}
+                            className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50 transition-colors"
+                            title="Editar frase"
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(phrase.id)}
+                            className="flex items-center justify-center h-8 w-8 rounded-full bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50 transition-colors"
+                            title="Eliminar frase"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
