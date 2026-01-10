@@ -220,6 +220,8 @@ class PostgresUserRepository(UserRepositoryPort):
 
     async def update_user(self, user_id: UserId, user_data: dict) -> None:
         """Update user data."""
+        import json
+        
         async with self._pool.acquire() as conn:
             # Build the update query dynamically
             # This is not ideal, but it's a simple way to handle partial updates
@@ -228,6 +230,9 @@ class PostgresUserRepository(UserRepositoryPort):
             updates = []
             values = []
             for key, value in user_data.items():
+                # Convert settings dict to JSON string for JSONB field
+                if key == 'settings' and isinstance(value, dict):
+                    value = json.dumps(value)
                 updates.append(f"{key} = ${len(values) + 2}")
                 values.append(value)
             
