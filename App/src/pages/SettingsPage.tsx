@@ -48,6 +48,26 @@ const SettingsPage = () => {
     }
   }, [user]);
 
+  // Apply theme when it changes
+  useEffect(() => {
+    const theme = localSettings.appearance.theme;
+    const root = window.document.documentElement;
+
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else if (theme === 'light') {
+      root.classList.remove('dark');
+    } else {
+      // System preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    }
+  }, [localSettings.appearance.theme]);
+
   const handleSave = async () => {
     setIsLoading(true);
     try {
@@ -93,7 +113,7 @@ const SettingsPage = () => {
         <Card>
           <div className="p-6">
             <div className="flex items-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 rounded-xl mr-4">
+              <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-xl mr-4">
                 <Bell className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
               <div>
@@ -158,7 +178,7 @@ const SettingsPage = () => {
         <Card>
           <div className="p-6">
             <div className="flex items-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900 dark:to-emerald-900 rounded-xl mr-4">
+              <div className="p-3 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-xl mr-4">
                 <Shield className="h-6 w-6 text-green-600 dark:text-green-400" />
               </div>
               <div>
@@ -172,41 +192,16 @@ const SettingsPage = () => {
             </div>
 
             <div className="space-y-4">
-              <label className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-xl cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                <div>
-                  <p className="font-medium text-gray-800 dark:text-gray-200">
-                    Autenticación de Dos Factores
-                  </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Añade una capa extra de seguridad
-                  </p>
-                </div>
-                <input
-                  type="checkbox"
-                  checked={localSettings.security.twoFactor}
-                  onChange={(e) =>
-                    setLocalSettings((prev) => ({
-                      ...prev,
-                      security: { ...prev.security, twoFactor: e.target.checked },
-                    }))
-                  }
-                  className="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
-                />
-              </label>
-
               <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl">
                 <label className="block mb-2">
                   <p className="font-medium text-gray-800 dark:text-gray-200 mb-1">
-                    Tiempo de Sesión (minutos)
+                    Tiempo de Sesión
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                     Cierra sesión automáticamente después de inactividad
                   </p>
                 </label>
-                <input
-                  type="number"
-                  min="5"
-                  max="120"
+                <select
                   value={localSettings.security.sessionTimeout}
                   onChange={(e) =>
                     setLocalSettings((prev) => ({
@@ -214,8 +209,16 @@ const SettingsPage = () => {
                       security: { ...prev.security, sessionTimeout: parseInt(e.target.value) },
                     }))
                   }
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
-                />
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value={10}>10 minutos</option>
+                  <option value={30}>30 minutos</option>
+                  <option value={60}>1 hora</option>
+                  <option value={120}>2 horas</option>
+                  <option value={300}>5 horas</option>
+                  <option value={480}>8 horas</option>
+                  <option value={1440}>24 horas</option>
+                </select>
               </div>
             </div>
           </div>
@@ -225,7 +228,7 @@ const SettingsPage = () => {
         <Card>
           <div className="p-6">
             <div className="flex items-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 rounded-xl mr-4">
+              <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 rounded-xl mr-4">
                 <Palette className="h-6 w-6 text-purple-600 dark:text-purple-400" />
               </div>
               <div>
