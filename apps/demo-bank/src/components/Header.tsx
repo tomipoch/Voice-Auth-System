@@ -36,7 +36,7 @@ export default function Header({ showNav = true, isEnrolled = false }: HeaderPro
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="bg-gradient-to-r from-[#1a365d] to-[#2c5282] text-white shadow-lg">
+    <header className="bg-linear-to-r from-[#1a365d] to-[#2c5282] text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -63,7 +63,7 @@ export default function Header({ showNav = true, isEnrolled = false }: HeaderPro
               onClick={() => navigate('/profile')}
               className="flex items-center gap-3 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg border border-white/10 transition-colors cursor-pointer"
             >
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#f6ad55] to-[#ed8936] flex items-center justify-center text-xs font-bold text-[#1a365d]">
+              <div className="w-8 h-8 rounded-full bg-linear-to-br from-[#f6ad55] to-[#ed8936] flex items-center justify-center text-xs font-bold text-[#1a365d]">
                 {user?.first_name?.[0] || 'T'}
               </div>
               <span className="text-sm hidden sm:block">Hola, {user?.first_name || 'Tomás'}</span>

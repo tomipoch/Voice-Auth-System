@@ -11,7 +11,7 @@ export const SpendChart: React.FC = () => {
           </div>
           
           <div 
-            className="w-full rounded-t-lg bg-gradient-to-t from-amber-500/20 to-amber-500/80 transition-all duration-700 ease-out delay-[100ms]"
+            className="w-full rounded-t-lg bg-linear-to-t from-amber-500/20 to-amber-500/80 transition-all duration-700 ease-out delay-100"
             style={{ 
               height: `${height}%`,
               animation: `grow-up 1s ease-out ${i * 50}ms forwards`,

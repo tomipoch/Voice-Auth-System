@@ -194,7 +194,7 @@ export default function EnrollmentPage() {
             <p className="text-gray-500">Verificando estado de inscripción...</p>
           </div>
         ) : isAlreadyEnrolled ? (
-          <div className="bg-gradient-to-br from-[#48bb78]/5 to-[#48bb78]/10 border-2 border-[#48bb78]/20 rounded-2xl p-8 text-center">
+          <div className="bg-linear-to-br from-[#48bb78]/5 to-[#48bb78]/10 border-2 border-[#48bb78]/20 rounded-2xl p-8 text-center">
             <ShieldCheck className="w-16 h-16 text-[#48bb78] mx-auto mb-4" />
             <h2 className="text-xl font-bold text-[#1a365d] mb-2">¡Ya tienes tu voz registrada!</h2>
             <p className="text-gray-600 mb-6">Tu biometría de voz está activa y protege tus transacciones.</p>
@@ -206,7 +206,7 @@ export default function EnrollmentPage() {
             </button>
           </div>
         ) : isComplete ? (
-          <div className="bg-gradient-to-br from-[#48bb78]/5 to-[#48bb78]/10 border-2 border-[#48bb78]/20 rounded-2xl p-8 text-center">
+          <div className="bg-linear-to-br from-[#48bb78]/5 to-[#48bb78]/10 border-2 border-[#48bb78]/20 rounded-2xl p-8 text-center">
             <CheckCircle className="w-16 h-16 text-[#48bb78] mx-auto mb-4" />
             <h2 className="text-xl font-bold text-[#1a365d] mb-2">¡Registro Completado!</h2>
             <p className="text-gray-600">Tu voz ha sido registrada exitosamente</p>
@@ -221,7 +221,7 @@ export default function EnrollmentPage() {
               </div>
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-gradient-to-r from-[#1a365d] to-[#2c5282] transition-all duration-500"
+                  className="h-full bg-linear-to-r from-[#1a365d] to-[#2c5282] transition-all duration-500"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -265,7 +265,7 @@ export default function EnrollmentPage() {
                   <span className="font-medium">Frase {currentPhraseIndex + 1} de {session?.phrases.length}</span>
                 </div>
                 
-                <div className="bg-gradient-to-br from-[#1a365d]/5 to-[#2c5282]/5 rounded-xl p-6 border border-[#1a365d]/10 mb-8">
+                <div className="bg-linear-to-br from-[#1a365d]/5 to-[#2c5282]/5 rounded-xl p-6 border border-[#1a365d]/10 mb-8">
                   <p className="text-xl font-medium text-[#1a365d] leading-relaxed text-center">
                     "{currentPhrase?.text}"
                   </p>

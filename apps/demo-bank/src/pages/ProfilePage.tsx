@@ -47,7 +47,7 @@ export default function ProfilePage() {
         {/* User Info Card */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#f6ad55] to-[#ed8936] flex items-center justify-center text-2xl font-bold text-[#1a365d]">
+            <div className="w-16 h-16 rounded-full bg-linear-to-br from-[#f6ad55] to-[#ed8936] flex items-center justify-center text-2xl font-bold text-[#1a365d]">
               {user?.first_name?.[0] || 'T'}
             </div>
             <div>
@@ -78,7 +78,7 @@ export default function ProfilePage() {
         {/* Security Card */}
         <div className={`rounded-xl shadow-sm border p-6 ${
           isEnrolled 
-            ? 'bg-gradient-to-br from-[#48bb78]/5 to-[#48bb78]/10 border-[#48bb78]/20' 
+            ? 'bg-linear-to-br from-[#48bb78]/5 to-[#48bb78]/10 border-[#48bb78]/20' 
             : 'bg-white border-gray-100'
         }`}>
           <div className="flex items-center gap-3 mb-4">

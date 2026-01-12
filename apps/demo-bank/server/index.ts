@@ -1,7 +1,9 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { serve } from '@hono/node-server';
-import config from './config';
+import jwt from 'jsonwebtoken';
+import { config } from './config';
+import { userQueries, sessionQueries, contactQueries, transactionQueries, type DemoUser, type Contact } from './database';
 
 const app = new Hono();
 
@@ -12,64 +14,93 @@ app.use('/*', cors({
 }));
 
 // ==========================================
-// DEMO USERS
+// HELPER FUNCTIONS
 // ==========================================
-interface DemoUser {
-  id: string;
-  email: string;
-  password: string;
-  first_name: string;
-  last_name: string;
-  rut: string;
-  balance: number;
-  account_number: string;
-  is_voice_enrolled: boolean;
-  biometric_user_id?: string;
-  enrollment_id?: string;
+// Genera un ID aleatorio simple para sesiones temporales
+const randomId = () => Math.random().toString(36).substring(2) + Date.now().toString(36);
+
+// Cache para el token de la API biométrica
+let biometricApiToken: string | null = null;
+let biometricTokenExpiry: number = 0;
+
+/**
+ * Obtiene token de autenticación de la API biométrica (con caché)
+ */
+async function getBiometricApiToken(): Promise<string | null> {
+  // Si el token existe y no ha expirado (con 5 min de margen), reutilizarlo
+  if (biometricApiToken && Date.now() < biometricTokenExpiry - 5 * 60 * 1000) {
+    return biometricApiToken;
+  }
+
+  try {
+    const response = await fetch(`${config.biometricApi.baseUrl}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: config.biometricApi.adminEmail,
+        password: config.biometricApi.adminPassword,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      biometricApiToken = data.access_token;
+      // Token expira en 7200 segundos (120 min)
+      biometricTokenExpiry = Date.now() + (data.expires_in || 7200) * 1000;
+      console.log('✅ Autenticado en API biométrica');
+      return biometricApiToken;
+    } else {
+      console.error('❌ Error al autenticar con API biométrica:', await response.text());
+      return null;
+    }
+  } catch (error) {
+    console.error('❌ Error de conexión con API biométrica:', error);
+    return null;
+  }
 }
 
-const demoUsers: DemoUser[] = [
-  {
-    id: 'demo-user-1',
-    email: 'demo@banco.cl',
-    password: 'demo123',
-    first_name: 'Tomás',
-    last_name: 'P.',
-    rut: '12345678-9',
-    balance: 1850420,
-    account_number: '1234567890',
-    is_voice_enrolled: true, // Forcing true for demo purposes if already enrolled
-    biometric_user_id: 'a593fd09-8c2e-49a4-8823-38e77ef5fe0b',
-  },
-  {
-    id: 'demo-user-2',
-    email: 'juan@banco.cl',
-    password: 'juan123',
-    first_name: 'Juan',
-    last_name: 'Pérez',
-    rut: '98765432-1',
-    balance: 850000,
-    account_number: '0987654321',
-    is_voice_enrolled: false,
-  },
-];
-
-const sessions: Map<string, DemoUser> = new Map();
-const generateToken = () => Math.random().toString(36).substring(2) + Date.now().toString(36);
+/**
+ * Headers comunes para llamadas a la API biométrica
+ */
+async function getBiometricHeaders(): Promise<Record<string, string>> {
+  const token = await getBiometricApiToken();
+  return {
+    'Authorization': token ? `Bearer ${token}` : '',
+    'Content-Type': 'application/json',
+  };
+}
 
 // ==========================================
-// AUTH ROUTES
+// AUTHENTICATION
 // ==========================================
+function getUserFromToken(c: any): DemoUser | null {
+  const token = c.req.header('Authorization')?.replace('Bearer ', '');
+  if (!token) return null;
+  
+  try {
+    const decoded = jwt.verify(token, config.jwtSecret) as { userId: string };
+    return userQueries.getById.get(decoded.userId) as DemoUser | undefined || null;
+  } catch (error) {
+    console.error('JWT verification failed:', error);
+    return null;
+  }
+}
+
 app.post('/api/auth/login', async (c) => {
-  const body = await c.req.json();
-  const { email, password } = body;
-
-  const user = demoUsers.find(u => u.email === email && u.password === password);
-  if (!user) return c.json({ detail: 'Credenciales inválidas' }, 401);
-
-  const token = generateToken();
-  sessions.set(token, user);
-
+  const { email, password } = await c.req.json();
+  const user = userQueries.getByEmail.get(email) as DemoUser | undefined;
+  
+  if (!user || user.password !== password) {
+    return c.json({ detail: 'Invalid credentials' }, 401);
+  }
+  
+  // Generar JWT
+  const token = jwt.sign(
+    { userId: user.id, email: user.email },
+    config.jwtSecret,
+    { expiresIn: config.jwtExpiresIn }
+  );
+  
   return c.json({
     access_token: token,
     token_type: 'bearer',
@@ -86,15 +117,9 @@ app.post('/api/auth/login', async (c) => {
 });
 
 app.post('/api/auth/logout', (c) => {
-  const token = c.req.header('Authorization')?.replace('Bearer ', '');
-  if (token) sessions.delete(token);
+  // Con JWT, el logout se maneja en el cliente eliminando el token
   return c.json({ message: 'Sesión cerrada' });
 });
-
-function getUserFromToken(c: any): DemoUser | null {
-  const token = c.req.header('Authorization')?.replace('Bearer ', '');
-  return token ? sessions.get(token) || null : null;
-}
 
 // ==========================================
 // ENROLLMENT STATUS - Query real biometric API
@@ -104,21 +129,28 @@ app.get('/api/enrollment/status', async (c) => {
   if (!user) return c.json({ detail: 'Not authenticated' }, 401);
 
   try {
+    // Si no tiene biometric_user_id, no está enrollado aún
+    if (!user.biometric_user_id) {
+      return c.json({
+        is_enrolled: false,
+        enrollment_status: 'not_enrolled',
+        sample_count: 0,
+      });
+    }
+
     // Query the real biometric API for enrollment status
-    const biometricUserId = user.biometric_user_id || user.id;
-    const response = await fetch(`${config.biometricApi.baseUrl}/api/enrollment/status/${biometricUserId}`, {
+    const headers = await getBiometricHeaders();
+    
+    const response = await fetch(`${config.biometricApi.baseUrl}/api/enrollment/status/${user.biometric_user_id}`, {
       method: 'GET',
-      headers: {
-        'X-API-Key': config.biometricApi.apiKey,
-        'X-Company-ID': config.company.clientId,
-      },
+      headers,
     });
 
     if (response.ok) {
       const data = await response.json();
       // Update local user state if enrolled
       if (data.is_enrolled) {
-        user.is_voice_enrolled = true;
+        userQueries.updateEnrollmentStatus.run(1, user.id);
       }
       return c.json({
         is_enrolled: data.is_enrolled || false,
@@ -135,9 +167,9 @@ app.get('/api/enrollment/status', async (c) => {
     });
   } catch (error) {
     console.error('Error checking enrollment status from biometric API:', error);
-    // Fallback to local mock data if biometric API is unavailable
+    // Fallback to local database if biometric API is unavailable
     return c.json({
-      is_enrolled: user.is_voice_enrolled || false,
+      is_enrolled: Boolean(user.is_voice_enrolled),
       enrollment_status: user.is_voice_enrolled ? 'enrolled' : 'not_enrolled',
       sample_count: user.is_voice_enrolled ? 3 : 0,
     });
@@ -152,14 +184,15 @@ app.get('/api/phrases/session', async (c) => {
   if (!user) return c.json({ detail: 'Not authenticated' }, 401);
 
   try {
-    const response = await fetch(`${config.biometricApi.baseUrl}/api/phrases/random?count=3`, {
-      headers: { 'X-API-Key': config.biometricApi.apiKey },
+    // El endpoint /api/phrases/random es público, no requiere autenticación
+    const response = await fetch(`${config.biometricApi.baseUrl}/api/phrases/random?count=3&difficulty=medium&language=es`, {
+      headers: { 'Content-Type': 'application/json' },
     });
     
     if (response.ok) {
       const phrases = await response.json();
       return c.json({
-        session_id: generateToken(),
+        session_id: randomId(),
         phrases: phrases,
         purpose: 'verification',
       });
@@ -170,7 +203,7 @@ app.get('/api/phrases/session', async (c) => {
 
   // Fallback
   return c.json({
-    session_id: generateToken(),
+    session_id: randomId(),
     phrases: [
       { id: 'phrase-1', text: 'El sol brilla con fuerza sobre las montañas nevadas del sur.' },
       { id: 'phrase-2', text: 'Los pájaros cantan al amanecer anunciando un nuevo día.' },
@@ -188,14 +221,23 @@ app.post('/api/enrollment/start', async (c) => {
   if (!user) return c.json({ detail: 'Not authenticated' }, 401);
 
   try {
+    const headers = await getBiometricHeaders();
     const formData = new FormData();
+    
+    // Si el usuario ya tiene un biometric_user_id, usarlo; si no, se creará uno nuevo
+    if (user.biometric_user_id) {
+      formData.append('user_id', user.biometric_user_id);
+    }
     formData.append('external_ref', `banco_${user.id}`);
     formData.append('difficulty', 'medium');
     formData.append('force_overwrite', 'true');
 
+    // Eliminar Content-Type del header para que fetch lo establezca automáticamente con boundary
+    delete headers['Content-Type'];
+
     const response = await fetch(`${config.biometricApi.baseUrl}/api/enrollment/start`, {
       method: 'POST',
-      headers: { 'X-API-Key': config.biometricApi.apiKey },
+      headers,
       body: formData,
     });
 
@@ -205,8 +247,9 @@ app.post('/api/enrollment/start', async (c) => {
     }
 
     const result = await response.json();
-    user.enrollment_id = result.enrollment_id;
-    user.biometric_user_id = result.user_id;
+    
+    // Actualizar el usuario en la base de datos
+    userQueries.updateBiometricId.run(result.user_id, result.enrollment_id, user.id);
 
     console.log('[Enrollment] Started:', { enrollment_id: result.enrollment_id, user_id: result.user_id });
 
@@ -215,8 +258,8 @@ app.post('/api/enrollment/start', async (c) => {
       enrollment_id: result.enrollment_id,
       user_id: result.user_id,
       phrases: result.challenges?.map((ch: any) => ({ 
-        id: ch.challenge_id, 
-        text: ch.phrase 
+        id: ch.challenge_id,  // La API retorna 'challenge_id'
+        text: ch.phrase  // La API retorna 'phrase'
       })) || [],
       required_samples: result.required_samples,
     });
@@ -259,6 +302,9 @@ app.post('/api/enrollment/audio', async (c) => {
     });
 
     // Create form data for biometric API
+    const headers = await getBiometricHeaders();
+    delete headers['Content-Type']; // Dejar que fetch establezca multipart/form-data
+
     const sampleForm = new FormData();
     sampleForm.append('enrollment_id', user.enrollment_id!);
     sampleForm.append('challenge_id', phraseId);
@@ -266,7 +312,7 @@ app.post('/api/enrollment/audio', async (c) => {
 
     const response = await fetch(`${config.biometricApi.baseUrl}/api/enrollment/add-sample`, {
       method: 'POST',
-      headers: { 'X-API-Key': config.biometricApi.apiKey },
+      headers,
       body: sampleForm,
     });
 
@@ -292,19 +338,21 @@ app.post('/api/enrollment/audio', async (c) => {
 
     // If complete, finalize
     if (result.is_complete) {
+      const completeHeaders = await getBiometricHeaders();
+      delete completeHeaders['Content-Type'];
+
       const completeForm = new FormData();
       completeForm.append('enrollment_id', user.enrollment_id!);
 
       const completeResponse = await fetch(`${config.biometricApi.baseUrl}/api/enrollment/complete`, {
         method: 'POST',
-        headers: { 'X-API-Key': config.biometricApi.apiKey },
+        headers: completeHeaders,
         body: completeForm,
       });
 
       if (completeResponse.ok) {
-        user.is_voice_enrolled = true;
-        const idx = demoUsers.findIndex(u => u.id === user.id);
-        if (idx >= 0) demoUsers[idx].is_voice_enrolled = true;
+        userQueries.updateEnrollmentStatus.run(1, user.id);
+        userQueries.clearEnrollmentId.run(user.id);
         console.log('[Enrollment] Completed successfully!');
       }
     }
@@ -347,13 +395,16 @@ app.post('/api/verification/voice', async (c) => {
     const audioArrayBuffer = await audioFile.arrayBuffer();
     const audioBlob = new Blob([audioArrayBuffer], { type: 'audio/webm' });
 
+    const headers = await getBiometricHeaders();
+    delete headers['Content-Type'];
+
     const verifyForm = new FormData();
     verifyForm.append('user_id', user.biometric_user_id);
     verifyForm.append('audio_file', audioBlob, 'recording.webm');
 
     const response = await fetch(`${config.biometricApi.baseUrl}/api/verification/quick-verify`, {
       method: 'POST',
-      headers: { 'X-API-Key': config.biometricApi.apiKey },
+      headers,
       body: verifyForm,
     });
 
@@ -377,9 +428,9 @@ app.post('/api/verification/voice', async (c) => {
       confidence: result.confidence_score || result.similarity_score || 0.85,
       message: result.is_verified ? 'Verificación exitosa' : 'Verificación fallida',
       details: {
-        speaker_score: result.speaker_score || result.similarity_score,
-        text_score: result.text_score,
-        spoofing_score: result.antispoofing_score,
+        speaker_score: result.similarity_score,
+        text_score: result.phrase_match ? 1.0 : 0.0,
+        spoofing_score: result.anti_spoofing_score,
       },
     });
   } catch (error) {
@@ -412,13 +463,190 @@ app.get('/api/bank/account', (c) => {
 app.get('/api/bank/transactions', (c) => {
   const user = getUserFromToken(c);
   if (!user) return c.json({ detail: 'Not authenticated' }, 401);
-  return c.json([
-    { id: 1, type: 'income', description: 'Depósito Nómina', amount: 850000, date: '08 Ene 2025' },
-    { id: 2, type: 'expense', description: 'Supermercado Líder', amount: -45230, date: '07 Ene 2025' },
-    { id: 3, type: 'expense', description: 'Netflix', amount: -9990, date: '06 Ene 2025' },
-    { id: 4, type: 'income', description: 'Transferencia recibida', amount: 150000, date: '05 Ene 2025' },
-    { id: 5, type: 'expense', description: 'Farmacia Cruz Verde', amount: -12500, date: '04 Ene 2025' },
-  ]);
+  
+  const transactions = transactionQueries.getByUser.all(user.id);
+  return c.json(transactions);
+});
+
+// ==========================================
+// CONTACTS
+// ==========================================
+app.get('/api/contacts', (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+  
+  const contacts = contactQueries.getByUser.all(user.id);
+  return c.json(contacts);
+});
+
+app.post('/api/contacts', async (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+  
+  const { first_name, last_name, rut, email, bank_name, account_type, account_number, is_favorite } = await c.req.json();
+  
+  if (!first_name || !last_name || !rut || !email || !account_number || !bank_name || !account_type) {
+    return c.json({ error: 'Todos los campos son obligatorios' }, 400);
+  }
+  
+  try {
+    contactQueries.create.run(
+      user.id,
+      first_name,
+      last_name,
+      rut,
+      email,
+      bank_name,
+      account_type,
+      account_number,
+      is_favorite ? 1 : 0
+    );
+    return c.json({ success: true, message: 'Contacto guardado' });
+  } catch (error) {
+    console.error('Error saving contact:', error);
+    return c.json({ error: 'Error al guardar contacto' }, 500);
+  }
+});
+
+app.delete('/api/contacts/:id', (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+  
+  const id = parseInt(c.req.param('id'));
+  contactQueries.delete.run(id);
+  return c.json({ success: true });
+});
+
+// ==========================================
+// TRANSFERS
+// ==========================================
+app.post('/api/transfers/validate', async (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+  
+  const { amount, recipient_first_name, recipient_last_name, recipient_rut, recipient_email, recipient_account_number, recipient_account_type, recipient_bank, pin } = await c.req.json();
+  
+  // Validar PIN
+  if (pin !== user.transfer_pin) {
+    return c.json({ success: false, error: 'PIN incorrecto' }, 401);
+  }
+  
+  // Validar saldo
+  if (amount > user.balance) {
+    return c.json({ success: false, error: 'Saldo insuficiente' }, 400);
+  }
+  
+  // Si el monto es mayor a 200,000, requiere verificación por voz
+  const requiresVoiceVerification = amount > 200000;
+  
+  if (requiresVoiceVerification && !user.biometric_user_id) {
+    return c.json({
+      success: false,
+      error: 'Debes activar la verificación por voz para transferencias mayores a $200,000',
+      requires_enrollment: true
+    }, 403);
+  }
+  
+  return c.json({
+    success: true,
+    requires_voice_verification: requiresVoiceVerification,
+    message: requiresVoiceVerification 
+      ? 'Verificación por voz requerida' 
+      : 'PIN validado correctamente'
+  });
+});
+
+app.post('/api/transfers/execute', async (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+  
+  const { 
+    amount, 
+    recipient_first_name,
+    recipient_last_name,
+    recipient_rut,
+    recipient_email,
+    recipient_account_number,
+    recipient_account_type,
+    recipient_bank, 
+    description,
+    pin,
+    verification_id,
+    save_contact 
+  } = await c.req.json();
+  
+  // Validar PIN
+  if (pin !== user.transfer_pin) {
+    return c.json({ success: false, error: 'PIN incorrecto' }, 401);
+  }
+  
+  // Validar saldo
+  if (amount > user.balance) {
+    return c.json({ success: false, error: 'Saldo insuficiente' }, 400);
+  }
+  
+  // Si requiere verificación por voz, validar que se haya proporcionado
+  if (amount > 200000 && !verification_id) {
+    return c.json({
+      success: false,
+      error: 'Verificación por voz requerida para transferencias mayores a $200,000'
+    }, 400);
+  }
+  
+  try {
+    // Actualizar saldo
+    const newBalance = user.balance - amount;
+    userQueries.updateBalance.run(newBalance, user.id);
+    
+    // Registrar transacción
+    const verificationMethod = amount > 200000 ? 'voice' : 'pin';
+    transactionQueries.create.run(
+      user.id,
+      'transfer',
+      -amount,
+      recipient_first_name,
+      recipient_last_name,
+      recipient_rut,
+      recipient_email,
+      recipient_bank,
+      recipient_account_type,
+      recipient_account_number,
+      description || `Transferencia a ${recipient_first_name} ${recipient_last_name}`,
+      'completed',
+      verificationMethod,
+      verification_id || null
+    );
+    
+    // Guardar contacto si se solicitó
+    if (save_contact) {
+      try {
+        contactQueries.create.run(
+          user.id,
+          recipient_first_name,
+          recipient_last_name,
+          recipient_rut,
+          recipient_email,
+          recipient_bank,
+          recipient_account_type,
+          recipient_account_number,
+          0
+        );
+      } catch (error) {
+        // Ignorar si el contacto ya existe
+        console.log('Contact already exists or error saving:', error);
+      }
+    }
+    
+    return c.json({
+      success: true,
+      message: 'Transferencia realizada exitosamente',
+      new_balance: newBalance,
+      transaction_id: Date.now() // En producción sería el ID real de la BD
+    });
+  } catch (error) {
+    console.error('Transfer error:', error);
+    return c.json({ success: false, error: 'Error al procesar la transferencia' }, 500);
+  }
 });
 
 // ==========================================

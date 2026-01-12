@@ -105,7 +105,7 @@ export default function DashboardPage() {
         
         {/* Biometric Alert - Only show if not enrolled */}
         {!isEnrolled && (
-          <div className="bg-gradient-to-r from-[#f6ad55]/10 to-[#ed8936]/10 border-l-4 border-[#f6ad55] rounded-r-lg p-4 mb-6 flex items-center justify-between">
+          <div className="bg-linear-to-r from-[#f6ad55]/10 to-[#ed8936]/10 border-l-4 border-[#f6ad55] rounded-r-lg p-4 mb-6 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-[#f6ad55]/20 rounded-full flex items-center justify-center">
                 <Mic className="w-6 h-6 text-[#f6ad55]" />

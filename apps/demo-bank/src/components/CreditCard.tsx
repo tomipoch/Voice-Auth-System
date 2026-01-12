@@ -26,7 +26,7 @@ export const CreditCard: React.FC<CreditCardProps> = ({
   };
 
   return (
-    <div className={`relative w-full aspect-[1.58/1] rounded-[2.5rem] p-8 text-white overflow-hidden shadow-2xl transition-all duration-500 hover:scale-[1.01] bg-gradient-to-br ${color} shimmer group`}>
+    <div className={`relative w-full aspect-[1.58/1] rounded-[2.5rem] p-8 text-white overflow-hidden shadow-2xl transition-all duration-500 hover:scale-[1.01] bg-linear-to-br ${color} shimmer group`}>
       {/* Background patterns */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-20 -mt-20 blur-3xl opacity-50 group-hover:opacity-80 transition-opacity" />
       <div className="absolute bottom-0 left-0 w-48 h-48 bg-amber-500/10 rounded-full -ml-10 -mb-10 blur-2xl opacity-50" />
@@ -34,7 +34,7 @@ export const CreditCard: React.FC<CreditCardProps> = ({
       <div className="relative h-full flex flex-col justify-between">
         <div className="flex justify-between items-start">
           <div className="w-14 h-11 bg-amber-400/20 rounded-xl backdrop-blur-md flex items-center justify-center border border-amber-400/30">
-            <div className="w-10 h-7 bg-gradient-to-br from-amber-300 to-amber-500 rounded-sm opacity-80" />
+            <div className="w-10 h-7 bg-linear-to-br from-amber-300 to-amber-500 rounded-sm opacity-80" />
           </div>
           <div className="flex items-center gap-3">
             <button 
@@ -82,7 +82,7 @@ export const CreditCard: React.FC<CreditCardProps> = ({
       </div>
       
       {/* Glossy overlay */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none opacity-50" />
+      <div className="absolute inset-0 bg-linear-to-tr from-transparent via-white/5 to-white/10 pointer-events-none opacity-50" />
     </div>
   );
 };
