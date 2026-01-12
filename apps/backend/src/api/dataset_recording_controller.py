@@ -117,7 +117,7 @@ async def stop_dataset_recording(
         logger.info(f"Stopped dataset recording: {stopped_dir}")
         return {
             "success": True,
-            "message": f"Dataset recording stopped",
+            "message": "Dataset recording stopped",
             "session_dir": str(stopped_dir) if stopped_dir else None
         }
     except Exception as e:
@@ -181,7 +181,7 @@ async def restore_dataset_state(pool):
                     # Extract session name from session_id (format: name_timestamp)
                     session_name = session_id.rsplit('_', 2)[0] if '_' in session_id else session_id
                     dataset_recorder.start_recording(session_name + "_restored")
-                    logger.info(f"Restored dataset recording state from DB")
+                    logger.info("Restored dataset recording state from DB")
                     
     except Exception as e:
         logger.warning(f"Could not restore dataset recording state: {e}")

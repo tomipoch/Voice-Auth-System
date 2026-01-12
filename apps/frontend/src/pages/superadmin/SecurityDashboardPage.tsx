@@ -9,7 +9,6 @@ import {
   Clock,
   Activity,
   TrendingUp,
-  Users,
 } from 'lucide-react';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';

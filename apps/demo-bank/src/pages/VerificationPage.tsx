@@ -122,9 +122,10 @@ export default function VerificationPage() {
         }
         setCurrentPhraseIndex(prev => prev + 1);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error verifying voice:', error);
-      toast.error(error.response?.data?.detail || 'Error en la verificación');
+      const message = error instanceof Error ? error.message : 'Error en la verificación';
+      toast.error(message);
       
       // On error, redirect to failed result
       navigate('/result', { 

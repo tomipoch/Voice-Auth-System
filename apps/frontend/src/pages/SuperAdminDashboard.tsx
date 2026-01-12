@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   Building2,
   Users,
-  Activity,
   Shield,
   Server,
   Database,

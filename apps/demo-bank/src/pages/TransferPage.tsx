@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Building2, ArrowLeft, Send, User, Briefcase, DollarSign, AlertCircle } from 'lucide-react';
+import { Send, User, Briefcase, DollarSign, AlertCircle } from 'lucide-react';
 import authService from '../services/authService';
+import biometricService from '../services/biometricService';
+import type { EnrollmentStatus } from '../services/biometricService';
 import toast, { Toaster } from 'react-hot-toast';
+import Header from '../components/Header';
 
 export default function TransferPage() {
   const navigate = useNavigate();
+  const [enrollmentStatus, setEnrollmentStatus] = useState<EnrollmentStatus | null>(null);
   const [formData, setFormData] = useState({
     recipient: 'Juan Pérez',
     accountType: 'corriente',
@@ -14,6 +18,25 @@ export default function TransferPage() {
     amount: '15000',
     description: 'Pago servicios',
   });
+
+  useEffect(() => {
+    if (!authService.isAuthenticated()) {
+      navigate('/');
+      return;
+    }
+    
+    const loadStatus = async () => {
+      try {
+        const status = await biometricService.getEnrollmentStatus();
+        setEnrollmentStatus(status);
+      } catch (error) {
+        console.error('Error loading enrollment status:', error);
+      }
+    };
+    loadStatus();
+  }, [navigate]);
+
+  const isEnrolled = enrollmentStatus?.is_enrolled || enrollmentStatus?.enrollment_status === 'enrolled';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,37 +71,21 @@ export default function TransferPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7fafc]">
+    <div className="min-h-screen bg-[#f5f5f5]">
       <Toaster position="top-right" />
       
-      {/* Header */}
-      <header className="bg-linear-to-r from-[#1a365d] to-[#2c5282] text-white">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate('/dashboard')}
-              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <div className="flex items-center gap-3">
-              <Building2 className="w-6 h-6 text-[#f6ad55]" />
-              <span className="font-bold">Banco Pirulete</span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header showNav={true} isEnrolled={isEnrolled} />
 
       <main className="max-w-xl mx-auto px-4 py-12">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-[#1a365d]/10 rounded-2xl mb-4">
             <Send className="w-8 h-8 text-[#1a365d]" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">Nueva Transferencia</h1>
+          <h1 className="text-2xl font-bold text-[#1a365d] mb-2">Nueva Transferencia</h1>
           <p className="text-gray-600">Ingresa los datos del destinatario</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-200 p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-6">
           {/* Recipient */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -143,6 +150,7 @@ export default function TransferPage() {
               <option value="Banco Santander">Banco Santander</option>
               <option value="Banco de Chile">Banco de Chile</option>
               <option value="BCI">BCI</option>
+              <option value="Banco Falabella">Banco Falabella</option>
             </select>
           </div>
 
@@ -157,7 +165,7 @@ export default function TransferPage() {
                 type="text"
                 value={formData.amount}
                 onChange={(e) => setFormData({ ...formData, amount: e.target.value.replace(/\D/g, '') })}
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a365d]/20 focus:border-[#1a365d] transition-all outline-none text-lg font-semibold"
+                className="w-full pl-10 pr-16 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a365d]/20 focus:border-[#1a365d] transition-all outline-none text-lg font-semibold"
                 placeholder="0"
                 required
               />
@@ -183,18 +191,18 @@ export default function TransferPage() {
           </div>
 
           {/* Security Notice */}
-          <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3">
-            <AlertCircle className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+          <div className="bg-[#1a365d]/5 border border-[#1a365d]/10 rounded-xl p-4 flex gap-3">
+            <AlertCircle className="w-5 h-5 text-[#1a365d] shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm text-blue-800 font-medium">Verificación biométrica requerida</p>
-              <p className="text-sm text-blue-600">Deberás confirmar esta transacción con tu voz</p>
+              <p className="text-sm text-[#1a365d] font-medium">Verificación biométrica requerida</p>
+              <p className="text-sm text-gray-600">Deberás confirmar esta transacción con tu voz</p>
             </div>
           </div>
 
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-linear-to-r from-[#1a365d] to-[#2c5282] hover:from-[#2c5282] hover:to-[#1a365d] text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="w-full bg-gradient-to-r from-[#1a365d] to-[#2c5282] hover:from-[#2c5282] hover:to-[#1a365d] text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             <Send className="w-5 h-5" />
             Continuar con Verificación

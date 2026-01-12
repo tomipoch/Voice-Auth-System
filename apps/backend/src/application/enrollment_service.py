@@ -342,36 +342,51 @@ class EnrollmentService:
         """Get enrollment status for a user."""
         
         if not await self._user_repo.user_exists(user_id):
-            return {"status": "user_not_found"}
+            return {
+                "user_id": str(user_id),
+                "enrollment_id": None,
+                "is_enrolled": False,
+                "samples_count": 0,
+                "required_samples": MIN_ENROLLMENT_SAMPLES,
+                "phrases_used": [],
+                "created_at": None
+            }
         
         voiceprint = await self._voice_repo.get_voiceprint_by_user(user_id)
         samples = await self._voice_repo.get_enrollment_samples(user_id)
         
-        # Get phrases used
+        # Get phrases used (could query phrase_usage table in future)
         phrase_usages = []
-        # This would query phrase_usage table in real implementation
         
         if voiceprint:
             return {
-                "status": "enrolled",
-                "voiceprint_id": str(voiceprint.id),
-                "created_at": voiceprint.created_at.isoformat(),
+                "user_id": str(user_id),
+                "enrollment_id": None,
+                "is_enrolled": True,
                 "samples_count": len(samples),
                 "required_samples": MIN_ENROLLMENT_SAMPLES,
-                "phrases_used": phrase_usages
+                "phrases_used": phrase_usages,
+                "created_at": voiceprint.created_at.isoformat()
             }
         elif samples:
             return {
-                "status": "in_progress",
+                "user_id": str(user_id),
+                "enrollment_id": None,
+                "is_enrolled": False,
                 "samples_count": len(samples),
                 "required_samples": MIN_ENROLLMENT_SAMPLES,
-                "phrases_used": phrase_usages
+                "phrases_used": phrase_usages,
+                "created_at": None
             }
         else:
             return {
-                "status": "not_started",
+                "user_id": str(user_id),
+                "enrollment_id": None,
+                "is_enrolled": False,
                 "samples_count": 0,
-                "required_samples": MIN_ENROLLMENT_SAMPLES
+                "required_samples": MIN_ENROLLMENT_SAMPLES,
+                "phrases_used": [],
+                "created_at": None
             }
     
     def get_session(self, enrollment_id: UUID) -> Optional[dict]:

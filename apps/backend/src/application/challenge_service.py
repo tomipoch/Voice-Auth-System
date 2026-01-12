@@ -259,14 +259,90 @@ class ChallengeService:
         min_phrase_ok_rate = await self._rules_service.get_rule_value('min_phrase_ok_rate', default=0.75)
         min_attempts = int(await self._rules_service.get_rule_value('min_attempts_for_analysis', default=10.0))
         
-        # Query phrase performance
-        # This would need to be implemented in PhraseRepository
-        # For now, return placeholder
-        logger.info(f"Analyzing phrase performance with thresholds: success_rate={min_success_rate}, asr={min_asr_score}, phrase_ok={min_phrase_ok_rate}")
+        logger.info(
+            f"Analyzing phrase performance with thresholds: "
+            f"success_rate>={min_success_rate}, asr>={min_asr_score}, phrase_ok>={min_phrase_ok_rate}, "
+            f"min_attempts={min_attempts}"
+        )
+        
+        # Get phrase statistics from repository
+        phrase_stats = await self._phrase_repo.get_phrase_statistics(
+            min_attempts=min_attempts,
+            days=30
+        )
+        
+        analyzed_count = len(phrase_stats)
+        disabled_count = 0
+        disabled_phrases = []
+        
+        for stats in phrase_stats:
+            # Skip already inactive phrases
+            if not stats.get("is_active", True):
+                continue
+            
+            # Check if phrase fails any threshold
+            fails_success_rate = stats["success_rate"] < min_success_rate
+            fails_asr_score = stats["avg_asr_score"] < min_asr_score
+            fails_phrase_ok = stats["phrase_ok_rate"] < min_phrase_ok_rate
+            
+            if fails_success_rate or fails_asr_score or fails_phrase_ok:
+                # Build reason string
+                reasons = []
+                if fails_success_rate:
+                    reasons.append(f"success_rate={stats['success_rate']:.2%}<{min_success_rate:.0%}")
+                if fails_asr_score:
+                    reasons.append(f"asr_score={stats['avg_asr_score']:.2f}<{min_asr_score:.2f}")
+                if fails_phrase_ok:
+                    reasons.append(f"phrase_ok={stats['phrase_ok_rate']:.2%}<{min_phrase_ok_rate:.0%}")
+                
+                reason_str = ", ".join(reasons)
+                
+                # Disable the phrase
+                await self._phrase_repo.update_active_status(stats["phrase_id"], is_active=False)
+                disabled_count += 1
+                
+                disabled_phrases.append({
+                    "phrase_id": str(stats["phrase_id"]),
+                    "text": stats["text"],
+                    "reason": reason_str,
+                    "stats": {
+                        "success_rate": stats["success_rate"],
+                        "avg_asr_score": stats["avg_asr_score"],
+                        "phrase_ok_rate": stats["phrase_ok_rate"],
+                        "total_attempts": stats["total_attempts"]
+                    }
+                })
+                
+                logger.warning(
+                    f"Auto-disabled phrase {stats['phrase_id']}: {reason_str} "
+                    f"(attempts={stats['total_attempts']})"
+                )
+        
+        # Log summary to audit
+        if disabled_count > 0:
+            await self._audit_repo.log_event(
+                actor="system",
+                action=AuditAction.UPDATE_USER,  # Using existing enum for phrase update
+                entity_type="phrase_analysis",
+                entity_id="batch",
+                metadata={
+                    "analyzed": analyzed_count,
+                    "disabled": disabled_count,
+                    "thresholds": {
+                        "min_success_rate": min_success_rate,
+                        "min_asr_score": min_asr_score,
+                        "min_phrase_ok_rate": min_phrase_ok_rate,
+                        "min_attempts": min_attempts
+                    }
+                }
+            )
+        
+        logger.info(f"Phrase analysis complete: {analyzed_count} analyzed, {disabled_count} disabled")
         
         return {
-            "analyzed": 0,
-            "disabled": 0,
+            "analyzed": analyzed_count,
+            "disabled": disabled_count,
+            "disabled_phrases": disabled_phrases,
             "thresholds": {
                 "min_success_rate": min_success_rate,
                 "min_asr_score": min_asr_score,

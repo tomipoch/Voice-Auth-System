@@ -98,20 +98,20 @@ _connection_error: Optional[str] = None
 
 # Mock VoiceBiometricEngineFacade for testing
 class MockVoiceBiometricEngineFacade:
-    def enroll_speaker(self, audio_file: str, user_id: str) -> dict:
+    def enroll_speaker(self, _audio_file: str, user_id: str) -> dict:
         return {"status": "mock_enrolled", "user_id": user_id}
 
-    def verify_speaker(self, audio_file: str, user_id: str) -> dict:
+    def verify_speaker(self, _audio_file: str, user_id: str) -> dict:
         return {"status": "mock_verified", "user_id": user_id, "score": 0.9}
 
-    def is_spoof(self, audio_file: str) -> dict:
+    def is_spoof(self, _audio_file: str) -> dict:
         return {"status": "mock_anti_spoofing_passed", "score": 0.1}
 
-    def transcribe_audio(self, audio_file: str) -> dict:
+    def transcribe_audio(self, _audio_file: str) -> dict:
         return {"status": "mock_transcribed", "text": "mock transcription"}
 
-    def get_speaker_embedding(self, audio_file: str) -> list:
-        return [0.1] * 512 # Mock embedding
+    def get_speaker_embedding(self, _audio_file: str) -> list:
+        return [0.1] * 512  # Mock embedding
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -181,6 +181,7 @@ async def lifespan(app: FastAPI):
             await cleanup_task
         except asyncio.CancelledError:
             logger.info("Cleanup job cancelled")
+            raise
     
     # Cleanup resources
     await close_db_pool()
@@ -188,6 +189,31 @@ async def lifespan(app: FastAPI):
 
 
 from .api.error_handlers import value_error_handler, generic_exception_handler
+
+
+def _get_cors_config() -> dict:
+    """Get CORS configuration based on environment."""
+    origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+    env = os.getenv("ENV", "development")
+    
+    # Add common development ports in development mode
+    if env == "development":
+        dev_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+        origins.extend(o for o in dev_origins if o not in origins)
+    
+    # Configure CORS - more restrictive in production
+    if env == "production":
+        return {
+            "allow_origins": origins,
+            "allow_methods": ["GET", "POST", "PUT", "PATCH", "DELETE"],
+            "allow_headers": ["Content-Type", "Authorization"],
+        }
+    return {
+        "allow_origins": origins,
+        "allow_methods": ["*"],
+        "allow_headers": ["*"],
+    }
+
 
 def create_app() -> FastAPI:
     """Create and configure the FastAPI application."""
@@ -223,37 +249,19 @@ def create_app() -> FastAPI:
         response.headers["X-XSS-Protection"] = "1; mode=block"
         
         # Enforce HTTPS (only in production)
-        env = os.getenv("ENV", "development")
-        if env == "production":
+        if os.getenv("ENV", "development") == "production":
             response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
         
         return response
     
     # Add CORS middleware
-    origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(",")
-    env = os.getenv("ENV", "development")
-    
-    # Add common development ports in development mode
-    if env == "development":
-        dev_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
-        for origin in dev_origins:
-            if origin not in origins:
-                origins.append(origin)
-    
-    # Configure CORS - more restrictive in production
-    if env == "production":
-        allowed_methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-        allowed_headers = ["Content-Type", "Authorization"]
-    else:
-        allowed_methods = ["*"]
-        allowed_headers = ["*"]
-            
+    cors_config = _get_cors_config()
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=origins,
+        allow_origins=cors_config["allow_origins"],
         allow_credentials=True,
-        allow_methods=allowed_methods,
-        allow_headers=allowed_headers,
+        allow_methods=cors_config["allow_methods"],
+        allow_headers=cors_config["allow_headers"],
     )
     
     # Root endpoint

@@ -70,7 +70,7 @@ class AudioConverter:
             
         except Exception as e:
             logger.error(f"Audio conversion failed: {e}")
-            raise Exception(f"Audio conversion failed: {e}")
+            raise RuntimeError(f"Audio conversion failed: {e}")
     
     @staticmethod
     def _convert_with_ffmpeg(audio_bytes: bytes, source_format: str) -> bytes:
@@ -87,7 +87,8 @@ class AudioConverter:
                 f.write(audio_bytes)
                 input_file = f.name
             
-            output_file = tempfile.mktemp(suffix='.wav')
+            with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as f:
+                output_file = f.name
             
             # Run ffmpeg
             cmd = [
@@ -108,7 +109,7 @@ class AudioConverter:
             
             if result.returncode != 0:
                 stderr = result.stderr.decode('utf-8', errors='ignore')
-                raise Exception(f"ffmpeg error: {stderr[:200]}")
+                raise RuntimeError(f"ffmpeg error: {stderr[:200]}")
             
             # Read output file
             with open(output_file, 'rb') as f:
@@ -118,9 +119,9 @@ class AudioConverter:
             return wav_bytes
             
         except FileNotFoundError:
-            raise Exception("ffmpeg not found. Please install ffmpeg.")
+            raise RuntimeError("ffmpeg not found. Please install ffmpeg.")
         except subprocess.TimeoutExpired:
-            raise Exception("ffmpeg conversion timed out")
+            raise RuntimeError("ffmpeg conversion timed out")
         finally:
             # Clean up temp files
             if input_file and os.path.exists(input_file):
@@ -149,7 +150,6 @@ def is_wav_format(audio_bytes: bytes) -> bool:
 
 def ensure_wav_format(
     audio_bytes: bytes,
-    sample_rate: int = 16000,
     channels: int = 1
 ) -> Optional[bytes]:
     """

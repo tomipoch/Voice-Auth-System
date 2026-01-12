@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Building2, CheckCircle, XCircle, ArrowRight, Home, Receipt, Calendar, User } from 'lucide-react';
 import authService from '../services/authService';
@@ -28,28 +28,28 @@ export default function ResultPage() {
   const verified = state?.verified ?? false;
   const confidence = state?.confidence ?? 0;
 
-  const [transactionId, setTransactionId] = useState('');
-  const [currentDate, setCurrentDate] = useState('');
+  // Generate stable values once
+  const transactionId = useMemo(() => 
+    `TRX-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`,
+    []
+  );
 
-  useEffect(() => {
-    if (!authService.isAuthenticated() || !transfer) {
-      navigate('/dashboard');
-      return;
-    }
-
-    // Generate stable ID and date once on mount
-    const id = `TRX-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
-    setTransactionId(id);
-
-    const date = new Date().toLocaleDateString('es-CL', {
+  const currentDate = useMemo(() => 
+    new Date().toLocaleDateString('es-CL', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-    });
-    setCurrentDate(date);
+    }),
+    []
+  );
+
+  useEffect(() => {
+    if (!authService.isAuthenticated() || !transfer) {
+      navigate('/dashboard');
+    }
   }, [navigate, transfer]);
 
   const formatCurrency = (amount: number) => {

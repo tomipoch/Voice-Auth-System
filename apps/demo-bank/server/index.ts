@@ -33,12 +33,13 @@ const demoUsers: DemoUser[] = [
     id: 'demo-user-1',
     email: 'demo@banco.cl',
     password: 'demo123',
-    first_name: 'María',
-    last_name: 'González',
+    first_name: 'Tomás',
+    last_name: 'P.',
     rut: '12345678-9',
-    balance: 1500000,
+    balance: 1850420,
     account_number: '1234567890',
-    is_voice_enrolled: false,
+    is_voice_enrolled: true, // Forcing true for demo purposes if already enrolled
+    biometric_user_id: 'a593fd09-8c2e-49a4-8823-38e77ef5fe0b',
   },
   {
     id: 'demo-user-2',
@@ -96,17 +97,51 @@ function getUserFromToken(c: any): DemoUser | null {
 }
 
 // ==========================================
-// ENROLLMENT STATUS
+// ENROLLMENT STATUS - Query real biometric API
 // ==========================================
 app.get('/api/enrollment/status', async (c) => {
   const user = getUserFromToken(c);
   if (!user) return c.json({ detail: 'Not authenticated' }, 401);
 
-  return c.json({
-    is_enrolled: user.is_voice_enrolled,
-    enrollment_status: user.is_voice_enrolled ? 'enrolled' : 'not_enrolled',
-    sample_count: user.is_voice_enrolled ? 3 : 0,
-  });
+  try {
+    // Query the real biometric API for enrollment status
+    const biometricUserId = user.biometric_user_id || user.id;
+    const response = await fetch(`${config.biometricApi.baseUrl}/api/enrollment/status/${biometricUserId}`, {
+      method: 'GET',
+      headers: {
+        'X-API-Key': config.biometricApi.apiKey,
+        'X-Company-ID': config.company.clientId,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      // Update local user state if enrolled
+      if (data.is_enrolled) {
+        user.is_voice_enrolled = true;
+      }
+      return c.json({
+        is_enrolled: data.is_enrolled || false,
+        enrollment_status: data.is_enrolled ? 'enrolled' : 'not_enrolled',
+        sample_count: data.sample_count || 0,
+      });
+    }
+
+    // If user not found in biometric API, return not enrolled
+    return c.json({
+      is_enrolled: false,
+      enrollment_status: 'not_enrolled',
+      sample_count: 0,
+    });
+  } catch (error) {
+    console.error('Error checking enrollment status from biometric API:', error);
+    // Fallback to local mock data if biometric API is unavailable
+    return c.json({
+      is_enrolled: user.is_voice_enrolled || false,
+      enrollment_status: user.is_voice_enrolled ? 'enrolled' : 'not_enrolled',
+      sample_count: user.is_voice_enrolled ? 3 : 0,
+    });
+  }
 });
 
 // ==========================================
@@ -179,7 +214,10 @@ app.post('/api/enrollment/start', async (c) => {
       success: true,
       enrollment_id: result.enrollment_id,
       user_id: result.user_id,
-      phrases: result.challenges?.map((ch: any) => ({ id: ch.id, text: ch.text })) || [],
+      phrases: result.challenges?.map((ch: any) => ({ 
+        id: ch.challenge_id, 
+        text: ch.phrase 
+      })) || [],
       required_samples: result.required_samples,
     });
   } catch (error) {
@@ -210,33 +248,9 @@ app.post('/api/enrollment/audio', async (c) => {
       phraseId 
     });
 
-    // Start enrollment if not started
-    if (!user.enrollment_id) {
-      const startForm = new FormData();
-      startForm.append('external_ref', `banco_${user.id}`);
-      startForm.append('difficulty', 'medium');
-      startForm.append('force_overwrite', 'true');
-
-      const startResponse = await fetch(`${config.biometricApi.baseUrl}/api/enrollment/start`, {
-        method: 'POST',
-        headers: { 'X-API-Key': config.biometricApi.apiKey },
-        body: startForm,
-      });
-
-      if (startResponse.ok) {
-        const startResult = await startResponse.json();
-        user.enrollment_id = startResult.enrollment_id;
-        user.biometric_user_id = startResult.user_id;
-        console.log('[Enrollment] Auto-started:', startResult.enrollment_id);
-      } else {
-        console.error('Auto-start failed:', await startResponse.text());
-        return c.json({ success: false, message: 'Failed to start enrollment' }, 500);
-      }
-    }
-
     // Read audio as ArrayBuffer and create proper Blob
     const audioArrayBuffer = await audioFile.arrayBuffer();
-    const audioBlob = new Blob([audioArrayBuffer], { type: 'audio/webm' });
+    const audioBlob = new Blob([audioArrayBuffer], { type: audioFile.type || 'audio/webm' });
 
     console.log('[Enrollment] Sending to biometric API:', {
       enrollment_id: user.enrollment_id,
@@ -359,9 +373,9 @@ app.post('/api/verification/voice', async (c) => {
 
     return c.json({
       success: true,
-      verified: result.is_match || result.verified,
-      confidence: result.confidence || result.similarity_score || 0.85,
-      message: result.is_match ? 'Verificación exitosa' : 'Verificación fallida',
+      verified: result.is_verified,
+      confidence: result.confidence_score || result.similarity_score || 0.85,
+      message: result.is_verified ? 'Verificación exitosa' : 'Verificación fallida',
       details: {
         speaker_score: result.speaker_score || result.similarity_score,
         text_score: result.text_score,

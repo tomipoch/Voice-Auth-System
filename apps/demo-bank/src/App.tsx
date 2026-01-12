@@ -5,6 +5,7 @@ import EnrollmentPage from './pages/EnrollmentPage';
 import TransferPage from './pages/TransferPage';
 import VerificationPage from './pages/VerificationPage';
 import ResultPage from './pages/ResultPage';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/transfer" element={<TransferPage />} />
         <Route path="/verify" element={<VerificationPage />} />
         <Route path="/result" element={<ResultPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

@@ -1,7 +1,7 @@
 """PostgreSQL implementation of PhraseRepositoryPort."""
 
 import asyncpg
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from uuid import UUID
 from datetime import datetime, timedelta, timezone
 
@@ -208,6 +208,59 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 phrase_id
             )
             return result == "DELETE 1"
+    
+    async def get_phrase_statistics(
+        self,
+        min_attempts: int = 10,
+        days: int = 30
+    ) -> List[Dict[str, Any]]:
+        """
+        Get performance statistics for all phrases with minimum attempts.
+        
+        Joins phrase -> challenge -> auth_attempt -> scores to compute:
+        - success_rate: Ratio of accept=True attempts
+        - avg_asr_score: Average of phrase_match score
+        - phrase_ok_rate: Ratio of phrase_ok=True
+        """
+        async with self._pool.acquire() as conn:
+            rows = await conn.fetch(
+                """
+                SELECT 
+                    p.id as phrase_id,
+                    LEFT(p.text, 50) as text,
+                    p.difficulty,
+                    p.is_active,
+                    COUNT(*) as total_attempts,
+                    AVG(CASE WHEN a.accept = true THEN 1.0 ELSE 0.0 END) as success_rate,
+                    AVG(COALESCE(s.phrase_match, 0)) as avg_asr_score,
+                    AVG(CASE WHEN s.phrase_ok = true THEN 1.0 ELSE 0.0 END) as phrase_ok_rate
+                FROM phrase p
+                JOIN challenge c ON c.phrase_id = p.id
+                JOIN auth_attempt a ON a.challenge_id = c.id
+                LEFT JOIN scores s ON s.attempt_id = a.id
+                WHERE a.decided = true
+                  AND a.created_at > NOW() - ($1 || ' days')::interval
+                GROUP BY p.id, p.text, p.difficulty, p.is_active
+                HAVING COUNT(*) >= $2
+                ORDER BY success_rate ASC, avg_asr_score ASC
+                """,
+                str(days),
+                min_attempts
+            )
+            
+            return [
+                {
+                    "phrase_id": row["phrase_id"],
+                    "text": row["text"],
+                    "difficulty": row["difficulty"],
+                    "is_active": row["is_active"],
+                    "total_attempts": row["total_attempts"],
+                    "success_rate": float(row["success_rate"]) if row["success_rate"] else 0.0,
+                    "avg_asr_score": float(row["avg_asr_score"]) if row["avg_asr_score"] else 0.0,
+                    "phrase_ok_rate": float(row["phrase_ok_rate"]) if row["phrase_ok_rate"] else 0.0,
+                }
+                for row in rows
+            ]
     
     async def find_paginated(
         self,

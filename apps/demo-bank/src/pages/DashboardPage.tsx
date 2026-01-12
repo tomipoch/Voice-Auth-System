@@ -1,36 +1,65 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Building2,
   Wallet,
-  ArrowUpRight,
-  ArrowDownLeft,
   Send,
   Mic,
-  LogOut,
   CheckCircle,
-  AlertCircle,
-  TrendingUp,
-  CreditCard,
+  CreditCard as CardIcon,
+  ShieldCheck,
+  Eye,
+  EyeOff,
+  Star,
+  Clock,
+  Plus,
+  User,
 } from 'lucide-react';
 import authService from '../services/authService';
 import biometricService from '../services/biometricService';
 import type { EnrollmentStatus } from '../services/biometricService';
 import toast, { Toaster } from 'react-hot-toast';
+import Header from '../components/Header';
 
-// Mock transactions
+// Mock data - Productos
+const mockProducts = [
+  { 
+    id: 1, 
+    type: 'Cuenta Corriente', 
+    number: '1 981 155983 3',
+    balanceContable: 1850420,
+    balanceDisponible: 1850420,
+  },
+  { 
+    id: 2, 
+    type: 'Línea de Crédito', 
+    number: '2 981 155983 8',
+    cupoAutorizado: 500000,
+    saldoUtilizado: 0,
+    saldoDisponible: 500000,
+  },
+];
+
+// Mock data - Últimos movimientos
 const mockTransactions = [
-  { id: 1, type: 'income', description: 'Depósito Nómina', amount: 850000, date: '08 Ene 2025' },
-  { id: 2, type: 'expense', description: 'Supermercado Líder', amount: -45230, date: '07 Ene 2025' },
-  { id: 3, type: 'expense', description: 'Netflix', amount: -9990, date: '06 Ene 2025' },
-  { id: 4, type: 'income', description: 'Transferencia recibida', amount: 150000, date: '05 Ene 2025' },
-  { id: 5, type: 'expense', description: 'Farmacia Cruz Verde', amount: -12500, date: '04 Ene 2025' },
+  { id: 1, date: '12/01/2026', description: 'Pago Supermercado Líder', amount: -45230 },
+  { id: 2, date: '12/01/2026', description: 'Transferencia Recibida', amount: 150000 },
+  { id: 3, date: '11/01/2026', description: 'Pago Netflix', amount: -9990 },
+  { id: 4, date: '11/01/2026', description: 'Pago Uber Trip', amount: -8500 },
+  { id: 5, date: '10/01/2026', description: 'Depósito Nómina', amount: 1250000 },
+];
+
+// Mock data - Contactos favoritos
+const mockContacts = [
+  { id: 1, initials: 'JP', name: 'Juan Pérez', bank: 'Banco Falabella', color: 'bg-blue-500' },
+  { id: 2, initials: 'MG', name: 'María González', bank: 'BancoEstado', color: 'bg-pink-500' },
+  { id: 3, initials: 'CR', name: 'Carlos Rojas', bank: 'Banco Chile', color: 'bg-green-500' },
 ];
 
 export default function DashboardPage() {
   const navigate = useNavigate();
   const user = authService.getUser();
   const [enrollmentStatus, setEnrollmentStatus] = useState<EnrollmentStatus | null>(null);
+  const [showBalances, setShowBalances] = useState(true);
 
   useEffect(() => {
     if (!authService.isAuthenticated()) {
@@ -67,171 +96,240 @@ export default function DashboardPage() {
   const isEnrolled = enrollmentStatus?.is_enrolled || enrollmentStatus?.enrollment_status === 'enrolled';
 
   return (
-    <div className="min-h-screen bg-[#f7fafc]">
+    <div className="min-h-screen bg-[#f5f5f5]">
       <Toaster position="top-right" />
       
-      {/* Header */}
-      <header className="bg-gradient-to-r from-[#1a365d] to-[#2c5282] text-white">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-[#f6ad55]" />
+      <Header showNav={true} isEnrolled={isEnrolled} />
+
+      <main className="max-w-7xl mx-auto px-6 py-8">
+        
+        {/* Biometric Alert - Only show if not enrolled */}
+        {!isEnrolled && (
+          <div className="bg-gradient-to-r from-[#f6ad55]/10 to-[#ed8936]/10 border-l-4 border-[#f6ad55] rounded-r-lg p-4 mb-6 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-[#f6ad55]/20 rounded-full flex items-center justify-center">
+                <Mic className="w-6 h-6 text-[#f6ad55]" />
               </div>
               <div>
-                <h1 className="font-bold text-lg">Banco Pirulete</h1>
-                <p className="text-blue-200 text-sm">Banca Digital</p>
+                <h3 className="font-bold text-[#1a365d]">Activa la Seguridad Biométrica</h3>
+                <p className="text-gray-600 text-sm">Registra tu voz para autorizar transferencias de forma segura</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-blue-200">
-                Hola, {user?.first_name || 'Usuario'}
-              </span>
-              <button
-                onClick={handleLogout}
-                className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-                title="Cerrar sesión"
+            <button
+              onClick={() => navigate('/enroll')}
+              className="bg-[#f6ad55] hover:bg-[#ed8936] text-[#1a365d] font-semibold px-6 py-2.5 rounded-lg transition-colors"
+            >
+              Activar ahora
+            </button>
+          </div>
+        )}
+
+        {/* Section: Tus Productos */}
+        <section className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-[#1a365d]">Tus Productos</h2>
+            <button 
+              onClick={() => setShowBalances(!showBalances)}
+              className="flex items-center gap-2 text-sm text-gray-500 hover:text-[#1a365d] transition-colors"
+            >
+              {showBalances ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+              {showBalances ? 'Ocultar saldos' : 'Mostrar saldos'}
+            </button>
+          </div>
+          
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            {mockProducts.map((product, index) => (
+              <div 
+                key={product.id}
+                className={`p-5 ${index !== mockProducts.length - 1 ? 'border-b border-gray-100' : ''}`}
               >
-                <LogOut className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        {/* Balance Card */}
-        <div className="bg-gradient-to-br from-[#1a365d] to-[#2c5282] rounded-2xl p-6 text-white mb-8 shadow-xl">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-blue-200 text-sm mb-1">Saldo disponible</p>
-              <h2 className="text-4xl font-bold mb-4">{formatCurrency(1500000)}</h2>
-              <div className="flex items-center gap-2 text-sm text-blue-200">
-                <CreditCard className="w-4 h-4" />
-                <span>Cuenta Corriente ****4521</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-full">
-              <TrendingUp className="w-4 h-4 text-[#48bb78]" />
-              <span className="text-sm">+12.5%</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Biometric Status Card */}
-        <div className={`rounded-2xl p-6 mb-8 border-2 ${
-          isEnrolled 
-            ? 'bg-green-50 border-green-200' 
-            : 'bg-orange-50 border-orange-200'
-        }`}>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                isEnrolled ? 'bg-green-100' : 'bg-orange-100'
-              }`}>
-                {isEnrolled ? (
-                  <CheckCircle className="w-6 h-6 text-green-600" />
-                ) : (
-                  <AlertCircle className="w-6 h-6 text-orange-600" />
-                )}
-              </div>
-              <div>
-                <h3 className={`font-semibold ${isEnrolled ? 'text-green-800' : 'text-orange-800'}`}>
-                  {isEnrolled ? 'Voz biométrica registrada' : 'Voz biométrica no registrada'}
-                </h3>
-                <p className={`text-sm ${isEnrolled ? 'text-green-600' : 'text-orange-600'}`}>
-                  {isEnrolled 
-                    ? 'Puedes autorizar transacciones con tu voz' 
-                    : 'Registra tu voz para autorizar transacciones'
-                  }
-                </p>
-              </div>
-            </div>
-            {!isEnrolled && (
-              <button
-                onClick={() => navigate('/enroll')}
-                className="flex items-center gap-2 bg-[#1a365d] hover:bg-[#2c5282] text-white px-6 py-3 rounded-xl font-medium transition-colors"
-              >
-                <Mic className="w-5 h-5" />
-                Registrar mi voz
-              </button>
-            )}
-          </div>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Quick Actions */}
-          <div className="lg:col-span-1">
-            <h3 className="font-semibold text-gray-800 mb-4">Acciones rápidas</h3>
-            <div className="space-y-3">
-              <button
-                onClick={() => {
-                  if (!isEnrolled) {
-                    toast.error('Primero debes registrar tu voz biométrica');
-                    return;
-                  }
-                  navigate('/transfer');
-                }}
-                className="w-full flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 hover:border-[#1a365d]/30 hover:shadow-md transition-all group"
-              >
-                <div className="w-12 h-12 bg-[#1a365d]/10 rounded-xl flex items-center justify-center group-hover:bg-[#1a365d] transition-colors">
-                  <Send className="w-5 h-5 text-[#1a365d] group-hover:text-white transition-colors" />
-                </div>
-                <div className="text-left">
-                  <p className="font-medium text-gray-800">Nueva Transferencia</p>
-                  <p className="text-sm text-gray-500">Envía dinero al instante</p>
-                </div>
-              </button>
-
-              <button className="w-full flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 hover:border-[#1a365d]/30 hover:shadow-md transition-all group opacity-50 cursor-not-allowed">
-                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
-                  <Wallet className="w-5 h-5 text-gray-400" />
-                </div>
-                <div className="text-left">
-                  <p className="font-medium text-gray-400">Pagar Servicios</p>
-                  <p className="text-sm text-gray-400">Próximamente</p>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          {/* Recent Transactions */}
-          <div className="lg:col-span-2">
-            <h3 className="font-semibold text-gray-800 mb-4">Últimos movimientos</h3>
-            <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
-              {mockTransactions.map((tx, index) => (
-                <div
-                  key={tx.id}
-                  className={`flex items-center justify-between p-4 ${
-                    index !== mockTransactions.length - 1 ? 'border-b border-gray-100' : ''
-                  }`}
-                >
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                      tx.type === 'income' ? 'bg-green-100' : 'bg-red-100'
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                      product.type === 'Cuenta Corriente' ? 'bg-[#1a365d]/10' : 'bg-[#f6ad55]/10'
                     }`}>
-                      {tx.type === 'income' ? (
-                        <ArrowDownLeft className="w-5 h-5 text-green-600" />
+                      {product.type === 'Cuenta Corriente' ? (
+                        <Wallet className="w-5 h-5 text-[#1a365d]" />
                       ) : (
-                        <ArrowUpRight className="w-5 h-5 text-red-600" />
+                        <CardIcon className="w-5 h-5 text-[#f6ad55]" />
                       )}
                     </div>
                     <div>
-                      <p className="font-medium text-gray-800">{tx.description}</p>
-                      <p className="text-sm text-gray-500">{tx.date}</p>
+                      <p className="font-semibold text-[#1a365d]">{product.type}</p>
+                      <p className="text-sm text-gray-500">{product.number}</p>
                     </div>
                   </div>
-                  <span className={`font-semibold ${
-                    tx.amount > 0 ? 'text-green-600' : 'text-gray-800'
-                  }`}>
-                    {tx.amount > 0 ? '+' : ''}{formatCurrency(tx.amount)}
-                  </span>
+                  
+                  <div className="flex flex-wrap items-center gap-4 lg:gap-8">
+                    {product.type === 'Cuenta Corriente' ? (
+                      <>
+                        <div className="text-right">
+                          <p className="text-xs text-gray-400">Saldo contable</p>
+                          <p className="font-semibold text-gray-800">
+                            {showBalances ? formatCurrency(product.balanceContable!) : '•••••••'}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-xs text-gray-400">Saldo disponible</p>
+                          <p className="font-bold text-[#48bb78]">
+                            {showBalances ? formatCurrency(product.balanceDisponible!) : '•••••••'}
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="text-right">
+                          <p className="text-xs text-gray-400">Cupo autorizado</p>
+                          <p className="font-semibold text-gray-800">
+                            {showBalances ? formatCurrency(product.cupoAutorizado!) : '•••••••'}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-xs text-gray-400">Disponible</p>
+                          <p className="font-bold text-[#48bb78]">
+                            {showBalances ? formatCurrency(product.saldoDisponible!) : '•••••••'}
+                          </p>
+                        </div>
+                      </>
+                    )}
+                    
+                    <div className="flex gap-2">
+                      <button className="px-4 py-2 text-sm font-medium text-[#1a365d] border border-[#1a365d]/30 rounded-lg hover:bg-[#1a365d]/5 transition-colors">
+                        Movimientos
+                      </button>
+                      <button 
+                        onClick={() => isEnrolled ? navigate('/transfer') : toast.error('Primero activa la seguridad biométrica')}
+                        className="px-4 py-2 text-sm font-semibold text-white bg-[#f6ad55] hover:bg-[#ed8936] rounded-lg transition-colors"
+                      >
+                        Transferir
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
+        </section>
+
+        {/* Grid: Movimientos + Contactos + Seguridad */}
+        <div className="grid lg:grid-cols-12 gap-6">
+          
+          {/* Últimos Movimientos */}
+          <section className="lg:col-span-5">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-[#1a365d]" />
+                  <h3 className="font-bold text-[#1a365d]">Últimos movimientos</h3>
+                </div>
+                <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded">Cuenta Corriente</span>
+              </div>
+              
+              <div className="space-y-3">
+                {mockTransactions.map((tx) => (
+                  <div key={tx.id} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+                    <div>
+                      <p className="text-xs text-gray-400">{tx.date}</p>
+                      <p className="text-sm font-medium text-gray-800">{tx.description}</p>
+                    </div>
+                    <p className={`font-semibold ${tx.amount > 0 ? 'text-[#48bb78]' : 'text-gray-800'}`}>
+                      {tx.amount > 0 ? '+' : ''}{formatCurrency(tx.amount)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              
+              <button className="w-full mt-4 text-center text-sm text-[#1a365d] font-medium hover:underline">
+                Ir a movimientos
+              </button>
+            </div>
+          </section>
+
+          {/* Contactos Favoritos */}
+          <section className="lg:col-span-4">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 h-full">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Star className="w-5 h-5 text-[#f6ad55]" />
+                  <h3 className="font-bold text-[#1a365d]">Tus contactos favoritos</h3>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                {mockContacts.map((contact) => (
+                  <div key={contact.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-10 h-10 ${contact.color} rounded-full flex items-center justify-center text-white font-bold text-sm`}>
+                        {contact.initials}
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-800">{contact.name}</p>
+                        <p className="text-xs text-gray-400">{contact.bank}</p>
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => isEnrolled ? navigate('/transfer') : toast.error('Primero activa la seguridad biométrica')}
+                      className="px-3 py-1.5 text-xs font-medium text-[#1a365d] border border-[#1a365d]/30 rounded-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-[#1a365d] hover:text-white"
+                    >
+                      Transferir
+                    </button>
+                  </div>
+                ))}
+              </div>
+              
+              <button className="w-full mt-4 flex items-center justify-center gap-2 text-sm text-[#1a365d] font-medium hover:underline">
+                <Plus className="w-4 h-4" />
+                Agregar favorito
+              </button>
+            </div>
+          </section>
+
+          {/* Acciones Rápidas */}
+          <section className="lg:col-span-3">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 h-full">
+              <h3 className="font-bold text-[#1a365d] mb-4">Acciones Rápidas</h3>
+              <div className="space-y-3">
+                <button 
+                  onClick={() => isEnrolled ? navigate('/transfer') : toast.error('Primero activa la seguridad biométrica')}
+                  className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors text-left"
+                >
+                  <div className="w-10 h-10 bg-[#f6ad55]/10 rounded-lg flex items-center justify-center">
+                    <Send className="w-5 h-5 text-[#f6ad55]" />
+                  </div>
+                  <span className="font-medium text-gray-800">Nueva transferencia</span>
+                </button>
+                <button 
+                  onClick={() => navigate('/profile')}
+                  className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors text-left"
+                >
+                  <div className="w-10 h-10 bg-[#1a365d]/10 rounded-lg flex items-center justify-center">
+                    <User className="w-5 h-5 text-[#1a365d]" />
+                  </div>
+                  <span className="font-medium text-gray-800">Ver mi perfil</span>
+                </button>
+                {!isEnrolled && (
+                  <button 
+                    onClick={() => navigate('/enroll')}
+                    className="w-full flex items-center gap-3 p-3 rounded-lg bg-[#f6ad55]/5 hover:bg-[#f6ad55]/10 transition-colors text-left border border-[#f6ad55]/20"
+                  >
+                    <div className="w-10 h-10 bg-[#f6ad55]/20 rounded-lg flex items-center justify-center">
+                      <ShieldCheck className="w-5 h-5 text-[#f6ad55]" />
+                    </div>
+                    <span className="font-medium text-[#1a365d]">Activar biometría</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          </section>
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="max-w-7xl mx-auto px-6 py-6 text-center border-t border-gray-200 mt-8">
+        <p className="text-gray-400 text-xs">
+          © 2026 Banco Pirulete. Protegido con autenticación biométrica por voz.
+        </p>
+      </footer>
     </div>
   );
 }

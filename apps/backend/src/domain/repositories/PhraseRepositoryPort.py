@@ -1,7 +1,7 @@
 """Phrase repository port definition."""
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from uuid import UUID
 
 from ..model.Phrase import Phrase, PhraseUsage
@@ -64,6 +64,31 @@ class PhraseRepositoryPort(ABC):
     @abstractmethod
     async def delete(self, phrase_id: UUID) -> bool:
         """Delete a phrase from the repository."""
+        pass
+    
+    @abstractmethod
+    async def get_phrase_statistics(
+        self,
+        min_attempts: int = 10,
+        days: int = 30
+    ) -> List[Dict[str, Any]]:
+        """
+        Get performance statistics for all phrases with minimum attempts.
+        
+        Args:
+            min_attempts: Minimum number of attempts required for analysis
+            days: Number of days to look back for statistics
+            
+        Returns:
+            List of dictionaries with phrase stats:
+            - phrase_id: UUID of the phrase
+            - text: Phrase text (truncated)
+            - difficulty: Phrase difficulty level
+            - total_attempts: Number of verification attempts
+            - success_rate: Ratio of successful verifications
+            - avg_asr_score: Average ASR phrase match score
+            - phrase_ok_rate: Ratio of phrase_ok=True
+        """
         pass
 
 
