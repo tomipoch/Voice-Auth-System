@@ -203,6 +203,7 @@ export const userQueries = {
   updateBiometricId: db.prepare<[string, string, string]>('UPDATE users SET biometric_user_id = ?, enrollment_id = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?'),
   updateEnrollmentStatus: db.prepare<[number, string]>('UPDATE users SET is_voice_enrolled = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?'),
   clearEnrollmentId: db.prepare<[string]>('UPDATE users SET enrollment_id = NULL, updated_at = CURRENT_TIMESTAMP WHERE id = ?'),
+  updatePin: db.prepare<[string, string]>('UPDATE users SET transfer_pin = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?'),
 };
 
 // Funciones para contactos

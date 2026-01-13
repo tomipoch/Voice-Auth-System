@@ -9,7 +9,7 @@ const app = new Hono();
 
 // Enable CORS
 app.use('/*', cors({
-  origin: ['http://localhost:5174', 'http://localhost:5173'],
+  origin: ['http://localhost:5174', 'http://localhost:5173', 'http://localhost:5175'],
   credentials: true,
 }));
 
@@ -518,18 +518,85 @@ app.delete('/api/contacts/:id', (c) => {
 });
 
 // ==========================================
-// TRANSFERS
+// PIN MANAGEMENT
 // ==========================================
-app.post('/api/transfers/validate', async (c) => {
+app.get('/api/pin/check', async (c) => {
   const user = getUserFromToken(c);
   if (!user) return c.json({ detail: 'Not authenticated' }, 401);
   
+  return c.json({
+    has_pin: user.transfer_pin !== null && user.transfer_pin !== '',
+    pin_set: user.transfer_pin !== '123456' && user.transfer_pin !== '654321' // Verificar si es el PIN por defecto
+  });
+});
+
+app.post('/api/pin/create', async (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+  
+  const { pin } = await c.req.json();
+  
+  if (!pin || pin.length !== 6 || !/^\d{6}$/.test(pin)) {
+    return c.json({ success: false, error: 'El PIN debe tener exactamente 6 dígitos' }, 400);
+  }
+  
+  try {
+    userQueries.updatePin.run(pin, user.id);
+    return c.json({ success: true, message: 'PIN creado exitosamente' });
+  } catch (error) {
+    console.error('Error creating PIN:', error);
+    return c.json({ success: false, error: 'Error al crear el PIN' }, 500);
+  }
+});
+
+app.post('/api/pin/update', async (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+  
+  const { current_pin, new_pin } = await c.req.json();
+  
+  // Validar PIN actual
+  if (current_pin !== user.transfer_pin) {
+    return c.json({ success: false, error: 'PIN actual incorrecto' }, 401);
+  }
+  
+  if (!new_pin || new_pin.length !== 6 || !/^\d{6}$/.test(new_pin)) {
+    return c.json({ success: false, error: 'El nuevo PIN debe tener exactamente 6 dígitos' }, 400);
+  }
+  
+  try {
+    userQueries.updatePin.run(new_pin, user.id);
+    return c.json({ success: true, message: 'PIN actualizado exitosamente' });
+  } catch (error) {
+    console.error('Error updating PIN:', error);
+    return c.json({ success: false, error: 'Error al actualizar el PIN' }, 500);
+  }
+});
+
+// ==========================================
+// TRANSFERS
+// ==========================================
+app.post('/api/transfers/validate', async (c) => {
+  console.log('📥 POST /api/transfers/validate - Request received');
+  const user = getUserFromToken(c);
+  if (!user) {
+    console.log('❌ User not authenticated');
+    return c.json({ detail: 'Not authenticated' }, 401);
+  }
+  
   const { amount, recipient_first_name, recipient_last_name, recipient_rut, recipient_email, recipient_account_number, recipient_account_type, recipient_bank, pin } = await c.req.json();
+  
+  console.log(`🔐 Validating PIN for user: ${user.email}`);
+  console.log(`   Received PIN: ${pin}`);
+  console.log(`   Expected PIN: ${user.transfer_pin}`);
   
   // Validar PIN
   if (pin !== user.transfer_pin) {
+    console.log('❌ PIN incorrecto');
     return c.json({ success: false, error: 'PIN incorrecto' }, 401);
   }
+  
+  console.log('✅ PIN correcto');
   
   // Validar saldo
   if (amount > user.balance) {

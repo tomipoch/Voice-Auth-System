@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Send, User, ArrowLeft, AlertTriangle, CheckCircle, Shield, 
-  UserPlus, Users, Mic, Loader2, Hash, DollarSign 
+  UserPlus, Users, Mic, Loader2, Hash, DollarSign, ChevronDown 
 } from 'lucide-react';
 import authService from '../services/authService';
 import biometricService from '../services/biometricService';
@@ -373,37 +373,43 @@ export default function TransferPage() {
           <label className="block text-sm font-semibold text-[#1a365d] mb-2">
             Banco *
           </label>
-          <select
-            value={formData.recipient_bank}
-            onChange={(e) => setFormData({ ...formData, recipient_bank: e.target.value })}
-            className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a365d] focus:border-transparent text-base"
-            disabled={!!selectedContact}
-            required
-          >
-            <option value="Banco Pirulete">Banco Pirulete</option>
-            <option value="Banco Estado">Banco Estado</option>
-            <option value="Banco Chile">Banco Chile</option>
-            <option value="Banco Santander">Banco Santander</option>
-            <option value="Banco Falabella">Banco Falabella</option>
-          </select>
+          <div className="relative">
+            <select
+              value={formData.recipient_bank}
+              onChange={(e) => setFormData({ ...formData, recipient_bank: e.target.value })}
+              className="w-full h-[50px] px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a365d] focus:border-transparent appearance-none bg-white cursor-pointer"
+              disabled={!!selectedContact}
+              required
+            >
+              <option value="Banco Pirulete">Banco Pirulete</option>
+              <option value="Banco Estado">Banco Estado</option>
+              <option value="Banco Chile">Banco Chile</option>
+              <option value="Banco Santander">Banco Santander</option>
+              <option value="Banco Falabella">Banco Falabella</option>
+            </select>
+            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+          </div>
         </div>
 
         <div>
           <label className="block text-sm font-semibold text-[#1a365d] mb-2">
             Tipo de cuenta *
           </label>
-          <select
-            value={formData.recipient_account_type}
-            onChange={(e) => setFormData({ ...formData, recipient_account_type: e.target.value })}
-            className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a365d] focus:border-transparent text-base"
-            disabled={!!selectedContact}
-            required
-          >
-            <option value="Cuenta Corriente">Cuenta Corriente</option>
-            <option value="Cuenta Vista">Cuenta Vista</option>
-            <option value="Cuenta de Ahorro">Cuenta de Ahorro</option>
-            <option value="Cuenta RUT">Cuenta RUT</option>
-          </select>
+          <div className="relative">
+            <select
+              value={formData.recipient_account_type}
+              onChange={(e) => setFormData({ ...formData, recipient_account_type: e.target.value })}
+              className="w-full h-[50px] px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a365d] focus:border-transparent appearance-none bg-white cursor-pointer"
+              disabled={!!selectedContact}
+              required
+            >
+              <option value="Cuenta Corriente">Cuenta Corriente</option>
+              <option value="Cuenta Vista">Cuenta Vista</option>
+              <option value="Cuenta de Ahorro">Cuenta de Ahorro</option>
+              <option value="Cuenta RUT">Cuenta RUT</option>
+            </select>
+            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+          </div>
         </div>
 
         <div>
