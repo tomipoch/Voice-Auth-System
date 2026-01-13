@@ -23,11 +23,13 @@ torchaudio==2.6.0
 speechbrain==1.0.3
 transformers==4.55.4
 huggingface-hub>=0.16.0
+datasets>=2.14.0
 
 # Anti-spoofing and voice analysis
 scikit-learn>=1.3.0
 pandas>=2.0.0
 PyYAML>=6.0
+matplotlib>=3.7.0
 
 # Audio processing
 pydub>=0.25.1

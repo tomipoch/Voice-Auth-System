@@ -1,0 +1,49 @@
+{
+  "intra_user_variability": {
+    "anachamorromunoz": {
+      "mean": 0.8512380535785968,
+      "std": 0.039919212753245066,
+      "min": 0.7708712816238403,
+      "max": 0.922887921333313,
+      "comparisons": 78
+    },
+    "ft_fernandotomas": {
+      "mean": 0.6221136239441958,
+      "std": 0.11074093035759566,
+      "min": 0.37191134691238403,
+      "max": 0.7988861799240112,
+      "comparisons": 55
+    },
+    "piapobletech": {
+      "mean": 0.7710695564746857,
+      "std": 0.05246386031386791,
+      "min": 0.6583121418952942,
+      "max": 0.8688217997550964,
+      "comparisons": 66
+    },
+    "rapomo3": {
+      "mean": 0.8716564946102373,
+      "std": 0.02025998782877423,
+      "min": 0.7917795181274414,
+      "max": 0.9135979413986206,
+      "comparisons": 66
+    }
+  },
+  "fisher_ratio": 5.423770434527941,
+  "threshold_sensitivity": {
+    "genuine_min": 0.5219612121582031,
+    "genuine_max": 0.915801465511322,
+    "genuine_mean": 0.8055997755792406,
+    "impostor_min": 0.0,
+    "impostor_max": 0.6530331969261169,
+    "impostor_mean": 0.2581341604926382,
+    "gap": -0.13107198476791382,
+    "perfect_threshold_range": 0
+  },
+  "confidence_intervals": {
+    "mean_eer": 5.8217592592592595,
+    "ci_95_lower": 1.8518518518518516,
+    "ci_95_upper": 11.11111111111111,
+    "std_eer": 2.3448228568720793
+  }
+}

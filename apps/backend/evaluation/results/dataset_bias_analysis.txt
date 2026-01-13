@@ -1,0 +1,38 @@
+================================================================================
+ANÁLISIS CRÍTICO DEL DATASET - DETECCIÓN DE SESGOS
+================================================================================
+
+⚠️  ADVERTENCIA: 0% EER es SOSPECHOSO
+--------------------------------------------------------------------------------
+
+TAMAÑO DEL DATASET:
+  Usuarios: 4
+  Intentos genuinos: 36
+  Intentos impostores: 108
+  ⚠️  CRÍTICO: 4 usuarios es EXTREMADAMENTE PEQUEÑO
+  → Sistemas comerciales usan 1000-10000 usuarios
+  → Resultados NO son generalizables
+
+DISCRIMINABILIDAD (FISHER RATIO):
+  Fisher Ratio: 5.4238
+SEPARACIÓN (GAP):
+  GAP: -0.1311
+  Rango de threshold perfecto: 0.0000
+INTERVALOS DE CONFIANZA (95%):
+  EER estimado: 5.82%
+  IC 95%: [1.85%, 11.11%]
+
+CONCLUSIÓN:
+--------------------------------------------------------------------------------
+El 0% EER es consecuencia de:
+  1. Dataset muy pequeño (4 usuarios)
+  2. Usuarios extremadamente separables (Fisher Ratio alto)
+  3. No hay solapamiento entre genuinos e impostores (GAP grande)
+  4. S-Norm sobreajusta al mismo conjunto de usuarios
+
+RECOMENDACIONES PARA LA TESIS:
+  • Reportar EER con intervalos de confianza
+  • Mencionar limitación del tamaño del dataset
+  • Usar cross-validation leave-one-out
+  • Comparar con y sin S-Norm
+  • Proyectar EER esperado con más usuarios

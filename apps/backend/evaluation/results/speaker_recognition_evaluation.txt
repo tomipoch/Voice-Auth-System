@@ -1,0 +1,144 @@
+================================================================================
+EVALUACIÓN DEL MÓDULO DE RECONOCIMIENTO DE LOCUTOR
+================================================================================
+
+Fecha: 2026-01-13 17:29:56
+
+MEJORAS IMPLEMENTADAS
+--------------------------------------------------------------------------------
+✓ Enrollment Selection: Descarte de audios con SNR < 15dB
+✓ Voice Activity Detection (VAD): Eliminación de silencios
+✓ Análisis de duración y correlación con scores
+✓ Optimización de threshold para minimizar error total
+✓ Score Normalization (S-Norm): Calibración con cohort
+✓ Decisión Multi-Frase: Zona de duda para segunda verificación
+
+COMPARACIÓN DE ESTRATEGIAS DE THRESHOLD
+--------------------------------------------------------------------------------
+
+SECURITY STRICT:
+  Estrategia: 🔒 SEGURIDAD MÁXIMA: FAR=0% (prioridad absoluta)
+  Threshold:  0.7067
+  FAR:          0.00%
+  FRR:          0.00%
+  Error Total:   0.00%
+  Accuracy:   100.00%
+
+SECURITY FIRST:
+  Estrategia: 🛡️  SEGURIDAD: Minimiza FAR con FRR aceptable (<10%)
+  Threshold:  0.7067
+  FAR:          0.00%
+  FRR:          0.00%
+  Error Total:   0.00%
+  Accuracy:   100.00%
+
+EER:
+  Estrategia: ⚖️  BALANCE: FAR = FRR
+  Threshold:  0.7067
+  FAR:          0.00%
+  FRR:          0.00%
+  Error Total:   0.00%
+  Accuracy:   100.00%
+
+OPTIMAL:
+  Estrategia: 📊 ÓPTIMO: Minimiza error total (FAR + FRR)
+  Threshold:  0.7067
+  FAR:          0.00%
+  FRR:          0.00%
+  Error Total:   0.00%
+  Accuracy:   100.00%
+
+🏆 MEJOR ESTRATEGIA: SECURITY STRICT
+   Error total: 0.00%
+
+MÉTRICAS PRINCIPALES
+--------------------------------------------------------------------------------
+FRR (False Rejection Rate):      0.00%  ✅ MEJOR si cercano a 0%
+FAR (False Acceptance Rate):     0.00%  ✅ MEJOR si cercano a 0%
+EER (Equal Error Rate):          0.00%  ✅ MEJOR si cercano a 0%
+Umbral EER:                    0.7067
+Umbral operacional:            0.7067
+
+CALIDAD DE ENROLLMENT
+--------------------------------------------------------------------------------
+
+Usuario: anachamorromunoz
+  SNR promedio: 44.9 dB
+  Duración promedio: 11.10s
+  Audios seleccionados: 3/3
+    ✓ anachamorromunoz_enrollment_01.wav: SNR=40.0dB, Dur=11.37s
+    ✓ anachamorromunoz_enrollment_02.wav: SNR=45.3dB, Dur=12.86s
+    ✓ anachamorromunoz_enrollment_03.wav: SNR=49.3dB, Dur=9.08s
+
+Usuario: ft_fernandotomas
+  SNR promedio: 52.0 dB
+  Duración promedio: 8.73s
+  Audios seleccionados: 3/3
+    ✓ ft_fernandotomas_enrollment_01.wav: SNR=54.4dB, Dur=8.43s
+    ✓ ft_fernandotomas_enrollment_02.wav: SNR=52.4dB, Dur=8.24s
+    ✓ ft_fernandotomas_enrollment_03.wav: SNR=49.1dB, Dur=9.53s
+
+Usuario: piapobletech
+  SNR promedio: 42.6 dB
+  Duración promedio: 7.88s
+  Audios seleccionados: 3/3
+    ✓ piapobletech_enrollment_01.wav: SNR=43.4dB, Dur=7.63s
+    ✓ piapobletech_enrollment_02.wav: SNR=40.6dB, Dur=7.03s
+    ✓ piapobletech_enrollment_03.wav: SNR=43.8dB, Dur=8.97s
+
+Usuario: rapomo3
+  SNR promedio: 49.1 dB
+  Duración promedio: 10.91s
+  Audios seleccionados: 3/3
+    ✓ rapomo3_enrollment_01.wav: SNR=43.1dB, Dur=8.81s
+    ✓ rapomo3_enrollment_02.wav: SNR=50.2dB, Dur=12.02s
+    ✓ rapomo3_enrollment_03.wav: SNR=54.0dB, Dur=11.89s
+
+ESTADÍSTICAS DE SCORES
+--------------------------------------------------------------------------------
+Intentos genuinos:     36
+  Media:               0.9807
+  Desviación estándar: 0.0527
+
+Intentos de impostores: 108
+  Media:               0.3803
+  Desviación estándar: 0.1351
+
+ANÁLISIS DE DURACIÓN
+--------------------------------------------------------------------------------
+Intentos Genuinos:
+  Correlación duración-score: 0.063
+  Duración promedio: 9.94s
+  Score promedio: 0.9807
+
+  Por rangos de duración:
+    Cortos (<2.5s):  Score=0.0000  (n=0)
+    Medios (2.5-4s): Score=0.0000  (n=0)
+    Largos (>4s):    Score=0.9807  (n=36)
+
+Intentos Impostores:
+  Correlación duración-score: 0.007
+  Duración promedio: 9.94s
+  Score promedio: 0.3803
+
+ANÁLISIS DE ZONA DE DUDA (MULTI-FRASE)
+--------------------------------------------------------------------------------
+Zona de duda definida: 0.5300 - 0.5500
+
+Intentos genuinos en zona de duda: 0 (0.0%)
+Intentos de impostores en zona de duda: 10 (9.3%)
+Total en zona de duda: 10
+
+Beneficio de multi-frase:
+  ✓ 0 usuarios genuinos se beneficiarían de
+    solicitar una segunda frase para confirmar identidad
+
+INTERPRETACIÓN
+--------------------------------------------------------------------------------
+✅ EER EXCELENTE (< 5%)
+✅ FAR EXCELENTE (< 1%) - Alta seguridad
+✅ FRR EXCELENTE (< 10%) - Buena experiencia de usuario
+
+RECOMENDACIONES
+--------------------------------------------------------------------------------
+

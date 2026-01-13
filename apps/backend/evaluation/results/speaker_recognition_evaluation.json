@@ -1,0 +1,14 @@
+{
+  "threshold": 0.7067067067067067,
+  "far": 0.0,
+  "frr": 0.0,
+  "eer": 0.0,
+  "eer_threshold": 0.7067067067067067,
+  "genuine_count": 36,
+  "impostor_count": 108,
+  "genuine_mean": 0.980671793817424,
+  "genuine_std": 0.05271887999823524,
+  "impostor_mean": 0.38026071367254943,
+  "impostor_std": 0.13506148020557024,
+  "threshold_default": 0.65
+}
