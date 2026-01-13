@@ -16,6 +16,7 @@ from .local_antispoof_models import (
     BaseLocalAntiSpoofModel,
     LocalAASISTModel,
     LocalRawNet2Model,
+    LocalRawGATSTModel,
     build_local_model_paths,
 )
 

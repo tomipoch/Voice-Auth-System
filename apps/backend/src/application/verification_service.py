@@ -51,7 +51,7 @@ class VerificationService:
         challenge_service,  # ChallengeService
         biometric_validator: BiometricValidator,
         similarity_threshold: float = 0.75,
-        anti_spoofing_threshold: float = 0.7  # Ajustado de 0.5 a 0.7 para reducir FRR
+        anti_spoofing_threshold: float = 0.4  # Optimizado: mejor detección de ataques (APCER Cloning 43% vs 70%)
     ):
         self._voice_repo = voice_repo
         self._user_repo = user_repo

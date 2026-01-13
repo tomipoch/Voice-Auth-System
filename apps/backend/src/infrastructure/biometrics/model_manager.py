@@ -90,15 +90,15 @@ class ModelManager:
             
             # Anti-Spoofing Models
             "aasist": ModelConfig(
-                name="AASIST Anti-Spoofing",
-                source="speechbrain/aasist-wav2vec2-AASIST",
+                name="AASIST-L Anti-Spoofing (Large)",
+                source="speechbrain/aasist-l-wav2vec2-AASIST",
                 local_path="anti-spoofing/aasist",
                 model_type="antispoofing",
-                version="1.0.0",
-                size_mb=50,
-                memory_usage_mb=180,
+                version="2.0.0",
+                size_mb=80,
+                memory_usage_mb=250,
                 priority=4,  # High priority for security
-                description="AASIST model for spoofing attack detection (ASVspoof 2019/2021)"
+                description="AASIST-L (Large) model - improved performance over base AASIST"
             ),
             "rawnet2": ModelConfig(
                 name="RawNet2 Anti-Spoofing",

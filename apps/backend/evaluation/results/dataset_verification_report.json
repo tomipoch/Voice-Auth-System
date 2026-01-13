@@ -1,0 +1,254 @@
+{
+  "anachamorromunoz": {
+    "recordings": {
+      "anachamorromunoz_enrollment_01.wav": "Un radio de solponiente caía sobre el pie de la cama y daba sobre lachimenea, donde el agua hervíabar por botones.",
+      "anachamorromunoz_enrollment_02.wav": "Súbitamente se vio un resplandor de luz y el pozo salió una cantidad de humo verde y luminoso entre bocanadas claramente visibles.",
+      "anachamorromunoz_enrollment_03.wav": "El señor. Col tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo.",
+      "anachamorromunoz_verification_01.wav": "Nada de todo cuanto ha sido puesto y repuesto sobre el tapete en el anexo, puede mantenerse joven y fresco.",
+      "anachamorromunoz_verification_02.wav": "Aunque ya había luz sobre la Terra, los ocultos Atenea con una oscura nube y raudamente, lo sacó de la ciudad.",
+      "anachamorromunoz_verification_03.wav": "No es de coroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército.",
+      "anachamorromunoz_verification_04.wav": "El obrero dirigió a lo alto una mirada despavorida y vio con espanto desprenderse pedazos de las paredes.",
+      "anachamorromunoz_verification_05.wav": "Y te, aunque sea poderoso, permanezca tranquilo en la Tersia parte que le pertenece.",
+      "anachamorromunoz_verification_06.wav": "Mas el fugitivo no había contado con la frialdad del agua ni colos Engañosa, proximidad de la costa.",
+      "anachamorromunoz_verification_07.wav": "Más adelante en camino hacia Weybridge y el otro lado del puente, había un número de reclutas que estaban haciendo un largo Teraplent, estas del camino vivimos más cañones.",
+      "anachamorromunoz_verification_08.wav": "Dron la puerta de la cueva apareció una penosa escena al Opaca Luz del crepúsculo que iluminaba aquel lugar.",
+      "anachamorromunoz_verification_09.wav": "Elcuta se diputaba segociaaba la cotización de Philipwfuut como una de las fondos ingleses.",
+      "anachamorromunoz_verification_10.wav": "En el fondo, sentado delante de una mesa, un hombre pequeño, ya entrado en años, hacía anotaciones en un enorme registro."
+    },
+    "num_attacks": 15,
+    "cloning": {
+      "anachamorromunoz_cloning_attack_01.wav": "Súbitamente se vio un reesplandor de luz y Del Pozo salió una cantidad de humo verde y luminoso, en tres bocanadas claramente visibles.",
+      "anachamorromunoz_cloning_attack_02.wav": "El señor. Hol tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo.",
+      "anachamorromunoz_cloning_attack_03.wav": "Nada de todo cuanto ha sido puesto y repuesto sobre tapete, en el anexo puede mantenerse joven y fresco.",
+      "anachamorromunoz_cloning_attack_04.wav": "No decoroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército.",
+      "anachamorromunoz_cloning_attack_05.wav": "El obrero dirigió a lo alto, una mirada despavorida y vio con espanto desprenderse pedazos de las paredes.",
+      "anachamorromunoz_cloning_attack_06.wav": "Yste, aunque sea poderoso, permanezca tranquilo o en la tercer parte que le pertenece.",
+      "anachamorromunoz_cloning_attack_07.wav": "Mas el fugitivo no había contado con la fialdad del Agua, ni con la engañosa proximidad de la costa.",
+      "anachamorromunoz_cloning_attack_08.wav": "Más adelante, en camino hacia Weybridge y al otro lado del puente había un número de reclutas que estaban haciendo un largo terrapleing, tras el cual vimos más cañones.",
+      "anachamorromunoz_cloning_attack_09.wav": "He aquí las opiniones de los cinco adultos presentes sobre la situación actual, la señora Banndán, el papel de cenicienta ya no entusiasma."
+    },
+    "analysis": {
+      "total_recordings": 13,
+      "total_attacks": 15,
+      "unique_phrases_count": 13,
+      "unique_phrases": [
+        "El señor. Col tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo.",
+        "Aunque ya había luz sobre la Terra, los ocultos Atenea con una oscura nube y raudamente, lo sacó de la ciudad.",
+        "El obrero dirigió a lo alto una mirada despavorida y vio con espanto desprenderse pedazos de las paredes.",
+        "Un radio de solponiente caía sobre el pie de la cama y daba sobre lachimenea, donde el agua hervíabar por botones.",
+        "Dron la puerta de la cueva apareció una penosa escena al Opaca Luz del crepúsculo que iluminaba aquel lugar.",
+        "No es de coroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército.",
+        "En el fondo, sentado delante de una mesa, un hombre pequeño, ya entrado en años, hacía anotaciones en un enorme registro.",
+        "Nada de todo cuanto ha sido puesto y repuesto sobre el tapete en el anexo, puede mantenerse joven y fresco.",
+        "Más adelante en camino hacia Weybridge y el otro lado del puente, había un número de reclutas que estaban haciendo un largo Teraplent, estas del camino vivimos más cañones.",
+        "Y te, aunque sea poderoso, permanezca tranquilo en la Tersia parte que le pertenece.",
+        "Súbitamente se vio un resplandor de luz y el pozo salió una cantidad de humo verde y luminoso entre bocanadas claramente visibles.",
+        "Elcuta se diputaba segociaaba la cotización de Philipwfuut como una de las fondos ingleses.",
+        "Mas el fugitivo no había contado con la frialdad del agua ni colos Engañosa, proximidad de la costa."
+      ],
+      "phrase_counts": {
+        "Un radio de solponiente caía sobre el pie de la cama y daba sobre lachimenea, donde el agua hervíabar por botones.": 1,
+        "Súbitamente se vio un resplandor de luz y el pozo salió una cantidad de humo verde y luminoso entre bocanadas claramente visibles.": 1,
+        "El señor. Col tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo.": 1,
+        "Nada de todo cuanto ha sido puesto y repuesto sobre el tapete en el anexo, puede mantenerse joven y fresco.": 1,
+        "Aunque ya había luz sobre la Terra, los ocultos Atenea con una oscura nube y raudamente, lo sacó de la ciudad.": 1,
+        "No es de coroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército.": 1,
+        "El obrero dirigió a lo alto una mirada despavorida y vio con espanto desprenderse pedazos de las paredes.": 1,
+        "Y te, aunque sea poderoso, permanezca tranquilo en la Tersia parte que le pertenece.": 1,
+        "Mas el fugitivo no había contado con la frialdad del agua ni colos Engañosa, proximidad de la costa.": 1,
+        "Más adelante en camino hacia Weybridge y el otro lado del puente, había un número de reclutas que estaban haciendo un largo Teraplent, estas del camino vivimos más cañones.": 1,
+        "Dron la puerta de la cueva apareció una penosa escena al Opaca Luz del crepúsculo que iluminaba aquel lugar.": 1,
+        "Elcuta se diputaba segociaaba la cotización de Philipwfuut como una de las fondos ingleses.": 1,
+        "En el fondo, sentado delante de una mesa, un hombre pequeño, ya entrado en años, hacía anotaciones en un enorme registro.": 1
+      },
+      "needs_regeneration": true
+    }
+  },
+  "ft_fernandotomas": {
+    "recordings": {
+      "ft_fernandotomas_enrollment_01.wav": "y yv al verlos, no se gritó porque habían obedecido to pesteza a las órdenes de Juno.",
+      "ft_fernandotomas_enrollment_02.wav": "La señora Hall abrió la puerta de Warenmpart para que entrara Mas luz ibara poder ver visitante con Claridad.",
+      "ft_fernandotomas_enrollment_03.wav": "La relación del calado encarga con la cabida ha sido mal calculada, y por consiguiente ofrecen al mar muy debil Resistencia.",
+      "ft_fernandotomas_verification_01.wav": "La.",
+      "ft_fernandotomas_verification_02.wav": "empecé a revolver entre aquella ropa , olvidándome de la agudeza de oído de aquel hombre",
+      "ft_fernandotomas_verification_03.wav": "Entonces Tom se ajustó al cinturón, por decirlo así, y se lanzó a la terea deaprender sus vestículos.",
+      "ft_fernandotomas_verification_04.wav": "En medio del dédalo pedregoso, que surcaba al fondo del Atlántico, el capitán Nemo avanzaba sin vacilaciones.",
+      "ft_fernandotomas_verification_05.wav": "Entretanto, Peter se había mudado para ir a vivir con un compañero mucho mayor que el.",
+      "ft_fernandotomas_verification_06.wav": "Entonces escuchó que astuto diceo unos pasos afuera, que advirtió que los perros no la adraban.",
+      "ft_fernandotomas_verification_07.wav": "La viuda, muy desesperada, lo buscó por todas partes durante cuarenta y ocho horas.",
+      "ft_fernandotomas_verification_08.wav": "pues si eres tu , en verdad, que melasegura ,sbete que has nacido con fuesesto destino",
+      "ft_fernandotomas_verification_09.wav": "A pesar de esta carga que soportamos, muchos de nosotros siguen sobreviviendo: hay que creer que como proscritos los judíos se transformarán en un día en ejemplo."
+    },
+    "num_attacks": 31,
+    "cloning": {
+      "ft_fernandotomas_cloning_attack_01.wav": "Al cruzar por Okan viene el horizonte occidental un resplandor rojo sangre, que al acercarme más se fue extendiendo por el cielo.",
+      "ft_fernandotomas_cloning_attack_02.wav": "Todas las ventanas estaban destrozadas y todas, excepto las del Mirador, tenían cerradas las contraventanas.",
+      "ft_fernandotomas_cloning_attack_03.wav": "Sólo vio una o dos veces a  Mister Fox que permanecía en el salón del Rangún, ara ha ciendo compañaía auda, a Hora jugando al Wt, según su invariable costumbre.",
+      "ft_fernandotomas_cloning_attack_04.wav": "No se equivocaba nunca al observar los delgados hilos de agua azulada, que surcaban los Haifiels.",
+      "ft_fernandotomas_cloning_attack_05.wav": "Yllobe, al verlos, no se irritó porque habían obedecido con  presteza las órdenes de Yuno.",
+      "ft_fernandotomas_cloning_attack_06.wav": "La señora Hall abrió la puerta de Pa- enmpark para que entrara másluz y para poder ver al visitante con claridad.",
+      "ft_fernandotomas_cloning_attack_07.wav": "La relación del calado encarga con la cabida ha sido mal calculada, y por consiguiente ofrecen al mar muy devil Resistencia.",
+      "ft_fernandotomas_cloning_attack_08.wav": "Esta explicación de los fenómenos que habíamos presenciado parecíame satisfacitoria, porque, por grandes que sean las maravillas de la naturaleza, hay siempre razones físicas que puedan explicarlas.",
+      "ft_fernandotomas_cloning_attack_09.wav": "después volvió al puerto esmaltado con las luces de los pescadores , que atraían los peces por medio de antorchas encendidas:"
+    },
+    "analysis": {
+      "total_recordings": 12,
+      "total_attacks": 31,
+      "unique_phrases_count": 12,
+      "unique_phrases": [
+        "En medio del dédalo pedregoso, que surcaba al fondo del Atlántico, el capitán Nemo avanzaba sin vacilaciones.",
+        "Entretanto, Peter se había mudado para ir a vivir con un compañero mucho mayor que el.",
+        "La viuda, muy desesperada, lo buscó por todas partes durante cuarenta y ocho horas.",
+        "Entonces escuchó que astuto diceo unos pasos afuera, que advirtió que los perros no la adraban.",
+        "pues si eres tu , en verdad, que melasegura ,sbete que has nacido con fuesesto destino",
+        "La relación del calado encarga con la cabida ha sido mal calculada, y por consiguiente ofrecen al mar muy debil Resistencia.",
+        "y yv al verlos, no se gritó porque habían obedecido to pesteza a las órdenes de Juno.",
+        "La señora Hall abrió la puerta de Warenmpart para que entrara Mas luz ibara poder ver visitante con Claridad.",
+        "Entonces Tom se ajustó al cinturón, por decirlo así, y se lanzó a la terea deaprender sus vestículos.",
+        "La.",
+        "empecé a revolver entre aquella ropa , olvidándome de la agudeza de oído de aquel hombre",
+        "A pesar de esta carga que soportamos, muchos de nosotros siguen sobreviviendo: hay que creer que como proscritos los judíos se transformarán en un día en ejemplo."
+      ],
+      "phrase_counts": {
+        "y yv al verlos, no se gritó porque habían obedecido to pesteza a las órdenes de Juno.": 1,
+        "La señora Hall abrió la puerta de Warenmpart para que entrara Mas luz ibara poder ver visitante con Claridad.": 1,
+        "La relación del calado encarga con la cabida ha sido mal calculada, y por consiguiente ofrecen al mar muy debil Resistencia.": 1,
+        "La.": 1,
+        "empecé a revolver entre aquella ropa , olvidándome de la agudeza de oído de aquel hombre": 1,
+        "Entonces Tom se ajustó al cinturón, por decirlo así, y se lanzó a la terea deaprender sus vestículos.": 1,
+        "En medio del dédalo pedregoso, que surcaba al fondo del Atlántico, el capitán Nemo avanzaba sin vacilaciones.": 1,
+        "Entretanto, Peter se había mudado para ir a vivir con un compañero mucho mayor que el.": 1,
+        "Entonces escuchó que astuto diceo unos pasos afuera, que advirtió que los perros no la adraban.": 1,
+        "La viuda, muy desesperada, lo buscó por todas partes durante cuarenta y ocho horas.": 1,
+        "pues si eres tu , en verdad, que melasegura ,sbete que has nacido con fuesesto destino": 1,
+        "A pesar de esta carga que soportamos, muchos de nosotros siguen sobreviviendo: hay que creer que como proscritos los judíos se transformarán en un día en ejemplo.": 1
+      },
+      "needs_regeneration": true
+    }
+  },
+  "piapobletech": {
+    "recordings": {
+      "piapobletech_enrollment_01.wav": "Ayudadme a todos, pues la obra de muchos siempre resulta mejor, cuatrocientos o trecetales fueron sus palabras.",
+      "piapobletech_enrollment_02.wav": "Mi vecino opinaba que las tropas podrían capturar o destruir a los marcianos durante el transcurso del día.",
+      "piapobletech_enrollment_03.wav": "permanefestado, Sir se me preguntó que me fuurríaá, ¿Porque estás así mudo odiseo y no quieres probar estos mujeres?",
+      "piapobletech_verification_01.wav": "r le hizo sufrir mucho hasta que haylló un caño de agua corriente que estaba roto y del cual salía líquido como un manantial.",
+      "piapobletech_verification_02.wav": "Xi lo veía a ella al asomarse la ventana en la mañana alegre y entonces.",
+      "piapobletech_verification_03.wav": "Para vengar a sus hijos, los tiitanes cuidaba y elementaba desde hacia siglos a tifón el horror absoluto.",
+      "piapobletech_verification_04.wav": "A los dejos se elevaban las azuladas colinas de surrey y las torres del cristal Palaz relucían como dos baras de plata.",
+      "piapobletech_verification_05.wav": "peroro como no sabía a que quería el llegar prena a preguntas , reservándome el responder de acuerdo con las circunstancias.",
+      "piapobletech_verification_06.wav": "vamos al comedor donde estaba servido al desayuno, señor Aaronac, me dijo el capitán , le ruego que compartami desayuno sin cumplidos.",
+      "piapobletech_verification_07.wav": "A diez millas del nautilus hacia el sur se alzaba un islote solitario a una altura de doscientos metros.",
+      "piapobletech_verification_08.wav": "En ese instante siete tripulantes, mudos e impacibles como siempre, ascendieron a la plataforma.",
+      "piapobletech_verification_09.wav": "La haca marina, que se conoce también con el nombre deAligore, recordaba mucho al manati."
+    },
+    "num_attacks": 13,
+    "cloning": {
+      "piapobletech_cloning_attack_01.wav": "Al ver Meese Estado, \" Siyrte me preguntó que me ocurría\".",
+      "piapobletech_cloning_attack_02.wav": "porque estas así mudo, Diseo y no quieres probar estos manjares.",
+      "piapobletech_cloning_attack_03.wav": "La sede hizo sufrir mucho, hasta que hay un caño de agua corriente que estaba roto, y del cual salía líquido como de un manantial.",
+      "piapobletech_cloning_attack_04.wav": "Y así lo vería ella al asomarse la ventana en la mañana alegre y entonces.",
+      "piapobletech_cloning_attack_05.wav": "Para vengar a sus hijos, los Titanes cuidaba y alimentaba desde hacia siglos a tifón, el horror absoluto.",
+      "piapobletech_cloning_attack_06.wav": "A lo lejos se elevaban las azuladas colinas de Surrey, y las torres del cristal Palaz relucían como dos varas de plata.",
+      "piapobletech_cloning_attack_07.wav": "peroro ¿cómo no sabía quedqueri o llegar, espere nuevas preguntas, es desdo me responder acuerdo como circunstancias..",
+      "piapobletech_cloning_attack_08.wav": "llegamos al comedor . donde estaba servido el desayuno, señora Aeronax, me dijo el capitán , le ruego que comparta mi desayunnos sin cumplidos.",
+      "piapobletech_cloning_attack_09.wav": "A diez millas del Náutilus hacia el sur, se alzaba un islote solitamatrio a una altura de doscientos metros.",
+      "piapobletech_cloning_attack_10.wav": "con el volveríamos a acá aunque nos rodearan abrazadoras llamas porque su prudencia es grande, doscientos cuarenta y ocho, respondió el paciente divino \" Ulises ¿ dey vida?"
+    },
+    "analysis": {
+      "total_recordings": 12,
+      "total_attacks": 13,
+      "unique_phrases_count": 12,
+      "unique_phrases": [
+        "peroro como no sabía a que quería el llegar prena a preguntas , reservándome el responder de acuerdo con las circunstancias.",
+        "Ayudadme a todos, pues la obra de muchos siempre resulta mejor, cuatrocientos o trecetales fueron sus palabras.",
+        "La haca marina, que se conoce también con el nombre deAligore, recordaba mucho al manati.",
+        "permanefestado, Sir se me preguntó que me fuurríaá, ¿Porque estás así mudo odiseo y no quieres probar estos mujeres?",
+        "r le hizo sufrir mucho hasta que haylló un caño de agua corriente que estaba roto y del cual salía líquido como un manantial.",
+        "Para vengar a sus hijos, los tiitanes cuidaba y elementaba desde hacia siglos a tifón el horror absoluto.",
+        "En ese instante siete tripulantes, mudos e impacibles como siempre, ascendieron a la plataforma.",
+        "A los dejos se elevaban las azuladas colinas de surrey y las torres del cristal Palaz relucían como dos baras de plata.",
+        "Mi vecino opinaba que las tropas podrían capturar o destruir a los marcianos durante el transcurso del día.",
+        "A diez millas del nautilus hacia el sur se alzaba un islote solitario a una altura de doscientos metros.",
+        "Xi lo veía a ella al asomarse la ventana en la mañana alegre y entonces.",
+        "vamos al comedor donde estaba servido al desayuno, señor Aaronac, me dijo el capitán , le ruego que compartami desayuno sin cumplidos."
+      ],
+      "phrase_counts": {
+        "Ayudadme a todos, pues la obra de muchos siempre resulta mejor, cuatrocientos o trecetales fueron sus palabras.": 1,
+        "Mi vecino opinaba que las tropas podrían capturar o destruir a los marcianos durante el transcurso del día.": 1,
+        "permanefestado, Sir se me preguntó que me fuurríaá, ¿Porque estás así mudo odiseo y no quieres probar estos mujeres?": 1,
+        "r le hizo sufrir mucho hasta que haylló un caño de agua corriente que estaba roto y del cual salía líquido como un manantial.": 1,
+        "Xi lo veía a ella al asomarse la ventana en la mañana alegre y entonces.": 1,
+        "Para vengar a sus hijos, los tiitanes cuidaba y elementaba desde hacia siglos a tifón el horror absoluto.": 1,
+        "A los dejos se elevaban las azuladas colinas de surrey y las torres del cristal Palaz relucían como dos baras de plata.": 1,
+        "peroro como no sabía a que quería el llegar prena a preguntas , reservándome el responder de acuerdo con las circunstancias.": 1,
+        "vamos al comedor donde estaba servido al desayuno, señor Aaronac, me dijo el capitán , le ruego que compartami desayuno sin cumplidos.": 1,
+        "A diez millas del nautilus hacia el sur se alzaba un islote solitario a una altura de doscientos metros.": 1,
+        "En ese instante siete tripulantes, mudos e impacibles como siempre, ascendieron a la plataforma.": 1,
+        "La haca marina, que se conoce también con el nombre deAligore, recordaba mucho al manati.": 1
+      },
+      "needs_regeneration": true
+    }
+  },
+  "rapomo3": {
+    "recordings": {
+      "rapomo3_enrollment_01.wav": "Durante este tiempo, yo había reflexionado y una cierta esperanza vaga aún renacía mi corazón.",
+      "rapomo3_enrollment_02.wav": "Cada uno de los muchachos persibía una renta prodigiosa, Unndola cada día laborable del año y medio Dola los Domingos.",
+      "rapomo3_enrollment_03.wav": "Cro de estos monstlos tiene horcico de Malsopa, cabeza de lagarto, dientes de cocodrilo y por esto nos ha engañado.",
+      "rapomo3_verification_01.wav": "Sus casas eran pequeñas, y en ella solían vivir muchos hermanos, como en el caso de Marta, que eran doce.",
+      "rapomo3_verification_02.wav": "En ese momento, el capitán, sin preocuparse por mi presencia abrió el muebles semejante a una caja de caudales que encerraba gran número de lingotes.",
+      "rapomo3_verification_03.wav": "Escoge por compañero al que quieras, al mejor de los decentes, pues son muchos los que se ofrecen.",
+      "rapomo3_verification_04.wav": "Un Dios se lo mostró, a Él se estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca.",
+      "rapomo3_verification_05.wav": "en cuanto a mí, distraído hasta entonces por los incidentes del viaje, habíame olvidado algo del porvenir, pero ahora sentí que la zosobra se apodera demiumente.",
+      "rapomo3_verification_06.wav": "No podía hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas.",
+      "rapomo3_verification_07.wav": "Tanto en nuestra casa como en la escuela, se hablaba de temas sexuales, a veces con misterio, a veces con verwes.",
+      "rapomo3_verification_08.wav": "La preplejidad y el desagrado del auditorio se manifestó en murmullos y provocó una reprimenda deltribunal.",
+      "rapomo3_verification_09.wav": "Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bella flores que me eran desconocidas por completo y me la puso al cuello."
+    },
+    "num_attacks": 14,
+    "cloning": {
+      "rapomo3_cloning_attack_01.wav": "Cada uno de los muchachos percibía una renta prodigiosa: un dólar cada día laborable del año y medio dólar los domingos.",
+      "rapomo3_cloning_attack_02.wav": "El primero de estos monstruos tiene hocico de marsopa, cabeza de lagarto, dientes de cocodrilo y por esto nos ha engañado.",
+      "rapomo3_cloning_attack_03.wav": "Sus casas eran pequeñas, y en ellas solían vivir muchos hermanos, como en el caso de Marta, que eran doce.",
+      "rapomo3_cloning_attack_04.wav": "En ese momento, el capitán, sin preocuparse por mi presencia, abrió el mueble, semejante a una caja de caudales, que encerraba gran número de lingotes.",
+      "rapomo3_cloning_attack_05.wav": "Algún dios lo mostró aÉl que estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca.",
+      "rapomo3_cloning_attack_06.wav": "En cuanto a m, distraído hasta entonces, por los incidentes del viaje, había me olvidado algo del porvenir, pero ahora sentí que lazoobra se apoderaba de mí nuevamente.",
+      "rapomo3_cloning_attack_07.wav": "No podíamos hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas.",
+      "rapomo3_cloning_attack_08.wav": "Picaporte se había marchado muy alegre, yendo con paso rápido al domicilio del reverendo Samuel Wilson, que no había vuelto a una casa.",
+      "rapomo3_cloning_attack_09.wav": "Escoge por compañero al que quieras,, al mejor de los presentes, pues son muchos los que se ofrecen."
+    },
+    "analysis": {
+      "total_recordings": 12,
+      "total_attacks": 14,
+      "unique_phrases_count": 12,
+      "unique_phrases": [
+        "La preplejidad y el desagrado del auditorio se manifestó en murmullos y provocó una reprimenda deltribunal.",
+        "Cada uno de los muchachos persibía una renta prodigiosa, Unndola cada día laborable del año y medio Dola los Domingos.",
+        "Tanto en nuestra casa como en la escuela, se hablaba de temas sexuales, a veces con misterio, a veces con verwes.",
+        "Un Dios se lo mostró, a Él se estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca.",
+        "No podía hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas.",
+        "Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bella flores que me eran desconocidas por completo y me la puso al cuello.",
+        "Sus casas eran pequeñas, y en ella solían vivir muchos hermanos, como en el caso de Marta, que eran doce.",
+        "En ese momento, el capitán, sin preocuparse por mi presencia abrió el muebles semejante a una caja de caudales que encerraba gran número de lingotes.",
+        "Durante este tiempo, yo había reflexionado y una cierta esperanza vaga aún renacía mi corazón.",
+        "Cro de estos monstlos tiene horcico de Malsopa, cabeza de lagarto, dientes de cocodrilo y por esto nos ha engañado.",
+        "Escoge por compañero al que quieras, al mejor de los decentes, pues son muchos los que se ofrecen.",
+        "en cuanto a mí, distraído hasta entonces por los incidentes del viaje, habíame olvidado algo del porvenir, pero ahora sentí que la zosobra se apodera demiumente."
+      ],
+      "phrase_counts": {
+        "Durante este tiempo, yo había reflexionado y una cierta esperanza vaga aún renacía mi corazón.": 1,
+        "Cada uno de los muchachos persibía una renta prodigiosa, Unndola cada día laborable del año y medio Dola los Domingos.": 1,
+        "Cro de estos monstlos tiene horcico de Malsopa, cabeza de lagarto, dientes de cocodrilo y por esto nos ha engañado.": 1,
+        "Sus casas eran pequeñas, y en ella solían vivir muchos hermanos, como en el caso de Marta, que eran doce.": 1,
+        "En ese momento, el capitán, sin preocuparse por mi presencia abrió el muebles semejante a una caja de caudales que encerraba gran número de lingotes.": 1,
+        "Escoge por compañero al que quieras, al mejor de los decentes, pues son muchos los que se ofrecen.": 1,
+        "Un Dios se lo mostró, a Él se estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca.": 1,
+        "en cuanto a mí, distraído hasta entonces por los incidentes del viaje, habíame olvidado algo del porvenir, pero ahora sentí que la zosobra se apodera demiumente.": 1,
+        "No podía hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas.": 1,
+        "Tanto en nuestra casa como en la escuela, se hablaba de temas sexuales, a veces con misterio, a veces con verwes.": 1,
+        "La preplejidad y el desagrado del auditorio se manifestó en murmullos y provocó una reprimenda deltribunal.": 1,
+        "Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bella flores que me eran desconocidas por completo y me la puso al cuello.": 1
+      },
+      "needs_regeneration": true
+    }
+  }
+}

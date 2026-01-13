@@ -52,7 +52,7 @@ class PolicyTemplates:
             name="bank_strict_v1",
             risk_level=RiskLevel.HIGH,
             similarity_threshold=0.90,
-            spoof_threshold=0.2,
+            spoof_threshold=0.4,  # Optimizado: mejor balance detección vs usabilidad
             phrase_match_threshold=0.85,
             max_inference_latency_ms=3000,
             metadata={"description": "Strict policy for banking operations"}
@@ -65,7 +65,7 @@ class PolicyTemplates:
             name="standard_v1",
             risk_level=RiskLevel.MEDIUM,
             similarity_threshold=0.85,
-            spoof_threshold=0.3,
+            spoof_threshold=0.4,  # Optimizado: mejor balance detección vs usabilidad
             phrase_match_threshold=0.80,
             max_inference_latency_ms=5000,
             metadata={"description": "Standard security policy"}

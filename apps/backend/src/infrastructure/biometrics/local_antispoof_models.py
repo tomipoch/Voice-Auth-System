@@ -62,6 +62,10 @@ class LocalModelPaths:
     def aasist_dir(self) -> Path:
         return self.anti_spoof_root / "aasist"
 
+    @property
+    def rawgat_st_dir(self) -> Path:
+        return self.anti_spoof_root / "RawGat-ST"
+
 
 class BaseLocalAntiSpoofModel:
     def __init__(self, device: torch.device):
@@ -124,16 +128,30 @@ class LocalRawNet2Model(BaseLocalAntiSpoofModel):
 class LocalAASISTModel(BaseLocalAntiSpoofModel):
     def __init__(self, device: torch.device, paths: LocalModelPaths):
         super().__init__(device)
-        self._config_path = paths.aasist_dir / "AASIST.conf"
-        self._checkpoint_path = paths.aasist_dir / "AASIST.pth"
-        self._module_path = paths.aasist_dir / "AASIST.py"
+        # Try AASIST-L (Large) first, fallback to base AASIST
+        aasist_l_conf = paths.aasist_dir / "AASIST-L.conf"
+        aasist_l_pth = paths.aasist_dir / "AASIST-L.pth"
+        
+        if aasist_l_conf.exists() and aasist_l_pth.exists():
+            logger.info("Using AASIST-L (Large) model")
+            self._config_path = aasist_l_conf
+            self._checkpoint_path = aasist_l_pth
+            self._module_path = paths.aasist_dir / "AASIST.py"
+            self._model_name = "AASIST-L"
+        else:
+            logger.info("AASIST-L not found, using base AASIST")
+            self._config_path = paths.aasist_dir / "AASIST.conf"
+            self._checkpoint_path = paths.aasist_dir / "AASIST.pth"
+            self._module_path = paths.aasist_dir / "AASIST.py"
+            self._model_name = "AASIST"
+            
         self._model = None
         self._target_len = 64600
         self._load_model()
 
     def _load_model(self):
         if not self._config_path.exists() or not self._checkpoint_path.exists():
-            logger.warning("AASIST files not found. Skipping local AASIST model.")
+            logger.warning(f"{self._model_name} files not found. Skipping local AASIST model.")
             return
         try:
             config = json.loads(self._config_path.read_text())
@@ -148,9 +166,9 @@ class LocalAASISTModel(BaseLocalAntiSpoofModel):
             self._model.load_state_dict(state, strict=False)
             self._model.eval()
             self.available = True
-            logger.info("Local AASIST anti-spoofing model loaded")
+            logger.info(f"Local {self._model_name} anti-spoofing model loaded successfully")
         except Exception as exc:
-            logger.warning("Failed to load local AASIST model: %s", exc)
+            logger.warning(f"Failed to load local {self._model_name} model: %s", exc)
             self._model = None
             self.available = False
 
@@ -163,6 +181,61 @@ class LocalAASISTModel(BaseLocalAntiSpoofModel):
             vec = _normalize_audio_length(waveform, self._target_len).unsqueeze(0)
             vec = vec.to(self.device)
             _, logits = self._model(vec)
+            probs = torch.softmax(logits, dim=1)
+            return probs[:, 1].item()
+
+
+class LocalRawGATSTModel(BaseLocalAntiSpoofModel):
+    def __init__(self, device: torch.device, paths: LocalModelPaths):
+        super().__init__(device)
+        self._config_path = paths.rawgat_st_dir / "model_config_RawGAT_ST.yaml"
+        self._checkpoint_path = paths.rawgat_st_dir / "RawGat-ST"
+        self._module_path = paths.rawgat_st_dir / "model.py"
+        self._model = None
+        self._target_len = 64600
+        self._load_model()
+
+    def _load_model(self):
+        if not self._config_path.exists() or not self._checkpoint_path.exists():
+            logger.warning("RawGAT-ST files not found. Skipping local RawGAT-ST model.")
+            return
+        try:
+            with open(self._config_path, 'r') as f:
+                config = yaml.safe_load(f)
+            
+            model_args = config.get("model", {})
+            self._target_len = int(model_args.get("nb_samp", self._target_len))
+            
+            module = _load_module(self._module_path, "local_rawgat_st")
+            RawGAT_ST = getattr(module, "RawGAT_ST")
+            
+            self._model = RawGAT_ST(model_args, device=self.device).to(self.device)
+            
+            # Load checkpoint
+            state = torch.load(self._checkpoint_path, map_location=self.device)
+            if isinstance(state, dict) and "model_state_dict" in state:
+                state = state["model_state_dict"]
+            elif isinstance(state, dict) and "model" in state:
+                state = state["model"]
+                
+            self._model.load_state_dict(state, strict=False)
+            self._model.eval()
+            self.available = True
+            logger.info("Local RawGAT-ST anti-spoofing model loaded successfully")
+        except Exception as exc:
+            logger.warning(f"Failed to load local RawGAT-ST model: %s", exc)
+            self._model = None
+            self.available = False
+
+    def predict_spoof_probability(
+        self, waveform: torch.Tensor, sample_rate: int
+    ) -> Optional[float]:
+        if not self.available or self._model is None:
+            return None
+        with torch.no_grad():
+            vec = _normalize_audio_length(waveform, self._target_len).unsqueeze(0)
+            vec = vec.to(self.device)
+            logits = self._model(vec, Freq_aug=False)
             probs = torch.softmax(logits, dim=1)
             return probs[:, 1].item()
 

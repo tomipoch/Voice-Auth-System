@@ -1,0 +1,465 @@
+====================================================================================================
+REPORTE DE FRASES PARA REGENERAR ATAQUES TTS
+====================================================================================================
+
+Fecha: 2026-01-13 14:42:23
+
+OBJETIVO: Identificar las frases que deben usarse para regenerar los ataques TTS
+Los ataques TTS deben decir las MISMAS frases que los recordings genuinos.
+
+====================================================================================================
+USUARIO: anachamorromunoz
+====================================================================================================
+
+ESTADÍSTICAS:
+----------------------------------------------------------------------------------------------------
+Total recordings:           13
+Total ataques TTS actuales: 15
+Frases únicas encontradas:  13
+
+FRASES ÚNICAS EN RECORDINGS (usar para TTS):
+----------------------------------------------------------------------------------------------------
+1. "El señor. Col tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo." (aparece 1 veces)
+2. "Aunque ya había luz sobre la Terra, los ocultos Atenea con una oscura nube y raudamente, lo sacó de la ciudad." (aparece 1 veces)
+3. "El obrero dirigió a lo alto una mirada despavorida y vio con espanto desprenderse pedazos de las paredes." (aparece 1 veces)
+4. "Un radio de solponiente caía sobre el pie de la cama y daba sobre lachimenea, donde el agua hervíabar por botones." (aparece 1 veces)
+5. "Dron la puerta de la cueva apareció una penosa escena al Opaca Luz del crepúsculo que iluminaba aquel lugar." (aparece 1 veces)
+6. "No es de coroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército." (aparece 1 veces)
+7. "En el fondo, sentado delante de una mesa, un hombre pequeño, ya entrado en años, hacía anotaciones en un enorme registro." (aparece 1 veces)
+8. "Nada de todo cuanto ha sido puesto y repuesto sobre el tapete en el anexo, puede mantenerse joven y fresco." (aparece 1 veces)
+9. "Más adelante en camino hacia Weybridge y el otro lado del puente, había un número de reclutas que estaban haciendo un largo Teraplent, estas del camino vivimos más cañones." (aparece 1 veces)
+10. "Y te, aunque sea poderoso, permanezca tranquilo en la Tersia parte que le pertenece." (aparece 1 veces)
+11. "Súbitamente se vio un resplandor de luz y el pozo salió una cantidad de humo verde y luminoso entre bocanadas claramente visibles." (aparece 1 veces)
+12. "Elcuta se diputaba segociaaba la cotización de Philipwfuut como una de las fondos ingleses." (aparece 1 veces)
+13. "Mas el fugitivo no había contado con la frialdad del agua ni colos Engañosa, proximidad de la costa." (aparece 1 veces)
+
+DETALLE DE RECORDINGS:
+----------------------------------------------------------------------------------------------------
+anachamorromunoz_enrollment_01.wav
+  -> "Un radio de sol poniente caía sobre el pie de la cama y daba sobre la chimenea, donde el agua hervía por botones."
+
+anachamorromunoz_enrollment_02.wav
+  -> "Súbitamente se vio un resplandor de luz y del pozo salió una cantidad de humo verde y luminoso entre bocanadas claramente visibles."
+
+anachamorromunoz_enrollment_03.wav
+  -> "El señor Cols tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo."
+
+anachamorromunoz_verification_01.wav
+  -> "Nada de todo cuanto ha sido puesto y repuesto sobre el tapete en el anexo, puede mantenerse joven y fresco."
+
+anachamorromunoz_verification_02.wav
+  -> "Aunque ya había luz sobre la Terra, los oculto Atenea con una oscura nube y raudamente, lo sacó de la ciudad."
+
+anachamorromunoz_verification_03.wav
+  -> "No es decoroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército."
+
+anachamorromunoz_verification_04.wav
+  -> "El obrero dirigió a lo alto una mirada despavorida y vio con espanto desprenderse pedazos de las paredes."
+
+anachamorromunoz_verification_05.wav
+  -> "Y ese, aunque sea poderoso, permanezca tranquilo en la tercia parte que le pertenece."
+
+anachamorromunoz_verification_06.wav
+  -> "Mas el fugitivo no había contado con la frialdad del agua ni con los engañosa proximidad de la costa."
+
+anachamorromunoz_verification_07.wav
+  -> "Más adelante en camino hacia Weybridge y el otro lado del puente, había un número de reclutas que estaban haciendo un largo Teraplent, estas del camino vivimos más cañones."
+
+anachamorromunoz_verification_08.wav
+  -> "En la puerta de la cueva apareció una penosa escena al Opaca Luz del crepúsculo que iluminaba aquel lugar."
+
+anachamorromunoz_verification_09.wav
+  -> "Se discutia, se diputaba, se ngociaba la cotización de Chiligoodfood como una de las fondos ingleses."
+
+anachamorromunoz_verification_10.wav
+  -> "En el fondo, sentado delante de una mesa, un hombre pequeño, ya entrado en años, hacía anotaciones en un enorme registro."
+
+ATAQUES DE CLONING:
+----------------------------------------------------------------------------------------------------
+anachamorromunoz_cloning_attack_01.wav
+  -> "Súbitamente se vio un reesplandor de luz y Del Pozo salió una cantidad de humo verde y luminoso, en tres bocanadas claramente visibles."
+
+anachamorromunoz_cloning_attack_02.wav
+  -> "El señor. Hol tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo."
+
+anachamorromunoz_cloning_attack_03.wav
+  -> "Nada de todo cuanto ha sido puesto y repuesto sobre tapete, en el anexo puede mantenerse joven y fresco."
+
+anachamorromunoz_cloning_attack_04.wav
+  -> "No decoroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército."
+
+anachamorromunoz_cloning_attack_05.wav
+  -> "El obrero dirigió a lo alto, una mirada despavorida y vio con espanto desprenderse pedazos de las paredes."
+
+anachamorromunoz_cloning_attack_06.wav
+  -> "Yste, aunque sea poderoso, permanezca tranquilo o en la tercer parte que le pertenece."
+
+anachamorromunoz_cloning_attack_07.wav
+  -> "Mas el fugitivo no había contado con la fialdad del Agua, ni con la engañosa proximidad de la costa."
+
+anachamorromunoz_cloning_attack_08.wav
+  -> "Más adelante, en camino hacia Weybridge y al otro lado del puente había un número de reclutas que estaban haciendo un largo terrapleing, tras el cual vimos más cañones."
+
+anachamorromunoz_cloning_attack_09.wav
+  -> "He aquí las opiniones de los cinco adultos presentes sobre la situación actual, la señora Banndán, el papel de cenicienta ya no entusiasma."
+
+
+====================================================================================================
+USUARIO: ft_fernandotomas
+====================================================================================================
+
+ESTADÍSTICAS:
+----------------------------------------------------------------------------------------------------
+Total recordings:           12
+Total ataques TTS actuales: 31
+Frases únicas encontradas:  12
+
+FRASES ÚNICAS EN RECORDINGS (usar para TTS):
+----------------------------------------------------------------------------------------------------
+1. "En medio del dédalo pedregoso, que surcaba al fondo del Atlántico, el capitán Nemo avanzaba sin vacilaciones." (aparece 1 veces)
+2. "Entretanto, Peter se había mudado para ir a vivir con un compañero mucho mayor que el." (aparece 1 veces)
+3. "La viuda, muy desesperada, lo buscó por todas partes durante cuarenta y ocho horas." (aparece 1 veces)
+4. "Entonces escuchó que astuto diceo unos pasos afuera, que advirtió que los perros no la adraban." (aparece 1 veces)
+5. "pues si eres tu , en verdad, que melasegura ,sbete que has nacido con fuesesto destino" (aparece 1 veces)
+6. "La relación del calado encarga con la cabida ha sido mal calculada, y por consiguiente ofrecen al mar muy debil Resistencia." (aparece 1 veces)
+7. "y yv al verlos, no se gritó porque habían obedecido to pesteza a las órdenes de Juno." (aparece 1 veces)
+8. "La señora Hall abrió la puerta de Warenmpart para que entrara Mas luz ibara poder ver visitante con Claridad." (aparece 1 veces)
+9. "Entonces Tom se ajustó al cinturón, por decirlo así, y se lanzó a la terea deaprender sus vestículos." (aparece 1 veces)
+10. "La." (aparece 1 veces)
+11. "empecé a revolver entre aquella ropa , olvidándome de la agudeza de oído de aquel hombre" (aparece 1 veces)
+12. "A pesar de esta carga que soportamos, muchos de nosotros siguen sobreviviendo: hay que creer que como proscritos los judíos se transformarán en un día en ejemplo." (aparece 1 veces)
+
+DETALLE DE RECORDINGS:
+----------------------------------------------------------------------------------------------------
+ft_fernandotomas_enrollment_01.wav
+  -> "y yo al verlos, no se irrito, porque habían obedecido con pesteza a las órdenes de Juno."
+
+ft_fernandotomas_enrollment_02.wav
+  -> "La señora Hall abrió la puerta de Warenmpart para que entrara Mas luz ibara poder ver visitante con Claridad."
+
+ft_fernandotomas_enrollment_03.wav
+  -> "La relación del calado encarga con la cabida ha sido mal calculada, y por consiguiente ofrecen al mar muy debil Resistencia."
+
+ft_fernandotomas_verification_01.wav
+  -> "La."
+
+ft_fernandotomas_verification_02.wav
+  -> "empecé a revolver entre aquella ropa , olvidándome de la agudeza de oído de aquel hombre"
+
+ft_fernandotomas_verification_03.wav
+  -> "Entonces Tom se ajustó al cinturón, por decirlo así, y se lanzó a la terea de aprender sus vestículos."
+
+ft_fernandotomas_verification_04.wav
+  -> "En medio del dédalo pedregoso, que surcaba al fondo del Atlántico, el capitán Nemo avanzaba sin vacilaciones."
+
+ft_fernandotomas_verification_05.wav
+  -> "Entretanto, Peter se había mudado para ir a vivir con un compañero mucho mayor que el."
+
+ft_fernandotomas_verification_06.wav
+  -> "Entonces escuchó el astuto Odiseo unos pasos afuera, que advirtió que los perros no ladraban."
+
+ft_fernandotomas_verification_07.wav
+  -> "La viuda, muy desesperada, lo buscó por todas partes durante cuarenta y ocho horas."
+
+ft_fernandotomas_verification_08.wav
+  -> "pues si eres tu , en verdad, quien el asegura ,sabes que has nacido con funesto destino"
+
+ft_fernandotomas_verification_09.wav
+  -> "A pesar de esta carga que soportamos, muchos de nosotros siguen sobreviviendo: hay que creer que como proscritos los judíos se transformarán en un día en ejemplo."
+
+ATAQUES DE CLONING:
+----------------------------------------------------------------------------------------------------
+ft_fernandotomas_cloning_attack_01.wav
+  -> "Al cruzar por Okan viene el horizonte occidental un resplandor rojo sangre, que al acercarme más se fue extendiendo por el cielo."
+
+ft_fernandotomas_cloning_attack_02.wav
+  -> "Todas las ventanas estaban destrozadas y todas, excepto las del Mirador, tenían cerradas las contraventanas."
+
+ft_fernandotomas_cloning_attack_03.wav
+  -> "Sólo vio una o dos veces a  Mister Fox que permanecía en el salón del Rangún, ara ha ciendo compañaía auda, a Hora jugando al Wt, según su invariable costumbre."
+
+ft_fernandotomas_cloning_attack_04.wav
+  -> "No se equivocaba nunca al observar los delgados hilos de agua azulada, que surcaban los Haifiels."
+
+ft_fernandotomas_cloning_attack_05.wav
+  -> "Yllobe, al verlos, no se irritó porque habían obedecido con  presteza las órdenes de Yuno."
+
+ft_fernandotomas_cloning_attack_06.wav
+  -> "La señora Hall abrió la puerta de Pa- enmpark para que entrara másluz y para poder ver al visitante con claridad."
+
+ft_fernandotomas_cloning_attack_07.wav
+  -> "La relación del calado encarga con la cabida ha sido mal calculada, y por consiguiente ofrecen al mar muy devil Resistencia."
+
+ft_fernandotomas_cloning_attack_08.wav
+  -> "Esta explicación de los fenómenos que habíamos presenciado parecíame satisfacitoria, porque, por grandes que sean las maravillas de la naturaleza, hay siempre razones físicas que puedan explicarlas."
+
+ft_fernandotomas_cloning_attack_09.wav
+  -> "después volvió al puerto esmaltado con las luces de los pescadores , que atraían los peces por medio de antorchas encendidas:"
+
+
+====================================================================================================
+USUARIO: piapobletech
+====================================================================================================
+
+ESTADÍSTICAS:
+----------------------------------------------------------------------------------------------------
+Total recordings:           12
+Total ataques TTS actuales: 13
+Frases únicas encontradas:  12
+
+FRASES ÚNICAS EN RECORDINGS (usar para TTS):
+----------------------------------------------------------------------------------------------------
+1. "peroro como no sabía a que quería el llegar prena a preguntas , reservándome el responder de acuerdo con las circunstancias." (aparece 1 veces)
+2. "Ayudadme a todos, pues la obra de muchos siempre resulta mejor, cuatrocientos o trecetales fueron sus palabras." (aparece 1 veces)
+3. "La haca marina, que se conoce también con el nombre deAligore, recordaba mucho al manati." (aparece 1 veces)
+4. "permanefestado, Sir se me preguntó que me fuurríaá, ¿Porque estás así mudo odiseo y no quieres probar estos mujeres?" (aparece 1 veces)
+5. "r le hizo sufrir mucho hasta que haylló un caño de agua corriente que estaba roto y del cual salía líquido como un manantial." (aparece 1 veces)
+6. "Para vengar a sus hijos, los tiitanes cuidaba y elementaba desde hacia siglos a tifón el horror absoluto." (aparece 1 veces)
+7. "En ese instante siete tripulantes, mudos e impacibles como siempre, ascendieron a la plataforma." (aparece 1 veces)
+8. "A los dejos se elevaban las azuladas colinas de surrey y las torres del cristal Palaz relucían como dos baras de plata." (aparece 1 veces)
+9. "Mi vecino opinaba que las tropas podrían capturar o destruir a los marcianos durante el transcurso del día." (aparece 1 veces)
+10. "A diez millas del nautilus hacia el sur se alzaba un islote solitario a una altura de doscientos metros." (aparece 1 veces)
+11. "Xi lo veía a ella al asomarse la ventana en la mañana alegre y entonces." (aparece 1 veces)
+12. "vamos al comedor donde estaba servido al desayuno, señor Aaronac, me dijo el capitán , le ruego que compartami desayuno sin cumplidos." (aparece 1 veces)
+
+DETALLE DE RECORDINGS:
+----------------------------------------------------------------------------------------------------
+piapobletech_enrollment_01.wav
+  -> "Ayudadme a todos, pues la obra de muchos siempre resulta mejor, cuatrocientos trece tales fueron sus palabras."
+
+piapobletech_enrollment_02.wav
+  -> "Mi vecino opinaba que las tropas podrían capturar o destruir a los marcianos durante el transcurso del día."
+
+piapobletech_enrollment_03.wav
+  -> "manifestado, Sirse se me preguntó que me ocurria, ¿Porque estás así mudo odiseo y no quieres probar estos manjares?"
+
+piapobletech_verification_01.wav
+  -> "el le hizo sufrir mucho hasta que halló un caño de agua corriente que estaba roto y del cual salía líquido como un manantial."
+
+piapobletech_verification_02.wav
+  -> "Si lo veía a ella al asomarse la ventana en la mañana alegre y entonces."
+
+piapobletech_verification_03.wav
+  -> "Para vengar a sus hijos, los titanes cuidaba y alimentaba desde hacia siglos a tifón el horror absoluto."
+
+piapobletech_verification_04.wav
+  -> "A los lejos se elevaban las azuladas colinas de su rey y las torres del cristal Palace relucían como dos baras de plata."
+
+piapobletech_verification_05.wav
+  -> "pero como no sabía a que quería el llegar espere nuevas preguntas , reservándome el responder de acuerdo con las circunstancias."
+
+piapobletech_verification_06.wav
+  -> "vamos al comedor donde estaba servido al desayuno, señor Aronax, me dijo el capitán , le ruego que comparta desayuno sin cumplidos."
+
+piapobletech_verification_07.wav
+  -> "A diez millas del nautilus hacia el sur se alzaba un islote solitario a una altura de doscientos metros."
+
+piapobletech_verification_08.wav
+  -> "En ese instante siete tripulantes, mudos e impacibles como siempre, ascendieron a la plataforma."
+
+piapobletech_verification_09.wav
+  -> "La haca marina, que se conoce también con el nombre Alicore, recordaba mucho al manati."
+
+ATAQUES DE CLONING:
+----------------------------------------------------------------------------------------------------
+piapobletech_cloning_attack_01.wav
+  -> "Al ver Meese Estado, " Siyrte me preguntó que me ocurría"."
+
+piapobletech_cloning_attack_02.wav
+  -> "porque estas así mudo, Diseo y no quieres probar estos manjares."
+
+piapobletech_cloning_attack_03.wav
+  -> "La sede hizo sufrir mucho, hasta que hay un caño de agua corriente que estaba roto, y del cual salía líquido como de un manantial."
+
+piapobletech_cloning_attack_04.wav
+  -> "Y así lo vería ella al asomarse la ventana en la mañana alegre y entonces."
+
+piapobletech_cloning_attack_05.wav
+  -> "Para vengar a sus hijos, los Titanes cuidaba y alimentaba desde hacia siglos a tifón, el horror absoluto."
+
+piapobletech_cloning_attack_06.wav
+  -> "A lo lejos se elevaban las azuladas colinas de Surrey, y las torres del cristal Palaz relucían como dos varas de plata."
+
+piapobletech_cloning_attack_07.wav
+  -> "peroro ¿cómo no sabía quedqueri o llegar, espere nuevas preguntas, es desdo me responder acuerdo como circunstancias.."
+
+piapobletech_cloning_attack_08.wav
+  -> "llegamos al comedor . donde estaba servido el desayuno, señora Aeronax, me dijo el capitán , le ruego que comparta mi desayunnos sin cumplidos."
+
+piapobletech_cloning_attack_09.wav
+  -> "A diez millas del Náutilus hacia el sur, se alzaba un islote solitamatrio a una altura de doscientos metros."
+
+piapobletech_cloning_attack_10.wav
+  -> "con el volveríamos a acá aunque nos rodearan abrazadoras llamas porque su prudencia es grande, doscientos cuarenta y ocho, respondió el paciente divino " Ulises ¿ dey vida?"
+
+
+====================================================================================================
+USUARIO: rapomo3
+====================================================================================================
+
+ESTADÍSTICAS:
+----------------------------------------------------------------------------------------------------
+Total recordings:           12
+Total ataques TTS actuales: 14
+Frases únicas encontradas:  12
+
+FRASES ÚNICAS EN RECORDINGS (usar para TTS):
+----------------------------------------------------------------------------------------------------
+1. "La preplejidad y el desagrado del auditorio se manifestó en murmullos y provocó una reprimenda deltribunal." (aparece 1 veces)
+2. "Cada uno de los muchachos persibía una renta prodigiosa, Unndola cada día laborable del año y medio Dola los Domingos." (aparece 1 veces)
+3. "Tanto en nuestra casa como en la escuela, se hablaba de temas sexuales, a veces con misterio, a veces con verwes." (aparece 1 veces)
+4. "Un Dios se lo mostró, a Él se estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca." (aparece 1 veces)
+5. "No podía hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas." (aparece 1 veces)
+6. "Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bella flores que me eran desconocidas por completo y me la puso al cuello." (aparece 1 veces)
+7. "Sus casas eran pequeñas, y en ella solían vivir muchos hermanos, como en el caso de Marta, que eran doce." (aparece 1 veces)
+8. "En ese momento, el capitán, sin preocuparse por mi presencia abrió el muebles semejante a una caja de caudales que encerraba gran número de lingotes." (aparece 1 veces)
+9. "Durante este tiempo, yo había reflexionado y una cierta esperanza vaga aún renacía mi corazón." (aparece 1 veces)
+10. "Cro de estos monstlos tiene horcico de Malsopa, cabeza de lagarto, dientes de cocodrilo y por esto nos ha engañado." (aparece 1 veces)
+11. "Escoge por compañero al que quieras, al mejor de los decentes, pues son muchos los que se ofrecen." (aparece 1 veces)
+12. "en cuanto a mí, distraído hasta entonces por los incidentes del viaje, habíame olvidado algo del porvenir, pero ahora sentí que la zosobra se apodera demiumente." (aparece 1 veces)
+
+DETALLE DE RECORDINGS:
+----------------------------------------------------------------------------------------------------
+rapomo3_enrollment_01.wav
+  -> "Durante este tiempo, yo había reflexionado y una cierta esperanza vaga aún renacía mi corazón."
+
+rapomo3_enrollment_02.wav
+  -> "Cada uno de los muchachos persibía una renta prodigiosa, Un dolar cada día laborable del año y medio Dolar los Domingos."
+
+rapomo3_enrollment_03.wav
+  -> "Cada uno de estos mounstros tiene hocico de Marsopa, cabeza de lagarto, dientes de cocodrilo y por esto nos ha engañado."
+
+rapomo3_verification_01.wav
+  -> "Sus casas eran pequeñas, y en ella solían vivir muchos hermanos, como en el caso de Marta, que eran doce."
+
+rapomo3_verification_02.wav
+  -> "En ese momento, el capitán, sin preocuparse por mi presencia abrió el mueble semejante a una caja de caudales que encerraba gran número de lingotes."
+
+rapomo3_verification_03.wav
+  -> "Escoge por compañero al que quieras, al mejor de los presentes, pues son muchos los que se ofrecen."
+
+rapomo3_verification_04.wav
+  -> "Un Dia se lo mostró, a Él se estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca."
+
+rapomo3_verification_05.wav
+  -> "en cuanto a mí, distraído hasta entonces por los incidentes del viaje, habíame olvidado algo del porvenir, pero ahora sentí que la zosobra se apodera de mi nuevamente."
+
+rapomo3_verification_06.wav
+  -> "No podía hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas."
+
+rapomo3_verification_07.wav
+  -> "Tanto en nuestra casa como en la escuela, se hablaba de temas sexuales, a veces con misterio, a veces con verguenza."
+
+rapomo3_verification_08.wav
+  -> "La preplejidad y el desagrado del auditorio se manifestó en murmullos y provocó una reprimenda del tribunal."
+
+rapomo3_verification_09.wav
+  -> "Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bella flores que me eran desconocidas por completo y me la puso al cuello."
+
+ATAQUES DE CLONING:
+----------------------------------------------------------------------------------------------------
+rapomo3_cloning_attack_01.wav
+  -> "Cada uno de los muchachos percibía una renta prodigiosa: un dólar cada día laborable del año y medio dólar los domingos."
+
+rapomo3_cloning_attack_02.wav
+  -> "El primero de estos monstruos tiene hocico de marsopa, cabeza de lagarto, dientes de cocodrilo y por esto nos ha engañado."
+
+rapomo3_cloning_attack_03.wav
+  -> "Sus casas eran pequeñas, y en ellas solían vivir muchos hermanos, como en el caso de Marta, que eran doce."
+
+rapomo3_cloning_attack_04.wav
+  -> "En ese momento, el capitán, sin preocuparse por mi presencia, abrió el mueble, semejante a una caja de caudales, que encerraba gran número de lingotes."
+
+rapomo3_cloning_attack_05.wav
+  -> "Algún dios lo mostró aÉl que estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca."
+
+rapomo3_cloning_attack_06.wav
+  -> "En cuanto a m, distraído hasta entonces, por los incidentes del viaje, había me olvidado algo del porvenir, pero ahora sentí que lazoobra se apoderaba de mí nuevamente."
+
+rapomo3_cloning_attack_07.wav
+  -> "No podíamos hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas."
+
+rapomo3_cloning_attack_08.wav
+  -> "Picaporte se había marchado muy alegre, yendo con paso rápido al domicilio del reverendo Samuel Wilson, que no había vuelto a una casa."
+
+rapomo3_cloning_attack_09.wav
+  -> "Escoge por compañero al que quieras,, al mejor de los presentes, pues son muchos los que se ofrecen."
+
+
+====================================================================================================
+RESUMEN GLOBAL Y RECOMENDACIONES
+====================================================================================================
+
+Total recordings en dataset:     49
+Total ataques TTS actuales:      73
+Total frases únicas identificadas: 49
+
+PLAN DE ACCIÓN:
+----------------------------------------------------------------------------------------------------
+1. REGENERAR ATAQUES TTS:
+   - Eliminar los 15 archivos TTS actuales de cada usuario
+   - Generar nuevos ataques TTS usando las frases únicas identificadas arriba
+   - Cada frase debe usarse aproximadamente el mismo número de veces
+   - Total a generar: 73 ataques TTS (18 por usuario)
+
+2. DISTRIBUCIÓN SUGERIDA:
+   anachamorromunoz:
+     - Frase 1: 1 ataques TTS
+     - Frase 2: 1 ataques TTS
+     - Frase 3: 1 ataques TTS
+     - Frase 4: 1 ataques TTS
+     - Frase 5: 1 ataques TTS
+     - Frase 6: 1 ataques TTS
+     - Frase 7: 1 ataques TTS
+     - Frase 8: 1 ataques TTS
+     - Frase 9: 1 ataques TTS
+     - Frase 10: 1 ataques TTS
+     - Frase 11: 1 ataques TTS
+     - Frase 12: 1 ataques TTS
+     - Frase 13: 1 ataques TTS
+
+   ft_fernandotomas:
+     - Frase 1: 2 ataques TTS
+     - Frase 2: 2 ataques TTS
+     - Frase 3: 2 ataques TTS
+     - Frase 4: 2 ataques TTS
+     - Frase 5: 2 ataques TTS
+     - Frase 6: 2 ataques TTS
+     - Frase 7: 2 ataques TTS
+     - Frase 8: 2 ataques TTS
+     - Frase 9: 2 ataques TTS
+     - Frase 10: 2 ataques TTS
+     - Frase 11: 2 ataques TTS
+     - Frase 12: 2 ataques TTS
+
+   piapobletech:
+     - Frase 1: 1 ataques TTS
+     - Frase 2: 1 ataques TTS
+     - Frase 3: 1 ataques TTS
+     - Frase 4: 1 ataques TTS
+     - Frase 5: 1 ataques TTS
+     - Frase 6: 1 ataques TTS
+     - Frase 7: 1 ataques TTS
+     - Frase 8: 1 ataques TTS
+     - Frase 9: 1 ataques TTS
+     - Frase 10: 1 ataques TTS
+     - Frase 11: 1 ataques TTS
+     - Frase 12: 1 ataques TTS
+
+   rapomo3:
+     - Frase 1: 1 ataques TTS
+     - Frase 2: 1 ataques TTS
+     - Frase 3: 1 ataques TTS
+     - Frase 4: 1 ataques TTS
+     - Frase 5: 1 ataques TTS
+     - Frase 6: 1 ataques TTS
+     - Frase 7: 1 ataques TTS
+     - Frase 8: 1 ataques TTS
+     - Frase 9: 1 ataques TTS
+     - Frase 10: 1 ataques TTS
+     - Frase 11: 1 ataques TTS
+     - Frase 12: 1 ataques TTS
+
+3. VALIDACIÓN POSTERIOR:
+   - Volver a ejecutar este script después de regenerar
+   - Verificar que todos los ataques TTS transcriben correctamente
