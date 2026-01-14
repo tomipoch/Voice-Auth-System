@@ -225,3 +225,36 @@ async def get_enrollment_status(
     result = await enrollment_service.get_enrollment_status(user_uuid)
     
     return EnrollmentStatusResponse(**result)
+
+
+@router.delete("/delete/{user_id}")
+async def delete_enrollment(
+    user_id: str,
+    enrollment_service: EnrollmentService = Depends(get_enrollment_service),
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
+):
+    """
+    Delete user's voice enrollment (voiceprint).
+    
+    - **user_id**: User UUID (path parameter)
+    
+    Returns success status and message.
+    """
+    try:
+        user_uuid = UUID(user_id)
+        result = await enrollment_service.delete_enrollment(user_uuid)
+        
+        return result
+    except ValueError as e:
+        logger.error(f"Validation error in delete_enrollment: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        logger.error(f"Error in delete_enrollment: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error during enrollment deletion"
+        )
+

@@ -16,7 +16,7 @@ export default function LoginPage() {
 
     try {
       await authService.login(email, password);
-      toast.success('¡Bienvenido a Banco Pirulete!');
+      toast.success('¡Bienvenido a Banco Familia!');
       navigate('/dashboard');
     } catch (error: any) {
       console.error('Login error:', error);
@@ -42,7 +42,7 @@ export default function LoginPage() {
           <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-2xl mb-4 border border-white/20">
             <Building2 className="w-10 h-10 text-[#f6ad55]" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Banco Pirulete</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Banco Familia</h1>
           <p className="text-blue-200/80">Banca digital segura con autenticación biométrica</p>
         </div>
 
@@ -113,7 +113,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <p className="text-center text-blue-200/60 text-sm mt-6">
-          © 2024 Banco Pirulete. Demo de integración biométrica.
+          © 2024 Banco Familia. Demo de integración biométrica.
         </p>
       </div>
     </div>

@@ -448,6 +448,11 @@ class VerificationService:
         )
         self._active_multi_sessions[verification_id] = session
         
+        # Debug log
+        print(f"🆕 Created multi-phrase session: {verification_id}")
+        print(f"📊 Total active sessions: {len(self._active_multi_sessions)}")
+        print(f"🔑 Session keys: {list(self._active_multi_sessions.keys())}")
+        
         # Log verification start
         await self._audit_repo.log_event(
             actor="system",
@@ -479,9 +484,18 @@ class VerificationService:
     ) -> Dict:
         """Verify a single phrase implementation with real ASR scoring."""
         
+        # Debug log
+        print("🔍 verify_phrase called:")
+        print(f"   verification_id: {verification_id}")
+        print(f"   phrase_id: {challenge_id}")
+        print(f"   phrase_number: {phrase_number}")
+        print(f"   Active session keys: {list(self._active_multi_sessions.keys())}")
+        print(f"   Total sessions: {len(self._active_multi_sessions)}")
+        
         # Check active session
         session = self._active_multi_sessions.get(verification_id)
         if not session:
+            print(f"❌ Session not found for verification_id: {verification_id}")
             raise ValueError("Invalid verification session")
         
         # 1. Validate session and retrieve expected phrase

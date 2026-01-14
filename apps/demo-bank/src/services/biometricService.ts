@@ -33,6 +33,40 @@ interface EnrollmentStartResponse {
   required_samples: number;
 }
 
+interface Challenge {
+  challenge_id: string;
+  phrase: string;
+  phrase_id: string;
+  difficulty: string;
+  created_at: string;
+}
+
+interface StartMultiVerificationResponse {
+  verification_id: string;
+  user_id: string;
+  challenges: Challenge[];
+  total_phrases: number;
+}
+
+interface VerifyPhraseResponse {
+  success: boolean;
+  is_verified: boolean;
+  is_complete: boolean;
+  rejected: boolean;
+  phrase_number: number;
+  current_score?: number;
+  average_score?: number;
+  min_score?: number;
+  max_score?: number;
+  rejection_reason?: string;
+  speaker_score?: number;
+  text_score?: number;
+  anti_spoofing_score?: number;
+  verification_id: string;
+  challenge_id: string;
+  message?: string;
+}
+
 interface VerificationResult {
   success: boolean;
   verified: boolean;
@@ -103,7 +137,45 @@ export const biometricService = {
   },
 
   /**
-   * Submit audio for voice verification
+   * Start multi-phrase verification (3 dynamic challenges)
+   */
+  async startMultiPhraseVerification(difficulty: string = 'medium'): Promise<StartMultiVerificationResponse> {
+    const response = await api.post<StartMultiVerificationResponse>(
+      "/verification/start-multi",
+      { difficulty }
+    );
+    return response.data;
+  },
+
+  /**
+   * Verify a single phrase in multi-phrase verification
+   */
+  async verifyPhrase(
+    verificationId: string,
+    challengeId: string,
+    phraseNumber: number,
+    audioBlob: Blob
+  ): Promise<VerifyPhraseResponse> {
+    const formData = new FormData();
+    formData.append("audio", audioBlob, "recording.webm");
+    formData.append("verification_id", verificationId);
+    formData.append("challenge_id", challengeId);
+    formData.append("phrase_number", phraseNumber.toString());
+
+    const response = await api.post<VerifyPhraseResponse>(
+      "/verification/verify-phrase",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  },
+
+  /**
+   * Submit audio for voice verification (legacy)
    */
   async verifyVoice(
     audioBlob: Blob,
@@ -126,6 +198,14 @@ export const biometricService = {
     );
     return response.data;
   },
+
+  /**
+   * Delete voice enrollment (remove voiceprint)
+   */
+  async deleteEnrollment(): Promise<{ success: boolean; message: string }> {
+    const response = await api.delete("/enrollment/delete");
+    return response.data;
+  },
 };
 
 export type {
@@ -135,5 +215,8 @@ export type {
   EnrollmentResult,
   VerificationResult,
   EnrollmentStartResponse,
+  Challenge,
+  StartMultiVerificationResponse,
+  VerifyPhraseResponse,
 };
 export default biometricService;

@@ -387,7 +387,7 @@ async def register(
         first_name=user_data.first_name,
         last_name=user_data.last_name,
         rut=user_data.rut,
-        company=user_data.company or "Familia"  # Default to 'Familia'
+        company=user_data.company or "Banco Familia"  # Default to 'Banco Familia'
     )
     
     return {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   Send, User, ArrowLeft, AlertTriangle, CheckCircle, Shield, 
   UserPlus, Users, Mic, Loader2, Hash, DollarSign, ChevronDown 
@@ -23,25 +23,49 @@ interface Contact {
   is_favorite: number;
 }
 
+interface PrefilledContact {
+  first_name: string;
+  last_name: string;
+  rut: string;
+  email: string;
+  bank_name: string;
+  account_type: string;
+  account_number: string;
+}
+
 type Step = 'select-type' | 'select-contact' | 'form' | 'pin' | 'voice-verification' | 'success';
 
 export default function TransferPage() {
   const navigate = useNavigate();
-  const [step, setStep] = useState<Step>('select-type');
+  const location = useLocation();
+  const prefilledContact = (location.state as { prefilledContact?: PrefilledContact })?.prefilledContact;
+  const [step, setStep] = useState<Step>(prefilledContact ? 'form' : 'select-type');
   const [enrollmentStatus, setEnrollmentStatus] = useState<EnrollmentStatus | null>(null);
   const [contacts, setContacts] = useState<Contact[]>([]);
-  const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(
+    prefilledContact ? {
+      id: 0,
+      first_name: prefilledContact.first_name,
+      last_name: prefilledContact.last_name,
+      rut: prefilledContact.rut,
+      email: prefilledContact.email,
+      bank_name: prefilledContact.bank_name,
+      account_type: prefilledContact.account_type,
+      account_number: prefilledContact.account_number,
+      is_favorite: 1
+    } : null
+  );
   const [loading, setLoading] = useState(false);
   const [verificationId, setVerificationId] = useState<string | null>(null);
   
   const [formData, setFormData] = useState({
-    recipient_first_name: '',
-    recipient_last_name: '',
-    recipient_rut: '',
-    recipient_email: '',
-    recipient_bank: 'Banco Pirulete',
-    recipient_account_type: 'Cuenta Corriente',
-    recipient_account_number: '',
+    recipient_first_name: prefilledContact?.first_name || '',
+    recipient_last_name: prefilledContact?.last_name || '',
+    recipient_rut: prefilledContact?.rut || '',
+    recipient_email: prefilledContact?.email || '',
+    recipient_bank: prefilledContact?.bank_name || 'Banco Familia',
+    recipient_account_type: prefilledContact?.account_type || 'Cuenta Corriente',
+    recipient_account_number: prefilledContact?.account_number || '',
     amount: '',
     description: '',
     save_contact: false,
@@ -58,12 +82,19 @@ export default function TransferPage() {
     
     const loadData = async () => {
       try {
-        const [status, contactsList] = await Promise.all([
+        const [status, contactsList, pinStatus] = await Promise.all([
           biometricService.getEnrollmentStatus(),
-          api.get('/api/contacts').then(res => res.data).catch(() => [])
+          api.get('/contacts').then(res => res.data).catch(() => []),
+          api.get('/pin/status').then(res => res.data).catch(() => ({ has_pin: true }))
         ]);
         setEnrollmentStatus(status);
         setContacts(contactsList);
+        
+        // Verificar si tiene PIN configurado
+        if (!pinStatus.has_pin) {
+          toast.error('Debes configurar tu PIN de transferencias primero');
+          setTimeout(() => navigate('/setup-pin'), 1500);
+        }
       } catch (error) {
         console.error('Error loading data:', error);
       }
@@ -97,7 +128,7 @@ export default function TransferPage() {
       recipient_first_name: contact.first_name,
       recipient_last_name: contact.last_name,
       recipient_rut: contact.rut,
-      recipient_email: contact.email,
+      recipient_email: contact.email || '',
       recipient_bank: contact.bank_name,
       recipient_account_type: contact.account_type,
       recipient_account_number: contact.account_number,
@@ -120,7 +151,7 @@ export default function TransferPage() {
     }
 
     if (amount > 200000 && !isEnrolled) {
-      toast.error('Debes activar la verificación por voz para transferencias mayores a $200,000');
+      toast.error('Sin verificación por voz solo puedes transferir hasta $200,000. Activa tu huella de voz para montos mayores.');
       setTimeout(() => navigate('/enroll'), 2000);
       return;
     }
@@ -138,7 +169,7 @@ export default function TransferPage() {
 
     setLoading(true);
     try {
-      const response = await api.post('/api/transfers/validate', {
+      const response = await api.post('/transfers/validate', {
         amount,
         recipient_first_name: formData.recipient_first_name,
         recipient_last_name: formData.recipient_last_name,
@@ -152,7 +183,24 @@ export default function TransferPage() {
 
       if (response.data.requires_voice_verification) {
         setRequiresVoice(true);
-        setStep('voice-verification');
+        // Redirigir a la página de verificación de voz con los datos de la transferencia
+        navigate('/verify', {
+          state: {
+            transfer: {
+              recipient: `${formData.recipient_first_name} ${formData.recipient_last_name}`,
+              accountType: formData.recipient_account_type,
+              accountNumber: formData.recipient_account_number,
+              bank: formData.recipient_bank,
+              amount: amount,
+              description: formData.description
+            },
+            returnData: {
+              formData,
+              pin,
+              selectedContact
+            }
+          }
+        });
       } else {
         await executeTransfer();
       }
@@ -166,7 +214,7 @@ export default function TransferPage() {
   const executeTransfer = async (voiceVerificationId?: string) => {
     setLoading(true);
     try {
-      const response = await api.post('/api/transfers/execute', {
+      const response = await api.post('/transfers/execute', {
         amount,
         recipient_first_name: formData.recipient_first_name,
         recipient_last_name: formData.recipient_last_name,
@@ -356,7 +404,7 @@ export default function TransferPage() {
 
         <div>
           <label className="block text-sm font-semibold text-[#1a365d] mb-2">
-            Correo electrónico *
+            Correo electrónico (opcional)
           </label>
           <input
             type="email"
@@ -365,7 +413,6 @@ export default function TransferPage() {
             className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a365d] focus:border-transparent"
             placeholder="juan.perez@example.com"
             disabled={!!selectedContact}
-            required
           />
         </div>
 
@@ -381,7 +428,7 @@ export default function TransferPage() {
               disabled={!!selectedContact}
               required
             >
-              <option value="Banco Pirulete">Banco Pirulete</option>
+              <option value="Banco Familia">Banco Familia</option>
               <option value="Banco Estado">Banco Estado</option>
               <option value="Banco Chile">Banco Chile</option>
               <option value="Banco Santander">Banco Santander</option>
@@ -450,23 +497,34 @@ export default function TransferPage() {
           )}
         </div>
 
-        {amount > 200000 && (
+        {!isEnrolled && (
+          <div className="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-4 flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="font-semibold text-[#1a365d]">Límite de transferencia sin verificación por voz</p>
+              <p className="text-sm text-gray-600 mt-1">
+                Sin enrolamiento de voz solo puedes transferir hasta <strong>$200,000</strong> usando tu PIN de 6 dígitos.
+                Para transferencias mayores, activa la verificación por voz.
+              </p>
+              <button
+                type="button"
+                onClick={() => navigate('/enroll')}
+                className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-semibold"
+              >
+                Activar verificación por voz →
+              </button>
+            </div>
+          </div>
+        )}
+
+        {amount > 200000 && isEnrolled && (
           <div className="bg-[#f6ad55]/10 border-l-4 border-[#f6ad55] rounded-r-lg p-4 flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-[#f6ad55] flex-shrink-0 mt-0.5" />
+            <Shield className="w-5 h-5 text-[#f6ad55] shrink-0 mt-0.5" />
             <div>
               <p className="font-semibold text-[#1a365d]">Verificación por voz requerida</p>
               <p className="text-sm text-gray-600 mt-1">
-                Las transferencias mayores a $200,000 requieren verificación por voz por seguridad.
+                Esta transferencia supera los $200,000. Requerirás verificar tu identidad con tu voz para mayor seguridad.
               </p>
-              {!isEnrolled && (
-                <button
-                  type="button"
-                  onClick={() => navigate('/enroll')}
-                  className="mt-2 text-sm text-[#f6ad55] hover:text-[#ed8936] font-semibold"
-                >
-                  Activar verificación por voz →
-                </button>
-              )}
             </div>
           </div>
         )}
@@ -693,7 +751,7 @@ export default function TransferPage() {
               recipient_last_name: '',
               recipient_rut: '',
               recipient_email: '',
-              recipient_bank: 'Banco Pirulete',
+              recipient_bank: 'Banco Familia',
               recipient_account_type: 'Cuenta Corriente',
               recipient_account_number: '',
               amount: '',

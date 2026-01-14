@@ -146,6 +146,17 @@ class PostgresEnrollmentSessionRepository:
                 session_id
             )
     
+    async def delete_user_sessions(self, user_id: UUID) -> None:
+        """Delete all sessions for a specific user."""
+        async with self._pool.acquire() as conn:
+            result = await conn.execute(
+                "DELETE FROM enrollment_session WHERE user_id = $1",
+                user_id
+            )
+            count = int(result.split()[-1]) if result else 0
+            if count > 0:
+                logger.info(f"Deleted {count} enrollment sessions for user {user_id}")
+    
     async def cleanup_expired_sessions(self) -> int:
         """Clean up expired sessions. Returns count of deleted sessions."""
         async with self._pool.acquire() as conn:

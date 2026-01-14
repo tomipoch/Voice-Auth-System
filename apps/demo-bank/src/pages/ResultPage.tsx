@@ -73,7 +73,7 @@ export default function ResultPage() {
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <Building2 className="w-6 h-6 text-[#f6ad55]" />
-            <span className="font-bold">Banco Pirulete</span>
+            <span className="font-bold">Banco Familia</span>
           </div>
         </div>
       </header>

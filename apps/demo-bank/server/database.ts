@@ -24,7 +24,7 @@ db.exec(`
     rut TEXT UNIQUE NOT NULL,
     balance REAL DEFAULT 0,
     account_number TEXT UNIQUE NOT NULL,
-    transfer_pin TEXT DEFAULT '123456',
+    transfer_pin TEXT DEFAULT NULL,
     biometric_user_id TEXT,
     enrollment_id TEXT,
     is_voice_enrolled INTEGER DEFAULT 0,
@@ -38,7 +38,7 @@ db.exec(`
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     rut TEXT NOT NULL,
-    email TEXT NOT NULL,
+    email TEXT,
     bank_name TEXT NOT NULL,
     account_type TEXT NOT NULL,
     account_number TEXT NOT NULL,
@@ -82,7 +82,7 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_contacts_user ON contacts(user_id);
 `);
 
-// Insertar usuarios demo si no existen
+// Insertar usuarios reales de la familia si no existen
 const seedUsers = db.prepare(`
   INSERT OR IGNORE INTO users (
     id, email, password, first_name, last_name, rut, 
@@ -90,34 +90,95 @@ const seedUsers = db.prepare(`
   ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 `);
 
-// Usuario 1 - demo@banco.cl (enrollado)
+// Usuarios reales de Banco Familia (datos de la API biométrica)
+// Usuario 1 - Tomás Poblete (admin del banco)
 seedUsers.run(
-  'demo-user-1',
-  'demo@banco.cl',
-  'demo123',
+  '24ad81e4-363f-44ef-b87b-207c5b53213d',
+  'ft.fernandotomas@gmail.com',
+  'tomas123',
   'Tomás',
-  'P.',
-  '12345678-9',
-  1850420,
-  '1234567890',
-  '123456', // PIN de transferencias
-  '85504b66-b04f-48a7-a513-3af8c55f9cfb', // ID real de la API
-  0 // Inicialmente no enrollado
+  'Poblete',
+  '20904540-0',
+  2500000,
+  '0001234567',
+  null,
+  '24ad81e4-363f-44ef-b87b-207c5b53213d',
+  1
 );
 
-// Usuario 2 - juan@banco.cl (enrollado en la API)
+// Usuario 2 - Pia Poblete
 seedUsers.run(
-  'demo-user-2',
-  'juan@banco.cl',
-  'juan123',
-  'Juan',
-  'Pérez',
-  '98765432-1',
-  850000,
-  '0987654321',
-  '654321', // PIN de transferencias
-  'a593fd09-8c2e-49a4-8823-38e77ef5fe0b', // ID real de la API
-  1 // Ya está enrollado en la API
+  '33097117-40b9-4f9c-a16f-261cba278e2b',
+  'piapobletech@gmail.com',
+  'pia123',
+  'Pia',
+  'Poblete',
+  '18572849-8',
+  1200000,
+  '0001234568',
+  null,
+  '33097117-40b9-4f9c-a16f-261cba278e2b',
+  1
+);
+
+// Usuario 3 - Ana Chamorro
+seedUsers.run(
+  'fa64f420-c36a-4abf-b8ea-c9aad297fe47',
+  'anachamorromunoz@gmail.com',
+  'ana123',
+  'Ana',
+  'Chamorro',
+  '9555737-6',
+  1500000,
+  '0001234569',
+  null,
+  'fa64f420-c36a-4abf-b8ea-c9aad297fe47',
+  1
+);
+
+// Usuario 4 - Raul Poblete
+seedUsers.run(
+  '7f43c9a6-50a9-449a-bec7-9473cf3fb05f',
+  'rapomo3@gmail.com',
+  'raul123',
+  'Raul',
+  'Poblete',
+  '8385075-2',
+  1800000,
+  '0001234570',
+  null,
+  '7f43c9a6-50a9-449a-bec7-9473cf3fb05f',
+  1
+);
+
+// Usuario 5 - Matias Oliva
+seedUsers.run(
+  'efb433f2-cb7f-4b16-b3b7-f63a04de38a0',
+  'maolivautal@gmail.com',
+  'matias123',
+  'Matias',
+  'Oliva',
+  '21016246-1',
+  900000,
+  '0001234571',
+  null,
+  'efb433f2-cb7f-4b16-b3b7-f63a04de38a0',
+  1
+);
+
+// Usuario 6 - Ignacio Norambuena
+seedUsers.run(
+  '6c8e24d8-5e5a-425c-984c-226be3b92c1e',
+  'ignacio.norambuena1990@gmail.com',
+  'ignacio123',
+  'Ignacio',
+  'Norambuena',
+  '21013703-3',
+  750000,
+  '0001234572',
+  null,
+  '6c8e24d8-5e5a-425c-984c-226be3b92c1e',
+  1
 );
 
 // Insertar contactos demo
@@ -127,13 +188,12 @@ const seedContacts = db.prepare(`
   ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 `);
 
-// Contactos para demo@banco.cl
-seedContacts.run('demo-user-1', 'María', 'González', '12.345.678-9', 'maria.gonzalez@example.com', 'Banco Estado', 'Cuenta Corriente', '9876543210', 1);
-seedContacts.run('demo-user-1', 'Pedro', 'Rodríguez', '98.765.432-1', 'pedro.rodriguez@example.com', 'Banco Chile', 'Cuenta Vista', '1122334455', 0);
-seedContacts.run('demo-user-1', 'Ana', 'Martínez', '11.223.344-5', 'ana.martinez@example.com', 'Banco Santander', 'Cuenta de Ahorro', '5544332211', 0);
-
-// Contactos para juan@banco.cl
-seedContacts.run('demo-user-2', 'Carlos', 'Silva', '55.667.788-9', 'carlos.silva@example.com', 'Banco Falabella', 'Cuenta Corriente', '6677889900', 1);
+// Contactos para Tomás (los demás miembros de la familia)
+seedContacts.run('24ad81e4-363f-44ef-b87b-207c5b53213d', 'Pia', 'Poblete', '18.572.849-8', 'piapobletech@gmail.com', 'Banco Familia', 'Cuenta Corriente', '0001234568', 1);
+seedContacts.run('24ad81e4-363f-44ef-b87b-207c5b53213d', 'Ana', 'Chamorro', '9.555.737-6', 'anachamorromunoz@gmail.com', 'Banco Familia', 'Cuenta Corriente', '0001234569', 1);
+seedContacts.run('24ad81e4-363f-44ef-b87b-207c5b53213d', 'Raul', 'Poblete', '8.385.075-2', 'rapomo3@gmail.com', 'Banco Familia', 'Cuenta Corriente', '0001234570', 1);
+seedContacts.run('24ad81e4-363f-44ef-b87b-207c5b53213d', 'Matias', 'Oliva', '21.016.246-1', 'maolivautal@gmail.com', 'Banco Familia', 'Cuenta Corriente', '0001234571', 0);
+seedContacts.run('24ad81e4-363f-44ef-b87b-207c5b53213d', 'Ignacio', 'Norambuena', '21.013.703-3', 'ignacio.norambuena1990@gmail.com', 'Banco Familia', 'Cuenta Corriente', '0001234572', 0);
 
 console.log('✅ Base de datos demo-bank inicializada en:', dbPath);
 

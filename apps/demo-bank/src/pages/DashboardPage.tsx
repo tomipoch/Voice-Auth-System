@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import authService from '../services/authService';
 import biometricService from '../services/biometricService';
+import api from '../services/api';
 import type { EnrollmentStatus } from '../services/biometricService';
 import toast, { Toaster } from 'react-hot-toast';
 import Header from '../components/Header';
@@ -48,11 +49,47 @@ const mockTransactions = [
   { id: 5, date: '10/01/2026', description: 'Depósito Nómina', amount: 1250000 },
 ];
 
-// Mock data - Contactos favoritos
+// Mock data - Contactos favoritos (con datos completos para transferencias)
 const mockContacts = [
-  { id: 1, initials: 'JP', name: 'Juan Pérez', bank: 'Banco Falabella', color: 'bg-blue-500' },
-  { id: 2, initials: 'MG', name: 'María González', bank: 'BancoEstado', color: 'bg-pink-500' },
-  { id: 3, initials: 'CR', name: 'Carlos Rojas', bank: 'Banco Chile', color: 'bg-green-500' },
+  { 
+    id: 1, 
+    initials: 'PP', 
+    name: 'Pia Poblete', 
+    bank: 'Banco Familia',
+    color: 'bg-blue-500',
+    first_name: 'Pia',
+    last_name: 'Poblete',
+    rut: '18.572.849-8',
+    email: 'piapobletech@gmail.com',
+    account_type: 'Cuenta Corriente',
+    account_number: '0001234568'
+  },
+  { 
+    id: 2, 
+    initials: 'AC', 
+    name: 'Ana Chamorro', 
+    bank: 'Banco Familia',
+    color: 'bg-pink-500',
+    first_name: 'Ana',
+    last_name: 'Chamorro',
+    rut: '9.555.737-6',
+    email: 'anachamorromunoz@gmail.com',
+    account_type: 'Cuenta Corriente',
+    account_number: '0001234569'
+  },
+  { 
+    id: 3, 
+    initials: 'RP', 
+    name: 'Raul Poblete', 
+    bank: 'Banco Familia',
+    color: 'bg-green-500',
+    first_name: 'Raul',
+    last_name: 'Poblete',
+    rut: '8.385.075-2',
+    email: 'rapomo3@gmail.com',
+    account_type: 'Cuenta Corriente',
+    account_number: '0001234570'
+  },
 ];
 
 export default function DashboardPage() {
@@ -60,6 +97,7 @@ export default function DashboardPage() {
   const user = authService.getUser();
   const [enrollmentStatus, setEnrollmentStatus] = useState<EnrollmentStatus | null>(null);
   const [showBalances, setShowBalances] = useState(true);
+  const [hasPin, setHasPin] = useState(true);
 
   useEffect(() => {
     if (!authService.isAuthenticated()) {
@@ -67,16 +105,20 @@ export default function DashboardPage() {
       return;
     }
     
-    const loadEnrollmentStatus = async () => {
+    const loadData = async () => {
       try {
-        const status = await biometricService.getEnrollmentStatus();
+        const [status, pinStatus] = await Promise.all([
+          biometricService.getEnrollmentStatus(),
+          api.get('/pin/status').then(res => res.data).catch(() => ({ has_pin: true }))
+        ]);
         setEnrollmentStatus(status);
+        setHasPin(pinStatus.has_pin);
       } catch (error) {
-        console.error('Error checking enrollment status:', error);
+        console.error('Error loading data:', error);
       }
     };
     
-    loadEnrollmentStatus();
+    loadData();
   }, [navigate]);
 
   const handleLogout = () => {
@@ -103,6 +145,27 @@ export default function DashboardPage() {
 
       <main className="max-w-7xl mx-auto px-6 py-8">
         
+        {/* PIN Setup Alert - Priority alert */}
+        {!hasPin && (
+          <div className="bg-linear-to-r from-red-50 to-orange-50 border-l-4 border-red-500 rounded-r-lg p-4 mb-6 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center">
+                <ShieldCheck className="w-6 h-6 text-red-600" />
+              </div>
+              <div>
+                <h3 className="font-bold text-[#1a365d]">Configura tu PIN de Transferencias</h3>
+                <p className="text-gray-600 text-sm">Para realizar transferencias necesitas configurar un PIN de 6 dígitos</p>
+              </div>
+            </div>
+            <button
+              onClick={() => navigate('/setup-pin')}
+              className="bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-2.5 rounded-lg transition-colors"
+            >
+              Configurar PIN
+            </button>
+          </div>
+        )}
+
         {/* Biometric Alert - Only show if not enrolled */}
         {!isEnrolled && (
           <div className="bg-linear-to-r from-[#f6ad55]/10 to-[#ed8936]/10 border-l-4 border-[#f6ad55] rounded-r-lg p-4 mb-6 flex items-center justify-between">
@@ -268,7 +331,25 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <button 
-                      onClick={() => isEnrolled ? navigate('/transfer') : toast.error('Primero activa la seguridad biométrica')}
+                      onClick={() => {
+                        if (!isEnrolled) {
+                          toast.error('Primero activa la seguridad biométrica');
+                          return;
+                        }
+                        navigate('/transfer', { 
+                          state: { 
+                            prefilledContact: {
+                              first_name: contact.first_name,
+                              last_name: contact.last_name,
+                              rut: contact.rut,
+                              email: contact.email,
+                              bank_name: contact.bank,
+                              account_type: contact.account_type,
+                              account_number: contact.account_number
+                            }
+                          } 
+                        });
+                      }}
                       className="px-3 py-1.5 text-xs font-medium text-[#1a365d] border border-[#1a365d]/30 rounded-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-[#1a365d] hover:text-white"
                     >
                       Transferir
@@ -327,7 +408,7 @@ export default function DashboardPage() {
       {/* Footer */}
       <footer className="max-w-7xl mx-auto px-6 py-6 text-center border-t border-gray-200 mt-8">
         <p className="text-gray-400 text-xs">
-          © 2026 Banco Pirulete. Protegido con autenticación biométrica por voz.
+          © 2026 Banco Familia. Protegido con autenticación biométrica por voz.
         </p>
       </footer>
     </div>

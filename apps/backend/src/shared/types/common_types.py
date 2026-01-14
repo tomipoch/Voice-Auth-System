@@ -56,6 +56,7 @@ class AuditAction(Enum):
     # Enrollment
     ENROLLMENT_START = "ENROLLMENT_START"
     ENROLLMENT_COMPLETE = "ENROLLMENT_COMPLETE"
+    ENROLLMENT_DELETED = "ENROLLMENT_DELETED"
     ENROLL = "ENROLL"  # Legacy, keep for compatibility
     
     # Verification

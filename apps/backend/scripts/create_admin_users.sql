@@ -1,11 +1,11 @@
 -- Script to create admin users
 -- Run this script to create admin and super admin users
 
--- 1. Admin user for "familia" company
+-- 1. Admin user for "Banco Familia" company
 -- Email: admin@familia.com
 -- Password: AdminFamilia123
 -- Role: admin
--- Company: familia
+-- Company: Banco Familia
 
 INSERT INTO "user" (
     id,
@@ -22,10 +22,10 @@ INSERT INTO "user" (
     'admin@familia.com',
     '$2b$12$K08TdWtb4UekfnWXFEvn5eeJsrW/tA6DnASzR199jZtY0TpXOWC/i',
     'Admin',
-    'Familia',
+    'Banco Familia',
     '11111111-1',
     'admin',
-    'familia',
+    'Banco Familia',
     NOW()
 ) ON CONFLICT (email) DO NOTHING;
 

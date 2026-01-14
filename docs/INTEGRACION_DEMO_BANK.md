@@ -287,13 +287,13 @@ export const config = {
   biometricApi: {
     baseUrl: 'http://localhost:8000',
     // Credenciales del banco en el sistema biométrico
-    adminEmail: 'admin@banco-pirulete.cl',
-    adminPassword: 'AdminBanco2024!',
+    adminEmail: 'admin@familia.com',
+    adminPassword: 'AdminFamilia123',
   },
   
   company: {
-    name: 'Banco Pirulete',
-    clientId: 'banco-pirulete',
+    name: 'Banco Familia',
+    clientId: 'banco-familia',
   },
 };
 ```

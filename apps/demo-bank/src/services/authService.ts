@@ -56,6 +56,10 @@ export const authService = {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('bank_token');
   },
+
+  getToken(): string | null {
+    return localStorage.getItem('bank_token');
+  },
 };
 
 export default authService;

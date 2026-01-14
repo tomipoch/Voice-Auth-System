@@ -407,6 +407,53 @@ class EnrollmentService:
             return await self._user_repo.get_user(user_id)
         return None
 
+    async def delete_enrollment(self, user_id: UUID) -> Dict:
+        """Delete user's voice enrollment (voiceprint).
+        
+        Args:
+            user_id: UUID of the user
+            
+        Returns:
+            dict with success status and message
+        """
+        try:
+            # Check if user exists and has enrollment
+            user = await self._user_repo.get_user(user_id)
+            if not user:
+                raise ValueError("User not found")
+            
+            # Check if voiceprint exists
+            voiceprint = await self._voice_repo.get_voiceprint_by_user(user_id)
+            if not voiceprint:
+                raise ValueError("No enrollment found for this user")
+            
+            # Delete voiceprint from database
+            await self._voice_repo.delete_voiceprint(user_id)
+            
+            # Clean up any active sessions for this user
+            if self._session_repo:
+                await self._session_repo.delete_user_sessions(user_id)
+            
+            # Log audit event
+            await self._audit_repo.log_action(
+                user_id=user_id,
+                action=AuditAction.ENROLLMENT_DELETED,
+                details={"deleted_at": datetime.now(timezone.utc).isoformat()}
+            )
+            
+            logger.info(f"Deleted enrollment for user {user_id}")
+            
+            return {
+                "success": True,
+                "message": "Voice enrollment deleted successfully"
+            }
+            
+        except ValueError as e:
+            logger.error(f"Error deleting enrollment for user {user_id}: {str(e)}")
+            raise
+        except Exception as e:
+            logger.error(f"Unexpected error deleting enrollment for user {user_id}: {str(e)}")
+            raise ValueError(f"Failed to delete enrollment: {str(e)}")
     
     def _calculate_enrollment_quality(self, embeddings: List[np.ndarray]) -> float:
         """Calculate enrollment quality based on consistency."""

@@ -122,6 +122,52 @@ app.post('/api/auth/logout', (c) => {
 });
 
 // ==========================================
+// PIN MANAGEMENT
+// ==========================================
+// Verificar si el usuario tiene PIN configurado
+app.get('/api/pin/status', (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+
+  return c.json({
+    has_pin: user.transfer_pin !== null && user.transfer_pin !== '',
+  });
+});
+
+// Configurar o actualizar el PIN
+app.post('/api/pin/set', async (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+
+  try {
+    const { pin, current_pin } = await c.req.json();
+
+    // Validar formato del PIN
+    if (!pin || !/^\d{6}$/.test(pin)) {
+      return c.json({ error: 'El PIN debe tener exactamente 6 dígitos' }, 400);
+    }
+
+    // Si ya tiene PIN, verificar el PIN actual
+    if (user.transfer_pin && user.transfer_pin !== '') {
+      if (!current_pin || current_pin !== user.transfer_pin) {
+        return c.json({ error: 'PIN actual incorrecto' }, 400);
+      }
+    }
+
+    // Actualizar el PIN
+    userQueries.updatePin.run(pin, user.id);
+
+    return c.json({ 
+      message: user.transfer_pin ? 'PIN actualizado exitosamente' : 'PIN configurado exitosamente',
+      has_pin: true 
+    });
+  } catch (error) {
+    console.error('Error setting PIN:', error);
+    return c.json({ error: 'Error al configurar el PIN' }, 500);
+  }
+});
+
+// ==========================================
 // ENROLLMENT STATUS - Query real biometric API
 // ==========================================
 app.get('/api/enrollment/status', async (c) => {
@@ -372,6 +418,141 @@ app.post('/api/enrollment/audio', async (c) => {
 // ==========================================
 // VERIFICATION
 // ==========================================
+// Start multi-phrase verification
+app.post('/api/verification/start-multi', async (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+
+  if (!user.biometric_user_id) {
+    return c.json({
+      success: false,
+      message: 'Usuario no tiene huella de voz registrada',
+    }, 400);
+  }
+
+  try {
+    const { difficulty = 'medium' } = await c.req.json();
+    
+    const headers = await getBiometricHeaders();
+    const response = await fetch(`${config.biometricApi.baseUrl}/api/verification/start-multi`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        user_id: user.biometric_user_id,
+        difficulty,
+        num_challenges: 3
+      }),
+    });
+
+    if (!response.ok) {
+      console.error('Start verification failed:', await response.text());
+      return c.json({ success: false, message: 'Error al iniciar verificación' }, 500);
+    }
+
+    const result = await response.json();
+    console.log('✅ Multi-phrase verification started:', { 
+      verification_id: result.verification_id, 
+      challenges: result.challenges?.length 
+    });
+    return c.json(result);
+  } catch (error) {
+    console.error('Start verification error:', error);
+    return c.json({ success: false, message: 'Error al iniciar verificación' }, 500);
+  }
+});
+
+// Verify a phrase in multi-phrase verification
+app.post('/api/verification/verify-phrase', async (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+
+  try {
+    const formData = await c.req.formData();
+    const audioFile = formData.get('audio') as File | null;
+    const verificationId = formData.get('verification_id') as string;
+    const challengeId = formData.get('challenge_id') as string;
+    const phraseNumber = formData.get('phrase_number') as string;
+
+    console.log('📥 Verify phrase request:', { verificationId, challengeId, phraseNumber, hasAudio: !!audioFile });
+
+    if (!audioFile || !verificationId || !challengeId || !phraseNumber) {
+      console.log('❌ Missing required fields');
+      return c.json({ success: false, message: 'Missing required fields' }, 400);
+    }
+
+    const audioArrayBuffer = await audioFile.arrayBuffer();
+    const audioBuffer = Buffer.from(audioArrayBuffer);
+
+    const headers = await getBiometricHeaders();
+    
+    console.log('📤 Sending to biometric API:', {
+      url: `${config.biometricApi.baseUrl}/api/verification/verify-phrase`,
+      verification_id: verificationId,
+      phrase_id: challengeId,
+      phrase_number: phraseNumber,
+      audio_size: audioBuffer.length
+    });
+    
+    // Create form data for the biometric API
+    const boundary = `----WebKitFormBoundary${Math.random().toString(36).slice(2)}`;
+    
+    const formParts: string[] = [];
+    
+    // Add verification_id field
+    formParts.push(`--${boundary}\r\n`);
+    formParts.push(`Content-Disposition: form-data; name="verification_id"\r\n\r\n`);
+    formParts.push(`${verificationId}\r\n`);
+    
+    // Add phrase_id field (challengeId)
+    formParts.push(`--${boundary}\r\n`);
+    formParts.push(`Content-Disposition: form-data; name="phrase_id"\r\n\r\n`);
+    formParts.push(`${challengeId}\r\n`);
+    
+    // Add phrase_number field
+    formParts.push(`--${boundary}\r\n`);
+    formParts.push(`Content-Disposition: form-data; name="phrase_number"\r\n\r\n`);
+    formParts.push(`${phraseNumber}\r\n`);
+    
+    // Add audio file
+    formParts.push(`--${boundary}\r\n`);
+    formParts.push(`Content-Disposition: form-data; name="audio_file"; filename="recording.webm"\r\n`);
+    formParts.push(`Content-Type: audio/webm\r\n\r\n`);
+    
+    const formDataBuffer = Buffer.concat([
+      Buffer.from(formParts.join('')),
+      audioBuffer,
+      Buffer.from(`\r\n--${boundary}--\r\n`),
+    ]);
+
+    console.log('🔊 Forwarding to biometric API verify-phrase endpoint...');
+
+    const response = await fetch(
+      `${config.biometricApi.baseUrl}/api/verification/verify-phrase`,
+      {
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Content-Type': `multipart/form-data; boundary=${boundary}`,
+        },
+        body: formDataBuffer,
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ Verify phrase failed:', errorText);
+      return c.json({ success: false, message: 'Error al verificar frase', error: errorText }, 500);
+    }
+
+    const result = await response.json();
+    console.log('✅ Verification result:', result);
+    return c.json(result);
+  } catch (error) {
+    console.error('❌ Verify phrase error:', error);
+    return c.json({ success: false, message: 'Error al verificar frase', error: String(error) }, 500);
+  }
+});
+
 app.post('/api/verification/voice', async (c) => {
   const user = getUserFromToken(c);
   if (!user) return c.json({ detail: 'Not authenticated' }, 401);
@@ -442,6 +623,43 @@ app.post('/api/verification/voice', async (c) => {
       message: 'Verificación exitosa (fallback)',
       details: { speaker_score: 0.89, text_score: 0.86, spoofing_score: 0.94 },
     });
+  }
+});
+
+// ==========================================
+// DELETE ENROLLMENT
+// ==========================================
+app.delete('/api/enrollment/delete', async (c) => {
+  const user = getUserFromToken(c);
+  if (!user) return c.json({ detail: 'Not authenticated' }, 401);
+
+  if (!user.biometric_user_id) {
+    return c.json({ success: false, message: 'No hay huella de voz registrada' }, 400);
+  }
+
+  try {
+    const headers = await getBiometricHeaders();
+    
+    const response = await fetch(`${config.biometricApi.baseUrl}/api/enrollment/delete/${user.biometric_user_id}`, {
+      method: 'DELETE',
+      headers,
+    });
+
+    if (!response.ok) {
+      console.error('Delete enrollment failed:', await response.text());
+      return c.json({ success: false, message: 'Error al eliminar la huella de voz' }, 500);
+    }
+
+    // Actualizar estado local
+    userQueries.updateEnrollmentStatus.run(0, user.id);
+
+    return c.json({
+      success: true,
+      message: 'Huella de voz eliminada correctamente'
+    });
+  } catch (error) {
+    console.error('Delete enrollment error:', error);
+    return c.json({ success: false, message: 'Error al eliminar la huella de voz' }, 500);
   }
 });
 
@@ -590,6 +808,12 @@ app.post('/api/transfers/validate', async (c) => {
   console.log(`   Received PIN: ${pin}`);
   console.log(`   Expected PIN: ${user.transfer_pin}`);
   
+  // Verificar si el usuario tiene PIN configurado
+  if (!user.transfer_pin) {
+    console.log('❌ PIN no configurado');
+    return c.json({ success: false, error: 'Debes configurar tu PIN de transferencias primero' }, 400);
+  }
+  
   // Validar PIN
   if (pin !== user.transfer_pin) {
     console.log('❌ PIN incorrecto');
@@ -721,15 +945,21 @@ app.post('/api/transfers/execute', async (c) => {
 // ==========================================
 console.log(`
 🏦 ══════════════════════════════════════════════════
-   BANCO PIRULETE - Backend Demo (Real Biometric API)
+   BANCO FAMILIA - Backend Demo (Real Biometric API)
 ══════════════════════════════════════════════════════
 
    Bank Server: http://localhost:${config.port}
    Biometric API: ${config.biometricApi.baseUrl}
    
-   Demo credentials:
-   ├─ demo@banco.cl / demo123 (RUT: 12345678-9)
-   └─ juan@banco.cl / juan123 (RUT: 98765432-1)
+   Usuarios de la Familia:
+   ├─ ft.fernandotomas@gmail.com / tomas123 (Tomás Poblete)
+   ├─ piapobletech@gmail.com / pia123 (Pia Poblete)
+   ├─ anachamorromunoz@gmail.com / ana123 (Ana Chamorro)
+   ├─ rapomo3@gmail.com / raul123 (Raul Poblete)
+   ├─ maolivautal@gmail.com / matias123 (Matias Oliva)
+   └─ ignacio.norambuena1990@gmail.com / ignacio123 (Ignacio Norambuena)
+   
+   Todos tienen verificación biométrica activa ✅
 
 ══════════════════════════════════════════════════════
 `);

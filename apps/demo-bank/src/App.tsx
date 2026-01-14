@@ -6,6 +6,7 @@ import TransferPage from './pages/TransferPage';
 import VerificationPage from './pages/VerificationPage';
 import ResultPage from './pages/ResultPage';
 import ProfilePage from './pages/ProfilePage';
+import SetupPinPage from './pages/SetupPinPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/verify" element={<VerificationPage />} />
         <Route path="/result" element={<ResultPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/setup-pin" element={<SetupPinPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

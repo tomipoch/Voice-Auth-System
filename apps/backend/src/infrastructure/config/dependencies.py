@@ -218,29 +218,37 @@ async def get_voice_signature_repository():
     return PostgresVoiceSignatureRepository(pool)
 
 
+# Singleton instance for verification service
+_verification_service_instance = None
+
 async def get_verification_service():
-    """Get verification service instance with dependencies."""
-    from ..persistence.PostgresVoiceSignatureRepository import PostgresVoiceSignatureRepository
-    from ..persistence.PostgresAuditLogRepository import PostgresAuditLogRepository
-    from ...application.verification_service import VerificationService
+    """Get verification service instance with dependencies (singleton)."""
+    global _verification_service_instance
     
-    pool = await get_db_pool()
+    if _verification_service_instance is None:
+        from ..persistence.PostgresVoiceSignatureRepository import PostgresVoiceSignatureRepository
+        from ..persistence.PostgresAuditLogRepository import PostgresAuditLogRepository
+        from ...application.verification_service import VerificationService
+        
+        pool = await get_db_pool()
+        
+        voice_repo = PostgresVoiceSignatureRepository(pool)
+        user_repo = await get_user_repository()
+        audit_repo = PostgresAuditLogRepository(pool)
+        challenge_service = await get_challenge_service()
+        biometric_validator = get_biometric_validator()
+        
+        _verification_service_instance = VerificationService(
+            voice_repo=voice_repo,
+            user_repo=user_repo,
+            audit_repo=audit_repo,
+            challenge_service=challenge_service,
+            biometric_validator=biometric_validator,
+            similarity_threshold=float(os.getenv("SIMILARITY_THRESHOLD", "0.60")),
+            anti_spoofing_threshold=float(os.getenv("ANTI_SPOOFING_THRESHOLD", "0.5"))
+        )
     
-    voice_repo = PostgresVoiceSignatureRepository(pool)
-    user_repo = await get_user_repository()
-    audit_repo = PostgresAuditLogRepository(pool)
-    challenge_service = await get_challenge_service()
-    biometric_validator = get_biometric_validator()
-    
-    return VerificationService(
-        voice_repo=voice_repo,
-        user_repo=user_repo,
-        audit_repo=audit_repo,
-        challenge_service=challenge_service,
-        biometric_validator=biometric_validator,
-        similarity_threshold=float(os.getenv("SIMILARITY_THRESHOLD", "0.60")),
-        anti_spoofing_threshold=float(os.getenv("ANTI_SPOOFING_THRESHOLD", "0.5"))
-    )
+    return _verification_service_instance
 
 
 async def get_phrase_quality_rules_service():

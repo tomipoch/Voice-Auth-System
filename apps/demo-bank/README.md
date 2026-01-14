@@ -1,73 +1,74 @@
-# React + TypeScript + Vite
+# 🏦 Banco Familia - Demo de Integración Biométrica
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación demo que simula un banco real integrando el sistema de autenticación biométrica por voz.
 
-Currently, two official plugins are available:
+## 🌟 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Autenticación biométrica por voz** integrada
+- **Gestión de cuentas bancarias** con saldos y transacciones
+- **Transferencias bancarias** con verificación por PIN y voz
+- **Gestión de contactos** para transferencias frecuentes
+- **Interfaz moderna** con React + TypeScript + Vite
 
-## React Compiler
+## 👥 Usuarios Pre-configurados
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+El sistema incluye los siguientes usuarios de la familia:
 
-## Expanding the ESLint configuration
+| Email | Password | RUT | Balance | Verificación por Voz |
+|-------|----------|-----|---------|---------------------|
+| ft.fernandotomas@gmail.com | tomas123 | 20904540-0 | $2,500,000 | ✅ Activa |
+| piapobletech@gmail.com | pia123 | 18572849-8 | $1,200,000 | ✅ Activa |
+| anachamorromunoz@gmail.com | ana123 | 9555737-6 | $1,500,000 | ✅ Activa |
+| rapomo3@gmail.com | raul123 | 8385075-2 | $1,800,000 | ✅ Activa |
+| maolivautal@gmail.com | matias123 | 21016246-1 | $900,000 | ✅ Activa |
+| ignacio.norambuena1990@gmail.com | ignacio123 | 21013703-3 | $750,000 | ✅ Activa |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Instalación
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```bash
+# Instalar dependencias
+bun install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Iniciar servidor backend (puerto 3001)
+bun run server
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# En otra terminal, iniciar frontend (puerto 5173)
+bun run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Configuración
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+La configuración del banco se encuentra en `server/config.ts`:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
+```typescript
+export const config = {
+  port: 3001,
+  biometricApi: {
+    baseUrl: 'http://localhost:8000',
+    adminEmail: 'admin@familia.com',
+    adminPassword: 'AdminFamilia123',
   },
-])
+  company: {
+    name: 'Banco Familia',
+    clientId: 'banco-familia',
+  },
+};
 ```
+
+## 📋 Requisitos
+
+- **Node.js** 18+ o **Bun** runtime
+- **API Biométrica** corriendo en `http://localhost:8000`
+- Los usuarios deben estar enrollados en la API biométrica
+
+## 🔒 Seguridad
+
+- Transferencias menores a $200,000: Solo requieren PIN
+- Transferencias mayores a $200,000: Requieren PIN + verificación por voz
+- Todos los usuarios tienen verificación biométrica activa
+
+## 🛠️ Tecnologías
+
+- **Frontend**: React 18, TypeScript, Tailwind CSS, Vite
+- **Backend**: Hono (Node.js), SQLite, JWT
+- **Integración**: API REST con sistema biométrico

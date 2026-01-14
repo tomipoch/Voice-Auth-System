@@ -48,7 +48,7 @@ export default function Header({ showNav = true, isEnrolled = false }: HeaderPro
                 <Building2 className="w-6 h-6 text-[#f6ad55]" />
               </div>
               <div className="text-left">
-                <h1 className="font-bold text-lg">Banco Pirulete</h1>
+                <h1 className="font-bold text-lg">Banco Familia</h1>
                 <p className="text-blue-200/70 text-xs">Banca en Línea</p>
               </div>
             </button>

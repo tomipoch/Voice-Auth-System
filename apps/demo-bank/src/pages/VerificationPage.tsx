@@ -3,7 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Building2, Mic, MicOff, ArrowLeft, Volume2, Loader2, Shield, CheckCircle, XCircle } from 'lucide-react';
 import authService from '../services/authService';
 import biometricService from '../services/biometricService';
-import type { PhraseSession, VerificationResult } from '../services/biometricService';
+import api from '../services/api';
+import type { StartMultiVerificationResponse, VerifyPhraseResponse } from '../services/biometricService';
 import toast, { Toaster } from 'react-hot-toast';
 
 interface TransferData {
@@ -15,37 +16,50 @@ interface TransferData {
   description: string;
 }
 
+interface ReturnData {
+  formData: any;
+  pin: string;
+  selectedContact: any;
+}
+
 export default function VerificationPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const transfer = (location.state as { transfer?: TransferData })?.transfer;
+  const transfer = (location.state as { transfer?: TransferData; returnData?: ReturnData })?.transfer;
+  const returnData = (location.state as { transfer?: TransferData; returnData?: ReturnData })?.returnData;
 
-  const [session, setSession] = useState<PhraseSession | null>(null);
+  const [session, setSession] = useState<StartMultiVerificationResponse | null>(null);
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
-  const [verificationResult, setVerificationResult] = useState<VerificationResult | null>(null);
+  const [verificationResult, setVerificationResult] = useState<VerifyPhraseResponse | null>(null);
   const [completedPhrases, setCompletedPhrases] = useState<number[]>([]);
   
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const hasInitialized = useRef(false);
 
   useEffect(() => {
     if (!authService.isAuthenticated() || !transfer) {
       navigate('/dashboard');
       return;
     }
-    loadPhrases();
+    
+    // Prevent double initialization in React StrictMode
+    if (hasInitialized.current) return;
+    hasInitialized.current = true;
+    
+    loadVerificationSession();
   }, [navigate, transfer]);
 
-  const loadPhrases = async () => {
+  const loadVerificationSession = async () => {
     try {
-      const phraseSession = await biometricService.getPhrases('verification', 3);
-      setSession(phraseSession);
+      const verificationSession = await biometricService.startMultiPhraseVerification('medium');
+      setSession(verificationSession);
     } catch (error) {
-      console.error('Error loading phrases:', error);
-      toast.error('Error al cargar las frases');
+      console.error('Error starting verification:', error);
+      toast.error('Error al iniciar la verificación');
     } finally {
       setLoading(false);
     }
@@ -88,36 +102,84 @@ export default function VerificationPage() {
   const processRecording = async (audioBlob: Blob) => {
     if (!session) return;
     
-    const currentPhrase = session.phrases[currentPhraseIndex];
+    const currentChallenge = session.challenges[currentPhraseIndex];
+    if (!currentChallenge) return;
+    
     setProcessing(true);
 
     try {
-      const result = await biometricService.verifyVoice(
-        audioBlob,
-        currentPhrase.id,
-        currentPhrase.text
+      const result = await biometricService.verifyPhrase(
+        session.verification_id,
+        currentChallenge.challenge_id,
+        currentPhraseIndex + 1,
+        audioBlob
       );
 
       setCompletedPhrases(prev => [...prev, currentPhraseIndex]);
 
-      // Check if this is the last phrase
-      if (currentPhraseIndex >= session.phrases.length - 1) {
+      // Check if verification is complete
+      if (result.is_complete) {
         // Final verification result
         setVerificationResult(result);
         
-        // Navigate to result page after delay
-        setTimeout(() => {
-          navigate('/result', { 
-            state: { 
-              transfer,
-              verified: result.verified,
-              confidence: result.confidence,
-            } 
-          });
-        }, 2000);
+        // If returnData exists, execute the transfer automatically
+        if (returnData && result.is_verified) {
+          try {
+            await api.post('/transfers/execute', {
+              amount: returnData.formData.amount,
+              recipient_first_name: returnData.formData.recipient_first_name,
+              recipient_last_name: returnData.formData.recipient_last_name,
+              recipient_rut: returnData.formData.recipient_rut,
+              recipient_email: returnData.formData.recipient_email,
+              recipient_account_number: returnData.formData.recipient_account_number,
+              recipient_account_type: returnData.formData.recipient_account_type,
+              recipient_bank: returnData.formData.recipient_bank,
+              description: returnData.formData.description,
+              pin: returnData.pin,
+              verification_id: session.verification_id,
+              save_contact: returnData.formData.save_contact && !returnData.selectedContact,
+            });
+            
+            toast.success('¡Transferencia exitosa!');
+            
+            // Navigate to result page
+            setTimeout(() => {
+              navigate('/result', { 
+                state: { 
+                  transfer,
+                  verified: true,
+                  confidence: result.average_score || result.current_score || 0,
+                  transferCompleted: true,
+                } 
+              });
+            }, 2000);
+          } catch (error: any) {
+            toast.error(error.response?.data?.error || 'Error al realizar la transferencia');
+            navigate('/result', { 
+              state: { 
+                transfer,
+                verified: true,
+                confidence: result.average_score || result.current_score || 0,
+                transferCompleted: false,
+                error: error.response?.data?.error || 'Error al realizar la transferencia'
+              } 
+            });
+          }
+        } else {
+          // Original flow - just navigate to result
+          setTimeout(() => {
+            navigate('/result', { 
+              state: { 
+                transfer,
+                verified: result.is_verified,
+                confidence: result.average_score || result.current_score || 0,
+              } 
+            });
+          }, 2000);
+        }
       } else {
         // Move to next phrase
-        if (result.verified) {
+        if (result.success) {
           toast.success('¡Voz verificada! Continúa con la siguiente frase');
         }
         setCurrentPhraseIndex(prev => prev + 1);
@@ -148,8 +210,8 @@ export default function VerificationPage() {
     }).format(amount);
   };
 
-  const currentPhrase = session?.phrases[currentPhraseIndex];
-  const progress = session ? ((completedPhrases.length) / session.phrases.length) * 100 : 0;
+  const currentPhrase = session?.challenges[currentPhraseIndex]?.phrase;
+  const progress = session ? ((completedPhrases.length) / session.total_phrases) * 100 : 0;
 
   if (!transfer) {
     return null;
@@ -171,7 +233,7 @@ export default function VerificationPage() {
             </button>
             <div className="flex items-center gap-3">
               <Building2 className="w-6 h-6 text-[#f6ad55]" />
-              <span className="font-bold">Banco Pirulete</span>
+              <span className="font-bold">Banco Familia</span>
             </div>
           </div>
         </div>
@@ -205,7 +267,7 @@ export default function VerificationPage() {
         <div className="mb-6">
           <div className="flex justify-between text-sm text-gray-600 mb-2">
             <span>Progreso</span>
-            <span>{completedPhrases.length} de {session?.phrases.length || 3} frases</span>
+            <span>{completedPhrases.length} de {session?.total_phrases || 3} frases</span>
           </div>
           <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
             <div 
@@ -221,11 +283,11 @@ export default function VerificationPage() {
           </div>
         ) : verificationResult ? (
           <div className={`rounded-2xl p-8 text-center border-2 ${
-            verificationResult.verified 
+            verificationResult.is_verified 
               ? 'bg-green-50 border-green-200' 
               : 'bg-red-50 border-red-200'
           }`}>
-            {verificationResult.verified ? (
+            {verificationResult.is_verified ? (
               <>
                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
                 <h2 className="text-xl font-bold text-green-800 mb-2">¡Identidad Verificada!</h2>
@@ -245,10 +307,10 @@ export default function VerificationPage() {
             <div className="mb-6">
               <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
                 <Volume2 className="w-4 h-4" />
-                <span>Frase {currentPhraseIndex + 1} de {session?.phrases.length}</span>
+                <span>Frase {currentPhraseIndex + 1} de {session?.total_phrases}</span>
               </div>
               <p className="text-lg font-medium text-gray-800 leading-relaxed bg-gray-50 rounded-xl p-5 border border-gray-100">
-                "{currentPhrase?.text}"
+                "{currentPhrase}"
               </p>
             </div>
 
