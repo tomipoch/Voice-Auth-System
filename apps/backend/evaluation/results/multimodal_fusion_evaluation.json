@@ -1,0 +1,69 @@
+{
+  "dataset": {
+    "genuine_count": 36,
+    "attack_count": 170,
+    "tts_count": 133,
+    "cloning_count": 37
+  },
+  "strategies": {
+    "baseline": {
+      "name": "Solo Antispoofing (threshold=0.85)",
+      "bpcer": 47.22222222222222,
+      "apcer": 14.117647058823529,
+      "acer": 30.669934640522875
+    },
+    "linear_w0.5": {
+      "name": "Fusi\u00f3n Lineal (identity=0.5, antispoof=0.5)",
+      "bpcer": 0.0,
+      "apcer": 5.88235294117647,
+      "acer": 2.941176470588235,
+      "threshold": 0.39999999999999997
+    },
+    "linear_w0.6": {
+      "name": "Fusi\u00f3n Lineal (identity=0.6, antispoof=0.4)",
+      "bpcer": 0.0,
+      "apcer": 1.1764705882352942,
+      "acer": 0.5882352941176471,
+      "threshold": 0.44999999999999996
+    },
+    "linear_w0.7": {
+      "name": "Fusi\u00f3n Lineal (identity=0.7, antispoof=0.3)",
+      "bpcer": 0.0,
+      "apcer": 0.0,
+      "acer": 0.0,
+      "threshold": 0.44999999999999996
+    },
+    "linear_w0.8": {
+      "name": "Fusi\u00f3n Lineal (identity=0.8, antispoof=0.2)",
+      "bpcer": 0.0,
+      "apcer": 0.0,
+      "acer": 0.0,
+      "threshold": 0.35
+    },
+    "adaptive": {
+      "name": "Fusi\u00f3n Adaptativa (threshold din\u00e1mico)",
+      "bpcer": 44.44444444444444,
+      "apcer": 13.529411764705882,
+      "acer": 28.986928104575163
+    },
+    "multiplicative": {
+      "name": "Fusi\u00f3n Multiplicativa",
+      "bpcer": 55.55555555555556,
+      "apcer": 0.0,
+      "acer": 27.77777777777778,
+      "threshold": 0.2
+    },
+    "rule_based": {
+      "name": "Fusi\u00f3n por Reglas (if identity>0.8 then relax)",
+      "bpcer": 44.44444444444444,
+      "apcer": 14.117647058823529,
+      "acer": 29.281045751633986
+    }
+  },
+  "best_strategy": "linear_w0.7",
+  "improvement": {
+    "bpcer": 47.22222222222222,
+    "apcer": 14.117647058823529,
+    "acer": 30.669934640522875
+  }
+}

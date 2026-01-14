@@ -1,0 +1,78 @@
+================================================================================
+OPTIMIZACIÓN DE UMBRAL - MÓDULO ANTI-SPOOFING
+================================================================================
+
+Dataset:
+  - Audios Genuinos: 48
+  - Ataques TTS: 133
+  - Ataques Clonación: 37
+  - Total Ataques: 170
+
+Estadísticas de Scores:
+  - Genuinos:   mean=0.695, std=0.329, range=[0.0542-0.9999]
+  - TTS:        mean=0.980, std=0.085, range=[0.4465-1.0000]
+  - Clonación:  mean=0.658, std=0.360, range=[0.0114-0.9998]
+
+================================================================================
+UMBRALES RECOMENDADOS
+================================================================================
+
+1. 🎯 EQUILIBRIO (EER - Equal Error Rate)
+   Umbral: 0.990
+   - APCER: 24.71%
+   - BPCER: 33.33%
+   - ACER:  29.02%
+   - TTS APCER: 10.53%
+   - Cloning APCER: 75.68%
+   Recomendado para: Investigación, benchmarking
+
+2. 👥 USABILIDAD (BPCER < 15%)
+   Umbral: 1.000
+   - APCER: 100.00%
+   - BPCER: 0.00%
+   - ACER:  50.00%
+   - TTS APCER: 100.00%
+   - Cloning APCER: 100.00%
+   Recomendado para: Aplicaciones comerciales, banca digital ⭐
+
+3. 🔒 SEGURIDAD (APCER < 10%)
+   Umbral: 0.700
+   - APCER: 13.53%
+   - BPCER: 56.25%
+   - ACER:  34.89%
+   - TTS APCER: 3.76%
+   - Cloning APCER: 48.65%
+   Recomendado para: Alta seguridad, defensa gubernamental
+
+4. ⚖️ ACER MÍNIMO
+   Umbral: 0.990
+   - APCER: 24.71%
+   - BPCER: 33.33%
+   - ACER:  29.02%
+   - TTS APCER: 10.53%
+   - Cloning APCER: 75.68%
+   Recomendado para: Error promedio mínimo
+
+================================================================================
+ANÁLISIS Y RECOMENDACIONES
+================================================================================
+
+Interpretación:
+
+✅ Excelente usabilidad: Solo 0.0% de usuarios genuinos rechazados
+⚠️  Protección moderada contra TTS: 100.00% de ataques TTS pasan
+❌ Protección baja contra clonación: 100.00% de ataques de clonación pasan
+
+Notas:
+  - TTS (Text-to-Speech) es el ataque más común y mejor detectado
+  - Clonación de voz es más sofisticada y difícil de detectar
+  - El sistema antispoofing trabaja en conjunto con verificación de identidad (ECAPA-TDNN)
+  - Se recomienda usar el umbral de 'Usabilidad' para aplicaciones reales
+
+Próximos pasos:
+  1. Actualizar threshold en código de producción
+  2. Validar con datos adicionales
+  3. Monitorear métricas en producción
+  4. Ajustar según feedback de usuarios
+
+================================================================================

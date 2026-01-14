@@ -42,18 +42,19 @@ class AntiSpoofingEvaluator:
     
     def score_audios(self, audio_dir: Path, label: str) -> Tuple[List[float], int]:
         """
-        Obtener scores de spoof para audios.
+        Obtener scores de spoof para audios, procesando recursivamente subdirectorios.
         
         Args:
-            audio_dir: Directorio con archivos de audio
+            audio_dir: Directorio con archivos de audio (puede tener subdirectorios)
             label: Etiqueta para logging (e.g., 'genuine', 'tts', 'cloning')
         
         Returns:
             Tuple de (lista de scores, total procesados)
         """
-        logger.info(f"Procesando audios {label}...")
+        logger.info(f"Procesando audios {label} desde {audio_dir}...")
         
-        audio_files = list(audio_dir.glob("*.wav"))
+        # Buscar todos los archivos .wav recursivamente
+        audio_files = list(audio_dir.rglob("*.wav"))
         scores = []
         
         for i, audio_path in enumerate(audio_files, 1):
@@ -253,6 +254,215 @@ class AntiSpoofingEvaluator:
             }
         }
     
+    def generate_visualizations(
+        self,
+        genuine_scores: List[float],
+        tts_scores: List[float],
+        cloning_scores: List[float],
+        metrics: Dict,
+        output_dir: Path
+    ) -> None:
+        """Generar visualizaciones diagnósticas para el reporte de anti-spoofing."""
+        try:
+            import matplotlib
+            matplotlib.use('Agg')
+            import matplotlib.pyplot as plt
+            
+            output_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Crear figura con 4 subplots (2x2)
+            plt.figure(figsize=(20, 12))
+            
+            # Combinar todos los ataques para algunos gráficos
+            all_attacks = tts_scores + cloning_scores
+            
+            # ==============================================================
+            # 1. HISTOGRAMA DE SCORES (BONAFIDE VS SPOOF) - DIAGNÓSTICO CLAVE
+            # ==============================================================
+            ax1 = plt.subplot(2, 2, 1)
+            bins = np.linspace(0, 1, 50)
+            
+            # Histogramas con transparencia para ver solapamiento
+            if len(genuine_scores) > 0:
+                ax1.hist(genuine_scores, bins=bins, alpha=0.6, color='green', 
+                        label=f'Bonafide (n={len(genuine_scores)})', density=True, edgecolor='darkgreen')
+            if len(all_attacks) > 0:
+                ax1.hist(all_attacks, bins=bins, alpha=0.6, color='red', 
+                        label=f'Spoof (n={len(all_attacks)})', density=True, edgecolor='darkred')
+            
+            # Línea del umbral actual
+            ax1.axvline(x=metrics['threshold'], color='blue', linestyle='--', 
+                       linewidth=2.5, label=f'Umbral actual = {metrics["threshold"]:.3f}')
+            
+            # Estadísticas en el gráfico
+            if len(genuine_scores) > 0 and len(all_attacks) > 0:
+                ax1.text(0.02, 0.98, 
+                        f'Media Bonafide: {np.mean(genuine_scores):.3f}\n'
+                        f'Media Spoof: {np.mean(all_attacks):.3f}\n'
+                        f'Separación: {abs(np.mean(genuine_scores) - np.mean(all_attacks)):.3f}',
+                        transform=ax1.transAxes, fontsize=10,
+                        verticalalignment='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+            
+            ax1.set_xlabel('Score de Spoofing (0=Genuino, 1=Spoof)', fontsize=12, fontweight='bold')
+            ax1.set_ylabel('Densidad de Probabilidad', fontsize=12, fontweight='bold')
+            ax1.set_title('🔍 DIAGNÓSTICO: Separación Bonafide vs Spoof', fontsize=14, fontweight='bold')
+            ax1.legend(loc='upper right', fontsize=10)
+            ax1.grid(True, alpha=0.3)
+            
+            # ==============================================================
+            # 2. APCER/BPCER VS THRESHOLD - ENCONTRAR EER
+            # ==============================================================
+            ax2 = plt.subplot(2, 2, 2)
+            
+            # Calcular errores para diferentes umbrales
+            thresholds = np.linspace(0, 1, 200)
+            bpcer_values = [self.calculate_bpcer(genuine_scores, t) for t in thresholds]
+            apcer_values = [self.calculate_apcer(all_attacks, t) for t in thresholds]
+            
+            # Encontrar EER (Equal Error Rate)
+            eer_idx = np.argmin(np.abs(np.array(bpcer_values) - np.array(apcer_values)))
+            eer_threshold = thresholds[eer_idx]
+            eer_value = (bpcer_values[eer_idx] + apcer_values[eer_idx]) / 2
+            
+            # Graficar curvas
+            ax2.plot(thresholds, bpcer_values, 'g-', linewidth=2.5, label='BPCER (Rechazo genuino)')
+            ax2.plot(thresholds, apcer_values, 'r-', linewidth=2.5, label='APCER (Acepta ataque)')
+            
+            # Marcar EER
+            ax2.plot(eer_threshold, eer_value, 'ko', markersize=12, 
+                    label=f'EER = {eer_value:.1f}% @ {eer_threshold:.3f}')
+            ax2.axvline(x=eer_threshold, color='black', linestyle=':', alpha=0.5)
+            ax2.axhline(y=eer_value, color='black', linestyle=':', alpha=0.5)
+            
+            # Marcar umbral actual
+            current_bpcer = metrics['bpcer']
+            current_apcer = metrics['apcer']
+            ax2.plot(metrics['threshold'], current_bpcer, 'gs', markersize=10, 
+                    label=f'Actual BPCER={current_bpcer:.1f}%')
+            ax2.plot(metrics['threshold'], current_apcer, 'rs', markersize=10,
+                    label=f'Actual APCER={current_apcer:.1f}%')
+            ax2.axvline(x=metrics['threshold'], color='blue', linestyle='--', alpha=0.7)
+            
+            ax2.set_xlabel('Umbral de Decisión', fontsize=12, fontweight='bold')
+            ax2.set_ylabel('Tasa de Error (%)', fontsize=12, fontweight='bold')
+            ax2.set_title('📊 Error Rate vs Threshold (EER)', fontsize=14, fontweight='bold')
+            ax2.legend(loc='best', fontsize=9)
+            ax2.grid(True, alpha=0.3)
+            ax2.set_ylim([0, 105])
+            
+            # ==============================================================
+            # 3. COMPARACIÓN DE APCER POR TIPO DE ATAQUE
+            # ==============================================================
+            ax3 = plt.subplot(2, 2, 3)
+            
+            attack_types = []
+            apcer_by_type = []
+            detection_rates = []
+            attack_counts = []
+            
+            if len(tts_scores) > 0:
+                attack_types.append('TTS')
+                apcer_tts = self.calculate_apcer(tts_scores, metrics['threshold'])
+                apcer_by_type.append(apcer_tts)
+                detection_rates.append(100 - apcer_tts)
+                attack_counts.append(len(tts_scores))
+            
+            if len(cloning_scores) > 0:
+                attack_types.append('Voice\nCloning')
+                apcer_cloning = self.calculate_apcer(cloning_scores, metrics['threshold'])
+                apcer_by_type.append(apcer_cloning)
+                detection_rates.append(100 - apcer_cloning)
+                attack_counts.append(len(cloning_scores))
+            
+            x = np.arange(len(attack_types))
+            width = 0.35
+            
+            # Barras de APCER (error - malo)
+            bars1 = ax3.bar(x - width/2, apcer_by_type, width, label='APCER (Ataques aceptados)', 
+                           color='red', alpha=0.7, edgecolor='darkred', linewidth=1.5)
+            
+            # Barras de Detección (bueno)
+            bars2 = ax3.bar(x + width/2, detection_rates, width, label='Tasa de Detección', 
+                           color='green', alpha=0.7, edgecolor='darkgreen', linewidth=1.5)
+            
+            # Añadir valores y conteos
+            for i, (bar1, bar2) in enumerate(zip(bars1, bars2)):
+                height1 = bar1.get_height()
+                height2 = bar2.get_height()
+                ax3.text(bar1.get_x() + bar1.get_width()/2., height1,
+                        f'{height1:.1f}%\n(n={attack_counts[i]})', 
+                        ha='center', va='bottom', fontsize=10, fontweight='bold')
+                ax3.text(bar2.get_x() + bar2.get_width()/2., height2,
+                        f'{height2:.1f}%', 
+                        ha='center', va='bottom', fontsize=10, fontweight='bold')
+            
+            ax3.set_ylabel('Porcentaje (%)', fontsize=12, fontweight='bold')
+            ax3.set_title('⚔️ Rendimiento por Tipo de Ataque', fontsize=14, fontweight='bold')
+            ax3.set_xticks(x)
+            ax3.set_xticklabels(attack_types, fontsize=11)
+            ax3.legend(loc='upper right', fontsize=10)
+            ax3.grid(True, alpha=0.3, axis='y')
+            ax3.set_ylim([0, 110])
+            
+            # ==============================================================
+            # 4. MATRIZ DE CONFUSIÓN DETALLADA
+            # ==============================================================
+            ax4 = plt.subplot(2, 2, 4)
+            
+            # Calcular verdaderos positivos/negativos
+            threshold = metrics['threshold']
+            
+            # Genuinos correctamente aceptados (score < threshold)
+            genuine_accepted = sum(1 for s in genuine_scores if s < threshold)
+            genuine_rejected = len(genuine_scores) - genuine_accepted
+            
+            # Ataques correctamente rechazados (score >= threshold)
+            attacks_rejected = sum(1 for s in all_attacks if s >= threshold)
+            attacks_accepted = len(all_attacks) - attacks_rejected
+            
+            # Crear matriz
+            confusion_data = np.array([
+                [genuine_accepted, genuine_rejected],  # Genuinos: aceptados, rechazados
+                [attacks_accepted, attacks_rejected]   # Ataques: aceptados (mal), rechazados (bien)
+            ])
+            
+            im = ax4.imshow(confusion_data, cmap='RdYlGn', aspect='auto', alpha=0.8)
+            
+            # Etiquetas
+            ax4.set_xticks([0, 1])
+            ax4.set_yticks([0, 1])
+            ax4.set_xticklabels(['Aceptado', 'Rechazado'], fontsize=11)
+            ax4.set_yticklabels(['Bonafide', 'Spoof'], fontsize=11)
+            
+            # Valores en cada celda con porcentajes
+            for i in range(2):
+                for j in range(2):
+                    total = len(genuine_scores) if i == 0 else len(all_attacks)
+                    percentage = (confusion_data[i, j] / total * 100) if total > 0 else 0
+                    text_color = 'white' if confusion_data[i, j] < max(confusion_data.flatten()) * 0.5 else 'black'
+                    ax4.text(j, i, f'{confusion_data[i, j]}\n({percentage:.1f}%)',
+                            ha="center", va="center", color=text_color, 
+                            fontsize=12, fontweight='bold')
+            
+            ax4.set_xlabel('Decisión del Sistema', fontsize=12, fontweight='bold')
+            ax4.set_ylabel('Tipo Real', fontsize=12, fontweight='bold')
+            ax4.set_title('🎯 Matriz de Confusión', fontsize=14, fontweight='bold')
+            
+            plt.colorbar(im, ax=ax4, fraction=0.046, pad=0.04)
+            
+            # ==============================================================
+            plt.tight_layout()
+            
+            output_path = output_dir / "antispoofing_visualizations.png"
+            plt.savefig(output_path, dpi=300, bbox_inches='tight')
+            plt.close()
+            
+            logger.info(f"Visualizaciones diagnósticas guardadas en: {output_path}")
+            logger.info(f"EER encontrado: {eer_value:.2f}% en umbral {eer_threshold:.4f}")
+            
+        except Exception as e:
+            logger.error(f"Error generando visualizaciones: {e}", exc_info=True)
+    
     def generate_report(
         self,
         metrics: Dict,
@@ -365,29 +575,31 @@ def main():
     print("=" * 80)
     print()
     
-    # Configuración del dataset
+    # Configuración del dataset - usar directorio correcto en infra/
     base_dir = Path(__file__).parent.parent
-    dataset_dir = base_dir / "evaluation" / "dataset" / "antispoofing"
+    project_root = base_dir.parent.parent
+    dataset_dir = project_root / "infra" / "evaluation" / "dataset"
     
-    genuine_dir = dataset_dir / "genuine"
-    tts_dir = dataset_dir / "tts"
-    cloning_dir = dataset_dir / "cloning"
+    # Directorios con diferentes tipos de audio
+    genuine_dir = dataset_dir / "recordings" / "auto_recordings_20251218"  # Audios genuinos
+    tts_dir = dataset_dir / "attacks"  # Ataques TTS (por usuario)
+    cloning_dir = dataset_dir / "cloning"  # Ataques de cloning (por usuario)
     
     # Verificar directorios
     if not genuine_dir.exists():
         print(f"❌ Error: Directorio de audios genuinos no encontrado: {genuine_dir}")
         print("\nEstructura esperada:")
-        print("  evaluation/dataset/antispoofing/")
-        print("    genuine/audio1.wav, audio2.wav, ...")
-        print("    tts/audio1.wav, audio2.wav, ...")
-        print("    cloning/audio1.wav, audio2.wav, ...")
+        print("  infra/evaluation/dataset/")
+        print("    recordings/auto_recordings_20251218/*.wav")
+        print("    attacks/[usuario]/*.wav")
+        print("    cloning/[usuario]/*.wav")
         sys.exit(1)
     
     # Inicializar evaluador
     evaluator = AntiSpoofingEvaluator()
     
     # 1. Procesar audios genuinos
-    genuine_scores, genuine_count = evaluator.score_audios(genuine_dir, "genuine")
+    genuine_scores, _ = evaluator.score_audios(genuine_dir, "genuine")
     
     # 2. Procesar ataques TTS
     tts_scores = []
@@ -417,8 +629,14 @@ def main():
         genuine_scores, tts_scores, cloning_scores
     )
     
-    # 6. Generar reporte
-    output_path = base_dir / "evaluation" / "results" / "antispoofing_evaluation.txt"
+    # 6. Generar visualizaciones
+    print("\nGenerando visualizaciones...")
+    output_dir = base_dir / "evaluation" / "results"
+    evaluator.generate_visualizations(genuine_scores, tts_scores, cloning_scores, 
+                                     metrics, output_dir)
+    
+    # 7. Generar reporte
+    output_path = output_dir / "antispoofing_evaluation.txt"
     evaluator.generate_report(metrics, metrics_by_type, output_path)
     
     # Mostrar resumen

@@ -1,0 +1,87 @@
+====================================================================================================
+EVALUACIÓN DE FUSIÓN MULTI-MODAL
+Antispoofing (AASIST-L + RawNet2) + Speaker Recognition (ECAPA-TDNN)
+====================================================================================================
+
+Dataset:
+  - Audios Genuinos procesados: 36
+  - Ataques procesados: 170
+    * TTS: 133
+    * Cloning: 37
+
+Estadísticas de Scores:
+  Genuinos:
+    - Spoof Score: mean=0.697
+    - Identity Score: mean=0.910
+  Ataques:
+    - Spoof Score: mean=0.910
+    - Identity Score: mean=0.072
+
+====================================================================================================
+RESULTADOS POR ESTRATEGIA
+====================================================================================================
+
+🏆 1. Fusión Lineal (identity=0.7, antispoof=0.3)
+     BPCER: 0.00%
+     APCER: 0.00%
+     ACER:  0.00%
+
+⭐ 2. Fusión Lineal (identity=0.8, antispoof=0.2)
+     BPCER: 0.00%
+     APCER: 0.00%
+     ACER:  0.00%
+
+   3. Fusión Lineal (identity=0.6, antispoof=0.4)
+     BPCER: 0.00%
+     APCER: 1.18%
+     ACER:  0.59%
+
+   4. Fusión Lineal (identity=0.5, antispoof=0.5)
+     BPCER: 0.00%
+     APCER: 5.88%
+     ACER:  2.94%
+
+   5. Fusión Multiplicativa
+     BPCER: 55.56%
+     APCER: 0.00%
+     ACER:  27.78%
+
+   6. Fusión Adaptativa (threshold dinámico)
+     BPCER: 44.44%
+     APCER: 13.53%
+     ACER:  28.99%
+
+   7. Fusión por Reglas (if identity>0.8 then relax)
+     BPCER: 44.44%
+     APCER: 14.12%
+     ACER:  29.28%
+
+   8. Solo Antispoofing (threshold=0.85)
+     BPCER: 47.22%
+     APCER: 14.12%
+     ACER:  30.67%
+
+====================================================================================================
+ANÁLISIS DE MEJORA
+====================================================================================================
+
+Estrategia Ganadora: Fusión Lineal (identity=0.7, antispoof=0.3)
+
+Mejora respecto a Baseline (Solo Antispoofing):
+  BPCER: 47.22% → 0.00% (mejora: +47.22pp)
+  APCER: 14.12% → 0.00% (mejora: +14.12pp)
+  ACER:  30.67% → 0.00% (mejora: +30.67pp)
+
+Interpretación:
+✅ Mejora EXCELENTE en BPCER: Reducción de 47.2 puntos porcentuales
+✅ BPCER final < 15%: Excelente usabilidad para aplicación comercial
+
+Recomendación de Implementación:
+  1. Implementar estrategia: Fusión Lineal (identity=0.7, antispoof=0.3)
+  2. Usar threshold optimizado para esta estrategia
+  3. Monitorear en producción y ajustar según feedback
+  4. La fusión multi-modal aprovecha que ECAPA-TDNN es muy preciso (EER=2.78%)
+  5. Usuarios con alta confianza de identidad pueden pasar incluso con scores
+     de antispoofing más altos, mejorando la experiencia de usuario
+
+====================================================================================================

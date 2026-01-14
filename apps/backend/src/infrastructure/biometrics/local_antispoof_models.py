@@ -121,8 +121,11 @@ class LocalRawNet2Model(BaseLocalAntiSpoofModel):
             vec = vec.to(self.device)
             logits = self._model(vec)
             probs = torch.softmax(logits, dim=1)
-            # Convention: index 1 corresponds to spoof class in RawNet2 release
-            return probs[:, 1].item()
+            # CORRECTED: Empirically found that index 1 gives bonafide probability
+            # Models trained on ASVspoof have convention: index 0=spoof, index 1=bonafide
+            # We need spoof probability, so take index 0 OR invert index 1
+            bonafide_prob = probs[:, 1].item()
+            return 1.0 - bonafide_prob  # Invert to get spoof probability
 
 
 class LocalAASISTModel(BaseLocalAntiSpoofModel):
@@ -182,7 +185,10 @@ class LocalAASISTModel(BaseLocalAntiSpoofModel):
             vec = vec.to(self.device)
             _, logits = self._model(vec)
             probs = torch.softmax(logits, dim=1)
-            return probs[:, 1].item()
+            # CORRECTED: Empirically found that index 1 gives bonafide probability
+            # We need spoof probability, so invert it
+            bonafide_prob = probs[:, 1].item()
+            return 1.0 - bonafide_prob  # Invert to get spoof probability
 
 
 class LocalRawGATSTModel(BaseLocalAntiSpoofModel):
@@ -237,7 +243,9 @@ class LocalRawGATSTModel(BaseLocalAntiSpoofModel):
             vec = vec.to(self.device)
             logits = self._model(vec, Freq_aug=False)
             probs = torch.softmax(logits, dim=1)
-            return probs[:, 1].item()
+            # CORRECTED: Invert score to get spoof probability
+            bonafide_prob = probs[:, 1].item()
+            return 1.0 - bonafide_prob
 
 
 def build_local_model_paths() -> LocalModelPaths:

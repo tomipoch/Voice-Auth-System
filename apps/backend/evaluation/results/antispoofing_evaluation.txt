@@ -1,0 +1,57 @@
+================================================================================
+EVALUACIÓN DEL MÓDULO DE ANTI-SPOOFING
+Métricas según ISO/IEC 30107-3
+================================================================================
+
+Fecha: 2026-01-13 19:53:31
+
+MÉTRICAS PRINCIPALES (Todos los ataques)
+--------------------------------------------------------------------------------
+APCER (Attack Present. Class. Error):    7.06%  ✅ MEJOR si cercano a 0%
+BPCER (Bona Fide Present. Class. Error):  66.67%  ✅ MEJOR si cercano a 0%
+ACER (Average Class. Error Rate):      36.86%  ✅ MEJOR si cercano a 0%
+Umbral operacional:                    0.5000
+
+UMBRAL ÓPTIMO (Minimiza ACER)
+--------------------------------------------------------------------------------
+Umbral óptimo:     0.9940
+BPCER óptimo:      25.00%
+APCER óptimo:      27.06%
+ACER óptimo:       26.03%
+
+MÉTRICAS POR TIPO DE ATAQUE
+--------------------------------------------------------------------------------
+BPCER (común):     66.67%
+
+Ataques TTS (133 muestras):
+  APCER:           0.75%
+  ACER:            33.71%
+  Detección:       99.25%
+
+Ataques Cloning (37 muestras):
+  APCER:           29.73%
+  ACER:            48.20%
+  Detección:       70.27%
+
+Todos los ataques (170 muestras):
+  APCER:           7.06%
+  ACER:            36.86%
+  Detección:       92.94%
+
+ESTADÍSTICAS DE SCORES
+--------------------------------------------------------------------------------
+Audios genuinos (48):
+  Media:           0.6953
+  Desv. estándar:  0.3294
+  Rango:           [0.0542 - 0.9999]
+
+Audios de ataque (170):
+  Media:           0.9102
+  Desv. estándar:  0.2270
+  Rango:           [0.0114 - 1.0000]
+
+INTERPRETACIÓN
+--------------------------------------------------------------------------------
+⚠️  ACER REQUIERE MEJORA (> 15%)
+✓ APCER ACEPTABLE (5-15%)
+⚠️  BPCER ALTO (> 15%) - Usuarios genuinos rechazados frecuentemente
