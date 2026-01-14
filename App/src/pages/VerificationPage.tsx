@@ -59,9 +59,9 @@ const VerificationPage = () => {
         </h1>
         <p className="text-lg text-blue-600/80 font-medium max-w-2xl">
           {phase === 'welcome'
-            ? 'Verifica tu identidad de forma segura usando tu voz.'
+            ? 'Verifica tu identidad de forma segura usando tu voz'
             : phase === 'verifying'
-              ? 'Sigue las instrucciones para verificar tu identidad.'
+              ? 'Lee las frases que aparecen en pantalla con tu voz natural'
               : 'Resultado de la verificación.'}
         </p>
       </div>

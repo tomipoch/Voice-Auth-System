@@ -295,6 +295,16 @@ const DynamicEnrollment = ({
         </div>
       </div>
 
+      {/* Educational Info Box */}
+      <div className="mb-6 bg-blue-50/50 dark:bg-blue-900/20 border border-blue-200/50 dark:border-blue-800/50 rounded-xl p-4">
+        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+          <strong>📝 ¿Qué estamos haciendo?</strong> Estamos creando tu huella vocal única analizando las características de tu voz (frecuencia, ritmo, entonación). Lee cada frase con tu voz natural.
+        </p>
+        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mt-2">
+          <strong>💡 Frases aleatorias:</strong> Cambian en cada sesión para garantizar seguridad y prevenir fraudes con grabaciones.
+        </p>
+      </div>
+
       {/* Current Step Card */}
       <Card className="p-6">
         <div className="mb-6">

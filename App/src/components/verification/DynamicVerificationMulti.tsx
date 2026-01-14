@@ -360,16 +360,26 @@ const DynamicVerificationMulti = ({
           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
             Progreso de Verificación
           </span>
-          <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+          <span className="text-sm font-medium text-green-600 dark:text-green-400">
             {currentStepIndex + 1} de {steps.length}
           </span>
         </div>
         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
           <div
-            className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
+            className="bg-green-600 h-2.5 rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
+      </div>
+
+      {/* Educational Info Box */}
+      <div className="mb-6 bg-green-50/50 dark:bg-green-900/20 border border-green-200/50 dark:border-green-800/50 rounded-xl p-4">
+        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+          <strong>🔍 ¿Qué estamos haciendo?</strong> Comparamos tu voz con tu perfil biométrico registrado para confirmar tu identidad. Lee cada frase con tu voz natural.
+        </p>
+        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mt-2">
+          <strong>🔒 Seguridad:</strong> Las frases cambian cada vez para evitar que alguien use una grabación de tu voz. Solo tú, hablando en tiempo real, puedes pasar la verificación.
+        </p>
       </div>
 
       {/* Current Step Card */}
