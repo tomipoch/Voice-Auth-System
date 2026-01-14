@@ -3,40 +3,37 @@ EVALUACIÓN DEL MÓDULO DE ANTI-SPOOFING
 Métricas según ISO/IEC 30107-3
 ================================================================================
 
-Fecha: 2026-01-13 19:53:31
+Fecha: 2026-01-14 01:27:29
 
-MÉTRICAS PRINCIPALES (Todos los ataques)
+MÉTRICAS PRINCIPALES (Threshold Óptimo: 0.9940)
 --------------------------------------------------------------------------------
-APCER (Attack Present. Class. Error):    7.06%  ✅ MEJOR si cercano a 0%
-BPCER (Bona Fide Present. Class. Error):  66.67%  ✅ MEJOR si cercano a 0%
-ACER (Average Class. Error Rate):      36.86%  ✅ MEJOR si cercano a 0%
-Umbral operacional:                    0.5000
+APCER (Attack Present. Class. Error):   27.06%  ✅ MEJOR si cercano a 0%
+BPCER (Bona Fide Present. Class. Error):  25.00%  ✅ MEJOR si cercano a 0%
+ACER (Average Class. Error Rate):      26.03%  ✅ MEJOR si cercano a 0%
+EER (Equal Error Rate):                26.91% @ 0.9950
 
-UMBRAL ÓPTIMO (Minimiza ACER)
---------------------------------------------------------------------------------
-Umbral óptimo:     0.9940
-BPCER óptimo:      25.00%
-APCER óptimo:      27.06%
-ACER óptimo:       26.03%
+NOTA: El threshold óptimo minimiza ACER y balancea seguridad con usabilidad.
+      Un threshold más bajo (ej. 0.5) detectaría más ataques pero rechazaría
+      demasiados usuarios genuinos (BPCER ~67%), haciéndolo impracticable.
 
 MÉTRICAS POR TIPO DE ATAQUE
 --------------------------------------------------------------------------------
-BPCER (común):     66.67%
+BPCER (común):     25.00%
 
 Ataques TTS (133 muestras):
-  APCER:           0.75%
-  ACER:            33.71%
-  Detección:       99.25%
+  APCER:           13.53%
+  ACER:            19.27%
+  Detección:       86.47%
 
 Ataques Cloning (37 muestras):
-  APCER:           29.73%
-  ACER:            48.20%
-  Detección:       70.27%
+  APCER:           75.68%
+  ACER:            50.34%
+  Detección:       24.32%
 
 Todos los ataques (170 muestras):
-  APCER:           7.06%
-  ACER:            36.86%
-  Detección:       92.94%
+  APCER:           27.06%
+  ACER:            26.03%
+  Detección:       72.94%
 
 ESTADÍSTICAS DE SCORES
 --------------------------------------------------------------------------------
@@ -53,5 +50,5 @@ Audios de ataque (170):
 INTERPRETACIÓN
 --------------------------------------------------------------------------------
 ⚠️  ACER REQUIERE MEJORA (> 15%)
-✓ APCER ACEPTABLE (5-15%)
+⚠️  APCER ALTO (> 15%) - Vulnerabilidad a ataques
 ⚠️  BPCER ALTO (> 15%) - Usuarios genuinos rechazados frecuentemente

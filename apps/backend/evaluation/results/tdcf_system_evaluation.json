@@ -1,0 +1,2152 @@
+{
+  "evaluation_date": "2026-01-14T01:47:06.666600",
+  "dataset": {
+    "genuine_count": 36,
+    "tts_count": 60,
+    "cloning_count": 37,
+    "total_attacks": 97
+  },
+  "thresholds": {
+    "antispoof": 0.994,
+    "identity": 0.707,
+    "text_wer": 25.0
+  },
+  "tdcf_params": {
+    "C_miss": 1.0,
+    "C_fa": 10.0,
+    "P_tar": 0.95,
+    "P_nontar": 0.05
+  },
+  "metrics": {
+    "end_to_end_frr": 0.19444444444444442,
+    "end_to_end_far": 0.27835051546391754,
+    "tdcf_current": {
+      "tdcf": 0.4261168384879725,
+      "P_miss": 0.36082474226804123,
+      "P_fa": 0.16666666666666666,
+      "threshold": 0.994
+    },
+    "tdcf_optimal": {
+      "tdcf": 0.4099083619702176,
+      "P_miss": 0.2268041237113402,
+      "P_fa": 0.3888888888888889,
+      "threshold": 0.8752152923494578
+    }
+  },
+  "cascade_matrix": {
+    "genuine": {
+      "stage1": 6,
+      "stage2": 0,
+      "stage3": 1,
+      "accepted": 29
+    },
+    "tts": {
+      "stage1": 53,
+      "stage2": 7,
+      "stage3": 0,
+      "accepted": 0
+    },
+    "cloning": {
+      "stage1": 9,
+      "stage2": 0,
+      "stage3": 1,
+      "accepted": 27
+    }
+  },
+  "genuine_results": [
+    {
+      "filename": "piapobletech_verification_01.wav",
+      "username": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.4725022621452809,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8540122509002686,
+        "stage2_passed": true,
+        "stage3_text_wer": 8.333333333333332,
+        "stage3_passed": true,
+        "transcribed_text": "r le hizo sufrir mucho hasta que haylló un caño de agua corriente que estaba roto y del cual salía líquido como un manantial.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_verification_02.wav",
+      "username": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.49368883520364765,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8760295510292053,
+        "stage2_passed": true,
+        "stage3_text_wer": 6.666666666666667,
+        "stage3_passed": true,
+        "transcribed_text": "Xi lo veía a ella al asomarse la ventana en la mañana alegre y entonces.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_verification_03.wav",
+      "username": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.1095828115940094,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8976629972457886,
+        "stage2_passed": true,
+        "stage3_text_wer": 11.11111111111111,
+        "stage3_passed": true,
+        "transcribed_text": "Para vengar a sus hijos, los tiitanes cuidaba y elementaba desde hacia siglos a tifón el horror absoluto.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_verification_04.wav",
+      "username": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.07816510498523713,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8806106448173523,
+        "stage2_passed": true,
+        "stage3_text_wer": 17.391304347826086,
+        "stage3_passed": true,
+        "transcribed_text": "A los dejos se elevaban las azuladas colinas de surrey y las torres del cristal Pala relucían como dos baras de plata.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_verification_05.wav",
+      "username": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.45193884149193764,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8965606093406677,
+        "stage2_passed": true,
+        "stage3_text_wer": 15.0,
+        "stage3_passed": true,
+        "transcribed_text": "peroro como no sabía a que quería el llegar prena a preguntas , reservándome el responder de acuerdo con las circunstancias.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_verification_06.wav",
+      "username": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.05420124530792237,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8917118906974792,
+        "stage2_passed": true,
+        "stage3_text_wer": 9.523809523809524,
+        "stage3_passed": true,
+        "transcribed_text": "vamos al comedor donde estaba servido al desayuno, señor Aaronac, me dijo el capitán , le ruego que compartami desayuno sin cumplidos.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_verification_07.wav",
+      "username": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.19172229170799257,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9171713590621948,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "A diez millas del nautilus hacia el sur se alzaba un islote solitario a una altura de doscientos metros.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_verification_08.wav",
+      "username": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.25504601895809176,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9091924428939819,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "En ese instante siete tripulantes, mudos e impacibles como siempre, ascendieron a la plataforma.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_verification_09.wav",
+      "username": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.20833304524421695,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8770743012428284,
+        "stage2_passed": true,
+        "stage3_text_wer": 6.666666666666667,
+        "stage3_passed": true,
+        "transcribed_text": "La haca marina, que se conoce también con el nombre deAligore, recordaba mucho al manati.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_verification_02.wav",
+      "username": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9962510844678036,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_verification_03.wav",
+      "username": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.998086641214377,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_verification_04.wav",
+      "username": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9879750721302116,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8304525017738342,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "En medio del dédalo pedregoso, que surcaba al fondo del Atlántico, el capitán Nemo avanzaba sin vacilaciones.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_verification_05.wav",
+      "username": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9992464897917672,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_verification_06.wav",
+      "username": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9997969580473183,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_verification_07.wav",
+      "username": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9996861363149947,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_verification_08.wav",
+      "username": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9990758545704013,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_verification_09.wav",
+      "username": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.993044589809142,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8156757950782776,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "A pesar de esta carga que soportamos, muchos de nosotros siguen sobreviviendo: hay que creer que como proscritos los judíos se transformarán en un día en ejemplo.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_verification_01.wav",
+      "username": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9825066542252898,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9397591352462769,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Sus casas eran pequeñas, y en ella solían vivir muchos hermanos, como en el caso de Marta, que eran doce.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_verification_02.wav",
+      "username": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.07372675836086273,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9500051736831665,
+        "stage2_passed": true,
+        "stage3_text_wer": 4.0,
+        "stage3_passed": true,
+        "transcribed_text": "En ese momento, el capitán, sin preocuparse por mi presencia abrió el muebles semejante a una caja de caudales que encerraba gran número de lingotes.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_verification_03.wav",
+      "username": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.6967929197475315,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9340209364891052,
+        "stage2_passed": true,
+        "stage3_text_wer": 5.555555555555555,
+        "stage3_passed": true,
+        "transcribed_text": "Escoge por compañero al que quieras, al mejor de los decentes, pues son muchos los que se ofrecen.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_verification_04.wav",
+      "username": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9894049881375395,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9414235353469849,
+        "stage2_passed": true,
+        "stage3_text_wer": 4.545454545454546,
+        "stage3_passed": true,
+        "transcribed_text": "Un Dios se lo mostró, a Él se estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_verification_05.wav",
+      "username": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.6731107441820313,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9406216144561768,
+        "stage2_passed": true,
+        "stage3_text_wer": 10.714285714285714,
+        "stage3_passed": true,
+        "transcribed_text": "en cuanto a mí, distraído hasta entonces por los incidentes del viaje, habíame olvidado algo del porvenir, pero ahora sentí que la zosobra se apodera demiumente.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_verification_06.wav",
+      "username": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.983369169337675,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9438663721084595,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "No podía hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_verification_07.wav",
+      "username": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.8216599870473147,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9295637607574463,
+        "stage2_passed": true,
+        "stage3_text_wer": 4.761904761904762,
+        "stage3_passed": true,
+        "transcribed_text": "Tanto en nuestra casa como en la escuela, se hablaba de temas sexuales, a veces con misterio, a veces con verwes.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_verification_08.wav",
+      "username": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.3976275607943535,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9421619772911072,
+        "stage2_passed": true,
+        "stage3_text_wer": 11.76470588235294,
+        "stage3_passed": true,
+        "transcribed_text": "La preplejidad y el desagrado del auditorio se manifestó en murmullos y provocó una reprimenda deltribunal.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_verification_09.wav",
+      "username": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9932013209210708,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.939260721206665,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bella flores que me eran desconocidas por completo y me la puso al cuello.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_verification_01.wav",
+      "username": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.5613780476152898,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9592734575271606,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Nada de todo cuanto ha sido puesto y repuesto sobre el tapete en el anexo, puede mantenerse joven y fresco.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_verification_02.wav",
+      "username": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.7213143983855844,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9519332051277161,
+        "stage2_passed": true,
+        "stage3_text_wer": 4.761904761904762,
+        "stage3_passed": true,
+        "transcribed_text": "Aunque ya había luz sobre la Terra, los ocultos Atenea con una oscura nube y raudamente, lo sacó de la ciudad.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_verification_03.wav",
+      "username": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9935598424970522,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9389611482620239,
+        "stage2_passed": true,
+        "stage3_text_wer": 12.5,
+        "stage3_passed": true,
+        "transcribed_text": "No es de coroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_verification_04.wav",
+      "username": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.4669941902160645,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9392328262329102,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "El obrero dirigió a lo alto una mirada despavorida y vio con espanto desprenderse pedazos de las paredes.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_verification_05.wav",
+      "username": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.7879387840628624,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9310340881347656,
+        "stage2_passed": true,
+        "stage3_text_wer": 14.285714285714285,
+        "stage3_passed": true,
+        "transcribed_text": "Y te, aunque sea poderoso, permanezca tranquilo en la Tersia parte que le pertenece.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_verification_06.wav",
+      "username": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.8032429237151519,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9442323446273804,
+        "stage2_passed": true,
+        "stage3_text_wer": 10.526315789473683,
+        "stage3_passed": true,
+        "transcribed_text": "Mas el fugitivo no había contado con la frialdad del agua ni colos Engañosa, proximidad de la costa.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_verification_07.wav",
+      "username": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.5949706769082695,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9269628524780273,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Más adelante en camino hacia Weybridge y el otro lado del puente, había un número de reclutas que estaban haciendo un largo Teraplent, estas del camino vivimos más cañones.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_verification_08.wav",
+      "username": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9449482842319412,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9575154781341553,
+        "stage2_passed": true,
+        "stage3_text_wer": 5.263157894736842,
+        "stage3_passed": true,
+        "transcribed_text": "Dron la puerta de la cueva apareció una penosa escena al Opaca Luz del crepúsculo que iluminaba aquel lugar.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_verification_09.wav",
+      "username": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.5203411143273116,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9372103810310364,
+        "stage2_passed": true,
+        "stage3_text_wer": 31.25,
+        "stage3_passed": false,
+        "transcribed_text": "Elcuta se diputaba segociaaba la cotización de Philipwfuut como una de las fondos ingleses.",
+        "final_decision": false,
+        "rejection_stage": 3
+      }
+    },
+    {
+      "filename": "anachamorromunoz_verification_10.wav",
+      "username": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.4459430150687695,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9442572593688965,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "En el fondo, sentado delante de una mesa, un hombre pequeño, ya entrado en años, hacía anotaciones en un enorme registro.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    }
+  ],
+  "attack_results": [
+    {
+      "filename": "piapobletech_tts_attack_13.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9987380526097696,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_07.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9998346278372993,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_06.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9997022323128477,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_12.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9858485957291123,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.639474630355835,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 2
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_04.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9997842900227625,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_10.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9989712527400116,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_11.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9979759744536296,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_05.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9997022323128477,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_01.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9999942402487592,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_15.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9999820404948878,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_14.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9997398758721829,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_02.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9999939385184236,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_03.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9997979995461719,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_08.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.998897276189382,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_tts_attack_09.wav",
+      "attack_type": "tts",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.9988571804948152,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_15.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9988939675655275,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_01.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9997823431080178,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_14.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9990943351642614,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_02.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9997823431080178,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_03.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9999812357332303,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_07.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.44652343541383743,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.5540271997451782,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 2
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_13.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9999871156790846,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_12.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9999787848838878,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_06.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9990898264717544,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_10.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9945708709879455,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_04.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.999971968440059,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_05.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9990898264717544,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_11.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.999966781315834,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_08.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9995686646696413,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_tts_attack_09.wav",
+      "attack_type": "tts",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9924450671403975,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.5419160723686218,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 2
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_09.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9998153783236035,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_08.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9998512271415165,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_06.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9999926945917765,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_12.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9998920505462593,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_13.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.5499610368970025,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.5468801856040955,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 2
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_07.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9996349908731645,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_11.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9999698257835008,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_05.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9999926630412916,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_04.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.985141591448337,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.5600774884223938,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 2
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_10.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9999777699313199,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_14.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9999314392327505,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_01.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9997912001002306,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_15.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9988279938028428,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_03.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9839039888494882,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.5594390630722046,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 2
+      }
+    },
+    {
+      "filename": "rapomo3_tts_attack_02.wav",
+      "attack_type": "tts",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9996805461184521,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_09.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9987285610208347,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_08.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9999104561037713,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_12.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9998533116180625,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_06.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9998962554828723,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_07.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.998236385351629,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_13.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9999312130225462,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_05.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9998904213475726,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_11.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.99971872942333,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_10.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9999547420831734,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_04.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9963256066432223,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_14.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9999566200345726,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_15.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.5873441956005991,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.6152452826499939,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 2
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_01.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9999492340236429,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_03.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9963256066432223,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_tts_attack_02.wav",
+      "attack_type": "tts",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9999495680921427,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "piapobletech_cloning_attack_09.wav",
+      "attack_type": "cloning",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.10183895230293274,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8360620737075806,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "A diez millas del Náutilus hacia el sur, se alzaba un islote solitamatrio a una altura de doscientos metros.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_cloning_attack_08.wav",
+      "attack_type": "cloning",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.1322334259748459,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8414255976676941,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "llegamos al comedor . donde estaba servido el desayuno, señora Aeronax, me dijo el capitán , le ruego que comparta mi desayunnos sin cumplidos.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_cloning_attack_03.wav",
+      "attack_type": "cloning",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.11809833049774171,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.858977735042572,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "La sede hizo sufrir mucho, hasta que hay un caño de agua corriente que estaba roto, y del cual salía líquido como de un manantial.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_cloning_attack_02.wav",
+      "attack_type": "cloning",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.10046380162239076,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8512245416641235,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "porque estas así mudo, Diseo y no quieres probar estos manjares.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_cloning_attack_01.wav",
+      "attack_type": "cloning",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.011382535099983215,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8156371116638184,
+        "stage2_passed": true,
+        "stage3_text_wer": 150.0,
+        "stage3_passed": false,
+        "transcribed_text": "Al ver Meese Estado, \" Siyrte me preguntó que me ocurría\".",
+        "final_decision": false,
+        "rejection_stage": 3
+      }
+    },
+    {
+      "filename": "piapobletech_cloning_attack_05.wav",
+      "attack_type": "cloning",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.11489430963993073,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8538364171981812,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Para vengar a sus hijos, los Titanes cuidaba y alimentaba desde hacia siglos a tifón, el horror absoluto.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_cloning_attack_10.wav",
+      "attack_type": "cloning",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.14510454535484316,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8602380156517029,
+        "stage2_passed": true,
+        "stage3_text_wer": 13.043478260869565,
+        "stage3_passed": true,
+        "transcribed_text": "con el volveríamos a acá aunque nos rodearan abrazadoras llamas porque su prudencia es grande: doscientos cuarenta y ocho, respondió el paciente divino \" Ulises ¿ dey vida?",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_cloning_attack_04.wav",
+      "attack_type": "cloning",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.12422444224357605,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8425561189651489,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Y así lo vería ella al asomarse la ventana en la mañana alegre y entonces.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_cloning_attack_06.wav",
+      "attack_type": "cloning",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.30899161100387573,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8328158855438232,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "A lo lejos se elevaban las azuladas colinas de Surrey, y las torres del cristal Palaz relucían como dos varas de plata.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "piapobletech_cloning_attack_07.wav",
+      "attack_type": "cloning",
+      "victim": "piapobletech",
+      "result": {
+        "stage1_antispoof_score": 0.09480652511119843,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8493221998214722,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "peroro ¿cómo no sabía quedqueri o llegar, espere nuevas preguntas, es desdo me responder acuerdo como circunstancias..",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_cloning_attack_01.wav",
+      "attack_type": "cloning",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9948374517306549,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_cloning_attack_02.wav",
+      "attack_type": "cloning",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9717884892597795,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8642856478691101,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Todas las ventanas estaban destrozadas y todas, excepto las del Mirador, tenían cerradas las contraventanas.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_cloning_attack_03.wav",
+      "attack_type": "cloning",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9946756247518352,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_cloning_attack_07.wav",
+      "attack_type": "cloning",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9760294132051058,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8408980369567871,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "La relación del calado encarga con la cabida ha sido mal calculada, y por consiguiente ofrecen al mar muy devil Resistencia.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_cloning_attack_06.wav",
+      "attack_type": "cloning",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9992253368014645,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_cloning_attack_04.wav",
+      "attack_type": "cloning",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9971744444606885,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_cloning_attack_05.wav",
+      "attack_type": "cloning",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9996267169088242,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_cloning_attack_08.wav",
+      "attack_type": "cloning",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.9997994155259222,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "ft_fernandotomas_cloning_attack_09.wav",
+      "attack_type": "cloning",
+      "victim": "ft_fernandotomas",
+      "result": {
+        "stage1_antispoof_score": 0.644981136918068,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8582520484924316,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "después volvió al puerto esmaltado con las luces de los pescadores , que atraían los peces por medio de antorchas encendidas:",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_cloning_attack_09.wav",
+      "attack_type": "cloning",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.966038519050926,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8675729036331177,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Escoge por compañero al que quieras,, al mejor de los presentes, pues son muchos los que se ofrecen.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_cloning_attack_08.wav",
+      "attack_type": "cloning",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9971746906245245,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_cloning_attack_06.wav",
+      "attack_type": "cloning",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9426013452466577,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8930478096008301,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "En cuanto a m, distraído hasta entonces, por los incidentes del viaje, había me olvidado algo del porvenir, pero ahora sentí que lazoobra se apoderaba de mí nuevamente.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_cloning_attack_07.wav",
+      "attack_type": "cloning",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.4030195638537407,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8896799683570862,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "No podíamos hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_cloning_attack_05.wav",
+      "attack_type": "cloning",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9760466580279172,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8782467842102051,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Algún dios lo mostró aÉl que estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_cloning_attack_04.wav",
+      "attack_type": "cloning",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9356793061830104,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8930655717849731,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "En ese momento, el capitán, sin preocuparse por mi presencia, abrió el mueble, semejante a una caja de caudales, que encerraba gran número de lingotes.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_cloning_attack_01.wav",
+      "attack_type": "cloning",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.7724679511040449,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8797300457954407,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Cada uno de los muchachos percibía una renta prodigiosa: un dólar cada día laborable del año y medio dólar los domingos.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "rapomo3_cloning_attack_03.wav",
+      "attack_type": "cloning",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.9955136786855292,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "rapomo3_cloning_attack_02.wav",
+      "attack_type": "cloning",
+      "victim": "rapomo3",
+      "result": {
+        "stage1_antispoof_score": 0.995882217027247,
+        "stage1_passed": false,
+        "stage2_identity_score": null,
+        "stage2_passed": false,
+        "stage3_text_wer": null,
+        "stage3_passed": false,
+        "transcribed_text": null,
+        "final_decision": false,
+        "rejection_stage": 1
+      }
+    },
+    {
+      "filename": "anachamorromunoz_cloning_attack_01.wav",
+      "attack_type": "cloning",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9269041083287448,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9008811712265015,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Súbitamente se vio un reesplandor de luz y Del Pozo salió una cantidad de humo verde y luminoso, en tres bocanadas claramente visibles.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_cloning_attack_03.wav",
+      "attack_type": "cloning",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.6839985249505844,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.9086162447929382,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Nada de todo cuanto ha sido puesto y repuesto sobre tapete, en el anexo puede mantenerse joven y fresco.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_cloning_attack_02.wav",
+      "attack_type": "cloning",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.6942010859143921,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8833500146865845,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "El señor. Hol tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_cloning_attack_06.wav",
+      "attack_type": "cloning",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.5377824351191521,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8881032466888428,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Yste, aunque sea poderoso, permanezca tranquilo o en la tercer parte que le pertenece.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_cloning_attack_07.wav",
+      "attack_type": "cloning",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.9553095620358364,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8579007387161255,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Mas el fugitivo no había contado con la fialdad del Agua, ni con la engañosa proximidad de la costa.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_cloning_attack_05.wav",
+      "attack_type": "cloning",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.5842310685082339,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8908159732818604,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "El obrero dirigió a lo alto, una mirada despavorida y vio con espanto desprenderse pedazos de las paredes.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_cloning_attack_04.wav",
+      "attack_type": "cloning",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.6090415052138269,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8879479765892029,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "No decoroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_cloning_attack_09.wav",
+      "attack_type": "cloning",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.8752152923494578,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8899093866348267,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "He aquí las opiniones de los cinco adultos presentes sobre la situación actual, la señora Banndán, el papel de cenicienta ya no entusiasma.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    },
+    {
+      "filename": "anachamorromunoz_cloning_attack_08.wav",
+      "attack_type": "cloning",
+      "victim": "anachamorromunoz",
+      "result": {
+        "stage1_antispoof_score": 0.6473274536663667,
+        "stage1_passed": true,
+        "stage2_identity_score": 0.8813132047653198,
+        "stage2_passed": true,
+        "stage3_text_wer": 0.0,
+        "stage3_passed": true,
+        "transcribed_text": "Más adelante, en camino hacia Weybridge y al otro lado del puente había un número de reclutas que estaban haciendo un largo terrapleing, tras el cual vimos más cañones.",
+        "final_decision": true,
+        "rejection_stage": null
+      }
+    }
+  ]
+}

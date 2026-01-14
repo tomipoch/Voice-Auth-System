@@ -194,13 +194,12 @@ class ASRAdapter:
             if waveform.shape[0] > 1:
                 waveform = torch.mean(waveform, dim=0, keepdim=True)
             
-            # PERFORMANCE OPTIMIZATION: Limit to 5s for ASR
-            # Wav2Vec2 is slow on CPU, and typical phrases are 3-5s
-            max_asr_samples = int(5.0 * sample_rate)
+            # PERFORMANCE OPTIMIZATION: Limit to 15s for ASR
+            # Extended to 15s for longer phrases in evaluation dataset
+            max_asr_samples = int(15.0 * sample_rate)
             if waveform.shape[1] > max_asr_samples:
-                # Take center portion (best quality usually)
-                start = (waveform.shape[1] - max_asr_samples) // 2
-                waveform = waveform[:, start:start + max_asr_samples]
+                # Take full audio up to 15s (don't truncate center)
+                waveform = waveform[:, :max_asr_samples]
             
             # AUDIO NORMALIZATION: Normalize amplitude to improve ASR accuracy
             # Scale waveform to [-1, 1] range for consistent model input

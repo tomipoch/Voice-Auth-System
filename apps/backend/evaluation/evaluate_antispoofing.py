@@ -460,6 +460,9 @@ class AntiSpoofingEvaluator:
             logger.info(f"Visualizaciones diagnósticas guardadas en: {output_path}")
             logger.info(f"EER encontrado: {eer_value:.2f}% en umbral {eer_threshold:.4f}")
             
+            # Agregar EER a las métricas para el reporte
+            metrics['eer'] = f"{eer_value:.2f}% @ {eer_threshold:.4f}"
+            
         except Exception as e:
             logger.error(f"Error generando visualizaciones: {e}", exc_info=True)
     
@@ -480,7 +483,7 @@ class AntiSpoofingEvaluator:
             
             f.write(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
             
-            f.write("MÉTRICAS PRINCIPALES (Todos los ataques)\n")
+            f.write("MÉTRICAS PRINCIPALES (Threshold Óptimo: {:.4f})\n".format(metrics['threshold']))
             f.write("-" * 80 + "\n")
             f.write(f"APCER (Attack Present. Class. Error):  {metrics['apcer']:6.2f}%  ")
             f.write("✅ MEJOR si cercano a 0%\n")
@@ -488,14 +491,11 @@ class AntiSpoofingEvaluator:
             f.write("✅ MEJOR si cercano a 0%\n")
             f.write(f"ACER (Average Class. Error Rate):     {metrics['acer']:6.2f}%  ")
             f.write("✅ MEJOR si cercano a 0%\n")
-            f.write(f"Umbral operacional:                    {metrics['threshold']:.4f}\n\n")
+            f.write(f"EER (Equal Error Rate):                {metrics.get('eer', 'N/A')}\n\n")
             
-            f.write("UMBRAL ÓPTIMO (Minimiza ACER)\n")
-            f.write("-" * 80 + "\n")
-            f.write(f"Umbral óptimo:     {metrics['optimal_threshold']:.4f}\n")
-            f.write(f"BPCER óptimo:      {metrics['optimal_bpcer']:.2f}%\n")
-            f.write(f"APCER óptimo:      {metrics['optimal_apcer']:.2f}%\n")
-            f.write(f"ACER óptimo:       {metrics['optimal_acer']:.2f}%\n\n")
+            f.write("NOTA: El threshold óptimo minimiza ACER y balancea seguridad con usabilidad.\n")
+            f.write("      Un threshold más bajo (ej. 0.5) detectaría más ataques pero rechazaría\n")
+            f.write("      demasiados usuarios genuinos (BPCER ~67%), haciéndolo impracticable.\n\n")
             
             f.write("MÉTRICAS POR TIPO DE ATAQUE\n")
             f.write("-" * 80 + "\n")
@@ -619,23 +619,29 @@ def main():
         print("❌ Error: No hay ataques para evaluar")
         sys.exit(1)
     
-    # 4. Calcular métricas generales
-    print("\nCalculando métricas...")
+    # 4. Calcular threshold óptimo primero
+    print("\nCalculando threshold óptimo...")
     all_attacks = tts_scores + cloning_scores
-    metrics = evaluator.calculate_metrics(genuine_scores, all_attacks)
+    optimal = evaluator.find_optimal_threshold(genuine_scores, all_attacks)
+    optimal_threshold = optimal['threshold']
+    print(f"Threshold óptimo encontrado: {optimal_threshold:.4f}")
     
-    # 5. Calcular métricas por tipo de ataque
+    # 5. Calcular métricas generales con threshold óptimo
+    print("\nCalculando métricas con threshold óptimo...")
+    metrics = evaluator.calculate_metrics(genuine_scores, all_attacks, threshold=optimal_threshold)
+    
+    # 6. Calcular métricas por tipo de ataque con threshold óptimo
     metrics_by_type = evaluator.calculate_metrics_by_attack_type(
-        genuine_scores, tts_scores, cloning_scores
+        genuine_scores, tts_scores, cloning_scores, threshold=optimal_threshold
     )
     
-    # 6. Generar visualizaciones
+    # 7. Generar visualizaciones
     print("\nGenerando visualizaciones...")
     output_dir = base_dir / "evaluation" / "results"
     evaluator.generate_visualizations(genuine_scores, tts_scores, cloning_scores, 
                                      metrics, output_dir)
     
-    # 7. Generar reporte
+    # 8. Generar reporte
     output_path = output_dir / "antispoofing_evaluation.txt"
     evaluator.generate_report(metrics, metrics_by_type, output_path)
     

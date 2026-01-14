@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-01-13T23:05:23.860621",
+  "metrics": {
+    "total": {
+      "genuine": 36,
+      "attacks": 170,
+      "tts": 133,
+      "cloning": 37
+    },
+    "strategy_all_modules": {
+      "bpcer": 97.22222222222221,
+      "apcer": 1.7647058823529411,
+      "acer": 49.49346405228758,
+      "genuine_accepted": 1,
+      "attacks_rejected": 167,
+      "tts_rejected": 133,
+      "cloning_rejected": 34
+    },
+    "strategy_fusion": {
+      "bpcer": 91.66666666666666,
+      "apcer": 5.88235294117647,
+      "acer": 48.77450980392156,
+      "genuine_accepted": 3,
+      "attacks_rejected": 160,
+      "tts_rejected": 128,
+      "cloning_rejected": 32
+    },
+    "module_antispoofing": {
+      "genuine_pass": 30,
+      "genuine_pass_rate": 83.33333333333334,
+      "attacks_reject": 124,
+      "attacks_reject_rate": 72.94117647058823
+    },
+    "module_speaker": {
+      "genuine_pass": 36,
+      "genuine_pass_rate": 100.0,
+      "attacks_reject": 133,
+      "attacks_reject_rate": 78.23529411764706
+    }
+  },
+  "configuration": {
+    "fusion_weights": {
+      "identity": 0.6,
+      "antispoof": 0.4
+    },
+    "fusion_threshold": 0.45,
+    "thresholds": {
+      "antispoof": 0.994,
+      "identity": 0.707,
+      "text_wer": 25.0
+    }
+  }
+}

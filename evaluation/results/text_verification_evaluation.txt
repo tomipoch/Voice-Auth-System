@@ -1,0 +1,211 @@
+================================================================================
+EVALUACIÓN DEL MÓDULO DE VERIFICACIÓN DE TEXTO (ASR)
+================================================================================
+
+Fecha: 2026-01-13 22:44:02
+
+MÉTRICAS PRINCIPALES
+--------------------------------------------------------------------------------
+WER (Word Error Rate):             8.04%  ✅ MEJOR si cercano a 0%
+Transcription Accuracy:           91.96%  ✅ MEJOR si cercano a 100%
+
+DETALLES DE TRANSCRIPCIÓN
+--------------------------------------------------------------------------------
+Muestras evaluadas:              37
+Transcripciones perfectas:       11 (29.7%)
+WER promedio:                    8.04%
+WER desviación estándar:         7.76%
+
+DETALLE POR AUDIO
+--------------------------------------------------------------------------------
+
+anachamorromunoz_enrollment_01.wav:
+  Esperado:     Un radio de sol poniente caía sobre el pie de la cama y daba sobre la chimenea, donde el agua hervía por botones.
+  Transcrito:   Un radio de solponiente caía sobre el pie de la cama y daba sobre lachimenea, donde el agua hervíabar por botones.
+  WER:          21.74%
+
+anachamorromunoz_enrollment_02.wav:
+  Esperado:     Súbitamente se vio un resplandor de luz y del pozo salió una cantidad de humo verde y luminoso entre bocanadas claramente visibles.
+  Transcrito:   Súbitamente se vio un resplandor de luz y el pozo salió una cantidad de humo verde y luminoso entre bocanadas claramente visibles.
+  WER:          4.55%
+
+anachamorromunoz_enrollment_03.wav:
+  Esperado:     El señor Cols tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo.
+  Transcrito:   El señor. Col tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo.
+  WER:          5.56%
+
+anachamorromunoz_verification_01.wav:
+  Esperado:     Nada de todo cuanto ha sido puesto y repuesto sobre el tapete en el anexo, puede mantenerse joven y fresco.
+  Transcrito:   Nada de todo cuanto ha sido puesto y repuesto sobre el tapete en el anexo, puede mantenerse joven y fresco.
+  WER:          0.00%
+
+anachamorromunoz_verification_02.wav:
+  Esperado:     Aunque ya había luz sobre la Terra, los oculto Atenea con una oscura nube y raudamente, lo sacó de la ciudad.
+  Transcrito:   Aunque ya había luz sobre la Terra, los ocultos Atenea con una oscura nube y raudamente, lo sacó de la ciudad.
+  WER:          4.76%
+
+anachamorromunoz_verification_03.wav:
+  Esperado:     No es decoroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército.
+  Transcrito:   No es de coroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército.
+  WER:          12.50%
+
+anachamorromunoz_verification_04.wav:
+  Esperado:     El obrero dirigió a lo alto una mirada despavorida y vio con espanto desprenderse pedazos de las paredes.
+  Transcrito:   El obrero dirigió a lo alto una mirada despavorida y vio con espanto desprenderse pedazos de las paredes.
+  WER:          0.00%
+
+anachamorromunoz_verification_05.wav:
+  Esperado:     Y ese, aunque sea poderoso, permanezca tranquilo en la tercia parte que le pertenece.
+  Transcrito:   Y te, aunque sea poderoso, permanezca tranquilo en la Tersia parte que le pertenece.
+  WER:          14.29%
+
+anachamorromunoz_verification_06.wav:
+  Esperado:     Mas el fugitivo no había contado con la frialdad del agua ni con los engañosa proximidad de la costa.
+  Transcrito:   Mas el fugitivo no había contado con la frialdad del agua ni colos Engañosa, proximidad de la costa.
+  WER:          10.53%
+
+anachamorromunoz_verification_07.wav:
+  Esperado:     Más adelante en camino hacia Weybridge y el otro lado del puente, había un número de reclutas que estaban haciendo un largo Teraplent, estas del camino vivimos más cañones.
+  Transcrito:   Más adelante en camino hacia Weybridge y el otro lado del puente, había un número de reclutas que estaban haciendo un largo Teraplent, estas del camino vivimos más cañones.
+  WER:          0.00%
+
+anachamorromunoz_verification_08.wav:
+  Esperado:     En la puerta de la cueva apareció una penosa escena al Opaca Luz del crepúsculo que iluminaba aquel lugar.
+  Transcrito:   Dron la puerta de la cueva apareció una penosa escena al Opaca Luz del crepúsculo que iluminaba aquel lugar.
+  WER:          5.26%
+
+anachamorromunoz_verification_09.wav:
+  Esperado:     Se discutia, se diputaba, se ngociaba la cotización de Chiligoodfood como una de las fondos ingleses.
+  Transcrito:   Elcuta se diputaba segociaaba la cotización de Philipwfuut como una de las fondos ingleses.
+  WER:          31.25%
+
+anachamorromunoz_verification_10.wav:
+  Esperado:     En el fondo, sentado delante de una mesa, un hombre pequeño, ya entrado en años, hacía anotaciones en un enorme registro.
+  Transcrito:   En el fondo, sentado delante de una mesa, un hombre pequeño, ya entrado en años, hacía anotaciones en un enorme registro.
+  WER:          0.00%
+
+piapobletech_enrollment_01.wav:
+  Esperado:     Ayudadme a todos, pues la obra de muchos siempre resulta mejor, cuatrocientos trece tales fueron sus palabras.
+  Transcrito:   Ayudadme a todos, pues la obra de muchos siempre resulta mejor, cuatrocientos o trecetales fueron sus palabras.
+  WER:          11.76%
+
+piapobletech_enrollment_02.wav:
+  Esperado:     Mi vecino opinaba que las tropas podrían capturar o destruir a los marcianos durante el transcurso del día.
+  Transcrito:   Mi vecino opinaba que las tropas podrían capturar o destruir a los marcianos durante el transcurso del día
+  WER:          0.00%
+
+piapobletech_enrollment_03.wav:
+  Esperado:     manifestado, Sirse se me preguntó que me ocurria, ¿Porque estás así mudo odiseo y no quieres probar estos manjares?
+  Transcrito:   permanefestado, Sir se me preguntó que me fuurríaá, ¿Porque estás así mudo odiseo y no quieres probar estos mujeres?
+  WER:          21.05%
+
+piapobletech_verification_01.wav:
+  Esperado:     el le hizo sufrir mucho hasta que halló un caño de agua corriente que estaba roto y del cual salía líquido como un manantial.
+  Transcrito:   r le hizo sufrir mucho hasta que haylló un caño de agua corriente que estaba roto y del cual salía líquido como un manantial.
+  WER:          8.33%
+
+piapobletech_verification_02.wav:
+  Esperado:     Si lo veía a ella al asomarse la ventana en la mañana alegre y entonces.
+  Transcrito:   Xi lo veía a ella al asomarse la ventana en la mañana alegre y entonces.
+  WER:          6.67%
+
+piapobletech_verification_03.wav:
+  Esperado:     Para vengar a sus hijos, los titanes cuidaba y alimentaba desde hacia siglos a tifón el horror absoluto.
+  Transcrito:   Para vengar a sus hijos, los tiitanes cuidaba y elementaba desde hacia siglos a tifón el horror absoluto.
+  WER:          11.11%
+
+piapobletech_verification_04.wav:
+  Esperado:     A los lejos se elevaban las azuladas colinas de su rey y las torres del cristal Palace relucían como dos baras de plata.
+  Transcrito:   A los dejos se elevaban las azuladas colinas de surrey y las torres del cristal Pala relucían como dos baras de plata.
+  WER:          17.39%
+
+piapobletech_verification_05.wav:
+  Esperado:     pero como no sabía a que quería el llegar espere nuevas preguntas , reservándome el responder de acuerdo con las circunstancias.
+  Transcrito:   peroro como no sabía a que quería el llegar prena a preguntas , reservándome el responder de acuerdo con las circunstancias.
+  WER:          15.00%
+
+piapobletech_verification_06.wav:
+  Esperado:     vamos al comedor donde estaba servido al desayuno, señor Aronax, me dijo el capitán , le ruego que comparta desayuno sin cumplidos.
+  Transcrito:   vamos al comedor donde estaba servido al desayuno, señor Aaronac, me dijo el capitán , le ruego que compartami desayuno sin cumplidos.
+  WER:          9.52%
+
+piapobletech_verification_07.wav:
+  Esperado:     A diez millas del nautilus hacia el sur se alzaba un islote solitario a una altura de doscientos metros.
+  Transcrito:   A diez millas del nautilus hacia el sur se alzaba un islote solitario a una altura de doscientos metros.
+  WER:          0.00%
+
+piapobletech_verification_08.wav:
+  Esperado:     En ese instante siete tripulantes, mudos e impacibles como siempre, ascendieron a la plataforma.
+  Transcrito:   En ese instante siete tripulantes, mudos e impacibles como siempre, ascendieron a la plataforma.
+  WER:          0.00%
+
+piapobletech_verification_09.wav:
+  Esperado:     La haca marina, que se conoce también con el nombre Alicore, recordaba mucho al manati.
+  Transcrito:   La haca marina, que se conoce también con el nombre deAligore, recordaba mucho al manati.
+  WER:          6.67%
+
+rapomo3_enrollment_01.wav:
+  Esperado:     Durante este tiempo, yo había reflexionado y una cierta esperanza vaga aún renacía mi corazón.
+  Transcrito:   Durante este tiempo, yo había reflexionado y una cierta esperanza vaga aún renacía mi corazón.
+  WER:          0.00%
+
+rapomo3_enrollment_02.wav:
+  Esperado:     Cada uno de los muchachos persibía una renta prodigiosa, Un dolar cada día laborable del año y medio Dolar los Domingos.
+  Transcrito:   Cada uno de los muchachos persibía una renta prodigiosa, Unndola cada día laborable del año y medio Dola los Domingos.
+  WER:          14.29%
+
+rapomo3_enrollment_03.wav:
+  Esperado:     Cada uno de estos mounstros tiene hocico de Marsopa, cabeza de lagarto, dientes de cocodrilo y por esto nos ha engañado.
+  Transcrito:   Cro de estos monstlos tiene horcico de Malsopa, cabeza de lagarto, dientes de cocodrilo y por esto nos ha engañado.
+  WER:          23.81%
+
+rapomo3_verification_01.wav:
+  Esperado:     Sus casas eran pequeñas, y en ella solían vivir muchos hermanos, como en el caso de Marta, que eran doce.
+  Transcrito:   Sus casas eran pequeñas, y en ella solían vivir muchos hermanos, como en el caso de Marta, que eran doce.
+  WER:          0.00%
+
+rapomo3_verification_02.wav:
+  Esperado:     En ese momento, el capitán, sin preocuparse por mi presencia abrió el mueble semejante a una caja de caudales que encerraba gran número de lingotes.
+  Transcrito:   En ese momento, el capitán, sin preocuparse por mi presencia abrió el muebles semejante a una caja de caudales que encerraba gran número de lingotes.
+  WER:          4.00%
+
+rapomo3_verification_03.wav:
+  Esperado:     Escoge por compañero al que quieras, al mejor de los presentes, pues son muchos los que se ofrecen.
+  Transcrito:   Escoge por compañero al que quieras, al mejor de los decentes, pues son muchos los que se ofrecen.
+  WER:          5.56%
+
+rapomo3_verification_04.wav:
+  Esperado:     Un Dia se lo mostró, a Él se estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca.
+  Transcrito:   Un Dios se lo mostró, a Él se estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca.
+  WER:          4.55%
+
+rapomo3_verification_05.wav:
+  Esperado:     en cuanto a mí, distraído hasta entonces por los incidentes del viaje, habíame olvidado algo del porvenir, pero ahora sentí que la zosobra se apodera de mi nuevamente.
+  Transcrito:   en cuanto a mí, distraído hasta entonces por los incidentes del viaje, habíame olvidado algo del porvenir, pero ahora sentí que la zosobra se apodera demiumente.
+  WER:          10.71%
+
+rapomo3_verification_06.wav:
+  Esperado:     No podía hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas.
+  Transcrito:   No podía hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas.
+  WER:          0.00%
+
+rapomo3_verification_07.wav:
+  Esperado:     Tanto en nuestra casa como en la escuela, se hablaba de temas sexuales, a veces con misterio, a veces con verguenza.
+  Transcrito:   Tanto en nuestra casa como en la escuela, se hablaba de temas sexuales, a veces con misterio, a veces con verwes.
+  WER:          4.76%
+
+rapomo3_verification_08.wav:
+  Esperado:     La preplejidad y el desagrado del auditorio se manifestó en murmullos y provocó una reprimenda del tribunal.
+  Transcrito:   La preplejidad y el desagrado del auditorio se manifestó en murmullos y provocó una reprimenda deltribunal.
+  WER:          11.76%
+
+rapomo3_verification_09.wav:
+  Esperado:     Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bella flores que me eran desconocidas por completo y me la puso al cuello.
+  Transcrito:   Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bella flores que me eran desconocidas por completo y me la puso al cuello.
+  WER:          0.00%
+
+================================================================================
+INTERPRETACIÓN
+================================================================================
+✓ WER BUENO (5-15%)
+✓ TRANSCRIPTION ACCURACY BUENO (85-95%)
