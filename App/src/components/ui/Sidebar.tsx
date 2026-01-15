@@ -13,44 +13,56 @@ const Sidebar = () => {
     navigate('/login');
   };
 
-  const navigation = [
-    {
-      id: 'dashboard',
-      label: 'Dashboard',
-      href: '/dashboard',
-      icon: Home,
-    },
-    {
-      id: 'enrollment',
-      label: 'Registro de Voz',
-      href: '/enrollment',
-      icon: UserPlusIcon,
-    },
-    {
-      id: 'verification',
-      label: 'Verificación',
-      href: '/verification',
-      icon: Shield,
-    },
-  ];
-
-  // Agregar opciones de admin si el usuario es admin o superadmin
-  if (user?.role === UserRole.ADMIN || user?.role === UserRole.SUPER_ADMIN) {
-    navigation.push(
-      {
-        id: 'admin',
-        label: 'Administración',
-        href: '/admin',
-        icon: Settings,
-      },
-      {
-        id: 'users',
-        label: 'Usuarios',
-        href: '/admin/users',
-        icon: Users,
-      }
-    );
-  }
+  // Navigation items based on user role
+  const navigation = user?.role === UserRole.USER
+    ? [
+        // Regular user navigation
+        {
+          id: 'dashboard',
+          label: 'Dashboard',
+          href: '/dashboard',
+          icon: Home,
+        },
+        {
+          id: 'enrollment',
+          label: 'Registro de Voz',
+          href: '/enrollment',
+          icon: UserPlusIcon,
+        },
+        {
+          id: 'verification',
+          label: 'Verificación',
+          href: '/verification',
+          icon: Shield,
+        },
+      ]
+    : [
+        // Admin navigation
+        {
+          id: 'admin-dashboard',
+          label: 'Dashboard',
+          href: '/admin/dashboard',
+          icon: Home,
+        },
+        {
+          id: 'users',
+          label: 'Usuarios',
+          href: '/admin/users',
+          icon: Users,
+        },
+        {
+          id: 'phrases',
+          label: 'Frases',
+          href: '/admin/phrases',
+          icon: Mic,
+        },
+        {
+          id: 'logs',
+          label: 'Logs',
+          href: '/admin/logs',
+          icon: Settings,
+        },
+      ];
 
   return (
     <div className="fixed inset-y-0 left-0 z-50 w-64 backdrop-blur-xl bg-white dark:bg-gray-900/70 dark:bg-gray-900/70 border-r border-blue-200/40 dark:border-gray-600/40 shadow-xl">
