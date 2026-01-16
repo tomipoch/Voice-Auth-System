@@ -1,15 +1,9 @@
 import { useState, useEffect } from 'react';
-import {
-  Users,
-  Search,
-  Mic,
-  AlertTriangle,
-  ChevronRight,
-} from 'lucide-react';
+import { Users, Search, Mic, AlertTriangle, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import MainLayout from '../components/ui/MainLayout';
-import Card from '../components/ui/Card';
-import Button from '../components/ui/Button';
+import MainLayout from '../../components/ui/MainLayout';
+import Card from '../../components/ui/Card';
+import Button from '../../components/ui/Button';
 import toast from 'react-hot-toast';
 
 const UsersListPage = () => {

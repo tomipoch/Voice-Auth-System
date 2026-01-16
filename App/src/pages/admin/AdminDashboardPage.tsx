@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Users,
   Settings,
@@ -10,11 +9,11 @@ import {
   FileText,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import MainLayout from '../components/ui/MainLayout';
-import Card from '../components/ui/Card';
-import Button from '../components/ui/Button';
-import { useAuth } from '../hooks/useAuth';
-import { useDashboardStats } from '../hooks/useDashboardStats';
+import MainLayout from '../../components/ui/MainLayout';
+import Card from '../../components/ui/Card';
+import Button from '../../components/ui/Button';
+import { useAuth } from '../../hooks/useAuth';
+import { useDashboardStats } from '../../hooks/useDashboardStats';
 
 const AdminDashboardPage = () => {
   const { user } = useAuth();
