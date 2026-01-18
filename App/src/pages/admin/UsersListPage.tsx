@@ -5,10 +5,11 @@ import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import toast from 'react-hot-toast';
+import adminService, { type AdminUser } from '../../services/adminService';
 
 const UsersListPage = () => {
   const navigate = useNavigate();
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<AdminUser[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -19,46 +20,18 @@ const UsersListPage = () => {
   const fetchUsers = async () => {
     setLoadingUsers(true);
     try {
-      // Mock users for now - TODO: Connect to real API
-      setTimeout(() => {
-        setUsers([
-          {
-            id: 1,
-            username: 'juan.perez',
-            email: 'juan.perez@example.com',
-            role: 'user',
-            status: 'active',
-            voiceEnrolled: true,
-          },
-          {
-            id: 2,
-            username: 'maria.gomez',
-            email: 'maria.gomez@example.com',
-            role: 'user',
-            status: 'active',
-            voiceEnrolled: false,
-          },
-          {
-            id: 3,
-            username: 'carlos.ruiz',
-            email: 'carlos.ruiz@example.com',
-            role: 'admin',
-            status: 'active',
-            voiceEnrolled: true,
-          },
-        ]);
-        setLoadingUsers(false);
-      }, 500);
+      const data = await adminService.getUsers();
+      setUsers(data.users);
     } catch (error) {
       console.error('Error fetching users:', error);
       toast.error('Error al cargar usuarios');
+    } finally {
       setLoadingUsers(false);
     }
   };
 
   const filteredUsers = users.filter(
     (user) =>
-      user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -125,11 +98,11 @@ const UsersListPage = () => {
                     <td className="py-3 px-4">
                       <div className="flex items-center">
                         <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold mr-3">
-                          {u.username.charAt(0).toUpperCase()}
+                          {u.email.charAt(0).toUpperCase()}
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900 dark:text-gray-100">{u.username}</p>
-                          <p className="text-xs text-gray-500">{u.email}</p>
+                          <p className="font-medium text-gray-900 dark:text-gray-100">{u.email}</p>
+                          <p className="text-xs text-gray-500">ID: {u.id.substring(0, 8)}</p>
                         </div>
                       </div>
                     </td>
@@ -139,12 +112,16 @@ const UsersListPage = () => {
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 capitalize">
-                        {u.status}
+                      <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium capitalize ${
+                        u.is_active
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                          : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+                      }`}>
+                        {u.is_active ? 'Activo' : 'Inactivo'}
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      {u.voiceEnrolled ? (
+                      {u.has_voiceprint ? (
                         <span className="flex items-center text-green-600 text-sm">
                           <Mic className="h-3 w-3 mr-1" /> Activo
                         </span>
