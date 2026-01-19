@@ -56,9 +56,9 @@ const ProtectedRoute = ({ children, adminOnly = false, superAdminOnly = false, u
     return <Navigate to="/dashboard" replace />;
   }
 
-  // Restrict access to regular users only (block admins and superadmins)
+  // Restrict access to regular users only (redirect admins to admin dashboard)
   if (userOnly && ['admin', 'superadmin'].includes(user?.role)) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/admin/dashboard" replace />;
   }
 
   return children;
@@ -134,7 +134,7 @@ const AppRoutes = () => {
             <Route
               path="/dashboard"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute userOnly>
                   <DashboardPage />
                 </ProtectedRoute>
               }
