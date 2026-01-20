@@ -67,7 +67,7 @@ const AdminDashboardPage = () => {
                   Total Usuarios
                 </p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                  {loading ? '...' : stats?.total_users.toLocaleString() || '0'}
+                  {loading ? '...' : (stats?.total_users?.toLocaleString() ?? '0')}
                 </h3>
               </div>
               <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-full">
@@ -75,7 +75,7 @@ const AdminDashboardPage = () => {
               </div>
             </div>
             <p className="text-xs text-blue-600 mt-2 flex items-center">
-              <Activity className="h-3 w-3 mr-1" /> {stats?.active_users_24h || 0} activos hoy
+              <Activity className="h-3 w-3 mr-1" /> {stats?.active_users_24h ?? 0} activos hoy
             </p>
           </Card>
 
@@ -86,7 +86,7 @@ const AdminDashboardPage = () => {
                   Tasa de Éxito
                 </p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                  {loading ? '...' : `${((stats?.success_rate || 0) * 100).toFixed(1)}%`}
+                  {loading ? '...' : `${((stats?.success_rate ?? 0) * 100).toFixed(1)}%`}
                 </h3>
               </div>
               <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-full">
@@ -105,7 +105,7 @@ const AdminDashboardPage = () => {
                   Verificaciones
                 </p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                  {loading ? '...' : stats?.total_verifications.toLocaleString() || '0'}
+                  {loading ? '...' : (stats?.total_verifications?.toLocaleString() ?? '0')}
                 </h3>
               </div>
               <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
@@ -122,7 +122,7 @@ const AdminDashboardPage = () => {
                   Fallos (24h)
                 </p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                  {loading ? '...' : stats?.failed_verifications_24h || '0'}
+                  {loading ? '...' : (stats?.failed_verifications_24h ?? 0)}
                 </h3>
               </div>
               <div className="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-full">
