@@ -29,13 +29,11 @@ class UserInfo(BaseModel):
 
 class SystemStats(BaseModel):
     total_users: int
-    active_users: int
-    total_verifications_today: int
-    successful_verifications_today: int
-    success_rate: float
-    avg_response_time: int
-    enrollment_completion_rate: float
-    system_uptime: float
+    total_enrollments: int
+    total_verifications: int
+    success_rate: float  # 0.0 to 1.0
+    active_users_24h: int
+    failed_verifications_24h: int
 
 class ActivityLog(BaseModel):
     id: str
@@ -140,11 +138,58 @@ async def get_users(
     )
 
 @admin_router.get("/stats", response_model=SystemStats)
-async def get_system_stats(current_user: dict = Depends(require_admin)):
+async def get_system_stats(
+    current_user: dict = Depends(require_admin),
+    user_repo: UserRepositoryPort = Depends(get_user_repository),
+    voice_repo: VoiceSignatureRepositoryPort = Depends(get_voice_signature_repository),
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
+):
     """
     Get system statistics (admin only).
     """
-    return mock_system_stats
+    from datetime import datetime, timedelta
+    
+    # Get total users
+    all_users = await user_repo.get_all_users()
+    total_users = len(all_users)
+    
+    # Get total enrollments (users with voiceprints)
+    users_with_voiceprints = [u for u in all_users if u.get('has_voiceprint', False)]
+    total_enrollments = len(users_with_voiceprints)
+    
+    # Get audit logs for the last 24 hours
+    now = datetime.utcnow()
+    last_24h = now - timedelta(hours=24)
+    recent_logs = await audit_repo.get_logs_since(last_24h)
+    
+    # Count verifications
+    verification_logs = [log for log in recent_logs if log.get('action') == 'verification_attempt']
+    total_verifications = len(verification_logs)
+    
+    # Count successful and failed verifications
+    successful_verifications = [log for log in verification_logs if log.get('details', {}).get('success', False)]
+    failed_verifications = total_verifications - len(successful_verifications)
+    
+    # Calculate success rate (overall, not just 24h)
+    all_verification_logs = await audit_repo.get_logs_by_action('verification_attempt')
+    if all_verification_logs:
+        all_successful = [log for log in all_verification_logs if log.get('details', {}).get('success', False)]
+        success_rate = len(all_successful) / len(all_verification_logs)
+    else:
+        success_rate = 0.0
+    
+    # Count active users in last 24h (users who performed any action)
+    active_user_ids = set(log.get('user_id') for log in recent_logs if log.get('user_id'))
+    active_users_24h = len(active_user_ids)
+    
+    return SystemStats(
+        total_users=total_users,
+        total_enrollments=total_enrollments,
+        total_verifications=len(all_verification_logs) if all_verification_logs else 0,
+        success_rate=success_rate,
+        active_users_24h=active_users_24h,
+        failed_verifications_24h=failed_verifications
+    )
 
 @admin_router.get("/activity", response_model=List[ActivityLog])
 async def get_recent_activity(
