@@ -87,7 +87,8 @@ mock_activity_logs = [
 ]
 
 from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
-from ..infrastructure.config.dependencies import get_user_repository
+from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..infrastructure.config.dependencies import get_user_repository, get_audit_log_repository
 
 def require_admin(current_user: dict = Depends(get_current_user)):
     """Require admin role."""
