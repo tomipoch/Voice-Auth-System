@@ -50,18 +50,7 @@ class PaginatedUsers(BaseModel):
     limit: int
     total_pages: int
 
-# Mock data
-mock_system_stats = SystemStats(
-    total_users=156,
-    active_users=143,
-    total_verifications_today=89,
-    successful_verifications_today=84,
-    success_rate=94.2,
-    avg_response_time=142,
-    enrollment_completion_rate=78.5,
-    system_uptime=99.8
-)
-
+# Mock data for activity logs (TODO: replace with real data)
 mock_activity_logs = [
     ActivityLog(
         id="act-1",
@@ -141,7 +130,6 @@ async def get_users(
 async def get_system_stats(
     current_user: dict = Depends(require_admin),
     user_repo: UserRepositoryPort = Depends(get_user_repository),
-    voice_repo: VoiceSignatureRepositoryPort = Depends(get_voice_signature_repository),
     audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
 ):
     """
@@ -160,35 +148,44 @@ async def get_system_stats(
     # Get audit logs for the last 24 hours
     now = datetime.utcnow()
     last_24h = now - timedelta(hours=24)
-    recent_logs = await audit_repo.get_logs_since(last_24h)
     
-    # Count verifications
-    verification_logs = [log for log in recent_logs if log.get('action') == 'verification_attempt']
-    total_verifications = len(verification_logs)
+    # Get recent logs (last 24h)
+    recent_logs = await audit_repo.get_logs(
+        start_time=last_24h,
+        limit=10000  # High limit to get all recent logs
+    )
     
-    # Count successful and failed verifications
-    successful_verifications = [log for log in verification_logs if log.get('details', {}).get('success', False)]
-    failed_verifications = total_verifications - len(successful_verifications)
+    # Get all verification logs (for overall success rate)
+    all_verification_logs = await audit_repo.get_logs(
+        action='VERIFICATION',
+        limit=10000
+    )
     
-    # Calculate success rate (overall, not just 24h)
-    all_verification_logs = await audit_repo.get_logs_by_action('verification_attempt')
+    # Count verifications in last 24h
+    verification_logs_24h = [log for log in recent_logs if log.get('action') == 'VERIFICATION']
+    
+    # Count successful and failed verifications in last 24h
+    successful_24h = [log for log in verification_logs_24h if log.get('success', False)]
+    failed_verifications_24h = len(verification_logs_24h) - len(successful_24h)
+    
+    # Calculate overall success rate
     if all_verification_logs:
-        all_successful = [log for log in all_verification_logs if log.get('details', {}).get('success', False)]
+        all_successful = [log for log in all_verification_logs if log.get('success', False)]
         success_rate = len(all_successful) / len(all_verification_logs)
     else:
         success_rate = 0.0
     
     # Count active users in last 24h (users who performed any action)
-    active_user_ids = set(log.get('user_id') for log in recent_logs if log.get('user_id'))
+    active_user_ids = set(log.get('actor') for log in recent_logs if log.get('actor'))
     active_users_24h = len(active_user_ids)
     
     return SystemStats(
         total_users=total_users,
         total_enrollments=total_enrollments,
-        total_verifications=len(all_verification_logs) if all_verification_logs else 0,
+        total_verifications=len(all_verification_logs),
         success_rate=success_rate,
         active_users_24h=active_users_24h,
-        failed_verifications_24h=failed_verifications
+        failed_verifications_24h=failed_verifications_24h
     )
 
 @admin_router.get("/activity", response_model=List[ActivityLog])
