@@ -209,13 +209,44 @@ async def get_system_stats(
 
 @admin_router.get("/activity", response_model=List[ActivityLog])
 async def get_recent_activity(
-    limit: int = 10,
-    current_user: dict = Depends(require_admin)
+    limit: int = 100,
+    action: Optional[str] = None,
+    current_user: dict = Depends(require_admin),
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
 ):
     """
     Get recent activity logs (admin only).
     """
-    return mock_activity_logs[:limit]
+    try:
+        # Get logs from repository
+        logs = await audit_repo.get_logs(
+            action=action,
+            limit=limit
+        )
+        
+        # Transform to ActivityLog model
+        activity_logs = []
+        for log in logs:
+            # Determine user name from actor
+            user_name = log.get('actor', 'system')
+            if '@' not in user_name and user_name != 'system':
+                user_name = f"user-{user_name[:8]}"  # Truncate UUID
+            
+            activity_logs.append(ActivityLog(
+                id=str(log.get('id', '')),
+                user_id=log.get('actor', 'system'),
+                user_name=user_name,
+                action=log.get('action', 'UNKNOWN'),
+                timestamp=log.get('timestamp', datetime.utcnow()),
+                details=log.get('metadata', {}).get('message', '') or str(log.get('metadata', {}))
+            ))
+        
+        return activity_logs
+    except Exception as e:
+        logger.error(f"Error getting activity logs: {e}")
+        # Return empty list on error instead of raising exception
+        return []
+
 
 @admin_router.delete("/users/{user_id}")
 async def delete_user(
