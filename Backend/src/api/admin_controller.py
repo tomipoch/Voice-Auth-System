@@ -263,9 +263,8 @@ class PhraseQualityRule(BaseModel):
     id: str
     rule_name: str
     rule_type: str
-    value: float
+    rule_value: float  # Changed from 'value' to 'rule_value'
     description: str
-    unit: str
     is_active: bool
     created_at: datetime
     updated_at: datetime
