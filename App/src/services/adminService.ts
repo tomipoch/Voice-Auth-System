@@ -57,7 +57,6 @@ export interface AuditLog {
   details: string;
 }
 
-
 class AdminService {
   private readonly baseUrl = '/admin';
 
@@ -107,7 +106,7 @@ class AdminService {
     if (action) {
       params.append('action', action);
     }
-    
+
     const response = await api.get<AuditLog[]>(`${this.baseUrl}/activity?${params}`);
     return response.data;
   }
