@@ -290,13 +290,27 @@ async def get_recent_activity(
             if '@' not in user_name and user_name != 'system':
                 user_name = f"user-{user_name[:8]}"  # Truncate UUID
             
+            # Parse metadata if it's a JSON string
+            metadata = log.get('metadata', {})
+            if isinstance(metadata, str):
+                try:
+                    import json
+                    metadata = json.loads(metadata)
+                except (json.JSONDecodeError, TypeError):
+                    metadata = {}
+            
+            # Extract details from metadata
+            details = metadata.get('message', '') if isinstance(metadata, dict) else str(metadata)
+            if not details:
+                details = str(metadata) if metadata else ''
+            
             activity_logs.append(ActivityLog(
                 id=str(log.get('id', '')),
                 user_id=log.get('actor', 'system'),
                 user_name=user_name,
                 action=log.get('action', 'UNKNOWN'),
                 timestamp=log.get('timestamp', datetime.utcnow()),
-                details=log.get('metadata', {}).get('message', '') or str(log.get('metadata', {}))
+                details=details
             ))
         
         return activity_logs
