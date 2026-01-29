@@ -18,8 +18,11 @@ from ..application.dto.verification_dto import (
 )
 from ..infrastructure.config.dependencies import (
     get_verification_service_v2,
-    get_voice_biometric_engine
+    get_voice_biometric_engine,
+    get_audit_log_repository
 )
+from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..shared.types.common_types import AuditAction
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["verification"])
@@ -300,7 +303,8 @@ async def verify_phrase(
     phrase_number: int = Form(...),
     audio_file: UploadFile = File(...),
     verification_service: VerificationServiceV2 = Depends(get_verification_service_v2),
-    voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine)
+    voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine),
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
 ):
     """
     Verify a single phrase in multi-phrase verification.
@@ -369,6 +373,22 @@ async def verify_phrase(
         )
         
         logger.info(f"Phrase {phrase_number} verified. is_complete={result.get('is_complete')}")
+        
+        # Log verification to audit if complete
+        if result.get('is_complete'):
+            await audit_repo.log_event(
+                actor=str(result.get('user_id')),
+                action=AuditAction.VERIFICATION,
+                entity_type="verification",
+                entity_id=str(verification_uuid),
+                success=result.get('success', False),
+                metadata={
+                    "message": "Voice verification completed",
+                    "score": result.get('final_score'),
+                    "anti_spoofing_score": result.get('anti_spoofing_score'),
+                    "text_match_score": result.get('text_match_score')
+                }
+            )
         
         return VerifyPhraseResponse(**result)
     
