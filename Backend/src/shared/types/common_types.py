@@ -49,8 +49,20 @@ class AudioFormat(Enum):
 
 class AuditAction(Enum):
     """Actions that can be audited."""
-    ENROLL = "ENROLL"
-    VERIFY = "VERIFY"
+    # Authentication
+    LOGIN = "LOGIN"
+    LOGOUT = "LOGOUT"
+    
+    # Enrollment
+    ENROLLMENT_START = "ENROLLMENT_START"
+    ENROLLMENT_COMPLETE = "ENROLLMENT_COMPLETE"
+    ENROLL = "ENROLL"  # Legacy, keep for compatibility
+    
+    # Verification
+    VERIFICATION = "VERIFICATION"
+    VERIFY = "VERIFY"  # Legacy, keep for compatibility
+    
+    # Admin actions
     DELETE_USER = "DELETE_USER"
     ROTATE_KEY = "ROTATE_KEY"
     CREATE_CHALLENGE = "CREATE_CHALLENGE"
