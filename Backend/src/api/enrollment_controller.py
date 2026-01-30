@@ -48,7 +48,17 @@ async def start_enrollment(
     
     Returns enrollment_id, user_id, and list of phrases to read.
     """
+    # DEBUG: Log received parameters
+    logger.info(f"🔍 ENROLLMENT START - Received parameters:")
+    logger.info(f"   user_id (raw): {user_id!r} (type: {type(user_id).__name__})")
+    logger.info(f"   external_ref: {external_ref!r}")
+    logger.info(f"   difficulty: {difficulty}")
+    logger.info(f"   force_overwrite: {force_overwrite}")
+    
     user_uuid = UUID(user_id) if user_id else None
+    
+    logger.info(f"🔍 ENROLLMENT START - After UUID conversion:")
+    logger.info(f"   user_uuid: {user_uuid}")
     
     result = await enrollment_service.start_enrollment(
         user_id=user_uuid,
@@ -56,6 +66,10 @@ async def start_enrollment(
         difficulty=difficulty,
         force_overwrite=force_overwrite
     )
+    
+    logger.info(f"🔍 ENROLLMENT START - Service returned:")
+    logger.info(f"   enrollment_id: {result['enrollment_id']}")
+    logger.info(f"   user_id: {result['user_id']}")
     
     # Log enrollment start to audit
     await audit_repo.log_event(
