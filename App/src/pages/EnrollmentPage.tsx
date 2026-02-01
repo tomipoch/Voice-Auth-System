@@ -92,15 +92,23 @@ const EnrollmentPage = () => {
 
         {phase === 'welcome' && <EnrollmentWelcomeScreen onStart={handleStartEnrollment} />}
 
-        {phase === 'enrollment' && user && (
-          <DynamicEnrollment
-            userId={user.id}
-            difficulty="medium"
-            onEnrollmentComplete={handleEnrollmentComplete}
-            onError={handleEnrollmentError}
-            onCancel={handleCancel}
-          />
-        )}
+        {phase === 'enrollment' && user && (() => {
+          // DEBUG: Log user object
+          console.log('🔍 EnrollmentPage - Rendering DynamicEnrollment with user:', {
+            userId: user.id,
+            userEmail: user.email,
+            userName: user.name
+          });
+          return (
+            <DynamicEnrollment
+              userId={user.id}
+              difficulty="medium"
+              onEnrollmentComplete={handleEnrollmentComplete}
+              onError={handleEnrollmentError}
+              onCancel={handleCancel}
+            />
+          );
+        })()}
 
         {phase === 'completion' && (
           <EnrollmentCompletionScreen
