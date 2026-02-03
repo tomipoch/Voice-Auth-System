@@ -24,9 +24,6 @@ const processQueue = (error: Error | null, token: string | null = null) => {
 // Crear instancia de axios con configuración de entorno
 const api = axios.create({
   baseURL: `${apiConfig.baseURL}/api`,
-  headers: {
-    'Content-Type': 'application/json',
-  },
   timeout: apiConfig.timeout,
 });
 
@@ -36,6 +33,12 @@ api.interceptors.request.use(
     const token = authStorage.getAccessToken();
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    // Set Content-Type only if not FormData
+    // Axios will automatically set multipart/form-data for FormData
+    if (config.headers && !(config.data instanceof FormData)) {
+      config.headers['Content-Type'] = 'application/json';
     }
 
     // Log requests en modo desarrollo
