@@ -4,6 +4,7 @@ import numpy as np
 from typing import List, Optional, Dict
 from uuid import UUID, uuid4
 from datetime import datetime, timezone
+import logging
 
 from ..domain.model.VoiceSignature import VoiceSignature
 from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
@@ -11,6 +12,8 @@ from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
 from ..shared.types.common_types import UserId, VoiceEmbedding, AuditAction, ChallengeId
 from ..shared.constants.biometric_constants import MIN_ENROLLMENT_SAMPLES, MAX_ENROLLMENT_SAMPLES
+
+logger = logging.getLogger(__name__)
 
 
 class EnrollmentSession:
