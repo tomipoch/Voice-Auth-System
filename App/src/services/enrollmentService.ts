@@ -85,29 +85,15 @@ class EnrollmentService {
   async startEnrollment(data: StartEnrollmentRequest): Promise<StartEnrollmentResponse> {
     const formData = new FormData();
 
-    // DEBUG: Log what we're about to send
-    console.log('🔍 enrollmentService.startEnrollment - Received data:', data);
-
+    if (data.user_id) {
+      formData.append('user_id', data.user_id);
+    }
     if (data.external_ref) {
       formData.append('external_ref', data.external_ref);
     }
-    if (data.user_id) {
-      console.log('🔍 enrollmentService - Appending user_id:', data.user_id);
-      formData.append('user_id', data.user_id);
-    } else {
-      console.warn('⚠️ enrollmentService - user_id is missing!', data);
-    }
-    if (data.difficulty) {
-      formData.append('difficulty', data.difficulty);
-    }
-    if (data.force_overwrite !== undefined) {
-      formData.append('force_overwrite', data.force_overwrite.toString());
-    }
-
-    // DEBUG: Log FormData contents
-    console.log('🔍 enrollmentService - FormData entries:');
-    for (const [key, value] of formData.entries()) {
-      console.log(`  ${key}:`, value);
+    formData.append('difficulty', data.difficulty || 'medium');
+    if (data.force_overwrite) {
+      formData.append('force_overwrite', 'true');
     }
 
     const response = await api.post<StartEnrollmentResponse>(`${this.baseUrl}/start`, formData);
