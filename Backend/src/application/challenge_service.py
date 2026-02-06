@@ -90,12 +90,14 @@ class ChallengeService:
         if not phrases:
             raise ValueError("No phrases available for challenges")
         
-        # Set expiration time
-        expires_at = datetime.now() + timedelta(minutes=int(expiry_minutes))
-        
-        # Create challenges
+        # Create challenges with difficulty-based expiration
         challenges = []
         for phrase in phrases:
+            # Get timeout based on phrase difficulty
+            from ..config import CHALLENGE_TIMEOUT
+            timeout_seconds = CHALLENGE_TIMEOUT.get(phrase.difficulty, 90)  # Default to 90 seconds
+            expires_at = datetime.now() + timedelta(seconds=timeout_seconds)
+            
             # Create challenge in database
             challenge_id = await self._challenge_repo.create_challenge(
                 user_id=user_id,

@@ -23,6 +23,7 @@ import EnhancedAudioRecorder from '../enrollment/EnhancedAudioRecorder';
 import Button from '../ui/Button';
 import Card from '../ui/Card';
 import StatusIndicator from '../ui/StatusIndicator';
+import { CountdownTimer } from '../CountdownTimer';
 
 interface DynamicVerificationMultiProps {
   userId: string;
@@ -389,7 +390,15 @@ const DynamicVerificationMulti = ({
             <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
               {currentStep?.name}
             </h3>
-            <Shield className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <div className="flex items-center gap-4">
+              {currentStep?.challenge?.expires_at && (
+                <CountdownTimer 
+                  expiresAt={currentStep.challenge.expires_at}
+                  onExpire={handleRetry}
+                />
+              )}
+              <Shield className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            </div>
           </div>
 
           {/* Audio Recorder */}
