@@ -29,20 +29,8 @@ from .api.challenge_controller import challenge_router
 from .api.auth_controller import auth_router
 from .api.admin_controller import admin_router
 from .infrastructure.config.dependencies import close_db_pool, create_voice_biometric_engine
-
-# Import metrics to register them with Prometheus
-try:
-    from .infrastructure.monitoring import metrics
-    METRICS_ENABLED = True
-except ImportError:
-    METRICS_ENABLED = False
-    import logging
-    logging.warning("Monitoring metrics not available")
-
-# Only import enrollment and verification routers if not in testing mode
-if os.getenv("TESTING") != "True":
-    from .api.enrollment_controller import router as enrollment_router
-    from .api.verification_controller_v2 import router as verification_router_v2
+from .api.enrollment_controller import router as enrollment_router
+from .api.verification_controller_v2 import router as verification_router_v2
 
 # Load environment variables
 # Only load from .env file if not already set in the environment (e.g., by Docker Compose)
@@ -217,11 +205,8 @@ def create_app() -> FastAPI:
     app.include_router(auth_router, prefix="/api/auth", tags=["authentication"])
     app.include_router(admin_router, prefix="/api/admin", tags=["administration"])
     app.include_router(challenge_router, prefix="/api/challenges", tags=["challenges"])
-    
-    # Only include enrollment and verification routers if not in testing mode
-    if os.getenv("TESTING") != "True":
-        app.include_router(enrollment_router, prefix="/api/enrollment", tags=["enrollment"])
-        app.include_router(verification_router_v2, prefix="/api/verification", tags=["verification"])
+    app.include_router(enrollment_router, prefix="/api/enrollment", tags=["enrollment"])
+    app.include_router(verification_router_v2, prefix="/api/verification", tags=["verification"])
     
     # Health check endpoint
     @app.get("/health")

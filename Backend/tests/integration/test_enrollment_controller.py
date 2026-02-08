@@ -2,11 +2,12 @@
 
 import pytest
 from fastapi.testclient import TestClient
+import io
 
 from src.main import create_app
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def client():
     """Create test client."""
     app = create_app()
@@ -33,7 +34,6 @@ class TestEnrollmentController:
     def test_add_sample_endpoint_exists(self, client):
         """Test that add-sample endpoint exists."""
         # Create a fake audio file
-        import io
         audio_data = b"fake audio data"
         files = {"audio_file": ("test.wav", io.BytesIO(audio_data), "audio/wav")}
         
