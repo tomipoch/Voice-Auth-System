@@ -35,11 +35,7 @@ export interface User {
   };
 }
 
-export enum UserRole {
-  USER = 'user',
-  ADMIN = 'admin',
-  SUPER_ADMIN = 'super_admin',
-}
+export type UserRole = 'user' | 'admin' | 'superadmin';
 
 export interface VoiceProfile {
   id: string;
@@ -151,7 +147,6 @@ export interface PhraseQualityRule {
   created_at: string;
   updated_at: string;
 }
-
 
 // ============================================
 // Voice Processing Types

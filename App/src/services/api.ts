@@ -88,9 +88,11 @@ api.interceptors.response.use(
     // Manejar errores 401 (Unauthorized) con refresh token
     if (error.response?.status === 401 && originalRequest && !originalRequest._retry) {
       // Evitar refresh en endpoints de auth
-      if (originalRequest.url?.includes('/auth/login') || 
-          originalRequest.url?.includes('/auth/refresh') ||
-          originalRequest.url?.includes('/auth/register')) {
+      if (
+        originalRequest.url?.includes('/auth/login') ||
+        originalRequest.url?.includes('/auth/refresh') ||
+        originalRequest.url?.includes('/auth/register')
+      ) {
         return Promise.reject(error);
       }
 
@@ -114,7 +116,7 @@ api.interceptors.response.use(
       try {
         // Intentar refrescar el token
         const refreshToken = authStorage.getRefreshToken();
-        
+
         if (!refreshToken) {
           throw new Error('No refresh token available');
         }

@@ -14,55 +14,56 @@ const Sidebar = () => {
   };
 
   // Navigation items based on user role
-  const navigation = user?.role === UserRole.USER
-    ? [
-        // Regular user navigation
-        {
-          id: 'dashboard',
-          label: 'Dashboard',
-          href: '/dashboard',
-          icon: Home,
-        },
-        {
-          id: 'enrollment',
-          label: 'Registro de Voz',
-          href: '/enrollment',
-          icon: UserPlusIcon,
-        },
-        {
-          id: 'verification',
-          label: 'Verificación',
-          href: '/verification',
-          icon: Shield,
-        },
-      ]
-    : [
-        // Admin navigation
-        {
-          id: 'admin-dashboard',
-          label: 'Dashboard',
-          href: '/admin/dashboard',
-          icon: Home,
-        },
-        {
-          id: 'users',
-          label: 'Usuarios',
-          href: '/admin/users',
-          icon: Users,
-        },
-        {
-          id: 'phrases',
-          label: 'Frases',
-          href: '/admin/phrases',
-          icon: Mic,
-        },
-        {
-          id: 'logs',
-          label: 'Logs',
-          href: '/admin/logs',
-          icon: Settings,
-        },
-      ];
+  const navigation =
+    user?.role === UserRole.USER
+      ? [
+          // Regular user navigation
+          {
+            id: 'dashboard',
+            label: 'Dashboard',
+            href: '/dashboard',
+            icon: Home,
+          },
+          {
+            id: 'enrollment',
+            label: 'Registro de Voz',
+            href: '/enrollment',
+            icon: UserPlusIcon,
+          },
+          {
+            id: 'verification',
+            label: 'Verificación',
+            href: '/verification',
+            icon: Shield,
+          },
+        ]
+      : [
+          // Admin navigation
+          {
+            id: 'admin-dashboard',
+            label: 'Dashboard',
+            href: '/admin/dashboard',
+            icon: Home,
+          },
+          {
+            id: 'users',
+            label: 'Usuarios',
+            href: '/admin/users',
+            icon: Users,
+          },
+          {
+            id: 'phrases',
+            label: 'Frases',
+            href: '/admin/phrases',
+            icon: Mic,
+          },
+          {
+            id: 'logs',
+            label: 'Logs',
+            href: '/admin/logs',
+            icon: Settings,
+          },
+        ];
 
   return (
     <div className="fixed inset-y-0 left-0 z-50 w-64 backdrop-blur-xl bg-white dark:bg-gray-900/70 dark:bg-gray-900/70 border-r border-blue-200/40 dark:border-gray-600/40 shadow-xl">
@@ -79,7 +80,10 @@ const Sidebar = () => {
 
         {/* User Info */}
         <div className="px-6 py-4 border-b border-blue-200/30 dark:border-gray-600/30">
-          <Link to="/profile" className="flex items-center hover:opacity-80 transition-opacity group">
+          <Link
+            to="/profile"
+            className="flex items-center hover:opacity-80 transition-opacity group"
+          >
             <div className="h-12 w-12 bg-linear-to-br from-blue-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 rounded-xl flex items-center justify-center shadow-sm border border-blue-200/40 dark:border-gray-600/40 group-hover:border-blue-400 dark:group-hover:border-blue-500 transition-colors">
               <span className="text-lg font-bold bg-linear-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
                 {user?.fullName?.charAt(0)?.toUpperCase() ||

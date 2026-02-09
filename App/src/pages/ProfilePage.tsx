@@ -219,7 +219,9 @@ const ProfilePage = () => {
                   variant={isEditing ? 'ghost' : 'outline'}
                   onClick={() => setIsEditing(!isEditing)}
                 >
-                  {isEditing ? 'Cancelar' : (
+                  {isEditing ? (
+                    'Cancelar'
+                  ) : (
                     <>
                       <Edit className="h-4 w-4 mr-2" />
                       Editar
@@ -426,16 +428,16 @@ const ProfilePage = () => {
                     {passwordData.newPassword && (
                       <div className="mt-3 space-y-2">
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-600 dark:text-gray-400">
-                            Fortaleza:
-                          </span>
-                          <span className={`font-medium ${
-                            passwordStrength.strength < 40
-                              ? 'text-red-600'
-                              : passwordStrength.strength < 80
-                              ? 'text-yellow-600'
-                              : 'text-green-600'
-                          }`}>
+                          <span className="text-gray-600 dark:text-gray-400">Fortaleza:</span>
+                          <span
+                            className={`font-medium ${
+                              passwordStrength.strength < 40
+                                ? 'text-red-600'
+                                : passwordStrength.strength < 80
+                                  ? 'text-yellow-600'
+                                  : 'text-green-600'
+                            }`}
+                          >
                             {strengthInfo.label}
                           </span>
                         </div>
@@ -446,7 +448,9 @@ const ProfilePage = () => {
                           />
                         </div>
                         <div className="grid grid-cols-2 gap-2 text-xs">
-                          <div className={`flex items-center ${passwordStrength.checks.length ? 'text-green-600' : 'text-gray-400'}`}>
+                          <div
+                            className={`flex items-center ${passwordStrength.checks.length ? 'text-green-600' : 'text-gray-400'}`}
+                          >
                             {passwordStrength.checks.length ? (
                               <CheckCircle className="h-3 w-3 mr-1" />
                             ) : (
@@ -454,7 +458,9 @@ const ProfilePage = () => {
                             )}
                             8+ caracteres
                           </div>
-                          <div className={`flex items-center ${passwordStrength.checks.uppercase ? 'text-green-600' : 'text-gray-400'}`}>
+                          <div
+                            className={`flex items-center ${passwordStrength.checks.uppercase ? 'text-green-600' : 'text-gray-400'}`}
+                          >
                             {passwordStrength.checks.uppercase ? (
                               <CheckCircle className="h-3 w-3 mr-1" />
                             ) : (
@@ -462,7 +468,9 @@ const ProfilePage = () => {
                             )}
                             Mayúscula
                           </div>
-                          <div className={`flex items-center ${passwordStrength.checks.lowercase ? 'text-green-600' : 'text-gray-400'}`}>
+                          <div
+                            className={`flex items-center ${passwordStrength.checks.lowercase ? 'text-green-600' : 'text-gray-400'}`}
+                          >
                             {passwordStrength.checks.lowercase ? (
                               <CheckCircle className="h-3 w-3 mr-1" />
                             ) : (
@@ -470,7 +478,9 @@ const ProfilePage = () => {
                             )}
                             Minúscula
                           </div>
-                          <div className={`flex items-center ${passwordStrength.checks.number ? 'text-green-600' : 'text-gray-400'}`}>
+                          <div
+                            className={`flex items-center ${passwordStrength.checks.number ? 'text-green-600' : 'text-gray-400'}`}
+                          >
                             {passwordStrength.checks.number ? (
                               <CheckCircle className="h-3 w-3 mr-1" />
                             ) : (
@@ -509,12 +519,13 @@ const ProfilePage = () => {
                         )}
                       </button>
                     </div>
-                    {passwordData.confirmPassword && passwordData.newPassword !== passwordData.confirmPassword && (
-                      <p className="text-xs text-red-600 mt-1 flex items-center">
-                        <XCircle className="h-3 w-3 mr-1" />
-                        Las contraseñas no coinciden
-                      </p>
-                    )}
+                    {passwordData.confirmPassword &&
+                      passwordData.newPassword !== passwordData.confirmPassword && (
+                        <p className="text-xs text-red-600 mt-1 flex items-center">
+                          <XCircle className="h-3 w-3 mr-1" />
+                          Las contraseñas no coinciden
+                        </p>
+                      )}
                   </div>
 
                   <div className="flex justify-end pt-4">
@@ -550,9 +561,7 @@ const ProfilePage = () => {
                 <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-1">
                   {user?.name || `${user?.first_name} ${user?.last_name}` || 'Usuario'}
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                  {user?.email}
-                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">{user?.email}</p>
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 capitalize">
                   {user?.role || 'Usuario'}
                 </span>
@@ -569,9 +578,7 @@ const ProfilePage = () => {
               </h3>
               <div className="space-y-3">
                 <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-                    Miembro desde
-                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Miembro desde</p>
                   <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
                     {user?.created_at
                       ? new Date(user.created_at).toLocaleDateString('es-ES', {
@@ -584,9 +591,7 @@ const ProfilePage = () => {
                 </div>
                 {user?.company && (
                   <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-                      Empresa
-                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Empresa</p>
                     <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
                       {user.company}
                     </p>

@@ -1,11 +1,4 @@
-import {
-  Users,
-  Activity,
-  Shield,
-  Mic,
-  AlertTriangle,
-  FileText,
-} from 'lucide-react';
+import { Users, Activity, Shield, Mic, AlertTriangle, FileText } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainLayout from '../../components/ui/MainLayout';
@@ -118,9 +111,7 @@ const AdminDashboardPage = () => {
           <Card className="p-6 border-l-4 border-orange-500">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  Fallos (24h)
-                </p>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Fallos (24h)</p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                   {loading ? '...' : (stats?.failed_verifications_24h ?? 0)}
                 </h3>

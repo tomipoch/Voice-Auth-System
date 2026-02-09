@@ -57,14 +57,7 @@ export const useSessionTimeout = () => {
     if (!user) return;
 
     // Events that indicate user activity
-    const events = [
-      'mousedown',
-      'mousemove',
-      'keypress',
-      'scroll',
-      'touchstart',
-      'click',
-    ];
+    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
 
     // Throttle activity detection to avoid too many resets
     let throttleTimeout: NodeJS.Timeout | null = null;

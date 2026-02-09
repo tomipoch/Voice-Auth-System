@@ -156,9 +156,7 @@ const PhraseRulesPage = () => {
 
       // Update local state
       setRules((prev) =>
-        prev.map((rule) =>
-          rule.rule_name === ruleName ? { ...rule, rule_value: newValue } : rule
-        )
+        prev.map((rule) => (rule.rule_name === ruleName ? { ...rule, rule_value: newValue } : rule))
       );
 
       // Remove from pending changes
@@ -184,11 +182,7 @@ const PhraseRulesPage = () => {
       const response = await adminService.toggleRule(ruleName);
 
       // Update local state
-      setRules((prev) =>
-        prev.map((rule) =>
-          rule.rule_name === ruleName ? response.rule : rule
-        )
-      );
+      setRules((prev) => prev.map((rule) => (rule.rule_name === ruleName ? response.rule : rule)));
 
       setSuccessMessage(response.message);
       setTimeout(() => setSuccessMessage(null), 3000);
@@ -287,10 +281,7 @@ const PhraseRulesPage = () => {
                   const isSaving = saving === ruleName;
 
                   return (
-                    <div
-                      key={ruleName}
-                      className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg"
-                    >
+                    <div key={ruleName} className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-1">

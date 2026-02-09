@@ -107,9 +107,7 @@ const AdminPage = () => {
         <Card className="p-6 border-l-4 border-green-500">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Tasa de Éxito
-              </p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Tasa de Éxito</p>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">98.5%</h3>
             </div>
             <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-full">
@@ -124,9 +122,7 @@ const AdminPage = () => {
         <Card className="p-6 border-l-4 border-purple-500">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Verificaciones
-              </p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Verificaciones</p>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">8,543</h3>
             </div>
             <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
