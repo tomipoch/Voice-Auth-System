@@ -1,7 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Mic, Shield, Users, LogOut, Settings, Home, UserPlus as UserPlusIcon } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
-import { UserRole } from '../../types/index';
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
@@ -15,7 +14,7 @@ const Sidebar = () => {
 
   // Navigation items based on user role
   const navigation =
-    user?.role === UserRole.USER
+    user?.role === 'user'
       ? [
           // Regular user navigation
           {
@@ -99,16 +98,16 @@ const Sidebar = () => {
               {user?.role && (
                 <span
                   className={`inline-block text-xs px-2 py-1 rounded-md mt-1 ${
-                    user.role === UserRole.SUPER_ADMIN
+                    user.role === 'superadmin'
                       ? 'bg-red-100 text-red-700 border border-red-200'
-                      : user.role === UserRole.ADMIN
+                      : user.role === 'admin'
                         ? 'bg-orange-100 text-orange-700 border border-orange-200'
                         : 'bg-green-100 text-green-700 border border-green-200'
                   }`}
                 >
-                  {user.role === UserRole.SUPER_ADMIN
+                  {user.role === 'superadmin'
                     ? 'Super Admin'
-                    : user.role === UserRole.ADMIN
+                    : user.role === 'admin'
                       ? 'Administrador'
                       : 'Usuario'}
                 </span>

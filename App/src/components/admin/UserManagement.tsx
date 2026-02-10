@@ -31,7 +31,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
 
   const filteredUsers = users.filter((user) => {
     const matchesSearch =
-      (user.fullName || user.username).toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (user?.fullName || user?.username || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesFilter =
@@ -253,7 +253,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
                         <div className="h-10 w-10 shrink-0">
                           <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
                             <span className="text-sm font-medium text-blue-600">
-                              {(user.fullName || user.username).charAt(0).toUpperCase()}
+                            {(user?.fullName || user?.username || 'U').charAt(0).toUpperCase()}
                             </span>
                           </div>
                         </div>

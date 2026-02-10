@@ -7,7 +7,6 @@ import {
   Save,
   Eye,
   EyeOff,
-  Mic,
   Clock,
   Mail,
   Smartphone,
@@ -160,7 +159,6 @@ const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
     shadow-xl
   `;
 
-  const selectClassName = inputClassName;
 
   const renderProfileTab = () => (
     <div className="space-y-8 max-h-96 overflow-y-auto pr-2">

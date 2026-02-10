@@ -15,17 +15,20 @@ import { useNavigate } from 'react-router-dom';
 import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
-import { useAuth } from '../hooks/useAuth';
-import { useDashboardStats } from '../hooks/useDashboardStats';
-import toast from 'react-hot-toast';
+
+interface MockUser {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+  status: string;
+  voiceEnrolled: boolean;
+}
 
 const AdminPage = () => {
-  const { user } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
-  const { stats: dashboardStats, systemStats, isLoading } = useDashboardStats();
-  const [users, setUsers] = useState([]);
-  const [loadingUsers, setLoadingUsers] = useState(false);
+  const [users, setUsers] = useState<MockUser[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Mock data for charts/trends
@@ -41,13 +44,6 @@ const AdminPage = () => {
 
   useEffect(() => {
     if (activeTab === 'users') {
-      fetchUsers();
-    }
-  }, [activeTab]);
-
-  const fetchUsers = async () => {
-    setLoadingUsers(true);
-    try {
       // Mock users for now
       setTimeout(() => {
         setUsers([
@@ -76,14 +72,9 @@ const AdminPage = () => {
             voiceEnrolled: true,
           },
         ]);
-        setLoadingUsers(false);
       }, 500);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      toast.error('Error al cargar usuarios');
-      setLoadingUsers(false);
     }
-  };
+  }, [activeTab]);
 
   const renderDashboard = () => (
     <div className="space-y-6">

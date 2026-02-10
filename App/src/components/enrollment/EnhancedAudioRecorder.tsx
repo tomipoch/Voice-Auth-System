@@ -23,7 +23,7 @@ const EnhancedAudioRecorder = ({
 }: EnhancedAudioRecorderProps) => {
   const [phase, setPhase] = useState<RecordingPhase>('ready');
 
-  const { isRecording, recordingTime, audioQuality, error, volume, startRecording, stopRecording } =
+  const { recordingTime, audioQuality, error, volume, startRecording, stopRecording } =
     useAdvancedAudioRecording({
       maxDuration,
       minDuration,

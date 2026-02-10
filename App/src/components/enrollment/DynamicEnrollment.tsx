@@ -35,7 +35,7 @@ interface EnrollmentStep {
   completed: boolean;
 }
 
-type EnrollmentPhase = 'initializing' | 'recording' | 'completing' | 'completed' | 'error';
+type EnrollmentPhase = 'idle' | 'initializing' | 'recording' | 'completing' | 'completed' | 'error';
 
 const DynamicEnrollment = ({
   userId,
@@ -158,7 +158,7 @@ const DynamicEnrollment = ({
 
     try {
       const currentStep = steps[currentStepIndex];
-      const currentPhrase = currentStep.phrase!;
+      // Recording started successfully
 
       // Enviar muestra al servidor usando challenge_id
       const response = await enrollmentService.addSample(
