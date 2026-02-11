@@ -131,6 +131,8 @@ const ProfilePage = () => {
       if (response.success) {
         toast.success('Perfil actualizado exitosamente');
         setIsEditing(false);
+
+        // Refresh user data
         if (refreshUser) {
           await refreshUser();
         } else {
@@ -138,7 +140,9 @@ const ProfilePage = () => {
         }
       } else {
         toast.error(
-          (response as any).error || (response as any).message || 'Error al actualizar perfil'
+          (response as { error?: string; message?: string }).error ||
+            (response as { error?: string; message?: string }).message ||
+            'Error al actualizar perfil'
         );
       }
     } catch (error) {
@@ -191,7 +195,7 @@ const ProfilePage = () => {
   return (
     <MainLayout>
       <div className="mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent mb-2">
+        <h1 className="text-4xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent mb-2">
           Mi Perfil
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -207,7 +211,7 @@ const ProfilePage = () => {
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-xl mr-4">
+                  <div className="p-3 bg-linear-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl mr-4">
                     <UserCircle className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
@@ -351,7 +355,7 @@ const ProfilePage = () => {
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-red-100 to-orange-100 dark:from-red-900/50 dark:to-orange-900/50 rounded-xl mr-4">
+                  <div className="p-3 bg-linear-to-br from-red-100 to-orange-100 dark:from-red-900/50 dark:to-orange-900/50 rounded-xl mr-4">
                     <Lock className="h-6 w-6 text-red-600 dark:text-red-400" />
                   </div>
                   <div>
@@ -559,7 +563,7 @@ const ProfilePage = () => {
           <Card>
             <div className="p-6">
               <div className="flex flex-col items-center text-center">
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg mb-4">
+                <div className="w-24 h-24 rounded-full bg-linear-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg mb-4">
                   {getInitials(user?.name || `${user?.first_name} ${user?.last_name}`)}
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-1">
