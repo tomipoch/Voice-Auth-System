@@ -91,7 +91,7 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
                   Iniciar Verificación
                 </Button>
 
-                <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
                   <Lock className="h-4 w-4" />
                   <span>Encriptación de extremo a extremo</span>
                 </div>
@@ -102,7 +102,7 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
             <div className="mt-12 pt-8 border-t border-gray-100 dark:border-gray-800/50">
               <div className="flex items-center gap-2 mb-4">
                 <Activity className="h-4 w-4 text-green-500" />
-                <span className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                <span className="text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                   Sistema Listo
                 </span>
               </div>
@@ -146,7 +146,7 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
                   <h4 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
                     Lee la frase
                   </h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Aparecerá una frase corta en tu pantalla. Léela con voz clara y natural.
                   </p>
                 </div>
@@ -160,7 +160,7 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
                   <h4 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
                     Análisis de Voz
                   </h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Nuestra IA analiza características únicas de tu voz en tiempo real.
                   </p>
                 </div>
@@ -174,7 +174,7 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
                   <h4 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
                     Verificación
                   </h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Recibe confirmación inmediata de tu identidad.
                   </p>
                 </div>
@@ -200,7 +200,7 @@ const VerificationWelcomeScreen = ({ onStart, className = '' }: VerificationWelc
                     <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm mb-0.5">
                       {rec.title}
                     </h3>
-                    <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                    <p className="text-[10px] text-gray-600 dark:text-gray-300 uppercase tracking-wide">
                       {rec.description}
                     </p>
                   </div>

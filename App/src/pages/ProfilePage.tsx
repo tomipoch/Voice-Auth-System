@@ -198,7 +198,7 @@ const ProfilePage = () => {
         <h1 className="text-4xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent mb-2">
           Mi Perfil
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400">
+        <p className="text-lg text-gray-700 dark:text-gray-300">
           Gestiona tu información personal y configuración de cuenta
         </p>
       </div>
@@ -218,7 +218,7 @@ const ProfilePage = () => {
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
                       Información Personal
                     </h2>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
                       Actualiza tus datos personales
                     </p>
                   </div>
@@ -283,10 +283,10 @@ const ProfilePage = () => {
                         name="email"
                         value={formData.email}
                         disabled={true}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 cursor-not-allowed"
                       />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
                       El email no se puede cambiar
                     </p>
                   </div>
@@ -301,10 +301,10 @@ const ProfilePage = () => {
                         name="company"
                         value={formData.company || 'No especificada'}
                         disabled={true}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 cursor-not-allowed"
                       />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
                       La empresa no se puede cambiar
                     </p>
                   </div>
@@ -320,10 +320,10 @@ const ProfilePage = () => {
                         value={user?.rut || 'No especificado'}
                         disabled={true}
                         placeholder="12.345.678-5"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 cursor-not-allowed"
                       />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
                       El RUT no se puede cambiar
                     </p>
                   </div>
@@ -362,7 +362,7 @@ const ProfilePage = () => {
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
                       Seguridad
                     </h2>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
                       Gestiona tu contraseña
                     </p>
                   </div>
@@ -436,7 +436,7 @@ const ProfilePage = () => {
                     {passwordData.newPassword && (
                       <div className="mt-3 space-y-2">
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-600 dark:text-gray-400">Fortaleza:</span>
+                          <span className="text-gray-700 dark:text-gray-300">Fortaleza:</span>
                           <span
                             className={`font-medium ${
                               passwordStrength.strength < 40
@@ -569,7 +569,7 @@ const ProfilePage = () => {
                 <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-1">
                   {user?.name || `${user?.first_name} ${user?.last_name}` || 'Usuario'}
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">{user?.email}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{user?.email}</p>
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 capitalize">
                   {user?.role || 'Usuario'}
                 </span>
@@ -586,7 +586,7 @@ const ProfilePage = () => {
               </h3>
               <div className="space-y-3">
                 <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Miembro desde</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-300 mb-1">Miembro desde</p>
                   <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
                     {user?.created_at
                       ? new Date(user.created_at).toLocaleDateString('es-ES', {
@@ -599,7 +599,7 @@ const ProfilePage = () => {
                 </div>
                 {user?.company && (
                   <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Empresa</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 mb-1">Empresa</p>
                     <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
                       {user.company}
                     </p>

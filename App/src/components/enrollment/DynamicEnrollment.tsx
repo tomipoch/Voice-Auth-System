@@ -226,7 +226,7 @@ const DynamicEnrollment = ({
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
             Iniciando Enrollment
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">Preparando frases dinámicas...</p>
+          <p className="text-gray-700 dark:text-gray-300">Preparando frases dinámicas...</p>
         </div>
       </Card>
     );
@@ -265,7 +265,7 @@ const DynamicEnrollment = ({
           <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             ¡Enrollment Completado!
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-700 dark:text-gray-300">
             Tu huella de voz ha sido creada exitosamente
           </p>
         </div>
@@ -356,7 +356,7 @@ const DynamicEnrollment = ({
           <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
             Consejos para una mejor grabación:
           </h4>
-          <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+          <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
             <li>• Encuentra un lugar tranquilo sin ruido de fondo</li>
             <li>• Habla con tu voz natural, ni muy alto ni muy bajo</li>
             <li>• Mantén el micrófono a una distancia constante</li>
@@ -392,7 +392,7 @@ const DynamicEnrollment = ({
                 Huella de Voz Existente
               </h3>
 
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">
                 Ya tienes una huella de voz registrada. ¿Deseas sobrescribirla con un nuevo
                 registro? Esta acción no se puede deshacer.
               </p>

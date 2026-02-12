@@ -86,7 +86,7 @@ const AudioRecorder = ({
       case 'poor':
         return 'text-red-600';
       default:
-        return 'text-gray-600 dark:text-gray-400';
+        return 'text-gray-700 dark:text-gray-300';
     }
   };
 
@@ -154,7 +154,7 @@ const AudioRecorder = ({
           <div className="text-2xl font-mono font-bold text-gray-900 dark:text-gray-100">
             {recordingTime}
             {isRecording && (
-              <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">
+              <span className="text-sm text-gray-600 dark:text-gray-300 ml-2">
                 /{' '}
                 {Math.floor(maxDuration / 60)
                   .toString()
@@ -168,7 +168,7 @@ const AudioRecorder = ({
         {/* Estado actual */}
         <div>
           {!hasStarted && (
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-700 dark:text-gray-300">
               Presiona el botón para comenzar a grabar
             </p>
           )}
@@ -240,7 +240,7 @@ const AudioRecorder = ({
             {isAnalyzing ? (
               <div className="flex items-center justify-center space-x-2">
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                <span className="text-sm text-gray-600 dark:text-gray-400">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
                   Analizando audio...
                 </span>
               </div>
@@ -248,7 +248,7 @@ const AudioRecorder = ({
               audioQuality && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Calidad:</span>
+                    <span className="text-sm text-gray-700 dark:text-gray-300">Calidad:</span>
                     <div
                       className={`flex items-center space-x-1 ${getQualityColor(String(audioQuality.quality || ''))}`}
                     >
@@ -260,7 +260,7 @@ const AudioRecorder = ({
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Duración:</span>
+                    <span className="text-sm text-gray-700 dark:text-gray-300">Duración:</span>
                     <span className="text-sm">{audioQuality.duration?.toFixed(1)}s</span>
                   </div>
 

@@ -107,7 +107,7 @@ const SettingsPage = () => {
         <h1 className="text-4xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent mb-2">
           Configuración
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400">
+        <p className="text-lg text-gray-700 dark:text-gray-300">
           Personaliza tu experiencia en VoiceAuth
           {isSaving && (
             <span className="ml-2 text-sm text-blue-600 dark:text-blue-400">• Guardando...</span>
@@ -127,7 +127,7 @@ const SettingsPage = () => {
                 <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
                   Notificaciones
                 </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   Gestiona cómo y cuándo recibes notificaciones
                 </p>
               </div>
@@ -139,7 +139,7 @@ const SettingsPage = () => {
                   <p className="font-medium text-gray-800 dark:text-gray-200">
                     Notificaciones por Email
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
                     Recibe actualizaciones importantes por correo
                   </p>
                 </div>
@@ -161,7 +161,7 @@ const SettingsPage = () => {
                   <p className="font-medium text-gray-800 dark:text-gray-200">
                     Alertas de Verificación
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
                     Notificaciones sobre intentos de verificación
                   </p>
                 </div>
@@ -193,7 +193,7 @@ const SettingsPage = () => {
               </div>
               <div>
                 <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">Seguridad</h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   Configura las opciones de seguridad de tu cuenta
                 </p>
               </div>
@@ -205,7 +205,7 @@ const SettingsPage = () => {
                   <p className="font-medium text-gray-800 dark:text-gray-200 mb-1">
                     Tiempo de Sesión
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
                     Cierra sesión automáticamente después de inactividad
                   </p>
                 </label>
@@ -228,7 +228,7 @@ const SettingsPage = () => {
                     <option value={480}>8 horas</option>
                     <option value={1440}>24 horas</option>
                   </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 dark:text-gray-400">
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 dark:text-gray-300">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
@@ -253,7 +253,7 @@ const SettingsPage = () => {
               </div>
               <div>
                 <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">Apariencia</h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   Personaliza el tema y la apariencia
                 </p>
               </div>

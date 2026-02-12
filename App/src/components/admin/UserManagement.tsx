@@ -87,7 +87,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
               <Users className="h-8 w-8 text-blue-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Usuarios</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Usuarios</p>
               <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {users.length}
               </p>
@@ -101,7 +101,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
               <Shield className="h-8 w-8 text-green-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Registrados</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Registrados</p>
               <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {users.filter((u) => u.voiceProfile).length}
               </p>
@@ -115,7 +115,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
               <Activity className="h-8 w-8 text-yellow-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Activos</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Activos</p>
               <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {users.filter((u) => u.isVerified).length}
               </p>
@@ -129,7 +129,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
               <AlertTriangle className="h-8 w-8 text-yellow-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Pendientes</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Pendientes</p>
               <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {users.filter((u) => !u.voiceProfile).length}
               </p>
@@ -189,7 +189,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50 dark:bg-gray-800">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   <input
                     type="checkbox"
                     checked={
@@ -199,19 +199,19 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   Usuario
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   Estado
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   Perfil de Voz
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   Último Acceso
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                   Acciones
                 </th>
               </tr>
@@ -222,7 +222,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
                   <td colSpan={6} className="px-6 py-12 text-center">
                     <div className="flex items-center justify-center">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                      <span className="ml-2 text-gray-600 dark:text-gray-400">
+                      <span className="ml-2 text-gray-700 dark:text-gray-300">
                         Cargando usuarios...
                       </span>
                     </div>
@@ -232,7 +232,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
                 <tr>
                   <td
                     colSpan={6}
-                    className="px-6 py-12 text-center text-gray-500 dark:text-gray-400"
+                    className="px-6 py-12 text-center text-gray-600 dark:text-gray-300"
                   >
                     No se encontraron usuarios
                   </td>
@@ -261,7 +261,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
                           <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                             {user.fullName || user.username}
                           </div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                          <div className="text-sm text-gray-600 dark:text-gray-300">
                             {user.email}
                           </div>
                         </div>
@@ -291,7 +291,7 @@ const UserManagement = ({ users = [], onUserAction, isLoading = false }: UserMan
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
                       {user.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : 'Nunca'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

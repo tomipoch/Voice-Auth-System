@@ -175,7 +175,7 @@ const DynamicVerification = ({
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
             Iniciando Verificación
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">Obteniendo frase de verificación...</p>
+          <p className="text-gray-700 dark:text-gray-300">Obteniendo frase de verificación...</p>
         </div>
       </Card>
     );
@@ -207,13 +207,13 @@ const DynamicVerification = ({
           <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             ¡Verificación Exitosa!
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">Tu identidad ha sido confirmada</p>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">Tu identidad ha sido confirmada</p>
 
           {verificationResult && (
             <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 mb-4">
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <p className="text-gray-500 dark:text-gray-400">Confianza</p>
+                  <p className="text-gray-600 dark:text-gray-300">Confianza</p>
                   <p
                     className={`text-lg font-bold ${getConfidenceColor(verificationResult.confidence_score)}`}
                   >
@@ -221,7 +221,7 @@ const DynamicVerification = ({
                   </p>
                 </div>
                 <div>
-                  <p className="text-gray-500 dark:text-gray-400">Similitud</p>
+                  <p className="text-gray-600 dark:text-gray-300">Similitud</p>
                   <p
                     className={`text-lg font-bold ${getConfidenceColor(verificationResult.similarity_score)}`}
                   >
@@ -229,13 +229,13 @@ const DynamicVerification = ({
                   </p>
                 </div>
                 <div>
-                  <p className="text-gray-500 dark:text-gray-400">Voz en vivo</p>
+                  <p className="text-gray-600 dark:text-gray-300">Voz en vivo</p>
                   <p className="text-lg font-bold text-green-600 dark:text-green-400">
                     {verificationResult.is_live ? '✓ Sí' : '✗ No'}
                   </p>
                 </div>
                 <div>
-                  <p className="text-gray-500 dark:text-gray-400">Frase correcta</p>
+                  <p className="text-gray-600 dark:text-gray-300">Frase correcta</p>
                   <p className="text-lg font-bold text-green-600 dark:text-green-400">
                     {verificationResult.phrase_match ? '✓ Sí' : '✗ No'}
                   </p>
@@ -256,10 +256,10 @@ const DynamicVerification = ({
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
             Acceso Bloqueado
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
             Has alcanzado el máximo de intentos fallidos
           </p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
             Por favor, intenta nuevamente más tarde
           </p>
         </div>
@@ -276,7 +276,7 @@ const DynamicVerification = ({
             <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
               Verificación de Voz
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-700 dark:text-gray-300">
               Intento {currentAttempt + 1} de {maxAttempts}
             </p>
           </div>
@@ -286,7 +286,7 @@ const DynamicVerification = ({
         {/* Phrase Display */}
         {verificationData && (
           <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-6">
-            <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-2">
+            <p className="text-sm text-gray-600 dark:text-gray-300 text-center mb-2">
               Lee esta frase:
             </p>
             <p className="text-center text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -340,7 +340,7 @@ const DynamicVerification = ({
             <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
               Consejos para una verificación exitosa:
             </h4>
-            <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+            <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
               <li>• Asegúrate de estar en un lugar tranquilo</li>
               <li>• Habla con tu voz natural y clara</li>
               <li>• Mantén la misma distancia al micrófono que en el enrollment</li>

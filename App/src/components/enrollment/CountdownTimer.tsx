@@ -60,7 +60,7 @@ const CountdownTimer = ({
           {getCountdownText()}
         </span>
       </div>
-      <p className="text-sm text-gray-600 dark:text-gray-400 mt-4 font-medium">
+      <p className="text-sm text-gray-700 dark:text-gray-300 mt-4 font-medium">
         {remaining === 0 ? 'Comienza a leer' : 'Prepárate...'}
       </p>
     </div>

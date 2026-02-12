@@ -37,13 +37,13 @@ const EnrollmentCompletionScreen = ({
         {/* Stats */}
         <div className="grid grid-cols-2 gap-4 mb-8">
           <Card className="p-4 bg-linear-to-br from-blue-50/80 to-indigo-50/80 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200/40 dark:border-blue-700/40">
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Muestras Grabadas</p>
+            <p className="text-sm text-gray-700 dark:text-gray-300 mb-1">Muestras Grabadas</p>
             <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{samplesRecorded}</p>
           </Card>
 
           {qualityScore !== undefined && (
             <Card className="p-4 bg-linear-to-br from-green-50/80 to-emerald-50/80 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200/40 dark:border-green-700/40">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Calidad Promedio</p>
+              <p className="text-sm text-gray-700 dark:text-gray-300 mb-1">Calidad Promedio</p>
               <p className="text-3xl font-bold text-green-600 dark:text-green-400">
                 {(qualityScore * 100).toFixed(0)}%
               </p>

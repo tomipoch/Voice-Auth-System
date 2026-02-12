@@ -68,13 +68,13 @@ class ErrorBoundary extends Component<Props, State> {
                   Algo salió mal
                 </h1>
 
-                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                <p className="text-gray-700 dark:text-gray-300 mb-6">
                   {this.state.error?.message || 'Ha ocurrido un error inesperado'}
                 </p>
 
                 {process.env.NODE_ENV === 'development' && this.state.error && (
                   <details className="w-full mb-6 text-left">
-                    <summary className="cursor-pointer text-sm text-gray-500 dark:text-gray-400 mb-2">
+                    <summary className="cursor-pointer text-sm text-gray-600 dark:text-gray-300 mb-2">
                       Detalles del error (solo en desarrollo)
                     </summary>
                     <pre className="text-xs bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-auto max-h-48">

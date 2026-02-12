@@ -33,7 +33,7 @@ export function CountdownTimer({ expiresAt, onExpire }: CountdownTimerProps) {
   const getColor = () => {
     if (secondsRemaining <= 10) return 'text-red-500';
     if (secondsRemaining <= 30) return 'text-yellow-500';
-    return 'text-gray-600 dark:text-gray-400';
+    return 'text-gray-700 dark:text-gray-300';
   };
 
   const formatTime = (seconds: number) => {

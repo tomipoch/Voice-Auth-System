@@ -224,7 +224,7 @@ const PhraseRulesPage = () => {
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
             <Settings className="w-12 h-12 mx-auto mb-4 animate-spin text-blue-600" />
-            <p className="text-gray-600 dark:text-gray-400">Cargando reglas...</p>
+            <p className="text-gray-700 dark:text-gray-300">Cargando reglas...</p>
           </div>
         </div>
       </MainLayout>
@@ -267,7 +267,7 @@ const PhraseRulesPage = () => {
                 <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
                   {category.title}
                 </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{category.description}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300">{category.description}</p>
               </div>
 
               <div className="space-y-6">
@@ -300,7 +300,7 @@ const PhraseRulesPage = () => {
                               {rule.is_active ? 'Activa' : 'Inactiva'}
                             </button>
                           </div>
-                          <p className="text-xs text-gray-600 dark:text-gray-400">
+                          <p className="text-xs text-gray-700 dark:text-gray-300">
                             {config.description}
                           </p>
                         </div>
@@ -353,7 +353,7 @@ const PhraseRulesPage = () => {
                         </div>
                       </div>
 
-                      <div className="flex justify-between mt-2 text-xs text-gray-500 dark:text-gray-400">
+                      <div className="flex justify-between mt-2 text-xs text-gray-600 dark:text-gray-300">
                         <span>{formatValue(config.min, ruleName)}</span>
                         <span>{formatValue(config.max, ruleName)}</span>
                       </div>

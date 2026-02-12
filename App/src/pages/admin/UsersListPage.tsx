@@ -70,19 +70,19 @@ const UsersListPage = () => {
             <table className="min-w-full">
               <thead>
                 <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Usuario
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Rol
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Estado
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Biometría
                   </th>
-                  <th className="text-right py-3 px-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                  <th className="text-right py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Acciones
                   </th>
                 </tr>

@@ -56,7 +56,7 @@ const AdminDashboardPage = () => {
           <Card className="p-6 border-l-4 border-blue-500">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
                   Total Usuarios
                 </p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
@@ -75,7 +75,7 @@ const AdminDashboardPage = () => {
           <Card className="p-6 border-l-4 border-green-500">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
                   Tasa de Éxito
                 </p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
@@ -94,7 +94,7 @@ const AdminDashboardPage = () => {
           <Card className="p-6 border-l-4 border-purple-500">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
                   Verificaciones
                 </p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
@@ -111,7 +111,7 @@ const AdminDashboardPage = () => {
           <Card className="p-6 border-l-4 border-orange-500">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Fallos (24h)</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Fallos (24h)</p>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                   {loading ? '...' : (stats?.failed_verifications_24h ?? 0)}
                 </h3>

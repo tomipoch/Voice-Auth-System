@@ -191,7 +191,7 @@ const DynamicVerificationMulti = ({
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
             Iniciando Verificación
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">Obteniendo 3 frases de verificación...</p>
+          <p className="text-gray-700 dark:text-gray-300">Obteniendo 3 frases de verificación...</p>
         </div>
       </Card>
     );
@@ -232,7 +232,7 @@ const DynamicVerificationMulti = ({
           <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             Verificación Rechazada
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
             Se detectó un posible ataque de suplantación
           </p>
 
@@ -276,7 +276,7 @@ const DynamicVerificationMulti = ({
           <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             {isSuccess ? '¡Verificación Exitosa!' : 'Verificación Fallida'}
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
             {isSuccess ? 'Tu identidad ha sido confirmada' : 'No se pudo verificar tu identidad'}
           </p>
 
@@ -286,7 +286,7 @@ const DynamicVerificationMulti = ({
             } rounded-lg p-4 mb-4`}
           >
             <div className="text-center mb-4">
-              <p className="text-sm text-gray-500 dark:text-gray-400">Score Promedio Final</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Score Promedio Final</p>
               <p
                 className={`text-3xl font-bold ${getConfidenceColor(finalResult.average_score || 0)}`}
               >
@@ -304,7 +304,7 @@ const DynamicVerificationMulti = ({
                     key={phraseResult.phrase_number}
                     className="flex justify-between items-center text-sm"
                   >
-                    <span className="text-gray-600 dark:text-gray-400">
+                    <span className="text-gray-700 dark:text-gray-300">
                       Frase {phraseResult.phrase_number}:
                     </span>
                     <span className={getConfidenceColor(phraseResult.final_score)}>
@@ -318,7 +318,7 @@ const DynamicVerificationMulti = ({
 
             {finalResult.threshold_used && (
               <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-600 dark:text-gray-300">
                   Umbral requerido: {(finalResult.threshold_used * 100).toFixed(1)}%
                 </p>
               </div>
@@ -428,7 +428,7 @@ const DynamicVerificationMulti = ({
           <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
             Consejos para una verificación exitosa:
           </h4>
-          <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+          <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
             <li>• Asegúrate de estar en un lugar tranquilo</li>
             <li>• Habla con tu voz natural y clara</li>
             <li>• Mantén la misma distancia al micrófono que en el enrollment</li>

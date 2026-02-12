@@ -107,7 +107,7 @@ const EnhancedAudioRecorder = ({
             <div className="w-24 h-24 bg-blue-100 dark:bg-blue-900/30 rounded-full mx-auto flex items-center justify-center">
               <Mic className="h-12 w-12 text-blue-600 dark:text-blue-400" />
             </div>
-            <p className="text-gray-600 dark:text-gray-400">Presiona el botón para comenzar</p>
+            <p className="text-gray-700 dark:text-gray-300">Presiona el botón para comenzar</p>
             <button
               onClick={handleStart}
               className="px-8 py-3 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
@@ -173,7 +173,7 @@ const EnhancedAudioRecorder = ({
         {phase === 'processing' && (
           <>
             <Loader2 className="w-12 h-12 mx-auto animate-spin text-blue-600 dark:text-blue-400" />
-            <p className="text-gray-600 dark:text-gray-400">Procesando audio...</p>
+            <p className="text-gray-700 dark:text-gray-300">Procesando audio...</p>
           </>
         )}
 
@@ -184,7 +184,7 @@ const EnhancedAudioRecorder = ({
             </div>
             <p className="text-green-600 dark:text-green-400 font-medium">✓ Grabación completada</p>
             {audioQuality && (
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-gray-700 dark:text-gray-300">
                 Calidad: <span className="font-semibold capitalize">{audioQuality.quality}</span>
               </div>
             )}
