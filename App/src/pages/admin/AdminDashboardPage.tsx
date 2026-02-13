@@ -180,6 +180,14 @@ const AdminDashboardPage = () => {
                   <FileText className="h-4 w-4 mr-2" aria-hidden="true" />
                   Gestionar Frases
                 </Button>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start"
+                  onClick={() => navigate('/admin/phrase-rules')}
+                  aria-label="Configurar reglas de calidad"
+                >
+                  ⚙️ Configurar Reglas de Calidad
+                </Button>
               </div>
             </Card>
 

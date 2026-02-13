@@ -28,6 +28,7 @@ const UsersListPage = lazy(() => import('./pages/admin/UsersListPage'));
 const UserDetailPage = lazy(() => import('./pages/admin/UserDetailPage'));
 const PhrasesPage = lazy(() => import('./pages/admin/PhrasesPage'));
 const AuditLogsPage = lazy(() => import('./pages/admin/AuditLogsPage'));
+const PhraseRulesPage = lazy(() => import('./pages/admin/PhraseRulesPage'));
 const SuperAdminDashboard = lazy(() => import('./pages/SuperAdminDashboard'));
 
 // Componente de carga simple
@@ -217,6 +218,14 @@ const AppRoutes = () => {
               element={
                 <ProtectedRoute adminOnly>
                   <AuditLogsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/phrase-rules"
+              element={
+                <ProtectedRoute adminOnly>
+                  <PhraseRulesPage />
                 </ProtectedRoute>
               }
             />

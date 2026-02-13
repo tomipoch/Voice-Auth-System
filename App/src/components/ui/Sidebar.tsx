@@ -62,6 +62,12 @@ const Sidebar = () => {
             href: '/admin/logs',
             icon: Settings,
           },
+          {
+            id: 'phrase-rules',
+            label: 'Reglas de Calidad',
+            href: '/admin/phrase-rules',
+            icon: Settings,
+          },
         ];
 
   return (
