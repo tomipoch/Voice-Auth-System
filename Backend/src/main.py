@@ -14,7 +14,6 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 import asyncpg
-from prometheus_client import make_asgi_app
 
 # Suppress third-party library warnings that don't affect functionality
 warnings.filterwarnings("ignore", category=FutureWarning, module="torch")
@@ -217,9 +216,6 @@ def create_app() -> FastAPI:
             "version": "1.0.0"
         }
     
-    # Prometheus metrics
-    metrics_app = make_asgi_app()
-    app.mount("/metrics", metrics_app)
 
     return app
 

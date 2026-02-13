@@ -30,7 +30,7 @@ const PhrasesPage = lazy(() => import('./pages/admin/PhrasesPage'));
 const AuditLogsPage = lazy(() => import('./pages/admin/AuditLogsPage'));
 const SuperAdminDashboard = lazy(() => import('./pages/SuperAdminDashboard'));
 
-// Componente de carga
+// Componente de carga simple
 const LoadingSpinner = () => (
   <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
     <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 dark:border-blue-400"></div>

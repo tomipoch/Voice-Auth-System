@@ -64,11 +64,11 @@ const AdminDashboardPage = () => {
                 </h3>
               </div>
               <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-full">
-                <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
               </div>
             </div>
             <p className="text-xs text-blue-600 mt-2 flex items-center">
-              <Activity className="h-3 w-3 mr-1" /> {stats?.active_users_24h ?? 0} activos hoy
+              <Activity className="h-3 w-3 mr-1" aria-hidden="true" /> {stats?.active_users_24h ?? 0} activos hoy
             </p>
           </Card>
 
@@ -83,11 +83,11 @@ const AdminDashboardPage = () => {
                 </h3>
               </div>
               <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-full">
-                <Shield className="h-6 w-6 text-green-600 dark:text-green-400" />
+                <Shield className="h-6 w-6 text-green-600 dark:text-green-400" aria-hidden="true" />
               </div>
             </div>
             <p className="text-xs text-green-600 mt-2 flex items-center">
-              <Activity className="h-3 w-3 mr-1" /> Verificaciones exitosas
+              <Activity className="h-3 w-3 mr-1" aria-hidden="true" /> Verificaciones exitosas
             </p>
           </Card>
 
@@ -102,7 +102,7 @@ const AdminDashboardPage = () => {
                 </h3>
               </div>
               <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
-                <Mic className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                <Mic className="h-6 w-6 text-purple-600 dark:text-purple-400" aria-hidden="true" />
               </div>
             </div>
             <p className="text-xs text-blue-600 mt-2">Total histórico</p>
@@ -117,7 +117,7 @@ const AdminDashboardPage = () => {
                 </h3>
               </div>
               <div className="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-full">
-                <AlertTriangle className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+                <AlertTriangle className="h-6 w-6 text-orange-600 dark:text-orange-400" aria-hidden="true" />
               </div>
             </div>
             <p className="text-xs text-orange-600 mt-2">Últimas 24 horas</p>
@@ -141,7 +141,7 @@ const AdminDashboardPage = () => {
                       {item.value}
                     </div>
                   </div>
-                  <span className="text-xs text-gray-500 mt-2">{item.day}</span>
+                  <span className="text-xs text-gray-600 dark:text-gray-300 mt-2">{item.day}</span>
                 </div>
               ))}
             </div>
@@ -157,24 +157,27 @@ const AdminDashboardPage = () => {
                   variant="outline"
                   className="w-full justify-start"
                   onClick={() => navigate('/admin/users')}
+                  aria-label="Ir a gestión de usuarios"
                 >
-                  <Users className="h-4 w-4 mr-2" />
+                  <Users className="h-4 w-4 mr-2" aria-hidden="true" />
                   Gestionar Usuarios
                 </Button>
                 <Button
                   variant="outline"
                   className="w-full justify-start"
                   onClick={() => navigate('/admin/logs')}
+                  aria-label="Ver logs de auditoría"
                 >
-                  <FileText className="h-4 w-4 mr-2" />
+                  <FileText className="h-4 w-4 mr-2" aria-hidden="true" />
                   Ver Logs de Auditoría
                 </Button>
                 <Button
                   variant="outline"
                   className="w-full justify-start"
                   onClick={() => navigate('/admin/phrases')}
+                  aria-label="Gestionar frases del sistema"
                 >
-                  <FileText className="h-4 w-4 mr-2" />
+                  <FileText className="h-4 w-4 mr-2" aria-hidden="true" />
                   Gestionar Frases
                 </Button>
               </div>

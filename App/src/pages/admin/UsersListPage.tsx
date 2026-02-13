@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import LoadingSpinner from '../../components/ui/LoadingSpinner';
+import EmptyState from '../../components/ui/EmptyState';
 import toast from 'react-hot-toast';
 import adminService, { type AdminUser } from '../../services/adminService';
 
@@ -49,25 +51,23 @@ const UsersListPage = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Usuarios</h2>
           <div className="relative w-full md:w-64">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" aria-hidden="true" />
             <input
               type="text"
               placeholder="Buscar usuario..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              aria-label="Buscar usuarios por email"
             />
           </div>
         </div>
 
         {loadingUsers ? (
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="text-gray-500 mt-4">Cargando usuarios...</p>
-          </div>
+          <LoadingSpinner size="lg" text="Cargando usuarios..." className="py-12" />
         ) : (
           <div className="overflow-x-auto">
-            <table className="min-w-full">
+            <table className="min-w-full" role="table" aria-label="Lista de usuarios">
               <thead>
                 <tr className="border-b border-gray-200 dark:border-gray-700">
                   <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -101,7 +101,7 @@ const UsersListPage = () => {
                         </div>
                         <div>
                           <p className="font-medium text-gray-900 dark:text-gray-100">{u.email}</p>
-                          <p className="text-xs text-gray-500">ID: {u.id.substring(0, 8)}</p>
+                          <p className="text-xs text-gray-600 dark:text-gray-300">ID: {u.id.substring(0, 8)}</p>
                         </div>
                       </div>
                     </td>
@@ -124,17 +124,17 @@ const UsersListPage = () => {
                     <td className="py-3 px-4">
                       {u.has_voiceprint ? (
                         <span className="flex items-center text-green-600 text-sm">
-                          <Mic className="h-3 w-3 mr-1" /> Activo
+                          <Mic className="h-3 w-3 mr-1" aria-hidden="true" /> Activo
                         </span>
                       ) : (
                         <span className="flex items-center text-orange-500 text-sm">
-                          <AlertTriangle className="h-3 w-3 mr-1" /> Pendiente
+                          <AlertTriangle className="h-3 w-3 mr-1" aria-hidden="true" /> Pendiente
                         </span>
                       )}
                     </td>
                     <td className="py-3 px-4 text-right">
-                      <Button variant="ghost" size="sm">
-                        <ChevronRight className="h-4 w-4" />
+                      <Button variant="ghost" size="sm" aria-label={`Ver detalles de ${u.email}`}>
+                        <ChevronRight className="h-4 w-4" aria-hidden="true" />
                       </Button>
                     </td>
                   </tr>
@@ -143,10 +143,11 @@ const UsersListPage = () => {
             </table>
 
             {filteredUsers.length === 0 && (
-              <div className="text-center py-12">
-                <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500">No se encontraron usuarios</p>
-              </div>
+              <EmptyState
+                icon={<Users className="h-16 w-16" />}
+                title="No se encontraron usuarios"
+                description="No hay usuarios que coincidan con tu búsqueda. Intenta con otros términos."
+              />
             )}
           </div>
         )}
