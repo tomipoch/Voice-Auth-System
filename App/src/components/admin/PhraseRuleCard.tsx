@@ -4,8 +4,9 @@
  */
 
 import { useState } from 'react';
+import { Settings, Shield, Activity, BarChart, Hash, Clock } from 'lucide-react';
 import type { PhraseRule } from '../../types/phraseRules';
-import { getRuleDetail, getCategoryColor } from '../../utils/ruleDetails';
+import { getRuleDetail } from '../../utils/ruleDetails';
 
 interface PhraseRuleCardProps {
   rule: PhraseRule;
@@ -16,10 +17,20 @@ interface PhraseRuleCardProps {
 export const PhraseRuleCard = ({ rule, onEdit, onToggle }: PhraseRuleCardProps) => {
   const [isTogglingLoading, setIsToggling] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
-
+  
   const ruleDetail = getRuleDetail(rule.rule_name);
+  
+  // Choose icon based on rule name/type
+  const getRuleIcon = () => {
+    if (rule.rule_name.includes('threshold') || rule.rule_name.includes('score')) return Shield;
+    if (rule.rule_name.includes('rate') || rule.rule_name.includes('max')) return Activity;
+    if (rule.rule_name.includes('length')) return BarChart;
+    return Hash;
+  };
 
-  const handleToggle = async () => {
+  const RuleIcon = getRuleIcon();
+
+  const handleToggleClick = async () => {
     setIsToggling(true);
     try {
       await onToggle(rule.rule_name, !rule.is_active);
@@ -28,147 +39,143 @@ export const PhraseRuleCard = ({ rule, onEdit, onToggle }: PhraseRuleCardProps) 
     }
   };
 
-  const getRuleTypeColor = (type: string) => {
-    switch (type) {
-      case 'threshold':
-        return 'bg-blue-100 text-blue-800';
-      case 'rate_limit':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'cleanup':
-        return 'bg-purple-100 text-purple-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  // Format value with unit
   const getFormattedValue = () => {
-    const value = rule.rule_value;
-    const ruleName = rule.rule_name;
-
-    // Threshold rules (percentages)
-    if (rule.rule_type === 'threshold' && value <= 1) {
-      return `${(value * 100).toFixed(0)}%`;
+    const unit = ruleDetail?.unit;
+    
+    // If explicit unit is %, format as percentage
+    if (unit === '%') {
+      return `${(rule.rule_value * 100).toFixed(0)}%`;
+    }
+    
+    // If explicit unit exists (and is not %), use it directly
+    if (unit) {
+      return `${rule.rule_value} ${unit}`;
     }
 
-    // Specific rules with units
-    if (ruleName === 'challenge_expiry_minutes') {
-      return `${value} ${value === 1 ? 'minuto' : 'minutos'}`;
-    }
-    if (ruleName === 'cleanup_expired_after_hours' || ruleName === 'cleanup_used_after_hours') {
-      return `${value} ${value === 1 ? 'hora' : 'horas'}`;
-    }
-    if (ruleName === 'min_attempts_for_analysis') {
-      return `${value} ${value === 1 ? 'intento' : 'intentos'}`;
-    }
-    if (ruleName === 'exclude_recent_phrases') {
-      return `${value} ${value === 1 ? 'frase' : 'frases'}`;
-    }
-    if (ruleName === 'max_challenges_per_user' || ruleName === 'max_challenges_per_hour') {
-      return `${value} ${value === 1 ? 'challenge' : 'challenges'}`;
+    // Fallback: legacy threshold check if no unit defined
+    if (rule.rule_type === 'threshold') {
+      return `${(rule.rule_value * 100).toFixed(0)}%`;
     }
 
-    // Default: just the number
-    return value.toString();
+    return rule.rule_value;
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-200 dark:border-gray-700 flex flex-col h-full overflow-hidden group">
       {/* Header */}
-      <div className="p-6 pb-4">
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex-1">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+      <div className="p-4 flex items-start justify-between pb-2">
+        <div className="flex items-center gap-3">
+          <div className={`p-1.5 rounded-lg ${
+            rule.is_active 
+              ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400' 
+              : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
+          }`}>
+            <RuleIcon className="w-4.5 h-4.5" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 leading-tight text-sm">
               {rule.rule_name.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
             </h3>
-            <div className="flex items-center gap-2 flex-wrap">
-              <span
-                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRuleTypeColor(rule.rule_type)}`}
-              >
-                {rule.rule_type}
-              </span>
-              <span
-                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                  rule.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                }`}
-              >
-                {rule.is_active ? 'Activa' : 'Inactiva'}
-              </span>
-              {ruleDetail && (
-                <span
-                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(ruleDetail.category)}`}
-                >
-                  {ruleDetail.category}
-                </span>
-              )}
-            </div>
+            <span className={`text-[10px] uppercase tracking-wider font-bold ${
+              rule.is_active ? 'text-green-600 dark:text-green-400' : 'text-gray-400'
+            }`}>
+              {rule.is_active ? 'Activa' : 'Inactiva'}
+            </span>
           </div>
-
-          {/* Toggle Switch */}
-          <label className="relative inline-flex items-center cursor-pointer ml-2">
-            <input
-              type="checkbox"
-              checked={rule.is_active}
-              onChange={handleToggle}
-              disabled={isTogglingLoading}
-              className="sr-only peer"
-            />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-          </label>
         </div>
+      </div>
 
+      {/* Body */}
+      <div className="px-4 py-1 flex-1">
         {/* Current Value */}
-        <div className="mb-4">
-          <div className="text-sm text-gray-500 mb-1">Valor Actual</div>
-          <div className="text-3xl font-bold text-gray-900">{getFormattedValue()}</div>
+        <div className="mb-3">
+          <div className="text-[10px] font-medium text-gray-500 dark:text-gray-400 mb-0.5">VALOR ACTUAL</div>
+          <div className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            {getFormattedValue()}
+          </div>
         </div>
+          
+        {/* Progress Bar for Thresholds */}
+        {rule.rule_type === 'threshold' && (
+          <div className="w-full h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden mb-3">
+            <div 
+              className={`h-full rounded-full transition-all duration-500 ${
+                rule.rule_value > 0.8 ? 'bg-green-500' : rule.rule_value > 0.5 ? 'bg-yellow-500' : 'bg-red-500'
+              }`}
+              style={{ width: `${Math.min(rule.rule_value * 100, 100)}%` }}
+            />
+          </div>
+        )}
 
         {/* Description */}
-        <p className="text-sm text-gray-600 mb-3">{rule.description}</p>
+        <p className="text-xs text-gray-600 dark:text-gray-300 mb-3 h-8 line-clamp-2 leading-relaxed">{rule.description}</p>
 
         {/* Details Toggle */}
-        {ruleDetail && (
+         {ruleDetail && (
           <button
             onClick={() => setShowDetails(!showDetails)}
-            className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+            className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium flex items-center gap-1 transition-colors"
           >
             {showDetails ? '▼' : '▶'} Ver detalles
           </button>
         )}
       </div>
 
-      {/* Expandable Details */}
-      {showDetails && ruleDetail && (
-        <div className="px-6 pb-4 space-y-3 border-t border-gray-100 pt-4">
-          {/* Impact */}
-          <div className="text-sm">
-            <div className="font-medium text-gray-700 mb-1">⚠️ Impacto</div>
-            <p className="text-gray-600">{ruleDetail.impact}</p>
+       {/* Expandable Details */}
+       {showDetails && ruleDetail && (
+        <div className="px-4 pb-3 space-y-2 border-t border-gray-100 dark:border-gray-700 pt-3 bg-gray-50 dark:bg-gray-800/50">
+          <div className="text-xs">
+            <div className="font-medium text-gray-700 dark:text-gray-300 mb-0.5">Impacto</div>
+            <p className="text-gray-600 dark:text-gray-400 leading-snug">{ruleDetail.impact}</p>
           </div>
 
-          {/* Recommended Range */}
-          <div className="text-sm">
-            <div className="font-medium text-gray-700 mb-1">✅ Rango Recomendado</div>
-            <p className="text-gray-600">{ruleDetail.recommendedRange}</p>
+          <div className="text-xs">
+            <div className="font-medium text-gray-700 dark:text-gray-300 mb-0.5">Rango Recomendado</div>
+            <p className="text-gray-600 dark:text-gray-400">{ruleDetail.recommendedRange}</p>
           </div>
         </div>
       )}
 
-      {/* Footer */}
-      <div className="px-6 pb-6 flex items-center justify-between pt-4 border-t border-gray-200">
-        <div className="text-xs text-gray-400">
-          Actualizada: {new Date(rule.updated_at).toLocaleDateString('es-ES')}
+      {/* Footer / Actions */}
+      <div className="px-4 py-2.5 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
+        
+        {/* Update Date */}
+        <div className="flex items-center gap-1.5 text-[10px] text-gray-500 dark:text-gray-400">
+             <Clock className="w-3 h-3" />
+             {new Date(rule.updated_at).toLocaleDateString('es-ES')}
         </div>
-        <button
-          onClick={() => onEdit(rule)}
-          className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        >
-          ✏️ Editar
-        </button>
+
+        <div className="flex items-center gap-2">
+            {/* Toggle Switch */}
+            <div
+              onClick={handleToggleClick}
+              className={`relative inline-flex h-6 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                rule.is_active ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-600'
+              } ${isTogglingLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              style={{ width: '40px', height: '24px', borderRadius: '9999px' }}
+              title={rule.is_active ? "Desactivar regla" : "Activar regla"}
+            >
+               <span 
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                  rule.is_active ? 'translate-x-4' : 'translate-x-0'
+                }`}
+                style={{ width: '20px', height: '20px' }}
+              />
+            </div>
+
+             {/* Edit Button */}
+            <button
+            onClick={() => onEdit(rule)}
+            className="flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors shadow-sm"
+            title="Editar configuración de esta regla"
+            >
+              <Settings className="w-3 h-3" />
+              <span>Editar</span>
+            </button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default PhraseRuleCard;
-

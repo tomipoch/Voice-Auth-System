@@ -208,6 +208,82 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 phrase_id
             )
             return result == "DELETE 1"
+    
+    async def find_paginated(
+        self,
+        page: int = 1,
+        limit: int = 50,
+        difficulty: Optional[str] = None,
+        is_active: Optional[bool] = None,
+        search: Optional[str] = None,
+        book_id: Optional[UUID] = None,
+        author: Optional[str] = None,
+        language: str = 'es'
+    ) -> tuple[List[dict], int]:
+        """
+        Find phrases with pagination and filters, including book information.
+        
+        Returns:
+            Tuple of (phrases list with book info, total count)
+        """
+        # Build WHERE clause
+        where_clauses = ["p.language = $1"]
+        params = [language]
+        param_idx = 2
+        
+        if difficulty:
+            where_clauses.append(f"p.difficulty = ${param_idx}")
+            params.append(difficulty)
+            param_idx += 1
+        
+        if is_active is not None:
+            where_clauses.append(f"p.is_active = ${param_idx}")
+            params.append(is_active)
+            param_idx += 1
+        
+        if search:
+            where_clauses.append(f"p.text ILIKE ${param_idx}")
+            params.append(f"%{search}%")
+            param_idx += 1
+        
+        if book_id:
+            where_clauses.append(f"p.book_id = ${param_idx}")
+            params.append(book_id)
+            param_idx += 1
+        
+        if author:
+            where_clauses.append(f"b.author ILIKE ${param_idx}")
+            params.append(f"%{author}%")
+            param_idx += 1
+        
+        where_clause = " AND ".join(where_clauses)
+        
+        async with self._pool.acquire() as conn:
+            # Get total count
+            count_query = f"SELECT COUNT(*) FROM phrase p WHERE {where_clause}"
+            total = await conn.fetchval(count_query, *params)
+            
+            # Get paginated results with book info
+            offset = (page - 1) * limit
+            data_query = f"""
+                SELECT 
+                    p.id, p.text, p.source, p.word_count, p.char_count, 
+                    p.language, p.difficulty, p.is_active, p.created_at,
+                    b.title as book_title, b.author as book_author
+                FROM phrase p
+                LEFT JOIN books b ON p.book_id = b.id
+                WHERE {where_clause}
+                ORDER BY p.created_at DESC
+                LIMIT ${param_idx} OFFSET ${param_idx + 1}
+            """
+            params.extend([limit, offset])
+            
+            rows = await conn.fetch(data_query, *params)
+            
+            # Convert to dict with book info
+            phrases = [dict(row) for row in rows]
+            
+            return phrases, total or 0
 
 
 class PostgresPhraseUsageRepository(PhraseUsageRepositoryPort):

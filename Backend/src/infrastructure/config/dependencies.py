@@ -5,13 +5,17 @@ import os
 import logging
 from typing import Optional
 from functools import lru_cache
-from fastapi import HTTPException
+from fastapi import HTTPException, Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from ..persistence.PostgresPhraseRepository import (
     PostgresPhraseRepository,
     PostgresPhraseUsageRepository
 )
 from ...application.phrase_service import PhraseService
+
+# Security for admin authentication
+security = HTTPBearer()
 
 logger = logging.getLogger(__name__)
 
@@ -142,6 +146,13 @@ def create_voice_biometric_engine():
     )
 
 
+async def get_voice_signature_repository():
+    """Get voice signature repository instance."""
+    from ..persistence.PostgresVoiceSignatureRepository import PostgresVoiceSignatureRepository
+    pool = await get_db_pool()
+    return PostgresVoiceSignatureRepository(pool)
+
+
 def get_voice_biometric_engine():
     """Get voice biometric engine instance."""
     return create_voice_biometric_engine()
@@ -206,4 +217,49 @@ async def get_challenge_service():
         rules_service=rules_service
     )
 
+
+async def get_current_admin_user(
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+    """
+    Dependency to ensure current user is an admin.
+    Validates JWT token and checks for admin/superadmin role.
+    """
+    from fastapi import HTTPException, status
+    from ...domain.repositories.UserRepositoryPort import UserRepositoryPort
+    from ...api.auth_controller import SECRET_KEY, ALGORITHM
+    import jwt
+    
+    # Get user repository
+    user_repo = await get_user_repository()
+    
+    # Validate credentials
+    auth_error = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    
+    try:
+        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise auth_error
+    except jwt.PyJWTError:
+        raise auth_error
+    
+    # Get user from database
+    user = await user_repo.get_user_by_email(email)
+    if user is None:
+        raise auth_error
+    
+    # Check if user is admin
+    user_role = user.get("role", "user")
+    if user_role not in ["admin", "superadmin"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin access required"
+        )
+    
+    return user
 

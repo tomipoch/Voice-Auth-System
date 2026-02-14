@@ -112,9 +112,6 @@ async def verify_voice(
                     detail=f"Failed to convert audio: {str(e)}"
                 )
         
-        # Read WAV audio
-        audio_data, sample_rate = sf.read(io.BytesIO(audio_bytes))
-        
         # Extract embedding from audio
         embedding = voice_engine.extract_embedding_only(
             audio_data=audio_bytes,
@@ -343,24 +340,16 @@ async def verify_phrase(
                     detail=f"Failed to convert audio: {str(e)}"
                 )
         
-        # Read WAV audio
-        audio_data, sample_rate = sf.read(io.BytesIO(audio_bytes))
-        
         # Process audio through full pipeline
-        # Extract embedding and get anti-spoofing score
-        embedding = voice_engine.extract_embedding_only(
+        # Extract biometric features
+        features = voice_engine.extract_features(
             audio_data=audio_bytes,
             audio_format="wav"
         )
         
-        # TODO: Get ASR confidence
-        # For now, we'll use a placeholder value
-        # In future: voice_engine should have a method to get ASR confidence
-        asr_confidence = 1.0  # Placeholder: assume perfect transcription
-        
-        # TODO: Get anti-spoofing score
-        # For now, skip anti-spoofing in this initial implementation
-        anti_spoofing_score = None
+        embedding = features["embedding"]
+        anti_spoofing_score = features["anti_spoofing_score"]
+        transcribed_text = features.get("transcribed_text", "")
         
         # Verify phrase
         result = await verification_service.verify_phrase(
@@ -369,7 +358,7 @@ async def verify_phrase(
             phrase_number=phrase_number,
             embedding=embedding,
             anti_spoofing_score=anti_spoofing_score,
-            asr_confidence=asr_confidence
+            transcribed_text=transcribed_text
         )
         
         logger.info(f"Phrase {phrase_number} verified. is_complete={result.get('is_complete')}")

@@ -63,10 +63,12 @@ class PostgresUserRepository(UserRepositoryPort):
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
-                SELECT id, email, password, first_name, last_name, role, company, external_ref, 
-                       created_at, deleted_at, failed_auth_attempts, locked_until, last_login, settings
-                FROM "user"
-                WHERE id = $1 AND deleted_at IS NULL
+                SELECT u.id, u.email, u.password, u.first_name, u.last_name, u.role, u.company, u.external_ref, 
+                       u.created_at, u.deleted_at, u.failed_auth_attempts, u.locked_until, u.last_login, u.settings,
+                       (v.id IS NOT NULL) as has_voiceprint
+                FROM "user" u
+                LEFT JOIN voiceprint v ON u.id = v.user_id
+                WHERE u.id = $1 AND u.deleted_at IS NULL
                 """,
                 user_id
             )
@@ -177,10 +179,12 @@ class PostgresUserRepository(UserRepositoryPort):
             offset = (page - 1) * limit
             rows = await conn.fetch(
                 """
-                SELECT id, email, first_name, last_name, role, company, external_ref, created_at, deleted_at
-                FROM "user"
-                WHERE company = $1 AND deleted_at IS NULL
-                ORDER BY created_at DESC
+                SELECT u.id, u.email, u.first_name, u.last_name, u.role, u.company, u.external_ref, u.created_at, u.deleted_at,
+                       (v.id IS NOT NULL) as has_voiceprint
+                FROM "user" u
+                LEFT JOIN voiceprint v ON u.id = v.user_id
+                WHERE u.company = $1 AND u.deleted_at IS NULL
+                ORDER BY u.created_at DESC
                 LIMIT $2 OFFSET $3
                 """,
                 company, limit, offset
@@ -201,10 +205,12 @@ class PostgresUserRepository(UserRepositoryPort):
             offset = (page - 1) * limit
             rows = await conn.fetch(
                 """
-                SELECT id, email, first_name, last_name, role, company, external_ref, created_at, deleted_at
-                FROM "user"
-                WHERE deleted_at IS NULL
-                ORDER BY created_at DESC
+                SELECT u.id, u.email, u.first_name, u.last_name, u.role, u.company, u.external_ref, u.created_at, u.deleted_at,
+                       (v.id IS NOT NULL) as has_voiceprint
+                FROM "user" u
+                LEFT JOIN voiceprint v ON u.id = v.user_id
+                WHERE u.deleted_at IS NULL
+                ORDER BY u.created_at DESC
                 LIMIT $1 OFFSET $2
                 """,
                 limit, offset

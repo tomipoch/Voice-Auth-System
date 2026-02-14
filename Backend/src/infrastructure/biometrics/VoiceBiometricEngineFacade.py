@@ -91,6 +91,29 @@ class VoiceBiometricEngineFacade:
         """Extract only speaker embedding (for enrollment)."""
         return self._speaker_adapter.extract_embedding(audio_data, audio_format)
     
+    def extract_features(
+        self,
+        audio_data: bytes,
+        audio_format: str
+    ) -> dict:
+        """
+        Extract biometric features (embedding and anti-spoofing score).
+        """
+        # 1. Extract speaker embedding
+        embedding = self._speaker_adapter.extract_embedding(audio_data, audio_format)
+        
+        # 2. Detect spoofing
+        spoof_prob = self._spoof_adapter.detect_spoof(audio_data)
+        
+        # 3. Transcribe audio (ASR)
+        transcribed_text = self._asr_adapter.transcribe(audio_data)
+        
+        return {
+            "embedding": embedding,
+            "anti_spoofing_score": spoof_prob,
+            "transcribed_text": transcribed_text
+        }  
+    
     def validate_audio_quality(
         self,
         audio_data: bytes,

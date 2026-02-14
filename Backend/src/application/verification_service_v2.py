@@ -290,18 +290,47 @@ class VerificationServiceV2:
         
         # Get verification attempts from audit log
         # We look for verification results
+        logger.info(f"Fetching verification history for user {user_id}")
         activity = await self._audit_repo.get_user_activity(str(user_id), hours=24*30, limit=limit)
+        logger.info(f"Retrieved {len(activity)} audit logs for user {user_id}")
+        if len(activity) > 0:
+            logger.info(f"First log sample: {activity[0]}")
         
         attempts = []
         for log in activity:
-            if log.get('action') == 'verify' and log.get('entity_type') == 'verification_result':
+            # Check for both "VERIFY" (AuditAction) and potentially lowercase "verify" just in case
+            action = log.get('action')
+            entity_type = log.get('entity_type')
+            
+            # Valid verification types
+            valid_types = ['verification_result', 'multi_verification_complete', 'quick_verification']
+            
+            if (action == AuditAction.VERIFY.value or action == 'verify' or action == 'VERIFICATION') and entity_type in valid_types:
                 metadata = log.get('metadata', {})
+                
+                # Handle stringified JSON metadata if necessary
+                if isinstance(metadata, str):
+                    try:
+                        import json
+                        metadata = json.loads(metadata)
+                    except json.JSONDecodeError:
+                        logger.warning(f"Failed to parse metadata JSON for log {log.get('id')}")
+                        metadata = {}
+                
+                # Extract score based on verification type
+                score = 0
+                if entity_type == 'multi_verification_complete':
+                    score = int(metadata.get('average_score', 0) * 100)
+                else:
+                    score = int(metadata.get('similarity_score', 0) * 100)
+                
                 attempts.append({
                     "id": log.get('entity_id'),
                     "date": log.get('timestamp').strftime("%Y-%m-%d %H:%M") if log.get('timestamp') else "",
                     "result": "success" if log.get('success') else "failed",
-                    "score": int(metadata.get('similarity_score', 0) * 100) if metadata.get('similarity_score') else 0,
-                    "method": "Frase Aleatoria" # Default for now, could be extracted from metadata if available
+                    "score": score,
+                    "method": "Multi-Frase" if entity_type == 'multi_verification_complete' else "Frase Aleatoria",
+                    "details": metadata
                 })
         
         return {
@@ -376,58 +405,39 @@ class VerificationServiceV2:
         challenge_id: ChallengeId,
         phrase_number: int,
         embedding: VoiceEmbedding,
-        anti_spoofing_score: Optional[float],
-        asr_confidence: float
+        transcribed_text: Optional[str] = None,
+        anti_spoofing_score: Optional[float] = None
     ) -> Dict:
-        """Verify a single challenge in multi-phrase verification."""
+        """Verify a single phrase implementation with real ASR scoring."""
         
-        # Get session
+        # Check active session
         session = self._active_multi_sessions.get(verification_id)
         if not session:
-            raise ValueError("Invalid or expired verification session")
+            raise ValueError("Invalid verification session")
         
-        # Validate challenge
-        is_valid, reason = await self._challenge_service.validate_challenge_strict(
-            challenge_id=challenge_id,
-            user_id=session.user_id
-        )
+        # 1. Validate session and retrieve expected phrase
+        if phrase_number < 1 or phrase_number > 3:
+            raise ValueError("Invalid phrase number")
+            
+        # Get expected phrase from session challenges
+        # Challenge list is 0-indexed, phrase_number is 1-indexed
+        current_challenge = session.challenges[phrase_number - 1]
+        expected_phrase = current_challenge.get("phrase", "")
         
-        if not is_valid:
-            raise ValueError(f"Invalid challenge: {reason}")
-        
-        # 1. Check anti-spoofing FIRST (immediate rejection)
-        if anti_spoofing_score is not None:
-            is_spoof = anti_spoofing_score > self._anti_spoofing_threshold
-            if is_spoof:
-                # Clean up session and reject immediately
-                del self._active_multi_sessions[verification_id]
-                
-                await self._audit_repo.log_event(
-                    actor="system",
-                    action=AuditAction.VERIFY,
-                    entity_type="multi_verification_rejected",
-                    entity_id=str(verification_id),
-                    success=False,
-                    metadata={
-                        "user_id": str(session.user_id),
-                        "phrase_number": phrase_number,
-                        "reason": "spoof_detected",
-                        "anti_spoofing_score": anti_spoofing_score
-                    }
-                )
-                
-                return {
-                    "rejected": True,
-                    "reason": "spoof_detected",
-                    "anti_spoofing_score": anti_spoofing_score,
-                    "phrase_number": phrase_number,
-                    "is_complete": True,
-                    "individual_score": 0.0
-                }
-        
-        # 2. Apply ASR penalty if confidence < 70%
-        asr_penalty = 1.0 if asr_confidence >= 0.70 else 0.5
-        
+        # Calculate ASR Confidence (Text Match)
+        import difflib
+        asr_confidence = 0.0
+        if transcribed_text and expected_phrase:
+            # Simple normalization
+            norm_expected = expected_phrase.lower().strip()
+            norm_transcribed = transcribed_text.lower().strip()
+            # Calculate similarity ratio
+            asr_confidence = difflib.SequenceMatcher(None, norm_expected, norm_transcribed).ratio()
+            
+        # 2. Define Weights
+        w_similarity = 0.6
+        w_genuineness = 0.2
+        w_asr = 0.2
         # 3. Get user's voiceprint
         voiceprint = await self._voice_repo.get_voiceprint_by_user(session.user_id)
         if not voiceprint:
@@ -437,23 +447,32 @@ class VerificationServiceV2:
         stored_embedding = np.array(voiceprint.embedding)
         similarity_score = self._biometric_validator.calculate_similarity(embedding, stored_embedding)
         
-        # 5. Apply ASR penalty to get final score for this phrase
-        final_score = similarity_score * asr_penalty
+        # 5. Calculate Genuineness
+        spoof_prob = float(anti_spoofing_score) if anti_spoofing_score is not None else 1.0 
+        genuineness_score = 1.0 - spoof_prob
         
-        # 6. Store result in session
+        # 6. Calculate Final Composite Score
+        final_score = (similarity_score * w_similarity) + (genuineness_score * w_genuineness) + (asr_confidence * w_asr)
+        
+        # Legacy ASR Penalty (set to 1.0)
+        asr_penalty = 1.0
+        
+        # 7. Store result in session
         session.results.append({
             "phrase_number": phrase_number,
             "challenge_id": str(challenge_id),
             "similarity_score": float(similarity_score),
             "asr_confidence": float(asr_confidence),
-            "asr_penalty": asr_penalty,
-            "final_score": float(final_score)
+            "asr_penalty": asr_penalty, 
+            "final_score": float(final_score),
+            "anti_spoofing_score": float(spoof_prob),
+            "genuineness_score": float(genuineness_score)
         })
         
         # Mark challenge as used
         await self._challenge_service.mark_challenge_used(challenge_id)
         
-        # 7. Check if this is the last phrase
+        # 8. Check completion
         is_complete = len(session.results) >= 3
         
         if is_complete:
@@ -498,9 +517,4 @@ class VerificationServiceV2:
         }
 
 
-    async def get_verification_history(self, user_id: UUID, limit: int = 10) -> List[Dict]:
-        """Get verification history for a user."""
-        # TODO: Implement actual database query when verification_results table is created
-        # For now, return empty list as placeholder
-        logger.info(f"get_verification_history called for user_id={user_id}, limit={limit}")
-        return []
+

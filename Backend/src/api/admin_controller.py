@@ -149,6 +149,68 @@ async def get_users(
         total_pages=(total + limit - 1) // limit if total > 0 else 0
     )
 
+
+from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
+from ..infrastructure.config.dependencies import get_user_repository, get_audit_log_repository, get_voice_signature_repository
+
+@admin_router.get("/users/{user_id}", response_model=UserInfo)
+async def get_user_details(
+    user_id: str,
+    current_user: dict = Depends(require_admin),
+    user_repo: UserRepositoryPort = Depends(get_user_repository),
+    voice_repo: VoiceSignatureRepositoryPort = Depends(get_voice_signature_repository)
+):
+    """
+    Get single user details (admin only).
+    Admins can only see users from their company.
+    """
+    user = await user_repo.get_user(user_id)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    
+    # Check permission for admin (not superadmin)
+    if current_user["role"] == "admin" and user.get("company") != current_user["company"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied"
+        )
+    
+    # Get voiceprint details if exists
+    voice_template = None
+    if user.get("has_voiceprint"):
+        # We need to fetch the voiceprint to get its ID and creation date
+        # Note: user_id implies we should find it.
+        try:
+            # We import UUID to cast string user_id
+            from uuid import UUID
+            vp = await voice_repo.get_voiceprint_by_user(UUID(user_id))
+            if vp:
+                voice_template = {
+                    "id": str(vp.id),
+                    "created_at": vp.created_at,
+                    "model_type": "ECAPA-TDNN", # Hardcoded for now as it's the standard
+                    "sample_count": 3 # Placeholder, or retrieve from history/metadata if available
+                }
+        except Exception as e:
+            logger.warning(f"Failed to fetch voiceprint details for user {user_id}: {e}")
+
+    return UserInfo(
+        id=str(user["id"]),
+        first_name=user.get("first_name", ""),
+        last_name=user.get("last_name", ""),
+        email=user.get("email", ""),
+        role=user.get("role", "user"),
+        company=user.get("company", ""),
+        status="active" if user.get("is_active", True) else "inactive",
+        enrollment_status="enrolled" if user.get("has_voiceprint", False) else "pending",
+        created_at=user.get("created_at"),
+        last_login=user.get("last_login"),
+        voice_template=voice_template
+    )
+
 @admin_router.get("/stats", response_model=SystemStats)
 async def get_system_stats(
     current_user: dict = Depends(require_admin),
