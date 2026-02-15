@@ -94,7 +94,7 @@ export interface ApiConfig {
 
 export const apiConfig: ApiConfig = {
   baseURL: getEnvVar('VITE_API_BASE_URL') || getEnvVar('VITE_API_URL', 'http://localhost:8000'),
-  timeout: getNumEnvVar('VITE_API_TIMEOUT', 30000),
+  timeout: getNumEnvVar('VITE_API_TIMEOUT', 60000),
   retries: getNumEnvVar('VITE_API_RETRIES', 3),
   enableMock: getBoolEnvVar('VITE_ENABLE_MOCK_DATA', isDevelopment),
 };

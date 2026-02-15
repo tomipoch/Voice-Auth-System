@@ -148,8 +148,8 @@ class SpeakerEmbeddingAdapter:
         if not quality_info["is_valid"]:
             raise ValueError(f"Invalid audio: {quality_info['reason']}")
         
-        # Load model if not already loaded
-        self._load_model()
+        # PERFORMANCE FIX: Don't reload model on every call
+        # Model is already loaded in __init__, no need to reload
         
         # Extract embedding using real model or fallback to mock
         if self._model_loaded and self._classifier is not None:
