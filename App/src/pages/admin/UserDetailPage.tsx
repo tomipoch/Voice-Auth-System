@@ -348,57 +348,52 @@ const UserDetailPage = () => {
 
   return (
     <MainLayout>
-      <div className="mb-6">
-        <Button
-          variant="ghost"
-          className="mb-4 pl-0 hover:pl-2 transition-all"
-          onClick={() => navigate('/admin/users')} // Go specifically to users list
+      <div className="mb-8">
+        <button
+          onClick={() => navigate('/admin/users')}
+          className="mb-4 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+          aria-label="Volver a usuarios"
         >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Volver a Usuarios
-        </Button>
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-              Detalle de Usuario
-            </h1>
-            <p className="text-gray-600 dark:text-gray-300">Gestionando a {user.first_name} {user.last_name || user.email}</p>
-          </div>
-          <div className="flex gap-3">
-            <Button variant="outline">Resetear Password</Button>
-            {user.status === 'active' ? (
-                 <Button variant="danger">Desactivar Usuario</Button>
-            ) : (
-                 <Button variant="primary">Activar Usuario</Button>
-            )}
-           
-          </div>
+          <ArrowLeft className="h-5 w-5" />
+        </button>
+        <div>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+            Detalle de Usuario
+          </h1>
+          <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
+            Gestionando a {user.first_name} {user.last_name || user.email}
+          </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         {/* User Profile Card */}
-        <Card className="p-6">
-          <div className="flex items-center mb-6">
-            <div className="h-16 w-16 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 text-2xl font-bold mr-4">
-              {user.first_name ? user.first_name.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {user.first_name} {user.last_name}
-              </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-300 truncate max-w-[200px]" title={user.email}>{user.email}</p>
-              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mt-2 capitalize ${
+        <Card className="p-6 bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-blue-900/10 border-blue-100 dark:border-blue-800/30">
+          <div className="flex flex-col items-center text-center">
+            <div className="relative mb-4">
+              <div className="h-20 w-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+                {user.first_name ? user.first_name.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
+              </div>
+              <div className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-2 border-white dark:border-gray-800 ${
                 user.status === 'active' 
-                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' 
-                : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
-              }`}>
-                {user.status}
-              </span>
+                ? 'bg-green-500' 
+                : 'bg-red-500'
+              }`} />
             </div>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+              {user.first_name} {user.last_name}
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{user.email}</p>
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${
+              user.status === 'active' 
+              ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' 
+              : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+            }`}>
+              {user.status === 'active' ? 'Activo' : 'Inactivo'}
+            </span>
           </div>
 
-          <div className="space-y-4">
+          <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 space-y-3">
             <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div className="flex items-center text-gray-600 dark:text-gray-300">
                 <Shield className="h-4 w-4 mr-2" />
@@ -417,26 +412,28 @@ const UserDetailPage = () => {
         </Card>
 
         {/* Biometric Status Card */}
-        <Card className="p-6">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
-            <Mic className="h-5 w-5 mr-2 text-purple-600" />
+        <Card className="p-6 bg-gradient-to-br from-white to-purple-50/30 dark:from-gray-800 dark:to-purple-900/10 border-purple-100 dark:border-purple-800/30">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
+            <div className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mr-3">
+              <Mic className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+            </div>
             Estado Biométrico
           </h3>
 
-          <div className="text-center py-4">
+          <div className="flex flex-col items-center text-center py-6">
             <div
-              className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-3 ${
+              className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-4 shadow-lg ${
                 user.enrollment_status === 'enrolled'
-                  ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400'
-                  : 'bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400'
+                  ? 'bg-gradient-to-br from-green-400 to-emerald-600'
+                  : 'bg-gradient-to-br from-orange-400 to-amber-600'
               }`}
             >
-              <Mic className="h-8 w-8" />
+              <Mic className="h-10 w-10 text-white" />
             </div>
-            <p className="font-bold text-gray-900 dark:text-gray-100 mb-1">
+            <p className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">
               {user.enrollment_status === 'enrolled' ? 'Voz Registrada' : 'No Registrado'}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
               {user.enrollment_status === 'enrolled'
                 ? 'Perfil biométrico activo y listo'
                 : 'Usuario pendiente de enrolamiento'}
@@ -456,46 +453,45 @@ const UserDetailPage = () => {
         </Card>
 
         {/* Stats Card */}
-        {/* Stats Card - Redesigned to be horizontal if needed, sticking to card for now */}
-        <Card className="p-0 overflow-hidden bg-white dark:bg-gray-800 border-none shadow-sm h-full">
-            <div className="p-6 border-b border-gray-100 dark:border-gray-700">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 flex items-center">
-                    <Activity className="h-5 w-5 mr-2 text-blue-600" />
-                    Métricas de Verificación
-                </h3>
+        <Card className="p-6 bg-gradient-to-br from-white to-indigo-50/30 dark:from-gray-800 dark:to-indigo-900/10 border-indigo-100 dark:border-indigo-800/30">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
+            <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mr-3">
+              <Activity className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
             </div>
-            <div className="p-6 grid grid-cols-1 gap-6">
-                <div>
-                   <div className="flex justify-between items-end mb-2">
-                      <span className="text-sm text-gray-500 font-medium">Tasa de Éxito Global</span>
-                      <span className={`text-2xl font-bold ${
-                         stats.successRate >= 80 ? 'text-green-600' : stats.successRate >= 50 ? 'text-yellow-600' : 'text-red-600'
-                      }`}>{stats.successRate}%</span>
-                   </div>
-                   <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
-                        <div className={`h-full rounded-full transition-all duration-500 ease-out ${
-                             stats.successRate >= 80 ? 'bg-green-500' : stats.successRate >= 50 ? 'bg-yellow-500' : 'bg-red-500'
-                        }`} style={{ width: `${stats.successRate}%` }}></div>
-                   </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                     <div className="bg-blue-50/50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-800/30">
-                        <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">{stats.verificationCount}</p>
-                        <p className="text-xs font-semibold text-blue-600/60 dark:text-blue-400/60 uppercase tracking-wider">Total Intentos</p>
-                     </div>
-                     <div className="bg-purple-50/50 dark:bg-purple-900/10 p-4 rounded-xl border border-purple-100 dark:border-purple-800/30">
-                        <p className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">{stats.daysActive}</p>
-                        <p className="text-xs font-semibold text-purple-600/60 dark:text-purple-400/60 uppercase tracking-wider">Días Activo</p>
-                     </div>
-                </div>
+            Métricas de Verificación
+          </h3>
+          <div className="space-y-6">
+            <div>
+              <div className="flex justify-between items-end mb-3">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Tasa de Éxito</span>
+                <span className={`text-3xl font-bold ${
+                  stats.successRate >= 80 ? 'text-green-600 dark:text-green-400' : stats.successRate >= 50 ? 'text-yellow-600 dark:text-yellow-400' : 'text-red-600 dark:text-red-400'
+                }`}>{stats.successRate}%</span>
+              </div>
+              <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-3 overflow-hidden shadow-inner">
+                <div className={`h-full rounded-full transition-all duration-500 ease-out ${
+                  stats.successRate >= 80 ? 'bg-gradient-to-r from-green-500 to-emerald-600' : stats.successRate >= 50 ? 'bg-gradient-to-r from-yellow-500 to-amber-600' : 'bg-gradient-to-r from-red-500 to-rose-600'
+                }`} style={{ width: `${stats.successRate}%` }}></div>
+              </div>
             </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-800/10 p-4 rounded-xl border border-blue-200 dark:border-blue-800/30">
+                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">{stats.verificationCount}</p>
+                <p className="text-xs font-semibold text-blue-600/70 dark:text-blue-400/70 uppercase tracking-wide">Intentos</p>
+              </div>
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/10 p-4 rounded-xl border border-purple-200 dark:border-purple-800/30">
+                <p className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">{stats.daysActive}</p>
+                <p className="text-xs font-semibold text-purple-600/70 dark:text-purple-400/70 uppercase tracking-wide">Días</p>
+              </div>
+            </div>
+          </div>
         </Card>
       </div>
 
       {/* History Table */}
       <Card className="p-6">
-        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           Historial de Verificaciones
         </h3>
         
@@ -507,35 +503,35 @@ const UserDetailPage = () => {
           <div className="overflow-x-auto">
             <table className="min-w-full">
               <thead>
-                <tr className="bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700">
-                  <th className="text-left py-4 px-6 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <tr className="border-b border-gray-200 dark:border-gray-700">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Fecha
                   </th>
-                  <th className="text-left py-4 px-6 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Método
                   </th>
-                  <th className="text-center py-4 px-6 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="text-center py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Resultado
                   </th>
-                  <th className="text-center py-4 px-6 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="text-center py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
                     Score
                   </th>
-                  <th className="py-4 px-6"></th>
+                  <th className="py-3 px-4"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                 {history.map((item) => (
                   <tr
                     key={item.id}
-                    className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group"
+                    className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors group"
                   >
-                    <td className="py-4 px-6 text-gray-900 dark:text-gray-100 text-sm font-medium">
+                    <td className="py-3 px-4 text-gray-900 dark:text-gray-100 text-sm font-medium">
                       {item.date}
                     </td>
-                    <td className="py-4 px-6 text-gray-600 dark:text-gray-300 text-sm">
+                    <td className="py-3 px-4 text-gray-600 dark:text-gray-300 text-sm">
                         {item.method || 'Biometría de Voz'}
                     </td>
-                    <td className="py-4 px-6 text-center">
+                    <td className="py-3 px-4 text-center">
                       <span
                         className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${
                           item.result === 'success'
@@ -551,7 +547,7 @@ const UserDetailPage = () => {
                         {item.result === 'success' ? 'Exitoso' : 'Fallido'}
                       </span>
                     </td>
-                    <td className="py-4 px-6">
+                    <td className="py-3 px-4">
                       <div className="flex items-center justify-center gap-2">
                         <span className={`font-mono font-bold w-12 text-right ${
                              item.score >= 80 ? 'text-green-600' : item.score >= 50 ? 'text-yellow-600' : 'text-red-600'
@@ -572,7 +568,7 @@ const UserDetailPage = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="py-4 px-6 text-right">
+                    <td className="py-3 px-4 text-right">
                         <Button 
                             variant="ghost" 
                             size="sm" 
