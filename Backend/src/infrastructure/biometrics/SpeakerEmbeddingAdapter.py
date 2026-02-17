@@ -54,6 +54,10 @@ class SpeakerEmbeddingAdapter:
         # Audio preprocessing parameters
         self.target_sample_rate = 16000
         self.target_length = 3.0  # seconds
+        
+        # Thread safety for parallel processing
+        import threading
+        self._lock = threading.Lock()
 
         self._load_model()
     
@@ -170,10 +174,12 @@ class SpeakerEmbeddingAdapter:
             waveform = torch.tensor(waveform, dtype=torch.float32).unsqueeze(0).to(self.device)
             
             # Extract embedding using SpeechBrain
-            with torch.no_grad():
-                embeddings = self._classifier.encode_batch(waveform)
-                # Get the embedding as numpy array
-                embedding = embeddings.squeeze().cpu().numpy()
+            # Thread-safe: Lock during model inference
+            with self._lock:
+                with torch.no_grad():
+                    embeddings = self._classifier.encode_batch(waveform)
+                    # Get the embedding as numpy array
+                    embedding = embeddings.squeeze().cpu().numpy()
             
             # Ensure embedding is the right size and normalized
             if len(embedding) != EMBEDDING_DIMENSION:

@@ -72,6 +72,10 @@ class ASRAdapter:
         # Audio processing parameters
         self.target_sample_rate = 16000
         
+        # Thread safety for parallel processing
+        import threading
+        self._lock = threading.Lock()
+        
         # Load the ASR model
         self._load_asr_model()
     
@@ -158,12 +162,13 @@ class ASRAdapter:
             # Preprocess audio
             waveform = self._preprocess_audio(audio_data)
             
-            # Perform ASR inference
-            with torch.no_grad():
-                wav_lens = torch.tensor([1.0]).to(self.device)
-                # transcribe_batch returns (words, tokens)
-                results = self._asr_model.transcribe_batch(waveform, wav_lens)
-                transcribed_text = results[0] # Get the list of predicted words
+            # Perform ASR inference (thread-safe)
+            with self._lock:
+                with torch.no_grad():
+                    wav_lens = torch.tensor([1.0]).to(self.device)
+                    # transcribe_batch returns (words, tokens)
+                    results = self._asr_model.transcribe_batch(waveform, wav_lens)
+                    transcribed_text = results[0] # Get the list of predicted words
             
             logger.debug(f"Transcribed text: '{transcribed_text}'")
             return transcribed_text[0] if isinstance(transcribed_text, list) else transcribed_text

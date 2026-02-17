@@ -344,9 +344,9 @@ async def verify_phrase(
                     detail=f"Failed to convert audio: {str(e)}"
                 )
         
-        # Process audio through full pipeline
-        # Extract biometric features
-        features = voice_engine.extract_features(
+        # Process audio through full pipeline (parallel processing for speed)
+        # Extract biometric features concurrently
+        features = await voice_engine.extract_features_parallel(
             audio_data=audio_bytes,
             audio_format="wav"
         )
