@@ -1,12 +1,4 @@
-import {
-  Mic,
-  Clock,
-  Volume2,
-  ShieldCheck,
-  Lock,
-  CheckCircle2,
-  Activity,
-} from 'lucide-react';
+import { Mic, Clock, Volume2, ShieldCheck, Lock, CheckCircle2, Activity } from 'lucide-react';
 import Button from '../ui/Button';
 import Card from '../ui/Card';
 

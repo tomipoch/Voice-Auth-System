@@ -3,6 +3,7 @@
 from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status, Request
 from typing import Optional
 from uuid import UUID
+from datetime import datetime
 import io
 import soundfile as sf
 import logging
@@ -374,9 +375,11 @@ async def verify_phrase(
             client_ip = forwarded.split(",")[0].strip()
         
         # Log verification to audit if complete
+        # METADATA FIX: Capturing IP, user agent, device info
         if result.get('is_complete'):
+            logger.info(f"Verification complete, logging to audit. verification_id={verification_uuid}, user_id={result.get('user_id')}, is_verified={result.get('is_verified')}")
             await audit_repo.log_event(
-                actor=str(result.get('user_id')),
+                actor="system",  # Changed from user_id to 'system' for consistency
                 action=AuditAction.VERIFICATION,
                 entity_type="multi_verification_complete",
                 entity_id=str(verification_uuid),
@@ -393,6 +396,9 @@ async def verify_phrase(
                     "timestamp": datetime.now().isoformat()
                 }
             )
+            logger.info(f"Successfully logged multi_verification_complete event to audit")
+        else:
+            logger.info(f"Verification not complete yet (phrase {phrase_number} of 3)")
         
         return VerifyPhraseResponse(**result)
     
@@ -409,7 +415,7 @@ async def verify_phrase(
 @router.get("/user/{user_id}/history")
 async def get_verification_history(
     user_id: str,
-    limit: int = 10,
+    limit: int = 100,  # Increased from 10 to show full history
     verification_service: VerificationServiceV2 = Depends(get_verification_service_v2)
 ):
     """

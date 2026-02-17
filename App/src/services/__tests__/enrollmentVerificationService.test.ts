@@ -51,11 +51,7 @@ describe('enrollmentService', () => {
 
       vi.mocked(api.post).mockResolvedValue(mockResponse);
 
-      const result = await enrollmentService.submitAudio(
-        'enroll-123',
-        mockBlob,
-        'Test phrase'
-      );
+      const result = await enrollmentService.submitAudio('enroll-123', mockBlob, 'Test phrase');
 
       expect(api.post).toHaveBeenCalled();
       expect(result).toEqual(mockResponse.data);
@@ -141,11 +137,7 @@ describe('verificationService', () => {
 
       vi.mocked(api.post).mockResolvedValue(mockResponse);
 
-      const result = await verificationService.verifyAudio(
-        'verify-123',
-        mockBlob,
-        'Test phrase'
-      );
+      const result = await verificationService.verifyAudio('verify-123', mockBlob, 'Test phrase');
 
       expect(api.post).toHaveBeenCalled();
       expect(result).toEqual(mockResponse.data);

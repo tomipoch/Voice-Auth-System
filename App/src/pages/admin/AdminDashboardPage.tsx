@@ -1,9 +1,17 @@
-import { Users, Activity, Shield, Mic, AlertTriangle, FileText } from 'lucide-react';
+import {
+  Users,
+  Activity,
+  Shield,
+  Mic,
+  AlertTriangle,
+  FileText,
+  CheckCircle,
+  Settings,
+} from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
-import Button from '../../components/ui/Button';
 import adminService, { type SystemStats } from '../../services/adminService';
 import toast from 'react-hot-toast';
 
@@ -28,179 +36,229 @@ const AdminDashboardPage = () => {
     }
   };
 
-  // Mock data for charts/trends - TODO: Get from API
-  const trends = [
-    { day: 'Lun', value: 45 },
-    { day: 'Mar', value: 52 },
-    { day: 'Mie', value: 49 },
-    { day: 'Jue', value: 63 },
-    { day: 'Vie', value: 58 },
-    { day: 'Sab', value: 35 },
-    { day: 'Dom', value: 28 },
-  ];
+  const getDayName = (dateStr: string) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('es-ES', { weekday: 'short' });
+  };
+
+  // Prepare chart data from API stats or fallback to empty
+  const chartData =
+    stats?.daily_verifications?.map((item) => ({
+      day: getDayName(item.date),
+      value: item.count,
+      fullDate: item.date,
+    })) || [];
+
+  // If no data yet (e.g. loading or empty system), show placeholders for last 7 days
+  const displayData =
+    chartData.length > 0
+      ? chartData
+      : [...Array(7)].map((_, i) => ({
+          day: '',
+          value: 0,
+          fullDate: '',
+        }));
+
+  /*
+   * Helper to render a consistent KPI card matching PhraseStatsCards style
+   */
+  const renderStatCard = (
+    title: string,
+    value: string | number,
+    subtext: string,
+    Icon: any,
+    colorClasses: { bg: string; text: string }
+  ) => (
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-4 transition-all hover:shadow-md">
+      <div className="flex items-center gap-4">
+        <div className={`p-3 rounded-lg shrink-0 ${colorClasses.bg} ${colorClasses.text}`}>
+          <Icon className="w-6 h-6" />
+        </div>
+        <div>
+          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+            {title}
+          </p>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-0.5">{value}</h3>
+          <p className="text-xs text-gray-500 mt-1">{subtext}</p>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <MainLayout>
+      {/* Header matching PhrasesPage style */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
           Dashboard de Administración
         </h1>
         <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
-          Resumen general del sistema
+          Resumen general y métricas del sistema
         </p>
       </div>
 
       <div className="space-y-6">
-        {/* KPIs */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-6 border-l-4 border-blue-500">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                  Total Usuarios
-                </p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                  {loading ? '...' : (stats?.total_users?.toLocaleString() ?? '0')}
-                </h3>
-              </div>
-              <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-full">
-                <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
-              </div>
-            </div>
-            <p className="text-xs text-blue-600 mt-2 flex items-center">
-              <Activity className="h-3 w-3 mr-1" aria-hidden="true" /> {stats?.active_users_24h ?? 0} activos hoy
-            </p>
-          </Card>
-
-          <Card className="p-6 border-l-4 border-green-500">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                  Tasa de Éxito
-                </p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                  {loading ? '...' : `${((stats?.success_rate ?? 0) * 100).toFixed(1)}%`}
-                </h3>
-              </div>
-              <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-full">
-                <Shield className="h-6 w-6 text-green-600 dark:text-green-400" aria-hidden="true" />
-              </div>
-            </div>
-            <p className="text-xs text-green-600 mt-2 flex items-center">
-              <Activity className="h-3 w-3 mr-1" aria-hidden="true" /> Verificaciones exitosas
-            </p>
-          </Card>
-
-          <Card className="p-6 border-l-4 border-purple-500">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                  Verificaciones
-                </p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                  {loading ? '...' : (stats?.total_verifications?.toLocaleString() ?? '0')}
-                </h3>
-              </div>
-              <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
-                <Mic className="h-6 w-6 text-purple-600 dark:text-purple-400" aria-hidden="true" />
-              </div>
-            </div>
-            <p className="text-xs text-blue-600 mt-2">Total histórico</p>
-          </Card>
-
-          <Card className="p-6 border-l-4 border-orange-500">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Fallos (24h)</p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                  {loading ? '...' : (stats?.failed_verifications_24h ?? 0)}
-                </h3>
-              </div>
-              <div className="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-full">
-                <AlertTriangle className="h-6 w-6 text-orange-600 dark:text-orange-400" aria-hidden="true" />
-              </div>
-            </div>
-            <p className="text-xs text-orange-600 mt-2">Últimas 24 horas</p>
-          </Card>
+        {/* KPIs Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {loading ? (
+            // Loading Skeletons
+            [...Array(4)].map((_, i) => (
+              <div
+                key={i}
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 animate-pulse border border-gray-100 dark:border-gray-700 h-24"
+              ></div>
+            ))
+          ) : (
+            <>
+              {renderStatCard(
+                'Total Usuarios',
+                stats?.total_users?.toLocaleString() ?? '0',
+                `${stats?.active_users_24h ?? 0} activos hoy`,
+                Users,
+                { bg: 'bg-blue-50 dark:bg-blue-900/20', text: 'text-blue-600 dark:text-blue-400' }
+              )}
+              {renderStatCard(
+                'Tasa de Éxito',
+                `${((stats?.success_rate ?? 0) * 100).toFixed(1)}%`,
+                'Verificaciones exitosas',
+                Shield,
+                {
+                  bg: 'bg-green-50 dark:bg-green-900/20',
+                  text: 'text-green-600 dark:text-green-400',
+                }
+              )}
+              {renderStatCard(
+                'Verificaciones',
+                stats?.total_verifications?.toLocaleString() ?? '0',
+                'Total histórico',
+                Mic,
+                {
+                  bg: 'bg-purple-50 dark:bg-purple-900/20',
+                  text: 'text-purple-600 dark:text-purple-400',
+                }
+              )}
+              {renderStatCard(
+                'Fallos (24h)',
+                stats?.failed_verifications_24h ?? 0,
+                'Requieren revisión',
+                AlertTriangle,
+                {
+                  bg: 'bg-orange-50 dark:bg-orange-900/20',
+                  text: 'text-orange-600 dark:text-orange-400',
+                }
+              )}
+            </>
+          )}
         </div>
 
-        {/* Charts & Quick Links */}
+        {/* Charts & Links Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Charts Section */}
           <Card className="lg:col-span-2 p-6">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-6">
-              Tendencia de Verificaciones (Últimos 7 días)
-            </h3>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                Tendencia de Verificaciones
+              </h3>
+              <div className="p-1.5 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                <Activity className="h-4 w-4 text-gray-500" />
+              </div>
+            </div>
+
             <div className="h-64 flex items-end justify-between gap-2">
-              {trends.map((item, index) => (
-                <div key={index} className="flex flex-col items-center w-full group">
-                  <div
-                    className="w-full max-w-[40px] bg-blue-500 dark:bg-blue-600 rounded-t-lg transition-all duration-300 group-hover:bg-blue-600 dark:group-hover:bg-blue-500 relative"
-                    style={{ height: `${item.value}%` }}
-                  >
-                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                      {item.value}
+              {displayData.map((item, index) => {
+                // Calculate height in pixels (max height is 240px, leaving room for labels)
+                const maxHeight = 240;
+                const maxValue = Math.max(...displayData.map((d) => d.value || 0));
+                const heightPx = maxValue > 0 
+                  ? Math.max((item.value / maxValue) * maxHeight, 4)
+                  : 4;
+                
+                return (
+                  <div key={index} className="flex flex-col items-center w-full group">
+                    <div className="relative w-full flex justify-center items-end">
+                      <div
+                        className="w-full max-w-[32px] bg-blue-500 dark:bg-blue-600 rounded-t-md transition-all duration-300 hover:bg-blue-600 dark:hover:bg-blue-500"
+                        style={{ height: `${heightPx}px` }}
+                        title={`${item.value} verificaciones el ${item.fullDate}`}
+                      ></div>
                     </div>
+                    <span className="text-xs text-gray-500 mt-2 font-medium h-4">{item.day}</span>
                   </div>
-                  <span className="text-xs text-gray-600 dark:text-gray-300 mt-2">{item.day}</span>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </Card>
 
+          {/* Quick Actions */}
           <div className="space-y-6">
             <Card className="p-6">
               <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
-                Accesos Directos
+                Accesos Rápidos
               </h3>
               <div className="space-y-3">
-                <Button
-                  variant="outline"
-                  className="w-full justify-start"
+                <button
                   onClick={() => navigate('/admin/users')}
-                  aria-label="Ir a gestión de usuarios"
+                  className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
                 >
-                  <Users className="h-4 w-4 mr-2" aria-hidden="true" />
-                  Gestionar Usuarios
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full justify-start"
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600 dark:text-blue-400 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/30">
+                      <Users className="h-4 w-4" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                      Gestionar Usuarios
+                    </span>
+                  </div>
+                </button>
+
+                <button
                   onClick={() => navigate('/admin/logs')}
-                  aria-label="Ver logs de auditoría"
+                  className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
                 >
-                  <FileText className="h-4 w-4 mr-2" aria-hidden="true" />
-                  Ver Logs de Auditoría
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full justify-start"
-                  onClick={() => navigate('/admin/phrases')}
-                  aria-label="Gestionar frases del sistema"
-                >
-                  <FileText className="h-4 w-4 mr-2" aria-hidden="true" />
-                  Gestionar Frases
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full justify-start"
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-purple-600 dark:text-purple-400 group-hover:bg-purple-100 dark:group-hover:bg-purple-900/30">
+                      <FileText className="h-4 w-4" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                      Logs de Auditoría
+                    </span>
+                  </div>
+                </button>
+
+                <button
                   onClick={() => navigate('/admin/phrase-rules')}
-                  aria-label="Configurar reglas de calidad"
+                  className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
                 >
-                  ⚙️ Configurar Reglas de Calidad
-                </Button>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg text-orange-600 dark:text-orange-400 group-hover:bg-orange-100 dark:group-hover:bg-orange-900/30">
+                      <CheckCircle className="h-4 w-4" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                      Reglas de Calidad
+                    </span>
+                  </div>
+                </button>
               </div>
             </Card>
 
-            <Card className="p-6 bg-linear-to-br from-blue-500 to-indigo-600 text-white">
-              <h3 className="text-lg font-bold mb-2">Estado del Sistema</h3>
-              <p className="text-blue-100 text-sm mb-4">Todos los servicios operativos</p>
-              <div className="flex items-center gap-2 text-sm">
-                <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span>API: Online</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm mt-1">
-                <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span>Biometría: Online</span>
+            <Card className="p-6 bg-gray-900 text-white border-none">
+              <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
+                <Settings className="h-5 w-5" /> Estado del Sistema
+              </h3>
+              <div className="space-y-3 mt-4">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-400">API Status</span>
+                  <span className="flex items-center text-green-400 font-medium">
+                    <span className="h-2 w-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                    Operational
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-400">Database</span>
+                  <span className="flex items-center text-green-400 font-medium">
+                    <span className="h-2 w-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                    Operational
+                  </span>
+                </div>
               </div>
             </Card>
           </div>

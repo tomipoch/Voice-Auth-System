@@ -5,7 +5,7 @@ from fastapi.security import HTTPBearer
 from pydantic import BaseModel
 from typing import List, Optional
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from .auth_controller import get_current_user
 
@@ -34,6 +34,7 @@ class SystemStats(BaseModel):
     success_rate: float  # 0.0 to 1.0
     active_users_24h: int
     failed_verifications_24h: int
+    daily_verifications: List[dict]  # [{"date": "2023-10-27", "count": 12}, ...]
 
 class ActivityLog(BaseModel):
     id: str
@@ -221,8 +222,6 @@ async def get_system_stats(
     Get system statistics (admin only).
     Admins see stats for their company only, superadmin sees all.
     """
-    from datetime import datetime, timedelta
-    
     # Get users based on role
     if current_user["role"] == "admin":
         # Admins only see their company's users
@@ -243,19 +242,22 @@ async def get_system_stats(
     total_enrollments = len(users_with_voiceprints)
     
     # Get audit logs for the last 24 hours
-    now = datetime.utcnow()
+    from datetime import timezone
+    now = datetime.now(timezone.utc)
     last_24h = now - timedelta(hours=24)
+    last_7_days = now - timedelta(days=7)
     
-    # Get recent logs (last 24h)
+    # Get recent logs (last 7 days for trends, filtering done later)
+    # Get recent logs (last 7 days for trends, but we'll also use this for all-time stats)
+    # To get all-time verification stats, we need a separate query without time limit
     recent_logs = await audit_repo.get_logs(
-        start_time=last_24h,
+        start_time=last_7_days,
         limit=10000  # High limit to get all recent logs
     )
     
-    # Get all verification logs (for overall success rate)
-    all_verification_logs = await audit_repo.get_logs(
-        action='VERIFICATION',
-        limit=10000
+    # Get ALL verification logs for all-time stats (no time filter)
+    all_logs = await audit_repo.get_logs(
+        limit=50000  # Very high limit for all-time data
     )
     
     # If admin, filter logs to only include users from their company
@@ -263,28 +265,81 @@ async def get_system_stats(
         company_user_ids = {str(u["id"]) for u in all_users}
         company_emails = {str(u.get("email")) for u in all_users if u.get("email")}
         
-        recent_logs = [
-            log for log in recent_logs 
-            if log.get('actor') in company_user_ids or log.get('actor') in company_emails
-        ]
-        all_verification_logs = [
-            log for log in all_verification_logs 
-            if log.get('actor') in company_user_ids or log.get('actor') in company_emails
-        ]
+        def belongs_to_company(log):
+            """Check if a log belongs to the company."""
+            actor = log.get('actor', '')
+            # Direct match: actor is a user_id or email from company
+            if actor in company_user_ids or actor in company_emails:
+                return True
+            # System logs: check metadata for user_id
+            if actor == 'system':
+                metadata = log.get('metadata')
+                if metadata:
+                    # Parse JSON string if needed
+                    if isinstance(metadata, str):
+                        try:
+                            import json
+                            metadata = json.loads(metadata)
+                        except:
+                            return False
+                    # Check user_id in metadata
+                    user_id_in_meta = metadata.get('user_id')
+                    if user_id_in_meta and str(user_id_in_meta) in company_user_ids:
+                        return True
+            return False
+        
+        recent_logs = [log for log in recent_logs if belongs_to_company(log)]
+        all_logs = [log for log in all_logs if belongs_to_company(log)]
     
-    # Count verifications in last 24h
-    verification_logs_24h = [log for log in recent_logs if log.get('action') == 'VERIFICATION']
+    # Count verifications (only results, ignore starts)
+    # Action matches AuditAction.VERIFY ('VERIFY') or legacy 'VERIFICATION'
+    verification_actions = {'VERIFY', 'VERIFICATION'}
+    verification_types = {'verification_result', 'quick_verification', 'multi_verification_complete'}
+    
+    verification_logs_24h = [
+        log for log in recent_logs 
+        if log.get('action') in verification_actions
+        and log.get('entity_type') in verification_types
+        and log.get('timestamp') >= last_24h
+    ]
     
     # Count successful and failed verifications in last 24h
     successful_24h = [log for log in verification_logs_24h if log.get('success', False)]
     failed_verifications_24h = len(verification_logs_24h) - len(successful_24h)
+
+    # Calculate daily verifications for the last 7 days
+    daily_stats = {}
+    for i in range(7):
+        date_key = (now - timedelta(days=i)).strftime('%Y-%m-%d')
+        daily_stats[date_key] = 0
     
-    # Calculate overall success rate
+    # Populate counts from logs
+    for log in recent_logs:
+        if log.get('action') in verification_actions and log.get('entity_type') in verification_types:
+            log_date = log.get('timestamp').strftime('%Y-%m-%d')
+            if log_date in daily_stats:
+                daily_stats[log_date] += 1
+    
+    # Convert to list sorted by date (oldest to newest)
+    daily_verifications = [
+        {"date": date, "count": count} 
+        for date, count in sorted(daily_stats.items())
+    ]
+    
+    # Calculate overall success rate from ALL logs (all-time)
+    all_verification_logs = [
+        log for log in all_logs
+        if log.get('action') in verification_actions
+        and log.get('entity_type') in verification_types
+    ]
+    
     if all_verification_logs:
         all_successful = [log for log in all_verification_logs if log.get('success', False)]
         success_rate = len(all_successful) / len(all_verification_logs)
+        total_verifications_count = len(all_verification_logs)
     else:
         success_rate = 0.0
+        total_verifications_count = 0
     
     # Count active users in last 24h (users who performed any action)
     active_user_ids = set(log.get('actor') for log in recent_logs if log.get('actor'))
@@ -293,10 +348,11 @@ async def get_system_stats(
     return SystemStats(
         total_users=total_users,
         total_enrollments=total_enrollments,
-        total_verifications=len(all_verification_logs),
+        total_verifications=total_verifications_count,
         success_rate=success_rate,
         active_users_24h=active_users_24h,
-        failed_verifications_24h=failed_verifications_24h
+        failed_verifications_24h=failed_verifications_24h,
+        daily_verifications=daily_verifications
     )
 
 @admin_router.get("/activity", response_model=List[ActivityLog])

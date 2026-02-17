@@ -17,7 +17,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       {/* Main Content */}
       <main
         id="main-content"
-        className="flex-1 overflow-y-auto ml-64"
+        className="flex-1 overflow-y-auto lg:ml-64 pt-16 lg:pt-0"
         role="main"
         aria-label="Contenido principal"
       >

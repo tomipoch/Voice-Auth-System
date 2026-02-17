@@ -248,13 +248,22 @@ export const PhrasesPage = () => {
         </div>
 
         {/* Active Filters Summary */}
-        {(filters.search || filters.difficulty || filters.is_active !== undefined || filters.book_id || filters.author) && (
+        {(filters.search ||
+          filters.difficulty ||
+          filters.is_active !== undefined ||
+          filters.book_id ||
+          filters.author) && (
           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Mostrando <span className="font-semibold text-gray-900 dark:text-gray-100">{totalPhrases.toLocaleString()}</span> resultados
+              Mostrando{' '}
+              <span className="font-semibold text-gray-900 dark:text-gray-100">
+                {totalPhrases.toLocaleString()}
+              </span>{' '}
+              resultados
               {filters.search && ` con "${filters.search}"`}
               {filters.difficulty && ` • Dificultad: ${filters.difficulty}`}
-              {filters.is_active !== undefined && ` • ${filters.is_active ? 'Activas' : 'Inactivas'}`}
+              {filters.is_active !== undefined &&
+                ` • ${filters.is_active ? 'Activas' : 'Inactivas'}`}
               {filters.book_id && ` • Libro seleccionado`}
               {filters.author && ` • Autor: ${filters.author}`}
             </p>
@@ -362,13 +371,13 @@ export const PhrasesPage = () => {
                       </td>
                       <td className="py-3 px-4 text-center">
                         <div className="flex justify-center">
-                        <button
-                          onClick={() => handleDelete(phrase.id)}
-                          className="flex items-center justify-center h-8 w-8 rounded-full bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50 transition-colors"
-                          title="Eliminar frase"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
+                          <button
+                            onClick={() => handleDelete(phrase.id)}
+                            className="flex items-center justify-center h-8 w-8 rounded-full bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50 transition-colors"
+                            title="Eliminar frase"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -380,7 +389,9 @@ export const PhrasesPage = () => {
             {/* Pagination */}
             <div className="mt-6 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
               <div className="text-sm text-gray-600 dark:text-gray-400">
-                Mostrando {((filters.page! - 1) * filters.limit!) + 1} - {Math.min(filters.page! * filters.limit!, totalPhrases)} de {totalPhrases.toLocaleString()} frases
+                Mostrando {(filters.page! - 1) * filters.limit! + 1} -{' '}
+                {Math.min(filters.page! * filters.limit!, totalPhrases)} de{' '}
+                {totalPhrases.toLocaleString()} frases
               </div>
               <div className="flex gap-2">
                 <button

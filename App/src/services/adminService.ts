@@ -54,6 +54,7 @@ export interface SystemStats {
   success_rate: number;
   active_users_24h: number;
   failed_verifications_24h: number;
+  daily_verifications: { date: string; count: number }[];
 }
 
 export interface AuditLog {

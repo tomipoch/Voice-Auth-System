@@ -105,16 +105,16 @@ export const PhraseRuleEditor = ({ rule, isOpen, onClose, onSave }: PhraseRuleEd
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full p-6 my-8 border border-gray-200 dark:border-gray-700">
           {/* Header */}
           <div className="mb-4">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Editar Regla</h2>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+              Editar Regla
+            </h2>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               {rule.rule_name.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
             </p>
           </div>
 
           {/* Description */}
-          <div className="mb-4 text-sm text-gray-600 dark:text-gray-300">
-            {rule.description}
-          </div>
+          <div className="mb-4 text-sm text-gray-600 dark:text-gray-300">{rule.description}</div>
 
           {/* Detailed Information */}
           {ruleDetail && (
@@ -131,7 +131,9 @@ export const PhraseRuleEditor = ({ rule, isOpen, onClose, onSave }: PhraseRuleEd
                 <div className="p-4 space-y-4 bg-white dark:bg-gray-900/30">
                   {/* Category */}
                   <div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Categoría</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">
+                      Categoría
+                    </span>
                     <div className="mt-1">
                       <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 border border-gray-200 dark:border-gray-700 uppercase">
                         {ruleDetail.category}
@@ -141,19 +143,29 @@ export const PhraseRuleEditor = ({ rule, isOpen, onClose, onSave }: PhraseRuleEd
 
                   {/* Impact */}
                   <div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Impacto</span>
-                    <p className="mt-1 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{ruleDetail.impact}</p>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">
+                      Impacto
+                    </span>
+                    <p className="mt-1 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                      {ruleDetail.impact}
+                    </p>
                   </div>
 
                   {/* Recommended Range */}
                   <div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Rango Recomendado</span>
-                    <p className="mt-1 text-sm text-gray-700 dark:text-gray-300 font-medium">{ruleDetail.recommendedRange}</p>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">
+                      Rango Recomendado
+                    </span>
+                    <p className="mt-1 text-sm text-gray-700 dark:text-gray-300 font-medium">
+                      {ruleDetail.recommendedRange}
+                    </p>
                   </div>
 
                   {/* Examples */}
                   <div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">Ejemplos</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold">
+                      Ejemplos
+                    </span>
                     <ul className="mt-1 space-y-1 text-sm text-gray-600 dark:text-gray-400">
                       {ruleDetail.examples.map((example, index) => (
                         <li key={index} className="flex items-start">
@@ -171,12 +183,17 @@ export const PhraseRuleEditor = ({ rule, isOpen, onClose, onSave }: PhraseRuleEd
           {/* Current Value */}
           <div className="mb-4">
             <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Valor Actual</div>
-            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{rule.rule_value}</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              {rule.rule_value}
+            </div>
           </div>
 
           {/* Input */}
           <div className="mb-4">
-            <label htmlFor="rule-value" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label
+              htmlFor="rule-value"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >
               Nuevo Valor
             </label>
             <input
@@ -187,7 +204,9 @@ export const PhraseRuleEditor = ({ rule, isOpen, onClose, onSave }: PhraseRuleEd
               onChange={handleChange}
               onKeyDown={handleKeyDown}
               className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${
-                error ? 'border-red-300 dark:border-red-700' : 'border-gray-300 dark:border-gray-600'
+                error
+                  ? 'border-red-300 dark:border-red-700'
+                  : 'border-gray-300 dark:border-gray-600'
               }`}
               placeholder="Ingrese el nuevo valor"
               autoFocus
