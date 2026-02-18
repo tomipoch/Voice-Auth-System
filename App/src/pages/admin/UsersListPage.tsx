@@ -65,14 +65,16 @@ const UsersListPage = () => {
 
     try {
       if (confirmAction.type === 'reset') {
-        // TODO: Implement API call
+        // TODO: Implement password reset endpoint when available
         console.log('Reset password for', confirmAction.user.id);
         toast.success('Contraseña reseteada exitosamente');
       } else {
-        // TODO: Implement API call
-        console.log('Toggle status for', confirmAction.user.id);
-        const newStatus = confirmAction.user.status === 'active' ? 'inactivo' : 'activo';
-        toast.success(`Usuario ${newStatus}`);
+        // Toggle user status using the new updateUser endpoint
+        const newStatus = confirmAction.user.status === 'active' ? 'inactive' : 'active';
+        await adminService.updateUser(confirmAction.user.id, { status: newStatus });
+        toast.success(
+          `Usuario ${newStatus === 'active' ? 'activado' : 'desactivado'} exitosamente`
+        );
       }
       setShowConfirmModal(false);
       setConfirmAction(null);

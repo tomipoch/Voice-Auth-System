@@ -171,6 +171,25 @@ class AdminService {
   }
 
   /**
+   * Eliminar un usuario
+   */
+  async deleteUser(userId: string): Promise<{ message: string }> {
+    const response = await api.delete<{ message: string }>(`${this.baseUrl}/users/${userId}`);
+    return response.data;
+  }
+
+  /**
+   * Actualizar información de un usuario
+   */
+  async updateUser(userId: string, userData: Partial<AdminUser>): Promise<{ message: string }> {
+    const response = await api.patch<{ message: string }>(
+      `${this.baseUrl}/users/${userId}`,
+      userData
+    );
+    return response.data;
+  }
+
+  /**
    * Activar/desactivar una regla
    */
   async toggleRule(ruleName: string): Promise<ToggleRuleResponse> {
