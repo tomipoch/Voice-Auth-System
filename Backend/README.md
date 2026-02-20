@@ -78,9 +78,7 @@ SKIP_AUTH=true
 
 ### Servicios Disponibles
 - **PostgreSQL**: Puerto 5432
-- **Redis**: Puerto 6379
 - **PgAdmin**: Puerto 5050 (admin@example.com / admin)
-- **Prometheus**: Puerto 9091
 
 ### Comandos Útiles
 ```bash
