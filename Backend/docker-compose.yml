@@ -7,6 +7,8 @@ services:
       POSTGRES_DB: voice_biometrics
       POSTGRES_USER: voice_user
       POSTGRES_PASSWORD: voice_password
+      TZ: America/Santiago
+      PGTZ: America/Santiago
     ports:
       - "5432:5432"
     volumes:

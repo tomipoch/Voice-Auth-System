@@ -50,6 +50,7 @@ class UserLoginRequest(BaseModel):
 class UserRegisterRequest(BaseModel):
     first_name: str
     last_name: str
+    rut: Optional[str] = None
     email: EmailStr
     password: str
     company: Optional[str] = None
@@ -341,6 +342,14 @@ async def register(
     """
     Register a new user.
     """
+    # Validate RUT if provided
+    if user_data.rut:
+        if not validate_rut(user_data.rut):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid RUT format. Expected format: XXXXXXXX-X"
+            )
+    
     # Validate password strength
     is_valid, error_msg = validate_password_strength(user_data.password)
     if not is_valid:
@@ -365,6 +374,7 @@ async def register(
         password=hashed_password,
         first_name=user_data.first_name,
         last_name=user_data.last_name,
+        rut=user_data.rut,
         company=user_data.company
     )
     

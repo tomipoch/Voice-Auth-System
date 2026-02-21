@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { UserPlus, Mail, Lock, User } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserPlus, Mail, Lock, User, CreditCard } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import toast from 'react-hot-toast';
 
 interface FormData {
   first_name: string;
   last_name: string;
+  rut: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -14,6 +16,7 @@ interface FormData {
 interface FormErrors {
   first_name?: string;
   last_name?: string;
+  rut?: string;
   email?: string;
   password?: string;
   confirmPassword?: string;
@@ -23,6 +26,7 @@ const RegisterPage = () => {
   const [formData, setFormData] = useState<FormData>({
     first_name: '',
     last_name: '',
+    rut: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -30,6 +34,7 @@ const RegisterPage = () => {
   const [errors, setErrors] = useState<FormErrors>({});
 
   const { register, isLoading } = useAuth();
+  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -62,6 +67,13 @@ const RegisterPage = () => {
       newErrors.last_name = 'El apellido debe tener al menos 2 caracteres';
     }
 
+    // Validar RUT
+    if (!formData.rut.trim()) {
+      newErrors.rut = 'El RUT es requerido';
+    } else if (!validateRUT(formData.rut.trim())) {
+      newErrors.rut = 'RUT inválido (formato: 12345678-9)';
+    }
+
     if (!formData.email.trim()) {
       newErrors.email = 'El email es requerido';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -91,21 +103,67 @@ const RegisterPage = () => {
       return;
     }
 
-    await register({
-      first_name: formData.first_name.trim(),
-      last_name: formData.last_name.trim(),
-      email: formData.email.trim().toLowerCase(),
-      password: formData.password,
-    });
+    try {
+      await register({
+        first_name: formData.first_name.trim(),
+        last_name: formData.last_name.trim(),
+        rut: formData.rut.trim(),
+        email: formData.email.trim().toLowerCase(),
+        password: formData.password,
+      });
 
-    // Resetear formulario después del registro exitoso
-    setFormData({
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    });
+      // Mostrar mensaje de éxito
+      toast.success('¡Cuenta creada exitosamente! Redirigiendo al login...');
+
+      // Resetear formulario
+      setFormData({
+        first_name: '',
+        last_name: '',
+        rut: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
+
+      // Redirigir al login después de 1.5 segundos
+      setTimeout(() => {
+        navigate('/login');
+      }, 1500);
+    } catch (error) {
+      // El error ya es manejado por useAuth
+      console.error('Error en registro:', error);
+    }
+  };
+
+  // Función para validar RUT chileno
+  const validateRUT = (rut: string): boolean => {
+    // Limpiar el RUT (remover puntos y guión)
+    const cleanRut = rut.replace(/\./g, '').replace(/-/g, '');
+
+    // Validar formato básico (mínimo 8 caracteres)
+    if (cleanRut.length < 8) return false;
+
+    // Separar número y dígito verificador
+    const rutNumber = cleanRut.slice(0, -1);
+    const verifier = cleanRut.slice(-1).toUpperCase();
+
+    // Validar que el número sea numérico
+    if (!/^\d+$/.test(rutNumber)) return false;
+
+    // Calcular dígito verificador
+    let sum = 0;
+    let multiplier = 2;
+
+    for (let i = rutNumber.length - 1; i >= 0; i--) {
+      sum += parseInt(rutNumber[i]) * multiplier;
+      multiplier = multiplier === 7 ? 2 : multiplier + 1;
+    }
+
+    const expectedVerifier = 11 - (sum % 11);
+    const calculatedVerifier =
+      expectedVerifier === 11 ? '0' : expectedVerifier === 10 ? 'K' : expectedVerifier.toString();
+
+    return verifier === calculatedVerifier;
   };
   return (
     <div className="min-h-screen relative overflow-hidden bg-linear-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
@@ -176,6 +234,25 @@ const RegisterPage = () => {
                 />
                 <User className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
                 {errors.last_name && <p className="text-sm text-red-500">{errors.last_name}</p>}
+              </div>
+
+              {/* RUT Input */}
+              <div className="relative space-y-2">
+                <label htmlFor="rut" className="block text-sm font-medium text-gray-700">
+                  RUT
+                </label>
+                <input
+                  id="rut"
+                  name="rut"
+                  type="text"
+                  autoComplete="off"
+                  value={formData.rut}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 pr-12 bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-blue-200/50 rounded-xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
+                  placeholder="12345678-9"
+                />
+                <CreditCard className="absolute right-3 top-9 h-5 w-5 text-blue-400" />
+                {errors.rut && <p className="text-sm text-red-500">{errors.rut}</p>}
               </div>
 
               {/* Email Input */}

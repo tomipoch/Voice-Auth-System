@@ -169,10 +169,9 @@ const AdminDashboardPage = () => {
                 // Calculate height in pixels (max height is 240px, leaving room for labels)
                 const maxHeight = 240;
                 const maxValue = Math.max(...displayData.map((d) => d.value || 0));
-                const heightPx = maxValue > 0 
-                  ? Math.max((item.value / maxValue) * maxHeight, 4)
-                  : 4;
-                
+                const heightPx =
+                  maxValue > 0 ? Math.max((item.value / maxValue) * maxHeight, 4) : 4;
+
                 return (
                   <div key={index} className="flex flex-col items-center w-full group">
                     <div className="relative w-full flex justify-center items-end">
