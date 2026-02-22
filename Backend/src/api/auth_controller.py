@@ -347,7 +347,7 @@ async def register(
         if not validate_rut(user_data.rut):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Invalid RUT format. Expected format: XXXXXXXX-X"
+                detail="Invalid RUT format. Use format: 12345678-9 (without dots)"
             )
     
     # Validate password strength
@@ -368,14 +368,14 @@ async def register(
     # Hash password
     hashed_password = bcrypt.hashpw(user_data.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     
-    # Create new user
+    # Create new user with default company
     user_id = await user_repo.create_user(
         email=user_data.email,
         password=hashed_password,
         first_name=user_data.first_name,
         last_name=user_data.last_name,
         rut=user_data.rut,
-        company=user_data.company
+        company=user_data.company or "Familia"  # Default to 'Familia'
     )
     
     return {

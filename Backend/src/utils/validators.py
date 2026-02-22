@@ -10,24 +10,31 @@ def validate_rut(rut: str) -> bool:
     Validate Chilean RUT format and check digit.
     
     Args:
-        rut: RUT string (e.g., "12.345.678-5" or "12345678-5")
+        rut: RUT string in format "XXXXXXXX-X" (e.g., "12345678-5" or "12345678-K")
+             NO dots allowed.
     
     Returns:
         True if valid, False otherwise
     
     Examples:
-        >>> validate_rut("12.345.678-5")
+        >>> validate_rut("12345678-5")
         True
-        >>> validate_rut("11.111.111-1")
+        >>> validate_rut("11111111-1")
         True
-        >>> validate_rut("12.345.678-0")
+        >>> validate_rut("24876931-K")
+        True
+        >>> validate_rut("12.345.678-5")  # With dots - REJECTED
         False
     """
     if not rut:
         return False
     
-    # Remove dots and convert to uppercase
-    clean = rut.replace(".", "").replace("-", "").upper()
+    # Check if format has dots - REJECT
+    if "." in rut:
+        return False
+    
+    # Remove hyphen and convert to uppercase
+    clean = rut.replace("-", "").upper()
     
     # Must be 8-9 characters (7-8 digits + check digit)
     if not re.match(r'^\d{7,8}[0-9K]$', clean):
@@ -41,6 +48,7 @@ def validate_rut(rut: str) -> bool:
     expected = calculate_rut_check_digit(number)
     
     return check_digit == expected
+
 
 
 def calculate_rut_check_digit(number: str) -> str:
