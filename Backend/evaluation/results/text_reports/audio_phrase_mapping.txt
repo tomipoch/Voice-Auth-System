@@ -1,0 +1,76 @@
+================================================================================
+MAPEO DE AUDIOS A FRASES
+================================================================================
+
+
+Usuario: anachamorromunoz
+--------------------------------------------------------------------------------
+
+anachamorromunoz_enrollment_01.wav
+  Transcrito:  pie de la cama y daba sobre lachimenea dde la guardía
+  Mejor match: Un rayo de sol poniente caía sobre el pie de la cama y daba sobre la chimenea donde el agua hervía a borbotones
+  Similarity:  62.2%
+
+anachamorromunoz_enrollment_02.wav
+  Transcrito:  Y el pozo salió una cantidad de humo verde y luminoso.
+  Mejor match: Súbitamente se vio un resplandor de luz y del pozo salió una cantidad de humo verde y luminoso en tres bocanadas claramente visibles
+  Similarity:  57.0%
+
+anachamorromunoz_enrollment_03.wav
+  Transcrito:  Tardaba en entender las cosas, pero ahora se daba cuenta de que allí.
+  Mejor match: El señor Hall tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo
+  Similarity:  83.4%
+
+Usuario: ft_fernandotomas
+--------------------------------------------------------------------------------
+
+ft_fernandotomas_enrollment_01.wav
+  Transcrito:  verlos no se ritó porque habían obedecido con pesteza las orden.
+  Mejor match: y Jove, al verlos, no se irritó, porque habían obedecido con presteza las órdenes de Juno
+  Similarity:  81.0%
+
+ft_fernandotomas_enrollment_02.wav
+  Transcrito:  Abrió la puerta de WarenPark para que entrara Maslz ibara poder ver visitadodas.
+  Mejor match: La señora Hall abrió la puerta de par en par para que entrara más luz y para poder ver al visitante con claridad
+  Similarity:  70.8%
+
+ft_fernandotomas_enrollment_03.wav
+  Transcrito:  cabida ha sidol calculado, y por consiguiente ofrecen.
+  Mejor match: La relación del calado en carga con la cabida, ha sido mal calculada, y por consiguiente ofrecen al mar muy débil resistencia
+  Similarity:  58.1%
+
+Usuario: piapobletech
+--------------------------------------------------------------------------------
+
+piapobletech_enrollment_01.wav
+  Transcrito:  La obra de muchos siempre resulta mejor, cuatrocientos tre cetales fueron.
+  Mejor match: A yudadme todos, pues la obra de muchos siempre resulta mejor. " 413 Tales fueron sus palabras
+  Similarity:  64.3%
+
+piapobletech_enrollment_02.wav
+  Transcrito:  da que las tropas podrían capturar o destruir a los marcianos durante el transcurso del.
+  Mejor match: Mi vecino opinaba que las tropas podrían capturar o destruir a los marcianos durante el transcurso del día
+  Similarity:  88.7%
+
+piapobletech_enrollment_03.wav
+  Transcrito:  que me furi, porque estas así mudo o diseo y no quieres proos.
+  Mejor match: Al verme en ese estado, Circe me preguntó qué me ocurría: ”—¿Por qué estás así, mudo, Odiseo y no quieres probar estos manjares
+  Similarity:  49.7%
+
+Usuario: rapomo3
+--------------------------------------------------------------------------------
+
+rapomo3_enrollment_01.wav
+  Transcrito:  o había reflexionado y una cierta esperanza vaga aún.
+  Mejor match: Durante este tiempo, yo había reflexionado, y una cierta esperanza, vaga aún, renacía en mi corazón
+  Similarity:  68.4%
+
+rapomo3_enrollment_02.wav
+  Transcrito:  Pecibi una  renta prodigiosa, un Dola cada día laborable.
+  Mejor match: Cada uno de los muchachos percibía una renta prodigiosa: un dólar cada día laborable del año y medio dólar los domingos
+  Similarity:  59.1%
+
+rapomo3_enrollment_03.wav
+  Transcrito:  zopa: Cabeza de lagarto, dientes de cocodirilo.
+  Mejor match: El primero de estos monstruos tiene hocico de marsopa, cabeza de lagarto, dientes de cocodrilo, y por esto nos ha engañado
+  Similarity:  50.9%
