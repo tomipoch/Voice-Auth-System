@@ -53,7 +53,7 @@ class VerificationServiceV2:
         challenge_service,  # ChallengeService
         biometric_validator: BiometricValidator,
         similarity_threshold: float = 0.75,
-        anti_spoofing_threshold: float = 0.5
+        anti_spoofing_threshold: float = 0.7  # Ajustado de 0.5 a 0.7 para reducir FRR
     ):
         self._voice_repo = voice_repo
         self._user_repo = user_repo
@@ -117,9 +117,11 @@ class VerificationServiceV2:
         verification_id: UUID,
         challenge_id: ChallengeId,
         embedding: VoiceEmbedding,
-        anti_spoofing_score: Optional[float] = None
+        anti_spoofing_score: Optional[float] = None,
+        transcribed_text: Optional[str] = None,
+        expected_phrase: Optional[str] = None
     ) -> Dict:
-        """Verify voice with challenge validation."""
+        """Verify voice with challenge validation and optional phrase matching."""
         
         # Get session
         session = self._active_sessions.get(verification_id)
@@ -152,15 +154,39 @@ class VerificationServiceV2:
         stored_embedding = np.array(voiceprint.embedding)
         similarity_score = self._biometric_validator.calculate_similarity(embedding, stored_embedding)
         
+        # Calculate phrase match score (ASR)
+        phrase_match_score = 0.0
+        phrase_match = True
+        if transcribed_text and expected_phrase:
+            import difflib
+            norm_expected = expected_phrase.lower().strip()
+            norm_transcribed = transcribed_text.lower().strip()
+            phrase_match_score = difflib.SequenceMatcher(None, norm_expected, norm_transcribed).ratio()
+            phrase_match = phrase_match_score >= 0.7  # 70% similarity threshold
+        
         # Check anti-spoofing
         is_live = True
         if anti_spoofing_score is not None:
             is_live = anti_spoofing_score < self._anti_spoofing_threshold
         
+        # Calculate composite score (weighted)
+        # Speaker: 60%, Anti-spoof: 20%, ASR: 20%
+        w_speaker = 0.6
+        w_antispoof = 0.2
+        w_asr = 0.2
+        
+        genuineness_score = 1.0 - (anti_spoofing_score if anti_spoofing_score else 0.0)
+        composite_score = (
+            similarity_score * w_speaker +
+            genuineness_score * w_antispoof +
+            phrase_match_score * w_asr
+        )
+        
         # Make decision
         is_verified = (
             similarity_score >= self._similarity_threshold and
-            is_live
+            is_live and
+            phrase_match
         )
         
         # Mark challenge as used
@@ -178,21 +204,15 @@ class VerificationServiceV2:
                 "challenge_id": str(challenge_id),
                 "similarity_score": float(similarity_score),
                 "anti_spoofing_score": float(anti_spoofing_score) if anti_spoofing_score else None,
+                "phrase_match_score": float(phrase_match_score),
+                "composite_score": float(composite_score),
                 "is_verified": is_verified,
-                "is_live": is_live
+                "is_live": is_live,
+                "phrase_match": phrase_match
             }
         )
         
-        # Save verification attempt
-        # TODO: Uncomment when verification_attempt table is added to schema
-        # await self._voice_repo.save_verification_attempt(
-        #     user_id=session.user_id,
-        #     embedding=embedding,
-        #     similarity_score=float(similarity_score),
-        #     is_verified=is_verified
-        # )
-        
-        # Log to evaluation system if active (for thesis experimental results)
+        # Log to evaluation system if active
         try:
             from evaluation.evaluation_logger import evaluation_logger
             if evaluation_logger.enabled:
@@ -203,10 +223,9 @@ class VerificationServiceV2:
                     system_decision="accepted" if is_verified else "rejected",
                     threshold_used=self._similarity_threshold,
                     challenge_id=str(challenge_id),
-                    phrase_match_score=None
+                    phrase_match_score=float(phrase_match_score)
                 )
         except Exception:
-            # Don't fail verification if evaluation logging fails
             pass
         
         # Clean up session
@@ -216,10 +235,11 @@ class VerificationServiceV2:
             "verification_id": str(verification_id),
             "user_id": str(session.user_id),
             "is_verified": is_verified,
-            "confidence_score": float(similarity_score),
+            "confidence_score": float(composite_score),
             "similarity_score": float(similarity_score),
             "anti_spoofing_score": float(anti_spoofing_score) if anti_spoofing_score else None,
-            "phrase_match": True,
+            "phrase_match": phrase_match,
+            "phrase_match_score": float(phrase_match_score),
             "is_live": is_live,
             "threshold_used": self._similarity_threshold
         }

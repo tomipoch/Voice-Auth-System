@@ -1,14 +1,14 @@
 import Sidebar from './Sidebar';
 import type { ReactNode } from 'react';
-import { useSessionTimeout } from '../../hooks/useSessionTimeout';
+// import { useSessionTimeout } from '../../hooks/useSessionTimeout';
 
 interface MainLayoutProps {
   children: ReactNode;
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  // Enable automatic session timeout
-  useSessionTimeout();
+  // Automatic session timeout disabled - sessions only expire when JWT expires (120 min) or manual logout
+  // useSessionTimeout();
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">

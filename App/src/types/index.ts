@@ -70,8 +70,19 @@ export interface RegisterData {
 }
 
 export interface AuthResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  refresh_token?: string;
   user: User;
-  tokens: AuthTokens;
+}
+
+// Legacy support - puede ser removido después
+export interface AuthTokens {
+  access_token: string;
+  refresh_token?: string;
+  token_type?: string;
+  expires_in?: number;
 }
 
 // ============================================

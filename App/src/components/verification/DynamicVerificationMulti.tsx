@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { Shield, CheckCircle, XCircle, Loader2, RefreshCw, AlertTriangle } from 'lucide-react';
+import toast from 'react-hot-toast';
 import verificationService, {
   type StartMultiPhraseVerificationResponse,
   type VerifyPhraseResponse,
@@ -100,9 +101,19 @@ const DynamicVerificationMulti = ({
   }, [userId, difficulty, onError]);
 
   // Handle recording complete
-  const handleRecordingComplete = async (audioBlob: Blob, _quality: AudioQuality) => {
+  const handleRecordingComplete = async (audioBlob: Blob, quality: AudioQuality) => {
     if (!verificationData || !steps[currentStepIndex]?.challenge) {
       setError('Datos de verificación no disponibles');
+      return;
+    }
+
+    // Validar duración mínima del lado del cliente
+    if (quality.duration < 2.0) {
+      setError(
+        `Audio demasiado corto (${quality.duration.toFixed(1)}s). Mínimo requerido: 2 segundos`
+      );
+      setPhase('recording');
+      toast.error('Por favor graba por al menos 2 segundos');
       return;
     }
 
@@ -157,10 +168,31 @@ const DynamicVerificationMulti = ({
         setCurrentStepIndex(currentStepIndex + 1);
         setPhase('ready');
       }
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Error al verificar frase';
+    } catch (err: any) {
+      console.error('Error during verification:', err);
+
+      // Extraer mensaje específico del backend
+      let errorMessage = 'Error al verificar frase';
+
+      if (err.response?.status === 400) {
+        // Error de validación (ej: audio demasiado corto, mala calidad)
+        errorMessage =
+          err.response?.data?.message ||
+          err.response?.data?.detail ||
+          'El audio no cumple con los requisitos de calidad';
+      } else if (err.response?.status === 404) {
+        errorMessage = 'Sesión de verificación no encontrada';
+      } else if (err.response?.status === 500) {
+        errorMessage = 'Error del servidor. Por favor, intenta más tarde';
+      } else if (!err.response) {
+        errorMessage = 'Error de conexión. Verifica tu conexión a internet';
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+
       setError(errorMessage);
-      setPhase('error');
+      setPhase('recording');
+      toast.error(errorMessage);
       onError?.(errorMessage);
     }
   };

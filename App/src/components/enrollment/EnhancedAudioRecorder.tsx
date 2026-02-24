@@ -3,6 +3,7 @@ import { Mic, Square, CheckCircle, Loader2 } from 'lucide-react';
 import { useAdvancedAudioRecording, AudioQuality } from '../../hooks/useAdvancedAudioRecording';
 import CountdownTimer from './CountdownTimer';
 import Card from '../ui/Card';
+import toast from 'react-hot-toast';
 
 interface EnhancedAudioRecorderProps {
   phraseText: string;
@@ -27,21 +28,19 @@ const EnhancedAudioRecorder = ({
     useAdvancedAudioRecording({
       maxDuration,
       minDuration,
-      onRecordingComplete: async (blob: Blob) => {
+      onRecordingComplete: async (blob: Blob, quality: AudioQuality) => {
         console.log('onRecordingComplete called with blob size:', blob.size);
+        console.log('Quality received:', quality);
         setPhase('processing');
-        // El audioQuality se pasa desde el hook después del análisis
-        // Esperamos un momento para que el estado se actualice
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        const quality = audioQuality || {
-          quality: 'unknown',
-          duration: 0,
-          hasSilence: false,
-          isValid: true,
-        };
-        console.log('Calling parent onRecordingComplete with quality:', quality);
-        await onRecordingComplete(blob, quality);
-        setPhase('completed');
+        
+        try {
+          await onRecordingComplete(blob, quality);
+          setPhase('completed');
+        } catch (err) {
+          console.error('Error in onRecordingComplete:', err);
+          toast.error('Error al procesar la grabación');
+          setPhase('ready');
+        }
       },
     });
 

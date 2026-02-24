@@ -53,6 +53,11 @@ class ChallengeService:
         if not await self._user_repo.user_exists(user_id):
             raise ValueError(f"User {user_id} does not exist")
         
+        # Auto-cleanup: Remove any unused challenges for this user before creating new ones
+        # This prevents accumulation when users refresh or restart enrollment/verification
+        await self._challenge_repo.cleanup_unused_challenges(user_id)
+        logger.info(f"Auto-cleanup: Removed unused challenges for user {user_id}")
+        
         # Check rate limiting
         await self._check_rate_limits(user_id)
         
@@ -96,7 +101,7 @@ class ChallengeService:
             # Get timeout based on phrase difficulty
             from ..config import CHALLENGE_TIMEOUT
             timeout_seconds = CHALLENGE_TIMEOUT.get(phrase.difficulty, 90)  # Default to 90 seconds
-            expires_at = datetime.now() + timedelta(seconds=timeout_seconds)
+            expires_at = datetime.now(timezone.utc) + timedelta(seconds=timeout_seconds)
             
             # Create challenge in database
             challenge_id = await self._challenge_repo.create_challenge(
@@ -131,7 +136,7 @@ class ChallengeService:
                 "phrase_id": phrase.id,
                 "difficulty": phrase.difficulty,
                 "expires_at": expires_at.isoformat(),
-                "expires_in_seconds": int((expires_at - datetime.now()).total_seconds())
+                "expires_in_seconds": int((expires_at - datetime.now(timezone.utc)).total_seconds())
             })
         
         logger.info(f"Created {len(challenges)} challenges for user {user_id}")
@@ -284,7 +289,7 @@ class ChallengeService:
             ValueError: If rate limit exceeded
         """
         # Get rate limits from rules
-        max_active = int(await self._rules_service.get_rule_value('max_challenges_per_user', default=3.0))
+        max_active = int(await self._rules_service.get_rule_value('max_challenges_per_user', default=9.0))  # Increased from 3 to 9
         max_per_hour = int(await self._rules_service.get_rule_value('max_challenges_per_hour', default=20.0))
         
         # Check active challenges

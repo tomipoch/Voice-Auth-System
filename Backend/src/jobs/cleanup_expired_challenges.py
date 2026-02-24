@@ -23,7 +23,7 @@ async def cleanup_expired_challenges_job(challenge_repo, interval_seconds: int =
             result = await challenge_repo.mark_expired_challenges()
             
             if result > 0:
-                logger.info(f"Marked {result} challenges as expired")
+                logger.debug(f"Marked {result} challenges as expired")
             
         except Exception as e:
             logger.error(f"Error in cleanup job: {e}", exc_info=True)

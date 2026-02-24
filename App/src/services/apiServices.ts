@@ -102,12 +102,14 @@ export const authService = {
   },
 
   // Obtener perfil del usuario
-  getProfile: async (): Promise<ApiResponse<User>> => {
+  getProfile: async (): Promise<User> => {
     if (!useRealAPI) {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
-      return await mockApiService.auth.getProfile(user.id);
+      const mockResponse = await mockApiService.auth.getProfile(user.id);
+      return mockResponse.data as User;
     }
-    const response = await api.get<ApiResponse<User>>('/auth/profile');
+    // El backend devuelve el UserProfile directamente, no envuelto en ApiResponse
+    const response = await api.get<User>('/auth/profile');
     return response.data;
   },
 

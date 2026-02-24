@@ -13,7 +13,7 @@ interface AudioRecordingOptions {
   maxDuration?: number;
   minDuration?: number;
   onQualityCheck?: ((quality: AudioQuality) => void) | null;
-  onRecordingComplete?: ((blob: Blob) => void) | null;
+  onRecordingComplete?: ((blob: Blob, quality: AudioQuality) => void) | null;
   autoStop?: boolean;
 }
 
@@ -85,6 +85,8 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
   const analyzerRef = useRef<AnalyserNode | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const volumeIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startTimeRef = useRef<number>(0);
+  const lastDurationRef = useRef<number>(0);
 
   // Monitor de volumen en tiempo real
   const startVolumeMonitoring = useCallback(() => {
@@ -184,12 +186,28 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
 
       // Manejar fin de grabación
       mediaRecorder.onstop = async () => {
-        console.log('MediaRecorder stopped, recording time:', recordingTime);
+        // Calcular duración real basándose en el tiempo transcurrido
+        const actualDuration = startTimeRef.current > 0 
+          ? (Date.now() - startTimeRef.current) / 1000 
+          : recordingTime;
+        
+        // Guardar en ref para acceso inmediato
+        lastDurationRef.current = actualDuration;
+        
+        console.log('MediaRecorder stopped, recording time:', actualDuration.toFixed(2), 's');
         const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
         setRecordedBlob(blob);
 
-        // Analizar calidad de audio
-        await analyzeRecording(blob);
+        // Crear objeto de calidad temporal con la duración correcta
+        const tempQuality: AudioQuality = {
+          quality: 'good',
+          duration: actualDuration,
+          hasSilence: false,
+          isValid: actualDuration >= minDuration,
+        };
+        
+        // Actualizar estado con la calidad temporal
+        setAudioQuality(tempQuality);
 
         // Limpiar stream
         if (streamRef.current) {
@@ -205,8 +223,14 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
 
         stopVolumeMonitoring();
 
+        // Analizar calidad de audio en background (opcional, para mejorar la calidad)
+        analyzeRecording(blob, actualDuration).catch(err => {
+          console.error('Error analyzing audio:', err);
+        });
+
+        // Llamar callback con el blob y la calidad que incluye la duración correcta
         if (onRecordingComplete) {
-          onRecordingComplete(blob);
+          onRecordingComplete(blob, tempQuality);
         }
       };
 
@@ -226,6 +250,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
       // Iniciar grabación
       console.log('Starting MediaRecorder...');
       console.log('MediaRecorder initial state:', mediaRecorder.state);
+      startTimeRef.current = Date.now(); // Guardar tiempo de inicio
       mediaRecorder.start(100); // Capturar datos cada 100ms
       console.log('MediaRecorder state after start():', mediaRecorder.state);
       setIsRecording(true);
@@ -312,7 +337,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
 
   // Analizar grabación
   const analyzeRecording = useCallback(
-    async (blob) => {
+    async (blob, actualDuration) => {
       if (!blob || !onQualityCheck) return;
 
       try {
@@ -329,14 +354,17 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
         // Analizar calidad
         const quality = audioUtils.analyzeAudioQuality(channelData);
         const hasSilence = audioUtils.detectSilence(channelData);
+        
+        // Usar duración real calculada si está disponible
+        const duration = actualDuration || audioBuffer.duration;
 
         const analysis = {
           quality,
-          duration: audioBuffer.duration,
+          duration,
           sampleRate: audioBuffer.sampleRate,
           channels: audioBuffer.numberOfChannels,
           hasSilence,
-          isValid: quality !== 'poor' && !hasSilence && audioBuffer.duration >= minDuration,
+          isValid: quality !== 'poor' && !hasSilence && duration >= minDuration,
         };
 
         setAudioQuality(analysis);
@@ -440,6 +468,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
     audioQuality,
     error,
     isAnalyzing,
+    lastDuration: lastDurationRef.current,
     volume,
     hasRecording: Boolean(recordedBlob),
     canStop: isRecording && recordingTime >= minDuration,

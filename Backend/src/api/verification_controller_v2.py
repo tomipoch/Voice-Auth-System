@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status, Request
 from typing import Optional
 from uuid import UUID
-from datetime import datetime
+from datetime import datetime, timezone
 import io
 import soundfile as sf
 import logging
@@ -113,22 +113,31 @@ async def verify_voice(
                     detail=f"Failed to convert audio: {str(e)}"
                 )
         
-        # Extract embedding from audio
-        embedding = voice_engine.extract_embedding_only(
+        # Extract features (embedding + anti-spoofing + ASR) from audio
+        features = voice_engine.extract_features(
             audio_data=audio_bytes,
             audio_format="wav"
         )
         
-        # For now, we'll skip anti-spoofing in verification
-        # TODO: Add anti-spoofing detection
-        anti_spoofing_score = None
+        embedding = features["embedding"]
+        anti_spoofing_score = features["anti_spoofing_score"]
+        transcribed_text = features.get("transcribed_text", "")
         
-        # Verify voice
+        logger.info(f"Anti-spoofing score: {anti_spoofing_score:.4f}")
+        logger.info(f"Transcribed text: {transcribed_text}")
+        
+        # Get expected phrase for verification
+        phrase = await verification_service._phrase_repo.get_phrase(phrase_uuid)
+        expected_phrase = phrase.text if phrase else None
+        
+        # Verify voice with phrase matching
         verify_result = await verification_service.verify_voice(
             verification_id=verification_uuid,
             phrase_id=phrase_uuid,
             embedding=embedding,
-            anti_spoofing_score=anti_spoofing_score
+            anti_spoofing_score=anti_spoofing_score,
+            transcribed_text=transcribed_text,
+            expected_phrase=expected_phrase
         )
         
         # Debug logging
@@ -148,7 +157,7 @@ async def verify_voice(
             threshold_used=float(verify_result["threshold_used"])
         )
         
-        logger.info(f"Response created successfully")
+        logger.info("Response created successfully")
         return response
     
     except ValueError as e:
@@ -355,6 +364,15 @@ async def verify_phrase(
         anti_spoofing_score = features["anti_spoofing_score"]
         transcribed_text = features.get("transcribed_text", "")
         
+        
+        # Get user info BEFORE verify_phrase (session might be deleted after completion)
+        multi_session = verification_service._active_multi_sessions.get(verification_uuid)
+        user = None
+        user_id_for_dataset = None
+        if multi_session:
+            user = await verification_service._user_repo.get_user(multi_session.user_id)
+            user_id_for_dataset = str(multi_session.user_id)
+        
         # Verify phrase
         result = await verification_service.verify_phrase(
             verification_id=verification_uuid,
@@ -366,6 +384,29 @@ async def verify_phrase(
         )
         
         logger.info(f"Phrase {phrase_number} verified. is_complete={result.get('is_complete')}")
+        
+        # Save audio to dataset (always active)
+        from evaluation.dataset_recorder import dataset_recorder
+        from src.utils.audio_converter import ensure_wav_format
+        
+        try:
+            # Ensure WAV format (already converted above, but just to be safe)
+            wav_bytes = ensure_wav_format(audio_bytes)
+            
+            if wav_bytes and user_id_for_dataset:
+                # Save audio
+                dataset_recorder.save_verification_audio(
+                    user_id=user_id_for_dataset,
+                    audio_data=wav_bytes,
+                    user_email=user.get("email") if user else None,
+                    verification_number=None,  # Auto-increment
+                    phrase_number=phrase_number
+                )
+                logger.info(f"Saved verification audio for user {user.get('email') if user else user_id_for_dataset}, phrase {phrase_number}")
+            else:
+                logger.warning("Failed to ensure WAV format for dataset recording or missing user_id")
+        except Exception as e:
+                logger.error(f"Failed to save verification audio to dataset: {e}")
         
         # Extract IP address from request
         client_ip = request.client.host if request.client else "Unknown"
@@ -393,10 +434,10 @@ async def verify_phrase(
                     "ip_address": client_ip,
                     "user_agent": user_agent or "Unknown",
                     "device_info": device_info or "Unknown",
-                    "timestamp": datetime.now().isoformat()
+                    "timestamp": datetime.now(timezone.utc).isoformat()
                 }
             )
-            logger.info(f"Successfully logged multi_verification_complete event to audit")
+            logger.info("Successfully logged multi_verification_complete event to audit")
         else:
             logger.info(f"Verification not complete yet (phrase {phrase_number} of 3)")
         
