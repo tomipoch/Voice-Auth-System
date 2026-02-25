@@ -1,0 +1,56 @@
+================================================================================
+ASR SIMILARITY THRESHOLD ANALYSIS
+================================================================================
+
+SIMILARITY SCORE DISTRIBUTION
+--------------------------------------------------------------------------------
+Total samples:    16
+Mean similarity:  64.42%
+Std deviation:    16.18%
+Min similarity:   49.70%
+Max similarity:   88.70%
+Median:           63.25%
+
+Percentiles:
+  10th percentile: 53.95%
+  25th percentile: 58.85%
+  50th percentile: 63.25%
+  75th percentile: 70.53%
+  90th percentile: 82.20%
+  95th percentile: 84.73%
+
+================================================================================
+THRESHOLD ANALYSIS
+================================================================================
+
+Threshold    Accepted     Rejected     Accept %     Reject %    
+--------------------------------------------------------------------------------
+0.50         16           0            100.0        0.0         
+0.55         16           0            100.0        0.0         
+0.60         16           0            100.0        0.0         
+0.65         16           0            100.0        0.0         
+0.70         16           0            100.0        0.0         
+0.75         16           0            100.0        0.0         
+0.80         16           0            100.0        0.0         
+
+================================================================================
+RECOMMENDATIONS
+================================================================================
+
+Current threshold: 0.70
+  Acceptance rate: 100.0%
+  Rejection rate: 0.0%
+
+Recommended threshold (for ~85% acceptance): 0.50
+  Acceptance rate: 100.0%
+  Rejection rate: 0.0%
+
+Alternative thresholds:
+
+1. For high usability (90%+ acceptance):
+   Threshold 0.50: 100.0% acceptance
+
+2. For balanced approach (80-85% acceptance):
+
+3. For high security (70-75% acceptance):
+

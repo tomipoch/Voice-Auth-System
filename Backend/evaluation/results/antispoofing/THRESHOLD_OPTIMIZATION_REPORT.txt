@@ -1,0 +1,146 @@
+====================================================================================================
+THRESHOLD OPTIMIZATION REPORT
+====================================================================================================
+
+Date: 2025-12-22 18:25:55
+
+====================================================================================================
+CONFIGURATIONS TESTED
+====================================================================================================
+
+Configuration             BPCER      APCER      ACER       Recommendation      
+----------------------------------------------------------------------------------------------------
+Current (Aggressive)      89.80      35.14      62.47                          
+Conservative              63.27      37.84      50.55                          
+Very Conservative         55.10      48.65      51.88                          
+3+ Indicators             65.31      45.95      55.63                          
+4 Indicators (All)        48.98      48.65      48.81      ⭐ Best ACER         
+Artifacts Only            100.00     0.00       50.00      ✅ Best APCER        
+Balanced                  75.51      35.14      55.32                          
+Artifacts + SNR           71.43      40.54      55.98                          
+
+====================================================================================================
+DETAILED CONFIGURATIONS
+====================================================================================================
+
+
+Current (Aggressive)
+--------------------------------------------------
+  Ensemble threshold:    0.5
+  SNR threshold:         40
+  Artifacts threshold:   0.3
+  Noise threshold:       0.1
+  Pitch threshold:       0.2
+  Min indicators:        2
+
+  BPCER:  89.80%
+  APCER:  35.14%
+  ACER:   62.47%
+
+Conservative
+--------------------------------------------------
+  Ensemble threshold:    0.5
+  SNR threshold:         45
+  Artifacts threshold:   0.4
+  Noise threshold:       0.05
+  Pitch threshold:       0.15
+  Min indicators:        2
+
+  BPCER:  63.27%
+  APCER:  37.84%
+  ACER:   50.55%
+
+Very Conservative
+--------------------------------------------------
+  Ensemble threshold:    0.5
+  SNR threshold:         50
+  Artifacts threshold:   0.5
+  Noise threshold:       0.03
+  Pitch threshold:       0.1
+  Min indicators:        2
+
+  BPCER:  55.10%
+  APCER:  48.65%
+  ACER:   51.88%
+
+3+ Indicators
+--------------------------------------------------
+  Ensemble threshold:    0.5
+  SNR threshold:         40
+  Artifacts threshold:   0.3
+  Noise threshold:       0.1
+  Pitch threshold:       0.2
+  Min indicators:        3
+
+  BPCER:  65.31%
+  APCER:  45.95%
+  ACER:   55.63%
+
+4 Indicators (All)
+--------------------------------------------------
+  Ensemble threshold:    0.5
+  SNR threshold:         40
+  Artifacts threshold:   0.3
+  Noise threshold:       0.1
+  Pitch threshold:       0.2
+  Min indicators:        4
+
+  BPCER:  48.98%
+  APCER:  48.65%
+  ACER:   48.81%
+
+Artifacts Only
+--------------------------------------------------
+  Ensemble threshold:    0.5
+  SNR threshold:         100
+  Artifacts threshold:   0.4
+  Noise threshold:       0.0
+  Pitch threshold:       0.0
+  Min indicators:        1
+
+  BPCER:  100.00%
+  APCER:  0.00%
+  ACER:   50.00%
+
+Balanced
+--------------------------------------------------
+  Ensemble threshold:    0.5
+  SNR threshold:         42
+  Artifacts threshold:   0.35
+  Noise threshold:       0.08
+  Pitch threshold:       0.18
+  Min indicators:        2
+
+  BPCER:  75.51%
+  APCER:  35.14%
+  ACER:   55.32%
+
+Artifacts + SNR
+--------------------------------------------------
+  Ensemble threshold:    0.5
+  SNR threshold:         42
+  Artifacts threshold:   0.35
+  Noise threshold:       0.0
+  Pitch threshold:       0.0
+  Min indicators:        2
+
+  BPCER:  71.43%
+  APCER:  40.54%
+  ACER:   55.98%
+
+====================================================================================================
+RECOMMENDATIONS
+====================================================================================================
+
+1. For Best Overall Performance (Lowest ACER):
+   Configuration: 4 Indicators (All)
+   BPCER: 48.98%, APCER: 48.65%, ACER: 48.81%
+
+2. For Best Cloning Detection (Lowest APCER):
+   Configuration: Artifacts Only
+   BPCER: 100.00%, APCER: 0.00%, ACER: 50.00%
+
+3. For Most Balanced (BPCER ≈ APCER):
+   Configuration: 4 Indicators (All)
+   BPCER: 48.98%, APCER: 48.65%, ACER: 48.81%
+
