@@ -1,0 +1,39 @@
+================================================================================
+OPTIMIZACIÓN DE THRESHOLD - ANTI-SPOOFING
+================================================================================
+
+OBJETIVO:
+Encontrar el threshold óptimo que balancee BPCER y APCER
+para maximizar la seguridad sin rechazar demasiados genuinos.
+
+================================================================================
+CONFIGURACIONES EVALUADAS
+================================================================================
+
+Configuración             Threshold    BPCER        APCER(All)   APCER(TTS)   APCER(Clone) ACER        
+--------------------------------------------------------------------------------
+Actual (0.7)              0.700        83.67        50.00        68.49        13.51        66.84       
+Óptimo ACER               0.936        95.92        0.91         0.00         2.70         48.41       
+EER                       0.576        69.39        69.09        93.15        21.62        69.24       
+Seguridad (0.3)           0.300        40.82        87.27        100.00       62.16        64.04       
+Balanceado (0.4)          0.400        51.02        81.82        100.00       45.95        66.42       
+
+================================================================================
+RECOMENDACIONES
+================================================================================
+
+1. THRESHOLD ÓPTIMO: 0.936
+   - BPCER: 95.92%
+   - APCER: 0.91%
+   - ACER: 48.41%
+   - Mejora vs 0.7: -30.61 puntos en BPCER
+
+2. PARA APLICACIÓN BANCARIA:
+   - Usar threshold 0.3-0.4 para mayor seguridad
+   - Combinar con Speaker Recognition (EER 6.31%)
+   - Sistema en cascada reduce FAR total
+
+3. LIMITACIONES IDENTIFICADAS:
+   - Voice cloning es difícil de detectar (estado del arte)
+   - Scores de genuinos y cloning se solapan
+   - Requiere fine-tuning con más datos
