@@ -48,51 +48,64 @@ class AudioConverter:
             audio = AudioSegment.from_file(audio_io, format=format_lower)
             
             # Convert to WAV with optimal settings for speech recognition
-            # - 16kHz sample rate (standard for speech)
-            # - Mono channel
-            # - 16-bit PCM
             audio = audio.set_frame_rate(16000)
             audio = audio.set_channels(1)
-            audio = audio.set_sample_width(2)  # 2 bytes = 16 bits
+            audio = audio.set_sample_width(2)  # 16 bits
             
             # Export to WAV format
             wav_io = io.BytesIO()
             audio.export(wav_io, format="wav")
             wav_bytes = wav_io.getvalue()
             
-            logger.info(f"Successfully converted audio: {len(audio_bytes)} bytes -> {len(wav_bytes)} bytes WAV")
+            logger.info(f"Converted audio: {len(audio_bytes)} -> {len(wav_bytes)} bytes")
             return wav_bytes
             
         except Exception as e:
-            logger.error(f"Error converting audio from {source_format} to WAV: {str(e)}")
-            raise Exception(f"Audio conversion failed: {str(e)}")
+            logger.error(f"Audio conversion failed: {e}")
+            raise Exception(f"Audio conversion failed: {e}")
     
     @staticmethod
     def is_wav_format(audio_bytes: bytes) -> bool:
-        """
-        Check if audio data is already in WAV format.
-        
-        Args:
-            audio_bytes: Raw audio data
-        
-        Returns:
-            True if audio is WAV format, False otherwise
-        """
-        # WAV files start with "RIFF" header
+        """Check if audio data is already in WAV format."""
+        if len(audio_bytes) < 12:
+            return False
         return audio_bytes[:4] == b'RIFF' and audio_bytes[8:12] == b'WAVE'
 
 
-# Convenience function for direct use
+# Convenience functions for direct use
 def convert_to_wav(audio_bytes: bytes, source_format: str = "webm") -> bytes:
+    """Convert audio to WAV format."""
+    return AudioConverter.convert_to_wav(audio_bytes, source_format)
+
+
+def is_wav_format(audio_bytes: bytes) -> bool:
+    """Check if audio bytes are in WAV format."""
+    return AudioConverter.is_wav_format(audio_bytes)
+
+
+def ensure_wav_format(
+    audio_bytes: bytes,
+    sample_rate: int = 16000,
+    channels: int = 1
+) -> Optional[bytes]:
     """
-    Convert audio to WAV format.
+    Ensure audio is in WAV format, converting if necessary.
     
     Args:
-        audio_bytes: Raw audio data
-        source_format: Source format (webm, mp3, etc.)
-    
+        audio_bytes: Audio data (any format)
+        sample_rate: Target sample rate (default: 16000)
+        channels: Target number of channels (default: 1)
+        
     Returns:
-        WAV audio bytes
+        WAV audio bytes or None if conversion fails
     """
-    converter = AudioConverter()
-    return converter.convert_to_wav(audio_bytes, source_format)
+    if is_wav_format(audio_bytes):
+        logger.debug("Audio already in WAV format")
+        return audio_bytes
+    
+    try:
+        logger.debug("Converting audio to WAV format")
+        return convert_to_wav(audio_bytes, "webm")
+    except Exception as e:
+        logger.error(f"Failed to ensure WAV format: {e}")
+        return None
