@@ -1,4 +1,4 @@
-"""Speaker embedding adapter for voice signature extraction using ECAPA-TDNN and x-vector models."""
+"""Speaker embedding adapter for voice signature extraction using ECAPA-TDNN model."""
 
 import numpy as np
 import io
@@ -25,25 +25,22 @@ FALLBACK_MSG = "Falling back to mock implementation"
 
 class SpeakerEmbeddingAdapter:
     """
-    Real speaker embedding adapter supporting ECAPA-TDNN and x-vector models.
+    Real speaker embedding adapter using ECAPA-TDNN model.
     
     Anteproyecto specifications:
-    - ECAPA-TDNN: Primary model for speaker recognition (512-dimensional embeddings)
-    - x-vector: Alternative model for comparative academic analysis (512-dimensional embeddings)
+    - ECAPA-TDNN: Primary model for speaker recognition (192-dimensional embeddings)
     
-    Both models trained on VoxCeleb dataset for speaker verification tasks.
+    Trained on VoxCeleb dataset for speaker verification tasks.
     """
     
-    def __init__(self, model_id: int = 1, model_type: str = "ecapa_tdnn", use_gpu: bool = True):
+    def __init__(self, model_id: int = 1, use_gpu: bool = True):
         self._model_id = model_id
-        self._model_type = model_type  # "ecapa_tdnn" or "x_vector"
-        self._model_name = f"{model_type}_voxceleb"
+        self._model_name = "ecapa_tdnn_voxceleb"
         self._model_version = "1.0.0"
         
         # Device configuration
         self.device = torch.device("cuda" if use_gpu and torch.cuda.is_available() else "cpu")
         logger.info(f"Using device: {self.device}")
-        logger.info(f"Speaker model type: {self._model_type}")
         
         # Model initialization (lazy loading)
         self._primary_model = None
@@ -63,17 +60,10 @@ class SpeakerEmbeddingAdapter:
     
     def _load_model(self) -> bool:
         """
-        Load the appropriate model based on model_type.
+        Load ECAPA-TDNN model.
         Returns True if model loaded successfully, False otherwise.
         """
-        if self._model_type == "ecapa_tdnn":
-            success = self._load_ecapa_tdnn_model()
-        elif self._model_type == "x_vector":
-            success = self._load_x_vector_model()
-        else:
-            logger.error(f"Unknown model type: {self._model_type}")
-            success = False
-        
+        success = self._load_ecapa_tdnn_model()
         self._model_loaded = success
         return success
     
@@ -103,34 +93,6 @@ class SpeakerEmbeddingAdapter:
             
         except Exception as e:
             logger.error(f"Failed to load ECAPA-TDNN: {e}")
-            return False
-    
-    def _load_x_vector_model(self) -> bool:
-        """Load x-vector model specifically."""
-        try:
-            from speechbrain.inference.speaker import EncoderClassifier
-            
-            # Ensure model is downloaded
-            if not model_manager.is_model_available("x_vector"):
-                logger.info("x-vector model not found locally, downloading...")
-                if not model_manager.download_model("x_vector"):
-                    return False
-            
-            # Get model path
-            model_path = model_manager.get_model_path("x_vector")
-            
-            # Load pre-trained x-vector model
-            self._classifier = EncoderClassifier.from_hparams(
-                source="speechbrain/spkrec-xvect-voxceleb",
-                savedir=str(model_path),
-                run_opts={"device": str(self.device)}
-            )
-            
-            logger.info("x-vector model loaded for speaker recognition")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Failed to load x-vector: {e}")
             return False
     
     def extract_embedding(
@@ -422,179 +384,19 @@ class SpeakerEmbeddingAdapter:
         """Get model version."""
         return self._model_version
     
-    def get_model_type(self) -> str:
-        """Get current model type (ecapa_tdnn or x_vector)."""
-        return self._model_type
-    
-    def switch_model_type(self, new_model_type: str) -> bool:
-        """
-        Switch between ECAPA-TDNN and x-vector models for comparative analysis.
-        
-        Args:
-            new_model_type: "ecapa_tdnn" or "x_vector"
-            
-        Returns:
-            bool: True if switch was successful
-        """
-        if new_model_type not in ["ecapa_tdnn", "x_vector"]:
-            logger.error(f"Invalid model type: {new_model_type}")
-            return False
-        
-        if new_model_type == self._model_type:
-            logger.info(f"Already using {new_model_type} model")
-            return True
-        
-        logger.info(f"Switching from {self._model_type} to {new_model_type}")
-        
-        # Reset model state
-        self._model_type = new_model_type
-        self._model_name = f"{new_model_type}_voxceleb"
-        self._classifier = None
-        self._model_loaded = False
-        
-        # Load new model
-        self._load_model()
-        
-        return self._model_loaded
-    
-    def compare_models(self, audio_data: bytes, audio_format: str) -> Dict[str, Any]:
-        """
-        Compare ECAPA-TDNN and x-vector embeddings for the same audio.
-        
-        Useful for academic analysis and model comparison as specified in anteproyecto.
-        
-        Args:
-            audio_data: Raw audio bytes
-            audio_format: Audio format ("wav", etc.)
-            
-        Returns:
-            dict: Comparison results with embeddings and similarity metrics
-        """
-        try:
-            results = {
-                "ecapa_tdnn": None,
-                "x_vector": None,
-                "comparison": None,
-                "success": False
-            }
-            
-            # Save current model type
-            original_type = self._model_type
-            
-            # Extract embedding with ECAPA-TDNN
-            try:
-                if self.switch_model_type("ecapa_tdnn"):
-                    ecapa_embedding = self.extract_embedding(audio_data, audio_format)
-                    results["ecapa_tdnn"] = {
-                        "embedding": ecapa_embedding,
-                        "dimension": len(ecapa_embedding),
-                        "norm": float(np.linalg.norm(ecapa_embedding))
-                    }
-                    logger.info("ECAPA-TDNN embedding extracted successfully")
-                else:
-                    logger.warning("Failed to load ECAPA-TDNN model")
-            except Exception as e:
-                logger.error(f"ECAPA-TDNN extraction failed: {e}")
-            
-            # Extract embedding with x-vector
-            try:
-                if self.switch_model_type("x_vector"):
-                    xvector_embedding = self.extract_embedding(audio_data, audio_format)
-                    results["x_vector"] = {
-                        "embedding": xvector_embedding,
-                        "dimension": len(xvector_embedding),
-                        "norm": float(np.linalg.norm(xvector_embedding))
-                    }
-                    logger.info("x-vector embedding extracted successfully")
-                else:
-                    logger.warning("Failed to load x-vector model")
-            except Exception as e:
-                logger.error(f"x-vector extraction failed: {e}")
-            
-            # Compare embeddings if both were extracted
-            if results["ecapa_tdnn"] and results["x_vector"]:
-                comparison = self._compare_embeddings(
-                    results["ecapa_tdnn"]["embedding"],
-                    results["x_vector"]["embedding"]
-                )
-                results["comparison"] = comparison
-                results["success"] = True
-                logger.info("Model comparison completed successfully")
-            
-            # Restore original model type
-            self.switch_model_type(original_type)
-            
-            return results
-            
-        except Exception as e:
-            logger.error(f"Model comparison failed: {e}")
-            return {
-                "ecapa_tdnn": None,
-                "x_vector": None,
-                "comparison": None,
-                "success": False,
-                "error": str(e)
-            }
-    
-    def _compare_embeddings(self, embedding1: np.ndarray, embedding2: np.ndarray) -> Dict[str, float]:
-        """Compare two embeddings using various similarity metrics."""
-        try:
-            # Cosine similarity
-            cosine_sim = float(np.dot(embedding1, embedding2) / 
-                             (np.linalg.norm(embedding1) * np.linalg.norm(embedding2)))
-            
-            # Euclidean distance
-            euclidean_dist = float(np.linalg.norm(embedding1 - embedding2))
-            
-            # Manhattan distance
-            manhattan_dist = float(np.sum(np.abs(embedding1 - embedding2)))
-            
-            # Correlation coefficient
-            correlation = float(np.corrcoef(embedding1, embedding2)[0, 1])
-            if np.isnan(correlation):
-                correlation = 0.0
-            
-            return {
-                "cosine_similarity": cosine_sim,
-                "euclidean_distance": euclidean_dist,
-                "manhattan_distance": manhattan_dist,
-                "correlation": correlation,
-                "similarity_score": (cosine_sim + correlation) / 2  # Combined score
-            }
-            
-        except Exception as e:
-            logger.error(f"Embedding comparison failed: {e}")
-            return {
-                "cosine_similarity": 0.0,
-                "euclidean_distance": float('inf'),
-                "manhattan_distance": float('inf'),
-                "correlation": 0.0,
-                "similarity_score": 0.0
-            }
-    
-    def get_available_models(self) -> Dict[str, bool]:
-        """Get availability status of both models."""
-        return {
-            "ecapa_tdnn": model_manager.is_model_available("ecapa_tdnn"),
-            "x_vector": model_manager.is_model_available("x_vector")
-        }
-    
     def get_model_info(self) -> Dict[str, Any]:
         """Get comprehensive information about current model configuration."""
         return {
-            "current_model_type": self._model_type,
             "model_name": self._model_name,
             "model_version": self._model_version,
             "model_id": self._model_id,
             "model_loaded": self._model_loaded,
             "device": str(self.device),
             "embedding_dimension": EMBEDDING_DIMENSION,
-            "available_models": self.get_available_models(),
-            "supported_models": ["ecapa_tdnn", "x_vector"],
+            "model_available": model_manager.is_model_available("ecapa_tdnn"),
             "anteproyecto_compliance": {
-                "primary_model": "ecapa_tdnn",
-                "alternative_model": "x_vector",
+                "model": "ECAPA-TDNN",
                 "dataset": "VoxCeleb",
-                "purpose": "speaker_recognition_comparison"
+                "purpose": "speaker_recognition"
             }
         }

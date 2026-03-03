@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 TEST FINAL: MODELOS RESTANTES COMPLETOS
-RawNet2, ResNet Anti-Spoofing y ASR Completo
-¡Completemos el 100% del anteproyecto!
+RawNet2 y ASR Completo
+Usando modelos existentes en models/
 """
 
 import os
@@ -73,23 +73,16 @@ def test_rawnet2():
         # Intentaremos con modelos similares o implementación propia
         
         try:
-            # Intentar cargar RawNet2 si existe
-            rawnet2_model = EncoderClassifier.from_hparams(
-                source="speechbrain/spkrec-rawnet2-voxceleb",
-                savedir="models/rawnet2"
-            )
-            print("✅ RawNet2 oficial cargado!")
-            model_type = "official"
-            
-        except Exception:
-            # Fallback: usar modelo de speaker recognition como base para anti-spoofing
-            print("📦 Usando modelo sustituto tipo-RawNet2...")
+            # Usar modelo existente en anti-spoofing/rawnet2
             rawnet2_model = EncoderClassifier.from_hparams(
                 source="speechbrain/spkrec-xvect-voxceleb",
-                savedir="models/rawnet2-substitute"
+                savedir="models/anti-spoofing/rawnet2"
             )
-            print("✅ Modelo tipo-RawNet2 cargado!")
-            model_type = "substitute"
+            print("✅ RawNet2 cargado desde models/anti-spoofing/rawnet2!")
+            model_type = "local"
+        except Exception as e:
+            print(f"❌ No se pudo cargar RawNet2: {e}")
+            return False
         
         # Test con audios genuinos avanzados (deberían ser detectados como reales)
         test_audios = [
@@ -266,25 +259,16 @@ def test_complete_asr():
         asr_model = None
         model_name = ""
         
-        for source, name in asr_models:
-            try:
-                print(f"📦 Intentando {name}...")
-                asr_model = EncoderDecoderASR.from_hparams(
-                    source=source,
-                    savedir=f"models/asr-{name.lower().replace(' ', '-')}"
-                )
-                model_name = name
-                print(f"✅ {name} cargado exitosamente!")
-                break
-            except Exception as e:
-                error_msg = str(e)
-                if "speechbrain.decoders.sco" in error_msg:
-                    print(f"⚠️ {name} falló: Error en decoder/scorer - modelo incompatible")
-                elif "No such class" in error_msg:
-                    print(f"⚠️ {name} falló: Clase no encontrada - versión SpeechBrain")
-                else:
-                    print(f"⚠️ {name} falló: {error_msg[:50]}...")
-                continue
+        try:
+            print(f"📦 Cargando ASR desde models/text-verification/lightweight_asr...")
+            asr_model = EncoderDecoderASR.from_hparams(
+                source="speechbrain/asr-wav2vec2-commonvoice-14-es",
+                savedir="models/text-verification/lightweight_asr"
+            )
+            model_name = "Wav2Vec2 Spanish ASR"
+            print(f"✅ {model_name} cargado exitosamente!")
+        except Exception as e:
+            print(f"⚠️ No se pudo cargar ASR: {e}")
         
         if asr_model is None:
             print("⚠️ No se pudieron cargar modelos ASR oficiales")

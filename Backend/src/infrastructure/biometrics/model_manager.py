@@ -87,23 +87,12 @@ class ModelManager:
                 priority=5,  # Highest priority
                 description="ECAPA-TDNN trained on VoxCeleb for speaker verification"
             ),
-            "x_vector": ModelConfig(
-                name="x-vector Speaker Recognition",
-                source="speechbrain/spkrec-xvect-voxceleb",
-                local_path="x_vector",
-                model_type="speaker",
-                version="1.0.0",
-                size_mb=35,
-                memory_usage_mb=150,
-                priority=3,  # Medium priority (alternative model)
-                description="x-vector model for speaker recognition as ECAPA-TDNN alternative"
-            ),
             
-            # Anti-Spoofing Models (Medium priority - security feature)
+            # Anti-Spoofing Models
             "aasist": ModelConfig(
                 name="AASIST Anti-Spoofing",
                 source="speechbrain/aasist-wav2vec2-AASIST",
-                local_path="aasist-substitute",  # Updated to match existing folder
+                local_path="anti-spoofing/aasist",
                 model_type="antispoofing",
                 version="1.0.0",
                 size_mb=50,
@@ -114,7 +103,7 @@ class ModelManager:
             "rawnet2": ModelConfig(
                 name="RawNet2 Anti-Spoofing",
                 source="speechbrain/spkrec-rawnet2-antispoofing",
-                local_path="rawnet2-substitute",  # Updated to match existing folder
+                local_path="anti-spoofing/rawnet2",
                 model_type="antispoofing",
                 version="1.0.0",
                 size_mb=30,
@@ -122,31 +111,20 @@ class ModelManager:
                 priority=4,  # High priority for security
                 description="RawNet2 for deepfake and replay attack detection"
             ),
-            "resnet_antispoofing": ModelConfig(
-                name="ResNet Anti-Spoofing",
-                source="speechbrain/ResNet-antispoofing",
-                local_path="resnet_antispoofing",
-                model_type="antispoofing",
-                version="1.0.0",
-                size_mb=25,
-                memory_usage_mb=100,
-                priority=3,  # Medium priority (backup anti-spoofing)
-                description="ResNet variant for spoofing detection"
-            ),
+
             
-            # ASR Model for phrase verification (Lower priority - optional feature)
-            "lightweight_asr": ModelConfig(
-                name="Lightweight ASR",
+            # ASR Model for phrase verification
+            "wav2vec2_asr_es": ModelConfig(
+                name="Wav2Vec2 Spanish ASR",
                 source="speechbrain/asr-wav2vec2-commonvoice-14-es",
                 local_path="text-verification/lightweight_asr",
                 model_type="asr",
                 version="1.0.0",
                 size_mb=120,
                 memory_usage_mb=300,
-                priority=2,  # Lower priority (phrase verification)
-                description="Wav2Vec2-based Spanish ASR for phrase verification and text matching"
+                priority=2,
+                description="Wav2Vec2-based Spanish ASR for phrase verification"
             )
-            # Reload trigger
         }
         
     def get_model_path(self, model_id: str) -> Path:
