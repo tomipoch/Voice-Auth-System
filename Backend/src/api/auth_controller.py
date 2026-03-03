@@ -6,6 +6,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional, Dict, Any
 import logging
+import json
 from datetime import datetime, timedelta, timezone
 import jwt
 import bcrypt
@@ -195,7 +196,7 @@ async def login(
         raise credentials_exception
 
     # Check if account is locked
-    is_locked = user.get("locked_until") and user["locked_until"] > datetime.now()
+    is_locked = user.get("locked_until") and user["locked_until"] > datetime.now(timezone.utc)
     if is_locked:
         logger.warning(f"Login attempt for locked account: {user_data.email} from IP: {request.client.host if request.client else 'unknown'}")
         raise HTTPException(
@@ -306,7 +307,7 @@ async def refresh_token(
         raise auth_error
     
     # Check if account is locked
-    if user.get("locked_until") and user["locked_until"] > datetime.now():
+    if user.get("locked_until") and user["locked_until"] > datetime.now(timezone.utc):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=f"Account locked. Try again after {user['locked_until']}.",
@@ -402,10 +403,9 @@ async def get_profile(current_user: dict = Depends(get_current_user)):
     # Parse settings if it's a string
     settings = current_user.get("settings", {})
     if isinstance(settings, str):
-        import json
         try:
             settings = json.loads(settings) if settings else {}
-        except (json.JSONDecodeError, ValueError):
+        except json.JSONDecodeError:
             settings = {}
     
     return UserProfile(
@@ -449,10 +449,9 @@ async def update_profile(
     # Parse settings if it's a string
     settings = updated_user.get("settings", {})
     if isinstance(settings, str):
-        import json
         try:
             settings = json.loads(settings) if settings else {}
-        except (json.JSONDecodeError, ValueError):
+        except json.JSONDecodeError:
             settings = {}
     
     return UserProfile(

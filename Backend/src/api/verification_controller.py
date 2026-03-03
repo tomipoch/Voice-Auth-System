@@ -126,8 +126,8 @@ async def verify_voice(
         logger.info(f"Anti-spoofing score: {anti_spoofing_score:.4f}")
         logger.info(f"Transcribed text: {transcribed_text}")
         
-        # Get expected phrase for verification
-        phrase = await verification_service._phrase_repo.get_phrase(phrase_uuid)
+        # Get expected phrase for verification using public method
+        phrase = await verification_service.get_phrase(phrase_uuid)
         expected_phrase = phrase.text if phrase else None
         
         # Verify voice with phrase matching
@@ -238,37 +238,7 @@ async def quick_verify(
         )
 
 
-@router.get("/history/{user_id}")
-async def get_verification_history(
-    user_id: str,
-    limit: int = 10,
-    verification_service: VerificationService = Depends(get_verification_service)
-):
-    """
-    Get verification history for a user.
-    
-    - **user_id**: User UUID
-    - **limit**: Maximum number of recent attempts to return (default: 10)
-    
-    Returns list of recent verification attempts.
-    """
-    try:
-        user_uuid = UUID(user_id)
-        result = await verification_service.get_verification_history(user_uuid, limit)
-        return result
-    
-    except ValueError as e:
-        logger.error(f"Validation error in get_verification_history: {e}")
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
-    except Exception as e:
-        logger.error(f"Error in get_verification_history: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to get verification history"
-        )
 
-
-# Multi-phrase verification endpoints
 @router.post("/start-multi", response_model=StartMultiPhraseVerificationResponse)
 async def start_multi_phrase_verification(
     request: StartVerificationRequest,
@@ -366,12 +336,9 @@ async def verify_phrase(
         
         
         # Get user info BEFORE verify_phrase (session might be deleted after completion)
-        multi_session = verification_service._active_multi_sessions.get(verification_uuid)
-        user = None
-        user_id_for_dataset = None
-        if multi_session:
-            user = await verification_service._user_repo.get_user(multi_session.user_id)
-            user_id_for_dataset = str(multi_session.user_id)
+        multi_session = verification_service.get_multi_session(verification_uuid)
+        user = await verification_service.get_multi_session_user(verification_uuid)
+        user_id_for_dataset = str(multi_session.user_id) if multi_session else None
         
         # Verify phrase
         result = await verification_service.verify_phrase(

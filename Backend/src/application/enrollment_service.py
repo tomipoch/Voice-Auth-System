@@ -309,6 +309,16 @@ class EnrollmentService:
                 "required_samples": MIN_ENROLLMENT_SAMPLES
             }
     
+    def get_session(self, enrollment_id: UUID) -> Optional[EnrollmentSession]:
+        """Get an active enrollment session by ID (public accessor)."""
+        return self._active_sessions.get(enrollment_id)
+    
+    async def get_session_user(self, enrollment_id: UUID) -> Optional[Dict]:
+        """Get user data for an active enrollment session."""
+        session = self._active_sessions.get(enrollment_id)
+        if session:
+            return await self._user_repo.get_user(session.user_id)
+        return None
 
     
     def _calculate_enrollment_quality(self, embeddings: List[np.ndarray]) -> float:
