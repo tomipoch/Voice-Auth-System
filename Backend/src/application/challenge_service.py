@@ -11,6 +11,7 @@ from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
 from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
 from .phrase_quality_rules_service import PhraseQualityRulesService
 from ..shared.types.common_types import UserId, ChallengeId, AuditAction
+from ..config import CHALLENGE_TIMEOUT
 
 logger = logging.getLogger(__name__)
 
@@ -89,7 +90,6 @@ class ChallengeService:
         challenges = []
         for phrase in phrases:
             # Get timeout based on phrase difficulty
-            from ..config import CHALLENGE_TIMEOUT
             timeout_seconds = CHALLENGE_TIMEOUT.get(phrase.difficulty, 90)  # Default to 90 seconds
             expires_at = datetime.now(timezone.utc) + timedelta(seconds=timeout_seconds)
             

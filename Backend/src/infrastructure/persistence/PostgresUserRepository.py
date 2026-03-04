@@ -1,5 +1,6 @@
 """PostgreSQL implementation of UserRepositoryPort."""
 
+import json
 import asyncpg
 from typing import Optional, Dict, Any
 from uuid import UUID, uuid4
@@ -227,8 +228,6 @@ class PostgresUserRepository(UserRepositoryPort):
 
     async def update_user(self, user_id: UserId, user_data: dict) -> None:
         """Update user data."""
-        import json
-        
         async with self._pool.acquire() as conn:
             # Build the update query dynamically
             # This is not ideal, but it's a simple way to handle partial updates

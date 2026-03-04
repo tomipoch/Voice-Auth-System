@@ -2,6 +2,8 @@
 
 import numpy as np
 import logging
+import difflib
+import json
 from typing import Dict, Optional, List
 from uuid import UUID, uuid4
 from datetime import datetime, timezone
@@ -62,6 +64,89 @@ class VerificationService:
         self._biometric_validator = biometric_validator
         self._similarity_threshold = similarity_threshold
         self._anti_spoofing_threshold = anti_spoofing_threshold
+    
+    def _calculate_phrase_similarity(self, expected: str, transcribed: str) -> float:
+        """Calculate similarity between expected and transcribed phrases."""
+        norm_expected = expected.lower().strip()
+        norm_transcribed = transcribed.lower().strip()
+        return difflib.SequenceMatcher(None, norm_expected, norm_transcribed).ratio()
+    
+    def _calculate_composite_score(
+        self,
+        similarity_score: float,
+        anti_spoofing_score: Optional[float],
+        phrase_match_score: float
+    ) -> float:
+        """Calculate weighted composite verification score."""
+        # Speaker: 60%, Anti-spoof: 20%, ASR: 20%
+        w_speaker, w_antispoof, w_asr = 0.6, 0.2, 0.2
+        genuineness_score = 1.0 - (anti_spoofing_score if anti_spoofing_score else 0.0)
+        return (
+            similarity_score * w_speaker +
+            genuineness_score * w_antispoof +
+            phrase_match_score * w_asr
+        )
+    
+    def _is_verification_passed(
+        self,
+        similarity_score: float,
+        is_live: bool,
+        phrase_match: bool
+    ) -> bool:
+        """Determine if verification passed based on all checks."""
+        return (
+            similarity_score >= self._similarity_threshold and
+            is_live and
+            phrase_match
+        )
+    
+    def _get_phrase_match_result(
+        self,
+        transcribed_text: Optional[str],
+        expected_phrase: Optional[str]
+    ) -> tuple[float, bool]:
+        """Calculate phrase match score and result."""
+        if not transcribed_text or not expected_phrase:
+            return 0.0, True
+        score = self._calculate_phrase_similarity(expected_phrase, transcribed_text)
+        return score, score >= 0.7  # 70% threshold
+    
+    def _parse_log_metadata(self, metadata) -> dict:
+        """Parse metadata from log entry (handles JSON strings)."""
+        if isinstance(metadata, str):
+            try:
+                return json.loads(metadata)
+            except json.JSONDecodeError:
+                return {}
+        return metadata if metadata else {}
+    
+    def _transform_log_to_attempt(self, log: dict) -> Optional[dict]:
+        """Transform a single audit log entry to verification attempt format."""
+        action = log.get('action')
+        entity_type = log.get('entity_type')
+        valid_actions = {AuditAction.VERIFY.value, 'verify', 'VERIFICATION'}
+        valid_types = {'verification_result', 'multi_verification_complete', 'quick_verification'}
+        
+        if action not in valid_actions or entity_type not in valid_types:
+            return None
+        
+        metadata = self._parse_log_metadata(log.get('metadata', {}))
+        
+        # Extract score based on verification type
+        if entity_type == 'multi_verification_complete':
+            score = int(metadata.get('average_score', 0) * 100)
+        else:
+            score = int(metadata.get('similarity_score', 0) * 100)
+        
+        timestamp = log.get('timestamp')
+        return {
+            "id": log.get('entity_id'),
+            "date": timestamp.strftime("%Y-%m-%d %H:%M") if timestamp else "",
+            "result": "success" if log.get('success') else "failed",
+            "score": score,
+            "method": "Multi-Frase" if entity_type == 'multi_verification_complete' else "Frase Aleatoria",
+            "details": metadata
+        }
     
     async def start_verification(
         self,
@@ -154,40 +239,21 @@ class VerificationService:
         stored_embedding = np.array(voiceprint.embedding)
         similarity_score = self._biometric_validator.calculate_similarity(embedding, stored_embedding)
         
-        # Calculate phrase match score (ASR)
-        phrase_match_score = 0.0
-        phrase_match = True
-        if transcribed_text and expected_phrase:
-            import difflib
-            norm_expected = expected_phrase.lower().strip()
-            norm_transcribed = transcribed_text.lower().strip()
-            phrase_match_score = difflib.SequenceMatcher(None, norm_expected, norm_transcribed).ratio()
-            phrase_match = phrase_match_score >= 0.7  # 70% similarity threshold
+        # Calculate phrase match score using helper
+        phrase_match_score, phrase_match = self._get_phrase_match_result(
+            transcribed_text, expected_phrase
+        )
         
         # Check anti-spoofing
-        is_live = True
-        if anti_spoofing_score is not None:
-            is_live = anti_spoofing_score < self._anti_spoofing_threshold
+        is_live = anti_spoofing_score is None or anti_spoofing_score < self._anti_spoofing_threshold
         
-        # Calculate composite score (weighted)
-        # Speaker: 60%, Anti-spoof: 20%, ASR: 20%
-        w_speaker = 0.6
-        w_antispoof = 0.2
-        w_asr = 0.2
-        
-        genuineness_score = 1.0 - (anti_spoofing_score if anti_spoofing_score else 0.0)
-        composite_score = (
-            similarity_score * w_speaker +
-            genuineness_score * w_antispoof +
-            phrase_match_score * w_asr
+        # Calculate composite score using helper
+        composite_score = self._calculate_composite_score(
+            similarity_score, anti_spoofing_score, phrase_match_score
         )
         
-        # Make decision
-        is_verified = (
-            similarity_score >= self._similarity_threshold and
-            is_live and
-            phrase_match
-        )
+        # Make decision using helper
+        is_verified = self._is_verification_passed(similarity_score, is_live, phrase_match)
         
         # Mark challenge as used
         await self._challenge_service.mark_challenge_used(challenge_id)
@@ -270,15 +336,10 @@ class VerificationService:
         similarity_score = self._biometric_validator.calculate_similarity(embedding, stored_embedding)
         
         # Check anti-spoofing
-        is_live = True
-        if anti_spoofing_score is not None:
-            is_live = anti_spoofing_score < self._anti_spoofing_threshold
+        is_live = anti_spoofing_score is None or anti_spoofing_score < self._anti_spoofing_threshold
         
         # Make decision
-        is_verified = (
-            similarity_score >= self._similarity_threshold and
-            is_live
-        )
+        is_verified = similarity_score >= self._similarity_threshold and is_live
         
         # Log verification
         await self._audit_repo.log_event(
@@ -293,15 +354,6 @@ class VerificationService:
                 "is_verified": is_verified
             }
         )
-        
-        # Save attempt
-        # TODO: Uncomment when verification_attempt table is added to schema
-        # await self._voice_repo.save_verification_attempt(
-        #     user_id=user_id,
-        #     embedding=embedding,
-        #     similarity_score=float(similarity_score),
-        #     is_verified=is_verified
-        # )
         
         
         return {
@@ -324,50 +376,16 @@ class VerificationService:
         if not await self._user_repo.user_exists(user_id):
             raise ValueError(f"User {user_id} does not exist")
         
-        # Get verification attempts from audit log
-        # We look for verification results
-        logger.info(f"Fetching verification history for user {user_id}")
+        # Get verification attempts from audit log (last 30 days)
         activity = await self._audit_repo.get_user_activity(str(user_id), hours=24*30, limit=limit)
-        logger.info(f"Retrieved {len(activity)} audit logs for user {user_id}")
-        if len(activity) > 0:
-            logger.info(f"First log sample: {activity[0]}")
+        logger.debug(f"Retrieved {len(activity)} audit logs for user {user_id}")
         
+        # Transform logs to attempt format using helper
         attempts = []
         for log in activity:
-            # Check for both "VERIFY" (AuditAction) and potentially lowercase "verify" just in case
-            action = log.get('action')
-            entity_type = log.get('entity_type')
-            
-            # Valid verification types (only completed results, not start events)
-            valid_types = ['verification_result', 'multi_verification_complete', 'quick_verification']
-            
-            if (action == AuditAction.VERIFY.value or action == 'verify' or action == 'VERIFICATION') and entity_type in valid_types:
-                metadata = log.get('metadata', {})
-                
-                # Handle stringified JSON metadata if necessary
-                if isinstance(metadata, str):
-                    try:
-                        import json
-                        metadata = json.loads(metadata)
-                    except json.JSONDecodeError:
-                        logger.warning(f"Failed to parse metadata JSON for log {log.get('id')}")
-                        metadata = {}
-                
-                # Extract score based on verification type
-                score = 0
-                if entity_type == 'multi_verification_complete':
-                    score = int(metadata.get('average_score', 0) * 100)
-                else:
-                    score = int(metadata.get('similarity_score', 0) * 100)
-                
-                attempts.append({
-                    "id": log.get('entity_id'),
-                    "date": log.get('timestamp').strftime("%Y-%m-%d %H:%M") if log.get('timestamp') else "",
-                    "result": "success" if log.get('success') else "failed",
-                    "score": score,
-                    "method": "Multi-Frase" if entity_type == 'multi_verification_complete' else "Frase Aleatoria",
-                    "details": metadata
-                })
+            attempt = self._transform_log_to_attempt(log)
+            if attempt:
+                attempts.append(attempt)
         
         return {
             "user_id": str(user_id),
@@ -475,49 +493,33 @@ class VerificationService:
         current_challenge = session.challenges[phrase_number - 1]
         expected_phrase = current_challenge.get("phrase", "")
         
-        # Calculate ASR Confidence (Text Match)
-        import difflib
-        asr_confidence = 0.0
-        if transcribed_text and expected_phrase:
-            # Simple normalization
-            norm_expected = expected_phrase.lower().strip()
-            norm_transcribed = transcribed_text.lower().strip()
-            # Calculate similarity ratio
-            asr_confidence = difflib.SequenceMatcher(None, norm_expected, norm_transcribed).ratio()
-            
-        # 2. Define Weights
-        w_similarity = 0.6
-        w_genuineness = 0.2
-        w_asr = 0.2
-        # 3. Get user's voiceprint
+        # Calculate ASR Confidence using helper
+        asr_confidence = self._calculate_phrase_similarity(expected_phrase, transcribed_text) if transcribed_text and expected_phrase else 0.0
+        
+        # Get user's voiceprint
         voiceprint = await self._voice_repo.get_voiceprint_by_user(session.user_id)
         if not voiceprint:
             raise ValueError("User voiceprint not found")
         
-        # 4. Calculate similarity
+        # Calculate similarity
         stored_embedding = np.array(voiceprint.embedding)
         similarity_score = self._biometric_validator.calculate_similarity(embedding, stored_embedding)
         
-        # 5. Calculate Genuineness
-        spoof_prob = float(anti_spoofing_score) if anti_spoofing_score is not None else 1.0 
-        genuineness_score = 1.0 - spoof_prob
+        # Calculate Genuineness
+        spoof_prob = float(anti_spoofing_score) if anti_spoofing_score is not None else 1.0
         
-        # 6. Calculate Final Composite Score
-        final_score = (similarity_score * w_similarity) + (genuineness_score * w_genuineness) + (asr_confidence * w_asr)
+        # Calculate Final Composite Score using helper
+        final_score = self._calculate_composite_score(similarity_score, spoof_prob, asr_confidence)
         
-        # Legacy ASR Penalty (set to 1.0)
-        asr_penalty = 1.0
-        
-        # 7. Store result in session
+        # Store result in session
         session.results.append({
             "phrase_number": phrase_number,
             "challenge_id": str(challenge_id),
             "similarity_score": float(similarity_score),
             "asr_confidence": float(asr_confidence),
-            "asr_penalty": asr_penalty, 
             "final_score": float(final_score),
             "anti_spoofing_score": float(spoof_prob),
-            "genuineness_score": float(genuineness_score)
+            "genuineness_score": float(1.0 - spoof_prob)
         })
         
         # Mark challenge as used
@@ -531,22 +533,7 @@ class VerificationService:
             avg_score = sum(r["final_score"] for r in session.results) / 3
             is_verified = avg_score >= self._similarity_threshold
             
-            # NOTE: Audit log is now saved in the controller with full metadata (IP, user agent, device)
-            # await self._audit_repo.log_event(
-            #     actor="system",
-            #     action=AuditAction.VERIFY,
-            #     entity_type="multi_verification_complete",
-            #     entity_id=str(verification_id),
-            #     success=is_verified,
-            #     metadata={
-            #         "user_id": str(session.user_id),
-            #         "average_score": avg_score,
-            #         "is_verified": is_verified,
-            #         "results": session.results
-            #     }
-            # )
-            
-            # Clean up session
+            # Clean up session (audit log saved in controller with IP, user agent)
             del self._active_multi_sessions[verification_id]
             
             return {

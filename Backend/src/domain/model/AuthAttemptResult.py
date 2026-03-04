@@ -1,7 +1,7 @@
 """Authentication attempt result using Builder Pattern."""
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 from uuid import UUID
 
@@ -45,7 +45,7 @@ class AuthAttemptResult:
     scores: Optional[BiometricScores] = None
     
     # Timestamps
-    created_at: datetime = field(default_factory=datetime.now)
+    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     decided_at: Optional[datetime] = None
     
     def is_successful(self) -> bool:

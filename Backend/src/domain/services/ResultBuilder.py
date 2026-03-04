@@ -1,6 +1,6 @@
 """Builder Pattern for constructing AuthAttemptResult step by step."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 from uuid import UUID, uuid4
 
@@ -78,7 +78,7 @@ class ResultBuilder:
         self._result.decided = True
         self._result.accept = True
         self._result.reason = reason
-        self._result.decided_at = datetime.now()
+        self._result.decided_at = datetime.now(timezone.utc)
         return self
     
     def reject_with_reason(self, reason: AuthReason) -> 'ResultBuilder':
@@ -86,7 +86,7 @@ class ResultBuilder:
         self._result.decided = True
         self._result.accept = False
         self._result.reason = reason
-        self._result.decided_at = datetime.now()
+        self._result.decided_at = datetime.now(timezone.utc)
         return self
     
     def build(self) -> AuthAttemptResult:
