@@ -56,6 +56,8 @@ const DynamicEnrollment = ({
 
   // Inicializar enrollment
   useEffect(() => {
+    let isMounted = true;
+
     const initializeEnrollment = async () => {
       try {
         setPhase('initializing');
@@ -65,6 +67,8 @@ const DynamicEnrollment = ({
           external_ref: externalRef,
           difficulty,
         });
+
+        if (!isMounted) return;
 
         // Check if voiceprint exists
         if (response.voiceprint_exists) {
@@ -93,6 +97,7 @@ const DynamicEnrollment = ({
         setSteps(enrollmentSteps);
         setPhase('recording');
       } catch (err) {
+        if (!isMounted) return;
         const errorMessage = err instanceof Error ? err.message : 'Error al iniciar enrollment';
         setError(errorMessage);
         setPhase('error');
@@ -101,6 +106,10 @@ const DynamicEnrollment = ({
     };
 
     initializeEnrollment();
+
+    return () => {
+      isMounted = false;
+    };
   }, [userId, externalRef, difficulty, onError]);
 
   // Handle voiceprint overwrite confirmation

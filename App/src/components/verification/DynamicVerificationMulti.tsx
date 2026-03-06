@@ -66,6 +66,8 @@ const DynamicVerificationMulti = ({
 
   // Initialize multi-phrase verification
   useEffect(() => {
+    let isMounted = true;
+
     const initializeVerification = async () => {
       try {
         setPhase('initializing');
@@ -73,6 +75,8 @@ const DynamicVerificationMulti = ({
           user_id: userId,
           difficulty,
         });
+
+        if (!isMounted) return;
 
         setVerificationData(response);
 
@@ -89,6 +93,7 @@ const DynamicVerificationMulti = ({
         setSteps(verificationSteps);
         setPhase('ready');
       } catch (err) {
+        if (!isMounted) return;
         const errorMessage =
           err instanceof Error ? err.message : 'Error al iniciar verificación multi-frase';
         setError(errorMessage);
@@ -98,6 +103,10 @@ const DynamicVerificationMulti = ({
     };
 
     initializeVerification();
+
+    return () => {
+      isMounted = false;
+    };
   }, [userId, difficulty, onError]);
 
   // Handle recording complete
@@ -168,23 +177,28 @@ const DynamicVerificationMulti = ({
         setCurrentStepIndex(currentStepIndex + 1);
         setPhase('ready');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error during verification:', err);
 
       // Extraer mensaje específico del backend
       let errorMessage = 'Error al verificar frase';
 
-      if (err.response?.status === 400) {
+      // Type guard for axios-like error
+      const axiosError = err as {
+        response?: { status?: number; data?: { message?: string; detail?: string } };
+      };
+
+      if (axiosError.response?.status === 400) {
         // Error de validación (ej: audio demasiado corto, mala calidad)
         errorMessage =
-          err.response?.data?.message ||
-          err.response?.data?.detail ||
+          axiosError.response?.data?.message ||
+          axiosError.response?.data?.detail ||
           'El audio no cumple con los requisitos de calidad';
-      } else if (err.response?.status === 404) {
+      } else if (axiosError.response?.status === 404) {
         errorMessage = 'Sesión de verificación no encontrada';
-      } else if (err.response?.status === 500) {
+      } else if (axiosError.response?.status === 500) {
         errorMessage = 'Error del servidor. Por favor, intenta más tarde';
-      } else if (!err.response) {
+      } else if (!axiosError.response) {
         errorMessage = 'Error de conexión. Verifica tu conexión a internet';
       } else if (err instanceof Error) {
         errorMessage = err.message;

@@ -15,7 +15,7 @@ interface PhraseRuleCardProps {
 }
 
 export const PhraseRuleCard = ({ rule, onEdit, onToggle }: PhraseRuleCardProps) => {
-  const [isTogglingLoading, setIsToggling] = useState(false);
+  const [isToggling, setIsToggling] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
   const ruleDetail = getRuleDetail(rule.rule_name);
@@ -164,7 +164,7 @@ export const PhraseRuleCard = ({ rule, onEdit, onToggle }: PhraseRuleCardProps) 
             onClick={handleToggleClick}
             className={`relative inline-flex h-6 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
               rule.is_active ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-600'
-            } ${isTogglingLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            } ${isToggling ? 'opacity-50 cursor-not-allowed' : ''}`}
             style={{ width: '40px', height: '24px', borderRadius: '9999px' }}
             title={rule.is_active ? 'Desactivar regla' : 'Activar regla'}
           >

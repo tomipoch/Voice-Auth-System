@@ -75,7 +75,7 @@ const Modal = ({
         >
           {/* Modal principal con estilo liquid glass mejorado */}
           <div
-            className="relative overflow-hidden rounded-3xl shadow-2xl bg-white dark:bg-gray-900/95 dark:bg-gray-800/95 border border-white/30 dark:border-gray-600/30 backdrop-blur-[20px]"
+            className="relative overflow-hidden rounded-3xl shadow-2xl bg-white dark:bg-gray-800/95 border border-white/30 dark:border-gray-600/30 backdrop-blur-[20px]"
             style={{
               boxShadow: `
                 0 25px 50px -12px rgba(0, 0, 0, 0.25),
@@ -112,8 +112,8 @@ const Modal = ({
                   onClick={onClose}
                   className="group relative p-2 hover:bg-white dark:bg-gray-900/20 dark:hover:bg-gray-700/20 rounded-xl transition-all duration-200 backdrop-blur-sm"
                 >
-                  <X className="h-6 w-6 text-gray-500 dark:text-gray-400 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors" />
-                  <div className="absolute inset-0 rounded-xl bg-white dark:bg-gray-900/10 dark:bg-gray-700/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <X className="h-6 w-6 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors" />
+                  <div className="absolute inset-0 rounded-xl bg-white dark:bg-gray-700/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </button>
               </div>
             )}
