@@ -34,9 +34,6 @@ from .services.BiometricValidator import BiometricValidator
 class EnrollmentService:
     """Service for handling voice biometric enrollment with dynamic phrases."""
     
-    # In-memory sessions (in production, use Redis or database)
-    _active_sessions: Dict[UUID, EnrollmentSession] = {}
-    
     def __init__(
         self,
         voice_repo: VoiceSignatureRepositoryPort,
@@ -50,6 +47,9 @@ class EnrollmentService:
         self._audit_repo = audit_repo
         self._challenge_service = challenge_service
         self._biometric_validator = biometric_validator
+        # In-memory sessions (in production, use Redis or database)
+        # Moved to instance variable to avoid sharing state between instances
+        self._active_sessions: Dict[UUID, EnrollmentSession] = {}
     
     async def start_enrollment(
         self,

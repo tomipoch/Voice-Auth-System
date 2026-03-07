@@ -89,10 +89,10 @@ const Sidebar = () => {
         <div className="flex items-center justify-between h-16 px-4">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="h-10 w-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-blue-400/20">
+            <div className="h-10 w-10 bg-linear-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-blue-400/20">
               <Mic className="h-6 w-6 text-white" aria-hidden="true" />
             </div>
-            <h1 className="ml-2 text-lg font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent">
+            <h1 className="ml-2 text-lg font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent">
               VoiceAuth
             </h1>
           </div>
@@ -138,8 +138,8 @@ const Sidebar = () => {
               className="flex items-center px-4 py-3 hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors border-b border-blue-200/20 dark:border-gray-700/20"
               aria-label={`Ver perfil de ${user?.fullName || user?.username}`}
             >
-              <div className="h-10 w-10 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center shadow-sm border border-blue-200/40 dark:border-gray-600/40">
-                <span className="text-sm font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+              <div className="h-10 w-10 bg-linear-to-br from-blue-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center shadow-sm border border-blue-200/40 dark:border-gray-600/40">
+                <span className="text-sm font-bold bg-linear-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
                   {user?.fullName
                     ? user.fullName
                         .split(' ')
@@ -203,10 +203,10 @@ const Sidebar = () => {
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center px-6 py-4 border-b border-blue-200/30 dark:border-gray-600/30">
-            <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg ring-2 ring-blue-400/20">
+            <div className="h-12 w-12 bg-linear-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg ring-2 ring-blue-400/20">
               <Mic className="h-7 w-7 text-white" aria-hidden="true" />
             </div>
-            <h1 className="ml-3 text-xl font-bold bg-gradient-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent">
+            <h1 className="ml-3 text-xl font-bold bg-linear-to-r from-gray-800 to-blue-700 dark:from-gray-200 dark:to-blue-400 bg-clip-text text-transparent">
               VoiceAuth
             </h1>
           </div>
@@ -218,8 +218,8 @@ const Sidebar = () => {
               className="flex items-center hover:opacity-80 transition-opacity group"
               aria-label={`Ver perfil de ${user?.fullName || user?.username}`}
             >
-              <div className="h-12 w-12 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 rounded-xl flex items-center justify-center shadow-sm border border-blue-200/40 dark:border-gray-600/40 group-hover:border-blue-400 dark:group-hover:border-blue-500 transition-colors">
-                <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+              <div className="h-12 w-12 bg-linear-to-br from-blue-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 rounded-xl flex items-center justify-center shadow-sm border border-blue-200/40 dark:border-gray-600/40 group-hover:border-blue-400 dark:group-hover:border-blue-500 transition-colors">
+                <span className="text-lg font-bold bg-linear-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
                   {user?.fullName
                     ? user.fullName
                         .split(' ')
@@ -255,7 +255,7 @@ const Sidebar = () => {
                   to={item.href}
                   className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                     isActive
-                      ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg ring-2 ring-blue-400/30'
+                      ? 'bg-linear-to-r from-blue-500 to-indigo-600 text-white shadow-lg ring-2 ring-blue-400/30'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-800/60 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-sm border border-transparent hover:border-blue-200/30 dark:hover:border-blue-500/30'
                   }`}
                   aria-label={item.label}

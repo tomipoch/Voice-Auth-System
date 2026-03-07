@@ -226,16 +226,23 @@ class PostgresUserRepository(UserRepositoryPort):
             )
             return [dict(row) for row in rows], total
 
+    # Whitelist of allowed fields for user updates (security measure against SQL injection)
+    ALLOWED_UPDATE_FIELDS = {
+        'first_name', 'last_name', 'rut', 'company', 'role', 
+        'password', 'settings', 'last_login', 'failed_auth_attempts', 'locked_until'
+    }
+
     async def update_user(self, user_id: UserId, user_data: dict) -> None:
         """Update user data."""
         async with self._pool.acquire() as conn:
-            # Build the update query dynamically
-            # This is not ideal, but it's a simple way to handle partial updates
-            # In a real application, you would probably want to use a more robust solution
-            # like a query builder or an ORM.
+            # Build the update query dynamically with field validation
             updates = []
             values = []
             for key, value in user_data.items():
+                # Validate that only allowed fields are updated (prevent SQL injection)
+                if key not in self.ALLOWED_UPDATE_FIELDS:
+                    raise ValueError(f"Field '{key}' is not allowed for update")
+                
                 # Convert settings dict to JSON string for JSONB field
                 if key == 'settings' and isinstance(value, dict):
                     value = json.dumps(value)

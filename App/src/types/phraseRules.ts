@@ -35,14 +35,15 @@ export interface ToggleRuleResponse {
 /**
  * Type guard to check if a value is a valid PhraseRule
  */
-export const isPhraseRule = (obj: any): obj is PhraseRule => {
+export const isPhraseRule = (obj: unknown): obj is PhraseRule => {
+  if (obj === null || typeof obj !== 'object') return false;
+  const o = obj as Record<string, unknown>;
   return (
-    typeof obj === 'object' &&
-    typeof obj.id === 'string' &&
-    typeof obj.rule_name === 'string' &&
-    typeof obj.rule_type === 'string' &&
-    typeof obj.rule_value === 'number' &&
-    typeof obj.description === 'string' &&
-    typeof obj.is_active === 'boolean'
+    typeof o.id === 'string' &&
+    typeof o.rule_name === 'string' &&
+    typeof o.rule_type === 'string' &&
+    typeof o.rule_value === 'number' &&
+    typeof o.description === 'string' &&
+    typeof o.is_active === 'boolean'
   );
 };

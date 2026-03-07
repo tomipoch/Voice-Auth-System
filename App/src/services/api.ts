@@ -7,7 +7,7 @@ import { authStorage } from './storage.js';
 let isRefreshing = false;
 let failedQueue: Array<{
   resolve: (token: string) => void;
-  reject: (error: any) => void;
+  reject: (error: Error) => void;
 }> = [];
 
 const processQueue = (error: Error | null, token: string | null = null) => {

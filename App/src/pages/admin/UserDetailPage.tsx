@@ -52,24 +52,61 @@ const Modal = ({
   );
 };
 
+// Interface for phrase result in verification
+interface PhraseResult {
+  phrase_number: number;
+  similarity_score: number;
+  asr_confidence: number;
+  anti_spoofing_score?: number | null;
+  asr_penalty: number;
+  final_score: number;
+}
+
+// Verification Details Interface
+interface VerificationDetails {
+  id?: string;
+  timestamp?: string;
+  metadata?: string;
+  results?: PhraseResult[];
+  average_score?: number;
+  score?: number;
+  is_verified?: boolean;
+  success?: boolean;
+  anti_spoofing_score?: number | null;
+  similarity_score?: number;
+  device_info?: string;
+  ip_address?: string;
+  user_agent?: string;
+}
+
 // New Modal for Verification Details
-const VerificationDetailModal = ({ details, onClose }: { details: any; onClose: () => void }) => {
+const VerificationDetailModal = ({
+  details,
+  onClose,
+}: {
+  details: VerificationDetails | string | null;
+  onClose: () => void;
+}) => {
   if (!details) return null;
 
   // Parse metadata if it's a string (which it usually is from the DB)
-  let parsedMetadata = details;
+  let parsedMetadata: VerificationDetails;
   if (typeof details === 'string') {
     try {
-      parsedMetadata = JSON.parse(details);
+      parsedMetadata = JSON.parse(details) as VerificationDetails;
     } catch (e) {
       console.error('Error parsing metadata json', e);
+      parsedMetadata = {} as VerificationDetails;
     }
   } else if (details.metadata && typeof details.metadata === 'string') {
     try {
-      parsedMetadata = JSON.parse(details.metadata);
+      parsedMetadata = JSON.parse(details.metadata) as VerificationDetails;
     } catch (e) {
       console.error('Error parsing metadata json from object', e);
+      parsedMetadata = details;
     }
+  } else {
+    parsedMetadata = details;
   }
 
   // Normalize data structure
@@ -85,12 +122,14 @@ const VerificationDetailModal = ({ details, onClose }: { details: any; onClose: 
   // Calculate Averages for Overview
   const avgSimilarity =
     results.length > 0
-      ? results.reduce((acc: number, r: any) => acc + (r.similarity_score || 0), 0) / results.length
+      ? results.reduce((acc: number, r: PhraseResult) => acc + (r.similarity_score || 0), 0) /
+        results.length
       : parsedMetadata.similarity_score || 0;
 
   const avgASR =
     results.length > 0
-      ? results.reduce((acc: number, r: any) => acc + (r.asr_confidence || 0), 0) / results.length
+      ? results.reduce((acc: number, r: PhraseResult) => acc + (r.asr_confidence || 0), 0) /
+        results.length
       : 1.0; // Default to 1.0 if not available
 
   // Anti-Spoofing Average Logic (Genuineness)
@@ -101,12 +140,17 @@ const VerificationDetailModal = ({ details, onClose }: { details: any; onClose: 
   if (antiSpoofingVal !== null) {
     genuinenessScore = 1 - antiSpoofingVal;
     hasAntiSpoofing = true;
-  } else if (results.length > 0 && results.some((r: any) => r.anti_spoofing_score != null)) {
-    const validSpoofScores = results.filter((r: any) => r.anti_spoofing_score != null);
+  } else if (
+    results.length > 0 &&
+    results.some((r: PhraseResult) => r.anti_spoofing_score != null)
+  ) {
+    const validSpoofScores = results.filter((r: PhraseResult) => r.anti_spoofing_score != null);
     if (validSpoofScores.length > 0) {
       const avgSpoof =
-        validSpoofScores.reduce((acc: number, r: any) => acc + r.anti_spoofing_score, 0) /
-        validSpoofScores.length;
+        validSpoofScores.reduce(
+          (acc: number, r: PhraseResult) => acc + (r.anti_spoofing_score || 0),
+          0
+        ) / validSpoofScores.length;
       genuinenessScore = 1 - avgSpoof;
       hasAntiSpoofing = true;
     }
@@ -123,7 +167,11 @@ const VerificationDetailModal = ({ details, onClose }: { details: any; onClose: 
               Detalles de Verificación
             </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 flex items-center gap-2">
-              <span>{new Date(parsedMetadata.timestamp || Date.now()).toLocaleString()}</span>
+              <span>
+                {parsedMetadata.timestamp
+                  ? new Date(parsedMetadata.timestamp).toLocaleString()
+                  : 'Fecha no disponible'}
+              </span>
               <span className="text-gray-300 dark:text-gray-600">•</span>
               <span className="font-mono text-xs">{parsedMetadata.id || 'ID: --'}</span>
             </p>
@@ -262,7 +310,7 @@ const VerificationDetailModal = ({ details, onClose }: { details: any; onClose: 
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 dark:divide-gray-800 bg-white dark:bg-gray-900">
-                    {results.map((r: any, idx: number) => {
+                    {results.map((r: PhraseResult, idx: number) => {
                       const phraseGenuineness =
                         r.anti_spoofing_score != null ? 1 - r.anti_spoofing_score : null;
                       return (
@@ -459,7 +507,7 @@ const UserDetailPage = () => {
           </Button>
         </div>
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+          <h1 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-indigo-800 dark:from-gray-200 dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
             Detalle de Usuario
           </h1>
           <p className="text-lg text-blue-600/80 dark:text-blue-400/80 font-medium">
@@ -470,10 +518,10 @@ const UserDetailPage = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         {/* User Profile Card */}
-        <Card className="p-6 bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-blue-900/10 border-blue-100 dark:border-blue-800/30">
+        <Card className="p-6 bg-linear-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-blue-900/10 border-blue-100 dark:border-blue-800/30">
           <div className="flex flex-col items-center text-center">
             <div className="relative mb-4">
-              <div className="h-20 w-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+              <div className="h-20 w-20 rounded-full bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg">
                 {user.first_name
                   ? user.first_name.charAt(0).toUpperCase()
                   : user.email.charAt(0).toUpperCase()}
@@ -520,7 +568,7 @@ const UserDetailPage = () => {
         </Card>
 
         {/* Biometric Status Card */}
-        <Card className="p-6 bg-gradient-to-br from-white to-purple-50/30 dark:from-gray-800 dark:to-purple-900/10 border-purple-100 dark:border-purple-800/30">
+        <Card className="p-6 bg-linear-to-br from-white to-purple-50/30 dark:from-gray-800 dark:to-purple-900/10 border-purple-100 dark:border-purple-800/30">
           <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
             <div className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mr-3">
               <Mic className="h-5 w-5 text-purple-600 dark:text-purple-400" />
@@ -532,8 +580,8 @@ const UserDetailPage = () => {
             <div
               className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-4 shadow-lg ${
                 user.enrollment_status === 'enrolled'
-                  ? 'bg-gradient-to-br from-green-400 to-emerald-600'
-                  : 'bg-gradient-to-br from-orange-400 to-amber-600'
+                  ? 'bg-linear-to-br from-green-400 to-emerald-600'
+                  : 'bg-linear-to-br from-orange-400 to-amber-600'
               }`}
             >
               <Mic className="h-10 w-10 text-white" />
@@ -561,7 +609,7 @@ const UserDetailPage = () => {
         </Card>
 
         {/* Stats Card */}
-        <Card className="p-6 bg-gradient-to-br from-white to-indigo-50/30 dark:from-gray-800 dark:to-indigo-900/10 border-indigo-100 dark:border-indigo-800/30">
+        <Card className="p-6 bg-linear-to-br from-white to-indigo-50/30 dark:from-gray-800 dark:to-indigo-900/10 border-indigo-100 dark:border-indigo-800/30">
           <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
             <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mr-3">
               <Activity className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
@@ -590,10 +638,10 @@ const UserDetailPage = () => {
                 <div
                   className={`h-full rounded-full transition-all duration-500 ease-out ${
                     stats.successRate >= 80
-                      ? 'bg-gradient-to-r from-green-500 to-emerald-600'
+                      ? 'bg-linear-to-r from-green-500 to-emerald-600'
                       : stats.successRate >= 50
-                        ? 'bg-gradient-to-r from-yellow-500 to-amber-600'
-                        : 'bg-gradient-to-r from-red-500 to-rose-600'
+                        ? 'bg-linear-to-r from-yellow-500 to-amber-600'
+                        : 'bg-linear-to-r from-red-500 to-rose-600'
                   }`}
                   style={{ width: `${stats.successRate}%` }}
                 ></div>
@@ -601,7 +649,7 @@ const UserDetailPage = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-800/10 p-4 rounded-xl border border-blue-200 dark:border-blue-800/30">
+              <div className="bg-linear-to-br from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-800/10 p-4 rounded-xl border border-blue-200 dark:border-blue-800/30">
                 <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
                   {stats.verificationCount}
                 </p>
@@ -609,7 +657,7 @@ const UserDetailPage = () => {
                   Intentos
                 </p>
               </div>
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/10 p-4 rounded-xl border border-purple-200 dark:border-purple-800/30">
+              <div className="bg-linear-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/10 p-4 rounded-xl border border-purple-200 dark:border-purple-800/30">
                 <p className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">
                   {stats.daysActive}
                 </p>
@@ -731,7 +779,7 @@ const UserDetailPage = () => {
       {/* Verification Detail Modal */}
       {showDetailModal && selectedAttempt && (
         <VerificationDetailModal
-          details={selectedAttempt.details}
+          details={selectedAttempt.details ? JSON.stringify(selectedAttempt.details) : null}
           onClose={() => setShowDetailModal(false)}
         />
       )}

@@ -12,7 +12,7 @@ import { PhraseRuleCard } from '../../components/admin/PhraseRuleCard';
 import { PhraseRuleEditor } from '../../components/admin/PhraseRuleEditor';
 import MainLayout from '../../components/ui/MainLayout';
 import Card from '../../components/ui/Card';
-import LoadingSpinner from '../../components/ui/LoadingSpinner';
+
 import EmptyState from '../../components/ui/EmptyState';
 
 export const PhraseRulesPage = () => {
@@ -40,8 +40,9 @@ export const PhraseRulesPage = () => {
     try {
       const data = await phraseRulesService.getRules(true); // Include inactive
       setRules(data);
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.detail || 'Error al cargar las reglas';
+    } catch (err: unknown) {
+      const axiosError = err as { response?: { data?: { detail?: string } } };
+      const errorMessage = axiosError.response?.data?.detail || 'Error al cargar las reglas';
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -67,8 +68,9 @@ export const PhraseRulesPage = () => {
             : rule
         )
       );
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.detail || 'Error al actualizar la regla';
+    } catch (err: unknown) {
+      const axiosError = err as { response?: { data?: { detail?: string } } };
+      const errorMessage = axiosError.response?.data?.detail || 'Error al actualizar la regla';
       toast.error(errorMessage);
       throw err; // Re-throw to let modal handle it
     }
@@ -87,8 +89,10 @@ export const PhraseRulesPage = () => {
             : rule
         )
       );
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.detail || 'Error al cambiar el estado de la regla';
+    } catch (err: unknown) {
+      const axiosError = err as { response?: { data?: { detail?: string } } };
+      const errorMessage =
+        axiosError.response?.data?.detail || 'Error al cambiar el estado de la regla';
       toast.error(errorMessage);
     }
   };

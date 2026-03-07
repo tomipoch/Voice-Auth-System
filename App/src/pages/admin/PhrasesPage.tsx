@@ -76,8 +76,9 @@ export const PhrasesPage = () => {
       setPhrases(response.phrases);
       setTotalPages(response.total_pages);
       setTotalPhrases(response.total);
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.detail || 'Error al cargar frases';
+    } catch (err: unknown) {
+      const axiosError = err as { response?: { data?: { detail?: string } } };
+      const errorMessage = axiosError.response?.data?.detail || 'Error al cargar frases';
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -119,7 +120,10 @@ export const PhrasesPage = () => {
     }
   };
 
-  const handleFilterChange = (key: keyof PhraseFilters, value: any) => {
+  const handleFilterChange = (
+    key: keyof PhraseFilters,
+    value: PhraseFilters[keyof PhraseFilters]
+  ) => {
     setFilters((prev) => ({ ...prev, [key]: value, page: 1 }));
   };
 

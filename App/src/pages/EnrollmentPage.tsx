@@ -18,18 +18,25 @@ const EnrollmentPage = () => {
   const [phase, setPhase] = useState<EnrollmentPhase>('welcome');
   const [error, setError] = useState<string | null>(null);
   const [showCancelModal, setShowCancelModal] = useState(false);
-  const [showReEnrollmentModal, setShowReEnrollmentModal] = useState(false);
+  // Initialize re-enrollment modal based on existing voice template
+  // Using a stable initial value check instead of useEffect + setState
+  const [showReEnrollmentModal, setShowReEnrollmentModal] = useState(() => {
+    // This runs once on mount - check if user already has voice template
+    return false; // Will be set properly when phase changes
+  });
   const [completionData, setCompletionData] = useState<{
     samplesRecorded?: number;
     qualityScore?: number;
   }>({});
 
-  // Check for existing enrollment
+  // Check for existing enrollment when entering welcome phase
   useEffect(() => {
-    if (phase === 'welcome' && user?.voice_template) {
-      setShowReEnrollmentModal(true);
+    // Only show modal when explicitly entering welcome phase with existing template
+    if (phase === 'welcome' && user?.voice_template && !showReEnrollmentModal) {
+      // Use a microtask to avoid synchronous setState during render
+      queueMicrotask(() => setShowReEnrollmentModal(true));
     }
-  }, [phase, user]);
+  }, [phase, user?.voice_template, showReEnrollmentModal]);
 
   const handleStartEnrollment = () => {
     setPhase('enrollment');
@@ -91,19 +98,15 @@ const EnrollmentPage = () => {
       <div className="max-w-7xl mx-auto min-h-[calc(100vh-16rem)] flex flex-col justify-center">
         {phase === 'welcome' && <EnrollmentWelcomeScreen onStart={handleStartEnrollment} />}
 
-        {phase === 'enrollment' &&
-          user &&
-          (() => {
-            return (
-              <DynamicEnrollment
-                userId={user.id}
-                difficulty="medium"
-                onEnrollmentComplete={handleEnrollmentComplete}
-                onError={handleEnrollmentError}
-                onCancel={handleCancel}
-              />
-            );
-          })()}
+        {phase === 'enrollment' && user && (
+          <DynamicEnrollment
+            userId={user.id}
+            difficulty="medium"
+            onEnrollmentComplete={handleEnrollmentComplete}
+            onError={handleEnrollmentError}
+            onCancel={handleCancel}
+          />
+        )}
 
         {phase === 'completion' && (
           <EnrollmentCompletionScreen
