@@ -52,7 +52,7 @@ class LocalModelPaths:
 
     @property
     def anti_spoof_root(self) -> Path:
-        return self.project_root / "models" / "Anti-Spoofing"
+        return self.project_root / "models" / "anti-spoofing"
 
     @property
     def rawnet_dir(self) -> Path:
