@@ -5,7 +5,6 @@ from typing import Optional
 from uuid import UUID
 import numpy as np
 import io
-import soundfile as sf
 import logging
 
 from ..application.enrollment_service import EnrollmentService
