@@ -5,6 +5,14 @@
 AGENTS.md
 PLAN_MEJORAS.md
 
+# Backups y restauraciones locales (no se commitean)
+Proyecto/
+infra/
+
+# Variables de entorno de ejemplo a nivel raíz (se commitean las de apps/)
+/.env.example
+/.env
+
 # Node / frontend
 node_modules/
 *.tsbuildinfo

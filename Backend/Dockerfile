@@ -1,4 +1,5 @@
 # Multi-stage Dockerfile for Voice Biometrics API
+# Build context: Backend/
 
 # Build stage
 FROM python:3.11-slim AS builder
