@@ -183,6 +183,31 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 language
             )
             return {row['difficulty']: row['count'] for row in rows}
+
+    async def count_by_status(self, language: str = 'es') -> dict:
+        """Count active and inactive phrases for a language."""
+        async with self._pool.acquire() as conn:
+            rows = await conn.fetch(
+                """
+                SELECT is_active, COUNT(*) AS count
+                FROM phrase
+                WHERE language = $1
+                GROUP BY is_active
+                """,
+                language,
+            )
+            return {
+                "active": sum(r["count"] for r in rows if r["is_active"]),
+                "inactive": sum(r["count"] for r in rows if not r["is_active"]),
+            }
+
+    async def list_books(self) -> list:
+        """List all books (id, title, author) ordered by title."""
+        async with self._pool.acquire() as conn:
+            rows = await conn.fetch(
+                "SELECT id, title, author FROM books ORDER BY title"
+            )
+            return [dict(row) for row in rows]
     
     async def update_active_status(self, phrase_id: UUID, is_active: bool) -> bool:
         """Update the active status of a phrase."""
