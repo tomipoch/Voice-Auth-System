@@ -60,12 +60,8 @@ from ..infrastructure.config.dependencies import get_user_repository, get_audit_
 # Helper functions to reduce cognitive complexity
 def _parse_metadata(metadata):
     """Parse metadata from JSON string if needed."""
-    if isinstance(metadata, str):
-        try:
-            return json.loads(metadata)
-        except json.JSONDecodeError:
-            return {}
-    return metadata if metadata else {}
+    from ..shared.json_metadata import parse_json_metadata
+    return parse_json_metadata(metadata)
 
 
 def _belongs_to_company(log, company_user_ids: set, company_emails: set) -> bool:
