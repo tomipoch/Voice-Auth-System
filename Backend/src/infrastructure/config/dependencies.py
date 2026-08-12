@@ -14,6 +14,7 @@ from ..persistence.PostgresPhraseRepository import (
     PostgresPhraseUsageRepository
 )
 from ...application.phrase_service import PhraseService
+from ...config import SIMILARITY_THRESHOLD, ANTI_SPOOFING_THRESHOLD
 
 # Security for admin authentication
 security = HTTPBearer()
@@ -232,8 +233,8 @@ async def get_verification_service():
         audit_repo=audit_repo,
         challenge_service=challenge_service,
         biometric_validator=biometric_validator,
-        similarity_threshold=float(os.getenv("SIMILARITY_THRESHOLD", "0.60")),
-        anti_spoofing_threshold=float(os.getenv("ANTI_SPOOFING_THRESHOLD", "0.5"))
+        similarity_threshold=SIMILARITY_THRESHOLD,
+        anti_spoofing_threshold=ANTI_SPOOFING_THRESHOLD,
     )
 
 
@@ -279,7 +280,7 @@ async def get_current_admin_user(
     Validates JWT token and checks for admin/superadmin role.
     """
     from fastapi import HTTPException, status
-    from ...api.auth_controller import SECRET_KEY, ALGORITHM
+    from ...config import SECRET_KEY, ALGORITHM
     import jwt
     
     user_repo = await get_user_repository()

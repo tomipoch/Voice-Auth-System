@@ -67,9 +67,6 @@ else:
     if not os.getenv("DB_PASSWORD"):
         os.environ["DB_PASSWORD"] = "voice_password"
         logging.warning("⚠️  Using default DB_PASSWORD - NOT SAFE FOR PRODUCTION")
-    if not os.getenv("SECRET_KEY"):
-        os.environ["SECRET_KEY"] = "dev-secret-key-change-in-production"
-        logging.warning("⚠️  Using default SECRET_KEY - NOT SAFE FOR PRODUCTION")
     if not os.getenv("EMBEDDING_ENCRYPTION_KEY"):
         os.environ["EMBEDDING_ENCRYPTION_KEY"] = "jEqd5JIag7p51jF6mvXB0L0tJW_5423Of5EXfozqkFg="
         logging.warning("⚠️  Using default EMBEDDING_ENCRYPTION_KEY - NOT SAFE FOR PRODUCTION")
@@ -110,7 +107,8 @@ class MockVoiceBiometricEngineFacade:
         return {"status": "mock_transcribed", "text": "mock transcription"}
 
     def get_speaker_embedding(self, audio_file: str) -> list:
-        return [0.1] * 512 # Mock embedding
+        from .shared.constants.biometric_constants import EMBEDDING_DIMENSION
+        return [0.1] * EMBEDDING_DIMENSION  # Mock embedding
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
