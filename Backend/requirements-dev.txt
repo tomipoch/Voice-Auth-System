@@ -1,7 +1,5 @@
-# Development Dependencies
-# Install: pip install -r requirements-dev.txt
-
--r requirements.txt
+# Voice Biometrics API - Development Dependencies
+# Install with: pip install -r requirements-dev.txt
 
 # Testing
 pytest>=7.4.0
@@ -14,8 +12,8 @@ flake8>=6.1.0
 mypy>=1.7.0
 isort>=5.12.0
 
-# Pre-commit hooks
+# Development Tools
 pre-commit>=3.5.0
 
-# PDF Processing (for phrase extraction)
+# PDF Processing (legacy: kept for backwards compatibility)
 PyPDF2>=3.0.0
