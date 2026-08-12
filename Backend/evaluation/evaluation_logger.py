@@ -179,17 +179,17 @@ class EvaluationLogger:
     def get_session_summary(self, session_id: str) -> Optional[Dict]:
         """
         Obtiene resumen de una sesión.
-        
+
         Args:
             session_id: ID de la sesión
-            
+
         Returns:
             Diccionario con estadísticas o None
         """
         session = self.active_sessions.get(session_id)
         if not session:
             return None
-        
+
         return {
             "name": session["name"],
             "started_at": session["started_at"],
@@ -197,6 +197,48 @@ class EvaluationLogger:
             "event_count": len(session["events"]),
             "stats": session["stats"]
         }
+
+    def log_enrollment(
+        self,
+        user_id: str,
+        samples_used: int,
+        quality_score: float,
+        threshold_used: Optional[float] = None,
+    ) -> None:
+        """Convenience wrapper for enrollment events."""
+        self.log_event(
+            "enrollment",
+            {
+                "user_id": user_id,
+                "samples_used": samples_used,
+                "quality_score": quality_score,
+                "threshold_used": threshold_used,
+            },
+        )
+
+    def log_verification_attempt(
+        self,
+        user_id: str,
+        similarity_score: float,
+        spoof_probability: Optional[float] = None,
+        system_decision: Optional[str] = None,
+        threshold_used: Optional[float] = None,
+        challenge_id: Optional[str] = None,
+        phrase_match_score: Optional[float] = None,
+    ) -> None:
+        """Convenience wrapper for verification attempt events."""
+        self.log_event(
+            "verification",
+            {
+                "user_id": user_id,
+                "similarity_score": similarity_score,
+                "spoof_probability": spoof_probability,
+                "system_decision": system_decision,
+                "threshold_used": threshold_used,
+                "challenge_id": challenge_id,
+                "phrase_match_score": phrase_match_score,
+            },
+        )
 
 
 # Global singleton instance

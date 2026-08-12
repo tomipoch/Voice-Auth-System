@@ -297,8 +297,8 @@ class VerificationService:
                     challenge_id=str(challenge_id),
                     phrase_match_score=float(phrase_match_score)
                 )
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.warning("Evaluation logger skipped verification attempt: %s", exc)
         
         # Clean up session
         del self._active_sessions[verification_id]
