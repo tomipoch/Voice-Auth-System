@@ -7,50 +7,102 @@ PLAN_MEJORAS.md
 
 # Backups y restauraciones locales (no se commitean)
 Proyecto/
-infra/
 
-# Variables de entorno de ejemplo a nivel raíz (se commitean las de apps/)
-/.env.example
+# Contenido PII/excluido bajo infra/ (el resto de infra/ sí se trackea)
+infra/db/Libros/
+infra/db/data_dump.sql
+infra/db/extract_phrases.py
+infra/db/extract_to_txt.py
+infra/db/import_phrases_from_txt.py
+infra/db/frases_por_libro/
+infra/evaluation/dataset/
+
+# Variables de entorno a nivel raíz
 /.env
 
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+
+# =========================
 # Node / frontend
+# =========================
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 *.tsbuildinfo
 *.bak
 dist/
 build/
+web-build/
 
-# Python
-__pycache__/
-*.py[cod]
-venv/
-.venv/
+# =========================
+# IDE / Editors
+# =========================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
 
-# Entorno y secretos
-.env
-.env.local
-*.local
+# =========================
+# Models (Large Files)
+# =========================
+apps/backend/models/**/*.pt
+apps/backend/models/**/*.pth
+apps/backend/models/**/*.bin
+apps/backend/models/**/*.onnx
+apps/backend/models/**/*.ckpt
+apps/backend/models/**/pytorch_model.bin
+apps/backend/models/**/model.safetensors
 
-# Tests / coverage
-coverage/
-htmlcov/
-.pytest_cache/
-.mypy_cache/
-
-# Logs
-logs/
-*.log
-
-# Audio procesado (nunca commitar audio)
+# =========================
+# Audio (PII)
+# =========================
 *.wav
 *.mp3
 *.flac
 *.ogg
+*.m4a
 
-# Base de datos de libros: los PDFs son provistos por el usuario
-# (derechos de autor); ver README.md para el procedimiento.
+# =========================
+# Logs / Coverage
+# =========================
+*.log
+logs/
+coverage/
+htmlcov/
+.coverage
+.pytest_cache/
+.mypy_cache/
+
+# =========================
+# Database
+# =========================
+*.db
+*.sqlite
+*.sqlite3
+
+# Base de datos de libros (copyright) + data dump con PII
 Database/Libros/
 Database/data_dump.sql
+apps/db/Libros/
+apps/db/data_dump.sql
+infra/db/Libros/
+infra/db/data_dump.sql
+infra/evaluation/dataset/
 
-# Grabaciones del dataset de evaluación (PII de usuarios)
-evaluation/dataset/
+# =========================
+# Misceláneos
+# =========================
+*.tmp
+*.temp

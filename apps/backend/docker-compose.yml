@@ -13,7 +13,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ../Database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ../infra/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U voice_user -d voice_biometrics"]
       interval: 30s
