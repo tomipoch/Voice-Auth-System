@@ -9,48 +9,83 @@ PLAN_MEJORAS.md
 Proyecto/
 infra/
 
-# Variables de entorno de ejemplo a nivel raíz (se commitean las de apps/)
-/.env.example
+# Variables de entorno a nivel raíz
 /.env
 
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+
+# =========================
 # Node / frontend
+# =========================
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 *.tsbuildinfo
 *.bak
 dist/
 build/
+web-build/
 
-# Python
-__pycache__/
-*.py[cod]
-venv/
-.venv/
+# =========================
+# IDE / Editors
+# =========================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
 
-# Entorno y secretos
-.env
-.env.local
-*.local
+# =========================
+# Models (Large Files)
+# =========================
+apps/backend/models/**/*.pt
+apps/backend/models/**/*.pth
+apps/backend/models/**/*.bin
+apps/backend/models/**/*.onnx
+apps/backend/models/**/*.ckpt
+apps/backend/models/**/pytorch_model.bin
+apps/backend/models/**/model.safetensors
 
-# Tests / coverage
-coverage/
-htmlcov/
-.pytest_cache/
-.mypy_cache/
-
-# Logs
-logs/
-*.log
-
-# Audio procesado (nunca commitar audio)
+# =========================
+# Audio (PII)
+# =========================
 *.wav
 *.mp3
 *.flac
 *.ogg
+*.m4a
 
-# Base de datos de libros: los PDFs son provistos por el usuario
-# (derechos de autor); ver README.md para el procedimiento.
-Database/Libros/
-Database/data_dump.sql
+# =========================
+# Logs / Coverage
+# =========================
+*.log
+logs/
+coverage/
+htmlcov/
+.coverage
+.pytest_cache/
+.mypy_cache/
 
-# Grabaciones del dataset de evaluación (PII de usuarios)
-evaluation/dataset/
+# =========================
+# Database
+# =========================
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================
+# Misceláneos
+# =========================
+*.tmp
+*.temp
