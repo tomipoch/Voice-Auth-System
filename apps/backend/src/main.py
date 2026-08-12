@@ -62,13 +62,18 @@ if ENV == "production":
             "Set these in your .env file or environment."
         )
 else:
-    # Development defaults with warnings
+    # Development: no hardcoded secrets. Use .env.example as a template and
+    # copy to .env, or set the variables in the environment.
     if not os.getenv("DB_PASSWORD"):
-        os.environ["DB_PASSWORD"] = "voice_password"
-        logging.warning("⚠️  Using default DB_PASSWORD - NOT SAFE FOR PRODUCTION")
+        logging.warning(
+            "DB_PASSWORD not set. Copy apps/backend/.env.example to .env or set it "
+            "in your environment. Server will fail to start until it is configured."
+        )
     if not os.getenv("EMBEDDING_ENCRYPTION_KEY"):
-        os.environ["EMBEDDING_ENCRYPTION_KEY"] = "jEqd5JIag7p51jF6mvXB0L0tJW_5423Of5EXfozqkFg="
-        logging.warning("⚠️  Using default EMBEDDING_ENCRYPTION_KEY - NOT SAFE FOR PRODUCTION")
+        logging.warning(
+            "EMBEDDING_ENCRYPTION_KEY not set. Generate one with: "
+            "python -c \"import secrets, base64; print(base64.urlsafe_b64encode(secrets.token_bytes(32)).decode())\""
+        )
 
 # Rate limiter
 from .api.rate_limit import limiter

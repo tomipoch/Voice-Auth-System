@@ -959,3 +959,35 @@ El proyecto tiene una base sólida ✅, pero las **mejoras identificadas** lo pu
 4. Preparar documentación de tesis con métricas sólidas
 
 **¡Mucho éxito con tu tesis!** 🎓🚀
+
+
+---
+
+## Deuda técnica: sesiones en memoria
+
+### EnrollmentService y VerificationService mantienen sesiones activas en diccionarios en memoria:
+
+- `EnrollmentService._active_sessions: Dict[UUID, EnrollmentSession]`
+- `VerificationService._active_sessions: Dict[UUID, VerificationSession]`
+- `VerificationService._active_multi_sessions: Dict[UUID, MultiPhraseVerificationSession]`
+
+### Limitaciones
+
+- **No sobreviven reinicios**: un restart del servidor invalida todas las sesiones en curso. Los usuarios deben re-iniciar enrollment/verification.
+- **No escalan horizontalmente**: con múltiples workers (uvicorn workers > 1) o múltiples instancias, las sesiones quedan en un solo proceso; las requests que caen en otro worker no encuentran la sesión.
+- **Sin expiración activa**: las sesiones se eliminan al completar/fallar, pero si el usuario abandona, quedan ocupando memoria hasta el restart.
+
+### Accessors públicos disponibles
+
+- `EnrollmentService.get_session(enrollment_id)` y `get_session_user(enrollment_id)`
+- `VerificationService.get_multi_session(verification_id)` y `get_multi_session_user(verification_id)`
+
+### Trabajo futuro (Fase no priorizada)
+
+Migrar a Redis o PostgreSQL (con TTL) para que las sesiones:
+1. Sobrevivan reinicios.
+2. Escalen horizontalmente (compartidas entre workers).
+3. Expiren automáticamente.
+4. Permitan observabilidad (cuántas sesiones activas, por usuario, etc.).
+
+Mientras tanto, el deploy actual asume un solo worker (`uvicorn ... --workers 1`) o sticky sessions por IP.

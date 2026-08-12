@@ -21,9 +21,11 @@ from ..application.dto.verification_dto import (
 from ..infrastructure.config.dependencies import (
     get_verification_service,
     get_voice_biometric_engine,
-    get_audit_log_repository
+    get_audit_log_repository,
+    get_user_repository,
 )
 from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
+from ..domain.repositories.user_repository_port import UserRepositoryPort
 from ..shared.types.common_types import AuditAction
 
 logger = logging.getLogger(__name__)
@@ -307,7 +309,9 @@ async def verify_phrase(
     device_info: str = Form(default=""),
     verification_service: VerificationService = Depends(get_verification_service),
     voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine),
-    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository),
+    user_repo: UserRepositoryPort = Depends(get_user_repository),
+    _current_user=Depends(get_current_user),
 ):
     """
     Verify a single phrase in multi-phrase verification.
@@ -374,11 +378,20 @@ async def verify_phrase(
             wav_bytes = ensure_wav_format(audio_bytes)
             
             if wav_bytes and user_id_for_dataset:
-                # Save audio
-                dataset_recorder.save_verification_audio(
-                    user_id=user_id_for_dataset,
-                    audio_data=wav_bytes,
-                    user_email=user.get("email") if user else None,
+                # Respect user audio consent policy (keep_audio)
+                policy = None
+                try:
+                    policy = await user_repo.get_user_policy(UUID(user_id_for_dataset))
+                except Exception:
+                    policy = None
+                keep_audio = bool(policy and policy.get("keep_audio"))
+
+                if keep_audio:
+                    # Save audio
+                    dataset_recorder.save_verification_audio(
+                        user_id=user_id_for_dataset,
+                        audio_data=wav_bytes,
+                        user_email=user.get("email") if user else None,
                     verification_number=None,  # Auto-increment
                     phrase_number=phrase_number
                 )
