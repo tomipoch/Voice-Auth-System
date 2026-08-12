@@ -1,0 +1,232 @@
+{
+  "wer": 8.037151538733177,
+  "wer_std": 7.760079586268351,
+  "transcription_accuracy": 91.96284846126682,
+  "perfect_transcriptions": 11,
+  "perfect_rate": 29.72972972972973,
+  "total_samples": 37,
+  "details": [
+    {
+      "audio": "anachamorromunoz_enrollment_01.wav",
+      "expected": "Un radio de sol poniente caía sobre el pie de la cama y daba sobre la chimenea, donde el agua hervía por botones.",
+      "transcribed": "Un radio de solponiente caía sobre el pie de la cama y daba sobre lachimenea, donde el agua hervíabar por botones.",
+      "wer": 21.73913043478261
+    },
+    {
+      "audio": "anachamorromunoz_enrollment_02.wav",
+      "expected": "Súbitamente se vio un resplandor de luz y del pozo salió una cantidad de humo verde y luminoso entre bocanadas claramente visibles.",
+      "transcribed": "Súbitamente se vio un resplandor de luz y el pozo salió una cantidad de humo verde y luminoso entre bocanadas claramente visibles.",
+      "wer": 4.545454545454546
+    },
+    {
+      "audio": "anachamorromunoz_enrollment_03.wav",
+      "expected": "El señor Cols tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo.",
+      "transcribed": "El señor. Col tardaba en entender las cosas, pero ahora se daba cuenta de que allí pasaba algo.",
+      "wer": 5.555555555555555
+    },
+    {
+      "audio": "anachamorromunoz_verification_01.wav",
+      "expected": "Nada de todo cuanto ha sido puesto y repuesto sobre el tapete en el anexo, puede mantenerse joven y fresco.",
+      "transcribed": "Nada de todo cuanto ha sido puesto y repuesto sobre el tapete en el anexo, puede mantenerse joven y fresco.",
+      "wer": 0.0
+    },
+    {
+      "audio": "anachamorromunoz_verification_02.wav",
+      "expected": "Aunque ya había luz sobre la Terra, los oculto Atenea con una oscura nube y raudamente, lo sacó de la ciudad.",
+      "transcribed": "Aunque ya había luz sobre la Terra, los ocultos Atenea con una oscura nube y raudamente, lo sacó de la ciudad.",
+      "wer": 4.761904761904762
+    },
+    {
+      "audio": "anachamorromunoz_verification_03.wav",
+      "expected": "No es decoroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército.",
+      "transcribed": "No es de coroso que decaiga vuestro impetuoso valor, siendo como sois los más valientes del ejército.",
+      "wer": 12.5
+    },
+    {
+      "audio": "anachamorromunoz_verification_04.wav",
+      "expected": "El obrero dirigió a lo alto una mirada despavorida y vio con espanto desprenderse pedazos de las paredes.",
+      "transcribed": "El obrero dirigió a lo alto una mirada despavorida y vio con espanto desprenderse pedazos de las paredes.",
+      "wer": 0.0
+    },
+    {
+      "audio": "anachamorromunoz_verification_05.wav",
+      "expected": "Y ese, aunque sea poderoso, permanezca tranquilo en la tercia parte que le pertenece.",
+      "transcribed": "Y te, aunque sea poderoso, permanezca tranquilo en la Tersia parte que le pertenece.",
+      "wer": 14.285714285714285
+    },
+    {
+      "audio": "anachamorromunoz_verification_06.wav",
+      "expected": "Mas el fugitivo no había contado con la frialdad del agua ni con los engañosa proximidad de la costa.",
+      "transcribed": "Mas el fugitivo no había contado con la frialdad del agua ni colos Engañosa, proximidad de la costa.",
+      "wer": 10.526315789473683
+    },
+    {
+      "audio": "anachamorromunoz_verification_07.wav",
+      "expected": "Más adelante en camino hacia Weybridge y el otro lado del puente, había un número de reclutas que estaban haciendo un largo Teraplent, estas del camino vivimos más cañones.",
+      "transcribed": "Más adelante en camino hacia Weybridge y el otro lado del puente, había un número de reclutas que estaban haciendo un largo Teraplent, estas del camino vivimos más cañones.",
+      "wer": 0.0
+    },
+    {
+      "audio": "anachamorromunoz_verification_08.wav",
+      "expected": "En la puerta de la cueva apareció una penosa escena al Opaca Luz del crepúsculo que iluminaba aquel lugar.",
+      "transcribed": "Dron la puerta de la cueva apareció una penosa escena al Opaca Luz del crepúsculo que iluminaba aquel lugar.",
+      "wer": 5.263157894736842
+    },
+    {
+      "audio": "anachamorromunoz_verification_09.wav",
+      "expected": "Se discutia, se diputaba, se ngociaba la cotización de Chiligoodfood como una de las fondos ingleses.",
+      "transcribed": "Elcuta se diputaba segociaaba la cotización de Philipwfuut como una de las fondos ingleses.",
+      "wer": 31.25
+    },
+    {
+      "audio": "anachamorromunoz_verification_10.wav",
+      "expected": "En el fondo, sentado delante de una mesa, un hombre pequeño, ya entrado en años, hacía anotaciones en un enorme registro.",
+      "transcribed": "En el fondo, sentado delante de una mesa, un hombre pequeño, ya entrado en años, hacía anotaciones en un enorme registro.",
+      "wer": 0.0
+    },
+    {
+      "audio": "piapobletech_enrollment_01.wav",
+      "expected": "Ayudadme a todos, pues la obra de muchos siempre resulta mejor, cuatrocientos trece tales fueron sus palabras.",
+      "transcribed": "Ayudadme a todos, pues la obra de muchos siempre resulta mejor, cuatrocientos o trecetales fueron sus palabras.",
+      "wer": 11.76470588235294
+    },
+    {
+      "audio": "piapobletech_enrollment_02.wav",
+      "expected": "Mi vecino opinaba que las tropas podrían capturar o destruir a los marcianos durante el transcurso del día.",
+      "transcribed": "Mi vecino opinaba que las tropas podrían capturar o destruir a los marcianos durante el transcurso del día",
+      "wer": 0.0
+    },
+    {
+      "audio": "piapobletech_enrollment_03.wav",
+      "expected": "manifestado, Sirse se me preguntó que me ocurria, ¿Porque estás así mudo odiseo y no quieres probar estos manjares?",
+      "transcribed": "permanefestado, Sir se me preguntó que me fuurríaá, ¿Porque estás así mudo odiseo y no quieres probar estos mujeres?",
+      "wer": 21.052631578947366
+    },
+    {
+      "audio": "piapobletech_verification_01.wav",
+      "expected": "el le hizo sufrir mucho hasta que halló un caño de agua corriente que estaba roto y del cual salía líquido como un manantial.",
+      "transcribed": "r le hizo sufrir mucho hasta que haylló un caño de agua corriente que estaba roto y del cual salía líquido como un manantial.",
+      "wer": 8.333333333333332
+    },
+    {
+      "audio": "piapobletech_verification_02.wav",
+      "expected": "Si lo veía a ella al asomarse la ventana en la mañana alegre y entonces.",
+      "transcribed": "Xi lo veía a ella al asomarse la ventana en la mañana alegre y entonces.",
+      "wer": 6.666666666666667
+    },
+    {
+      "audio": "piapobletech_verification_03.wav",
+      "expected": "Para vengar a sus hijos, los titanes cuidaba y alimentaba desde hacia siglos a tifón el horror absoluto.",
+      "transcribed": "Para vengar a sus hijos, los tiitanes cuidaba y elementaba desde hacia siglos a tifón el horror absoluto.",
+      "wer": 11.11111111111111
+    },
+    {
+      "audio": "piapobletech_verification_04.wav",
+      "expected": "A los lejos se elevaban las azuladas colinas de su rey y las torres del cristal Palace relucían como dos baras de plata.",
+      "transcribed": "A los dejos se elevaban las azuladas colinas de surrey y las torres del cristal Pala relucían como dos baras de plata.",
+      "wer": 17.391304347826086
+    },
+    {
+      "audio": "piapobletech_verification_05.wav",
+      "expected": "pero como no sabía a que quería el llegar espere nuevas preguntas , reservándome el responder de acuerdo con las circunstancias.",
+      "transcribed": "peroro como no sabía a que quería el llegar prena a preguntas , reservándome el responder de acuerdo con las circunstancias.",
+      "wer": 15.0
+    },
+    {
+      "audio": "piapobletech_verification_06.wav",
+      "expected": "vamos al comedor donde estaba servido al desayuno, señor Aronax, me dijo el capitán , le ruego que comparta desayuno sin cumplidos.",
+      "transcribed": "vamos al comedor donde estaba servido al desayuno, señor Aaronac, me dijo el capitán , le ruego que compartami desayuno sin cumplidos.",
+      "wer": 9.523809523809524
+    },
+    {
+      "audio": "piapobletech_verification_07.wav",
+      "expected": "A diez millas del nautilus hacia el sur se alzaba un islote solitario a una altura de doscientos metros.",
+      "transcribed": "A diez millas del nautilus hacia el sur se alzaba un islote solitario a una altura de doscientos metros.",
+      "wer": 0.0
+    },
+    {
+      "audio": "piapobletech_verification_08.wav",
+      "expected": "En ese instante siete tripulantes, mudos e impacibles como siempre, ascendieron a la plataforma.",
+      "transcribed": "En ese instante siete tripulantes, mudos e impacibles como siempre, ascendieron a la plataforma.",
+      "wer": 0.0
+    },
+    {
+      "audio": "piapobletech_verification_09.wav",
+      "expected": "La haca marina, que se conoce también con el nombre Alicore, recordaba mucho al manati.",
+      "transcribed": "La haca marina, que se conoce también con el nombre deAligore, recordaba mucho al manati.",
+      "wer": 6.666666666666667
+    },
+    {
+      "audio": "rapomo3_enrollment_01.wav",
+      "expected": "Durante este tiempo, yo había reflexionado y una cierta esperanza vaga aún renacía mi corazón.",
+      "transcribed": "Durante este tiempo, yo había reflexionado y una cierta esperanza vaga aún renacía mi corazón.",
+      "wer": 0.0
+    },
+    {
+      "audio": "rapomo3_enrollment_02.wav",
+      "expected": "Cada uno de los muchachos persibía una renta prodigiosa, Un dolar cada día laborable del año y medio Dolar los Domingos.",
+      "transcribed": "Cada uno de los muchachos persibía una renta prodigiosa, Unndola cada día laborable del año y medio Dola los Domingos.",
+      "wer": 14.285714285714285
+    },
+    {
+      "audio": "rapomo3_enrollment_03.wav",
+      "expected": "Cada uno de estos mounstros tiene hocico de Marsopa, cabeza de lagarto, dientes de cocodrilo y por esto nos ha engañado.",
+      "transcribed": "Cro de estos monstlos tiene horcico de Malsopa, cabeza de lagarto, dientes de cocodrilo y por esto nos ha engañado.",
+      "wer": 23.809523809523807
+    },
+    {
+      "audio": "rapomo3_verification_01.wav",
+      "expected": "Sus casas eran pequeñas, y en ella solían vivir muchos hermanos, como en el caso de Marta, que eran doce.",
+      "transcribed": "Sus casas eran pequeñas, y en ella solían vivir muchos hermanos, como en el caso de Marta, que eran doce.",
+      "wer": 0.0
+    },
+    {
+      "audio": "rapomo3_verification_02.wav",
+      "expected": "En ese momento, el capitán, sin preocuparse por mi presencia abrió el mueble semejante a una caja de caudales que encerraba gran número de lingotes.",
+      "transcribed": "En ese momento, el capitán, sin preocuparse por mi presencia abrió el muebles semejante a una caja de caudales que encerraba gran número de lingotes.",
+      "wer": 4.0
+    },
+    {
+      "audio": "rapomo3_verification_03.wav",
+      "expected": "Escoge por compañero al que quieras, al mejor de los presentes, pues son muchos los que se ofrecen.",
+      "transcribed": "Escoge por compañero al que quieras, al mejor de los decentes, pues son muchos los que se ofrecen.",
+      "wer": 5.555555555555555
+    },
+    {
+      "audio": "rapomo3_verification_04.wav",
+      "expected": "Un Dia se lo mostró, a Él se estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca.",
+      "transcribed": "Un Dios se lo mostró, a Él se estaba fuera de sí, pues no fue ninguno de los hombres que estábamos cerca.",
+      "wer": 4.545454545454546
+    },
+    {
+      "audio": "rapomo3_verification_05.wav",
+      "expected": "en cuanto a mí, distraído hasta entonces por los incidentes del viaje, habíame olvidado algo del porvenir, pero ahora sentí que la zosobra se apodera de mi nuevamente.",
+      "transcribed": "en cuanto a mí, distraído hasta entonces por los incidentes del viaje, habíame olvidado algo del porvenir, pero ahora sentí que la zosobra se apodera demiumente.",
+      "wer": 10.714285714285714
+    },
+    {
+      "audio": "rapomo3_verification_06.wav",
+      "expected": "No podía hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas.",
+      "transcribed": "No podía hacer otra cosa que esperar en la mayor inactividad durante esas cuarenta y ocho horas.",
+      "wer": 0.0
+    },
+    {
+      "audio": "rapomo3_verification_07.wav",
+      "expected": "Tanto en nuestra casa como en la escuela, se hablaba de temas sexuales, a veces con misterio, a veces con verguenza.",
+      "transcribed": "Tanto en nuestra casa como en la escuela, se hablaba de temas sexuales, a veces con misterio, a veces con verwes.",
+      "wer": 4.761904761904762
+    },
+    {
+      "audio": "rapomo3_verification_08.wav",
+      "expected": "La preplejidad y el desagrado del auditorio se manifestó en murmullos y provocó una reprimenda del tribunal.",
+      "transcribed": "La preplejidad y el desagrado del auditorio se manifestó en murmullos y provocó una reprimenda deltribunal.",
+      "wer": 11.76470588235294
+    },
+    {
+      "audio": "rapomo3_verification_09.wav",
+      "expected": "Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bella flores que me eran desconocidas por completo y me la puso al cuello.",
+      "transcribed": "Entonces uno de ellos avanzó riendo hacia mí, llevando una guirnalda de bella flores que me eran desconocidas por completo y me la puso al cuello.",
+      "wer": 0.0
+    }
+  ]
+}
