@@ -45,14 +45,18 @@ CREATE TABLE IF NOT EXISTS "user" (
   password TEXT,                       -- bcrypt hashed password
   first_name TEXT,                     -- user's first name
   last_name TEXT,                      -- user's last name
+  rut VARCHAR(12) NULL,                -- Chilean RUT (Rol Único Tributario) - Format: XXXXXXXX-X
   role TEXT DEFAULT 'user' CHECK (role IN ('user', 'admin', 'superadmin')),
   company TEXT,                        -- organization affiliation
+  settings JSONB NOT NULL DEFAULT '{}'::jsonb, -- per-user preferences and settings
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   deleted_at TIMESTAMPTZ,              -- nullo = activo; si no nullo = usuario eliminado / anonimizado
   failed_auth_attempts INT NOT NULL DEFAULT 0,
   locked_until TIMESTAMPTZ,
   last_login TIMESTAMPTZ               -- track last login
 );
+
+COMMENT ON COLUMN "user".rut IS 'Chilean RUT (Rol Único Tributario) - Format: XXXXXXXX-X or XX.XXX.XXX-X';
 
 CREATE TABLE IF NOT EXISTS user_policy (
   user_id UUID PRIMARY KEY REFERENCES "user"(id) ON DELETE CASCADE,
