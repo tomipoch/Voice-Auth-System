@@ -64,27 +64,17 @@ class UpdatePhraseStatusRequest(BaseModel):
 
 @router.get("/books", response_model=List[BookResponse])
 async def get_books(
+    phrase_service: PhraseService = Depends(get_phrase_service),
     _current_user=Depends(get_current_admin_user)
 ):
     """
     Get list of all books.
     Admin only.
     """
-    from ..infrastructure.config.dependencies import get_db_pool
-    
-    pool = await get_db_pool()
-    
-    books = await pool.fetch(
-        "SELECT id, title, author FROM books ORDER BY title"
-    )
-    
+    books = await phrase_service.list_books()
     return [
-        BookResponse(
-            id=str(book['id']),
-            title=book['title'],
-            author=book['author']
-        )
-        for book in books
+        BookResponse(id=b.id, title=b.title, author=b.author)
+        for b in books
     ]
 
 
@@ -98,31 +88,15 @@ async def get_phrase_stats(
     Get statistics about available phrases.
     Admin only.
     """
-    from ..infrastructure.config.dependencies import get_db_pool
-    
-    pool = await get_db_pool()
-    
-    # Get basic stats
     stats = await phrase_service.get_phrase_stats(language=language)
-    
-    # Get active/inactive counts
-    active_count = await pool.fetchval(
-        "SELECT COUNT(*) FROM phrase WHERE is_active = TRUE AND language = $1",
-        language
-    )
-    inactive_count = await pool.fetchval(
-        "SELECT COUNT(*) FROM phrase WHERE is_active = FALSE AND language = $1",
-        language
-    )
-    
     return PhraseStatsResponse(
         total=stats.total,
-        active=active_count or 0,
-        inactive=inactive_count or 0,
+        active=stats.active,
+        inactive=stats.inactive,
         easy=stats.easy,
         medium=stats.medium,
         hard=stats.hard,
-        language=stats.language
+        language=stats.language,
     )
 
 
@@ -141,7 +115,7 @@ async def list_phrases(
     """
     Get paginated list of phrases with optional filters.
     Admin only.
-    
+
     Query parameters:
     - page: Page number (default: 1)
     - limit: Items per page (default: 50, max: 100)
@@ -151,27 +125,18 @@ async def list_phrases(
     - book_id: Filter by book ID
     - author: Filter by author name
     """
-    from ..infrastructure.persistence.PostgresPhraseRepository import PostgresPhraseRepository
-    from ..infrastructure.config.dependencies import get_db_pool
-    from uuid import UUID
-    
-    pool = await get_db_pool()
-    phrase_repo = PostgresPhraseRepository(pool)
-    
-    # Convert book_id to UUID if provided
     book_uuid = UUID(book_id) if book_id else None
-    
-    phrases, total = await phrase_repo.find_paginated(
+
+    result = await phrase_service.list_phrases_paginated(
         page=page,
         limit=limit,
         difficulty=difficulty,
         is_active=is_active,
         search=search,
         book_id=book_uuid,
-        author=author
+        author=author,
     )
-    
-    # Convert to response model
+
     phrase_responses = [
         PhraseResponse(
             id=str(p['id']),
@@ -186,17 +151,15 @@ async def list_phrases(
             is_active=p['is_active'],
             created_at=p['created_at'].isoformat()
         )
-        for p in phrases
+        for p in result.phrases
     ]
-    
-    total_pages = (total + limit - 1) // limit if total > 0 else 1
-    
+
     return PhraseListResponse(
         phrases=phrase_responses,
-        total=total,
-        page=page,
-        limit=limit,
-        total_pages=total_pages
+        total=result.total,
+        page=result.page,
+        limit=result.limit,
+        total_pages=result.total_pages,
     )
 
 
@@ -210,7 +173,7 @@ async def get_random_phrases(
     """
     Get random phrases for enrollment or verification.
     Public endpoint (used by enrollment/verification flows).
-    
+
     Query parameters:
     - count: Number of phrases to return (default: 1, max: 10)
     - difficulty: Filter by difficulty (easy/medium/hard)
@@ -221,7 +184,7 @@ async def get_random_phrases(
         difficulty=difficulty,
         language=language
     )
-    
+
     return [
         PhraseResponse(
             id=p.id,
@@ -253,15 +216,15 @@ async def update_phrase_status(
         phrase_uuid = UUID(phrase_id)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid phrase ID format")
-    
+
     success = await phrase_service.update_phrase_status(
         phrase_id=phrase_uuid,
         is_active=request.is_active
     )
-    
+
     if not success:
         raise HTTPException(status_code=404, detail="Phrase not found")
-    
+
     return {
         "success": True,
         "message": f"Phrase {'activated' if request.is_active else 'deactivated'} successfully",
@@ -284,12 +247,12 @@ async def delete_phrase(
         phrase_uuid = UUID(phrase_id)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid phrase ID format")
-    
+
     success = await phrase_service.delete_phrase(phrase_id=phrase_uuid)
-    
+
     if not success:
         raise HTTPException(status_code=404, detail="Phrase not found")
-    
+
     return {
         "success": True,
         "message": "Phrase deleted successfully",
