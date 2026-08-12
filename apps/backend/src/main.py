@@ -10,9 +10,8 @@ from typing import Optional
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
-from slowapi.util import get_remote_address
 import asyncpg
 
 # Suppress third-party library warnings that don't affect functionality
@@ -72,7 +71,7 @@ else:
         logging.warning("⚠️  Using default EMBEDDING_ENCRYPTION_KEY - NOT SAFE FOR PRODUCTION")
 
 # Rate limiter
-limiter = Limiter(key_func=get_remote_address, default_limits=[os.getenv("RATE_LIMIT", "100/minute")])
+from .api.rate_limit import limiter
 
 # Configure logging - only show essential application logs
 logging.basicConfig(

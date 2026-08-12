@@ -9,6 +9,7 @@ import logging
 
 from ..application.verification_service import VerificationService
 from ..infrastructure.biometrics.voice_biometric_engine_facade import VoiceBiometricEngineFacade
+from .rate_limit import limiter, verification_limit
 from ..application.dto.verification_dto import (
     StartVerificationRequest,
     StartVerificationResponse,
@@ -69,7 +70,9 @@ async def start_verification(
 
 
 @router.post("/verify", response_model=VerifyVoiceResponse)
+@limiter.limit(verification_limit)
 async def verify_voice(
+    request: Request,
     verification_id: str = Form(...),
     phrase_id: str = Form(...),
     audio_file: UploadFile = File(...),
@@ -161,7 +164,9 @@ async def verify_voice(
 
 
 @router.post("/quick-verify", response_model=VerifyVoiceResponse)
+@limiter.limit(verification_limit)
 async def quick_verify(
+    request: Request,
     user_id: str = Form(...),
     audio_file: UploadFile = File(...),
     verification_service: VerificationService = Depends(get_verification_service),
@@ -282,6 +287,7 @@ async def start_multi_phrase_verification(
 
 
 @router.post("/verify-phrase", response_model=VerifyPhraseResponse)
+@limiter.limit(verification_limit)
 async def verify_phrase(
     request: Request,
     verification_id: str = Form(...),

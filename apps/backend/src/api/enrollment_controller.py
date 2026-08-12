@@ -1,6 +1,6 @@
 """Voice biometric enrollment API endpoints with dynamic phrase support."""
 
-from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status
+from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status, Request
 from typing import Optional
 from uuid import UUID
 import numpy as np
@@ -9,6 +9,7 @@ import logging
 
 from ..application.enrollment_service import EnrollmentService
 from ..infrastructure.biometrics.voice_biometric_engine_facade import VoiceBiometricEngineFacade
+from .rate_limit import limiter, enrollment_limit
 from ..application.dto.enrollment_dto import (
     StartEnrollmentRequest,
     StartEnrollmentResponse,
@@ -29,7 +30,9 @@ router = APIRouter(tags=["enrollment"])
 
 
 @router.post("/start", response_model=StartEnrollmentResponse)
+@limiter.limit(enrollment_limit)
 async def start_enrollment(
+    request: Request,
     external_ref: Optional[str] = Form(None),
     user_id: Optional[str] = Form(None),
     difficulty: str = Form("medium"),
@@ -78,7 +81,9 @@ async def start_enrollment(
 
 
 @router.post("/add-sample", response_model=AddEnrollmentSampleResponse)
+@limiter.limit(enrollment_limit)
 async def add_enrollment_sample(
+    request: Request,
     enrollment_id: str = Form(...),
     challenge_id: str = Form(...),
     audio_file: UploadFile = File(...),
@@ -162,7 +167,9 @@ async def add_enrollment_sample(
 
 
 @router.post("/complete", response_model=CompleteEnrollmentResponse)
+@limiter.limit(enrollment_limit)
 async def complete_enrollment(
+    request: Request,
     enrollment_id: str = Form(...),
     speaker_model_id: Optional[int] = Form(None),
     enrollment_service: EnrollmentService = Depends(get_enrollment_service),

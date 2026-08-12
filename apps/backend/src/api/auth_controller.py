@@ -12,13 +12,14 @@ import jwt
 from src.utils.validators import validate_rut, format_rut
 from src.config import SECRET_KEY, ALGORITHM
 from src.application.auth_service import AuthService, AuthError
-from src.domain.repositories.UserRepositoryPort import UserRepositoryPort
-from src.domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from src.domain.repositories.user_repository_port import UserRepositoryPort
+from src.domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from src.infrastructure.config.dependencies import (
     get_user_repository,
     get_audit_log_repository,
 )
 from src.shared.types.common_types import AuditAction
+from .rate_limit import limiter, login_limit, refresh_limit
 
 logger = logging.getLogger(__name__)
 
@@ -146,9 +147,10 @@ def _auth_error_to_http(exc: AuthError) -> HTTPException:
 
 
 @auth_router.post("/login", response_model=TokenResponse)
+@limiter.limit(login_limit)
 async def login(
-    user_data: UserLoginRequest,
     request: Request,
+    user_data: UserLoginRequest,
     auth_service: AuthService = Depends(get_auth_service),
 ):
     """Authenticate user and return access token."""
@@ -164,7 +166,9 @@ async def login(
 
 
 @auth_router.post("/refresh", response_model=TokenResponse)
+@limiter.limit(refresh_limit)
 async def refresh_token(
+    request: Request,
     refresh_token: str = Body(..., embed=True),
     auth_service: AuthService = Depends(get_auth_service),
 ):
