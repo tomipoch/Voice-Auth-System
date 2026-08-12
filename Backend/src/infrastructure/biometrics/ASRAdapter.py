@@ -20,8 +20,7 @@ except ImportError:
 try:
     from ...shared.constants.biometric_constants import DEFAULT_PHRASE_MATCH_THRESHOLD
 except ImportError:
-    # Fallback for standalone testing
-    DEFAULT_PHRASE_MATCH_THRESHOLD = 0.7
+    DEFAULT_PHRASE_MATCH_THRESHOLD = 0.8
 
 try:
     from .model_manager import model_manager

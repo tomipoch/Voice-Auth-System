@@ -50,16 +50,26 @@ class VerificationService:
         audit_repo: AuditLogRepositoryPort,
         challenge_service,  # ChallengeService
         biometric_validator: BiometricValidator,
-        similarity_threshold: float = 0.75,
-        anti_spoofing_threshold: float = 0.7  # Ajustado de 0.5 a 0.7 para reducir FRR
+        similarity_threshold: Optional[float] = None,
+        anti_spoofing_threshold: Optional[float] = None,
     ):
+        from ..config import SIMILARITY_THRESHOLD, ANTI_SPOOFING_THRESHOLD
+
         self._voice_repo = voice_repo
         self._user_repo = user_repo
         self._audit_repo = audit_repo
         self._challenge_service = challenge_service
         self._biometric_validator = biometric_validator
-        self._similarity_threshold = similarity_threshold
-        self._anti_spoofing_threshold = anti_spoofing_threshold
+        self._similarity_threshold = (
+            similarity_threshold
+            if similarity_threshold is not None
+            else SIMILARITY_THRESHOLD
+        )
+        self._anti_spoofing_threshold = (
+            anti_spoofing_threshold
+            if anti_spoofing_threshold is not None
+            else ANTI_SPOOFING_THRESHOLD
+        )
         # In-memory sessions (in production, use Redis)
         # Moved to instance variables to avoid sharing state between instances
         self._active_sessions: Dict[UUID, VerificationSession] = {}

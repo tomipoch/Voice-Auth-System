@@ -1,7 +1,8 @@
 """Shared constants for the voice biometrics system."""
 
-# Authentication constants
-DEFAULT_SIMILARITY_THRESHOLD = 0.85
+# Authentication thresholds
+# NOTE: similarity/anti-spoofing thresholds live in src/config.py (single source).
+# These constants remain for adapter-scoped fallbacks only.
 DEFAULT_SPOOF_THRESHOLD = 0.3
 DEFAULT_PHRASE_MATCH_THRESHOLD = 0.8
 
