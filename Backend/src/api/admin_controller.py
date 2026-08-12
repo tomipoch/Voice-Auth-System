@@ -88,39 +88,6 @@ def _filter_logs_by_company(logs: list, company_user_ids: set, company_emails: s
     return [log for log in logs if _belongs_to_company(log, company_user_ids, company_emails)]
 
 
-def _count_verifications(logs: list, verification_actions: set, verification_types: set, since_time=None):
-    """Count verification logs, optionally filtering by time."""
-    result = []
-    for log in logs:
-        if log.get('action') not in verification_actions:
-            continue
-        if log.get('entity_type') not in verification_types:
-            continue
-        if since_time and log.get('timestamp') < since_time:
-            continue
-        result.append(log)
-    return result
-
-
-def _calculate_daily_stats(logs: list, verification_actions: set, verification_types: set, days: int = 7):
-    """Calculate daily verification counts for the last N days."""
-    from datetime import timezone
-    now = datetime.now(timezone.utc)
-    
-    daily_stats = {}
-    for i in range(days):
-        date_key = (now - timedelta(days=i)).strftime('%Y-%m-%d')
-        daily_stats[date_key] = 0
-    
-    for log in logs:
-        if log.get('action') in verification_actions and log.get('entity_type') in verification_types:
-            log_date = log.get('timestamp').strftime('%Y-%m-%d')
-            if log_date in daily_stats:
-                daily_stats[log_date] += 1
-    
-    return [{" date": date, "count": count} for date, count in sorted(daily_stats.items())]
-
-
 def _transform_log_to_activity(log, default_timestamp) -> dict:
     """Transform a raw log to ActivityLog format."""
     user_name = log.get('actor', 'system')
