@@ -128,4 +128,5 @@ def sample_audio_bytes():
 def mock_embedding():
     """Provide a mock voice embedding."""
     import numpy as np
-    return np.random.rand(192).astype(np.float32)
+    from src.shared.constants.biometric_constants import EMBEDDING_DIMENSION
+    return np.random.rand(EMBEDDING_DIMENSION).astype(np.float32)
