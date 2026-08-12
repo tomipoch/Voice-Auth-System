@@ -75,30 +75,21 @@ async def _ensure_test_db() -> None:
             await conn.close()
 
 
-@pytest.fixture(scope="session", autouse=True)
-def _bootstrap_test_db():
-    """Ensure the test database exists and has the schema before any test runs."""
-    try:
-        asyncio.run(_ensure_test_db())
-    except Exception as exc:
-        # If bootstrap fails, surface a clear error to help debugging.
-        raise RuntimeError(
-            f"Failed to bootstrap test database '{TEST_DB_NAME}': {exc}"
-        ) from exc
-    yield
-
-
-@pytest.fixture(scope="session")
-def event_loop():
-    """Create an instance of the default event loop for the test session."""
-    loop = asyncio.get_event_loop_policy().new_event_loop()
-    yield loop
-    loop.close()
+# Bootstrap is performed lazily inside the async db_pool fixture, on the same
+# event loop pytest-asyncio uses for the tests. Running it in a separate
+# asyncio.run() creates a different loop and trips pytest-asyncio 1.4's
+# "attached to a different loop" guard when asyncpg connections are then
+# used from the test loop.
+_bootstrap_done = False
 
 
 @pytest.fixture(scope="session")
 async def db_pool() -> AsyncGenerator[asyncpg.Pool, None]:
     """Create a database connection pool for tests against the test DB."""
+    global _bootstrap_done
+    if not _bootstrap_done:
+        await _ensure_test_db()
+        _bootstrap_done = True
     pool = await asyncpg.create_pool(min_size=1, max_size=5, **_db_params(TEST_DB_NAME))
     yield pool
     await pool.close()
