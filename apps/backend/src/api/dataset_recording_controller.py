@@ -4,12 +4,13 @@ Dataset Recording API Controller
 Endpoints para controlar la grabación de audios para dataset.
 """
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic import BaseModel
 from typing import Optional
 import logging
 
 from evaluation.dataset_recorder import dataset_recorder
+from .auth_guards import require_admin_user
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +33,10 @@ class RecordingStatusResponse(BaseModel):
 
 
 @router.post("/start")
-async def start_dataset_recording(request: StartRecordingRequest):
+async def start_dataset_recording(
+    request: StartRecordingRequest,
+    _admin=Depends(require_admin_user),
+):
     """
     Inicia grabación de audios para dataset.
     
@@ -59,7 +63,9 @@ async def start_dataset_recording(request: StartRecordingRequest):
 
 
 @router.post("/stop")
-async def stop_dataset_recording():
+async def stop_dataset_recording(
+    _admin=Depends(require_admin_user),
+):
     """
     Detiene grabación de audios para dataset.
     """
@@ -87,7 +93,9 @@ async def stop_dataset_recording():
 
 
 @router.get("/status", response_model=RecordingStatusResponse)
-async def get_recording_status():
+async def get_recording_status(
+    _admin=Depends(require_admin_user),
+):
     """
     Obtiene estado actual de grabación de dataset.
     """

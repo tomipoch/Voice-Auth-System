@@ -5,12 +5,13 @@ API endpoints for managing evaluation sessions.
 Allows starting/stopping evaluation sessions for manual frontend testing.
 """
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic import BaseModel
 from typing import Optional, List, Dict
 import logging
 
 from evaluation.evaluation_logger import evaluation_logger
+from .auth_guards import require_admin_user
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +36,10 @@ class SessionSummaryResponse(BaseModel):
 
 
 @router.post("/start-session", response_model=StartSessionResponse, status_code=status.HTTP_201_CREATED)
-async def start_evaluation_session(request: StartSessionRequest):
+async def start_evaluation_session(
+    request: StartSessionRequest,
+    _admin=Depends(require_admin_user),
+):
     """
     Start a new evaluation session.
     
@@ -60,7 +64,10 @@ async def start_evaluation_session(request: StartSessionRequest):
 
 
 @router.post("/stop-session")
-async def stop_evaluation_session(session_id: Optional[str] = None):
+async def stop_evaluation_session(
+    session_id: Optional[str] = None,
+    _admin=Depends(require_admin_user),
+):
     """
     Stop an evaluation session.
     
@@ -86,7 +93,10 @@ async def stop_evaluation_session(session_id: Optional[str] = None):
 
 
 @router.get("/export-session/{session_id}")
-async def export_evaluation_session(session_id: str):
+async def export_evaluation_session(
+    session_id: str,
+    _admin=Depends(require_admin_user),
+):
     """
     Export evaluation session data to JSON file.
     
@@ -115,7 +125,9 @@ async def export_evaluation_session(session_id: str):
 
 
 @router.get("/sessions", response_model=List[str])
-async def list_evaluation_sessions():
+async def list_evaluation_sessions(
+    _admin=Depends(require_admin_user),
+):
     """List all active evaluation sessions."""
     try:
         sessions = evaluation_logger.list_sessions()
@@ -129,7 +141,10 @@ async def list_evaluation_sessions():
 
 
 @router.get("/session-summary/{session_id}", response_model=SessionSummaryResponse)
-async def get_session_summary(session_id: str):
+async def get_session_summary(
+    session_id: str,
+    _admin=Depends(require_admin_user),
+):
     """Get summary statistics for a session."""
     try:
         summary = evaluation_logger.get_session_summary(session_id)

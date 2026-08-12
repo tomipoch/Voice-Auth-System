@@ -6,6 +6,7 @@ from uuid import UUID
 import logging
 
 from ..application.challenge_service import ChallengeService
+from .auth_guards import enforce_user_scope, require_admin_user, get_current_user
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +24,8 @@ from ..infrastructure.config.dependencies import get_challenge_service
 async def create_challenge(
     user_id: UUID = Form(...),
     difficulty: Optional[str] = Form(None),
-    challenge_service: ChallengeService = Depends(get_challenge_service)
+    challenge_service: ChallengeService = Depends(get_challenge_service),
+    _current_user=Depends(enforce_user_scope),
 ):
     """
     Create a new voice challenge for a user.
@@ -55,7 +57,8 @@ async def create_challenge_batch(
     user_id: UUID = Form(...),
     count: int = Form(3),
     difficulty: Optional[str] = Form(None),
-    challenge_service: ChallengeService = Depends(get_challenge_service)
+    challenge_service: ChallengeService = Depends(get_challenge_service),
+    _current_user=Depends(enforce_user_scope),
 ):
     """
     Create multiple challenges at once (optimized).
@@ -88,7 +91,8 @@ async def create_challenge_batch(
 @challenge_router.get("/{challenge_id}")
 async def get_challenge(
     challenge_id: UUID,
-    challenge_service: ChallengeService = Depends(get_challenge_service)
+    challenge_service: ChallengeService = Depends(get_challenge_service),
+    _current_user=Depends(get_current_user),
 ):
     """
     Get challenge details by ID.
@@ -114,7 +118,8 @@ async def get_challenge(
 @challenge_router.get("/user/{user_id}/active")
 async def get_active_challenge(
     user_id: UUID,
-    challenge_service: ChallengeService = Depends(get_challenge_service)
+    challenge_service: ChallengeService = Depends(get_challenge_service),
+    _current_user=Depends(enforce_user_scope),
 ):
     """
     Get the most recent active challenge for a user.
@@ -143,7 +148,8 @@ async def get_active_challenge(
 async def validate_challenge(
     challenge_id: UUID = Form(...),
     user_id: UUID = Form(...),
-    challenge_service: ChallengeService = Depends(get_challenge_service)
+    challenge_service: ChallengeService = Depends(get_challenge_service),
+    _current_user=Depends(enforce_user_scope),
 ):
     """
     Validate a challenge (strict validation).
@@ -171,7 +177,8 @@ async def validate_challenge(
 @challenge_router.get("/{challenge_id}/time-remaining")
 async def get_time_remaining(
     challenge_id: UUID,
-    challenge_service: ChallengeService = Depends(get_challenge_service)
+    challenge_service: ChallengeService = Depends(get_challenge_service),
+    _current_user=Depends(get_current_user),
 ):
     """
     Get the remaining time for a challenge.
@@ -227,7 +234,8 @@ async def get_time_remaining(
 
 @challenge_router.post("/cleanup")
 async def cleanup_expired_challenges(
-    challenge_service: ChallengeService = Depends(get_challenge_service)
+    challenge_service: ChallengeService = Depends(get_challenge_service),
+    _admin=Depends(require_admin_user),
 ):
     """
     Clean up expired challenges (admin endpoint).
@@ -249,7 +257,8 @@ async def cleanup_expired_challenges(
 @challenge_router.post("/generate-test-phrase")
 async def generate_test_phrase(
     phrase_type: str = Form("mixed"),  # "words", "numbers", "mixed"
-    challenge_service: ChallengeService = Depends(get_challenge_service)
+    challenge_service: ChallengeService = Depends(get_challenge_service),
+    _admin=Depends(require_admin_user),
 ):
     """
     Generate a test phrase (for testing/demo purposes).
