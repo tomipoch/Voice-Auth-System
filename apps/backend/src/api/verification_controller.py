@@ -10,6 +10,7 @@ import logging
 from ..application.verification_service import VerificationService
 from ..infrastructure.biometrics.voice_biometric_engine_facade import VoiceBiometricEngineFacade
 from .rate_limit import limiter, verification_limit
+from .auth_guards import enforce_user_scope
 from ..application.dto.verification_dto import (
     StartVerificationRequest,
     StartVerificationResponse,
@@ -426,9 +427,10 @@ async def verify_phrase(
 
 @router.get("/user/{user_id}/history")
 async def get_verification_history(
-    user_id: str,
+    user_id: UUID,
     limit: int = 100,  # Increased from 10 to show full history
-    verification_service: VerificationService = Depends(get_verification_service)
+    verification_service: VerificationService = Depends(get_verification_service),
+    _current_user=Depends(enforce_user_scope),
 ):
     """
     Get verification history for a user.
@@ -436,9 +438,7 @@ async def get_verification_history(
     Returns a list of past verification attempts with scores and timestamps.
     """
     try:
-        user_uuid = UUID(user_id)
-        history = await verification_service.get_verification_history(user_uuid, limit)
-        
+        history = await verification_service.get_verification_history(user_id, limit)
         return {
             "success": True,
             "history": history

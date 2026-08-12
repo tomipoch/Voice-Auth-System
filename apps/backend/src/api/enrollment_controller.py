@@ -10,6 +10,7 @@ import logging
 from ..application.enrollment_service import EnrollmentService
 from ..infrastructure.biometrics.voice_biometric_engine_facade import VoiceBiometricEngineFacade
 from .rate_limit import limiter, enrollment_limit
+from .auth_guards import enforce_user_scope, get_current_user
 from ..application.dto.enrollment_dto import (
     StartEnrollmentRequest,
     StartEnrollmentResponse,
@@ -38,8 +39,20 @@ async def start_enrollment(
     difficulty: str = Form("medium"),
     force_overwrite: bool = Form(False),
     enrollment_service: EnrollmentService = Depends(get_enrollment_service),
-    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository),
+    current_user: dict = Depends(get_current_user),
 ):
+    # Scope check: non-admin users can only enroll themselves
+    if current_user.get("role") not in ("admin", "superadmin"):
+        from uuid import UUID
+        token_uid = str(current_user.get("id") or current_user.get("user_id") or "")
+        if user_id and token_uid != user_id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="You can only enroll yourself",
+            )
+        if not user_id:
+            user_id = token_uid
     """
     Start enrollment process and get phrases for user.
     
@@ -88,7 +101,8 @@ async def add_enrollment_sample(
     challenge_id: str = Form(...),
     audio_file: UploadFile = File(...),
     enrollment_service: EnrollmentService = Depends(get_enrollment_service),
-    voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine)
+    voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine),
+    _current_user=Depends(get_current_user),
 ):
     """
     Add an enrollment sample with challenge validation.
@@ -173,7 +187,8 @@ async def complete_enrollment(
     enrollment_id: str = Form(...),
     speaker_model_id: Optional[int] = Form(None),
     enrollment_service: EnrollmentService = Depends(get_enrollment_service),
-    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository)
+    audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository),
+    _current_user=Depends(get_current_user),
 ):
     """
     Complete enrollment and create final voiceprint.
@@ -216,8 +231,9 @@ async def complete_enrollment(
 
 @router.get("/status/{user_id}", response_model=EnrollmentStatusResponse)
 async def get_enrollment_status(
-    user_id: str,
-    enrollment_service: EnrollmentService = Depends(get_enrollment_service)
+    user_id: UUID,
+    enrollment_service: EnrollmentService = Depends(get_enrollment_service),
+    _current_user=Depends(enforce_user_scope),
 ):
     """
     Get enrollment status for a user.
@@ -226,7 +242,6 @@ async def get_enrollment_status(
     
     Returns enrollment status, samples collected, and phrases used.
     """
-    user_uuid = UUID(user_id)
-    result = await enrollment_service.get_enrollment_status(user_uuid)
+    result = await enrollment_service.get_enrollment_status(user_id)
     
     return EnrollmentStatusResponse(**result)
