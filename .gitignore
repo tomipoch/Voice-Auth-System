@@ -84,6 +84,15 @@ htmlcov/
 *.sqlite
 *.sqlite3
 
+# Base de datos de libros (copyright) + data dump con PII
+Database/Libros/
+Database/data_dump.sql
+apps/db/Libros/
+apps/db/data_dump.sql
+infra/db/Libros/
+infra/db/data_dump.sql
+infra/evaluation/dataset/
+
 # =========================
 # Misceláneos
 # =========================
