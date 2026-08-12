@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# Archivo de instrucciones local (no se commitea)
+AGENTS.md
+
 # Node / frontend
 node_modules/
 *.tsbuildinfo
