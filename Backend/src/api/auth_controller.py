@@ -78,8 +78,8 @@ class UserProfile(BaseModel):
     settings: Optional[dict] = None
 
 
-from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
-from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..domain.repositories.user_repository_port import UserRepositoryPort
+from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ..infrastructure.config.dependencies import get_user_repository, get_audit_log_repository
 from ..shared.types.common_types import AuditAction
 

@@ -136,7 +136,7 @@ async def lifespan(app: FastAPI):
     # 3. Start background cleanup job for expired challenges
     from .jobs.cleanup_expired_challenges import cleanup_expired_challenges_job
     from .infrastructure.config.dependencies import get_db_pool
-    from .infrastructure.persistence.PostgresChallengeRepository import PostgresChallengeRepository
+    from .infrastructure.persistence.postgres_challenge_repository import PostgresChallengeRepository
     from .config import CHALLENGE_CLEANUP_INTERVAL
     
     cleanup_task = None

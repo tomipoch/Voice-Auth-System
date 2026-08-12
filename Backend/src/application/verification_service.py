@@ -8,9 +8,9 @@ from typing import Dict, Optional, List
 from uuid import UUID, uuid4
 from datetime import datetime, timezone
 
-from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
-from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
-from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..domain.repositories.voice_signature_repository_port import VoiceSignatureRepositoryPort
+from ..domain.repositories.user_repository_port import UserRepositoryPort
+from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ..shared.types.common_types import VoiceEmbedding, AuditAction, ChallengeId
 
 logger = logging.getLogger(__name__)
@@ -37,7 +37,7 @@ class MultiPhraseVerificationSession:
         self.created_at = datetime.now(timezone.utc)
 
 
-from .services.BiometricValidator import BiometricValidator
+from .services.biometric_validator import BiometricValidator
 
 
 class VerificationService:

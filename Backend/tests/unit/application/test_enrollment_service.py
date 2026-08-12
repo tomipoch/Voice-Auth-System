@@ -6,11 +6,11 @@ from uuid import uuid4
 import numpy as np
 
 from src.application.enrollment_service import EnrollmentService
-from src.application.services.BiometricValidator import BiometricValidator
-from src.domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
-from src.domain.repositories.UserRepositoryPort import UserRepositoryPort
-from src.domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
-from src.domain.repositories.PhraseRepositoryPort import PhraseRepositoryPort, PhraseUsageRepositoryPort
+from src.application.services.biometric_validator import BiometricValidator
+from src.domain.repositories.voice_signature_repository_port import VoiceSignatureRepositoryPort
+from src.domain.repositories.user_repository_port import UserRepositoryPort
+from src.domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
+from src.domain.repositories.phrase_repository_port import PhraseRepositoryPort, PhraseUsageRepositoryPort
 from src.shared.types.common_types import VoiceEmbedding
 
 

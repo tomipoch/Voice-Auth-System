@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from typing import List, Optional, Tuple, Dict, Any
 from uuid import UUID
 
-from ..model.Phrase import Phrase, PhraseUsage
+from ..model.phrase import Phrase, PhraseUsage
 
 
 class PhraseRepositoryPort(ABC):

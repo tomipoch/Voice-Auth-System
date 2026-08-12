@@ -6,7 +6,7 @@ from uuid import UUID
 from datetime import datetime, timedelta
 import logging
 
-from ...domain.repositories.ChallengeRepositoryPort import ChallengeRepositoryPort
+from ...domain.repositories.challenge_repository_port import ChallengeRepositoryPort
 from ...shared.types.common_types import UserId, ChallengeId
 
 logger = logging.getLogger(__name__)

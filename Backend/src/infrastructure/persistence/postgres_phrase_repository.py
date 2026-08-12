@@ -5,11 +5,11 @@ from typing import List, Optional
 from uuid import UUID
 from datetime import datetime, timedelta, timezone
 
-from ...domain.repositories.PhraseRepositoryPort import (
+from ...domain.repositories.phrase_repository_port import (
     PhraseRepositoryPort, 
     PhraseUsageRepositoryPort
 )
-from ...domain.model.Phrase import Phrase, PhraseUsage
+from ...domain.model.phrase import Phrase, PhraseUsage
 
 
 class PostgresPhraseRepository(PhraseRepositoryPort):

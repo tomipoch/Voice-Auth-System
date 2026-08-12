@@ -28,7 +28,7 @@ from evaluation.results_manager import (
 
 # Import biometric components
 try:
-    from src.infrastructure.biometrics.SpeakerEmbeddingAdapter import SpeakerEmbeddingAdapter
+    from src.infrastructure.biometrics.speaker_embedding_adapter import SpeakerEmbeddingAdapter
     from src.shared.constants.biometric_constants import EMBEDDING_DIMENSION
 except ImportError as e:
     print(f"Error importing biometric components: {e}")

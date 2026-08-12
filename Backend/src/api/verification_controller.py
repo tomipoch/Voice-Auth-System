@@ -9,7 +9,7 @@ import soundfile as sf
 import logging
 
 from ..application.verification_service import VerificationService
-from ..infrastructure.biometrics.VoiceBiometricEngineFacade import VoiceBiometricEngineFacade
+from ..infrastructure.biometrics.voice_biometric_engine_facade import VoiceBiometricEngineFacade
 from ..application.dto.verification_dto import (
     StartVerificationRequest,
     StartVerificationResponse,
@@ -22,7 +22,7 @@ from ..infrastructure.config.dependencies import (
     get_voice_biometric_engine,
     get_audit_log_repository
 )
-from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ..shared.types.common_types import AuditAction
 
 logger = logging.getLogger(__name__)

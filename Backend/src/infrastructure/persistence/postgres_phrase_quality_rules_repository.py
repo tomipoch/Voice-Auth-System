@@ -6,7 +6,7 @@ from uuid import UUID
 import logging
 import json
 
-from ...domain.repositories.PhraseQualityRulesRepositoryPort import PhraseQualityRulesRepositoryPort
+from ...domain.repositories.phrase_quality_rules_repository_port import PhraseQualityRulesRepositoryPort
 
 logger = logging.getLogger(__name__)
 
