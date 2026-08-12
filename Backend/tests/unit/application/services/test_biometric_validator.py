@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from src.application.services.BiometricValidator import BiometricValidator
+from src.application.services.biometric_validator import BiometricValidator
 from src.shared.constants.biometric_constants import EMBEDDING_DIMENSION
 
 

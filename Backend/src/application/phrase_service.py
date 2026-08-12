@@ -3,11 +3,11 @@
 from typing import List, Optional, Dict, Any
 from uuid import UUID
 
-from ..domain.repositories.PhraseRepositoryPort import (
+from ..domain.repositories.phrase_repository_port import (
     PhraseRepositoryPort,
     PhraseUsageRepositoryPort
 )
-from ..domain.model.Phrase import Phrase
+from ..domain.model.phrase import Phrase
 from .dto.phrase_dto import PhraseDTO, PhraseStatsDTO, PhraseListDTO, BookDTO
 
 

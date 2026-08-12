@@ -5,7 +5,7 @@ import asyncpg
 from datetime import datetime, timedelta
 from uuid import uuid4
 
-from src.infrastructure.persistence.PostgresChallengeRepository import PostgresChallengeRepository
+from src.infrastructure.persistence.postgres_challenge_repository import PostgresChallengeRepository
 
 
 @pytest.fixture

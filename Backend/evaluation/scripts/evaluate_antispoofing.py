@@ -28,7 +28,7 @@ from evaluation.results_manager import (
 
 # Import biometric components
 try:
-    from src.infrastructure.biometrics.SpoofDetectorAdapter import SpoofDetectorAdapter
+    from src.infrastructure.biometrics.spoof_detector_adapter import SpoofDetectorAdapter
 except ImportError as e:
     print(f"Error importing biometric components: {e}")
     sys.exit(1)

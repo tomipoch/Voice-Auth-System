@@ -52,8 +52,8 @@ class PaginatedUsers(BaseModel):
     limit: int
     total_pages: int
 
-from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
-from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..domain.repositories.user_repository_port import UserRepositoryPort
+from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ..infrastructure.config.dependencies import get_user_repository, get_audit_log_repository
 
 
@@ -169,7 +169,7 @@ async def get_users(
     )
 
 
-from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
+from ..domain.repositories.voice_signature_repository_port import VoiceSignatureRepositoryPort
 from ..infrastructure.config.dependencies import get_user_repository, get_audit_log_repository, get_voice_signature_repository
 
 @admin_router.get("/users/{user_id}", response_model=UserInfo)

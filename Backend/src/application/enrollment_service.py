@@ -6,10 +6,10 @@ from uuid import UUID, uuid4
 from datetime import datetime, timezone
 import logging
 
-from ..domain.model.VoiceSignature import VoiceSignature
-from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
-from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
-from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..domain.model.voice_signature import VoiceSignature
+from ..domain.repositories.voice_signature_repository_port import VoiceSignatureRepositoryPort
+from ..domain.repositories.user_repository_port import UserRepositoryPort
+from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ..shared.types.common_types import UserId, VoiceEmbedding, AuditAction, ChallengeId
 from ..shared.constants.biometric_constants import MIN_ENROLLMENT_SAMPLES, MAX_ENROLLMENT_SAMPLES
 
@@ -28,7 +28,7 @@ class EnrollmentSession:
         self.created_at = datetime.now(timezone.utc)
 
 
-from .services.BiometricValidator import BiometricValidator
+from .services.biometric_validator import BiometricValidator
 
 
 class EnrollmentService:

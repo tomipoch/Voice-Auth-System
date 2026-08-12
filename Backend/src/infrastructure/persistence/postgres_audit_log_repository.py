@@ -7,7 +7,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional, Any
 from uuid import UUID
 
-from ...domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ...domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ...shared.types.common_types import AuditAction
 
 

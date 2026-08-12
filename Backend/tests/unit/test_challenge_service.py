@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from uuid import uuid4
 
 from src.application.challenge_service import ChallengeService
-from src.domain.model.Phrase import Phrase
+from src.domain.model.phrase import Phrase
 
 
 @pytest.fixture

@@ -22,7 +22,7 @@ from datetime import datetime
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from src.infrastructure.biometrics.audio_features import AudioFeatureExtractor
-from src.infrastructure.biometrics.SpoofDetectorAdapter import SpoofDetectorAdapter
+from src.infrastructure.biometrics.spoof_detector_adapter import SpoofDetectorAdapter
 
 logger = logging.getLogger(__name__)
 

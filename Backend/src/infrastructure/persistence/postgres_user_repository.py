@@ -6,7 +6,7 @@ from typing import Optional, Dict, Any
 from uuid import UUID, uuid4
 from datetime import timedelta
 
-from src.domain.repositories.UserRepositoryPort import UserRepositoryPort
+from src.domain.repositories.user_repository_port import UserRepositoryPort
 from ...shared.types.common_types import UserId
 
 

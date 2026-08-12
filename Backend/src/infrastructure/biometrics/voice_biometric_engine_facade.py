@@ -5,9 +5,9 @@ import numpy as np
 from concurrent.futures import ThreadPoolExecutor
 from typing import Optional
 
-from .SpeakerEmbeddingAdapter import SpeakerEmbeddingAdapter
-from .SpoofDetectorAdapter import SpoofDetectorAdapter
-from .ASRAdapter import ASRAdapter
+from .speaker_embedding_adapter import SpeakerEmbeddingAdapter
+from .spoof_detector_adapter import SpoofDetectorAdapter
+from .asr_adapter import ASRAdapter
 from ...shared.types.common_types import VoiceEmbedding
 
 
