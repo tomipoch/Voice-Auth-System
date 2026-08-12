@@ -21,9 +21,11 @@ from ..application.dto.enrollment_dto import (
 from ..infrastructure.config.dependencies import (
     get_enrollment_service,
     get_voice_biometric_engine,
-    get_audit_log_repository
+    get_audit_log_repository,
+    get_user_repository,
 )
 from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
+from ..domain.repositories.user_repository_port import UserRepositoryPort
 from ..shared.types.common_types import AuditAction
 
 logger = logging.getLogger(__name__)
@@ -102,6 +104,7 @@ async def add_enrollment_sample(
     audio_file: UploadFile = File(...),
     enrollment_service: EnrollmentService = Depends(get_enrollment_service),
     voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine),
+    user_repo: UserRepositoryPort = Depends(get_user_repository),
     _current_user=Depends(get_current_user),
 ):
     """
@@ -155,13 +158,22 @@ async def add_enrollment_sample(
         wav_bytes = ensure_wav_format(audio_bytes)
         
         if wav_bytes and session:
-            # Save audio
-            dataset_recorder.save_enrollment_audio(
-                user_id=str(session.user_id),
-                audio_data=wav_bytes,
-                user_email=user.get("email") if user else None,
-                sample_number=sample_result["samples_completed"]
-            )
+            # Respect user audio consent policy (keep_audio)
+            policy = None
+            try:
+                policy = await user_repo.get_user_policy(session.user_id)
+            except Exception:
+                policy = None
+            keep_audio = bool(policy and policy.get("keep_audio"))
+
+            if keep_audio:
+                # Save audio
+                dataset_recorder.save_enrollment_audio(
+                    user_id=str(session.user_id),
+                    audio_data=wav_bytes,
+                    user_email=user.get("email") if user else None,
+                    sample_number=sample_result["samples_completed"]
+                )
             logger.info(f"Saved enrollment audio for user {user.get('email') if user else session.user_id}, sample {sample_result['samples_completed']}")
         else:
             logger.warning("Failed to convert audio to WAV format or session not found")
