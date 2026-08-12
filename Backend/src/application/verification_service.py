@@ -8,9 +8,9 @@ from typing import Dict, Optional, List
 from uuid import UUID, uuid4
 from datetime import datetime, timezone
 
-from ..domain.repositories.VoiceSignatureRepositoryPort import VoiceSignatureRepositoryPort
-from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
-from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..domain.repositories.voice_signature_repository_port import VoiceSignatureRepositoryPort
+from ..domain.repositories.user_repository_port import UserRepositoryPort
+from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ..shared.types.common_types import VoiceEmbedding, AuditAction, ChallengeId
 
 logger = logging.getLogger(__name__)
@@ -37,7 +37,7 @@ class MultiPhraseVerificationSession:
         self.created_at = datetime.now(timezone.utc)
 
 
-from .services.BiometricValidator import BiometricValidator
+from .services.biometric_validator import BiometricValidator
 
 
 class VerificationService:
@@ -50,16 +50,26 @@ class VerificationService:
         audit_repo: AuditLogRepositoryPort,
         challenge_service,  # ChallengeService
         biometric_validator: BiometricValidator,
-        similarity_threshold: float = 0.75,
-        anti_spoofing_threshold: float = 0.7  # Ajustado de 0.5 a 0.7 para reducir FRR
+        similarity_threshold: Optional[float] = None,
+        anti_spoofing_threshold: Optional[float] = None,
     ):
+        from ..config import SIMILARITY_THRESHOLD, ANTI_SPOOFING_THRESHOLD
+
         self._voice_repo = voice_repo
         self._user_repo = user_repo
         self._audit_repo = audit_repo
         self._challenge_service = challenge_service
         self._biometric_validator = biometric_validator
-        self._similarity_threshold = similarity_threshold
-        self._anti_spoofing_threshold = anti_spoofing_threshold
+        self._similarity_threshold = (
+            similarity_threshold
+            if similarity_threshold is not None
+            else SIMILARITY_THRESHOLD
+        )
+        self._anti_spoofing_threshold = (
+            anti_spoofing_threshold
+            if anti_spoofing_threshold is not None
+            else ANTI_SPOOFING_THRESHOLD
+        )
         # In-memory sessions (in production, use Redis)
         # Moved to instance variables to avoid sharing state between instances
         self._active_sessions: Dict[UUID, VerificationSession] = {}
@@ -113,12 +123,8 @@ class VerificationService:
     
     def _parse_log_metadata(self, metadata) -> dict:
         """Parse metadata from log entry (handles JSON strings)."""
-        if isinstance(metadata, str):
-            try:
-                return json.loads(metadata)
-            except json.JSONDecodeError:
-                return {}
-        return metadata if metadata else {}
+        from ..shared.json_metadata import parse_json_metadata
+        return parse_json_metadata(metadata)
     
     def _transform_log_to_attempt(self, log: dict) -> Optional[dict]:
         """Transform a single audit log entry to verification attempt format."""
@@ -291,8 +297,8 @@ class VerificationService:
                     challenge_id=str(challenge_id),
                     phrase_match_score=float(phrase_match_score)
                 )
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.warning("Evaluation logger skipped verification attempt: %s", exc)
         
         # Clean up session
         del self._active_sessions[verification_id]

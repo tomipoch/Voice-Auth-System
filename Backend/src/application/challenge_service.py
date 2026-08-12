@@ -5,10 +5,10 @@ from typing import Optional, List, Dict, Any
 from uuid import UUID
 import logging
 
-from ..domain.repositories.ChallengeRepositoryPort import ChallengeRepositoryPort
-from ..domain.repositories.PhraseRepositoryPort import PhraseRepositoryPort
-from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
-from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..domain.repositories.challenge_repository_port import ChallengeRepositoryPort
+from ..domain.repositories.phrase_repository_port import PhraseRepositoryPort
+from ..domain.repositories.user_repository_port import UserRepositoryPort
+from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from .phrase_quality_rules_service import PhraseQualityRulesService
 from ..shared.types.common_types import UserId, ChallengeId, AuditAction
 from ..config import CHALLENGE_TIMEOUT

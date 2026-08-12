@@ -22,8 +22,7 @@ from .local_antispoof_models import (
 try:
     from ...shared.constants.biometric_constants import DEFAULT_SPOOF_THRESHOLD
 except ImportError:
-    # Fallback for standalone testing
-    DEFAULT_SPOOF_THRESHOLD = 0.5
+    DEFAULT_SPOOF_THRESHOLD = 0.3
 
 try:
     from .model_manager import model_manager

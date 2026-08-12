@@ -4,24 +4,11 @@ import asyncio
 import numpy as np
 from concurrent.futures import ThreadPoolExecutor
 from typing import Optional
-from dataclasses import dataclass
 
-from .SpeakerEmbeddingAdapter import SpeakerEmbeddingAdapter
-from .SpoofDetectorAdapter import SpoofDetectorAdapter
-from .ASRAdapter import ASRAdapter
+from .speaker_embedding_adapter import SpeakerEmbeddingAdapter
+from .spoof_detector_adapter import SpoofDetectorAdapter
+from .asr_adapter import ASRAdapter
 from ...shared.types.common_types import VoiceEmbedding
-
-
-@dataclass
-class BiometricAnalysisResult:
-    """Result of complete biometric analysis."""
-    similarity: float
-    spoof_probability: float
-    phrase_match: float
-    phrase_ok: bool
-    speaker_model_id: Optional[int] = None
-    antispoof_model_id: Optional[int] = None
-    asr_model_id: Optional[int] = None
 
 
 class VoiceBiometricEngineFacade:
@@ -55,50 +42,6 @@ class VoiceBiometricEngineFacade:
                 self._executor.shutdown(wait=False)
         except Exception:
             pass  # Ignore errors during cleanup
-    
-    def analyze_voice(
-        self,
-        audio_data: bytes,
-        audio_format: str,
-        reference_embedding: VoiceEmbedding,
-        expected_phrase: Optional[str] = None
-    ) -> BiometricAnalysisResult:
-        """
-        Perform complete voice biometric analysis.
-        
-        This method orchestrates all biometric components to provide
-        a comprehensive analysis of the voice sample.
-        """
-        
-        # 1. Extract speaker embedding
-        current_embedding = self._speaker_adapter.extract_embedding(
-            audio_data, audio_format
-        )
-        
-        # 2. Calculate similarity with reference
-        similarity = self._calculate_similarity(current_embedding, reference_embedding)
-        
-        # 3. Detect spoofing/deepfake
-        spoof_probability = self._spoof_adapter.detect_spoof(audio_data)
-        
-        # 4. Perform speech recognition and phrase matching
-        phrase_match = 0.0
-        phrase_ok = True
-        
-        if expected_phrase:
-            recognized_text = self._asr_adapter.transcribe(audio_data)
-            phrase_match = self._calculate_phrase_similarity(expected_phrase, recognized_text)
-            phrase_ok = phrase_match >= 0.7  # Threshold for phrase acceptance
-        
-        return BiometricAnalysisResult(
-            similarity=similarity,
-            spoof_probability=spoof_probability,
-            phrase_match=phrase_match,
-            phrase_ok=phrase_ok,
-            speaker_model_id=self._speaker_adapter.get_model_id(),
-            antispoof_model_id=self._spoof_adapter.get_model_id(),
-            asr_model_id=self._asr_adapter.get_model_id()
-        )
     
     def extract_embedding_only(
         self,
@@ -222,23 +165,3 @@ class VoiceBiometricEngineFacade:
         union = expected_words.union(recognized_words)
         
         return len(intersection) / len(union) if union else 0.0
-    
-    def get_engine_info(self) -> dict:
-        """Get information about loaded models."""
-        return {
-            "speaker_model": {
-                "id": self._speaker_adapter.get_model_id(),
-                "name": self._speaker_adapter.get_model_name(),
-                "version": self._speaker_adapter.get_model_version()
-            },
-            "antispoof_model": {
-                "id": self._spoof_adapter.get_model_id(),
-                "name": self._spoof_adapter.get_model_name(),
-                "version": self._spoof_adapter.get_model_version()
-            },
-            "asr_model": {
-                "id": self._asr_adapter.get_model_id(),
-                "name": self._asr_adapter.get_model_name(),
-                "version": self._asr_adapter.get_model_version()
-            }
-        }

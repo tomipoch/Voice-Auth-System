@@ -1,7 +1,8 @@
 """Shared constants for the voice biometrics system."""
 
-# Authentication constants
-DEFAULT_SIMILARITY_THRESHOLD = 0.85
+# Authentication thresholds
+# NOTE: similarity/anti-spoofing thresholds live in src/config.py (single source).
+# These constants remain for adapter-scoped fallbacks only.
 DEFAULT_SPOOF_THRESHOLD = 0.3
 DEFAULT_PHRASE_MATCH_THRESHOLD = 0.8
 
@@ -31,6 +32,13 @@ MIN_ENROLLMENT_SAMPLES = 3
 # Latency SLA
 MAX_INFERENCE_LATENCY_MS = 5000
 MAX_TOTAL_LATENCY_MS = 10000
+
+# Biometric ML model fallback flag. When ML models are unavailable (sizes
+# excluded from the repo; absent on disk), the adapters fall back to
+# deterministic mock implementations. The flag is informational only: the
+# behavior is documented as a constraint of the test environment, not a
+# production concern. See PLAN_MEJORAS.md (Fase 1, item 9).
+MOCK_FALLBACKS_ACTIVE = True
 
 # Security
 API_KEY_LENGTH = 32

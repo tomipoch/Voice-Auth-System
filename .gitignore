@@ -1,8 +1,9 @@
 # macOS
 .DS_Store
 
-# Archivo de instrucciones local (no se commitea)
+# Archivos de planificación local (no se commitean)
 AGENTS.md
+PLAN_MEJORAS.md
 
 # Node / frontend
 node_modules/

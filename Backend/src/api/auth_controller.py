@@ -12,33 +12,13 @@ import jwt
 import bcrypt
 
 from src.utils.validators import validate_rut, format_rut
+from src.config import SECRET_KEY, ALGORITHM
 
 logger = logging.getLogger(__name__)
 
 auth_router = APIRouter()
 security = HTTPBearer()
 
-import os
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
-
-# JWT Configuration with strict validation for production
-SECRET_KEY = os.getenv("SECRET_KEY", "voice-biometrics-secret-key-change-in-production")
-ENV = os.getenv("ENV", "development")
-
-# Validate SECRET_KEY in production
-if ENV == "production":
-    if not SECRET_KEY or SECRET_KEY == "voice-biometrics-secret-key-change-in-production":
-        raise ValueError(
-            "SECRET_KEY must be set to a strong random value in production. "
-            "Do not use the default development key!"
-        )
-elif SECRET_KEY == "voice-biometrics-secret-key-change-in-production":
-    logger.warning("⚠️  Using default SECRET_KEY - NOT SAFE FOR PRODUCTION")
-
-ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 120  # Increased from 30 to 120 minutes
 MAX_FAILED_ATTEMPTS = 5
 LOCKOUT_MINUTES = 15
@@ -98,8 +78,8 @@ class UserProfile(BaseModel):
     settings: Optional[dict] = None
 
 
-from ..domain.repositories.UserRepositoryPort import UserRepositoryPort
-from ..domain.repositories.AuditLogRepositoryPort import AuditLogRepositoryPort
+from ..domain.repositories.user_repository_port import UserRepositoryPort
+from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ..infrastructure.config.dependencies import get_user_repository, get_audit_log_repository
 from ..shared.types.common_types import AuditAction
 

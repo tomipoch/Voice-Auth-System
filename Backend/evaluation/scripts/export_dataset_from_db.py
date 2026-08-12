@@ -33,8 +33,8 @@ async def export_dataset_from_database(output_dir: Path, user_ids: List[str] = N
         user_ids: Lista de user_ids a exportar (None = todos)
     """
     from src.infrastructure.config.dependencies import get_db_pool
-    from src.infrastructure.persistence.PostgresVoiceSignatureRepository import PostgresVoiceSignatureRepository
-    from src.infrastructure.persistence.PostgresUserRepository import PostgresUserRepository
+    from src.infrastructure.persistence.postgres_voice_signature_repository import PostgresVoiceSignatureRepository
+    from src.infrastructure.persistence.postgres_user_repository import PostgresUserRepository
     
     # Crear directorios
     speakers_dir = output_dir / "speakers"
@@ -42,7 +42,7 @@ async def export_dataset_from_database(output_dir: Path, user_ids: List[str] = N
     
     # Conectar a base de datos
     pool = await get_db_pool()
-   voice_repo = PostgresVoiceSignatureRepository(pool)
+    voice_repo = PostgresVoiceSignatureRepository(pool)
     user_repo = PostgresUserRepository(pool)
     
     # Obtener usuarios

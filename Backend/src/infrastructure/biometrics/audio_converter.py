@@ -9,6 +9,11 @@ import logging
 from typing import Optional
 from pydub import AudioSegment
 
+try:
+    from fastapi import UploadFile
+except ImportError:  # allow use outside FastAPI contexts
+    UploadFile = None  # type: ignore
+
 logger = logging.getLogger(__name__)
 
 
@@ -90,22 +95,59 @@ def ensure_wav_format(
 ) -> Optional[bytes]:
     """
     Ensure audio is in WAV format, converting if necessary.
-    
+
     Args:
         audio_bytes: Audio data (any format)
         sample_rate: Target sample rate (default: 16000)
         channels: Target number of channels (default: 1)
-        
+
     Returns:
         WAV audio bytes or None if conversion fails
     """
     if is_wav_format(audio_bytes):
         logger.debug("Audio already in WAV format")
         return audio_bytes
-    
+
     try:
         logger.debug("Converting audio to WAV format")
         return convert_to_wav(audio_bytes, "webm")
     except Exception as e:
         logger.error(f"Failed to ensure WAV format: {e}")
         return None
+
+
+async def read_audio_sample(
+    audio_file,
+    fallback_format: str = "webm",
+) -> bytes:
+    """
+    Read a FastAPI/Starlette UploadFile and return WAV bytes.
+
+    Centralizes the read-and-convert pattern used by enrollment/verification
+    controllers, which previously duplicated ``await audio_file.read()``
+    followed by ``convert_to_wav``/``ensure_wav_format`` in each handler.
+
+    Args:
+        audio_file: A ``fastapi.UploadFile`` (or any object exposing
+            ``await .read()`` and ``.content_type``/``.filename``).
+        fallback_format: Format used when neither ``content_type`` nor
+            ``filename`` provides a usable extension.
+
+    Returns:
+        WAV audio bytes (16kHz, mono, 16-bit PCM).
+    """
+    raw = await audio_file.read()
+
+    fmt = (getattr(audio_file, "content_type", None) or "").lower()
+    if "/" in fmt:
+        fmt = fmt.split("/", 1)[1].split(";", 1)[0]
+    if not fmt:
+        filename = getattr(audio_file, "filename", "") or ""
+        if "." in filename:
+            fmt = filename.rsplit(".", 1)[-1].lower()
+    if not fmt:
+        fmt = fallback_format
+
+    if is_wav_format(raw):
+        return raw
+    return convert_to_wav(raw, fmt)

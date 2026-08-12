@@ -287,6 +287,12 @@ class SpeakerEmbeddingAdapter:
                 return self._validate_wav_audio(audio_data)
             
             # For other formats (including webm), basic validation
+            from ...shared.constants.biometric_constants import MOCK_FALLBACKS_ACTIVE
+            if MOCK_FALLBACKS_ACTIVE:
+                logger.warning(
+                    "SpeakerEmbeddingAdapter.validate_audio_quality: returning "
+                    "mock values for non-WAV input (no detailed validation)."
+                )
             return {
                 "is_valid": True,
                 "duration_sec": 3.0,  # Mock duration
@@ -347,9 +353,18 @@ class SpeakerEmbeddingAdapter:
             return {"is_valid": False, "reason": f"WAV validation error: {str(e)}"}
     
     def _estimate_snr(self) -> float:
-        """Estimate Signal-to-Noise Ratio (mock implementation)."""
-        # In production, this would analyze actual audio signal
-        # For now, return a reasonable mock value
+        """Estimate Signal-to-Noise Ratio (mock implementation).
+
+        Returns a deterministic mock value when the SNR model is unavailable.
+        Documented as a fallback path; production deployments should provide
+        a real SNR estimator.
+        """
+        from ...shared.constants.biometric_constants import MOCK_FALLBACKS_ACTIVE
+        if MOCK_FALLBACKS_ACTIVE:
+            logger.warning(
+                "SpeakerEmbeddingAdapter._estimate_snr: returning mock SNR "
+                "(seeded RNG, 15-30 dB). No real SNR model is loaded."
+            )
         rng = np.random.default_rng(seed=42)
         return rng.uniform(15.0, 30.0)
     

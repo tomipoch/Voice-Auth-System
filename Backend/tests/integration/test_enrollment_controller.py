@@ -61,11 +61,12 @@ class TestEnrollmentController:
         assert response.status_code != 404
     
     def test_get_enrollment_status_endpoint_exists(self, client):
-        """Test that enrollment status endpoint exists."""
+        """Test that enrollment status endpoint exists and returns 200."""
         user_id = "550e8400-e29b-41d4-a716-446655440000"
-        
+
         response = client.get(f"/api/enrollment/status/{user_id}")
-        
-        # Should not return 404 (endpoint not found)
-        # May return 400, 500 (DB/validation errors) but endpoint exists
-        assert response.status_code in [200, 400, 404, 500]
+
+        # Endpoint exists and DTO matches the service contract; user_not_found
+        # is the expected response when the test DB has no such user.
+        assert response.status_code == 200
+        assert response.json()["status"] == "user_not_found"
