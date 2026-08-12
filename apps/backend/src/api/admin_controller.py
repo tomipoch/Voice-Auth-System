@@ -2,7 +2,8 @@
 
 from fastapi import APIRouter, HTTPException, Depends, status
 from fastapi.security import HTTPBearer
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from uuid import UUID
 from typing import List, Optional
 import logging
 import json
@@ -405,41 +406,104 @@ async def get_recent_activity(
 
 
 
+class UpdateUserBody(BaseModel):
+    first_name: Optional[str] = Field(None, max_length=50)
+    last_name: Optional[str] = Field(None, max_length=50)
+    rut: Optional[str] = Field(None, pattern=r"^\d{7,8}-[\dkK]$")
+    company: Optional[str] = None
+    role: Optional[str] = Field(None, pattern="^(user|admin|superadmin)$")
+    settings: Optional[dict] = None
+
+
 @admin_router.delete("/users/{user_id}")
 async def delete_user(
-    user_id: str,
+    user_id: UUID,
     current_user: dict = Depends(require_admin),
     user_repo: UserRepositoryPort = Depends(get_user_repository),
 ):
     """
     Delete a user (admin only).
+
+    Company-scoped: company admins may only delete users in their company.
+    Superadmins may delete anyone (except themselves).
     """
-    # Don't allow deleting yourself
-    if user_id == current_user["id"]:
+    if str(user_id) == str(current_user["id"]):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Cannot delete your own account"
+            detail="Cannot delete your own account",
         )
-    
+
+    target = await user_repo.get_user_by_id(user_id)
+    if target is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
+    if current_user.get("role") == "admin":
+        if target.get("company") != current_user.get("company"):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="You can only delete users in your company",
+            )
+
     await user_repo.delete_user(user_id)
-    
     return {"message": "User deleted successfully"}
+
 
 @admin_router.patch("/users/{user_id}")
 async def update_user(
-    user_id: str,
-    user_data: dict,
+    user_id: UUID,
+    user_data: UpdateUserBody,
     current_user: dict = Depends(require_admin),
     user_repo: UserRepositoryPort = Depends(get_user_repository),
 ):
     """
     Update user data (admin only).
+
+    Role and company changes are restricted:
+    - Only superadmins may change a user's role to admin/superadmin.
+    - Company admins may only update users in their own company.
     """
-    await user_repo.update_user(user_id, user_data)
-    
-    return {
-        "message": "User updated successfully",
-    }
+    target = await user_repo.get_user_by_id(user_id)
+    if target is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
+    if current_user.get("role") == "admin":
+        if target.get("company") != current_user.get("company"):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="You can only update users in your company",
+            )
+
+    updates = user_data.dict(exclude_unset=True)
+    if not updates:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No fields to update",
+        )
+
+    if "role" in updates and updates["role"] in ("admin", "superadmin"):
+        if current_user.get("role") != "superadmin":
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Only superadmins can promote users to admin or superadmin",
+            )
+
+    if "company" in updates and current_user.get("role") == "admin":
+        if updates["company"] != current_user.get("company"):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Company admins cannot change a user's company",
+            )
+
+    if "rut" in updates and updates["rut"]:
+        from src.utils.validators import validate_rut
+        if not validate_rut(updates["rut"]):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid RUT format",
+            )
+
+    await user_repo.update_user(user_id, updates)
+    return {"message": "User updated successfully"}
 
 
 # =====================================================
