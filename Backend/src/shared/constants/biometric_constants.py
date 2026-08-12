@@ -33,6 +33,13 @@ MIN_ENROLLMENT_SAMPLES = 3
 MAX_INFERENCE_LATENCY_MS = 5000
 MAX_TOTAL_LATENCY_MS = 10000
 
+# Biometric ML model fallback flag. When ML models are unavailable (sizes
+# excluded from the repo; absent on disk), the adapters fall back to
+# deterministic mock implementations. The flag is informational only: the
+# behavior is documented as a constraint of the test environment, not a
+# production concern. See PLAN_MEJORAS.md (Fase 1, item 9).
+MOCK_FALLBACKS_ACTIVE = True
+
 # Security
 API_KEY_LENGTH = 32
 ENCRYPTION_KEY_LENGTH = 32

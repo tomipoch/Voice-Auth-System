@@ -59,11 +59,16 @@ class CompleteEnrollmentResponse(BaseModel):
 
 
 class EnrollmentStatusResponse(BaseModel):
-    """Response with user's enrollment status."""
-    user_id: str = Field(..., description="User ID")
-    enrollment_id: Optional[str] = Field(None, description="Active enrollment session ID (if any)")
-    is_enrolled: bool = Field(..., description="Whether user has a voiceprint")
-    samples_count: int = Field(..., description="Samples collected in current session")
-    required_samples: int = Field(..., description="Samples required for enrollment")
-    phrases_used: List[dict] = Field(..., description="Phrases that have been read")
-    created_at: Optional[str] = Field(None, description="Voiceprint creation timestamp (if enrolled)")
+    """Response with user's enrollment status.
+
+    Aligned to the dict produced by ``EnrollmentService.get_enrollment_status``,
+    which is the de-facto contract for this endpoint. ``status`` reflects one of
+    ``user_not_found`` | ``enrolled`` | ``in_progress`` | ``not_started``; the
+    remaining fields are only meaningful for certain statuses.
+    """
+    status: str = Field(..., description="user_not_found | enrolled | in_progress | not_started")
+    voiceprint_id: Optional[str] = Field(None, description="Voiceprint ID (when enrolled)")
+    created_at: Optional[str] = Field(None, description="Voiceprint creation timestamp (ISO 8601)")
+    samples_count: int = Field(0, description="Samples collected in the current session")
+    required_samples: int = Field(0, description="Samples required to complete enrollment")
+    phrases_used: List[dict] = Field(default_factory=list, description="Phrases already read in this session")

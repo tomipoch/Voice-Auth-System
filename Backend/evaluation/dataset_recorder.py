@@ -21,7 +21,6 @@ from pathlib import Path
 from datetime import datetime
 from typing import Optional
 from threading import Lock
-import wave
 import numpy as np
 
 logger = logging.getLogger(__name__)

@@ -123,12 +123,8 @@ class VerificationService:
     
     def _parse_log_metadata(self, metadata) -> dict:
         """Parse metadata from log entry (handles JSON strings)."""
-        if isinstance(metadata, str):
-            try:
-                return json.loads(metadata)
-            except json.JSONDecodeError:
-                return {}
-        return metadata if metadata else {}
+        from ..shared.json_metadata import parse_json_metadata
+        return parse_json_metadata(metadata)
     
     def _transform_log_to_attempt(self, log: dict) -> Optional[dict]:
         """Transform a single audit log entry to verification attempt format."""
@@ -301,8 +297,8 @@ class VerificationService:
                     challenge_id=str(challenge_id),
                     phrase_match_score=float(phrase_match_score)
                 )
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.warning("Evaluation logger skipped verification attempt: %s", exc)
         
         # Clean up session
         del self._active_sessions[verification_id]

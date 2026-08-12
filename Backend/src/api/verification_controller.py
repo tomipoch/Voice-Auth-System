@@ -5,7 +5,6 @@ from typing import Optional
 from uuid import UUID
 from datetime import datetime, timezone
 import io
-import soundfile as sf
 import logging
 
 from ..application.verification_service import VerificationService
@@ -92,26 +91,16 @@ async def verify_voice(
         phrase_uuid = UUID(phrase_id)
         
         # Read audio file
-        audio_bytes = await audio_file.read()
-        audio_format = audio_file.content_type or "audio/webm"
-        
-        # Convert to WAV if needed
-        from ..infrastructure.biometrics.audio_converter import convert_to_wav
-        format_lower = audio_format.lower()
-        if '/' in format_lower:
-            format_lower = format_lower.split('/')[1].split(';')[0]
-        
-        if format_lower != "wav":
-            logger.info(f"Converting {format_lower} audio to WAV for verification")
-            try:
-                audio_bytes = convert_to_wav(audio_bytes, format_lower)
-                logger.info("Audio conversion successful")
-            except Exception as e:
-                logger.error(f"Audio conversion failed: {e}")
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=f"Failed to convert audio: {str(e)}"
-                )
+        from ..infrastructure.biometrics.audio_converter import read_audio_sample
+        try:
+            audio_bytes = await read_audio_sample(audio_file)
+            logger.info("Audio conversion successful")
+        except Exception as e:
+            logger.error(f"Audio conversion failed: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Failed to convert audio: {str(e)}"
+            )
         
         # Extract features (embedding + anti-spoofing + ASR) from audio
         features = voice_engine.extract_features(
@@ -321,26 +310,16 @@ async def verify_phrase(
         phrase_uuid = UUID(phrase_id)
         
         # Read audio file
-        audio_bytes = await audio_file.read()
-        audio_format = audio_file.content_type or "audio/webm"
-        
-        # Convert to WAV if needed
-        from ..infrastructure.biometrics.audio_converter import convert_to_wav
-        format_lower = audio_format.lower()
-        if '/' in format_lower:
-            format_lower = format_lower.split('/')[1].split(';')[0]
-        
-        if format_lower != "wav":
-            logger.info(f"Converting {format_lower} audio to WAV for verification")
-            try:
-                audio_bytes = convert_to_wav(audio_bytes, format_lower)
-                logger.info("Audio conversion successful")
-            except Exception as e:
-                logger.error(f"Audio conversion failed: {e}")
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=f"Failed to convert audio: {str(e)}"
-                )
+        from ..infrastructure.biometrics.audio_converter import read_audio_sample
+        try:
+            audio_bytes = await read_audio_sample(audio_file)
+            logger.info("Audio conversion successful")
+        except Exception as e:
+            logger.error(f"Audio conversion failed: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Failed to convert audio: {str(e)}"
+            )
         
         # Process audio through full pipeline (parallel processing for speed)
         # Extract biometric features concurrently
