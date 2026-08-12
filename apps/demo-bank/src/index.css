@@ -1,0 +1,297 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Ensure dark mode works properly */
+html.dark {
+  color-scheme: dark;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+}
+
+:root {
+  --bank-primary: #0f172a;
+  --bank-secondary: #1e293b;
+  --bank-accent: #fbbf24;
+  --bank-gold: #eab308;
+  --bank-glass: rgba(255, 255, 255, 0.03);
+  --bank-glass-border: rgba(255, 255, 255, 0.1);
+  --bank-surface: #f8fafc;
+}
+
+.dark {
+  --bank-surface: #0f172a;
+}
+
+/* ========================================
+   ACCESSIBILITY IMPROVEMENTS
+   ======================================== */
+
+/* Screen reader only - oculta visualmente pero accesible para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus,
+.sr-only:active {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Focus visible - solo mostrar outline con teclado */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible,
+*.focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+.dark *:focus-visible,
+.dark *.focus-visible {
+  outline-color: #60a5fa;
+}
+
+/* Reduced motion para usuarios con preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  * {
+    border-color: currentColor;
+  }
+
+  button,
+  a {
+    text-decoration: underline;
+  }
+}
+
+/* Mejoras de contraste para dark mode */
+.dark {
+  --tw-text-opacity: 1;
+  --tw-bg-opacity: 1;
+}
+
+/* Skip link animations */
+@keyframes slide-down {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+a[href="#main-content"]:focus {
+  animation: slide-down 0.2s ease-out;
+}
+
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+   ======================================== */
+
+/* Font optimization */
+@font-face {
+  font-display: swap;
+}
+
+/* Smooth scrolling con respeto a prefers-reduced-motion */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Will-change para animaciones frecuentes */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Remove will-change after animation */
+.animation-end {
+  will-change: auto;
+}
+
+/* ========================================
+   PWA OPTIMIZATIONS
+   ======================================== */
+
+/* Smooth install animation */
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+/* Touch target sizes (mínimo 44x44px para accesibilidad táctil) */
+button,
+a,
+input[type="button"],
+input[type="submit"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ========================================
+   LOADING OPTIMIZATIONS
+   ======================================== */
+
+/* Skeleton loading states */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, #2d2d2d 25%, #3d3d3d 50%, #2d2d2d 75%);
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Lazy load fade in */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.lazy-load {
+  animation: fade-in 0.3s ease-in;
+}
+
+/* ========================================
+   PREMIUM DESIGN SYSTEM
+   ======================================== */
+
+.glass-card {
+  @apply rounded-3xl shadow-2xl transition-all duration-300;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass-card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.gradient-premium {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(to right, #fbbf24, #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.premium-shadow {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(251, 191, 36, 0.05) 45%,
+    rgba(251, 191, 36, 0.1) 50%,
+    rgba(251, 191, 36, 0.05) 55%,
+    transparent 100%
+  );
+  transform: rotate(45deg);
+  animation: shimmer-effect 6s infinite;
+}
+
+@keyframes shimmer-effect {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

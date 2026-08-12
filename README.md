@@ -2,11 +2,13 @@
 
 Sistema de autenticación biométrica por voz desarrollado como proyecto de tesis.
 
+> **Licencia:** [MIT](LICENSE) — Copyright (c) 2026 Tomás Poblete Chamorro.
+
 ## 🚀 Inicio Rápido
 
 ### Backend
 ```bash
-cd Backend
+cd apps/backend
 docker-compose up -d      # Iniciar PostgreSQL + pgAdmin
 ./start_server.sh         # Iniciar servidor
 ```
@@ -14,29 +16,38 @@ docker-compose up -d      # Iniciar PostgreSQL + pgAdmin
 
 ### Frontend
 ```bash
-cd App
+cd apps/frontend
 bun install && bun dev
 ```
 **App**: http://localhost:5173
 
 ### Base de Datos
 ```bash
-docker exec -i voice_biometrics_db psql -U voice_user -d voice_biometrics < Database/init.sql
+docker exec -i voice_biometrics_db psql -U voice_user -d voice_biometrics < infra/db/init.sql
 ```
 
 ## 📁 Estructura
 
 ```
-Proyecto/
-├── App/           # Frontend React + Vite + Tailwind
-├── Backend/       # API FastAPI + PostgreSQL
-├── Database/      # Schema SQL + migraciones
-├── evaluation/    # Evaluación biométrica del sistema
-└── docs/          # Documentación técnica
-    ├── backend/   # Arquitectura y API
-    ├── frontend/  # Documentación UI
-    ├── database/  # Schema y modelos
-    └── ANEXOS/    # Anexos de tesis
+Voice-Auth-System/
+├── apps/
+│   ├── backend/         # API FastAPI + PostgreSQL
+│   ├── frontend/        # UI React + Vite + Tailwind
+│   └── demo-bank/       # Demo "Banco Pirulete" (integración con el API)
+├── infra/
+│   ├── db/              # Schema SQL + migraciones + datos de libros
+│   ├── deployment/      # Dockerfile multi-stage del backend
+│   └── evaluation/      # Dataset de evaluación (PII, gitignored)
+├── docs/
+│   ├── arquitectura/    # Arquitectura, ML, backend, DB, frontend
+│   ├── manuales/        # Guías de usuario y admin
+│   ├── informe/         # Informe de tesis + interpretación de gráficos
+│   ├── API_ENDPOINTS_DOCUMENTATION.md
+│   └── ANEXOS/          # Anexos de tesis
+├── evaluation/          # Scripts y resultados de evaluación
+├── docker-compose.yml   # (en apps/backend/)
+├── .env.example         # Variables de entorno (raíz)
+└── LICENSE              # MIT
 ```
 
 ## 🔑 Usuarios de Prueba
@@ -49,15 +60,20 @@ Proyecto/
 
 ## 🛠️ Tecnologías
 
-- **Backend**: FastAPI, PostgreSQL 16, Redis, Docker
+- **Backend**: FastAPI, PostgreSQL 16 (pgvector), Docker
 - **Frontend**: React 19, TypeScript, Tailwind CSS, Vite
-- **ML**: SpeechBrain (ECAPA-TDNN, Wav2Vec2), Anti-spoofing ensemble
+- **ML**: SpeechBrain (ECAPA-TDNN), Anti-spoofing (AASIST + RawNet2)
+- **Demo Bank**: Hono + better-sqlite3
 
 ## 📚 Documentación
 
-- [Backend README](Backend/README.md)
-- [Frontend README](App/README.md)
-- [Documentación técnica](docs/)
+- [Backend README](apps/backend/README.md)
+- [Frontend README](apps/frontend/README.md)
+- [Arquitectura](docs/arquitectura/)
+- [Manuales](docs/manuales/)
+- [Informe de tesis](docs/informe/)
+- [Anexos](docs/ANEXOS/)
+- [API endpoints](docs/API_ENDPOINTS_DOCUMENTATION.md)
 
 ---
-**Proyecto de Tesis** - Universidad
+**Proyecto de Tesis** — Universidad

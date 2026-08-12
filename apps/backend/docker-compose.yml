@@ -1,0 +1,71 @@
+services:
+  # PostgreSQL Database with pgvector extension
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: voice_biometrics_db
+    environment:
+      POSTGRES_DB: voice_biometrics
+      POSTGRES_USER: voice_user
+      POSTGRES_PASSWORD: voice_password
+      TZ: America/Santiago
+      PGTZ: America/Santiago
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../infra/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U voice_user -d voice_biometrics"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Voice Biometrics API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: voice_biometrics_api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL:-postgresql://voice_user:${DB_PASSWORD:-voice_password}@postgres:5432/voice_biometrics}
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - LOG_LEVEL=INFO
+      - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173,http://127.0.0.1:5173
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./models:/app/models # Mount ML models
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # pgAdmin for database management (optional)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: voice_biometrics_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+
+networks:
+  default:
+    name: voice_biometrics_network
