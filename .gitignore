@@ -1,0 +1,44 @@
+# macOS
+.DS_Store
+
+# Node / frontend
+node_modules/
+*.tsbuildinfo
+*.bak
+dist/
+build/
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Entorno y secretos
+.env
+.env.local
+*.local
+
+# Tests / coverage
+coverage/
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# Logs
+logs/
+*.log
+
+# Audio procesado (nunca commitar audio)
+*.wav
+*.mp3
+*.flac
+*.ogg
+
+# Base de datos de libros: los PDFs son provistos por el usuario
+# (derechos de autor); ver README.md para el procedimiento.
+Database/Libros/
+Database/data_dump.sql
+
+# Grabaciones del dataset de evaluación (PII de usuarios)
+evaluation/dataset/
