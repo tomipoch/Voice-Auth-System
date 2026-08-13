@@ -4,12 +4,16 @@ Dataset Recording API Controller
 Endpoints para controlar la grabación de audios para dataset.
 """
 
+from datetime import datetime, timezone
+
 from fastapi import APIRouter, HTTPException, status, Depends
 from pydantic import BaseModel
 from typing import Optional
 import logging
 
 from evaluation.dataset_recorder import dataset_recorder
+from ..domain.repositories.system_settings_repository_port import SystemSettingsRepositoryPort
+from ..infrastructure.config.dependencies import get_system_settings_repository
 from .auth_guards import require_admin_user
 
 logger = logging.getLogger(__name__)
@@ -35,19 +39,31 @@ class RecordingStatusResponse(BaseModel):
 @router.post("/start")
 async def start_dataset_recording(
     request: StartRecordingRequest,
+    settings_repo: SystemSettingsRepositoryPort = Depends(get_system_settings_repository),
     _admin=Depends(require_admin_user),
 ):
     """
     Inicia grabación de audios para dataset.
-    
+
     Mientras está activo, todos los audios de enrollment y verification
     se guardan automáticamente en evaluation/dataset/recordings/<session_name>/
     """
     try:
         session_id = dataset_recorder.start_recording(request.session_name)
-        
+
+        await settings_repo.set(
+            "dataset_recording",
+            {
+                "enabled": True,
+                "session_id": session_id,
+                "session_dir": str(dataset_recorder.session_dir),
+                "started_at": datetime.now(timezone.utc).isoformat(),
+            },
+            updated_by="admin",
+        )
+
         logger.info(f"Started dataset recording: {session_id}")
-        
+
         return {
             "success": True,
             "session_id": session_id,
@@ -64,6 +80,7 @@ async def start_dataset_recording(
 
 @router.post("/stop")
 async def stop_dataset_recording(
+    settings_repo: SystemSettingsRepositoryPort = Depends(get_system_settings_repository),
     _admin=Depends(require_admin_user),
 ):
     """
@@ -71,8 +88,11 @@ async def stop_dataset_recording(
     """
     try:
         stopped_dir = dataset_recorder.stop_recording()
-        
+
         if stopped_dir:
+            await settings_repo.set(
+                "dataset_recording", {"enabled": False}, updated_by="admin"
+            )
             logger.info(f"Stopped dataset recording: {stopped_dir}")
             return {
                 "success": True,
@@ -94,18 +114,21 @@ async def stop_dataset_recording(
 
 @router.get("/status", response_model=RecordingStatusResponse)
 async def get_recording_status(
+    settings_repo: SystemSettingsRepositoryPort = Depends(get_system_settings_repository),
     _admin=Depends(require_admin_user),
 ):
     """
     Obtiene estado actual de grabación de dataset.
     """
     try:
+        stored = await settings_repo.get("dataset_recording") or {}
         summary = dataset_recorder.get_session_summary()
-        
+
+        enabled_persisted = stored.get("enabled")
         return RecordingStatusResponse(
-            enabled=summary.get("enabled", False),
-            session_id=summary.get("session_id"),
-            session_dir=summary.get("session_dir"),
+            enabled=bool(enabled_persisted) if enabled_persisted is not None else summary.get("enabled", False),
+            session_id=stored.get("session_id") or summary.get("session_id"),
+            session_dir=stored.get("session_dir") or summary.get("session_dir"),
             total_users=summary.get("total_users", 0),
             total_enrollment_audios=summary.get("total_enrollment_audios", 0),
             total_verification_audios=summary.get("total_verification_audios", 0)

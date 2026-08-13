@@ -258,6 +258,13 @@ async def get_phrase_quality_rules_service():
     return PhraseQualityRulesService(rules_repo)
 
 
+async def get_system_settings_repository():
+    """Get system settings repository instance."""
+    from ..persistence.postgres_system_settings_repository import PostgresSystemSettingsRepository
+    pool = await get_db_pool()
+    return PostgresSystemSettingsRepository(pool)
+
+
 async def get_challenge_service():
     """Get challenge service instance with dependencies."""
     from ..persistence.postgres_challenge_repository import PostgresChallengeRepository

@@ -187,6 +187,30 @@ async def lifespan(app: FastAPI):
         except Exception as exc:
             logger.warning(f"Could not register model versions: {exc}")
 
+    # 5. Restaurar la sesión de dataset recording si estaba activa antes del reinicio
+    if os.getenv("TESTING") != "True":
+        try:
+            from .infrastructure.persistence.postgres_system_settings_repository import (
+                PostgresSystemSettingsRepository,
+            )
+            from evaluation.dataset_recorder import dataset_recorder
+
+            pool = await get_db_pool()
+            settings_repo = PostgresSystemSettingsRepository(pool)
+            stored = await settings_repo.get("dataset_recording")
+            if stored and stored.get("enabled"):
+                session_dir = stored.get("session_dir")
+                if session_dir:
+                    from pathlib import Path
+                    dataset_recorder.current_session = stored.get("session_id")
+                    dataset_recorder.session_dir = Path(session_dir)
+                    dataset_recorder.enabled = True
+                    logger.info(
+                        f"Restored dataset recording session {stored.get('session_id')}"
+                    )
+        except Exception as exc:
+            logger.warning(f"Could not restore dataset recording: {exc}")
+
     yield
     
     logger.info("Shutting down Voice Biometrics API...")
