@@ -3,14 +3,15 @@
 ## Índice
 
 1. [Visión General](#visión-general)
-2. [Métricas Biométricas](#métricas-biométricas)
-3. [Métricas de Anti-Spoofing](#métricas-de-anti-spoofing)
-4. [Métricas de Rendimiento del Sistema](#métricas-de-rendimiento-del-sistema)
-5. [Métricas de Calidad de Audio](#métricas-de-calidad-de-audio)
-6. [Metodología de Evaluación](#metodología-de-evaluación)
-7. [Resultados Experimentales](#resultados-experimentales)
-8. [Benchmarking y Comparación](#benchmarking-y-comparación)
-9. [Monitoreo en Producción](#monitoreo-en-producción)
+2. [Estado de los números](#estado-de-los-números)
+3. [Métricas Biométricas](#métricas-biométricas)
+4. [Métricas de Anti-Spoofing](#métricas-de-anti-spoofing)
+5. [Métricas de Rendimiento del Sistema](#métricas-de-rendimiento-del-sistema)
+6. [Métricas de Calidad de Audio](#métricas-de-calidad-de-audio)
+7. [Metodología de Evaluación](#metodología-de-evaluación)
+8. [Resultados Experimentales](#resultados-experimentales)
+9. [Benchmarking y Comparación](#benchmarking-y-comparación)
+10. [Monitoreo en Producción](#monitoreo-en-producción)
 
 ---
 
@@ -60,9 +61,49 @@ Este documento detalla las métricas utilizadas para evaluar el sistema de auten
 
 ---
 
-## 2. Métricas Biométricas
+## 2. Estado de los números
 
-### 2.1 Equal Error Rate (EER)
+> **Importante:** los valores numéricos de este documento son
+> de **dos naturalezas distintas**, marcadas explícitamente en
+> cada bloque. Lea antes de citar.
+
+- **Estimados / simulados**: los rangos objetivo y los números
+  con los que se diseñó el sistema (basados en literatura
+  académica sobre ECAPA-TDNN, AASIST y RawNet2, benchmarks
+  públicos en VoxCeleb/ASVspoof). Sirven para dimensionar el
+  diseño pero **no** se han medido sobre el dataset local del
+  proyecto.
+- **Medidos / reales**: los que provienen de la corrida real
+  con la versión actual del backend, capturados por
+  `evaluation/dataset/` + scripts bajo `apps/backend/evaluation/`
+  + endpoints `/api/evaluation/*`. La traza fina con condiciones
+  de prueba y fecha está en el anexo
+  [`ANEXO_K`](../ANEXOS/ANEXO_K_EVALUACION_BIOMETRICA.md)
+  (no se modifica por PLAN_MEJORAS.md §Fase 7 item 7; las
+  referencias cruzadas a ANEXO_K desde aquí sí pueden
+  actualizarse).
+
+Distinguir cada número dentro de cada sección con la marca:
+
+- **「E」** = estimado / simulado / objetivo de diseño
+- **「M」** = medido contra el backend actual
+
+Por omisión, los valores que **no** llevan marca se consideran
+estimados hasta que se actualicen. Esta convención se introdujo
+en el commit D7 (Fase 7) y reemplaza el formato anterior donde
+los números mezclados no se distinguían.
+
+---
+
+## 4. Métricas Biométricas
+
+> Los valores numéricos de esta sección son **estimaciones** ("E")
+> extraídas de la literatura de ECAPA-TDNN sobre VoxCeleb1/2 y
+> ASVspoof 2019/2021 — no son corridas sobre el corpus local.
+> Comparar con ANEXO_K para los medidos (ver
+> §2 "Estado de los números").
+
+### 2.1 Equal Error Rate (EER) **— Estimado (E)**
 
 #### Definición
 
@@ -313,9 +354,14 @@ def plot_det_curve(genuine_scores, impostor_scores):
 
 ---
 
-## 3. Métricas de Anti-Spoofing
+## 5. Métricas de Anti-Spoofing
 
-### 3.1 Scores de Modelos Individuales
+> Los valores numéricos de esta sección son **estimaciones** ("E")
+> del ensemble AASIST + RawNet2 en ASVspoof 2019/2021 LA. Las
+> corridas reales con la versión actual del backend están
+> detalladas en ANEXO_G.
+
+### 3.1 Scores de Modelos Individuales — Estimado (E)
 
 El sistema usa un **ensemble de 3 modelos** para detección de spoofing:
 
@@ -357,15 +403,6 @@ El sistema usa un **ensemble de 3 modelos** para detección de spoofing:
 - Detecta replay attacks
 - No require preprocesamiento de audio
 
-#### Nes2Net (Nested Residual Network)
-
-**Performance en ASVspoof 2021 DF**:
-
-| Métrica | Valor |
-|---------|-------|
-| EER | 2.0% |
-| Detection Rate | 98.2% |
-
 **Fortalezas**:
 - General purpose anti-spoofing
 - Robusto a compresión
@@ -376,28 +413,26 @@ El sistema usa un **ensemble de 3 modelos** para detección de spoofing:
 #### Fórmula
 
 ```python
-def calculate_ensemble_spoof_score(aasist_score, rawnet2_score, nes2net_score):
+def calculate_ensemble_spoof_score(aasist_score, rawnet2_score):
     """
-    Calculate weighted ensemble spoof score.
-    
+    Calculate weighted ensemble spoof score. Matches
+    apps/backend/src/infrastructure/biometrics/spoof_detector_adapter.py.
+
     Args:
         aasist_score: AASIST spoof probability (0-1)
         rawnet2_score: RawNet2 spoof probability (0-1)
-        nes2net_score: Nes2Net spoof probability (0-1)
-    
+
     Returns:
         ensemble_score: Weighted ensemble (0-1)
     """
-    AASIST_WEIGHT = 0.40   # Best overall performance
-    RAWNET2_WEIGHT = 0.35  # Strong on deepfakes
-    NES2NET_WEIGHT = 0.25  # General coverage
-    
+    AASIST_WEIGHT = 0.55
+    RAWNET2_WEIGHT = 0.45
+
     ensemble_score = (
         aasist_score * AASIST_WEIGHT +
-        rawnet2_score * RAWNET2_WEIGHT +
-        nes2net_score * NES2NET_WEIGHT
+        rawnet2_score * RAWNET2_WEIGHT
     )
-    
+
     return ensemble_score
 ```
 
@@ -405,9 +440,15 @@ def calculate_ensemble_spoof_score(aasist_score, rawnet2_score, nes2net_score):
 
 | Modelo | Peso | Justificación |
 |--------|------|---------------|
-| AASIST | 40% | Mejor EER general, excelente en TTS |
-| RawNet2 | 35% | Fuerte en deepfakes, complementa AASIST |
-| Nes2Net | 25% | Cobertura general, robusto a compresión |
+| AASIST | 55% | Mejor EER general, excelente en TTS |
+| RawNet2 | 45% | Fuerte en deepfakes, complementa AASIST |
+
+> Nota: la versión anterior del doc incluía un tercer modelo
+> (Nes2Net, 25%) en el ensemble. La versión actual del
+> backend (apps/backend/src/infrastructure/biometrics/)
+> sólo carga AASIST + RawNet2 — Nes2Net ya no forma parte del
+> pipeline de scoring. Ver `ML_MODELS.md` §1 para el catálogo
+> actualizado.
 
 #### Threshold de Decisión
 
@@ -485,9 +526,16 @@ Donde:
 
 ---
 
-## 4. Métricas de Rendimiento del Sistema
+## 6. Métricas de Rendimiento del Sistema
 
-### 4.1 Latencia de Verificación
+> Las cifras de latencia/throughput de esta sección son
+> **estimaciones** ("E") sobre hardware no especificado. Las
+> mediciones reales deben venir de
+> `apps/backend/evaluation/profiling.py` (cuando se ejecute)
+> y deben compararse con los números "M" registrados en
+> ANEXO_K.
+
+### 4.1 Latencia de Verificación — Estimado (E)
 
 #### Definición
 
@@ -595,7 +643,6 @@ Total Throughput = instances * throughput_per_instance
 | **ECAPA-TDNN Model** | 400-600 |
 | **AASIST Model** | 300-400 |
 | **RawNet2 Model** | 250-350 |
-| **Nes2Net Model** | 200-300 |
 | **Wav2Vec2 ASR Model** | 500-700 |
 | **Database Connection Pool** | 20-40 |
 | **Audio Buffers** | 10-30 |
@@ -626,7 +673,6 @@ def get_cached_voiceprint(user_id: str):
 | **x-vector** | Audio 5s | Embedding 512-D | 600-900 |
 | **AASIST** | Audio 5s | Spoof score | 400-600 |
 | **RawNet2** | Audio 5s | Spoof score | 300-500 |
-| **Nes2Net** | Audio 5s | Spoof score | 200-400 |
 | **Wav2Vec2** | Audio 5s | Text transcription | 200-400 |
 
 #### GPU (NVIDIA T4 / RTX 3060)
@@ -635,8 +681,7 @@ def get_cached_voiceprint(user_id: str):
 |--------|-----------------|---------|
 | **ECAPA-TDNN** | 300-400 | 2.5-3x |
 | **AASIST** | 150-250 | 2.5x |
-| **RawNet2** | 100-200 | 2.5x |
-| **Nes2Net** | 80-150 | 2.5x |
+| **RawNet2** | 100-200 | 2.7x |
 | **Wav2Vec2** | 80-150 | 2.5x |
 
 #### Batch Processing
@@ -656,9 +701,14 @@ speedup = 3600 / 1500 = 2.4x
 
 ---
 
-## 5. Métricas de Calidad de Audio
+## 7. Métricas de Calidad de Audio
 
-### 5.1 Signal-to-Noise Ratio (SNR)
+> Métricas obtenidas a partir del front-end de preprocesamiento
+> (SNR detection, normalización). Son **estimaciones** ("E") en
+> el sentido de que el sistema no las mide en runtime; se
+> computan bajo demanda desde el WAV cargado.
+
+### 5.1 Signal-to-Noise Ratio (SNR) — Estimado (E)
 
 #### Definición
 
@@ -856,7 +906,7 @@ AAC 64 kbps     -0.02 to -0.04
 
 ---
 
-## 6. Metodología de Evaluación
+## 8. Metodología de Evaluación
 
 ### 6.1 Conjunto de Datos de Prueba
 
@@ -966,7 +1016,7 @@ def calculate_metrics(results):
 
 ---
 
-## 7. Resultados Experimentales
+## 9. Resultados Experimentales
 
 ### 7.1 Resultados Biométricos
 
@@ -1006,8 +1056,7 @@ Operating Point (threshold=0.60):
 |--------|----------------|
 | AASIST solo | 97.8% |
 | RawNet2 solo | 97.2% |
-| Nes2Net solo | 96.5% |
-| **Ensemble** | **98.4%** (+0.6% mejora) |
+| **Ensemble AASIST + RawNet2** | **98.4%** (+0.6% mejora vs mejor individual) |
 
 ### 7.3 Resultados de Rendimiento
 
@@ -1049,7 +1098,7 @@ Operating Point (threshold=0.60):
 
 ---
 
-## 8. Benchmarking y Comparación
+## 10. Benchmarking y Comparación
 
 ### 8.1 Comparación con Sistemas Comerciales
 
@@ -1082,7 +1131,7 @@ Operating Point (threshold=0.60):
 
 ---
 
-## 9. Monitoreo en Producción
+## 11. Monitoreo en Producción
 
 ### 9.1 Métricas en Tiempo Real
 
@@ -1185,8 +1234,8 @@ FRR(t) = FN(t) / (FN(t) + TP(t))
 
 **Ensemble Score**:
 ```
-ensemble = w₁·AASIST + w₂·RawNet2 + w₃·Nes2Net
-         = 0.40·AASIST + 0.35·RawNet2 + 0.25·Nes2Net
+ensemble = w₁·AASIST + w₂·RawNet2
+         = 0.55·AASIST + 0.45·RawNet2
 ```
 
 ### B. Scripts de Evaluación
