@@ -361,6 +361,8 @@ CREATE INDEX IF NOT EXISTS idx_challenge_used         ON challenge(used_at);
 CREATE INDEX IF NOT EXISTS idx_auth_created           ON auth_attempt(created_at);
 CREATE INDEX IF NOT EXISTS idx_auth_user_time         ON auth_attempt(user_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_auth_reason            ON auth_attempt(reason);
+CREATE INDEX IF NOT EXISTS idx_auth_attempt_challenge ON auth_attempt(challenge_id);
+CREATE INDEX IF NOT EXISTS idx_auth_attempt_client    ON auth_attempt(client_id);
 
 CREATE INDEX IF NOT EXISTS idx_scores_similarity      ON scores(similarity);
 CREATE INDEX IF NOT EXISTS idx_scores_spoof           ON scores(spoof_prob);
