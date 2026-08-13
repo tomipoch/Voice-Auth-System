@@ -1,4 +1,7 @@
-// @ts-nocheck - Este hook tiene muchas incompatibilidades de tipos del browser audio API
+// Browser audio API (MediaRecorder, AudioContext, webkit prefix) has
+// drifted between lib.dom versions; explicit minimal `as` casts are
+// scoped to where the types are unsound. See PLAN_MEJORAS.md §5
+// item 4 (drop @ts-nocheck).
 import { useState, useRef, useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
@@ -32,7 +35,7 @@ const audioUtils = {
     const length = audioBuffer.length;
 
     for (let i = 0; i < length; i++) {
-      sum += Math.abs(audioBuffer[i]);
+      sum += Math.abs(audioBuffer[i] ?? 0);
     }
 
     const average = sum / length;
@@ -49,11 +52,11 @@ const audioUtils = {
     let silentSamples = 0;
     const totalSamples = audioBuffer.length;
 
-    for (let i = 0; i < totalSamples; i++) {
-      if (Math.abs(audioBuffer[i]) < threshold) {
-        silentSamples++;
+for (let i = 0; i < totalSamples; i++) {
+        if (Math.abs(audioBuffer[i] ?? 0) < threshold) {
+          silentSamples++;
+        }
       }
-    }
 
     const silencePercentage = (silentSamples / totalSamples) * 100;
     return silencePercentage > 50; // Más del 50% es silencio
@@ -105,7 +108,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
 
       let sum = 0;
       for (let i = 0; i < bufferLength; i++) {
-        sum += dataArray[i];
+        sum += dataArray[i] ?? 0;
       }
 
       const average = sum / bufferLength;
@@ -146,7 +149,9 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
       chunksRef.current = [];
 
       // Crear contexto de audio para análisis
-      audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      audioContextRef.current = new (window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext })
+          .webkitAudioContext)();
 
       // Determinar mimeType compatible
       let mimeType = 'audio/webm;codecs=opus';
@@ -265,7 +270,9 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
           if (autoStop && newTime >= maxDuration) {
             console.log('Max duration reached, stopping...');
             stopRecording();
-            toast.info(`Grabación detenida automáticamente (${maxDuration}s máximo)`);
+            toast(`Grabación detenida automáticamente (${maxDuration}s máximo)`, {
+          icon: '⏱️',
+        });
           }
 
           return newTime;
@@ -280,11 +287,12 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
     } catch (err) {
       let errorMessage = 'Error al acceder al micrófono';
 
-      if (err.name === 'NotAllowedError') {
+      const errName = (err as { name?: string }).name;
+      if (errName === 'NotAllowedError') {
         errorMessage = 'Permisos de micrófono denegados';
-      } else if (err.name === 'NotFoundError') {
+      } else if (errName === 'NotFoundError') {
         errorMessage = 'No se encontró micrófono';
-      } else if (err.name === 'NotSupportedError') {
+      } else if (errName === 'NotSupportedError') {
         errorMessage = 'Grabación no soportada en este navegador';
       }
 
@@ -336,7 +344,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
 
   // Analizar grabación
   const analyzeRecording = useCallback(
-    async (blob, actualDuration) => {
+    async (blob: Blob | null, actualDuration: number) => {
       if (!blob || !onQualityCheck) return;
 
       try {
@@ -344,7 +352,9 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
 
         // Convertir blob a ArrayBuffer
         const arrayBuffer = await blob.arrayBuffer();
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const audioContext = new (window.AudioContext ||
+          (window as unknown as { webkitAudioContext: typeof AudioContext })
+            .webkitAudioContext)();
         const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
 
         // Obtener datos de audio
@@ -404,7 +414,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
   }, [recordedBlob]);
 
   // Formatear tiempo
-  const formatTime = useCallback((seconds) => {
+  const formatTime = useCallback((seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
@@ -478,7 +488,8 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
     togglePause,
     clearRecording,
     playRecording,
-    analyzeRecording: () => recordedBlob && analyzeRecording(recordedBlob),
+    analyzeRecording: () =>
+      recordedBlob && analyzeRecording(recordedBlob, recordingTime),
     cleanup,
 
     // Utilidades
