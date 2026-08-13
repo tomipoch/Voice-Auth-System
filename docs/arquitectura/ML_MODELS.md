@@ -15,7 +15,6 @@ Este documento detalla los modelos de Machine Learning utilizados en el sistema 
 | **Wav2Vec2 ASR** | Automatic Speech Recognition (verificación de texto) | CommonVoice 14 (Español) | HuggingFace/SpeechBrain (`speechbrain/asr-wav2vec2-commonvoice-14-es`) | N/A (texto) |
 | **AASIST** | Anti-Spoofing (detección de voz sintética) | ASVspoof 2019/2021 LA | SpeechBrain + Local weights | N/A (score) |
 | **RawNet2** | Anti-Spoofing (detección de deepfakes) | ASVspoof 2019/2021 LA | SpeechBrain + Local weights | N/A (score) |
-| **Nes2Net** | Anti-Spoofing (general purpose) | ASVspoof 2021 DF | Local weights | N/A (score) |
 
 ---
 
@@ -108,26 +107,12 @@ El sistema utiliza un **ensemble de 3 modelos** para detección robusta de spoof
   - EER: ~1.5% en ASVspoof 2021 LA
 - **Repositorio**: `models/anti-spoofing/rawnet2/`
 
-#### Nes2Net (General Purpose)
-- **Arquitectura**: Nested Residual Network
-- **Dataset**: ASVspoof 2021 Deepfake (DF)
-  - Múltiples tipos de ataques
-  - Scenarios de audio comprimido
-- **Peso en ensemble**: 25%
-- **Fortalezas**:
-  - Detección general de ataques
-  - Robusto a compresión de audio
-- **Performance**:
-  - EER: ~2.0% en ASVspoof 2021 DF
-- **Repositorio**: `models/anti-spoofing/nes2net/`
-
 #### Estrategia de Ensemble
 
 ```python
 spoof_score = (
-    aasist_score * 0.40 +
-    rawnet2_score * 0.35 +
-    nes2net_score * 0.25
+    aasist_score * 0.55 +
+    rawnet2_score * 0.45
 )
 
 is_spoofed = spoof_score >= DEFAULT_SPOOF_THRESHOLD  # 0.5
@@ -148,7 +133,6 @@ El ensemble proporciona:
 | **CommonVoice 14 (ES)** | ASR en Español | ~1000 horas | Wav2Vec2 ASR |
 | **ASVspoof 2019 LA** | Anti-Spoofing Logical Access | ~100k sintéticas | AASIST, RawNet2 |
 | **ASVspoof 2021 LA** | Anti-Spoofing actualizado | Expandido | AASIST, RawNet2 |
-| **ASVspoof 2021 DF** | Anti-Spoofing Deepfakes | Múltiples ataques | Nes2Net |
 
 ---
 
