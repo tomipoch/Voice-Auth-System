@@ -2,7 +2,7 @@
 
 ## ✅ Estado: COMPLETAMENTE FUNCIONAL
 
-Se ha integrado exitosamente el sistema de **43,459 frases dinámicas** entre el backend FastAPI y el frontend React.
+Se ha integrado exitosamente el sistema de **37,407 frases dinámicas** entre el backend FastAPI y el frontend React.
 
 ---
 
@@ -12,7 +12,7 @@ Se ha integrado exitosamente el sistema de **43,459 frases dinámicas** entre el
 
 #### Servicios
 1. ✅ `Backend/src/application/enrollment_service.py` - Enrollment con frases dinámicas
-2. ✅ `Backend/src/application/verification_service_v2.py` - Verification con frases dinámicas
+2. ✅ `Backend/src/application/verification_service.py` - Verification con frases dinámicas
 3. ✅ `Backend/src/application/phrase_service.py` - Gestión de frases (ya existía)
 
 #### Controladores (API)
@@ -173,9 +173,8 @@ GET    /api/v1/verification/history/{id}  → Historial
 ### Phrases
 ```
 GET    /api/phrases/random      → Frases aleatorias
-GET    /api/phrases/stats       → Estadísticas (43,459 total)
+GET    /api/phrases/stats       → Estadísticas (37,407 total)
 GET    /api/phrases/list        → Listar todas
-POST   /api/phrases/record-usage → Registrar uso
 PATCH  /api/phrases/{id}/status  → Activar/desactivar
 DELETE /api/phrases/{id}          → Eliminar
 ```
@@ -186,7 +185,7 @@ DELETE /api/phrases/{id}          → Eliminar
 
 ### Tabla: phrase
 ```sql
-43,459 frases totales:
+37,407 frases totales:
 - 6,637 easy (15.3%)
 - 25,063 medium (57.7%)
 - 11,759 hard (27.0%)
@@ -401,7 +400,7 @@ npm run preview
 ## 📝 Checklist Final
 
 ### Backend ✅
-- [x] 43,459 frases en DB
+- [x] 37,407 frases en DB
 - [x] Enrollment service con frases dinámicas
 - [x] Verification service con frases dinámicas
 - [x] 11 endpoints REST funcionando
@@ -484,7 +483,7 @@ docker-compose logs postgres
 
 **Sistema completamente funcional con:**
 
-✅ 43,459 frases dinámicas en base de datos  
+✅ 37,407 frases dinámicas en base de datos  
 ✅ Backend FastAPI con 11 endpoints REST  
 ✅ Frontend React con componentes completos  
 ✅ Integración full-stack funcionando  
@@ -502,6 +501,6 @@ docker-compose logs postgres
 
 **Estado**: ✅ **100% COMPLETADO Y FUNCIONAL**  
 **Fecha**: 20 de noviembre de 2025  
-**Backend**: FastAPI + PostgreSQL + 43,459 frases  
+**Backend**: FastAPI + PostgreSQL + 37,407 frases  
 **Frontend**: React + TypeScript + UI completa  
 **Arquitectura**: Microservicios REST + Repository Pattern
