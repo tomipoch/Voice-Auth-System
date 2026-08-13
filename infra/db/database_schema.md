@@ -23,51 +23,63 @@ Esquema completo en `infra/db/init.sql` (baseline idempotente, fuente de verdad)
 | `books` | Metadatos de los libros fuente de las frases | Activa |
 | `audit_log` | Bitácora operacional (ENROLL, VERIFY, LOGIN, ...) | Activa |
 | `schema_migrations` | Control del runner de migraciones | Activa |
-| `enrollment_session` | Sesiones de enrolamiento persistentes | Inactiva (código usa memoria) |
-| `system_settings` | Configuración global (ej. grabación de dataset) | Inactiva |
-| `client_app` | Clientes de la API (patrón middleware) | Inactiva |
-| `api_key` | API keys con hash por cliente | Inactiva |
-| `auth_attempt` | Decisión final de negocio de cada verificación | Inactiva |
-| `scores` | Señales técnicas (similitud, spoof, ASR, latencia) | Inactiva |
-| `audio_blob` | Audio crudo cifrado (evidencia forense) | Inactiva |
-| `model_version` | Versiones de modelos ML usados en decisiones | Inactiva |
-| `v_attempt_metrics` | Vista Riesgo/Fraude sobre auth_attempt+scores | Inactiva |
+| `enrollment_session` | Sesiones de enrolamiento persistentes | Activa |
+| `system_settings` | Configuración global (ej. grabación de dataset) | Activa |
+| `client_app` | Clientes de la API (patrón middleware) | Activa |
+| `api_key` | API keys con hash por cliente | Activa |
+| `auth_attempt` | Decisión final de negocio de cada verificación | Activa |
+| `scores` | Señales técnicas (similitud, spoof, ASR, latencia) | Activa |
+| `audio_blob` | Audio crudo cifrado (evidencia forense) | Activa |
+| `model_version` | Versiones de modelos ML usados en decisiones | Activa |
+| `v_attempt_metrics` | Vista Riesgo/Fraude sobre auth_attempt+scores | Activa |
 
-## Análisis de tablas sin uso en el backend (decisión: conservar)
+## Tablas inactivas conectadas (2026-08)
 
-1. **`client_app` + `api_key`** — propósito original: el "Middleware Pattern" de la
-   propuesta (clientes externos consumiendo la API biométrica con su propia key,
-   auth + rate-limit por cliente). Hoy la API autentica con JWT de usuario y
-   rate-limita global con slowapi; nunca se implementó el patrón por cliente.
-   Recomendación: conservar (2 tablas pequeñas); si se necesita exposición
-   multiusuario de la API, implementar el middleware que las use.
+Tras esta conexión, las 8 tablas "inactivas" del baseline ya están cableadas al
+backend. Resumen por tabla:
 
-2. **`auth_attempt` + `scores`** — propósito: separar la decisión de negocio
-   (aceptado/rechazado + motivo) de las señales técnicas crudas (similaridad,
-   spoof_prob, phrase_match, latencia) para peritaje antifraude (área Riesgo y
-   Fraude). Hoy el historial de verificaciones se reconstruye parseando
-   `audit_log.metadata` (`VerificationService.get_verification_history`).
-   Recomendación: es el candidato más valioso a conectar a futuro — persistir aquí
-   cada verificación daría historial estructurado y consultable sin parseo.
+1. **`auth_attempt` + `scores` + `audio_blob`** — `VerificationService`
+   (`apps/backend/src/application/verification_service.py`) persiste cada
+   intento de los 3 flujos (single, multi, quick) con su razón (`auth_reason`),
+   `policy_id` ('single'|'multi'|'quick'), `total_latency_ms` y los IDs de los
+   modelos ML usados (`speaker_model_id`/`antispoof_model_id`/`asr_model_id`).
+   Audio en `audio_blob` solo cuando `user_policy.keep_audio=true`. El historial
+   `GET /api/verification/user/{id}/history` se sirve desde `auth_attempt` +
+   `scores` con el MISMO shape que consumía el frontend (los intentos previos a
+   esta conexión solo viven en `audit_log`). Repos:
+   `VerificationAttemptRepositoryPort` (`src/domain/repositories/`) +
+   `PostgresVerificationAttemptRepository` (asyncpg, `audio_blob` + `auth_attempt`
+   + `scores` en una transacción).
 
-3. **`audio_blob`** — propósito: evidencia de audio cifrado en reposo con retención
-   configurable (`user_policy.keep_audio`/`retention_days`) y purga
-   (`purge_expired_data()`). Hoy el audio se guarda en disco bajo
-   `evaluation/dataset/` cuando la grabación de dataset está activa (respetando
-   `keep_audio`). Recomendación: conservar; alternativa futura: blob storage con
-   referencia en `auth_attempt`.
+2. **`model_version`** — `ModelManager` se registra en `model_version` durante
+   el `lifespan` de la app (`main.py`); el `model_type='antispoofing'` interno
+   se mapea al CHECK del enum `kind='antispoof'`. `VerificationService` resuelve
+   `get_model_id(kind)` para etiquetar cada `auth_attempt`.
 
-4. **`model_version`** — propósito: trazabilidad forense de qué versión de cada
-   modelo (speaker/antispoof/asr) tomó cada decisión. `voiceprint.speaker_model_id`
-   existe (y se corrigió su persistencia) pero nadie registra versiones de modelos.
-   Recomendación: conservar; tarea futura: registrar los modelos reales al arrancar
-   (`model_manager.py`) para que los nuevos voiceprints queden etiquetados.
+3. **`enrollment_session`** — `EnrollmentService` persiste cada `start_enrollment`,
+   `add_enrollment_sample` y marca `mark_completed` al terminar. `get_session` es
+   ahora `async` y la recupera desde el repo tras un reinicio. UNIQUE por
+   `user_id` se gestiona con `SELECT FOR UPDATE` + `DELETE` + `INSERT` dentro de
+   una transacción (no `ON CONFLICT`, porque la constraint es `DEFERRABLE`).
+   Repos: `EnrollmentSessionRepositoryPort` +
+   `PostgresEnrollmentSessionRepository`.
 
-5. **Columnas/tablas huérfanas** — `phrase.phoneme_score`, `phrase.style`
-   (clasificación fonémica/estilística para análisis de calidad), `enrollment_session`
-   (persistir sesiones de enrolamiento entre reinicios) y `system_settings`
-   (flag de grabación de dataset vía superadmin). Ninguna es leída por el código
-   hoy. Se conservan por decisión del proyecto.
+4. **`system_settings`** — `dataset_recording` flag (enabled/session_id/session_dir/
+   started_at) vive aquí; `DatasetRecordingController` lo lee/escribe en start/
+   stop/status. El `lifespan` restaura la sesión activa antes de aceptar requests.
+   Repos: `SystemSettingsRepositoryPort` +
+   `PostgresSystemSettingsRepository`.
+
+5. **`client_app` + `api_key`** — clientes externos usan `X-API-Key` opcional
+   (no rompe JWT). `api_key.key_hash` se calcula con SHA-256 de la key cruda
+   (nunca se persiste la key). CRUD admin en `/api/admin/clients` (POST/GET,
+   `/rotate`, DELETE) con `require_admin_user`. `VerificationService` recibe
+   `client_id` opcional y lo persiste en `auth_attempt.client_id`. Repos:
+   `ClientAppRepositoryPort` + `PostgresClientAppRepository`.
+
+Migración nueva: `001_add_auth_attempt_indexes.sql` (índices
+`idx_auth_attempt_challenge` y `idx_auth_attempt_client`, replicados en
+`init.sql` para BDs nuevas).
 
 ## Índices y optimización
 - `idx_phrase_text_trgm` (GIN trigram) — acelera `ILIKE '%..%'` del admin sobre 37k frases.
