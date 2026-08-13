@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useEffect, useState, type ReactNode } from 'react';
 import { storageService } from '../services/storage';
 import { applyTheme, getInitialTheme, getSystemTheme } from './theme';
 import type { ThemeContextType } from '../types/index.js';

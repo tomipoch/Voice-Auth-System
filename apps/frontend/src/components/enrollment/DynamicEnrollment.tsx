@@ -9,7 +9,7 @@ import enrollmentService, {
   type Phrase,
   type StartEnrollmentResponse,
 } from '../../services/enrollmentService';
-import { type AudioQuality } from '../../hooks/useAdvancedAudioRecording';
+import type { AudioQuality } from '../../hooks/useAdvancedAudioRecording';
 import EnhancedAudioRecorder from './EnhancedAudioRecorder';
 import Button from '../ui/Button';
 import Card from '../ui/Card';

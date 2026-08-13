@@ -36,17 +36,6 @@ export const PhrasesPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalPhrases, setTotalPhrases] = useState(0);
 
-  // Load stats and books on mount
-  useEffect(() => {
-    loadStats();
-    loadBooks();
-  }, []);
-
-  // Load phrases when filters change
-  useEffect(() => {
-    loadPhrases();
-  }, [filters]);
-
   const loadStats = async () => {
     try {
       const data = await phraseService.getStats();
@@ -85,6 +74,17 @@ export const PhrasesPage = () => {
       setLoadingTable(false);
     }
   };
+
+  // Load stats and books on mount
+  useEffect(() => {
+    loadStats();
+    loadBooks();
+  }, []);
+
+  // Load phrases when filters change
+  useEffect(() => {
+    loadPhrases();
+  }, [filters]);
 
   const handleToggleStatus = async (phraseId: string, currentStatus: boolean) => {
     try {
@@ -233,7 +233,7 @@ export const PhrasesPage = () => {
           </select>
 
           {/* Clear Filters */}
-          <button
+          <button type="button"
             onClick={() =>
               setFilters({
                 page: 1,
@@ -375,7 +375,7 @@ export const PhrasesPage = () => {
                       </td>
                       <td className="py-3 px-4 text-center">
                         <div className="flex justify-center">
-                          <button
+                          <button type="button"
                             onClick={() => handleDelete(phrase.id)}
                             className="flex items-center justify-center h-8 w-8 rounded-full bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50 transition-colors"
                             title="Eliminar frase"
@@ -398,14 +398,14 @@ export const PhrasesPage = () => {
                 {totalPhrases.toLocaleString()} frases
               </div>
               <div className="flex gap-2">
-                <button
+                <button type="button"
                   onClick={() => handlePageChange(filters.page! - 1)}
                   disabled={filters.page === 1}
                   className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 >
                   ← Anterior
                 </button>
-                <button
+                <button type="button"
                   onClick={() => handlePageChange(filters.page! + 1)}
                   disabled={filters.page === totalPages}
                   className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"

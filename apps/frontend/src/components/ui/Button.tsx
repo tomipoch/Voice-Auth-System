@@ -68,7 +68,7 @@ const Button = memo(
     );
 
     return (
-      <button className={classes} disabled={disabled || loading} {...props}>
+      <button type="button" className={classes} disabled={disabled || loading} {...props}>
         {loading ? (
           <div className="flex items-center justify-center">
             <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin mr-2"></div>

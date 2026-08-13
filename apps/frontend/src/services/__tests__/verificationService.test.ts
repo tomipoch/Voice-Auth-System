@@ -160,7 +160,7 @@ describe('verificationService', () => {
         params: { limit: 5 },
       });
       expect(result.history.recent_attempts).toHaveLength(1);
-      expect(result.history.recent_attempts[0]!.result).toBe('success');
+      expect(result.history.recent_attempts[0]?.result).toBe('success');
     });
 
     it('falls back to the default limit of 10', async () => {

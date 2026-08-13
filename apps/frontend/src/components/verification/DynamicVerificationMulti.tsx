@@ -12,7 +12,7 @@ import verificationService, {
   type Challenge,
   type PhraseResult,
 } from '../../services/verificationService';
-import { type AudioQuality } from '../../hooks/useAdvancedAudioRecording';
+import type { AudioQuality } from '../../hooks/useAdvancedAudioRecording';
 import EnhancedAudioRecorder from '../enrollment/EnhancedAudioRecorder';
 import Button from '../ui/Button';
 import Card from '../ui/Card';

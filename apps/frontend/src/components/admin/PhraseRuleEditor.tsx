@@ -33,7 +33,7 @@ export const PhraseRuleEditor = ({ rule, isOpen, onClose, onSave }: PhraseRuleEd
 
   const validateValue = (val: string): boolean => {
     const numValue = parseFloat(val);
-    if (isNaN(numValue)) {
+    if (Number.isNaN(numValue)) {
       setError('Debe ingresar un número válido');
       return false;
     }
@@ -119,7 +119,7 @@ export const PhraseRuleEditor = ({ rule, isOpen, onClose, onSave }: PhraseRuleEd
           {/* Detailed Information */}
           {ruleDetail && (
             <div className="mb-6 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-              <button
+              <button type="button"
                 onClick={() => setShowDetails(!showDetails)}
                 className="flex items-center justify-between w-full px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
@@ -209,7 +209,6 @@ export const PhraseRuleEditor = ({ rule, isOpen, onClose, onSave }: PhraseRuleEd
                   : 'border-gray-300 dark:border-gray-600'
               }`}
               placeholder="Ingrese el nuevo valor"
-              autoFocus
             />
             {error && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{error}</p>}
           </div>
@@ -228,14 +227,14 @@ export const PhraseRuleEditor = ({ rule, isOpen, onClose, onSave }: PhraseRuleEd
 
           {/* Actions */}
           <div className="flex gap-3 justify-end">
-            <button
+            <button type="button"
               onClick={onClose}
               disabled={isSaving}
               className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition-colors"
             >
               Cancelar
             </button>
-            <button
+            <button type="button"
               onClick={handleSave}
               disabled={isSaving || !!error || !value}
               className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"

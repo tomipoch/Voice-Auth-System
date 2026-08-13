@@ -215,7 +215,7 @@ const SettingsPage = () => {
                     onChange={(e) =>
                       setLocalSettings((prev) => ({
                         ...prev,
-                        security: { ...prev.security, sessionTimeout: parseInt(e.target.value) },
+                        security: { ...prev.security, sessionTimeout: parseInt(e.target.value, 10) },
                       }))
                     }
                     className="w-full px-4 py-3 pr-10 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none cursor-pointer hover:border-gray-400 dark:hover:border-gray-500"
@@ -229,7 +229,7 @@ const SettingsPage = () => {
                     <option value={1440}>24 horas</option>
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 dark:text-gray-300">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -263,7 +263,7 @@ const SettingsPage = () => {
               <div>
                 <p className="font-medium text-gray-800 dark:text-gray-200 mb-3">Tema de Color</p>
                 <div className="grid grid-cols-3 gap-4">
-                  <button
+                  <button type="button"
                     onClick={() => handleThemeChange('light')}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       localSettings.appearance.theme === 'light'
@@ -275,7 +275,7 @@ const SettingsPage = () => {
                     <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Claro</p>
                   </button>
 
-                  <button
+                  <button type="button"
                     onClick={() => handleThemeChange('dark')}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       localSettings.appearance.theme === 'dark'
@@ -287,7 +287,7 @@ const SettingsPage = () => {
                     <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Oscuro</p>
                   </button>
 
-                  <button
+                  <button type="button"
                     onClick={() => handleThemeChange('system')}
                     className={`p-4 rounded-xl border-2 transition-all ${
                       localSettings.appearance.theme === 'system'

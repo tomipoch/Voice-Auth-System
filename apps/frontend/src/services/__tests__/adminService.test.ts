@@ -80,7 +80,7 @@ describe('adminService', () => {
       expect(mockedGet).toHaveBeenCalledWith('/admin/users', {
         params: { page: 2, page_size: 25 },
       });
-      expect(result.users[0]!.email).toBe('ana@x.com');
+      expect(result.users[0]?.email).toBe('ana@x.com');
       expect(result.total).toBe(1);
     });
   });
@@ -122,7 +122,7 @@ describe('adminService', () => {
       });
       const result = await adminService.getPhraseRules();
       expect(mockedGet).toHaveBeenCalledWith('/admin/phrase-rules');
-      expect(result[0]!.rule_name).toBe('similarity_threshold');
+      expect(result[0]?.rule_name).toBe('similarity_threshold');
     });
   });
 

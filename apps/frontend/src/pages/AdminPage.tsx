@@ -320,7 +320,7 @@ const AdminPage = () => {
         ].map((tab) => {
           const Icon = tab.icon;
           return (
-            <button
+            <button type="button"
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`

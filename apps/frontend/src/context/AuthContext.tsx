@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect, ReactNode } from 'react';
+import { createContext, useReducer, useEffect, type ReactNode } from 'react';
 import { authService } from '../services/authService';
 import { authStorage } from '../services/storage';
 import { features } from '../config/environment.js';
@@ -144,7 +144,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         console.log('🔍 Auth initialization check:', {
           hasToken: !!token,
           hasUser: !!user,
-          token: token ? token.substring(0, 20) + '...' : 'none',
+          token: token ? `${token.substring(0, 20)}...` : 'none',
           user: user ? user.name : 'none',
         });
       }

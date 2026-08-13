@@ -57,7 +57,7 @@ const PWAInstallPrompt = () => {
   return (
     <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 z-50 animate-slide-up">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 p-6">
-        <button
+        <button type="button"
           onClick={handleDismiss}
           className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
           aria-label="Cerrar"

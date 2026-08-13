@@ -138,7 +138,7 @@ describe('phraseService', () => {
       const result = await phraseService.getBooks();
       expect(mockedGet).toHaveBeenCalledWith('/phrases/books');
       expect(result).toHaveLength(2);
-      expect(result[0]!.title).toBe('Don Quijote');
+      expect(result[0]?.title).toBe('Don Quijote');
     });
   });
 });

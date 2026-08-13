@@ -124,7 +124,7 @@ export const PhraseRuleCard = ({ rule, onEdit, onToggle }: PhraseRuleCardProps) 
 
         {/* Details Toggle */}
         {ruleDetail && (
-          <button
+          <button type="button"
             onClick={() => setShowDetails(!showDetails)}
             className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium flex items-center gap-1 transition-colors"
           >
@@ -177,7 +177,7 @@ export const PhraseRuleCard = ({ rule, onEdit, onToggle }: PhraseRuleCardProps) 
           </div>
 
           {/* Edit Button */}
-          <button
+          <button type="button"
             onClick={() => onEdit(rule)}
             className="flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors shadow-sm"
             title="Editar configuración de esta regla"

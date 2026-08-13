@@ -1,4 +1,4 @@
-import { useEffect, ReactNode } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import { X } from 'lucide-react';
 
 interface ModalProps {
@@ -108,7 +108,7 @@ const Modal = ({
                 <h2 className="text-3xl font-bold bg-linear-to-r from-gray-800 via-blue-700 to-purple-800 dark:from-gray-200 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                   {title}
                 </h2>
-                <button
+                <button type="button"
                   onClick={onClose}
                   className="group relative p-2 hover:bg-white dark:bg-gray-900/20 dark:hover:bg-gray-700/20 rounded-xl transition-all duration-200 backdrop-blur-sm"
                 >

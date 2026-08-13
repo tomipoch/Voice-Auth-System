@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Mic, Square, CheckCircle, Loader2 } from 'lucide-react';
-import { useAdvancedAudioRecording, AudioQuality } from '../../hooks/useAdvancedAudioRecording';
+import { useAdvancedAudioRecording, type AudioQuality } from '../../hooks/useAdvancedAudioRecording';
 import CountdownTimer from './CountdownTimer';
 import Card from '../ui/Card';
 import toast from 'react-hot-toast';
@@ -107,7 +107,7 @@ const EnhancedAudioRecorder = ({
               <Mic className="h-12 w-12 text-blue-600 dark:text-blue-400" />
             </div>
             <p className="text-gray-700 dark:text-gray-300">Presiona el botón para comenzar</p>
-            <button
+            <button type="button"
               onClick={handleStart}
               className="px-8 py-3 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
@@ -159,7 +159,7 @@ const EnhancedAudioRecorder = ({
             </div>
 
             {/* Manual Stop */}
-            <button
+            <button type="button"
               onClick={stopRecording}
               className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium transition-colors duration-300"
             >

@@ -15,24 +15,13 @@ import Card from '../../components/ui/Card';
 
 import EmptyState from '../../components/ui/EmptyState';
 
-export const PhraseRulesPage = () => {
+const PhraseRulesPage = () => {
   const [rules, setRules] = useState<PhraseRule[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedRule, setSelectedRule] = useState<PhraseRule | null>(null);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-
-  // Load rules on mount
-  useEffect(() => {
-    loadRules();
-  }, []);
-
-  const filteredRules = rules.filter(
-    (rule) =>
-      rule.rule_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      rule.description?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   const loadRules = async () => {
     setIsLoading(true);
@@ -49,6 +38,17 @@ export const PhraseRulesPage = () => {
       setIsLoading(false);
     }
   };
+
+  const filteredRules = rules.filter(
+    (rule) =>
+      rule.rule_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      rule.description?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Load rules on mount
+  useEffect(() => {
+    loadRules();
+  }, []);
 
   const handleEdit = (rule: PhraseRule) => {
     setSelectedRule(rule);
@@ -138,7 +138,7 @@ export const PhraseRulesPage = () => {
               />
             </div>
 
-            <button
+            <button type="button"
               onClick={loadRules}
               className="h-10 w-10 flex items-center justify-center rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 shrink-0"
               title="Actualizar reglas"

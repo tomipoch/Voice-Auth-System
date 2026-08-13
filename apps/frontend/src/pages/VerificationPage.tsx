@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import MainLayout from '../components/ui/MainLayout';
 import VerificationWelcomeScreen from '../components/verification/VerificationWelcomeScreen';
 import DynamicVerificationMulti from '../components/verification/DynamicVerificationMulti';
-import { type VerifyPhraseResponse } from '../services/verificationService';
+import type { VerifyPhraseResponse } from '../services/verificationService';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 

@@ -100,7 +100,7 @@ const Sidebar = () => {
           {/* Right side buttons */}
           <div className="flex items-center gap-2">
             {/* Logout Button */}
-            <button
+            <button type="button"
               onClick={handleLogout}
               className="p-2 rounded-xl text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
               aria-label="Cerrar sesión"
@@ -109,7 +109,7 @@ const Sidebar = () => {
             </button>
 
             {/* Hamburger Button */}
-            <button
+            <button type="button"
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-xl hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors"
               aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
@@ -242,7 +242,6 @@ const Sidebar = () => {
           {/* Navigation */}
           <nav
             className="flex-1 px-4 py-6 space-y-2 overflow-y-auto"
-            role="navigation"
             aria-label="Navegación principal"
           >
             {navigation.map((item) => {
@@ -278,7 +277,7 @@ const Sidebar = () => {
               <Settings className="h-5 w-5 mr-3 shrink-0" aria-hidden="true" />
               <span className="truncate">Configuración</span>
             </Link>
-            <button
+            <button type="button"
               onClick={handleLogout}
               className="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300 border border-transparent hover:border-red-200/30 dark:hover:border-red-500/30"
               aria-label="Cerrar sesión"

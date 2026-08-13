@@ -29,10 +29,6 @@ const UsersListPage = () => {
     user: AdminUser;
   } | null>(null);
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
   const fetchUsers = async () => {
     setLoadingUsers(true);
     try {
@@ -45,6 +41,10 @@ const UsersListPage = () => {
       setLoadingUsers(false);
     }
   };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const filteredUsers = users.filter((user) =>
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -123,7 +123,7 @@ const UsersListPage = () => {
           <LoadingSpinner size="lg" text="Cargando usuarios..." className="py-12" />
         ) : (
           <div className="overflow-x-auto">
-            <table className="min-w-full" role="table" aria-label="Lista de usuarios">
+            <table className="min-w-full" aria-label="Lista de usuarios">
               <thead>
                 <tr className="border-b border-gray-200 dark:border-gray-700">
                   <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -192,7 +192,7 @@ const UsersListPage = () => {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-center gap-1">
-                        <button
+                        <button type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleResetPassword(u);
@@ -203,7 +203,7 @@ const UsersListPage = () => {
                         >
                           <Key className="h-4 w-4" />
                         </button>
-                        <button
+                        <button type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleToggleStatus(u);
@@ -225,7 +225,7 @@ const UsersListPage = () => {
                           )}
                         </button>
                         <div className="w-px h-4 bg-gray-200 dark:bg-gray-700 mx-0.5" />
-                        <button
+                        <button type="button"
                           onClick={() => navigate(`/admin/users/${u.id}`)}
                           className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-all flex items-center justify-center"
                           aria-label="Ver detalles"
@@ -288,7 +288,7 @@ const UsersListPage = () => {
                     </p>
                   </div>
                 </div>
-                <button
+                <button type="button"
                   onClick={() => setShowConfirmModal(false)}
                   className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
                 >
@@ -307,13 +307,13 @@ const UsersListPage = () => {
               </div>
 
               <div className="flex gap-3 justify-end">
-                <button
+                <button type="button"
                   onClick={() => setShowConfirmModal(false)}
                   className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 >
                   Cancelar
                 </button>
-                <button
+                <button type="button"
                   onClick={handleConfirmAction}
                   className={`px-4 py-2 rounded-lg text-white font-medium transition-colors ${
                     confirmAction.type === 'reset'

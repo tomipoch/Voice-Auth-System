@@ -34,7 +34,7 @@ const getBoolEnvVar = (key: string, defaultValue = false): boolean => {
 const getNumEnvVar = (key: string, defaultValue = 0): number => {
   const value = getEnvVar(key);
   const parsed = parseInt(value, 10);
-  return isNaN(parsed) ? defaultValue : parsed;
+  return Number.isNaN(parsed) ? defaultValue : parsed;
 };
 
 /**

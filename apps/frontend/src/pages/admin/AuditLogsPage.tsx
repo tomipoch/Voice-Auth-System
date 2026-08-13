@@ -13,10 +13,6 @@ const AuditLogsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('all');
 
-  useEffect(() => {
-    fetchLogs();
-  }, []);
-
   const fetchLogs = async () => {
     try {
       setLoading(true);
@@ -29,6 +25,10 @@ const AuditLogsPage = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchLogs();
+  }, []);
 
   const getLevelFromAction = (action: string): string => {
     const actionLower = action.toLowerCase();

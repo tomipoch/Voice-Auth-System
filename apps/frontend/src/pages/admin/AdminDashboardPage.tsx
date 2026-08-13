@@ -20,10 +20,6 @@ const AdminDashboardPage = () => {
   const [stats, setStats] = useState<SystemStats | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchStats();
-  }, []);
-
   const fetchStats = async () => {
     try {
       const data = await adminService.getStats();
@@ -35,6 +31,10 @@ const AdminDashboardPage = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
 
   const getDayName = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -195,7 +195,7 @@ const AdminDashboardPage = () => {
                 Accesos Rápidos
               </h3>
               <div className="space-y-3">
-                <button
+                <button type="button"
                   onClick={() => navigate('/admin/users')}
                   className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
                 >
@@ -209,7 +209,7 @@ const AdminDashboardPage = () => {
                   </div>
                 </button>
 
-                <button
+                <button type="button"
                   onClick={() => navigate('/admin/logs')}
                   className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
                 >
@@ -223,7 +223,7 @@ const AdminDashboardPage = () => {
                   </div>
                 </button>
 
-                <button
+                <button type="button"
                   onClick={() => navigate('/admin/phrase-rules')}
                   className="w-full flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
                 >

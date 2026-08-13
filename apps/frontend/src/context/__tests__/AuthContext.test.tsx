@@ -83,8 +83,8 @@ const FullTestComponent = () => {
       <div data-testid="loading">{isLoading ? 'Loading' : 'Not Loading'}</div>
       <div data-testid="user">{user ? user.email : 'No User'}</div>
       <div data-testid="authenticated">{isAuthenticated ? 'Yes' : 'No'}</div>
-      <button onClick={fireRegister}>Register</button>
-      <button onClick={clearError}>ClearError</button>
+      <button type="button" onClick={fireRegister}>Register</button>
+      <button type="button" onClick={clearError}>ClearError</button>
     </div>
   );
 };
@@ -98,8 +98,8 @@ const LoginOnlyComponent = () => {
       <div data-testid="loading">{isLoading ? 'Loading' : 'Not Loading'}</div>
       <div data-testid="user">{user ? user.email : 'No User'}</div>
       <div data-testid="authenticated">{isAuthenticated ? 'Yes' : 'No'}</div>
-      <button onClick={() => login({ email: 'a@b.com', password: 'Password1!' })}>Login</button>
-      <button onClick={logout}>Logout</button>
+      <button type="button" onClick={() => login({ email: 'a@b.com', password: 'Password1!' })}>Login</button>
+      <button type="button" onClick={logout}>Logout</button>
     </div>
   );
 };

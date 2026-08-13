@@ -53,7 +53,7 @@ const DashboardPage = () => {
   }, [user]);
 
   const userStats = {
-    isVoiceEnrolled: user?.voice_template ? true : false,
+    isVoiceEnrolled: !!user?.voice_template,
   };
 
   return (
@@ -260,7 +260,7 @@ const DashboardPage = () => {
                 </p>
               </div>
               <Link to="/enrollment">
-                <button className="py-3 px-6 bg-linear-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] flex items-center gap-2">
+                <button type="button" className="py-3 px-6 bg-linear-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] flex items-center gap-2">
                   <Mic className="h-4 w-4" />
                   Configurar ahora
                 </button>

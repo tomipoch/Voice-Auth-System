@@ -122,7 +122,7 @@ const EnrollmentPage = () => {
                 Error en el Registro
               </h2>
               <p className="text-red-700 dark:text-red-300 mb-6">{error}</p>
-              <button
+              <button type="button"
                 onClick={handleRetry}
                 className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium transition-colors duration-300"
               >

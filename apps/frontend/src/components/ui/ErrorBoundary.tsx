@@ -1,4 +1,4 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { AlertCircle } from 'lucide-react';
 
 interface Props {
@@ -84,13 +84,13 @@ class ErrorBoundary extends Component<Props, State> {
                 )}
 
                 <div className="flex gap-3 w-full">
-                  <button
+                  <button type="button"
                     onClick={this.handleReset}
                     className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200"
                   >
                     Intentar nuevamente
                   </button>
-                  <button
+                  <button type="button"
                     onClick={() => (window.location.href = '/')}
                     className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-lg font-medium transition-colors duration-200"
                   >

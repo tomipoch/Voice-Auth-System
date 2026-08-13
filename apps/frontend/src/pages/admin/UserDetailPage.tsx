@@ -39,7 +39,7 @@ const Modal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 relative">
-        <button
+        <button type="button"
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
         >
@@ -176,7 +176,7 @@ const VerificationDetailModal = ({
               <span className="font-mono text-xs">{parsedMetadata.id || 'ID: --'}</span>
             </p>
           </div>
-          <button
+          <button type="button"
             onClick={onClose}
             className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
           >
@@ -329,7 +329,7 @@ const VerificationDetailModal = ({
                           </td>
                           <td className="px-4 py-3 text-sm text-right font-mono text-gray-600 dark:text-gray-300">
                             {phraseGenuineness !== null
-                              ? (phraseGenuineness * 100).toFixed(1) + '%'
+                              ? `${(phraseGenuineness * 100).toFixed(1)}%`
                               : '-'}
                           </td>
                           <td className="px-4 py-3 text-sm text-right font-mono">
@@ -398,12 +398,6 @@ const UserDetailPage = () => {
     daysActive: 0,
   });
 
-  useEffect(() => {
-    if (id) {
-      fetchData(id);
-    }
-  }, [id]);
-
   const fetchData = async (userId: string) => {
     setLoading(true);
     try {
@@ -444,6 +438,12 @@ const UserDetailPage = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (id) {
+      fetchData(id);
+    }
+  }, [id]);
 
   const handleDeleteUser = async () => {
     if (!user) return;
@@ -489,7 +489,7 @@ const UserDetailPage = () => {
     <MainLayout>
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <button
+          <button type="button"
             onClick={() => navigate('/admin/users')}
             className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
             aria-label="Volver a usuarios"

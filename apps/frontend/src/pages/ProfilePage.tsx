@@ -140,7 +140,7 @@ const ProfilePage = () => {
     let multiplier = 2;
 
     for (let i = rutNumber.length - 1; i >= 0; i--) {
-      sum += parseInt(rutNumber[i]!) * multiplier;
+      sum += parseInt(rutNumber[i]!, 10) * multiplier;
       multiplier = multiplier === 7 ? 2 : multiplier + 1;
     }
 

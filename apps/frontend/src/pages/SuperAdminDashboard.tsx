@@ -120,7 +120,7 @@ const SuperAdminDashboard = () => {
         ].map((item) => {
           const Icon = item.icon;
           return (
-            <button
+            <button type="button"
               key={item.id}
               onClick={() => setActiveSection(item.id)}
               className={`w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
@@ -144,7 +144,7 @@ const SuperAdminDashboard = () => {
         {globalStats.map((stat, index) => {
           const Icon = stat.icon;
           const palette: { bg: string; text: string } =
-            STAT_COLOR_CLASSES[stat.color] ?? STAT_COLOR_CLASSES['blue']!;
+            STAT_COLOR_CLASSES[stat.color] ?? STAT_COLOR_CLASSES.blue!;
           return (
             <Card key={index} className="p-6">
               <div className="flex items-center justify-between mb-4">

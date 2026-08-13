@@ -1,4 +1,4 @@
-import axios, { AxiosError, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { type AxiosError, type InternalAxiosRequestConfig, type AxiosResponse } from 'axios';
 import toast from 'react-hot-toast';
 import { apiConfig, features } from '../config/environment.js';
 import { authStorage } from './storage.js';

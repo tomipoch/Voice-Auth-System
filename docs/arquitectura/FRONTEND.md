@@ -62,7 +62,7 @@ El **Voice Biometrics Frontend** es una aplicación web moderna construida con R
 | **HTTP Client** | Axios 1.13.2 |
 | **Notifications** | React Hot Toast 2.6.0 |
 | **Testing** | Vitest, Testing Library |
-| **Linting** | ESLint 9.39.1, Prettier |
+| **Linting** | Biome 2.5.8, Prettier |
 
 ---
 
@@ -285,7 +285,7 @@ App/
 ├── vite.config.ts                 # Vite configuration
 ├── vitest.config.ts               # Vitest configuration
 ├── tailwind.config.ts             # Tailwind configuration
-├── eslint.config.js               # ESLint rules
+├── biome.json                     # Biome lint rules
 ├── .prettierrc                    # Prettier config
 └── index.html                     # HTML template
 ```
@@ -1594,7 +1594,7 @@ export default defineConfig({
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "lint": "eslint . --ext ts,tsx",
+    "lint": "biome lint --write .",
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {

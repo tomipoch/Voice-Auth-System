@@ -216,7 +216,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
 
         // Limpiar stream
         if (streamRef.current) {
-          streamRef.current.getTracks().forEach((track) => track.stop());
+          streamRef.current.getTracks().forEach((track) => { track.stop(); });
           streamRef.current = null;
         }
 
@@ -431,7 +431,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
     stopVolumeMonitoring();
 
     if (streamRef.current) {
-      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current.getTracks().forEach((track) => { track.stop(); });
     }
 
     if (timerRef.current) {
@@ -452,7 +452,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
       }
 
       if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current.getTracks().forEach((track) => { track.stop(); });
       }
 
       if (timerRef.current) {
