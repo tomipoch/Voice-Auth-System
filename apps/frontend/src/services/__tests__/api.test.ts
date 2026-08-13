@@ -66,28 +66,28 @@ vi.mock('../config/environment.js', () => ({
   features: { debugMode: false, consoleLogs: false, devTools: false },
 }));
 
-let handler: (error: unknown) => unknown;
+let handler: (error: unknown) => Promise<unknown>;
 
 beforeAll(async () => {
   await import('../api');
   if (!mocks.captured.responseError) {
     throw new Error('response error interceptor was not captured');
   }
-  handler = mocks.captured.responseError;
+  // Non-null assertion: the throw above guarantees the value.
+  handler = mocks.captured.responseError as (error: unknown) => Promise<unknown>;
 });
 
-const makeAxiosError = (status: number, url: string) => {
+interface MockAxiosError {
+  response?: { status: number; config: { url: string; headers: Record<string, string | undefined> }; data: unknown };
+  config: { url: string; headers: Record<string, string | undefined> };
+  message: string;
+  code?: string;
+}
+
+const makeAxiosError = (status: number, url: string): MockAxiosError => {
   const headers: Record<string, string | undefined> = {};
-  const config: {
-    url: string;
-    headers: typeof headers;
-  } = { url, headers };
-  const err: {
-    response?: { status: number; config: typeof config; data: unknown };
-    config: typeof config;
-    message: string;
-    code?: string;
-  } = {
+  const config = { url, headers };
+  const err: MockAxiosError = {
     response: { status, config, data: null },
     config,
     message: 'boom',
@@ -154,10 +154,13 @@ describe('api.ts refresh-token queue', () => {
 });
 
 describe('api.ts error toast helpers', () => {
-  let toast: { error: ReturnType<typeof vi.fn>; success: ReturnType<typeof vi.fn> };
+  let toast: { error: (...args: unknown[]) => void; success: (...args: unknown[]) => void };
 
   beforeAll(async () => {
-    toast = (await import('react-hot-toast')).default;
+    toast = (await import('react-hot-toast')).default as unknown as {
+      error: (...args: unknown[]) => void;
+      success: (...args: unknown[]) => void;
+    };
   });
 
   // Note: tests in this describe don't call vi.clearAllMocks in
@@ -169,7 +172,8 @@ describe('api.ts error toast helpers', () => {
     const err = makeAxiosError(0, '/health');
     err.code = 'ECONNABORTED';
     await handler(err).catch(() => {});
-    expect(toast.error).toHaveBeenCalledWith(
+    const calls = (toast.error as unknown as ReturnType<typeof vi.fn>).mock.calls;
+    expect(String(calls[0]?.[0])).toBe(
       'Tiempo de espera agotado. Verifica tu conexión.',
     );
   });
@@ -182,6 +186,7 @@ describe('api.ts error toast helpers', () => {
     // in production observability, not this test.
     const err = makeAxiosError(503, '/health');
     await handler(err).catch(() => {});
-    expect(toast.error).toHaveBeenCalled();
+    const calls = (toast.error as unknown as ReturnType<typeof vi.fn>).mock.calls;
+    expect(calls.length).toBeGreaterThan(0);
   });
 });
