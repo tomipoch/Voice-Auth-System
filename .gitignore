@@ -11,9 +11,6 @@ Proyecto/
 # Contenido PII/excluido bajo infra/ (el resto de infra/ sí se trackea)
 infra/db/Libros/
 infra/db/data_dump.sql
-infra/db/extract_phrases.py
-infra/db/extract_to_txt.py
-infra/db/import_phrases_from_txt.py
 infra/db/frases_por_libro/
 infra/evaluation/dataset/
 

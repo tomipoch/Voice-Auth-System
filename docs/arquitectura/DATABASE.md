@@ -852,10 +852,11 @@ LIMIT 50;
 ### 5.16 books
 
 **Propósito**: Metadatos de los libros de origen de las frases.
-Los PDFs viven en `Database/Libros/` (gitignored). La migración
-003 siembra solo metadatos; el pipeline `extract_phrases.py`
-(no commiteado) extrae texto desde el PDF y crea filas en
-`phrase`.
+Los PDFs viven en `infra/db/Libros/` (gitignored por derechos de
+autor). El pipeline trackeado (`infra/db/tools/`) extrae texto desde
+el PDF: `register_books.py` registra los libros, `extract_phrases.py`
+genera TXT por libro y `import_phrases_from_txt.py` crea filas en
+`phrase` (ver `infra/db/database_schema.md`).
 
 ```sql
 CREATE TABLE IF NOT EXISTS books (
@@ -875,7 +876,7 @@ CREATE INDEX IF NOT EXISTS idx_phrase_book_id ON phrase(book_id);
 - `id`: UUID del libro (referenciado por `phrase.book_id`)
 - `title`: Título legible
 - `author`: Autor (nullable para obras de autor anónimo)
-- `filename`: nombre de archivo en `Database/Libros/`; único
+- `filename`: nombre de archivo en `infra/db/Libros/`; único
 - `language`: idioma del libro (default `'es'`)
 - `created_at`: timestamp de inserción
 

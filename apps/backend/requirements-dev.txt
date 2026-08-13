@@ -15,5 +15,8 @@ isort>=5.12.0
 # Development Tools
 pre-commit>=3.5.0
 
-# PDF Processing (legacy: kept for backwards compatibility)
+# PDF Processing
+# PyPDF2: legacy, kept for backwards compatibility
 PyPDF2>=3.0.0
+# PyMuPDF: extracción de frases desde PDFs (infra/db/tools/extract_phrases.py)
+PyMuPDF>=1.24.0

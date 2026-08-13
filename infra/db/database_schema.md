@@ -13,10 +13,15 @@ Esquema completo en `infra/db/init.sql` (baseline idempotente, fuente de verdad)
 | Archivo | Estado en git | Qué hace |
 |---|---|---|
 | `apply_migrations.py` | ✅ trackeado | **Runner de migraciones**: aplica `migrations/*.sql` pendientes en orden lexicográfico, cada una en su propia transacción, y las registra en `schema_migrations` con checksum SHA-256. Falla si una migración ya aplicada fue editada. Soporta `--dry-run` y `--dir`. Conexión vía `DATABASE_URL` o variables `DB_*`. Lo ejecuta el contenedor `api` al arrancar y el conftest de pytest en `voice_biometrics_test`. |
-| `assign_books_to_phrases.py` | ✅ trackeado | **One-off (2025)**: asigna `book_id` y `source` a las frases existentes que quedaron sin libro, distribuyéndolas uniformemente entre los `books` (solución temporal porque se perdió el mapping original de extracción). |
-| `extract_phrases.py` | ❌ gitignored | **Extracción de frases desde `Libros/*.pdf`** (PyMuPDF): filtra frases por calidad, calcula `phoneme_score` (diversidad fonémica del español), `style` (narrative/descriptive/dialogue/poetic) y dificultad; inserta en `phrase` (limpiando las existentes). `--dry-run`, `--min-per-book`, `--max-per-book`. |
-| `extract_to_txt.py` | ❌ gitignored | **Variante offline de la extracción**: genera `frases_por_libro/<libro>.txt` (secciones `## EASY/MEDIUM/HARD` + metadatos `[score\|style]`) para revisión manual; no toca la base de datos. |
-| `import_phrases_from_txt.py` | ❌ gitignored | **Importa los TXT revisados** de `frases_por_libro/` a la tabla `phrase` (language `'es'`); borra las frases existentes por defecto (`--no-clear` para conservarlas); `--dry-run` disponible. |
+
+### Scripts del pipeline de frases (`infra/db/tools/`)
+
+| Archivo | Estado en git | Qué hace |
+|---|---|---|
+| `extract_phrases.py` | ✅ trackeado | **Extracción PDF → TXT**: limpia el texto (artefactos PDF, OCR, correcciones), filtra por calidad (30-500 chars, ≥8 palabras, `phoneme_score >= 80`), balancea estilos (narrative:resto 1:1) y genera `frases_por_libro/<libro>.txt` con secciones `## EASY/MEDIUM/HARD` ordenadas por phoneme_score desc. **No pisa TXT existentes** (`--force` para regenerar); `--output-dir`, `--min-phoneme-score`. Requiere `PyMuPDF` (en requirements-dev). No toca la BD: solo PDFs en `Libros/`. |
+| `register_books.py` | ✅ trackeado | **Registro de libros en BD** (para usuarios externos sin los seeds): upsert idempotente de cada `Libros/*.pdf` en `books` (`ON CONFLICT (filename) DO NOTHING`; `--update` para refrescar título). `--dry-run` disponible. |
+| `import_phrases_from_txt.py` | ✅ trackeado | **Importación TXT → BD**: parsea `N. [score\|style] frase`, persiste `phoneme_score` y `style`, y vincula `phrase.book_id` resolviendo el nombre del TXT contra `books.filename` (auto-crea el libro si falta; `--no-create-books` para exigir registro previo). Mantiene `--dry-run` y `--no-clear`. |
+| `assign_books_to_phrases.py` | ✅ trackeado | **One-off histórico (2025)**: asigna `book_id` y `source` a las frases existentes que quedaron sin libro, distribuyéndolas uniformemente entre los `books` (solución temporal porque se perdió el mapping original de extracción). |
 
 ### Archivos SQL
 
@@ -29,13 +34,15 @@ Esquema completo en `infra/db/init.sql` (baseline idempotente, fuente de verdad)
 | `Libros/*.pdf` | ❌ gitignored (copyright) | Libros fuente de las frases (provistos por el usuario; no están en el repo). |
 | `frases_por_libro/*.txt` | ❌ gitignored | Extracciones de frases por libro (intermedio entre `extract_to_txt.py` e `import_phrases_from_txt.py`). |
 
-### Flujo de población de frases
+### Flujo de población de frases (usuario externo)
 
 ```
-Libros/*.pdf ──extract_to_txt.py──▶ frases_por_libro/*.txt ──import_phrases_from_txt.py──▶ phrase
-                          (revisión manual del TXT)                        (borra previas)
-extract_phrases.py: ruta directa PDF → phrase (misma lógica, sin paso de revisión)
-assign_books_to_phrases.py: one-off histórico para re-asignar book_id tras el cambio de esquema
+1. Coloque sus libros .pdf en Libros/                          (carpeta propia, gitignored)
+2. (Opcional) python tools/register_books.py ───────────────▶ books        (upsert idempotente)
+3. python tools/extract_phrases.py ─────────────────────────▶ frases_por_libro/*.txt
+4. Revise/ordene los TXT (## EASY/MEDIUM/HARD, "N. [score|style] frase")
+5. python tools/import_phrases_from_txt.py ─────────────────▶ phrase (score/style/book_id)
+   (auto-crea libros faltantes; --no-create-books para exigir el paso 2)
 ```
 
 Los **datos de runtime** (frases reales, usuarios) NO vienen de estos scripts: se restauran desde

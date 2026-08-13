@@ -64,26 +64,32 @@ Voice-Auth-System/
 
 ## 📚 Base de datos de libros (necesaria)
 
-El sistema necesita libros de dominio público en `Database/Libros/`
-(no commiteados por derechos de autor). Pasos:
+El sistema necesita libros de dominio público en `infra/db/Libros/`
+(no commiteados por derechos de autor). Para un usuario externo sin la
+BD de libros, el pipeline completo está trackeado en `infra/db/tools/`:
 
-1. Coloque libros `.pdf` o `.txt` en `Database/Libros/`.
-2. El script de extracción de frases (`scripts/extract_phrases.py`)
-   **no está incluido en el repo**; se ejecuta dentro del contenedor
-   de la API para producir las frases. Solo `assign_books_to_phrases.py`
-   está commiteado.
-3. La migración `003` siembra solo los metadatos en la tabla `books`
-   (título, autor, idioma, total_frases); las frases en sí no se
-   generan sin los libros.
-4. Para restaurar las 37.407 frases pre-generadas use el dump
-   local `Database/data_dump.sql` (gitignored por PII —
+1. Coloque sus libros `.pdf` en `infra/db/Libros/`.
+2. (Opcional) Registre los libros en la tabla `books`:
 
-contiene RUTs). No está en el repo; manténgalo sólo en una copia
-   local fuera de Git.
+       python infra/db/tools/register_books.py            # upsert idempotente
 
-Si su instalación requiere el dump, regenérelas ejecutando
-`scripts/extract_phrases.py` (omitido) contra los PDFs de su
-proyecto local, o restaure el dump desde su backup personal.
+3. Extraiga las frases — genera un TXT por libro en
+   `infra/db/frases_por_libro/`, agrupado por dificultad
+   (`## EASY/MEDIUM/HARD`) y ordenado por score fonémico desc.
+   No reemplaza TXT existentes (`--force` para regenerar):
+
+       python infra/db/tools/extract_phrases.py            # requiere PyMuPDF (requirements-dev)
+
+4. Revise y corrija los TXT (formato `N. [score|style] frase`).
+5. Importe las frases a la base de datos (persiste score/style y
+   vincula `book_id`; auto-crea libros faltantes):
+
+       python infra/db/tools/import_phrases_from_txt.py    # [--dry-run] [--no-clear]
+
+Alternativa: para restaurar las 37.407 frases pre-generadas use el
+dump local `infra/db/data_dump.sql` (gitignored por PII — contiene
+RUTs). No está en el repo; manténgalo sólo en una copia local fuera
+de Git.
 
 ## 🛠️ Tecnologías
 
