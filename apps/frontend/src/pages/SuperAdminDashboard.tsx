@@ -19,6 +19,22 @@ import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 
+const STAT_COLOR_CLASSES: Record<string, { bg: string; text: string }> = {
+  blue: { bg: 'bg-blue-50 dark:bg-blue-900/20', text: 'text-blue-600 dark:text-blue-400' },
+  purple: {
+    bg: 'bg-purple-50 dark:bg-purple-900/20',
+    text: 'text-purple-600 dark:text-purple-400',
+  },
+  emerald: {
+    bg: 'bg-emerald-50 dark:bg-emerald-900/20',
+    text: 'text-emerald-600 dark:text-emerald-400',
+  },
+  green: {
+    bg: 'bg-green-50 dark:bg-green-900/20',
+    text: 'text-green-600 dark:text-green-400',
+  },
+};
+
 const SuperAdminDashboard = () => {
   const [activeSection, setActiveSection] = useState('overview');
   const [searchTerm, setSearchTerm] = useState('');
@@ -127,11 +143,13 @@ const SuperAdminDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {globalStats.map((stat, index) => {
           const Icon = stat.icon;
+          const palette: { bg: string; text: string } =
+            STAT_COLOR_CLASSES[stat.color] ?? STAT_COLOR_CLASSES['blue']!;
           return (
             <Card key={index} className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <div className={`p-3 rounded-xl bg-${stat.color}-50 dark:bg-${stat.color}-900/20`}>
-                  <Icon className={`h-6 w-6 text-${stat.color}-600 dark:text-${stat.color}-400`} />
+                <div className={`p-3 rounded-xl ${palette.bg}`}>
+                  <Icon className={`h-6 w-6 ${palette.text}`} />
                 </div>
                 <span
                   className={`text-xs font-medium px-2 py-1 rounded-full ${
