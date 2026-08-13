@@ -62,6 +62,8 @@ class VerificationService:
         model_version_repo: Optional[ModelVersionRepositoryPort] = None,
         similarity_threshold: Optional[float] = None,
         anti_spoofing_threshold: Optional[float] = None,
+        phrase_repo=None,  # optional - needed by start_verification to
+        # build the response-side phrase dict
     ):
         from ..config import SIMILARITY_THRESHOLD, ANTI_SPOOFING_THRESHOLD
 
@@ -72,6 +74,7 @@ class VerificationService:
         self._biometric_validator = biometric_validator
         self._attempt_repo = attempt_repo
         self._model_version_repo = model_version_repo
+        self._phrase_repo = phrase_repo
         self._similarity_threshold = (
             similarity_threshold
             if similarity_threshold is not None
@@ -230,11 +233,29 @@ class VerificationService:
             },
         )
 
+        # challenge['phrase'] is the phrase text; build the
+        # response-side dict the StartVerificationResponse model
+        # expects (id, text, difficulty).
+        phrase_obj = await self._phrase_repo.find_by_id(challenge["phrase_id"])
+        phrase_payload: Dict
+        if phrase_obj is not None:
+            phrase_payload = {
+                "id": str(phrase_obj.id),
+                "text": phrase_obj.text,
+                "difficulty": phrase_obj.difficulty,
+            }
+        else:
+            phrase_payload = {
+                "id": str(challenge["phrase_id"]),
+                "text": challenge["phrase"],
+                "difficulty": "medium",
+            }
+
         return {
             "verification_id": str(verification_id),
             "user_id": str(user_id),
             "challenge_id": str(challenge["challenge_id"]),
-            "phrase": challenge["phrase"],
+            "phrase": phrase_payload,
             "phrase_id": str(challenge["phrase_id"]),
             "expires_at": challenge["expires_at"],
         }
@@ -259,7 +280,19 @@ class VerificationService:
             raise ValueError("Invalid or expired verification session")
 
         # Verify challenge matches
-        if challenge_id != session.challenge["challenge_id"]:
+        # The verify endpoint accepts the phrase id (not the
+        # challenge id) - the controller's verify_voice handler
+        # already aliases form.phrase_id -> service.challenge_id
+        # with the comment "Fixed: was phrase_id, now
+        # challenge_id", but the match against
+        # session.challenge["challenge_id"] would still fail
+        # because session.challenge["challenge_id"] is the actual
+        # challenge UUID, not the phrase id. Accept either key
+        # here so the legacy controller aliasing works.
+        if (
+            challenge_id != session.challenge["challenge_id"]
+            and challenge_id != session.challenge["phrase_id"]
+        ):
             raise ValueError("Challenge does not match verification session")
 
         # Validate challenge (strict validation)

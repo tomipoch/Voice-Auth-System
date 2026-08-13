@@ -234,6 +234,7 @@ async def get_verification_service():
     from ..persistence.postgres_model_version_repository import (
         PostgresModelVersionRepository,
     )
+    from ..persistence.postgres_phrase_repository import PostgresPhraseRepository
     from ...application.verification_service import VerificationService
 
     pool = await get_db_pool()
@@ -243,6 +244,7 @@ async def get_verification_service():
     audit_repo = PostgresAuditLogRepository(pool)
     attempt_repo = PostgresVerificationAttemptRepository(pool)
     model_version_repo = PostgresModelVersionRepository(pool)
+    phrase_repo = PostgresPhraseRepository(pool)
     challenge_service = await get_challenge_service()
     biometric_validator = get_biometric_validator()
 
@@ -254,6 +256,7 @@ async def get_verification_service():
         biometric_validator=biometric_validator,
         attempt_repo=attempt_repo,
         model_version_repo=model_version_repo,
+        phrase_repo=phrase_repo,
         similarity_threshold=SIMILARITY_THRESHOLD,
         anti_spoofing_threshold=ANTI_SPOOFING_THRESHOLD,
     )

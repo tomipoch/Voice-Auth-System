@@ -252,7 +252,14 @@ async def register(
         "company": user_data.company,
         "role": "user",
     }
-    new_user = await user_repo.create_user(user_dict)
+    new_user_id = await user_repo.create_user(**user_dict)
+
+    new_user = await user_repo.get_user(new_user_id)
+    if new_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to retrieve created user",
+        )
 
     await audit_repo.log_event(
         actor=str(new_user["id"]),

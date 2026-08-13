@@ -75,7 +75,7 @@ class PostgresUserRepository(UserRepositoryPort):
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
-                SELECT u.id, u.email, u.password, u.first_name, u.last_name, u.rut, u.role, u.company, u.external_ref, 
+                SELECT u.id, u.email, u.password, u.first_name, u.last_name, u.rut, u.role, u.company, u.external_ref,
                        u.created_at, u.deleted_at, u.failed_auth_attempts, u.locked_until, u.last_login, u.settings,
                        (v.id IS NOT NULL) as has_voiceprint
                 FROM "user" u
@@ -86,7 +86,7 @@ class PostgresUserRepository(UserRepositoryPort):
             )
 
             if row:
-                return dict(row)
+                return self._row_to_dict(row)
             return None
 
     async def get_user_by_email(self, email: str) -> Optional[Dict[str, Any]]:
@@ -103,7 +103,7 @@ class PostgresUserRepository(UserRepositoryPort):
             )
 
             if row:
-                return dict(row)
+                return self._row_to_dict(row)
             return None
 
     async def get_user_by_external_ref(
@@ -122,8 +122,25 @@ class PostgresUserRepository(UserRepositoryPort):
             )
 
             if row:
-                return dict(row)
+                return self._row_to_dict(row)
             return None
+
+    @staticmethod
+    def _row_to_dict(row) -> Dict[str, Any]:
+        """Convert an asyncpg Record to a Python dict and
+        deserialize the JSONB `settings` column."""
+        import json
+
+        d = dict(row)
+        settings = d.get("settings")
+        if isinstance(settings, str):
+            try:
+                d["settings"] = json.loads(settings)
+            except (ValueError, TypeError):
+                d["settings"] = {}
+        elif settings is None:
+            d["settings"] = {}
+        return d
 
     async def user_exists(self, user_id: UserId) -> bool:
         """Check if user exists."""

@@ -3,12 +3,28 @@
 import json
 import asyncpg
 from datetime import datetime
-from typing import Optional
+from typing import Any, Optional
 from uuid import UUID
 
 from ...domain.repositories.enrollment_session_repository_port import (
     EnrollmentSessionRepositoryPort,
 )
+
+
+def _jsonable(value: Any) -> Any:
+    """Recursively convert UUIDs (and any other non-JSON-native
+    types) to their string form so json.dumps succeeds on
+    Pydantic-shaped dictionaries. asyncpg's JSONB encoder accepts
+    the serialised string."""
+    if isinstance(value, UUID):
+        return str(value)
+    if isinstance(value, datetime):
+        return value.isoformat()
+    if isinstance(value, dict):
+        return {k: _jsonable(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_jsonable(v) for v in value]
+    return value
 
 
 class PostgresEnrollmentSessionRepository(EnrollmentSessionRepositoryPort):
@@ -54,7 +70,7 @@ class PostgresEnrollmentSessionRepository(EnrollmentSessionRepositoryPort):
                     """,
                     session_id,
                     user_id,
-                    json.dumps(challenges, ensure_ascii=False),
+                    json.dumps(_jsonable(challenges), ensure_ascii=False),
                     samples_collected,
                     challenge_index,
                     expires_at,

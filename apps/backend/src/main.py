@@ -120,6 +120,38 @@ class MockVoiceBiometricEngineFacade:
 
         return [0.1] * EMBEDDING_DIMENSION  # Mock embedding
 
+    def validate_audio_quality(self, audio_data: bytes, audio_format: str) -> dict:
+        """Mock equivalent of SpeakerEmbeddingAdapter.validate_audio_quality."""
+        return {
+            "quality": "good",
+            "duration": 1.0,
+            "has_silence": False,
+            "is_valid": True,
+        }
+
+    def extract_embedding_only(
+        self, audio_data: bytes, audio_format: str = "wav"
+    ) -> "list":
+        """Mock equivalent of SpeakerEmbeddingAdapter.extract_embedding_only."""
+        # BiometricValidator.is_valid_embedding checks the shape,
+        # so the mock must hand back a numpy array rather than a
+        # bare Python list. The real adapter returns a 1-D ndarray.
+        import numpy as np
+        from .shared.constants.biometric_constants import EMBEDDING_DIMENSION
+
+        return np.full(EMBEDDING_DIMENSION, 0.1, dtype=np.float32)
+
+    def extract_features(self, audio_data: bytes, audio_format: str) -> dict:
+        """Mock equivalent of VoiceBiometricEngineFacade.extract_features."""
+        import numpy as np
+        from .shared.constants.biometric_constants import EMBEDDING_DIMENSION
+
+        return {
+            "embedding": np.full(EMBEDDING_DIMENSION, 0.1, dtype=np.float32),
+            "anti_spoofing_score": 0.1,
+            "transcribed_text": "mock transcription",
+        }
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -142,7 +174,17 @@ async def lifespan(app: FastAPI):
         model_loading_task = asyncio.create_task(init_biometric_engine_async())
         logger.info("ML model loading started in background...")
     else:
-        app.state.biometric_engine = MockVoiceBiometricEngineFacade()
+        from .infrastructure.config import dependencies as _deps
+
+        mock_engine = MockVoiceBiometricEngineFacade()
+        app.state.biometric_engine = mock_engine
+        # The dependency in src/infrastructure/config/dependencies.py
+        # reads from a module-level _biometric_engine global, so we
+        # must also wire that — without this, get_voice_biometric_engine()
+        # returns None in TESTING mode and every enrollment/verification
+        # call hits `voice_engine.<method>` on None.
+        _deps._biometric_engine = mock_engine
+        _deps._models_loaded = True
 
     # 3. Start background cleanup job for expired challenges
     from .jobs.cleanup_expired_challenges import cleanup_expired_challenges_job
