@@ -348,11 +348,9 @@ END; $$ LANGUAGE plpgsql;
 --        - análisis de riesgo por spoof_prob alta, etc.
 -- =====================================================
 
-CREATE INDEX IF NOT EXISTS idx_voiceprint_user        ON voiceprint(user_id);
 CREATE INDEX IF NOT EXISTS idx_enrollment_user        ON enrollment_sample(user_id);
 
 -- User authentication and profile indexes
-CREATE INDEX IF NOT EXISTS idx_user_email             ON "user"(email) WHERE email IS NOT NULL;
 CREATE INDEX IF NOT EXISTS idx_user_role              ON "user"(role);
 CREATE INDEX IF NOT EXISTS idx_user_company           ON "user"(company) WHERE company IS NOT NULL;
 
@@ -368,8 +366,24 @@ CREATE INDEX IF NOT EXISTS idx_scores_similarity      ON scores(similarity);
 CREATE INDEX IF NOT EXISTS idx_scores_spoof           ON scores(spoof_prob);
 CREATE INDEX IF NOT EXISTS idx_scores_phrase_ok       ON scores(phrase_ok);
 
-CREATE INDEX IF NOT EXISTS idx_audit_timestamp       ON audit_log(timestamp);
+CREATE INDEX IF NOT EXISTS idx_audit_timestamp        ON audit_log(timestamp);
 CREATE INDEX IF NOT EXISTS idx_audit_actor            ON audit_log(actor);
+
+-- Índices redundantes con restricciones UNIQUE o de baja utilidad (convergencia al baseline).
+-- DROP es idempotente: en BDs nuevas simplemente no existirán.
+DROP INDEX IF EXISTS idx_user_email;        -- redundante: UNIQUE(email)
+DROP INDEX IF EXISTS idx_voiceprint_user;   -- redundante: uq_voiceprint_user
+DROP INDEX IF EXISTS idx_audit_time;        -- renombrado a idx_audit_timestamp
+DROP INDEX IF EXISTS idx_books_filename;    -- redundante: UNIQUE(filename)
+DROP INDEX IF EXISTS idx_phrase_active;     -- reemplazado por idx_phrase_filter (parcial + idioma)
+DROP INDEX IF EXISTS idx_phrase_difficulty; -- reemplazado por idx_phrase_filter (parcial + idioma)
+
+-- Índices de rendimiento sobre las queries reales del backend
+CREATE INDEX IF NOT EXISTS idx_phrase_text_trgm ON phrase USING gin (text gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_phrase_filter
+  ON phrase(language, difficulty) WHERE is_active = TRUE;
+CREATE INDEX IF NOT EXISTS idx_audit_metadata_gin ON audit_log USING gin (metadata);
+CREATE INDEX IF NOT EXISTS idx_audit_entity ON audit_log(entity_type, entity_id, timestamp DESC);
 
 -- =====================================================
 -- 13. FRASES PARA ENROLAMIENTO Y VERIFICACIÓN
@@ -390,8 +404,6 @@ CREATE TABLE IF NOT EXISTS phrase (
   CONSTRAINT ck_phrase_length CHECK (char_count >= 20 AND char_count <= 500)
 );
 
-CREATE INDEX IF NOT EXISTS idx_phrase_active ON phrase(is_active);
-CREATE INDEX IF NOT EXISTS idx_phrase_difficulty ON phrase(difficulty);
 CREATE INDEX IF NOT EXISTS idx_phrase_source ON phrase(source);
 
 -- =====================================================
