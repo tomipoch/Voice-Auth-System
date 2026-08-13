@@ -1,6 +1,15 @@
 """Voice biometric verification API endpoints with dynamic phrase support."""
 
-from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status, Request
+from fastapi import (
+    APIRouter,
+    Depends,
+    UploadFile,
+    File,
+    Form,
+    HTTPException,
+    status,
+    Request,
+)
 from typing import Optional
 from uuid import UUID
 from datetime import datetime, timezone
@@ -8,15 +17,22 @@ import io
 import logging
 
 from ..application.verification_service import VerificationService
-from ..infrastructure.biometrics.voice_biometric_engine_facade import VoiceBiometricEngineFacade
+from ..infrastructure.biometrics.voice_biometric_engine_facade import (
+    VoiceBiometricEngineFacade,
+)
 from .rate_limit import limiter, verification_limit
-from .auth_guards import enforce_user_scope, get_current_user, get_optional_client
+from .auth_guards import (
+    enforce_user_scope,
+    get_current_user,
+    get_optional_client,
+    check_user_scope_or_admin,
+)
 from ..application.dto.verification_dto import (
     StartVerificationRequest,
     StartVerificationResponse,
     VerifyVoiceResponse,
     StartMultiPhraseVerificationResponse,
-    VerifyPhraseResponse
+    VerifyPhraseResponse,
 )
 from ..infrastructure.config.dependencies import (
     get_verification_service,
@@ -33,18 +49,14 @@ router = APIRouter(tags=["verification"])
 
 
 @router.post("/start", response_model=StartVerificationResponse)
+@limiter.limit(verification_limit)
 async def start_verification(
-    request: StartVerificationRequest,
+    request: Request,
+    body: StartVerificationRequest,
     verification_service: VerificationService = Depends(get_verification_service),
     current_user: dict = Depends(get_current_user),
 ):
-    if current_user.get("role") not in ("admin", "superadmin"):
-        token_uid = str(current_user.get("id") or current_user.get("user_id") or "")
-        if str(request.user_id) != token_uid:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="You can only start verification for yourself",
-            )
+    check_user_scope_or_admin(body.user_id, current_user)
     """
     Start verification process and get a phrase for the user.
     
@@ -54,21 +66,22 @@ async def start_verification(
     Returns verification_id, user_id, and phrase to read.
     """
     try:
-        logger.info(f"start_verification called with user_id={request.user_id}, difficulty={request.difficulty}")
-        
-        result = await verification_service.start_verification(
-            user_id=request.user_id,
-            difficulty=request.difficulty
+        logger.info(
+            f"start_verification called with user_id={body.user_id}, difficulty={body.difficulty}"
         )
-        
+
+        result = await verification_service.start_verification(
+            user_id=body.user_id, difficulty=body.difficulty
+        )
+
         return StartVerificationResponse(
             success=True,
             verification_id=result["verification_id"],
             user_id=result["user_id"],
             phrase=result["phrase"],
-            message="Verification started successfully"
+            message="Verification started successfully",
         )
-    
+
     except ValueError as e:
         logger.error(f"Validation error in start_verification: {e}")
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
@@ -76,7 +89,7 @@ async def start_verification(
         logger.error(f"Error in start_verification: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to start verification"
+            detail="Failed to start verification",
         )
 
 
@@ -93,20 +106,21 @@ async def verify_voice(
 ):
     """
     Verify voice with phrase validation.
-    
+
     - **verification_id**: The verification session ID from /start
     - **phrase_id**: The phrase ID that was read
     - **audio_file**: Audio file (WAV, MP3, FLAC, etc.)
-    
+
     Returns verification result with scores and decision.
     """
     try:
         # Validate IDs
         verification_uuid = UUID(verification_id)
         phrase_uuid = UUID(phrase_id)
-        
+
         # Read audio file
         from ..infrastructure.biometrics.audio_converter import read_audio_sample
+
         try:
             audio_bytes = await read_audio_sample(audio_file)
             logger.info("Audio conversion successful")
@@ -114,28 +128,28 @@ async def verify_voice(
             logger.error(f"Audio conversion failed: {e}")
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Failed to convert audio: {str(e)}"
+                detail=f"Failed to convert audio: {str(e)}",
             )
-        
+
         # Extract features (embedding + anti-spoofing + ASR) from audio
         features = voice_engine.extract_features(
-            audio_data=audio_bytes,
-            audio_format="wav"
+            audio_data=audio_bytes, audio_format="wav"
         )
-        
+
         embedding = features["embedding"]
         anti_spoofing_score = features["anti_spoofing_score"]
         transcribed_text = features.get("transcribed_text", "")
-        
+
         logger.info(f"Anti-spoofing score: {anti_spoofing_score:.4f}")
         logger.info(f"Transcribed text: {transcribed_text}")
-        
+
         # Get expected phrase for verification using public method
         phrase = await verification_service.get_phrase(phrase_uuid)
         expected_phrase = phrase.text if phrase else None
-        
+
         # Verify voice with phrase matching
         import time
+
         start_time = time.monotonic()
         verify_result = await verification_service.verify_voice(
             verification_id=verification_uuid,
@@ -148,11 +162,13 @@ async def verify_voice(
             client_id=UUID(client["id"]) if client else None,
             total_latency_ms=int((time.monotonic() - start_time) * 1000),
         )
-        
+
         # Debug logging
         logger.info(f"verify_result keys: {verify_result.keys()}")
-        logger.info(f"verify_result types: {[(k, type(v).__name__) for k, v in verify_result.items()]}")
-        
+        logger.info(
+            f"verify_result types: {[(k, type(v).__name__) for k, v in verify_result.items()]}"
+        )
+
         # Convert numpy types to native Python types for JSON serialization
         response = VerifyVoiceResponse(
             verification_id=str(verify_result["verification_id"]),
@@ -160,15 +176,23 @@ async def verify_voice(
             is_verified=bool(verify_result["is_verified"]),
             confidence_score=float(verify_result["confidence_score"]),
             similarity_score=float(verify_result["similarity_score"]),
-            anti_spoofing_score=float(verify_result["anti_spoofing_score"]) if verify_result.get("anti_spoofing_score") is not None else None,
-            phrase_match=bool(verify_result["phrase_match"]) if verify_result.get("phrase_match") is not None else None,
+            anti_spoofing_score=(
+                float(verify_result["anti_spoofing_score"])
+                if verify_result.get("anti_spoofing_score") is not None
+                else None
+            ),
+            phrase_match=(
+                bool(verify_result["phrase_match"])
+                if verify_result.get("phrase_match") is not None
+                else None
+            ),
             is_live=bool(verify_result["is_live"]),
-            threshold_used=float(verify_result["threshold_used"])
+            threshold_used=float(verify_result["threshold_used"]),
         )
-        
+
         logger.info("Response created successfully")
         return response
-    
+
     except ValueError as e:
         logger.error(f"Validation error in verify_voice: {e}", exc_info=True)
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
@@ -176,7 +200,7 @@ async def verify_voice(
         logger.error(f"Error in verify_voice: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to verify voice"
+            detail="Failed to verify voice",
         )
 
 
@@ -192,55 +216,58 @@ async def quick_verify(
 ):
     """
     Quick verification without phrase management (for simple use cases).
-    
+
     - **user_id**: User UUID to verify
     - **audio_file**: Audio file (WAV, MP3, FLAC, etc.)
-    
+
     Returns verification result with scores.
     """
     try:
         user_uuid = UUID(user_id)
-        
+
         # Read audio file
         audio_bytes = await audio_file.read()
         audio_format = audio_file.content_type or "audio/wav"
-        
+
         # Convert to WAV if needed
         from ..infrastructure.biometrics.audio_converter import convert_to_wav
+
         format_lower = audio_format.lower()
-        if '/' in format_lower:
-            format_lower = format_lower.split('/')[1].split(';')[0]
-        
+        if "/" in format_lower:
+            format_lower = format_lower.split("/")[1].split(";")[0]
+
         if format_lower != "wav":
-            logger.info(f"Converting {format_lower} audio to WAV for quick verification")
+            logger.info(
+                f"Converting {format_lower} audio to WAV for quick verification"
+            )
             try:
                 audio_bytes = convert_to_wav(audio_bytes, format_lower)
             except Exception as e:
                 logger.error(f"Audio conversion failed: {e}")
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=f"Failed to convert audio: {str(e)}"
+                    detail=f"Failed to convert audio: {str(e)}",
                 )
-        
+
         # Validate audio quality
         quality_info = voice_engine.validate_audio_quality(audio_bytes, "audio/wav")
         if not quality_info["is_valid"]:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=quality_info.get('reason', 'Invalid audio')
+                detail=quality_info.get("reason", "Invalid audio"),
             )
-        
+
         # Extract features using the correct method (not process_audio which doesn't exist)
         features = voice_engine.extract_features(
-            audio_data=audio_bytes,
-            audio_format="wav"
+            audio_data=audio_bytes, audio_format="wav"
         )
-        
+
         embedding = features["embedding"]
         anti_spoofing_score = features.get("anti_spoofing_score")
-        
+
         # Quick verify
         import time
+
         start_time = time.monotonic()
         verify_result = await verification_service.quick_verify(
             user_id=user_uuid,
@@ -250,7 +277,7 @@ async def quick_verify(
             client_id=UUID(client["id"]) if client else None,
             total_latency_ms=int((time.monotonic() - start_time) * 1000),
         )
-        
+
         return VerifyVoiceResponse(
             verification_id=None,
             user_id=verify_result["user_id"],
@@ -260,9 +287,9 @@ async def quick_verify(
             anti_spoofing_score=verify_result.get("anti_spoofing_score"),
             phrase_match=None,
             is_live=verify_result["is_live"],
-            threshold_used=verify_result["threshold_used"]
+            threshold_used=verify_result["threshold_used"],
         )
-    
+
     except ValueError as e:
         logger.error(f"Validation error in quick_verify: {e}")
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
@@ -270,16 +297,19 @@ async def quick_verify(
         logger.error(f"Error in quick_verify: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to quick verify"
+            detail="Failed to quick verify",
         )
 
 
-
 @router.post("/start-multi", response_model=StartMultiPhraseVerificationResponse)
+@limiter.limit(verification_limit)
 async def start_multi_phrase_verification(
-    request: StartVerificationRequest,
-    verification_service: VerificationService = Depends(get_verification_service)
+    request: Request,
+    body: StartVerificationRequest,
+    verification_service: VerificationService = Depends(get_verification_service),
+    current_user: dict = Depends(get_current_user),
 ):
+    check_user_scope_or_admin(body.user_id, current_user)
     """
     Start multi-phrase verification (3 phrases).
     
@@ -289,15 +319,16 @@ async def start_multi_phrase_verification(
     Returns verification_id, user_id, and 3 phrases to read.
     """
     try:
-        logger.info(f"start_multi_phrase_verification called with user_id={request.user_id}, difficulty={request.difficulty}")
-        
-        result = await verification_service.start_multi_phrase_verification(
-            user_id=request.user_id,
-            difficulty=request.difficulty
+        logger.info(
+            f"start_multi_phrase_verification called with user_id={body.user_id}, difficulty={body.difficulty}"
         )
-        
+
+        result = await verification_service.start_multi_phrase_verification(
+            user_id=body.user_id, difficulty=body.difficulty
+        )
+
         return StartMultiPhraseVerificationResponse(**result)
-    
+
     except ValueError as e:
         logger.error(f"Validation error in start_multi_phrase_verification: {e}")
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
@@ -305,7 +336,7 @@ async def start_multi_phrase_verification(
         logger.error(f"Error in start_multi_phrase_verification: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to start multi-phrase verification"
+            detail="Failed to start multi-phrase verification",
         )
 
 
@@ -328,21 +359,22 @@ async def verify_phrase(
 ):
     """
     Verify a single phrase in multi-phrase verification.
-    
+
     - **verification_id**: The verification session ID from /start-multi
     - **phrase_id**: The phrase ID that was read
     -  **phrase_number**: Which phrase this is (1, 2, or 3)
     - **audio_file**: Audio file (WAV, MP3, FLAC, webm, etc.)
-    
+
     Returns partial result or final result if all 3 phrases are complete.
     """
     try:
         # Validate IDs
         verification_uuid = UUID(verification_id)
         phrase_uuid = UUID(phrase_id)
-        
+
         # Read audio file
         from ..infrastructure.biometrics.audio_converter import read_audio_sample
+
         try:
             audio_bytes = await read_audio_sample(audio_file)
             logger.info("Audio conversion successful")
@@ -350,28 +382,27 @@ async def verify_phrase(
             logger.error(f"Audio conversion failed: {e}")
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Failed to convert audio: {str(e)}"
+                detail=f"Failed to convert audio: {str(e)}",
             )
-        
+
         # Process audio through full pipeline (parallel processing for speed)
         # Extract biometric features concurrently
         features = await voice_engine.extract_features_parallel(
-            audio_data=audio_bytes,
-            audio_format="wav"
+            audio_data=audio_bytes, audio_format="wav"
         )
-        
+
         embedding = features["embedding"]
         anti_spoofing_score = features["anti_spoofing_score"]
         transcribed_text = features.get("transcribed_text", "")
-        
-        
+
         # Get user info BEFORE verify_phrase (session might be deleted after completion)
         multi_session = verification_service.get_multi_session(verification_uuid)
         user = await verification_service.get_multi_session_user(verification_uuid)
         user_id_for_dataset = str(multi_session.user_id) if multi_session else None
-        
+
         # Verify phrase
         import time
+
         start_time = time.monotonic()
         result = await verification_service.verify_phrase(
             verification_id=verification_uuid,
@@ -384,17 +415,19 @@ async def verify_phrase(
             client_id=UUID(client["id"]) if client else None,
             total_latency_ms=int((time.monotonic() - start_time) * 1000),
         )
-        
-        logger.info(f"Phrase {phrase_number} verified. is_complete={result.get('is_complete')}")
-        
+
+        logger.info(
+            f"Phrase {phrase_number} verified. is_complete={result.get('is_complete')}"
+        )
+
         # Save audio to dataset (always active)
         from evaluation.dataset_recorder import dataset_recorder
         from ..infrastructure.biometrics.audio_converter import ensure_wav_format
-        
+
         try:
             # Ensure WAV format (already converted above, but just to be safe)
             wav_bytes = ensure_wav_format(audio_bytes)
-            
+
             if wav_bytes and user_id_for_dataset:
                 # Respect user audio consent policy (keep_audio)
                 policy = None
@@ -410,50 +443,58 @@ async def verify_phrase(
                         user_id=user_id_for_dataset,
                         audio_data=wav_bytes,
                         user_email=user.get("email") if user else None,
-                    verification_number=None,  # Auto-increment
-                    phrase_number=phrase_number
+                        verification_number=None,  # Auto-increment
+                        phrase_number=phrase_number,
+                    )
+                logger.info(
+                    f"Saved verification audio for user {user.get('email') if user else user_id_for_dataset}, phrase {phrase_number}"
                 )
-                logger.info(f"Saved verification audio for user {user.get('email') if user else user_id_for_dataset}, phrase {phrase_number}")
             else:
-                logger.warning("Failed to ensure WAV format for dataset recording or missing user_id")
+                logger.warning(
+                    "Failed to ensure WAV format for dataset recording or missing user_id"
+                )
         except Exception as e:
-                logger.error(f"Failed to save verification audio to dataset: {e}")
-        
+            logger.error(f"Failed to save verification audio to dataset: {e}")
+
         # Extract IP address from request
         client_ip = request.client.host if request.client else "Unknown"
         # Check for forwarded headers (proxy/load balancer)
         forwarded = request.headers.get("X-Forwarded-For")
         if forwarded:
             client_ip = forwarded.split(",")[0].strip()
-        
+
         # Log verification to audit if complete
         # METADATA FIX: Capturing IP, user agent, device info
-        if result.get('is_complete'):
-            logger.info(f"Verification complete, logging to audit. verification_id={verification_uuid}, user_id={result.get('user_id')}, is_verified={result.get('is_verified')}")
+        if result.get("is_complete"):
+            logger.info(
+                f"Verification complete, logging to audit. verification_id={verification_uuid}, user_id={result.get('user_id')}, is_verified={result.get('is_verified')}"
+            )
             await audit_repo.log_event(
                 actor="system",  # Changed from user_id to 'system' for consistency
                 action=AuditAction.VERIFICATION,
                 entity_type="multi_verification_complete",
                 entity_id=str(verification_uuid),
-                success=result.get('is_verified', False),
+                success=result.get("is_verified", False),
                 metadata={
                     "id": str(verification_uuid),
-                    "user_id": str(result.get('user_id')),
-                    "average_score": result.get('average_score'),
-                    "is_verified": result.get('is_verified'),
-                    "results": result.get('all_results', []),
+                    "user_id": str(result.get("user_id")),
+                    "average_score": result.get("average_score"),
+                    "is_verified": result.get("is_verified"),
+                    "results": result.get("all_results", []),
                     "ip_address": client_ip,
                     "user_agent": user_agent or "Unknown",
                     "device_info": device_info or "Unknown",
-                    "timestamp": datetime.now(timezone.utc).isoformat()
-                }
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                },
             )
-            logger.info("Successfully logged multi_verification_complete event to audit")
+            logger.info(
+                "Successfully logged multi_verification_complete event to audit"
+            )
         else:
             logger.info(f"Verification not complete yet (phrase {phrase_number} of 3)")
-        
+
         return VerifyPhraseResponse(**result)
-    
+
     except ValueError as e:
         logger.error(f"Validation error in verify_phrase: {e}", exc_info=True)
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
@@ -461,8 +502,9 @@ async def verify_phrase(
         logger.error(f"Error in verify_phrase: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to verify phrase"
+            detail="Failed to verify phrase",
         )
+
 
 @router.get("/user/{user_id}/history")
 async def get_verification_history(
@@ -473,21 +515,20 @@ async def get_verification_history(
 ):
     """
     Get verification history for a user.
-    
+
     Returns a list of past verification attempts with scores and timestamps.
     """
     try:
         history = await verification_service.get_verification_history(user_id, limit)
-        return {
-            "success": True,
-            "history": history
-        }
+        return {"success": True, "history": history}
     except ValueError as e:
         logger.error(f"Invalid user_id in get_verification_history: {e}")
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid user ID")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid user ID"
+        )
     except Exception as e:
         logger.error(f"Error in get_verification_history: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to retrieve verification history"
+            detail="Failed to retrieve verification history",
         )

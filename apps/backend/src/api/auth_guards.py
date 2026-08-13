@@ -8,11 +8,38 @@ from fastapi import Depends, Header, HTTPException, status
 
 from src.api.auth_controller import get_current_user
 
-__all__ = ["get_current_user", "enforce_user_scope", "require_admin_user", "get_optional_client"]
+__all__ = [
+    "get_current_user",
+    "enforce_user_scope",
+    "require_admin_user",
+    "get_optional_client",
+]
 
 
 def _is_admin(user: dict) -> bool:
     return user.get("role") in ("admin", "superadmin")
+
+
+def check_user_scope_or_admin(target_user_id: UUID, current_user: dict) -> dict:
+    """Ensure ``current_user`` can act on ``target_user_id``.
+
+    - Admins and superadmins can act on any user.
+    - Regular users can only act on their own user_id.
+
+    Returns ``current_user`` on success. Raises ``HTTPException`` 403 otherwise.
+    Reusable for endpoints where ``target_user_id`` comes from a request body
+    rather than a path parameter (e.g. ``/verification/start``).
+    """
+    if _is_admin(current_user):
+        return current_user
+
+    token_user_id = str(current_user.get("id") or current_user.get("user_id") or "")
+    if token_user_id != str(target_user_id):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only access your own resources",
+        )
+    return current_user
 
 
 async def enforce_user_scope(
@@ -21,21 +48,10 @@ async def enforce_user_scope(
 ) -> dict:
     """Dependency that ensures the current user can act on ``user_id``.
 
-    - Admins and superadmins can act on any user.
-    - Regular users can only act on their own user_id.
-
-    Returns the current user dict on success.
+    Use as ``Depends(enforce_user_scope)`` on path-param endpoints.
+    For body-param endpoints, call ``check_user_scope_or_admin`` directly.
     """
-    if _is_admin(current_user):
-        return current_user
-
-    token_user_id = str(current_user.get("id") or current_user.get("user_id") or "")
-    if token_user_id != str(user_id):
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="You can only access your own resources",
-        )
-    return current_user
+    return check_user_scope_or_admin(user_id, current_user)
 
 
 async def require_admin_user(
@@ -61,7 +77,9 @@ async def get_optional_client(
     if not x_api_key:
         return None
     from src.infrastructure.config.dependencies import get_client_app_repository
-    from src.domain.repositories.client_app_repository_port import ClientAppRepositoryPort
+    from src.domain.repositories.client_app_repository_port import (
+        ClientAppRepositoryPort,
+    )
     from src.infrastructure.persistence.postgres_client_app_repository import (
         PostgresClientAppRepository,
     )

@@ -48,12 +48,14 @@ services:
     restart: unless-stopped
 
   # pgAdmin for database management (optional)
+  # Set PGADMIN_DEFAULT_EMAIL and PGADMIN_DEFAULT_PASSWORD in your .env file
+  # (see apps/backend/.env.example). Do NOT commit real credentials.
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: voice_biometrics_pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-change_me_pgadmin}
     ports:
       - "5050:80"
     depends_on:

@@ -1,9 +1,10 @@
 -- Script to create admin users
--- Run this script to create admin and super admin users
+-- Run this script to create admin and super admin users.
+-- Passwords are not stored in this file: see apps/backend/README.md or
+-- docs/arquitectura/SETUP.md for the dev credentials and how to regenerate hashes.
 
 -- 1. Admin user for "familia" company
 -- Email: admin@familia.com
--- Password: AdminFamilia123
 -- Role: admin
 -- Company: familia
 
@@ -31,7 +32,6 @@ INSERT INTO "user" (
 
 -- 2. Super Admin user (global access)
 -- Email: superadmin@sistema.com
--- Password: SuperAdmin123
 -- Role: superadmin
 -- Company: sistema
 
