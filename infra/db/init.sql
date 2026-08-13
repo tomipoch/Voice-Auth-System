@@ -531,3 +531,93 @@ CREATE INDEX IF NOT EXISTS idx_system_settings_updated ON system_settings(update
 
 COMMENT ON TABLE system_settings IS 'Configuración global del sistema controlada por superadmin';
 
+-- =====================================================
+-- 19. DATOS SEMILLA (referencia reproducible)
+--     => metadatos de libros, reglas de calidad, settings
+--        globales y usuarios de desarrollo. Los datos de
+--        runtime (37.407 frases, usuarios reales) se restauran
+--        aparte desde data_dump.sql (gitignored, contiene PII).
+-- =====================================================
+
+INSERT INTO books (title, author, filename, language) VALUES
+  ('1984', 'George Orwell', '1984.pdf', 'es'),
+  ('El Jardín Secreto', 'Frances Hodgson Burnett', 'EL_jardin_Secreto.pdf', 'es'),
+  ('Edipo Rey', 'Sófocles', 'Edipo-Rey.pdf', 'es'),
+  ('El Principito', 'Antoine de Saint-Exupéry', 'El-Principito.pdf', 'es'),
+  ('El Diario de Ana Frank', 'Ana Frank', 'El-diario-de-ana-frank.pdf', 'es'),
+  ('La Ilíada', 'Homero', 'La-Iliada-Homero.pdf', 'es'),
+  ('La Odisea', 'Homero', 'La-Odisea-de-Homero.pdf', 'es'),
+  ('La Guerra de los Mundos', 'H.G. Wells', 'La-guerra-de-los-mundos.pdf', 'es'),
+  ('Sub Terra', 'Baldomero Lillo', 'Sub-terra.pdf', 'es'),
+  ('Veinte Mil Leguas de Viaje Submarino', 'Julio Verne', 'Veinte mil leguas de viaje submarino.pdf', 'es'),
+  ('Ben Quiere a Ana', 'Peter Härtling', 'ben-quiere-a-ana.pdf', 'es'),
+  ('Charlie y la Fábrica de Chocolate', 'Roald Dahl', 'charly-y-la-fabrica-de-chocolate.pdf', 'es'),
+  ('Dioses y Héroes de la Mitología', 'Anónimo', 'dioses-y-heroes-de-la-mitologia.pdf', 'es'),
+  ('Don Quijote de la Mancha', 'Miguel de Cervantes', 'don-quijote-de-la-mancha.pdf', 'es'),
+  ('El Caso del Futbolista Enmascarado', 'Alfredo Gómez Cerdá', 'el-caso-del-futbolista-enmascarado.pdf', 'es'),
+  ('El Hombre Invisible', 'H.G. Wells', 'el-hombre-invisible.pdf', 'es'),
+  ('El Niño del Pijama de Rayas', 'John Boyne', 'el-niño-del-pijama-de-rayas.pdf', 'es'),
+  ('Frin', 'Luis María Pescetti', 'frin.pdf', 'es'),
+  ('La Máquina del Tiempo', 'H.G. Wells', 'la-maquina-del-tiempo.pdf', 'es'),
+  ('Las Aventuras de Tom Sawyer', 'Mark Twain', 'las-aventuras-de-tom-sawyer.pdf', 'es'),
+  ('Lejos de Frin', 'Luis María Pescetti', 'lejos-de-frin.pdf', 'es'),
+  ('Matilda', 'Roald Dahl', 'matilda.pdf', 'es'),
+  ('Momo', 'Michael Ende', 'momo.pdf', 'es'),
+  ('Sub Sole', 'Baldomero Lillo', 'sub-sole.pdf', 'es'),
+  ('Viaje al Centro de la Tierra', 'Julio Verne', 'viaje_al_centro_de_la_tierra.pdf', 'es'),
+  ('La Vuelta al Mundo en 80 Días', 'Julio Verne', 'vuelta-al-mundo-en-80-dias.pdf', 'es'),
+  -- Libros cuyos PDFs existen en infra/db/Libros/ pero faltaban en la migración 003
+  ('Cien Años de Soledad', 'Gabriel García Márquez', 'Cien años de soldedad.pdf', 'es'),
+  ('Crónica de una Muerte Anunciada', 'Gabriel García Márquez', 'CRONICA-DE-UNA-MUERTE-ANUNCIADA.pdf', 'es'),
+  ('Cuentos de los Hermanos Grimm', 'Hermanos Grimm', 'cuentos_hermanos_grimm.pdf', 'es'),
+  ('La Divina Comedia', 'Dante Alighieri', 'Divina comedia.pdf', 'es'),
+  ('El Código Da Vinci', 'Dan Brown', 'El Código Da Vinci.pdf', 'es'),
+  ('Rayuela', 'Julio Cortázar', 'Julio-Cortazar-Rayuela.pdf', 'es'),
+  ('La Casa de los Espíritus', 'Isabel Allende', 'La Casa de los Espíritus.pdf', 'es'),
+  ('La Comunidad del Anillo', 'J.R.R. Tolkien', 'La Comunidad del anillo.pdf', 'es'),
+  ('La Sombra del Viento', 'Carlos Ruiz Zafón', 'La-Sombra-Del-Viento.pdf', 'es'),
+  ('Marianela', 'Benito Pérez Galdós', 'Marianela.pdf', 'es')
+ON CONFLICT (filename) DO NOTHING;
+
+INSERT INTO phrase_quality_rules (rule_name, rule_type, rule_value) VALUES
+  ('min_success_rate', 'threshold', '{"value": 0.70, "description": "Tasa mínima de éxito para mantener frase activa", "unit": "percentage"}'),
+  ('min_asr_score', 'threshold', '{"value": 0.80, "description": "Score mínimo de ASR (reconocimiento de voz)", "unit": "percentage"}'),
+  ('min_phrase_ok_rate', 'threshold', '{"value": 0.75, "description": "Tasa mínima de transcripción correcta", "unit": "percentage"}'),
+  ('min_attempts_for_analysis', 'threshold', '{"value": 10, "description": "Intentos mínimos antes de analizar frase", "unit": "count"}'),
+  ('exclude_recent_phrases', 'threshold', '{"value": 50, "description": "Excluir últimas N frases usadas por usuario", "unit": "count"}'),
+  ('max_challenges_per_user', 'rate_limit', '{"value": 3, "description": "Máximo de challenges activos simultáneos por usuario", "unit": "count"}'),
+  ('max_challenges_per_hour', 'rate_limit', '{"value": 20, "description": "Máximo de challenges creados por hora por usuario", "unit": "count"}'),
+  ('challenge_expiry_minutes', 'cleanup', '{"value": 5, "description": "Minutos hasta que un challenge expire", "unit": "minutes"}'),
+  ('cleanup_expired_after_hours', 'cleanup', '{"value": 1, "description": "Borrar challenges expirados después de N horas", "unit": "hours"}'),
+  ('cleanup_used_after_hours', 'cleanup', '{"value": 24, "description": "Borrar challenges usados después de N horas", "unit": "hours"}')
+ON CONFLICT (rule_name) DO NOTHING;
+
+INSERT INTO system_settings (key, value) VALUES
+  ('dataset_recording', '{"enabled": false}'::jsonb)
+ON CONFLICT (key) DO NOTHING;
+
+-- Usuarios de desarrollo (solo se insertan si no existen; producción no los usa)
+INSERT INTO "user" (id, email, password, first_name, last_name, role, company, external_ref, created_at)
+VALUES (
+  gen_random_uuid(),
+  'admin@example.com',
+  '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYIxF6q0OKi', -- bcrypt de 'admin123'
+  'Admin', 'User', 'admin', 'Example Corp', 'admin-001', now()
+)
+ON CONFLICT (email) DO NOTHING;
+
+INSERT INTO "user" (id, email, password, first_name, last_name, role, company, external_ref, created_at)
+VALUES (
+  gen_random_uuid(),
+  'user@example.com',
+  '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', -- bcrypt de 'user123'
+  'Test', 'User', 'user', 'Example Corp', 'user-001', now()
+)
+ON CONFLICT (email) DO NOTHING;
+
+INSERT INTO user_policy (user_id, keep_audio, retention_days, consent_at)
+SELECT id, FALSE, 7, now()
+FROM "user"
+WHERE email IN ('admin@example.com', 'user@example.com')
+ON CONFLICT (user_id) DO NOTHING;
+
