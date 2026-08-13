@@ -8,6 +8,15 @@
 -- -----------------
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE EXTENSION IF NOT EXISTS pg_trgm;  -- búsqueda por similitud/fuzzy en phrase.text (tarea 3)
+
+-- Tabla de control del runner de migraciones (infra/db/apply_migrations.py)
+CREATE TABLE IF NOT EXISTS schema_migrations (
+  id SERIAL PRIMARY KEY,
+  filename TEXT NOT NULL UNIQUE,
+  checksum TEXT NOT NULL,
+  applied_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
 
 -- =====================================================
 -- 1. CLIENTES DE LA API (control de acceso a la API)
@@ -92,6 +101,7 @@ CREATE TABLE IF NOT EXISTS voiceprint (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
   embedding BYTEA NOT NULL,          -- firma biométrica actual del usuario (cifrada)
+  speaker_model_id INT REFERENCES model_version(id),  -- versión del modelo speaker usado
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   CONSTRAINT uq_voiceprint_user UNIQUE(user_id)
@@ -104,6 +114,10 @@ CREATE TABLE IF NOT EXISTS voiceprint_history (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   speaker_model_id INT REFERENCES model_version(id)
 );
+
+-- Convergencia de BDs existentes al baseline (CREATE TABLE IF NOT EXISTS no añade columnas a tablas ya creadas)
+ALTER TABLE voiceprint ADD COLUMN IF NOT EXISTS speaker_model_id INT REFERENCES model_version(id);
+ALTER TABLE voiceprint_history ADD COLUMN IF NOT EXISTS speaker_model_id INT REFERENCES model_version(id);
 
 CREATE TABLE IF NOT EXISTS enrollment_sample (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -390,10 +404,118 @@ CREATE TABLE IF NOT EXISTS phrase_usage (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   phrase_id UUID NOT NULL REFERENCES phrase(id) ON DELETE CASCADE,
   user_id UUID NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
-  used_for TEXT NOT NULL CHECK (used_for IN ('enrollment', 'verification')),
+  used_for TEXT NOT NULL CHECK (used_for IN ('enrollment', 'verification', 'challenge')),
   used_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE INDEX IF NOT EXISTS idx_phrase_usage_user ON phrase_usage(user_id, used_at DESC);
 CREATE INDEX IF NOT EXISTS idx_phrase_usage_phrase ON phrase_usage(phrase_id);
+
+-- =====================================================
+-- 15. LIBROS Y NORMALIZACIÓN DE FRASES
+--     => books = metadatos de los PDFs usados para extraer frases;
+--        phrase.book_id / challenge.phrase_id / phrase.phoneme_score /
+--        phrase.style provenían de migraciones ad-hoc y quedan
+--        consolidados aquí (ALTERs: las tablas se crean antes).
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS books (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title TEXT NOT NULL,
+  author TEXT,
+  filename TEXT NOT NULL UNIQUE,
+  language TEXT NOT NULL DEFAULT 'es',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+ALTER TABLE phrase ADD COLUMN IF NOT EXISTS book_id UUID REFERENCES books(id) ON DELETE SET NULL;
+CREATE INDEX IF NOT EXISTS idx_phrase_book_id ON phrase(book_id);
+
+ALTER TABLE challenge ADD COLUMN IF NOT EXISTS phrase_id UUID REFERENCES phrase(id) ON DELETE SET NULL;
+CREATE INDEX IF NOT EXISTS idx_challenge_phrase ON challenge(phrase_id);
+
+ALTER TABLE phrase ADD COLUMN IF NOT EXISTS phoneme_score INTEGER DEFAULT 0;
+ALTER TABLE phrase ADD COLUMN IF NOT EXISTS style TEXT CHECK (style IN ('narrative', 'descriptive', 'dialogue', 'poetic'));
+
+COMMENT ON COLUMN phrase.phoneme_score IS 'Puntaje de diversidad fonémica (0-100). Mayor = fonemas más variados para mejor captura biométrica.';
+COMMENT ON COLUMN phrase.style IS 'Clasificación de estilo textual: narrative, descriptive, dialogue, poetic.';
+
+CREATE INDEX IF NOT EXISTS idx_phrase_phoneme_score ON phrase(phoneme_score);
+CREATE INDEX IF NOT EXISTS idx_phrase_style ON phrase(style);
+
+-- =====================================================
+-- 16. REGLAS DE CALIDAD DE FRASES (configurable por admin)
+--     => thresholds / rate limits / cleanup usados por
+--        PhraseQualityRulesService (provenía de migración ad-hoc).
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS phrase_quality_rules (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    rule_name TEXT NOT NULL UNIQUE,
+    rule_type TEXT NOT NULL CHECK (rule_type IN ('threshold', 'rate_limit', 'cleanup')),
+    rule_value JSONB NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    created_by UUID REFERENCES "user"(id) ON DELETE SET NULL,
+
+    CONSTRAINT ck_rule_value_has_value CHECK (rule_value ? 'value'),
+    CONSTRAINT ck_rule_value_has_description CHECK (rule_value ? 'description')
+);
+
+CREATE INDEX IF NOT EXISTS idx_phrase_quality_rules_active
+  ON phrase_quality_rules(is_active) WHERE is_active = TRUE;
+CREATE INDEX IF NOT EXISTS idx_phrase_quality_rules_type ON phrase_quality_rules(rule_type);
+
+CREATE OR REPLACE FUNCTION update_phrase_quality_rules_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = now();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_phrase_quality_rules_updated_at ON phrase_quality_rules;
+CREATE TRIGGER trg_phrase_quality_rules_updated_at
+    BEFORE UPDATE ON phrase_quality_rules
+    FOR EACH ROW
+    EXECUTE FUNCTION update_phrase_quality_rules_updated_at();
+
+-- =====================================================
+-- 17. SESIÓN DE ENROLAMIENTO PERSISTENTE
+--     => sobrevive reinicios del servidor (provenía de migración ad-hoc).
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS enrollment_session (
+    id UUID PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+    challenges JSONB NOT NULL,          -- arreglo de desafíos
+    samples_collected INTEGER DEFAULT 0,
+    challenge_index INTEGER DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    expires_at TIMESTAMPTZ DEFAULT (NOW() + INTERVAL '1 hour'),
+    completed_at TIMESTAMPTZ,
+    CONSTRAINT enrollment_session_active_unique UNIQUE (user_id) DEFERRABLE INITIALLY DEFERRED
+);
+
+CREATE INDEX IF NOT EXISTS idx_enrollment_session_user ON enrollment_session(user_id);
+CREATE INDEX IF NOT EXISTS idx_enrollment_session_expires ON enrollment_session(expires_at);
+
+COMMENT ON TABLE enrollment_session IS 'Almacenamiento persistente de sesiones de enrolamiento activas - sobrevive reinicios del servidor';
+
+-- =====================================================
+-- 18. CONFIGURACIÓN GLOBAL DEL SISTEMA (superadmin)
+--     => p. ej. grabación de dataset (provenía de migración ad-hoc).
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS system_settings (
+    key VARCHAR(100) PRIMARY KEY,
+    value JSONB NOT NULL DEFAULT '{}'::jsonb,
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_by VARCHAR(255)
+);
+
+CREATE INDEX IF NOT EXISTS idx_system_settings_updated ON system_settings(updated_at DESC);
+
+COMMENT ON TABLE system_settings IS 'Configuración global del sistema controlada por superadmin';
 
