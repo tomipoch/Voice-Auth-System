@@ -88,4 +88,7 @@ black src/ && flake8 src/
 
 ## 📚 Documentación
 
-Ver [docs/](docs/) para documentación técnica detallada.
+Ver [docs/](docs/) para documentación técnica detallada. La
+descripción técnica canónica (capas de Clean Architecture,
+puertos del dominio, decisiones de infraestructura) vive en
+[`docs/arquitectura/TECHNICAL_ARCHITECTURE.md`](../../docs/arquitectura/TECHNICAL_ARCHITECTURE.md) — ese es el documento de referencia para entender la estructura del backend. Esta README se enfoca en cómo arrancarlo.

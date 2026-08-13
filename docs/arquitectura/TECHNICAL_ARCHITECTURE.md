@@ -11,7 +11,7 @@
 ## 1. Visión General del Sistema
 
 ### 1.1 Resumen Ejecutivo
-El **Sistema de Autenticación Biométrica por Voz** es una plataforma de seguridad de identidad digital diseñada para validar usuarios mediante el análisis de características vocales únicas (huella de voz). A diferencia de sistemas biométricos estáticos, este proyecto implementa un mecanismo de **Desafío-Respuesta Dinámico** utilizando un corpus de más de 43,000 frases literarias, lo que mitiga significativamente los ataques de suplantación (spoofing) y repetición.
+El **Sistema de Autenticación Biométrica por Voz** es una plataforma de seguridad de identidad digital diseñada para validar usuarios mediante el análisis de características vocales únicas (huella de voz). A diferencia de sistemas biométricos estáticos, este proyecto implementa un mecanismo de **Desafío-Respuesta Dinámico** utilizando un corpus de 37,407 frases literarias (valor del dump pre-generado; ver §2 Estado de los números en METRICS_AND_EVALUATION.md), lo que mitiga significativamente los ataques de suplantación (spoofing) y repetición.
 
 ### 1.2 Objetivos del Negocio
 1.  **Seguridad Pasiva:** Autenticación robusta sin necesidad de recordar contraseñas complejas.
@@ -141,7 +141,7 @@ El diseño de base de datos es híbrido (Relacional + Vectorial).
 | **`user`** | Identidad del usuario. | UUID, Role (RBAC), Email. |
 | **`voiceprint`** | Huella biométrica activa. | Contiene columna `embedding vector(256)`. Relación 1:1 con User. |
 | **`enrollment_sample`** | Muestras crudas del registro. | Usadas para re-entrenar o recalibrar el voiceprint. |
-| **`phrase`** | Catálogo de desafíos. | 43,000+ registros. Columnas: `text`, `difficulty`, `source`. |
+| **`phrase`** | Catálogo de desafíos. | 37,407 registros. Columnas: `text`, `difficulty`, `source`. |
 | **`challenge`** | Desafío temporal. | TTL (Time-To-Live) corto. Vincula User + Phrase. |
 | **`auth_attempt`** | Registro de decisión de negocio. | Resultado final (`BOOL`), Latencia, Razón del fallo. |
 | **`scores`** | Registro de evidencia técnica. | Valores exactos de similitud y probabilidad de spoofing. |
