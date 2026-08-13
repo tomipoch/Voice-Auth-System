@@ -1,11 +1,12 @@
 """Unit tests for PostgresUserRepository using the test database."""
 
 import uuid
-from datetime import datetime, timezone
 
 import pytest
 
-from src.infrastructure.persistence.postgres_user_repository import PostgresUserRepository
+from src.infrastructure.persistence.postgres_user_repository import (
+    PostgresUserRepository,
+)
 
 
 @pytest.fixture

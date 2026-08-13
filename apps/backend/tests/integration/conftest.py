@@ -1,17 +1,17 @@
 """Pytest configuration for integration tests."""
 
 import asyncio
-
-import pytest
-import asyncpg
 import os
-from dotenv import load_dotenv
-from pathlib import Path
-from httpx import AsyncClient, ASGITransport
-from typing import AsyncGenerator
 
 # Import the FastAPI app
 import sys
+from pathlib import Path
+from typing import AsyncGenerator
+
+import asyncpg
+import pytest
+from dotenv import load_dotenv
+from httpx import ASGITransport, AsyncClient
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
@@ -69,11 +69,10 @@ async def client(event_loop) -> AsyncGenerator[AsyncClient, None]:
     enrollment_session_repo for the lookup, but that is a
     refactor outside Fase 8's scope.)
     """
-    from src.main import MockVoiceBiometricEngineFacade
+    from src.application.challenge_service import ChallengeService
+    from src.application.enrollment_service import EnrollmentService
+    from src.application.services.biometric_validator import BiometricValidator
     from src.infrastructure.config import dependencies as deps
-    from src.infrastructure.persistence.postgres_voice_signature_repository import (
-        PostgresVoiceSignatureRepository,
-    )
     from src.infrastructure.persistence.postgres_audit_log_repository import (
         PostgresAuditLogRepository,
     )
@@ -83,9 +82,10 @@ async def client(event_loop) -> AsyncGenerator[AsyncClient, None]:
     from src.infrastructure.persistence.postgres_model_version_repository import (
         PostgresModelVersionRepository,
     )
-    from src.application.enrollment_service import EnrollmentService
-    from src.application.services.biometric_validator import BiometricValidator
-    from src.application.challenge_service import ChallengeService
+    from src.infrastructure.persistence.postgres_voice_signature_repository import (
+        PostgresVoiceSignatureRepository,
+    )
+    from src.main import MockVoiceBiometricEngineFacade
 
     app = create_app()
     mock_engine = MockVoiceBiometricEngineFacade()
@@ -111,17 +111,17 @@ async def client(event_loop) -> AsyncGenerator[AsyncClient, None]:
     # Build the proper ChallengeService the same way the
     # production dependency does.
     from src.application.challenge_service import ChallengeService
-    from src.infrastructure.persistence.postgres_challenge_repository import (
-        PostgresChallengeRepository,
-    )
-    from src.infrastructure.persistence.postgres_phrase_repository import (
-        PostgresPhraseRepository,
-    )
     from src.application.phrase_quality_rules_service import (
         PhraseQualityRulesService,
     )
+    from src.infrastructure.persistence.postgres_challenge_repository import (
+        PostgresChallengeRepository,
+    )
     from src.infrastructure.persistence.postgres_phrase_quality_rules_repository import (
         PostgresPhraseQualityRulesRepository,
+    )
+    from src.infrastructure.persistence.postgres_phrase_repository import (
+        PostgresPhraseRepository,
     )
 
     challenge_service = ChallengeService(

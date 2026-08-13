@@ -1,6 +1,5 @@
 """Tests del controller de dataset recording con system_settings mockeado."""
 
-from datetime import datetime, timezone
 from unittest.mock import AsyncMock, MagicMock, patch
 from uuid import uuid4
 
@@ -19,8 +18,8 @@ def settings_repo():
 @pytest.fixture
 def client(settings_repo):
     """Crea un TestClient con la dependencia get_system_settings_repository sobreescrita."""
-    from src.infrastructure.config.dependencies import get_system_settings_repository
     from src.api.auth_guards import require_admin_user
+    from src.infrastructure.config.dependencies import get_system_settings_repository
 
     app = FastAPI()
     app.include_router(dataset_router)

@@ -3,8 +3,8 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from src.main import create_app
 from src.api.auth_guards import enforce_user_scope, require_admin_user
+from src.main import create_app
 
 
 @pytest.fixture
@@ -12,6 +12,7 @@ def client():
     """Crea TestClient con dependencias de auth sobreescritas y lifespan
     deshabilitado."""
     from contextlib import asynccontextmanager
+
     from src.api.auth_controller import get_current_user as auth_get_current_user
 
     @asynccontextmanager

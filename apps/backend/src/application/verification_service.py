@@ -1,25 +1,25 @@
 """Verification service with dynamic phrase support."""
 
-import numpy as np
-import logging
 import difflib
-import json
-from typing import Dict, Optional, List
-from uuid import UUID, uuid4
+import logging
 from datetime import datetime, timezone
+from typing import Dict, Optional
+from uuid import UUID, uuid4
 
-from ..domain.repositories.voice_signature_repository_port import (
-    VoiceSignatureRepositoryPort,
-)
-from ..domain.repositories.user_repository_port import UserRepositoryPort
+import numpy as np
+
 from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
-from ..domain.repositories.verification_attempt_repository_port import (
-    VerificationAttemptRepositoryPort,
-)
 from ..domain.repositories.model_version_repository_port import (
     ModelVersionRepositoryPort,
 )
-from ..shared.types.common_types import VoiceEmbedding, AuditAction, ChallengeId
+from ..domain.repositories.user_repository_port import UserRepositoryPort
+from ..domain.repositories.verification_attempt_repository_port import (
+    VerificationAttemptRepositoryPort,
+)
+from ..domain.repositories.voice_signature_repository_port import (
+    VoiceSignatureRepositoryPort,
+)
+from ..shared.types.common_types import AuditAction, ChallengeId, VoiceEmbedding
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +65,7 @@ class VerificationService:
         phrase_repo=None,  # optional - needed by start_verification to
         # build the response-side phrase dict
     ):
-        from ..config import SIMILARITY_THRESHOLD, ANTI_SPOOFING_THRESHOLD
+        from ..config import ANTI_SPOOFING_THRESHOLD, SIMILARITY_THRESHOLD
 
         self._voice_repo = voice_repo
         self._user_repo = user_repo

@@ -87,8 +87,9 @@ class TestAuthService:
         user = _make_user()
         service = _make_service(user=user)
         # Issue a real refresh token via the service itself
-        from src.config import ALGORITHM, SECRET_KEY
         import jwt
+
+        from src.config import ALGORITHM, SECRET_KEY
         token = jwt.encode(
             {"sub": "user@example.com", "user_id": str(user["id"]), "type": "refresh"},
             SECRET_KEY, algorithm=ALGORITHM,
@@ -105,8 +106,9 @@ class TestAuthService:
 
     async def test_refresh_wrong_type(self):
         service = _make_service()
-        from src.config import ALGORITHM, SECRET_KEY
         import jwt
+
+        from src.config import ALGORITHM, SECRET_KEY
         token = jwt.encode(
             {"sub": "user@example.com", "user_id": "x", "type": "access"},
             SECRET_KEY, algorithm=ALGORITHM,

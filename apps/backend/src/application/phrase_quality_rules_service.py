@@ -1,8 +1,8 @@
 """Service for managing phrase quality rules."""
 
-from typing import Optional, List, Dict, Any
-from uuid import UUID
 import logging
+from typing import Any, Dict, List, Optional
+from uuid import UUID
 
 from ..domain.repositories.phrase_quality_rules_repository_port import (
     PhraseQualityRulesRepositoryPort,

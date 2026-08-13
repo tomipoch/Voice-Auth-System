@@ -1,20 +1,20 @@
 """Speaker embedding adapter for voice signature extraction using ECAPA-TDNN model."""
 
-import numpy as np
 import io
+import logging
 import wave
+from typing import Any, Dict, Tuple
+
+import numpy as np
 import torch
 import torchaudio
-import logging
-from typing import Optional, Dict, Any, Tuple
-from pathlib import Path
 
-from ...shared.types.common_types import VoiceEmbedding
 from ...shared.constants.biometric_constants import (
     EMBEDDING_DIMENSION,
-    MIN_AUDIO_DURATION_SEC,
     MAX_AUDIO_DURATION_SEC,
+    MIN_AUDIO_DURATION_SEC,
 )
+from ...shared.types.common_types import VoiceEmbedding
 from .model_manager import model_manager
 
 logger = logging.getLogger(__name__)

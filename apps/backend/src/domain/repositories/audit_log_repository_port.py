@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import Dict, List, Optional, Any
+from typing import Any, Dict, List, Optional
 
 from ...shared.types.common_types import AuditAction
 

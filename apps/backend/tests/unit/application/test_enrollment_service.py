@@ -1,17 +1,23 @@
 """Unit tests for the EnrollmentService (rewritten in Fase 3 to match the
 current constructor and behaviour)."""
 
+from unittest.mock import AsyncMock, MagicMock
+from uuid import uuid4
+
 import numpy as np
 import pytest
-from unittest.mock import AsyncMock, MagicMock, Mock
-from uuid import uuid4
 
 from src.application.enrollment_service import EnrollmentService
 from src.application.services.biometric_validator import BiometricValidator
-from src.domain.repositories.voice_signature_repository_port import VoiceSignatureRepositoryPort
-from src.domain.repositories.user_repository_port import UserRepositoryPort
 from src.domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
-from src.shared.constants.biometric_constants import EMBEDDING_DIMENSION, MIN_ENROLLMENT_SAMPLES
+from src.domain.repositories.user_repository_port import UserRepositoryPort
+from src.domain.repositories.voice_signature_repository_port import (
+    VoiceSignatureRepositoryPort,
+)
+from src.shared.constants.biometric_constants import (
+    EMBEDDING_DIMENSION,
+    MIN_ENROLLMENT_SAMPLES,
+)
 
 
 def _make_service() -> tuple:

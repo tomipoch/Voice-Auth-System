@@ -1,15 +1,16 @@
 """Anti-spoofing adapter using AASIST and RawNet2 models for spoofing detection."""
 
-import numpy as np
 import io
-import wave
-import torch
-import torchaudio
 import logging
 import pickle
-from typing import Dict, Any, Tuple, Optional, List
 from pathlib import Path
-import speechbrain as sb
+from typing import Any, Dict
+
+import numpy as np
+import torch
+import torchaudio
+from sklearn.ensemble import IsolationForest
+from sklearn.preprocessing import StandardScaler
 from speechbrain.inference.speaker import EncoderClassifier
 
 from .local_antispoof_models import (

@@ -1,17 +1,17 @@
 """Challenge service for managing dynamic phrase challenges with database integration."""
 
-from datetime import datetime, timedelta, timezone
-from typing import Optional, List, Dict, Any
-from uuid import UUID
 import logging
+from datetime import datetime, timedelta, timezone
+from typing import Any, Dict, List, Optional
+from uuid import UUID
 
+from ..config import CHALLENGE_TIMEOUT
+from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ..domain.repositories.challenge_repository_port import ChallengeRepositoryPort
 from ..domain.repositories.phrase_repository_port import PhraseRepositoryPort
 from ..domain.repositories.user_repository_port import UserRepositoryPort
-from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
+from ..shared.types.common_types import AuditAction, ChallengeId, UserId
 from .phrase_quality_rules_service import PhraseQualityRulesService
-from ..shared.types.common_types import UserId, ChallengeId, AuditAction
-from ..config import CHALLENGE_TIMEOUT
 
 logger = logging.getLogger(__name__)
 

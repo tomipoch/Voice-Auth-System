@@ -1,9 +1,8 @@
 """User repository port (interface)."""
 
 from abc import ABC, abstractmethod
-from typing import Optional
-from uuid import UUID
 from datetime import timedelta
+from typing import Optional
 
 from ...shared.types.common_types import UserId
 

@@ -83,7 +83,7 @@ pytest tests/
 pytest tests/ --cov=src
 
 # Linting
-black src/ && flake8 src/
+black src/ && venv/bin/ruff check src/ tests/ --exclude tests/manual
 ```
 
 ## 📚 Documentación

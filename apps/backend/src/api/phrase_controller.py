@@ -2,11 +2,11 @@
 
 from typing import List, Optional
 from uuid import UUID
+
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
 
 from ..application.phrase_service import PhraseService
-from ..application.dto.phrase_dto import PhraseDTO, PhraseStatsDTO
 from ..infrastructure.config.dependencies import get_phrase_service
 from .auth_guards import require_admin_user
 

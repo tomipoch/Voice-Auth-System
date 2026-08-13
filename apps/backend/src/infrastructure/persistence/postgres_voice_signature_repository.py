@@ -1,14 +1,16 @@
 """PostgreSQL implementation of VoiceTemplateRepositoryPort."""
 
+from typing import Any, Dict, List, Optional
+from uuid import UUID, uuid4
+
 import asyncpg
 import numpy as np
-from typing import List, Optional, Dict, Any
-from uuid import UUID, uuid4
 
 from src.domain.model.voice_signature import VoiceSignature
 from src.domain.repositories.voice_signature_repository_port import (
     VoiceSignatureRepositoryPort,
 )
+
 from ...shared.types.common_types import UserId, VoiceEmbedding
 from ..security.encryption import DataEncryptor, get_encryptor
 

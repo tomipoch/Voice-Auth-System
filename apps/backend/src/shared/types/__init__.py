@@ -5,19 +5,19 @@ Usage: from ...shared.types import UserId, AuditAction, etc.
 """
 
 from .common_types import (
-    # Type aliases
-    UserId,
-    ClientId,
-    ChallengeId,
     AttemptId,
+    AudioFormat,
     AudioId,
-    VoiceEmbedding,
+    AuditAction,
     # Enums
     AuthReason,
+    ChallengeId,
+    ClientId,
     ModelKind,
     RiskLevel,
-    AudioFormat,
-    AuditAction,
+    # Type aliases
+    UserId,
+    VoiceEmbedding,
 )
 
 __all__ = [

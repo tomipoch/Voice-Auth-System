@@ -4,14 +4,15 @@ Dataset Recording API Controller
 Endpoints para controlar la grabación de audios para dataset.
 """
 
-from datetime import datetime, timezone
-
-from fastapi import APIRouter, HTTPException, status, Depends
-from pydantic import BaseModel
-from typing import Optional
 import logging
+from datetime import datetime, timezone
+from typing import Optional
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from pydantic import BaseModel
 
 from evaluation.dataset_recorder import dataset_recorder
+
 from ..domain.repositories.system_settings_repository_port import (
     SystemSettingsRepositoryPort,
 )
@@ -104,7 +105,7 @@ async def stop_dataset_recording(
             logger.info(f"Stopped dataset recording: {stopped_dir}")
             return {
                 "success": True,
-                "message": f"Dataset recording stopped",
+                "message": "Dataset recording stopped",
                 "session_dir": str(stopped_dir),
             }
         else:

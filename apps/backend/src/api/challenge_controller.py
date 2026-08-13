@@ -1,12 +1,13 @@
 """FastAPI controller for challenge endpoints."""
 
-from fastapi import APIRouter, HTTPException, Form, Depends
+import logging
 from typing import Optional
 from uuid import UUID
-import logging
+
+from fastapi import APIRouter, Depends, Form, HTTPException
 
 from ..application.challenge_service import ChallengeService
-from .auth_guards import enforce_user_scope, require_admin_user, get_current_user
+from .auth_guards import enforce_user_scope, get_current_user, require_admin_user
 
 logger = logging.getLogger(__name__)
 

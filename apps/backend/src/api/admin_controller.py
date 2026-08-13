@@ -1,13 +1,13 @@
 """FastAPI controller for admin endpoints."""
 
-from fastapi import APIRouter, HTTPException, Depends, status
-from fastapi.security import HTTPBearer
-from pydantic import BaseModel, Field
-from uuid import UUID
-from typing import List, Optional
-import logging
 import json
-from datetime import datetime, timedelta
+import logging
+from datetime import datetime, timedelta, timezone
+from typing import List, Optional
+from uuid import UUID
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from pydantic import BaseModel, Field
 
 from .auth_controller import get_current_user
 from .auth_guards import require_admin_user
@@ -59,11 +59,11 @@ class PaginatedUsers(BaseModel):
     total_pages: int
 
 
-from ..domain.repositories.user_repository_port import UserRepositoryPort
 from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
+from ..domain.repositories.user_repository_port import UserRepositoryPort
 from ..infrastructure.config.dependencies import (
-    get_user_repository,
     get_audit_log_repository,
+    get_user_repository,
 )
 
 
@@ -193,7 +193,6 @@ from ..domain.repositories.voice_signature_repository_port import (
 )
 from ..infrastructure.config.dependencies import (
     get_user_repository,
-    get_audit_log_repository,
     get_voice_signature_repository,
 )
 
@@ -579,8 +578,8 @@ class UpdateRuleRequest(BaseModel):
     value: float
 
 
-from ..infrastructure.config.dependencies import get_phrase_quality_rules_service
 from ..application.phrase_quality_rules_service import PhraseQualityRulesService
+from ..infrastructure.config.dependencies import get_phrase_quality_rules_service
 
 
 @admin_router.get("/phrase-rules", response_model=List[PhraseQualityRule])

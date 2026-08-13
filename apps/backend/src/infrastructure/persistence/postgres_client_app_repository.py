@@ -2,9 +2,10 @@
 
 import hashlib
 import secrets
-import asyncpg
 from typing import Optional
 from uuid import UUID, uuid4
+
+import asyncpg
 
 from ...domain.repositories.client_app_repository_port import ClientAppRepositoryPort
 

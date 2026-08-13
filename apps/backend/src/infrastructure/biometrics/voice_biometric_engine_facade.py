@@ -1,14 +1,14 @@
 """Voice Biometric Engine Facade - main interface for biometric processing."""
 
 import asyncio
-import numpy as np
 from concurrent.futures import ThreadPoolExecutor
-from typing import Optional
 
+import numpy as np
+
+from ...shared.types.common_types import VoiceEmbedding
+from .asr_adapter import ASRAdapter
 from .speaker_embedding_adapter import SpeakerEmbeddingAdapter
 from .spoof_detector_adapter import SpoofDetectorAdapter
-from .asr_adapter import ASRAdapter
-from ...shared.types.common_types import VoiceEmbedding
 
 
 class VoiceBiometricEngineFacade:

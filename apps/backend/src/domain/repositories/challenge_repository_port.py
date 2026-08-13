@@ -3,9 +3,8 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import Optional
-from uuid import UUID
 
-from ...shared.types.common_types import UserId, ChallengeId
+from ...shared.types.common_types import ChallengeId, UserId
 
 
 class ChallengeRepositoryPort(ABC):

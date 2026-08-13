@@ -7,6 +7,7 @@ for processing with SpeechBrain ECAPA-TDNN model.
 import io
 import logging
 from typing import Optional
+
 from pydub import AudioSegment
 
 try:

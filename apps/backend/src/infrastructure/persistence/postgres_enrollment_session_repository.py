@@ -1,10 +1,11 @@
 """PostgreSQL implementation of EnrollmentSessionRepositoryPort."""
 
 import json
-import asyncpg
 from datetime import datetime
 from typing import Any, Optional
 from uuid import UUID
+
+import asyncpg
 
 from ...domain.repositories.enrollment_session_repository_port import (
     EnrollmentSessionRepositoryPort,

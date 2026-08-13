@@ -12,7 +12,6 @@ from fastapi.testclient import TestClient
 from src.api.phrase_controller import router as phrase_router
 from src.application.dto.phrase_dto import PhraseDTO, PhraseStatsDTO
 from src.domain.model.phrase import Phrase
-from src.shared.constants.biometric_constants import EMBEDDING_DIMENSION
 
 
 def _make_phrase(**overrides) -> Phrase:
@@ -49,9 +48,8 @@ def phrase_service_mock():
 
 @pytest.fixture
 def client(phrase_service_mock):
-    from src.api import phrase_controller as pc
-    from src.api.phrase_controller import get_phrase_service
     from src.api.auth_guards import require_admin_user
+    from src.api.phrase_controller import get_phrase_service
 
     app = __import__("fastapi").FastAPI()
     app.include_router(phrase_router)

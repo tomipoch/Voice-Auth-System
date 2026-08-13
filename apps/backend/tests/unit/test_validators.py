@@ -2,7 +2,12 @@
 
 import pytest
 
-from src.utils.validators import validate_rut, format_rut, calculate_rut_check_digit, clean_rut
+from src.utils.validators import (
+    calculate_rut_check_digit,
+    clean_rut,
+    format_rut,
+    validate_rut,
+)
 
 
 class TestValidateRut:

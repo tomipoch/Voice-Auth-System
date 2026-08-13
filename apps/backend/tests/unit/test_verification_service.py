@@ -1,7 +1,7 @@
 """Unit tests for VerificationService (rewritten in Fase 3)."""
 
 from datetime import datetime, timezone
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 
 import numpy as np
@@ -10,11 +10,6 @@ import pytest
 from src.application.services.biometric_validator import BiometricValidator
 from src.application.verification_service import VerificationService
 from src.domain.model.phrase import Phrase
-from src.domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
-from src.domain.repositories.user_repository_port import UserRepositoryPort
-from src.domain.repositories.voice_signature_repository_port import (
-    VoiceSignatureRepositoryPort,
-)
 from src.shared.constants.biometric_constants import EMBEDDING_DIMENSION
 
 

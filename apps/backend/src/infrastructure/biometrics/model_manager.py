@@ -1,13 +1,12 @@
 """Model manager for automatic downloading and caching of ML models with performance optimizations."""
 
-import os
 import logging
 import threading
 import time
-from pathlib import Path
-from typing import Dict, Any, Optional, Set
-from dataclasses import dataclass
 from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, Optional, Set
 
 # Optional dependency for advanced memory monitoring
 try:
@@ -311,7 +310,7 @@ class ModelManager:
     ) -> bool:
         """Download a HuggingFace model."""
         try:
-            from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
+            from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 
             logger.info(f"Downloading HuggingFace model: {config.source}")
 

@@ -1,24 +1,25 @@
 """FastAPI controller for authentication endpoints."""
 
-from fastapi import APIRouter, Depends, HTTPException, status, Request, Body
-from fastapi.responses import JSONResponse
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from pydantic import BaseModel, EmailStr, Field
-from typing import Optional
 import logging
-from datetime import datetime, timedelta, timezone
-import jwt
+from datetime import datetime
+from typing import Optional
 
-from src.utils.validators import validate_rut, format_rut
-from src.config import SECRET_KEY, ALGORITHM
-from src.application.auth_service import AuthService, AuthError
-from src.domain.repositories.user_repository_port import UserRepositoryPort
+import jwt
+from fastapi import APIRouter, Body, Depends, HTTPException, Request, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from pydantic import BaseModel, EmailStr, Field
+
+from src.application.auth_service import AuthError, AuthService
+from src.config import ALGORITHM, SECRET_KEY
 from src.domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
+from src.domain.repositories.user_repository_port import UserRepositoryPort
 from src.infrastructure.config.dependencies import (
-    get_user_repository,
     get_audit_log_repository,
+    get_user_repository,
 )
 from src.shared.types.common_types import AuditAction
+from src.utils.validators import validate_rut
+
 from .rate_limit import limiter, login_limit, refresh_limit
 
 logger = logging.getLogger(__name__)

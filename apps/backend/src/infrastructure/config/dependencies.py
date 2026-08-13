@@ -1,19 +1,20 @@
 """Dependency injection configuration with async initialization."""
 
-import asyncpg
-import os
-import logging
 import asyncio
-from typing import Optional
+import logging
+import os
 from functools import lru_cache
-from fastapi import HTTPException, Depends
+from typing import Optional
 
+import asyncpg
+from fastapi import HTTPException
+
+from ...application.phrase_service import PhraseService
+from ...config import ANTI_SPOOFING_THRESHOLD, SIMILARITY_THRESHOLD
 from ..persistence.postgres_phrase_repository import (
     PostgresPhraseRepository,
     PostgresPhraseUsageRepository,
 )
-from ...application.phrase_service import PhraseService
-from ...config import SIMILARITY_THRESHOLD, ANTI_SPOOFING_THRESHOLD
 
 logger = logging.getLogger(__name__)
 
@@ -94,9 +95,9 @@ def init_biometric_engine():
     """Initialize biometric engine synchronously (called in background task)."""
     global _biometric_engine, _models_loaded
 
+    from ..biometrics.asr_adapter import ASRAdapter
     from ..biometrics.speaker_embedding_adapter import SpeakerEmbeddingAdapter
     from ..biometrics.spoof_detector_adapter import SpoofDetectorAdapter
-    from ..biometrics.asr_adapter import ASRAdapter
     from ..biometrics.voice_biometric_engine_facade import VoiceBiometricEngineFacade
 
     logger.info("Loading ML models (this may take a moment)...")
@@ -184,14 +185,14 @@ async def get_audit_log_repository():
 
 async def get_enrollment_service():
     """Get enrollment service instance with dependencies."""
-    from ..persistence.postgres_voice_signature_repository import (
-        PostgresVoiceSignatureRepository,
-    )
+    from ...application.enrollment_service import EnrollmentService
     from ..persistence.postgres_audit_log_repository import PostgresAuditLogRepository
     from ..persistence.postgres_enrollment_session_repository import (
         PostgresEnrollmentSessionRepository,
     )
-    from ...application.enrollment_service import EnrollmentService
+    from ..persistence.postgres_voice_signature_repository import (
+        PostgresVoiceSignatureRepository,
+    )
 
     pool = await get_db_pool()
 
@@ -224,18 +225,18 @@ async def get_voice_signature_repository():
 
 async def get_verification_service():
     """Get verification service instance with dependencies."""
-    from ..persistence.postgres_voice_signature_repository import (
-        PostgresVoiceSignatureRepository,
-    )
+    from ...application.verification_service import VerificationService
     from ..persistence.postgres_audit_log_repository import PostgresAuditLogRepository
-    from ..persistence.postgres_verification_attempt_repository import (
-        PostgresVerificationAttemptRepository,
-    )
     from ..persistence.postgres_model_version_repository import (
         PostgresModelVersionRepository,
     )
     from ..persistence.postgres_phrase_repository import PostgresPhraseRepository
-    from ...application.verification_service import VerificationService
+    from ..persistence.postgres_verification_attempt_repository import (
+        PostgresVerificationAttemptRepository,
+    )
+    from ..persistence.postgres_voice_signature_repository import (
+        PostgresVoiceSignatureRepository,
+    )
 
     pool = await get_db_pool()
 
@@ -264,10 +265,10 @@ async def get_verification_service():
 
 async def get_phrase_quality_rules_service():
     """Get phrase quality rules service instance with dependencies."""
+    from ...application.phrase_quality_rules_service import PhraseQualityRulesService
     from ..persistence.postgres_phrase_quality_rules_repository import (
         PostgresPhraseQualityRulesRepository,
     )
-    from ...application.phrase_quality_rules_service import PhraseQualityRulesService
 
     pool = await get_db_pool()
     rules_repo = PostgresPhraseQualityRulesRepository(pool)
@@ -295,9 +296,9 @@ async def get_client_app_repository():
 
 async def get_challenge_service():
     """Get challenge service instance with dependencies."""
-    from ..persistence.postgres_challenge_repository import PostgresChallengeRepository
-    from ..persistence.postgres_audit_log_repository import PostgresAuditLogRepository
     from ...application.challenge_service import ChallengeService
+    from ..persistence.postgres_audit_log_repository import PostgresAuditLogRepository
+    from ..persistence.postgres_challenge_repository import PostgresChallengeRepository
 
     pool = await get_db_pool()
 

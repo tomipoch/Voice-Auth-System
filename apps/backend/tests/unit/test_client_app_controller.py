@@ -24,10 +24,10 @@ def client_repo():
 
 @pytest.fixture
 def client(client_repo):
-    from src.infrastructure.config.dependencies import get_client_app_repository
     # Forzar carga de auth_guards antes que admin_controller para que
     # admin_controller.require_admin_user sea la misma referencia.
     import src.api.auth_guards as guards
+    from src.infrastructure.config.dependencies import get_client_app_repository
     _ = guards.require_admin_user
 
     app = FastAPI()

@@ -1,11 +1,12 @@
 """Unit tests for PostgresAuditLogRepository."""
 
 import uuid
-from datetime import datetime, timezone
 
 import pytest
 
-from src.infrastructure.persistence.postgres_audit_log_repository import PostgresAuditLogRepository
+from src.infrastructure.persistence.postgres_audit_log_repository import (
+    PostgresAuditLogRepository,
+)
 from src.shared.types.common_types import AuditAction
 
 
@@ -26,7 +27,7 @@ async def test_log_event_and_get_user_activity(audit_repo):
         metadata={"ip": "127.0.0.1"},
     )
     logs = await audit_repo.get_user_activity(actor, hours=24, limit=10)
-    assert any(l["actor"] == actor and l["action"] == AuditAction.LOGIN.value for l in logs)
+    assert any(entry["actor"] == actor and entry["action"] == AuditAction.LOGIN.value for entry in logs)
 
 
 @pytest.mark.asyncio
@@ -41,7 +42,7 @@ async def test_log_event_with_failure(audit_repo):
         metadata={"reason": "bad password"},
     )
     logs = await audit_repo.get_user_activity(actor, hours=24, limit=10)
-    found = next((l for l in logs if l["actor"] == actor), None)
+    found = next((entry for entry in logs if entry["actor"] == actor), None)
     assert found is not None
     assert found["success"] is False
 
@@ -57,7 +58,7 @@ async def test_get_logs_with_filters(audit_repo):
     )
 
     login_logs = await audit_repo.get_logs(action=AuditAction.LOGIN.value, limit=50)
-    assert all(l["action"] == AuditAction.LOGIN.value for l in login_logs)
+    assert all(entry["action"] == AuditAction.LOGIN.value for entry in login_logs)
 
 
 @pytest.mark.asyncio

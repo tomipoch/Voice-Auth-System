@@ -1,7 +1,7 @@
 """Phrase repository port definition."""
 
 from abc import ABC, abstractmethod
-from typing import List, Optional, Tuple, Dict, Any
+from typing import Any, Dict, List, Optional, Tuple
 from uuid import UUID
 
 from ..model.phrase import Phrase, PhraseUsage

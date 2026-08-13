@@ -1,17 +1,16 @@
 """ASR adapter for speech recognition and phrase verification using lightweight ASR model."""
 
 import difflib
-import logging
 import io
+import logging
 import os
+from typing import Any, Dict
+
 import torch
 import torchaudio
-import numpy as np
-from typing import Dict, Any, Optional
-from pathlib import Path
 
 try:
-    import speechbrain as sb
+    import speechbrain as sb  # noqa: F401 - availability probe
     from speechbrain.inference.ASR import EncoderASR
 
     SPEECHBRAIN_AVAILABLE = True

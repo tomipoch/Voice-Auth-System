@@ -1,10 +1,10 @@
 """Unit tests for phrase DTOs (Fase 3 coverage)."""
 
 from src.application.dto.phrase_dto import (
-    PhraseDTO,
-    PhraseStatsDTO,
     BookDTO,
+    PhraseDTO,
     PhraseListDTO,
+    PhraseStatsDTO,
 )
 
 

@@ -1,11 +1,11 @@
 """PostgreSQL implementation of audit log repository."""
 
 import json
+from datetime import datetime, timedelta, timezone
+from typing import Any, Dict, List, Optional
+
 import asyncpg
 import numpy as np
-from datetime import datetime, timedelta, timezone
-from typing import Dict, List, Optional, Any
-from uuid import UUID
 
 from ...domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ...shared.types.common_types import AuditAction

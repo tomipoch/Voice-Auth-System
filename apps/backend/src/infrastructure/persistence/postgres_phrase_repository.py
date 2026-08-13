@@ -1,15 +1,16 @@
 """PostgreSQL implementation of PhraseRepositoryPort."""
 
-import asyncpg
+from datetime import datetime, timedelta, timezone
 from typing import List, Optional
 from uuid import UUID
-from datetime import datetime, timedelta, timezone
 
+import asyncpg
+
+from ...domain.model.phrase import Phrase, PhraseUsage
 from ...domain.repositories.phrase_repository_port import (
     PhraseRepositoryPort,
     PhraseUsageRepositoryPort,
 )
-from ...domain.model.phrase import Phrase, PhraseUsage
 
 
 class PostgresPhraseRepository(PhraseRepositoryPort):

@@ -76,13 +76,10 @@ async def get_optional_client(
     """
     if not x_api_key:
         return None
-    from src.infrastructure.config.dependencies import get_client_app_repository
     from src.domain.repositories.client_app_repository_port import (
         ClientAppRepositoryPort,
     )
-    from src.infrastructure.persistence.postgres_client_app_repository import (
-        PostgresClientAppRepository,
-    )
+    from src.infrastructure.config.dependencies import get_client_app_repository
 
     repo: ClientAppRepositoryPort = await get_client_app_repository()
     key_hash = hashlib.sha256(x_api_key.encode("utf-8")).hexdigest()

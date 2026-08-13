@@ -1,8 +1,9 @@
 """Custom exception handlers for the FastAPI application."""
 
+import logging
+
 from fastapi import Request
 from fastapi.responses import JSONResponse
-import logging
 
 logger = logging.getLogger(__name__)
 

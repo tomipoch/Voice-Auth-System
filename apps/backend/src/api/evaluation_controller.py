@@ -5,12 +5,14 @@ API endpoints for managing evaluation sessions.
 Allows starting/stopping evaluation sessions for manual frontend testing.
 """
 
-from fastapi import APIRouter, HTTPException, status, Depends
-from pydantic import BaseModel
-from typing import Optional, List, Dict
 import logging
+from typing import Dict, List, Optional
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from pydantic import BaseModel
 
 from evaluation.evaluation_logger import evaluation_logger
+
 from .auth_guards import require_admin_user
 
 logger = logging.getLogger(__name__)
@@ -60,7 +62,7 @@ async def start_evaluation_session(
 
         return StartSessionResponse(
             session_id=session_id,
-            message=f"Evaluation session started. All operations will be logged.",
+            message="Evaluation session started. All operations will be logged.",
         )
     except Exception as e:
         logger.error(f"Failed to start evaluation session: {e}")

@@ -1,43 +1,41 @@
 """Voice biometric enrollment API endpoints with dynamic phrase support."""
 
+import logging
+from typing import Optional
+from uuid import UUID
+
 from fastapi import (
     APIRouter,
     Depends,
-    UploadFile,
     File,
     Form,
     HTTPException,
-    status,
     Request,
+    UploadFile,
+    status,
 )
-from typing import Optional
-from uuid import UUID
-import numpy as np
-import io
-import logging
 
-from ..application.enrollment_service import EnrollmentService
-from ..infrastructure.biometrics.voice_biometric_engine_facade import (
-    VoiceBiometricEngineFacade,
-)
-from .rate_limit import limiter, enrollment_limit
-from .auth_guards import enforce_user_scope, get_current_user
 from ..application.dto.enrollment_dto import (
-    StartEnrollmentRequest,
-    StartEnrollmentResponse,
     AddEnrollmentSampleResponse,
     CompleteEnrollmentResponse,
     EnrollmentStatusResponse,
+    StartEnrollmentResponse,
 )
-from ..infrastructure.config.dependencies import (
-    get_enrollment_service,
-    get_voice_biometric_engine,
-    get_audit_log_repository,
-    get_user_repository,
-)
+from ..application.enrollment_service import EnrollmentService
 from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ..domain.repositories.user_repository_port import UserRepositoryPort
+from ..infrastructure.biometrics.voice_biometric_engine_facade import (
+    VoiceBiometricEngineFacade,
+)
+from ..infrastructure.config.dependencies import (
+    get_audit_log_repository,
+    get_enrollment_service,
+    get_user_repository,
+    get_voice_biometric_engine,
+)
 from ..shared.types.common_types import AuditAction
+from .auth_guards import enforce_user_scope, get_current_user
+from .rate_limit import enrollment_limit, limiter
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["enrollment"])
@@ -161,6 +159,7 @@ async def add_enrollment_sample(
 
     # Save audio to dataset (always active)
     from evaluation.dataset_recorder import dataset_recorder
+
     from ..infrastructure.biometrics.audio_converter import ensure_wav_format
 
     try:

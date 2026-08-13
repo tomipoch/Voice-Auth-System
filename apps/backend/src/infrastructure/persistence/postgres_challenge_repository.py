@@ -1,13 +1,14 @@
 """PostgreSQL implementation of ChallengeRepositoryPort."""
 
-import asyncpg
-from typing import Optional, Dict, Any
-from uuid import UUID
-from datetime import datetime, timedelta
 import logging
+from datetime import datetime, timedelta
+from typing import Any, Dict, Optional
+from uuid import UUID
+
+import asyncpg
 
 from ...domain.repositories.challenge_repository_port import ChallengeRepositoryPort
-from ...shared.types.common_types import UserId, ChallengeId
+from ...shared.types.common_types import ChallengeId, UserId
 
 logger = logging.getLogger(__name__)
 

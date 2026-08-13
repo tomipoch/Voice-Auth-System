@@ -1,8 +1,9 @@
 """Biometric validator service."""
 
 import numpy as np
-from ...shared.types.common_types import VoiceEmbedding
+
 from ...shared.constants.biometric_constants import EMBEDDING_DIMENSION
+from ...shared.types.common_types import VoiceEmbedding
 
 
 class BiometricValidator:

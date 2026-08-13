@@ -1,10 +1,11 @@
 """PostgreSQL implementation of PhraseQualityRulesRepositoryPort."""
 
-import asyncpg
-from typing import Optional, List, Dict, Any
-from uuid import UUID
-import logging
 import json
+import logging
+from typing import Any, Dict, List, Optional
+from uuid import UUID
+
+import asyncpg
 
 from ...domain.repositories.phrase_quality_rules_repository_port import (
     PhraseQualityRulesRepositoryPort,

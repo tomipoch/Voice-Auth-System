@@ -1,8 +1,9 @@
 """PostgreSQL implementation of VerificationAttemptRepositoryPort."""
 
-import asyncpg
 from typing import Optional
 from uuid import UUID, uuid4
+
+import asyncpg
 
 from ...domain.repositories.verification_attempt_repository_port import (
     VerificationAttemptRepositoryPort,

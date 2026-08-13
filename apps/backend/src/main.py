@@ -7,12 +7,12 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
 
+import asyncpg
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
-import asyncpg
 
 # Suppress third-party library warnings that don't affect functionality
 warnings.filterwarnings("ignore", category=FutureWarning, module="torch")
@@ -23,21 +23,21 @@ warnings.filterwarnings("ignore", message=".*set_audio_backend.*")
 warnings.filterwarnings("ignore", message=".*weight_norm.*")
 warnings.filterwarnings("ignore", message=".*custom_fwd.*")
 
-from .api.challenge_controller import challenge_router
-from .api.auth_controller import auth_router
 from .api.admin_controller import admin_router
-from .api.phrase_controller import router as phrase_router
-from .api.evaluation_controller import router as evaluation_router
+from .api.auth_controller import auth_router
+from .api.challenge_controller import challenge_router
 from .api.dataset_recording_controller import router as dataset_recording_router
+from .api.enrollment_controller import router as enrollment_router
+from .api.evaluation_controller import router as evaluation_router
+from .api.phrase_controller import router as phrase_router
+from .api.verification_controller import router as verification_router
 from .infrastructure.config.dependencies import (
     close_db_pool,
-    init_db_pool,
-    init_biometric_engine_async,
     get_voice_biometric_engine,
+    init_biometric_engine_async,
+    init_db_pool,
     is_ready,
 )
-from .api.enrollment_controller import router as enrollment_router
-from .api.verification_controller import router as verification_router
 
 # Load environment variables
 # Only load from .env file if not already set in the environment (e.g., by Docker Compose)
@@ -137,6 +137,7 @@ class MockVoiceBiometricEngineFacade:
         # so the mock must hand back a numpy array rather than a
         # bare Python list. The real adapter returns a 1-D ndarray.
         import numpy as np
+
         from .shared.constants.biometric_constants import EMBEDDING_DIMENSION
 
         return np.full(EMBEDDING_DIMENSION, 0.1, dtype=np.float32)
@@ -144,6 +145,7 @@ class MockVoiceBiometricEngineFacade:
     def extract_features(self, audio_data: bytes, audio_format: str) -> dict:
         """Mock equivalent of VoiceBiometricEngineFacade.extract_features."""
         import numpy as np
+
         from .shared.constants.biometric_constants import EMBEDDING_DIMENSION
 
         return {
@@ -187,12 +189,12 @@ async def lifespan(app: FastAPI):
         _deps._models_loaded = True
 
     # 3. Start background cleanup job for expired challenges
-    from .jobs.cleanup_expired_challenges import cleanup_expired_challenges_job
+    from .config import CHALLENGE_CLEANUP_INTERVAL
     from .infrastructure.config.dependencies import get_db_pool
     from .infrastructure.persistence.postgres_challenge_repository import (
         PostgresChallengeRepository,
     )
-    from .config import CHALLENGE_CLEANUP_INTERVAL
+    from .jobs.cleanup_expired_challenges import cleanup_expired_challenges_job
 
     cleanup_task = None
     if os.getenv("TESTING") != "True":
@@ -223,10 +225,10 @@ async def lifespan(app: FastAPI):
     #    Mapea model_type='antispoofing' (interno) al CHECK del enum model_version.kind='antispoof'.
     if os.getenv("TESTING") != "True":
         try:
+            from .infrastructure.biometrics.model_manager import ModelManager
             from .infrastructure.persistence.postgres_model_version_repository import (
                 PostgresModelVersionRepository,
             )
-            from .infrastructure.biometrics.model_manager import ModelManager
 
             pool = await get_db_pool()
             model_repo = PostgresModelVersionRepository(pool)
@@ -253,10 +255,11 @@ async def lifespan(app: FastAPI):
     # 5. Restaurar la sesión de dataset recording si estaba activa antes del reinicio
     if os.getenv("TESTING") != "True":
         try:
+            from evaluation.dataset_recorder import dataset_recorder
+
             from .infrastructure.persistence.postgres_system_settings_repository import (
                 PostgresSystemSettingsRepository,
             )
-            from evaluation.dataset_recorder import dataset_recorder
 
             pool = await get_db_pool()
             settings_repo = PostgresSystemSettingsRepository(pool)
@@ -292,7 +295,7 @@ async def lifespan(app: FastAPI):
     logger.info("Database connection pool closed")
 
 
-from .api.error_handlers import value_error_handler, generic_exception_handler
+from .api.error_handlers import generic_exception_handler, value_error_handler
 
 
 def create_app() -> FastAPI:

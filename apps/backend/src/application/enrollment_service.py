@@ -1,25 +1,25 @@
 """Enrollment service with dynamic phrase support."""
 
-import numpy as np
-from typing import List, Optional, Dict
-from uuid import UUID, uuid4
-from datetime import datetime, timedelta, timezone
 import logging
+from datetime import datetime, timedelta, timezone
+from typing import Dict, List, Optional
+from uuid import UUID, uuid4
+
+import numpy as np
 
 from ..domain.model.voice_signature import VoiceSignature
-from ..domain.repositories.voice_signature_repository_port import (
-    VoiceSignatureRepositoryPort,
-)
-from ..domain.repositories.user_repository_port import UserRepositoryPort
 from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
 from ..domain.repositories.enrollment_session_repository_port import (
     EnrollmentSessionRepositoryPort,
 )
-from ..shared.types.common_types import UserId, VoiceEmbedding, AuditAction, ChallengeId
+from ..domain.repositories.user_repository_port import UserRepositoryPort
+from ..domain.repositories.voice_signature_repository_port import (
+    VoiceSignatureRepositoryPort,
+)
 from ..shared.constants.biometric_constants import (
     MIN_ENROLLMENT_SAMPLES,
-    MAX_ENROLLMENT_SAMPLES,
 )
+from ..shared.types.common_types import AuditAction, ChallengeId, VoiceEmbedding
 
 logger = logging.getLogger(__name__)
 

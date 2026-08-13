@@ -1,8 +1,9 @@
 """PostgreSQL implementation of SystemSettingsRepositoryPort."""
 
 import json
-import asyncpg
 from typing import Optional
+
+import asyncpg
 
 from ...domain.repositories.system_settings_repository_port import (
     SystemSettingsRepositoryPort,

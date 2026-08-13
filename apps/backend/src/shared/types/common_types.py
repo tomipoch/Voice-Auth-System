@@ -1,8 +1,8 @@
 """Common data types for the voice biometrics system."""
 
 from enum import Enum
-from typing import List, Optional
 from uuid import UUID
+
 import numpy as np
 
 # Type aliases

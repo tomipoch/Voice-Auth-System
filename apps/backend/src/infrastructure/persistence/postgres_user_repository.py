@@ -1,12 +1,14 @@
 """PostgreSQL implementation of UserRepositoryPort."""
 
 import json
-import asyncpg
-from typing import Optional, Dict, Any
-from uuid import UUID, uuid4
 from datetime import timedelta
+from typing import Any, Dict, Optional
+from uuid import uuid4
+
+import asyncpg
 
 from src.domain.repositories.user_repository_port import UserRepositoryPort
+
 from ...shared.types.common_types import UserId
 
 

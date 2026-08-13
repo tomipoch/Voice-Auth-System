@@ -10,7 +10,9 @@ from datetime import datetime, timezone
 import pytest
 
 from src.domain.model.phrase import Phrase
-from src.infrastructure.persistence.postgres_phrase_repository import PostgresPhraseRepository
+from src.infrastructure.persistence.postgres_phrase_repository import (
+    PostgresPhraseRepository,
+)
 
 
 def _make_phrase(**overrides) -> Phrase:

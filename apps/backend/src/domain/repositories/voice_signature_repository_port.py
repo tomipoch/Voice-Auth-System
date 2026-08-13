@@ -3,10 +3,9 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 from uuid import UUID
-import numpy as np
 
-from ..model.voice_signature import VoiceSignature
 from ...shared.types.common_types import UserId, VoiceEmbedding
+from ..model.voice_signature import VoiceSignature
 
 
 class VoiceSignatureRepositoryPort(ABC):

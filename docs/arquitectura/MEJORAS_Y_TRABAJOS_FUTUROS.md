@@ -55,7 +55,7 @@ def test_enrollment_minimum_quality_threshold():
 
 - [ ] **GitHub Actions / GitLab CI**
   - Pipeline automático de tests
-  - Linting automático (pylint, ESLint)
+  - Linting automático (Biome en frontend, Ruff en backend)
   - Build y push de imágenes Docker
   - Deploy automático a staging
 

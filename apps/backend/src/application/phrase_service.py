@@ -1,14 +1,14 @@
 """Application service for managing phrases."""
 
-from typing import List, Optional, Dict, Any
+from typing import List, Optional
 from uuid import UUID
 
+from ..domain.model.phrase import Phrase
 from ..domain.repositories.phrase_repository_port import (
     PhraseRepositoryPort,
     PhraseUsageRepositoryPort,
 )
-from ..domain.model.phrase import Phrase
-from .dto.phrase_dto import PhraseDTO, PhraseStatsDTO, PhraseListDTO, BookDTO
+from .dto.phrase_dto import BookDTO, PhraseDTO, PhraseListDTO, PhraseStatsDTO
 
 
 class PhraseService:

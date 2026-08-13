@@ -1,8 +1,9 @@
 """Handles encryption and decryption of sensitive data."""
 
 import os
+from base64 import urlsafe_b64decode, urlsafe_b64encode
+
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-from base64 import urlsafe_b64encode, urlsafe_b64decode
 
 
 class DataEncryptor:

@@ -6,10 +6,9 @@ company, settings.
 """
 
 import os
-import asyncio
 import uuid
-from pathlib import Path
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import AsyncGenerator
 
 import asyncpg
@@ -119,7 +118,6 @@ async def db_connection(db_pool):
 @pytest.fixture
 async def test_user(db_connection):
     """Create a test user with the real schema columns."""
-    from src.shared.constants.biometric_constants import EMBEDDING_DIMENSION
 
     user_id = await db_connection.fetchval(
         """
@@ -206,5 +204,6 @@ def sample_audio_bytes():
 def mock_embedding():
     """Provide a mock voice embedding of the configured dimension."""
     import numpy as np
+
     from src.shared.constants.biometric_constants import EMBEDDING_DIMENSION
     return np.random.rand(EMBEDDING_DIMENSION).astype(np.float32)

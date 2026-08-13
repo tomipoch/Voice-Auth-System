@@ -1,6 +1,5 @@
 """Unit tests for src.shared.json_metadata (Fase 3 coverage)."""
 
-import pytest
 
 from src.shared.json_metadata import parse_json_metadata
 

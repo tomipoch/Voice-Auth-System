@@ -1,7 +1,8 @@
 """PostgreSQL implementation of ModelVersionRepositoryPort."""
 
-import asyncpg
 from typing import Optional
+
+import asyncpg
 
 from ...domain.repositories.model_version_repository_port import (
     ModelVersionRepositoryPort,

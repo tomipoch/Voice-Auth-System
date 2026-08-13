@@ -1,48 +1,48 @@
 """Voice biometric verification API endpoints with dynamic phrase support."""
 
+import logging
+from datetime import datetime, timezone
+from typing import Optional
+from uuid import UUID
+
 from fastapi import (
     APIRouter,
     Depends,
-    UploadFile,
     File,
     Form,
     HTTPException,
-    status,
     Request,
+    UploadFile,
+    status,
 )
-from typing import Optional
-from uuid import UUID
-from datetime import datetime, timezone
-import io
-import logging
 
+from ..application.dto.verification_dto import (
+    StartMultiPhraseVerificationResponse,
+    StartVerificationRequest,
+    StartVerificationResponse,
+    VerifyPhraseResponse,
+    VerifyVoiceResponse,
+)
 from ..application.verification_service import VerificationService
+from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
+from ..domain.repositories.user_repository_port import UserRepositoryPort
 from ..infrastructure.biometrics.voice_biometric_engine_facade import (
     VoiceBiometricEngineFacade,
 )
-from .rate_limit import limiter, verification_limit
+from ..infrastructure.config.dependencies import (
+    get_audit_log_repository,
+    get_user_repository,
+    get_verification_service,
+    get_voice_biometric_engine,
+)
+from ..shared.types.common_types import AuditAction
 from .auth_guards import (
+    check_user_scope_or_admin,
     enforce_user_scope,
     get_current_user,
     get_optional_client,
-    check_user_scope_or_admin,
 )
-from ..application.dto.verification_dto import (
-    StartVerificationRequest,
-    StartVerificationResponse,
-    VerifyVoiceResponse,
-    StartMultiPhraseVerificationResponse,
-    VerifyPhraseResponse,
-)
-from ..infrastructure.config.dependencies import (
-    get_verification_service,
-    get_voice_biometric_engine,
-    get_audit_log_repository,
-    get_user_repository,
-)
-from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
-from ..domain.repositories.user_repository_port import UserRepositoryPort
-from ..shared.types.common_types import AuditAction
+from .rate_limit import limiter, verification_limit
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["verification"])
@@ -422,6 +422,7 @@ async def verify_phrase(
 
         # Save audio to dataset (always active)
         from evaluation.dataset_recorder import dataset_recorder
+
         from ..infrastructure.biometrics.audio_converter import ensure_wav_format
 
         try:
