@@ -7,17 +7,13 @@ import asyncio
 from typing import Optional
 from functools import lru_cache
 from fastapi import HTTPException, Depends
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from ..persistence.postgres_phrase_repository import (
     PostgresPhraseRepository,
-    PostgresPhraseUsageRepository
+    PostgresPhraseUsageRepository,
 )
 from ...application.phrase_service import PhraseService
 from ...config import SIMILARITY_THRESHOLD, ANTI_SPOOFING_THRESHOLD
-
-# Security for admin authentication
-security = HTTPBearer()
 
 logger = logging.getLogger(__name__)
 
@@ -32,16 +28,16 @@ _initialization_error: Optional[str] = None
 async def init_db_pool() -> asyncpg.Pool:
     """Initialize database connection pool during startup. Call this from lifespan."""
     global _db_pool, _db_initialized, _initialization_error
-    
+
     if _db_pool is not None:
         return _db_pool
-    
-    db_host = os.getenv('DB_HOST', 'localhost')
-    db_port = os.getenv('DB_PORT', '5432')
-    db_name = os.getenv('DB_NAME', 'voice_biometrics')
-    db_user = os.getenv('DB_USER', 'voice_user')
-    db_password = os.getenv('DB_PASSWORD', 'voice_password')
-    
+
+    db_host = os.getenv("DB_HOST", "localhost")
+    db_port = os.getenv("DB_PORT", "5432")
+    db_name = os.getenv("DB_NAME", "voice_biometrics")
+    db_user = os.getenv("DB_USER", "voice_user")
+    db_password = os.getenv("DB_PASSWORD", "voice_password")
+
     try:
         logger.info(f"Initializing database pool: {db_host}:{db_port}/{db_name}")
         _db_pool = await asyncpg.create_pool(
@@ -52,7 +48,7 @@ async def init_db_pool() -> asyncpg.Pool:
             password=db_password,
             min_size=2,
             max_size=10,
-            timeout=10
+            timeout=10,
         )
         _db_initialized = True
         _initialization_error = None
@@ -67,7 +63,7 @@ async def init_db_pool() -> asyncpg.Pool:
 async def get_db_pool() -> asyncpg.Pool:
     """Get database connection pool. Raises if not initialized."""
     global _db_pool, _initialization_error
-    
+
     if _db_pool is None:
         if _initialization_error:
             raise HTTPException(
@@ -75,12 +71,12 @@ async def get_db_pool() -> asyncpg.Pool:
                 detail={
                     "error": "Service Unavailable",
                     "message": f"Database not available: {_initialization_error}",
-                    "hint": "Run 'docker-compose up -d' to start the database."
-                }
+                    "hint": "Run 'docker-compose up -d' to start the database.",
+                },
             )
         # Fallback: try to initialize (for backwards compatibility)
         return await init_db_pool()
-    
+
     return _db_pool
 
 
@@ -97,14 +93,14 @@ async def close_db_pool():
 def init_biometric_engine():
     """Initialize biometric engine synchronously (called in background task)."""
     global _biometric_engine, _models_loaded
-    
+
     from ..biometrics.speaker_embedding_adapter import SpeakerEmbeddingAdapter
     from ..biometrics.spoof_detector_adapter import SpoofDetectorAdapter
     from ..biometrics.asr_adapter import ASRAdapter
     from ..biometrics.voice_biometric_engine_facade import VoiceBiometricEngineFacade
 
     logger.info("Loading ML models (this may take a moment)...")
-    
+
     speaker_adapter = SpeakerEmbeddingAdapter()
     spoof_adapter = SpoofDetectorAdapter()
     asr_adapter = ASRAdapter()
@@ -122,7 +118,7 @@ def init_biometric_engine():
 async def init_biometric_engine_async():
     """Initialize biometric engine in background thread to not block startup."""
     global _biometric_engine, _models_loaded
-    
+
     loop = asyncio.get_event_loop()
     _biometric_engine = await loop.run_in_executor(None, init_biometric_engine)
     return _biometric_engine
@@ -139,7 +135,7 @@ def is_ready() -> dict:
     return {
         "database": _db_initialized,
         "models": _models_loaded,
-        "ready": _db_initialized and _models_loaded
+        "ready": _db_initialized and _models_loaded,
     }
 
 
@@ -154,6 +150,7 @@ def create_voice_biometric_engine():
 
 
 from ...application.services.biometric_validator import BiometricValidator
+
 
 @lru_cache()
 def get_biometric_validator() -> BiometricValidator:
@@ -172,6 +169,7 @@ async def get_phrase_service() -> PhraseService:
 async def get_user_repository():
     """Get user repository instance."""
     from ..persistence.postgres_user_repository import PostgresUserRepository
+
     pool = await get_db_pool()
     return PostgresUserRepository(pool)
 
@@ -179,15 +177,20 @@ async def get_user_repository():
 async def get_audit_log_repository():
     """Get audit log repository instance."""
     from ..persistence.postgres_audit_log_repository import PostgresAuditLogRepository
+
     pool = await get_db_pool()
     return PostgresAuditLogRepository(pool)
 
 
 async def get_enrollment_service():
     """Get enrollment service instance with dependencies."""
-    from ..persistence.postgres_voice_signature_repository import PostgresVoiceSignatureRepository
+    from ..persistence.postgres_voice_signature_repository import (
+        PostgresVoiceSignatureRepository,
+    )
     from ..persistence.postgres_audit_log_repository import PostgresAuditLogRepository
-    from ..persistence.postgres_enrollment_session_repository import PostgresEnrollmentSessionRepository
+    from ..persistence.postgres_enrollment_session_repository import (
+        PostgresEnrollmentSessionRepository,
+    )
     from ...application.enrollment_service import EnrollmentService
 
     pool = await get_db_pool()
@@ -211,17 +214,26 @@ async def get_enrollment_service():
 
 async def get_voice_signature_repository():
     """Get voice signature repository instance."""
-    from ..persistence.postgres_voice_signature_repository import PostgresVoiceSignatureRepository
+    from ..persistence.postgres_voice_signature_repository import (
+        PostgresVoiceSignatureRepository,
+    )
+
     pool = await get_db_pool()
     return PostgresVoiceSignatureRepository(pool)
 
 
 async def get_verification_service():
     """Get verification service instance with dependencies."""
-    from ..persistence.postgres_voice_signature_repository import PostgresVoiceSignatureRepository
+    from ..persistence.postgres_voice_signature_repository import (
+        PostgresVoiceSignatureRepository,
+    )
     from ..persistence.postgres_audit_log_repository import PostgresAuditLogRepository
-    from ..persistence.postgres_verification_attempt_repository import PostgresVerificationAttemptRepository
-    from ..persistence.postgres_model_version_repository import PostgresModelVersionRepository
+    from ..persistence.postgres_verification_attempt_repository import (
+        PostgresVerificationAttemptRepository,
+    )
+    from ..persistence.postgres_model_version_repository import (
+        PostgresModelVersionRepository,
+    )
     from ...application.verification_service import VerificationService
 
     pool = await get_db_pool()
@@ -249,18 +261,23 @@ async def get_verification_service():
 
 async def get_phrase_quality_rules_service():
     """Get phrase quality rules service instance with dependencies."""
-    from ..persistence.postgres_phrase_quality_rules_repository import PostgresPhraseQualityRulesRepository
+    from ..persistence.postgres_phrase_quality_rules_repository import (
+        PostgresPhraseQualityRulesRepository,
+    )
     from ...application.phrase_quality_rules_service import PhraseQualityRulesService
-    
+
     pool = await get_db_pool()
     rules_repo = PostgresPhraseQualityRulesRepository(pool)
-    
+
     return PhraseQualityRulesService(rules_repo)
 
 
 async def get_system_settings_repository():
     """Get system settings repository instance."""
-    from ..persistence.postgres_system_settings_repository import PostgresSystemSettingsRepository
+    from ..persistence.postgres_system_settings_repository import (
+        PostgresSystemSettingsRepository,
+    )
+
     pool = await get_db_pool()
     return PostgresSystemSettingsRepository(pool)
 
@@ -268,6 +285,7 @@ async def get_system_settings_repository():
 async def get_client_app_repository():
     """Get client app repository instance."""
     from ..persistence.postgres_client_app_repository import PostgresClientAppRepository
+
     pool = await get_db_pool()
     return PostgresClientAppRepository(pool)
 
@@ -277,60 +295,19 @@ async def get_challenge_service():
     from ..persistence.postgres_challenge_repository import PostgresChallengeRepository
     from ..persistence.postgres_audit_log_repository import PostgresAuditLogRepository
     from ...application.challenge_service import ChallengeService
-    
+
     pool = await get_db_pool()
-    
+
     challenge_repo = PostgresChallengeRepository(pool)
     phrase_repo = PostgresPhraseRepository(pool)
     user_repo = await get_user_repository()
     audit_repo = PostgresAuditLogRepository(pool)
     rules_service = await get_phrase_quality_rules_service()
-    
+
     return ChallengeService(
         challenge_repo=challenge_repo,
         phrase_repo=phrase_repo,
         user_repo=user_repo,
         audit_repo=audit_repo,
-        rules_service=rules_service
+        rules_service=rules_service,
     )
-
-
-async def get_current_admin_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security)
-):
-    """
-    Dependency to ensure current user is an admin.
-    Validates JWT token and checks for admin/superadmin role.
-    """
-    from fastapi import HTTPException, status
-    from ...config import SECRET_KEY, ALGORITHM
-    import jwt
-    
-    user_repo = await get_user_repository()
-    
-    auth_error = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-    
-    try:
-        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")
-        if email is None:
-            raise auth_error
-    except jwt.PyJWTError:
-        raise auth_error
-    
-    user = await user_repo.get_user_by_email(email)
-    if user is None:
-        raise auth_error
-    
-    user_role = user.get("role", "user")
-    if user_role not in ["admin", "superadmin"]:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Admin access required"
-        )
-    
-    return user

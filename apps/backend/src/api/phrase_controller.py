@@ -7,7 +7,8 @@ from pydantic import BaseModel
 
 from ..application.phrase_service import PhraseService
 from ..application.dto.phrase_dto import PhraseDTO, PhraseStatsDTO
-from ..infrastructure.config.dependencies import get_phrase_service, get_current_admin_user
+from ..infrastructure.config.dependencies import get_phrase_service
+from .auth_guards import require_admin_user
 
 router = APIRouter()
 
@@ -15,6 +16,7 @@ router = APIRouter()
 # Request/Response Models
 class PhraseResponse(BaseModel):
     """Response model for a phrase."""
+
     id: str
     text: str
     source: Optional[str]
@@ -30,6 +32,7 @@ class PhraseResponse(BaseModel):
 
 class PhraseStatsResponse(BaseModel):
     """Response model for phrase statistics."""
+
     total: int
     active: int
     inactive: int
@@ -41,6 +44,7 @@ class PhraseStatsResponse(BaseModel):
 
 class BookResponse(BaseModel):
     """Response model for a book."""
+
     id: str
     title: str
     author: Optional[str] = None
@@ -48,6 +52,7 @@ class BookResponse(BaseModel):
 
 class PhraseListResponse(BaseModel):
     """Response model for paginated phrase list."""
+
     phrases: List[PhraseResponse]
     total: int
     page: int
@@ -57,32 +62,31 @@ class PhraseListResponse(BaseModel):
 
 class UpdatePhraseStatusRequest(BaseModel):
     """Request model for updating phrase status."""
+
     is_active: bool
 
 
 # Endpoints
 
+
 @router.get("/books", response_model=List[BookResponse])
 async def get_books(
     phrase_service: PhraseService = Depends(get_phrase_service),
-    _current_user=Depends(get_current_admin_user)
+    _current_user=Depends(require_admin_user),
 ):
     """
     Get list of all books.
     Admin only.
     """
     books = await phrase_service.list_books()
-    return [
-        BookResponse(id=b.id, title=b.title, author=b.author)
-        for b in books
-    ]
+    return [BookResponse(id=b.id, title=b.title, author=b.author) for b in books]
 
 
 @router.get("/stats", response_model=PhraseStatsResponse)
 async def get_phrase_stats(
     language: str = Query(default="es"),
     phrase_service: PhraseService = Depends(get_phrase_service),
-    _current_user=Depends(get_current_admin_user)
+    _current_user=Depends(require_admin_user),
 ):
     """
     Get statistics about available phrases.
@@ -110,7 +114,7 @@ async def list_phrases(
     book_id: Optional[str] = Query(default=None),
     author: Optional[str] = Query(default=None),
     phrase_service: PhraseService = Depends(get_phrase_service),
-    _current_user=Depends(get_current_admin_user)
+    _current_user=Depends(require_admin_user),
 ):
     """
     Get paginated list of phrases with optional filters.
@@ -139,17 +143,17 @@ async def list_phrases(
 
     phrase_responses = [
         PhraseResponse(
-            id=str(p['id']),
-            text=p['text'],
-            source=p['source'],
-            book_title=p.get('book_title'),
-            book_author=p.get('book_author'),
-            word_count=p['word_count'],
-            char_count=p['char_count'],
-            language=p['language'],
-            difficulty=p['difficulty'],
-            is_active=p['is_active'],
-            created_at=p['created_at'].isoformat()
+            id=str(p["id"]),
+            text=p["text"],
+            source=p["source"],
+            book_title=p.get("book_title"),
+            book_author=p.get("book_author"),
+            word_count=p["word_count"],
+            char_count=p["char_count"],
+            language=p["language"],
+            difficulty=p["difficulty"],
+            is_active=p["is_active"],
+            created_at=p["created_at"].isoformat(),
         )
         for p in result.phrases
     ]
@@ -168,7 +172,7 @@ async def get_random_phrases(
     count: int = Query(default=1, ge=1, le=10),
     difficulty: Optional[str] = Query(default=None),
     language: str = Query(default="es"),
-    phrase_service: PhraseService = Depends(get_phrase_service)
+    phrase_service: PhraseService = Depends(get_phrase_service),
 ):
     """
     Get random phrases for enrollment or verification.
@@ -180,9 +184,7 @@ async def get_random_phrases(
     - language: Language code (default: es)
     """
     phrases = await phrase_service.get_random_phrases(
-        count=count,
-        difficulty=difficulty,
-        language=language
+        count=count, difficulty=difficulty, language=language
     )
 
     return [
@@ -195,7 +197,7 @@ async def get_random_phrases(
             language=p.language,
             difficulty=p.difficulty,
             is_active=p.is_active,
-            created_at=p.created_at
+            created_at=p.created_at,
         )
         for p in phrases
     ]
@@ -206,7 +208,7 @@ async def update_phrase_status(
     phrase_id: str,
     request: UpdatePhraseStatusRequest,
     phrase_service: PhraseService = Depends(get_phrase_service),
-    _current_user=Depends(get_current_admin_user)
+    _current_user=Depends(require_admin_user),
 ):
     """
     Update the active status of a phrase.
@@ -218,8 +220,7 @@ async def update_phrase_status(
         raise HTTPException(status_code=400, detail="Invalid phrase ID format")
 
     success = await phrase_service.update_phrase_status(
-        phrase_id=phrase_uuid,
-        is_active=request.is_active
+        phrase_id=phrase_uuid, is_active=request.is_active
     )
 
     if not success:
@@ -229,7 +230,7 @@ async def update_phrase_status(
         "success": True,
         "message": f"Phrase {'activated' if request.is_active else 'deactivated'} successfully",
         "phrase_id": phrase_id,
-        "is_active": request.is_active
+        "is_active": request.is_active,
     }
 
 
@@ -237,7 +238,7 @@ async def update_phrase_status(
 async def delete_phrase(
     phrase_id: str,
     phrase_service: PhraseService = Depends(get_phrase_service),
-    _current_user=Depends(get_current_admin_user)
+    _current_user=Depends(require_admin_user),
 ):
     """
     Delete a phrase from the system.
@@ -256,5 +257,5 @@ async def delete_phrase(
     return {
         "success": True,
         "message": "Phrase deleted successfully",
-        "phrase_id": phrase_id
+        "phrase_id": phrase_id,
     }
