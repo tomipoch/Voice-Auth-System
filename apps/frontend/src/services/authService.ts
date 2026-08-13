@@ -14,12 +14,7 @@
 
 import api from './api';
 import { authStorage } from './storage';
-import type {
-  AuthResponse,
-  LoginCredentials,
-  RegisterData,
-  User,
-} from '../types';
+import type { AuthResponse, LoginCredentials, RegisterData, User } from '../types';
 
 export interface RegisterResponse {
   success: boolean;
@@ -88,7 +83,7 @@ class AuthService {
 
   async changePassword(
     currentPassword: string,
-    newPassword: string,
+    newPassword: string
   ): Promise<ChangePasswordResponse> {
     const { data } = await api.post<ChangePasswordResponse>('/auth/change-password', {
       current_password: currentPassword,

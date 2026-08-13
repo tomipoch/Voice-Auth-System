@@ -52,11 +52,11 @@ const audioUtils = {
     let silentSamples = 0;
     const totalSamples = audioBuffer.length;
 
-for (let i = 0; i < totalSamples; i++) {
-        if (Math.abs(audioBuffer[i] ?? 0) < threshold) {
-          silentSamples++;
-        }
+    for (let i = 0; i < totalSamples; i++) {
+      if (Math.abs(audioBuffer[i] ?? 0) < threshold) {
+        silentSamples++;
       }
+    }
 
     const silencePercentage = (silentSamples / totalSamples) * 100;
     return silencePercentage > 50; // Más del 50% es silencio
@@ -149,9 +149,10 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
       chunksRef.current = [];
 
       // Crear contexto de audio para análisis
-      audioContextRef.current = new (window.AudioContext ||
-        (window as unknown as { webkitAudioContext: typeof AudioContext })
-          .webkitAudioContext)();
+      audioContextRef.current = new (
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+      )();
 
       // Determinar mimeType compatible
       let mimeType = 'audio/webm;codecs=opus';
@@ -271,8 +272,8 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
             console.log('Max duration reached, stopping...');
             stopRecording();
             toast(`Grabación detenida automáticamente (${maxDuration}s máximo)`, {
-          icon: '⏱️',
-        });
+              icon: '⏱️',
+            });
           }
 
           return newTime;
@@ -352,9 +353,10 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
 
         // Convertir blob a ArrayBuffer
         const arrayBuffer = await blob.arrayBuffer();
-        const audioContext = new (window.AudioContext ||
-          (window as unknown as { webkitAudioContext: typeof AudioContext })
-            .webkitAudioContext)();
+        const audioContext = new (
+          window.AudioContext ||
+          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+        )();
         const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
 
         // Obtener datos de audio
@@ -488,8 +490,7 @@ export const useAdvancedAudioRecording = (options: AudioRecordingOptions = {}) =
     togglePause,
     clearRecording,
     playRecording,
-    analyzeRecording: () =>
-      recordedBlob && analyzeRecording(recordedBlob, recordingTime),
+    analyzeRecording: () => recordedBlob && analyzeRecording(recordedBlob, recordingTime),
     cleanup,
 
     // Utilidades

@@ -36,7 +36,7 @@ type AuthUser = NonNullable<AuthContextValue['user']>;
 
 const renderWithProviders = (
   ui: React.ReactElement,
-  { user = null as AuthUser | null }: { user?: AuthUser | null } = {},
+  { user = null as AuthUser | null }: { user?: AuthUser | null } = {}
 ) => {
   const mockAuthContext = {
     user,
@@ -183,7 +183,7 @@ describe('ProfilePage', () => {
     await user.click(screen.getByRole('button', { name: /cambiar contraseña/i }));
 
     const newPasswordInput = container.querySelector(
-      'input[name="newPassword"]',
+      'input[name="newPassword"]'
     ) as HTMLInputElement;
     await user.type(newPasswordInput, 'weak');
 
@@ -206,10 +206,10 @@ describe('ProfilePage', () => {
     await user.click(screen.getByRole('button', { name: /cambiar contraseña/i }));
 
     const newPasswordInput = container.querySelector(
-      'input[name="newPassword"]',
+      'input[name="newPassword"]'
     ) as HTMLInputElement;
     const confirmPasswordInput = container.querySelector(
-      'input[name="confirmPassword"]',
+      'input[name="confirmPassword"]'
     ) as HTMLInputElement;
 
     await user.type(newPasswordInput, 'Password123!');
@@ -233,24 +233,21 @@ describe('ProfilePage', () => {
 
     await user.type(
       container.querySelector('input[name="currentPassword"]') as HTMLInputElement,
-      'OldPassword123!',
+      'OldPassword123!'
     );
     await user.type(
       container.querySelector('input[name="newPassword"]') as HTMLInputElement,
-      'NewPassword123!',
+      'NewPassword123!'
     );
     await user.type(
       container.querySelector('input[name="confirmPassword"]') as HTMLInputElement,
-      'NewPassword123!',
+      'NewPassword123!'
     );
 
     await user.click(screen.getByRole('button', { name: /actualizar contraseña/i }));
 
     await waitFor(() => {
-      expect(mockedChangePassword).toHaveBeenCalledWith(
-        'OldPassword123!',
-        'NewPassword123!',
-      );
+      expect(mockedChangePassword).toHaveBeenCalledWith('OldPassword123!', 'NewPassword123!');
       expect(toast.success).toHaveBeenCalledWith('Contraseña actualizada exitosamente');
     });
   });
@@ -267,15 +264,15 @@ describe('ProfilePage', () => {
 
     await user.type(
       container.querySelector('input[name="currentPassword"]') as HTMLInputElement,
-      'WrongPassword',
+      'WrongPassword'
     );
     await user.type(
       container.querySelector('input[name="newPassword"]') as HTMLInputElement,
-      'NewPassword123!',
+      'NewPassword123!'
     );
     await user.type(
       container.querySelector('input[name="confirmPassword"]') as HTMLInputElement,
-      'NewPassword123!',
+      'NewPassword123!'
     );
 
     await user.click(screen.getByRole('button', { name: /actualizar contraseña/i }));

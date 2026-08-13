@@ -60,7 +60,7 @@ describe('enrollmentService', () => {
           ['external_ref', 'ext-1'],
           ['difficulty', 'hard'],
           ['force_overwrite', 'true'],
-        ]),
+        ])
       );
       expect(result.enrollment_id).toBe('enroll-1');
       expect(result.voiceprint_exists).toBe(false);
@@ -114,14 +114,14 @@ describe('enrollmentService', () => {
       const [url, fd, opts] = mockedPost.mock.calls[0]!;
       expect(url).toBe('/enrollment/add-sample');
       expect((opts as { headers: { 'Content-Type': string } }).headers['Content-Type']).toBe(
-        'multipart/form-data',
+        'multipart/form-data'
       );
       const entries = Array.from((fd as FormData).entries());
       expect(entries).toEqual(
         expect.arrayContaining([
           ['enrollment_id', 'enroll-1'],
           ['challenge_id', 'c-1'],
-        ]),
+        ])
       );
       expect(entries.find(([k]) => k === 'audio_file')).toBeDefined();
       expect(result.next_challenge?.challenge_id).toBe('c-2');

@@ -20,14 +20,9 @@ const mocks = vi.hoisted(() => {
     interceptors: {
       request: { use: vi.fn() },
       response: {
-        use: vi.fn(
-          (
-            _onFulfilled: (v: unknown) => unknown,
-            onRejected: (e: unknown) => unknown,
-          ) => {
-            captured.responseError = onRejected;
-          },
-        ),
+        use: vi.fn((_onFulfilled: (v: unknown) => unknown, onRejected: (e: unknown) => unknown) => {
+          captured.responseError = onRejected;
+        }),
       },
     },
   });
@@ -78,7 +73,11 @@ beforeAll(async () => {
 });
 
 interface MockAxiosError {
-  response?: { status: number; config: { url: string; headers: Record<string, string | undefined> }; data: unknown };
+  response?: {
+    status: number;
+    config: { url: string; headers: Record<string, string | undefined> };
+    data: unknown;
+  };
   config: { url: string; headers: Record<string, string | undefined> };
   message: string;
   code?: string;
@@ -121,7 +120,7 @@ describe('api.ts refresh-token queue', () => {
     expect(axios.post).toHaveBeenCalledWith(
       'http://localhost:8000/api/auth/refresh',
       { refresh_token: 'valid-refresh' },
-      expect.objectContaining({ headers: { 'Content-Type': 'application/json' } }),
+      expect.objectContaining({ headers: { 'Content-Type': 'application/json' } })
     );
     expect(mocks.authStorageMock.setAccessToken).toHaveBeenCalledWith('new-token');
     expect(originalRequest.headers.Authorization).toBe('Bearer new-token');
@@ -173,9 +172,7 @@ describe('api.ts error toast helpers', () => {
     err.code = 'ECONNABORTED';
     await handler(err).catch(() => {});
     const calls = (toast.error as unknown as ReturnType<typeof vi.fn>).mock.calls;
-    expect(String(calls[0]?.[0])).toBe(
-      'Tiempo de espera agotado. Verifica tu conexión.',
-    );
+    expect(String(calls[0]?.[0])).toBe('Tiempo de espera agotado. Verifica tu conexión.');
   });
 
   it('does not show a 5xx toast when debugMode is enabled', async () => {

@@ -89,14 +89,14 @@ describe('verificationService', () => {
       const [url, fd, opts] = mockedPost.mock.calls[0]!;
       expect(url).toBe('/verification/verify');
       expect((opts as { headers: Record<string, string> }).headers['Content-Type']).toBe(
-        'multipart/form-data',
+        'multipart/form-data'
       );
       const entries = Array.from((fd as FormData).entries());
       expect(entries).toEqual(
         expect.arrayContaining([
           ['verification_id', 'v-1'],
           ['challenge_id', 'c-1'],
-        ]),
+        ])
       );
       expect(entries.find(([k]) => k === 'audio_file')).toBeDefined();
       expect(result.is_verified).toBe(true);
@@ -112,7 +112,7 @@ describe('verificationService', () => {
           user_id: 'u-1',
           is_verified: false,
           confidence_score: 0.31,
-          similarity_score: 0.30,
+          similarity_score: 0.3,
           anti_spoofing_score: 0.4,
           is_live: true,
           threshold_used: 0.8,
@@ -127,11 +127,7 @@ describe('verificationService', () => {
       const [url, fd] = mockedPost.mock.calls[0]!;
       expect(url).toBe('/verification/quick-verify');
       const entries = Array.from((fd as FormData).entries());
-      expect(entries).toEqual(
-        expect.arrayContaining([
-          ['user_id', 'u-1'],
-        ]),
-      );
+      expect(entries).toEqual(expect.arrayContaining([['user_id', 'u-1']]));
       expect(entries.find(([k]) => k === 'audio_file')).toBeDefined();
       expect(result.is_verified).toBe(false);
     });
@@ -169,7 +165,10 @@ describe('verificationService', () => {
 
     it('falls back to the default limit of 10', async () => {
       mockedGet.mockResolvedValueOnce({
-        data: { success: true, history: { user_id: 'u-1', total_attempts: 0, recent_attempts: [] } },
+        data: {
+          success: true,
+          history: { user_id: 'u-1', total_attempts: 0, recent_attempts: [] },
+        },
       });
 
       await verificationService.getVerificationHistory('u-1');
@@ -250,7 +249,7 @@ describe('verificationService', () => {
       const [url, fd, opts] = mockedPost.mock.calls[0]!;
       expect(url).toBe('/verification/verify-phrase');
       expect((opts as { headers: Record<string, string> }).headers['Content-Type']).toBe(
-        'multipart/form-data',
+        'multipart/form-data'
       );
       const entries = Array.from((fd as FormData).entries());
       expect(entries).toEqual(
@@ -260,7 +259,7 @@ describe('verificationService', () => {
           ['phrase_number', '1'],
           ['user_agent', 'mock-user-agent'],
           ['device_info', 'mock-device-info'],
-        ]),
+        ])
       );
       expect(entries.find(([k]) => k === 'audio_file')).toBeDefined();
       expect(result.phrase_number).toBe(1);

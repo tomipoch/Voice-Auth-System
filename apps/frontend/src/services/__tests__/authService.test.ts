@@ -70,7 +70,7 @@ describe('AuthService', () => {
     it('lets axios errors propagate', async () => {
       mockedPost.mockRejectedValueOnce(new Error('Invalid credentials'));
       await expect(
-        authService.login({ email: 'u@example.com', password: 'wrong' }),
+        authService.login({ email: 'u@example.com', password: 'wrong' })
       ).rejects.toThrow('Invalid credentials');
     });
   });
@@ -164,9 +164,7 @@ describe('AuthService', () => {
     });
 
     it('throws when no refresh token is stored', async () => {
-      await expect(authService.refreshToken()).rejects.toThrow(
-        'No refresh token available',
-      );
+      await expect(authService.refreshToken()).rejects.toThrow('No refresh token available');
       expect(mockedPost).not.toHaveBeenCalled();
     });
   });

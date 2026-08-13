@@ -98,7 +98,7 @@ export const PhrasesPage = () => {
 
       // Reload stats
       loadStats();
-    } catch (err) {
+    } catch {
       toast.error('Error al cambiar estado de la frase');
     }
   };
@@ -115,7 +115,7 @@ export const PhrasesPage = () => {
 
       // Reload stats
       loadStats();
-    } catch (err) {
+    } catch {
       toast.error('Error al eliminar frase');
     }
   };

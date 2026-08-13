@@ -61,8 +61,9 @@
     "src/**/*.tsx",
     "src/**/*.ts",
     "vite.config.ts",
+    "vitest.config.ts",
     "tailwind.config.ts",
-    "eslint.config.ts"
+    "eslint.config.js"
   ],
   "exclude": [
     "node_modules",

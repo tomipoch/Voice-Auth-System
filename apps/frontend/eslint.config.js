@@ -7,14 +7,12 @@ import prettier from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules', 'build', '.vite'] },
+  {
+    ignores: ['dist', 'node_modules', 'build', '.vite', 'coverage', 'htmlcov'],
+  },
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommended,
-      prettierConfig,
-    ],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended, prettierConfig],
     languageOptions: {
       ecmaVersion: 2020,
       globals: { ...globals.browser, process: 'readonly' },
@@ -45,5 +43,5 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'warn',
       'prettier/prettier': 'error',
     },
-  },
+  }
 );

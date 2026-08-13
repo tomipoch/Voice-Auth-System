@@ -98,11 +98,7 @@ const LoginOnlyComponent = () => {
       <div data-testid="loading">{isLoading ? 'Loading' : 'Not Loading'}</div>
       <div data-testid="user">{user ? user.email : 'No User'}</div>
       <div data-testid="authenticated">{isAuthenticated ? 'Yes' : 'No'}</div>
-      <button
-        onClick={() => login({ email: 'a@b.com', password: 'Password1!' })}
-      >
-        Login
-      </button>
+      <button onClick={() => login({ email: 'a@b.com', password: 'Password1!' })}>Login</button>
       <button onClick={logout}>Logout</button>
     </div>
   );
@@ -201,7 +197,7 @@ describe('AuthContext', () => {
     mockedLogin.mockRejectedValue(
       Object.assign(new Error('Login failed'), {
         response: { data: { message: 'Invalid credentials' } },
-      }),
+      })
     );
 
     render(
@@ -293,7 +289,7 @@ describe('AuthContext', () => {
       created_at: '2024-01-01T00:00:00Z',
     });
     mockedGetProfile.mockRejectedValue(
-      Object.assign(new Error('expired'), { response: { status: 401 } }),
+      Object.assign(new Error('expired'), { response: { status: 401 } })
     );
 
     render(
@@ -318,7 +314,7 @@ describe('AuthContext', () => {
       created_at: '2024-01-01T00:00:00Z',
     });
     mockedGetProfile.mockRejectedValue(
-      Object.assign(new Error('network'), { message: 'ECONNREFUSED' }),
+      Object.assign(new Error('network'), { message: 'ECONNREFUSED' })
     );
 
     render(
@@ -364,7 +360,7 @@ describe('AuthContext', () => {
     mockedRegister.mockRejectedValue(
       Object.assign(new Error('register failed'), {
         response: { data: { message: 'Email taken' } },
-      }),
+      })
     );
 
     render(

@@ -181,10 +181,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
               }
             } else {
               // Error de red o servidor temporal - MANTENER sesión local
-              console.warn(
-                '⚠️ Error verificando token, usando datos locales:',
-                axiosError.message
-              );
+              console.warn('⚠️ Error verificando token, usando datos locales:', axiosError.message);
               dispatch({
                 type: actionTypes.LOGIN_SUCCESS,
                 payload: {
