@@ -21,7 +21,7 @@ import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { useAuth } from '../hooks/useAuth';
-import { authService } from '../services/apiServices';
+import { authService } from '../services/authService';
 import toast from 'react-hot-toast';
 
 const ProfilePage = () => {
@@ -194,11 +194,7 @@ const ProfilePage = () => {
           window.location.reload();
         }
       } else {
-        toast.error(
-          (response as { error?: string; message?: string }).error ||
-            (response as { error?: string; message?: string }).message ||
-            'Error al actualizar perfil'
-        );
+        toast.error(response.message || 'Error al actualizar perfil');
       }
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -237,11 +233,17 @@ const ProfilePage = () => {
         });
         setShowPasswordSection(false);
       } else {
-        toast.error(response.error || 'Error al cambiar la contraseña');
+        toast.error(response.message || 'Error al cambiar la contraseña');
       }
     } catch (error) {
-      console.error('Error changing password:', error);
-      toast.error('Error al cambiar la contraseña');
+      const axiosError = error as {
+        response?: { data?: { detail?: string; message?: string } };
+      };
+      const detail =
+        axiosError.response?.data?.message ||
+        axiosError.response?.data?.detail ||
+        'Error al cambiar la contraseña';
+      toast.error(detail);
     } finally {
       setIsLoading(false);
     }

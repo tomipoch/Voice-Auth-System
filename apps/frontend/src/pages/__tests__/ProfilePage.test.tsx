@@ -1,29 +1,36 @@
-// @ts-nocheck
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+/**
+ * ProfilePage tests against the typed AuthService.
+ *
+ * Mirrors what an admin user can do from the profile page: edit
+ * personal fields and change the password. Mocks the new
+ * services/authService module (replacing the legacy apiServices
+ * facade) and verifies the user-visible toasts.
+ */
+
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import ProfilePage from '../ProfilePage';
 import { AuthContext } from '../../context/AuthContext';
-import { authService } from '../../services/apiServices';
 import toast from 'react-hot-toast';
 
-// Mock the services and toast
-vi.mock('../../services/apiServices', () => ({
+vi.mock('../../services/authService', () => ({
   authService: {
     updateProfile: vi.fn(),
     changePassword: vi.fn(),
+    login: vi.fn(),
+    logout: vi.fn(),
+    register: vi.fn(),
+    refreshToken: vi.fn(),
+    getProfile: vi.fn(),
   },
 }));
 
 vi.mock('react-hot-toast', () => ({
-  default: {
-    success: vi.fn(),
-    error: vi.fn(),
-  },
+  default: { success: vi.fn(), error: vi.fn(), info: vi.fn() },
 }));
 
-// Helper to render with providers
 const renderWithProviders = (ui: React.ReactElement, { user = null } = {}) => {
   const mockAuthContext = {
     user,
@@ -39,6 +46,11 @@ const renderWithProviders = (ui: React.ReactElement, { user = null } = {}) => {
     </BrowserRouter>
   );
 };
+
+import { authService } from '../../services/authService';
+
+const mockedUpdateProfile = vi.mocked(authService.updateProfile);
+const mockedChangePassword = vi.mocked(authService.changePassword);
 
 describe('ProfilePage', () => {
   beforeEach(() => {
@@ -67,29 +79,14 @@ describe('ProfilePage', () => {
 
   it('shows user initials correctly', () => {
     renderWithProviders(<ProfilePage />, { user: mockUser });
-
-    // The initials should be "JD" for John Doe
     expect(screen.getByText('JD')).toBeInTheDocument();
-  });
-
-  it('displays editable fields (firstName, lastName)', () => {
-    renderWithProviders(<ProfilePage />, { user: mockUser });
-
-    const firstNameInput = screen.getByDisplayValue('John');
-    const lastNameInput = screen.getByDisplayValue('Doe');
-
-    expect(firstNameInput).toBeInTheDocument();
-    expect(lastNameInput).toBeInTheDocument();
   });
 
   it('disables email and company fields', () => {
     renderWithProviders(<ProfilePage />, { user: mockUser });
 
-    const emailInput = screen.getByDisplayValue('john@example.com');
-    const companyInput = screen.getByDisplayValue('Test Company');
-
-    expect(emailInput).toBeDisabled();
-    expect(companyInput).toBeDisabled();
+    expect(screen.getByDisplayValue('john@example.com')).toBeDisabled();
+    expect(screen.getByDisplayValue('Test Company')).toBeDisabled();
   });
 
   it('enables editing mode on button click', async () => {
@@ -99,7 +96,6 @@ describe('ProfilePage', () => {
     const editButton = screen.getByRole('button', { name: /editar/i });
     await user.click(editButton);
 
-    // After clicking edit, the button should change to "Cancelar"
     expect(screen.getByRole('button', { name: /cancelar/i })).toBeInTheDocument();
   });
 
@@ -107,9 +103,7 @@ describe('ProfilePage', () => {
     const user = userEvent.setup();
     const mockRefreshUser = vi.fn();
 
-    vi.mocked(authService.updateProfile).mockResolvedValue({
-      success: true,
-    });
+    mockedUpdateProfile.mockResolvedValue({ success: true, message: 'Profile updated' });
 
     const mockAuthContext = {
       user: mockUser,
@@ -127,21 +121,16 @@ describe('ProfilePage', () => {
       </BrowserRouter>
     );
 
-    // Click edit button
-    const editButton = screen.getByRole('button', { name: /editar/i });
-    await user.click(editButton);
+    await user.click(screen.getByRole('button', { name: /editar/i }));
 
-    // Change first name
     const firstNameInput = screen.getByDisplayValue('John');
     await user.clear(firstNameInput);
     await user.type(firstNameInput, 'Jane');
 
-    // Click save
-    const saveButton = screen.getByRole('button', { name: /guardar cambios/i });
-    await user.click(saveButton);
+    await user.click(screen.getByRole('button', { name: /guardar cambios/i }));
 
     await waitFor(() => {
-      expect(authService.updateProfile).toHaveBeenCalledWith({
+      expect(mockedUpdateProfile).toHaveBeenCalledWith({
         first_name: 'Jane',
         last_name: 'Doe',
         company: 'Test Company',
@@ -154,20 +143,15 @@ describe('ProfilePage', () => {
   it('shows error on save failure', async () => {
     const user = userEvent.setup();
 
-    vi.mocked(authService.updateProfile).mockResolvedValue({
+    mockedUpdateProfile.mockResolvedValue({
       success: false,
-      error: 'Update failed',
+      message: 'Update failed',
     });
 
     renderWithProviders(<ProfilePage />, { user: mockUser });
 
-    // Click edit button
-    const editButton = screen.getByRole('button', { name: /editar/i });
-    await user.click(editButton);
-
-    // Click save
-    const saveButton = screen.getByRole('button', { name: /guardar cambios/i });
-    await user.click(saveButton);
+    await user.click(screen.getByRole('button', { name: /editar/i }));
+    await user.click(screen.getByRole('button', { name: /guardar cambios/i }));
 
     await waitFor(() => {
       expect(toast.error).toHaveBeenCalledWith('Update failed');
@@ -178,47 +162,32 @@ describe('ProfilePage', () => {
     const user = userEvent.setup();
     renderWithProviders(<ProfilePage />, { user: mockUser });
 
-    // Initially, password section should not be visible
     expect(screen.queryByText(/contraseña actual/i)).not.toBeInTheDocument();
 
-    // Click "Cambiar Contraseña" button
-    const changePasswordButton = screen.getByRole('button', { name: /cambiar contraseña/i });
-    await user.click(changePasswordButton);
+    await user.click(screen.getByRole('button', { name: /cambiar contraseña/i }));
 
-    // Now password section should be visible - check for "Contraseña Actual" which is unique
     expect(screen.getByText(/contraseña actual/i)).toBeInTheDocument();
-    // Check that there are multiple "nueva contraseña" labels (one for new, one for confirm)
-    const newPasswordLabels = screen.getAllByText(/nueva contraseña/i);
-    expect(newPasswordLabels.length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/nueva contraseña/i).length).toBeGreaterThan(0);
   });
 
   it('shows password strength indicator', async () => {
     const user = userEvent.setup();
     const { container } = renderWithProviders(<ProfilePage />, { user: mockUser });
 
-    // Open password section
-    const changePasswordButton = screen.getByRole('button', { name: /cambiar contraseña/i });
-    await user.click(changePasswordButton);
+    await user.click(screen.getByRole('button', { name: /cambiar contraseña/i }));
 
-    // Find password input by name attribute
     const newPasswordInput = container.querySelector(
-      'input[name="newPassword"]'
+      'input[name="newPassword"]',
     ) as HTMLInputElement;
-    expect(newPasswordInput).toBeInTheDocument();
-
-    // Type a weak password
     await user.type(newPasswordInput, 'weak');
 
-    // Should show "Débil"
     await waitFor(() => {
       expect(screen.getByText(/débil/i)).toBeInTheDocument();
     });
 
-    // Type a strong password
     await user.clear(newPasswordInput);
     await user.type(newPasswordInput, 'Strong@Pass123');
 
-    // Should show "Fuerte"
     await waitFor(() => {
       expect(screen.getByText(/fuerte/i)).toBeInTheDocument();
     });
@@ -228,23 +197,18 @@ describe('ProfilePage', () => {
     const user = userEvent.setup();
     const { container } = renderWithProviders(<ProfilePage />, { user: mockUser });
 
-    // Open password section
-    const changePasswordButton = screen.getByRole('button', { name: /cambiar contraseña/i });
-    await user.click(changePasswordButton);
+    await user.click(screen.getByRole('button', { name: /cambiar contraseña/i }));
 
-    // Find inputs by name attribute
     const newPasswordInput = container.querySelector(
-      'input[name="newPassword"]'
+      'input[name="newPassword"]',
     ) as HTMLInputElement;
     const confirmPasswordInput = container.querySelector(
-      'input[name="confirmPassword"]'
+      'input[name="confirmPassword"]',
     ) as HTMLInputElement;
 
-    // Type passwords that don't match
     await user.type(newPasswordInput, 'Password123!');
     await user.type(confirmPasswordInput, 'Different123!');
 
-    // Should show error message
     await waitFor(() => {
       expect(screen.getByText(/las contraseñas no coinciden/i)).toBeInTheDocument();
     });
@@ -254,36 +218,33 @@ describe('ProfilePage', () => {
     const user = userEvent.setup();
     const { container } = renderWithProviders(<ProfilePage />, { user: mockUser });
 
-    vi.mocked(authService.changePassword).mockResolvedValue({
+    mockedChangePassword.mockResolvedValue({
       success: true,
+      message: 'Password changed',
     });
 
-    // Open password section
-    const changePasswordButton = screen.getByRole('button', { name: /cambiar contraseña/i });
-    await user.click(changePasswordButton);
+    await user.click(screen.getByRole('button', { name: /cambiar contraseña/i }));
 
-    // Find inputs by name attribute
-    const currentPasswordInput = container.querySelector(
-      'input[name="currentPassword"]'
-    ) as HTMLInputElement;
-    const newPasswordInput = container.querySelector(
-      'input[name="newPassword"]'
-    ) as HTMLInputElement;
-    const confirmPasswordInput = container.querySelector(
-      'input[name="confirmPassword"]'
-    ) as HTMLInputElement;
+    await user.type(
+      container.querySelector('input[name="currentPassword"]') as HTMLInputElement,
+      'OldPassword123!',
+    );
+    await user.type(
+      container.querySelector('input[name="newPassword"]') as HTMLInputElement,
+      'NewPassword123!',
+    );
+    await user.type(
+      container.querySelector('input[name="confirmPassword"]') as HTMLInputElement,
+      'NewPassword123!',
+    );
 
-    // Fill in password fields
-    await user.type(currentPasswordInput, 'OldPassword123!');
-    await user.type(newPasswordInput, 'NewPassword123!');
-    await user.type(confirmPasswordInput, 'NewPassword123!');
-
-    // Submit
-    const updateButton = screen.getByRole('button', { name: /actualizar contraseña/i });
-    await user.click(updateButton);
+    await user.click(screen.getByRole('button', { name: /actualizar contraseña/i }));
 
     await waitFor(() => {
-      expect(authService.changePassword).toHaveBeenCalledWith('OldPassword123!', 'NewPassword123!');
+      expect(mockedChangePassword).toHaveBeenCalledWith(
+        'OldPassword123!',
+        'NewPassword123!',
+      );
       expect(toast.success).toHaveBeenCalledWith('Contraseña actualizada exitosamente');
     });
   });
@@ -292,34 +253,26 @@ describe('ProfilePage', () => {
     const user = userEvent.setup();
     const { container } = renderWithProviders(<ProfilePage />, { user: mockUser });
 
-    vi.mocked(authService.changePassword).mockResolvedValue({
-      success: false,
-      error: 'Current password is incorrect',
+    mockedChangePassword.mockRejectedValue({
+      response: { data: { detail: 'Current password is incorrect' } },
     });
 
-    // Open password section
-    const changePasswordButton = screen.getByRole('button', { name: /cambiar contraseña/i });
-    await user.click(changePasswordButton);
+    await user.click(screen.getByRole('button', { name: /cambiar contraseña/i }));
 
-    // Find inputs by name attribute
-    const currentPasswordInput = container.querySelector(
-      'input[name="currentPassword"]'
-    ) as HTMLInputElement;
-    const newPasswordInput = container.querySelector(
-      'input[name="newPassword"]'
-    ) as HTMLInputElement;
-    const confirmPasswordInput = container.querySelector(
-      'input[name="confirmPassword"]'
-    ) as HTMLInputElement;
+    await user.type(
+      container.querySelector('input[name="currentPassword"]') as HTMLInputElement,
+      'WrongPassword',
+    );
+    await user.type(
+      container.querySelector('input[name="newPassword"]') as HTMLInputElement,
+      'NewPassword123!',
+    );
+    await user.type(
+      container.querySelector('input[name="confirmPassword"]') as HTMLInputElement,
+      'NewPassword123!',
+    );
 
-    // Fill in password fields
-    await user.type(currentPasswordInput, 'WrongPassword');
-    await user.type(newPasswordInput, 'NewPassword123!');
-    await user.type(confirmPasswordInput, 'NewPassword123!');
-
-    // Submit
-    const updateButton = screen.getByRole('button', { name: /actualizar contraseña/i });
-    await user.click(updateButton);
+    await user.click(screen.getByRole('button', { name: /actualizar contraseña/i }));
 
     await waitFor(() => {
       expect(toast.error).toHaveBeenCalledWith('Current password is incorrect');
