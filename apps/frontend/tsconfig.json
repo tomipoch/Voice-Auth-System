@@ -67,11 +67,6 @@
   "exclude": [
     "node_modules",
     "dist",
-    "build",
-    "src/services/mockApi.ts",
-    "src/services/apiServices.ts",
-    "src/hooks/useAdvancedAudioRecording.ts",
-    "src/hooks/useAccessibility.ts",
-    "src/context/AuthContext.tsx"
+    "build"
   ]
 }
