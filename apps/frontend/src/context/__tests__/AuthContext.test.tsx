@@ -1,23 +1,44 @@
-// @ts-nocheck
+/**
+ * AuthContext tests against the typed authService.
+ *
+ * The context now imports from services/authService (no longer
+ * from the apiServices facade), and the dev-login shortcut has
+ * been removed (Fase 5 item 3). These tests verify the
+ * remaining public surface: initial state, restored state from
+ * storage, successful/failed login, and logout.
+ */
+
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { AuthProvider, AuthContext } from '../AuthContext';
 import { useContext } from 'react';
-import * as apiServices from '../../services/apiServices';
-import * as storage from '../../services/storage';
+import { AuthProvider, AuthContext } from '../AuthContext';
 
-// Mock modules
-vi.mock('../../services/apiServices');
-vi.mock('../../services/storage');
-vi.mock('react-hot-toast', () => ({
-  default: {
-    success: vi.fn(),
-    error: vi.fn(),
-    info: vi.fn(),
+vi.mock('../../services/authService', () => ({
+  authService: {
+    login: vi.fn(),
+    logout: vi.fn(),
+    register: vi.fn(),
+    refreshToken: vi.fn(),
+    getProfile: vi.fn(),
+    updateProfile: vi.fn(),
+    changePassword: vi.fn(),
   },
 }));
+vi.mock('../../services/storage', () => ({
+  authStorage: {
+    getAccessToken: vi.fn(),
+    getRefreshToken: vi.fn(),
+    setAccessToken: vi.fn(),
+    setRefreshToken: vi.fn(),
+    setUser: vi.fn(),
+    getUser: vi.fn(),
+    clearAuth: vi.fn(),
+  },
+}));
+vi.mock('react-hot-toast', () => ({
+  default: { success: vi.fn(), error: vi.fn(), info: vi.fn() },
+}));
 
-// Mock localStorage
 const localStorageMock = (() => {
   let store: Record<string, string> = {};
   return {
@@ -39,7 +60,6 @@ Object.defineProperty(window, 'localStorage', {
   writable: true,
 });
 
-// Simple test component
 const TestComponent = () => {
   const context = useContext(AuthContext);
   if (!context) return <div>No context</div>;
@@ -49,9 +69,16 @@ const TestComponent = () => {
   return (
     <div>
       <div data-testid="loading">{isLoading ? 'Loading' : 'Not Loading'}</div>
-      <div data-testid="user">{user ? (user as any).email : 'No User'}</div>
+      <div data-testid="user">{user ? (user as { email?: string }).email : 'No User'}</div>
       <div data-testid="authenticated">{isAuthenticated ? 'Yes' : 'No'}</div>
-      <button onClick={() => (login as any)({ email: 'test@test.com', password: 'pass' })}>
+      <button
+        onClick={() =>
+          (login as (c: { email: string; password: string }) => Promise<unknown>)({
+            email: 'test@example.com',
+            password: 'Password1!',
+          })
+        }
+      >
         Login
       </button>
       <button onClick={logout}>Logout</button>
@@ -59,17 +86,21 @@ const TestComponent = () => {
   );
 };
 
+import { authService } from '../../services/authService';
+import { authStorage } from '../../services/storage';
+
+const mockedLogin = vi.mocked(authService.login);
+const mockedLogout = vi.mocked(authService.logout);
+const mockedGetProfile = vi.mocked(authService.getProfile);
+const mockedGetAccessToken = vi.mocked(authStorage.getAccessToken);
+const mockedGetUser = vi.mocked(authStorage.getUser);
+
 describe('AuthContext', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     localStorage.clear();
-
-    // Setup default mocks
-    vi.mocked(storage.authStorage.getAccessToken).mockReturnValue(null);
-    vi.mocked(storage.authStorage.getUser).mockReturnValue(null);
-    vi.mocked(storage.authStorage.setAccessToken).mockReturnValue(true);
-    vi.mocked(storage.authStorage.setUser).mockReturnValue(true);
-    vi.mocked(storage.authStorage.clearAuth).mockReturnValue(undefined);
+    mockedGetAccessToken.mockReturnValue(null);
+    mockedGetUser.mockReturnValue(null);
   });
 
   it('provides initial state with no user', async () => {
@@ -86,15 +117,15 @@ describe('AuthContext', () => {
   });
 
   it('loads user from storage on mount', async () => {
-    const mockUser = {
+    const storedUser = {
       id: '1',
-      email: 'stored@test.com',
+      email: 'stored@example.com',
       name: 'Stored User',
       role: 'user' as const,
+      created_at: '2024-01-01T00:00:00Z',
     };
-
-    vi.mocked(storage.authStorage.getAccessToken).mockReturnValue('stored-token');
-    vi.mocked(storage.authStorage.getUser).mockReturnValue(mockUser);
+    mockedGetAccessToken.mockReturnValue('stored-token');
+    mockedGetUser.mockReturnValue(storedUser);
 
     render(
       <AuthProvider>
@@ -103,23 +134,24 @@ describe('AuthContext', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId('user')).toHaveTextContent('stored@test.com');
+      expect(screen.getByTestId('user')).toHaveTextContent('stored@example.com');
       expect(screen.getByTestId('authenticated')).toHaveTextContent('Yes');
     });
   });
 
   it('handles successful login', async () => {
-    const mockResponse: any = {
+    mockedLogin.mockResolvedValue({
       access_token: 'new-token',
+      token_type: 'bearer',
+      expires_in: 7200,
       user: {
         id: '2',
-        email: 'new@test.com',
+        email: 'new@example.com',
         name: 'New User',
-        role: 'user' as const,
+        role: 'user',
+        created_at: '2024-01-01T00:00:00Z',
       },
-    };
-
-    vi.mocked(apiServices.authService.login).mockResolvedValue(mockResponse);
+    });
 
     render(
       <AuthProvider>
@@ -131,20 +163,22 @@ describe('AuthContext', () => {
       expect(screen.getByTestId('loading')).toHaveTextContent('Not Loading');
     });
 
-    const loginButton = screen.getByText('Login');
-
     await act(async () => {
-      loginButton.click();
+      screen.getByText('Login').click();
     });
 
     await waitFor(() => {
-      expect(screen.getByTestId('user')).toHaveTextContent('new@test.com');
+      expect(screen.getByTestId('user')).toHaveTextContent('new@example.com');
       expect(screen.getByTestId('authenticated')).toHaveTextContent('Yes');
     });
   });
 
   it('handles login failure', async () => {
-    vi.mocked(apiServices.authService.login).mockRejectedValue(new Error('Login failed'));
+    mockedLogin.mockRejectedValue(
+      Object.assign(new Error('Login failed'), {
+        response: { data: { message: 'Invalid credentials' } },
+      }),
+    );
 
     render(
       <AuthProvider>
@@ -156,10 +190,8 @@ describe('AuthContext', () => {
       expect(screen.getByTestId('loading')).toHaveTextContent('Not Loading');
     });
 
-    const loginButton = screen.getByText('Login');
-
     await act(async () => {
-      loginButton.click();
+      screen.getByText('Login').click();
     });
 
     await waitFor(() => {
@@ -168,19 +200,16 @@ describe('AuthContext', () => {
   });
 
   it('handles logout', async () => {
-    const mockUser = {
+    const storedUser = {
       id: '1',
-      email: 'test@test.com',
+      email: 'test@example.com',
       name: 'Test User',
       role: 'user' as const,
+      created_at: '2024-01-01T00:00:00Z',
     };
-
-    vi.mocked(storage.authStorage.getAccessToken).mockReturnValue('token');
-    vi.mocked(storage.authStorage.getUser).mockReturnValue(mockUser);
-    vi.mocked(apiServices.authService.logout).mockResolvedValue({
-      success: true,
-      data: { message: 'Logged out' },
-    });
+    mockedGetAccessToken.mockReturnValue('token');
+    mockedGetUser.mockReturnValue(storedUser);
+    mockedLogout.mockResolvedValue(undefined);
 
     render(
       <AuthProvider>
@@ -189,13 +218,11 @@ describe('AuthContext', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId('user')).toHaveTextContent('test@test.com');
+      expect(screen.getByTestId('user')).toHaveTextContent('test@example.com');
     });
 
-    const logoutButton = screen.getByText('Logout');
-
     await act(async () => {
-      logoutButton.click();
+      screen.getByText('Logout').click();
     });
 
     await waitFor(() => {
@@ -204,7 +231,23 @@ describe('AuthContext', () => {
     });
   });
 
-  it('handles dev login', async () => {
+  it('refreshes profile from server on mount when local token is present', async () => {
+    const storedUser = {
+      id: '1',
+      email: 'test@example.com',
+      name: 'Test User',
+      role: 'user' as const,
+      created_at: '2024-01-01T00:00:00Z',
+    };
+    const serverProfile = {
+      ...storedUser,
+      name: 'Server User',
+      email: 'server@example.com',
+    };
+    mockedGetAccessToken.mockReturnValue('token');
+    mockedGetUser.mockReturnValue(storedUser);
+    mockedGetProfile.mockResolvedValue(serverProfile);
+
     render(
       <AuthProvider>
         <TestComponent />
@@ -212,38 +255,7 @@ describe('AuthContext', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId('loading')).toHaveTextContent('Not Loading');
+      expect(screen.getByTestId('user')).toHaveTextContent('server@example.com');
     });
-
-    const loginButton = screen.getByText('Login');
-
-    // Mock dev login
-    vi.mocked(apiServices.authService.login).mockResolvedValue({
-      access_token: 'dev-token',
-      user: {
-        id: 'dev-1',
-        email: 'dev@test.com',
-        name: 'Dev User',
-        role: 'user' as const,
-      },
-    } as any);
-
-    await act(async () => {
-      loginButton.click();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByTestId('authenticated')).toHaveTextContent('Yes');
-    });
-  });
-
-  it('shows loading state', () => {
-    const { container } = render(
-      <AuthProvider>
-        <TestComponent />
-      </AuthProvider>
-    );
-
-    expect(container).toBeInTheDocument();
   });
 });

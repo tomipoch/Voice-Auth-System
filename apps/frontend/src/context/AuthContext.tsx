@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect, ReactNode } from 'react';
-import { authService } from '../services/apiServices';
+import { authService } from '../services/authService';
 import { authStorage } from '../services/storage';
 import { features } from '../config/environment.js';
 import toast from 'react-hot-toast';
@@ -179,91 +179,73 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (token && user) {
         try {
-          // En desarrollo, si es un token dev, no verificar con servidor
-          if (token.startsWith('dev-token-') || token.startsWith('admin-token-')) {
+          // Verificar token con el servidor
+          try {
+            const profile = await authService.getProfile();
             dispatch({
               type: actionTypes.LOGIN_SUCCESS,
               payload: {
-                user: user,
+                user: profile,
                 token,
               },
             });
 
             if (features.debugMode) {
-              console.log('🔐 Dev Auth initialized (skip server verification):', {
-                user: user.name,
-                role: user.role,
+              console.log('🔐 Server Auth initialized:', {
+                user: profile.name,
+                role: profile.role,
               });
             }
-          } else {
-            // Verificar token con el servidor para tokens reales
-            try {
-              const profile = await authService.getProfile();
+          } catch (error: unknown) {
+            // Diferenciar tipos de error para mejor manejo
+            const axiosError = error as { response?: { status?: number }; message?: string };
+            if (axiosError.response?.status === 401) {
+              // Token realmente inválido o expirado - limpiar sesión
+              authStorage.clearAuth();
+              dispatch({ type: actionTypes.LOGOUT });
+
+              if (features.debugMode) {
+                console.log('🔓 Invalid token cleared (401)');
+              }
+            } else {
+              // Error de red o servidor temporal - MANTENER sesión local
+              console.warn(
+                '⚠️ Error verificando token, usando datos locales:',
+                axiosError.message
+              );
               dispatch({
                 type: actionTypes.LOGIN_SUCCESS,
                 payload: {
-                  user: profile,
+                  user: user,
                   token,
                 },
               });
 
               if (features.debugMode) {
-                console.log('🔐 Server Auth initialized:', {
-                  user: profile.name,
-                  role: profile.role,
-                });
+                console.log('🔐 Auth initialized with local data (network error)');
               }
-            } catch (error: unknown) {
-              // Diferenciar tipos de error para mejor manejo
-              const axiosError = error as { response?: { status?: number }; message?: string };
-              if (axiosError.response?.status === 401) {
-                // Token realmente inválido o expirado - limpiar sesión
-                authStorage.clearAuth();
-                dispatch({ type: actionTypes.LOGOUT });
 
-                if (features.debugMode) {
-                  console.log('🔓 Invalid token cleared (401)');
-                }
-              } else {
-                // Error de red o servidor temporal - MANTENER sesión local
-                console.warn(
-                  '⚠️ Error verificando token, usando datos locales:',
-                  axiosError.message
-                );
-                dispatch({
-                  type: actionTypes.LOGIN_SUCCESS,
-                  payload: {
-                    user: user,
-                    token,
-                  },
-                });
+              // Intentar reconectar en background después de 5 segundos
+              setTimeout(async () => {
+                try {
+                  const profile = await authService.getProfile();
+                  // Actualizar con datos frescos del servidor
+                  dispatch({
+                    type: actionTypes.SET_USER,
+                    payload: profile,
+                  });
+                  authStorage.setUser(profile);
 
-                if (features.debugMode) {
-                  console.log('🔐 Auth initialized with local data (network error)');
-                }
-
-                // Intentar reconectar en background después de 5 segundos
-                setTimeout(async () => {
-                  try {
-                    const profile = await authService.getProfile();
-                    // Actualizar con datos frescos del servidor
-                    dispatch({
-                      type: actionTypes.SET_USER,
-                      payload: profile,
-                    });
-                    authStorage.setUser(profile);
-
-                    if (features.debugMode) {
-                      console.log('🔄 Profile refreshed from server');
-                    }
-                  } catch {
-                    // Silenciosamente fallar si aún no hay conexión
-                    if (features.debugMode) {
-                      console.log('⚠️ Background refresh failed, keeping local data');
-                    }
+                  if (features.debugMode) {
+                    console.log('🔄 Profile refreshed from server');
                   }
-                }, 5000);
-              }
+                } catch {
+                  // Silenciosamente fallar si aún no hay conexión
+                  if (features.debugMode) {
+                    console.log('⚠️ Background refresh failed, keeping local data');
+                  }
+                }
+              }, 5000);
             }
           }
         } catch (error) {
@@ -370,73 +352,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       dispatch({ type: actionTypes.LOGIN_START });
 
-      // Usuario de desarrollo especial
-      if (credentials.email === 'dev@test.com' && credentials.password === '123456') {
-        const devUser: AuthUser = {
-          id: 'dev-user-1',
-          name: 'Usuario Desarrollo',
-          email: 'dev@test.com',
-          role: 'user',
-        };
-        const devToken = 'dev-token-' + Date.now();
-
-        // Guardar usando authStorage
-        authStorage.setAccessToken(devToken);
-        authStorage.setUser(devUser as Parameters<typeof authStorage.setUser>[0]);
-
-        if (features.debugMode) {
-          console.log('💾 Dev login - Data saved to storage:', {
-            token: devToken.substring(0, 20) + '...',
-            user: devUser.name,
-          });
-        }
-
-        dispatch({
-          type: actionTypes.LOGIN_SUCCESS,
-          payload: { user: devUser, token: devToken },
-        });
-
-        if (features.debugMode) {
-          console.log('🔐 Dev login successful:', devUser);
-        }
-        toast.success(`¡Bienvenido, ${devUser.name}! (Modo desarrollo)`);
-        return { success: true };
-      }
-
-      // Usuario admin de desarrollo
-      if (credentials.email === 'admin@test.com' && credentials.password === '123456') {
-        const adminUser: AuthUser = {
-          id: 'admin-user-1',
-          name: 'Admin Desarrollo',
-          email: 'admin@test.com',
-          role: 'admin',
-        };
-        const adminToken = 'admin-token-' + Date.now();
-
-        // Guardar usando authStorage
-        authStorage.setAccessToken(adminToken);
-        authStorage.setUser(adminUser as Parameters<typeof authStorage.setUser>[0]);
-
-        dispatch({
-          type: actionTypes.LOGIN_SUCCESS,
-          payload: { user: adminUser, token: adminToken },
-        });
-
-        toast.success(`¡Bienvenido, ${adminUser.name}! (Admin - Modo desarrollo)`);
-        return { success: true };
-      }
-
-      // Login normal con el servidor
+      // Login contra el backend
       const response = await authService.login(credentials);
 
       // La respuesta viene como: { access_token, refresh_token, user, token_type, expires_in }
       const { user, access_token, refresh_token } = response;
 
-      // Guardar usando authStorage
-      authStorage.setAccessToken(access_token);
-      authStorage.setUser(user);
-
-      // Guardar refresh token si está disponible
+      // El servicio ya persiste tokens y usuario en authStorage
+      // pero guardamos el refresh_token si viene (defensa redundante)
+      // para no perderlo entre upgrades del servicio.
       if (refresh_token) {
         authStorage.setRefreshToken(refresh_token);
       }
