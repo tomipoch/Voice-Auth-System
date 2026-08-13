@@ -48,34 +48,35 @@ class PostgresVoiceSignatureRepository(VoiceSignatureRepositoryPort):
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
-                SELECT id, user_id, embedding, created_at
+                SELECT id, user_id, embedding, speaker_model_id, created_at
                 FROM voiceprint
                 WHERE user_id = $1
                 """,
                 user_id
             )
-            
+
             if row:
                 decrypted_embedding_bytes = self._encryptor.decrypt(row['embedding'])
                 embedding = np.frombuffer(decrypted_embedding_bytes, dtype=np.float32)
-                
+
                 return VoiceSignature(
                     id=row['id'],
                     user_id=row['user_id'],
                     embedding=embedding,
-                    created_at=row['created_at']
+                    created_at=row['created_at'],
+                    speaker_model_id=row['speaker_model_id'],
                 )
             return None
-    
+
     async def update_voiceprint(self, voiceprint: VoiceSignature) -> None:
         """Update an existing voiceprint, encrypting the new embedding."""
         async with self._pool.acquire() as conn:
             encrypted_embedding = self._encryptor.encrypt(voiceprint.embedding.tobytes())
-            
+
             await conn.execute(
                 """
                 UPDATE voiceprint
-                SET embedding = $1, created_at = $2, speaker_model_id = $3
+                SET embedding = $1, created_at = $2, speaker_model_id = $3, updated_at = now()
                 WHERE user_id = $4
                 """,
                 encrypted_embedding,
@@ -181,27 +182,5 @@ class PostgresVoiceSignatureRepository(VoiceSignatureRepositoryPort):
                     speaker_model_id=row['speaker_model_id']
                 )
                 history.append(signature)
-            
+
             return history
-    
-    async def save_verification_attempt(
-        self,
-        user_id: UserId,
-        embedding: VoiceEmbedding,
-        similarity_score: float,
-        is_verified: bool
-    ) -> UUID:
-        """Save a verification attempt for audit purposes, encrypting the embedding."""
-        attempt_id = uuid4()
-        encrypted_embedding = self._encryptor.encrypt(embedding.tobytes())
-        
-        async with self._pool.acquire() as conn:
-            await conn.execute(
-                """
-                INSERT INTO verification_attempt (id, user_id, embedding, similarity_score, is_verified, created_at)
-                VALUES ($1, $2, $3, $4, $5, now())
-                """,
-                attempt_id, user_id, encrypted_embedding, similarity_score, is_verified
-            )
-        
-        return attempt_id
