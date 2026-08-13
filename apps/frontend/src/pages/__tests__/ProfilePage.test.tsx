@@ -14,6 +14,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ProfilePage from '../ProfilePage';
 import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
+import type { AuthContextValue } from '../../context/AuthContext';
 
 vi.mock('../../services/authService', () => ({
   authService: {
@@ -31,14 +32,19 @@ vi.mock('react-hot-toast', () => ({
   default: { success: vi.fn(), error: vi.fn(), info: vi.fn() },
 }));
 
-const renderWithProviders = (ui: React.ReactElement, { user = null } = {}) => {
+type AuthUser = NonNullable<AuthContextValue['user']>;
+
+const renderWithProviders = (
+  ui: React.ReactElement,
+  { user = null as AuthUser | null }: { user?: AuthUser | null } = {},
+) => {
   const mockAuthContext = {
     user,
     login: vi.fn(),
     logout: vi.fn(),
     isLoading: false,
     refreshUser: vi.fn(),
-  };
+  } as unknown as AuthContextValue;
 
   return render(
     <BrowserRouter>
@@ -111,7 +117,7 @@ describe('ProfilePage', () => {
       logout: vi.fn(),
       isLoading: false,
       refreshUser: mockRefreshUser,
-    };
+    } as unknown as AuthContextValue;
 
     render(
       <BrowserRouter>

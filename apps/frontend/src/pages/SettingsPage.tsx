@@ -3,7 +3,7 @@ import { Bell, Shield, Palette, Moon, Sun, Monitor } from 'lucide-react';
 import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
 import { useAuth } from '../hooks/useAuth';
-import { authService } from '../services/apiServices';
+import { authService } from '../services/authService';
 import toast from 'react-hot-toast';
 
 const SettingsPage = () => {
