@@ -378,12 +378,8 @@ DROP INDEX IF EXISTS idx_books_filename;    -- redundante: UNIQUE(filename)
 DROP INDEX IF EXISTS idx_phrase_active;     -- reemplazado por idx_phrase_filter (parcial + idioma)
 DROP INDEX IF EXISTS idx_phrase_difficulty; -- reemplazado por idx_phrase_filter (parcial + idioma)
 
--- Índices de rendimiento sobre las queries reales del backend
-CREATE INDEX IF NOT EXISTS idx_phrase_text_trgm ON phrase USING gin (text gin_trgm_ops);
-CREATE INDEX IF NOT EXISTS idx_phrase_filter
-  ON phrase(language, difficulty) WHERE is_active = TRUE;
-CREATE INDEX IF NOT EXISTS idx_audit_metadata_gin ON audit_log USING gin (metadata);
-CREATE INDEX IF NOT EXISTS idx_audit_entity ON audit_log(entity_type, entity_id, timestamp DESC);
+-- (Los índices específicos de phrase - trgm y filter - se crean en la sección 15
+--  después de CREATE TABLE phrase para respetar el orden de dependencias.)
 
 -- =====================================================
 -- 13. FRASES PARA ENROLAMIENTO Y VERIFICACIÓN
@@ -454,6 +450,11 @@ COMMENT ON COLUMN phrase.style IS 'Clasificación de estilo textual: narrative, 
 
 CREATE INDEX IF NOT EXISTS idx_phrase_phoneme_score ON phrase(phoneme_score);
 CREATE INDEX IF NOT EXISTS idx_phrase_style ON phrase(style);
+
+-- Índices de rendimiento para queries reales del backend (TRGM para ILIKE, parcial para filtros)
+CREATE INDEX IF NOT EXISTS idx_phrase_text_trgm ON phrase USING gin (text gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_phrase_filter
+  ON phrase(language, difficulty) WHERE is_active = TRUE;
 
 -- =====================================================
 -- 16. REGLAS DE CALIDAD DE FRASES (configurable por admin)
