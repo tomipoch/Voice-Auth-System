@@ -333,12 +333,6 @@ export interface ThemeContextType {
   setTheme: (theme: 'light' | 'dark' | 'auto') => void;
 }
 
-export interface SettingsModalContextType {
-  isOpen: boolean;
-  openModal: () => void;
-  closeModal: () => void;
-}
-
 // ============================================
 // Storage Types
 // ============================================

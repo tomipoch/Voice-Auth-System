@@ -4,10 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { lazy, Suspense } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
-import { SettingsModalProvider } from './context/SettingsModalContext';
-import { SettingsProvider } from './context/SettingsContext';
 import { useAuth } from './hooks/useAuth';
-import GlobalSettingsModal from './components/ui/GlobalSettingsModal';
 import SkipLink from './components/ui/SkipLink';
 import PWAInstallPrompt from './components/ui/PWAInstallPrompt';
 import ConnectionStatus from './components/ui/ConnectionStatus';
@@ -247,9 +244,6 @@ const AppRoutes = () => {
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </Suspense>
-
-        {/* Modal Global de Configuración */}
-        <GlobalSettingsModal />
       </div>
 
       {/* PWA Install Prompt */}
@@ -274,39 +268,35 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <AuthProvider>
-            <SettingsProvider>
-              <SettingsModalProvider>
-                <Router>
-                  <AppRoutes />
+            <Router>
+              <AppRoutes />
 
-                  {/* Toast notifications */}
-                  <Toaster
-                    position="top-right"
-                    toastOptions={{
-                      duration: 4000,
-                      style: {
-                        background: '#363636',
-                        color: '#fff',
-                      },
-                      success: {
-                        duration: 3000,
-                        iconTheme: {
-                          primary: '#4ade80',
-                          secondary: '#fff',
-                        },
-                      },
-                      error: {
-                        duration: 5000,
-                        iconTheme: {
-                          primary: '#ef4444',
-                          secondary: '#fff',
-                        },
-                      },
-                    }}
-                  />
-                </Router>
-              </SettingsModalProvider>
-            </SettingsProvider>
+              {/* Toast notifications */}
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  duration: 4000,
+                  style: {
+                    background: '#363636',
+                    color: '#fff',
+                  },
+                  success: {
+                    duration: 3000,
+                    iconTheme: {
+                      primary: '#4ade80',
+                      secondary: '#fff',
+                    },
+                  },
+                  error: {
+                    duration: 5000,
+                    iconTheme: {
+                      primary: '#ef4444',
+                      secondary: '#fff',
+                    },
+                  },
+                }}
+              />
+            </Router>
           </AuthProvider>
         </ThemeProvider>
       </QueryClientProvider>
