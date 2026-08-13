@@ -1,8 +1,15 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { authService } from '../apiServices';
-import api from '../api';
+/**
+ * Unit tests for the typed AuthService in services/authService.ts.
+ *
+ * Covers the public contract used by AuthContext, ProfilePage and
+ * SettingsPage: login/refresh persist tokens via authStorage; logout
+ * is fully client-side; profile updates and password changes return
+ * the real backend shape ({success, message}) and let axios throw
+ * on HTTP errors.
+ */
 
-// Mock the api module
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 vi.mock('../api', () => ({
   default: {
     post: vi.fn(),
@@ -12,192 +19,197 @@ vi.mock('../api', () => ({
   },
 }));
 
-describe('authService', () => {
+import api from '../api';
+import { authService } from '../authService';
+import { authStorage } from '../storage';
+
+const mockedPost = vi.mocked(api.post);
+const mockedGet = vi.mocked(api.get);
+const mockedPatch = vi.mocked(api.patch);
+
+describe('AuthService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    localStorage.clear();
+    authStorage.clearAuth();
   });
 
   describe('login', () => {
-    it('successfully logs in with valid credentials', async () => {
-      const mockResponse = {
-        data: {
-          access_token: 'test-token',
-          user: {
-            id: '1',
-            email: 'test@example.com',
-            name: 'Test User',
-            role: 'user',
-          },
+    it('posts credentials to /auth/login and persists tokens', async () => {
+      const backendResponse = {
+        access_token: 'access-abc',
+        token_type: 'bearer' as const,
+        expires_in: 7200,
+        refresh_token: 'refresh-xyz',
+        user: {
+          id: '11111111-1111-1111-1111-111111111111',
+          email: 'u@example.com',
+          name: 'Test User',
+          first_name: 'Test',
+          last_name: 'User',
+          role: 'user' as const,
+          created_at: '2024-01-01T00:00:00Z',
         },
       };
-
-      vi.mocked(api.post).mockResolvedValue(mockResponse);
+      mockedPost.mockResolvedValueOnce({ data: backendResponse });
 
       const result = await authService.login({
-        email: 'test@example.com',
-        password: 'password123',
+        email: 'u@example.com',
+        password: 'Password1!',
       });
 
-      expect(api.post).toHaveBeenCalledWith('/auth/login', {
-        email: 'test@example.com',
-        password: 'password123',
+      expect(mockedPost).toHaveBeenCalledWith('/auth/login', {
+        email: 'u@example.com',
+        password: 'Password1!',
       });
-      expect(result).toEqual(mockResponse.data);
+      expect(result).toEqual(backendResponse);
+      expect(authStorage.getAccessToken()).toBe('access-abc');
+      expect(authStorage.getRefreshToken()).toBe('refresh-xyz');
+      expect(authStorage.getUser()?.id).toBe(backendResponse.user.id);
     });
 
-    it('handles login failure', async () => {
-      const mockError = new Error('Invalid credentials');
-      vi.mocked(api.post).mockRejectedValue(mockError);
-
+    it('lets axios errors propagate', async () => {
+      mockedPost.mockRejectedValueOnce(new Error('Invalid credentials'));
       await expect(
-        authService.login({
-          email: 'test@example.com',
-          password: 'wrong',
-        })
+        authService.login({ email: 'u@example.com', password: 'wrong' }),
       ).rejects.toThrow('Invalid credentials');
     });
   });
 
   describe('register', () => {
-    it('successfully registers a new user', async () => {
-      const mockResponse = {
-        data: {
-          access_token: 'new-token',
-          user: {
-            id: '2',
-            email: 'new@example.com',
-            name: 'New User',
-            role: 'user',
-          },
-        },
+    it('posts RegisterData and returns {success, user_id, email}', async () => {
+      mockedPost.mockResolvedValueOnce({
+        data: { success: true, user_id: 'u-2', email: 'new@example.com' },
+      });
+
+      const payload = {
+        email: 'new@example.com',
+        password: 'Password1!',
+        first_name: 'New',
+        last_name: 'User',
+        rut: '12345678-9',
       };
+      const result = await authService.register(payload);
 
-      vi.mocked(api.post).mockResolvedValue(mockResponse);
-
-      const result = await authService.register({
-        email: 'new@example.com',
-        password: 'password123',
-        first_name: 'New',
-        last_name: 'User',
-        rut: '12345678-9',
-      });
-
-      expect(api.post).toHaveBeenCalledWith('/auth/register', {
-        email: 'new@example.com',
-        password: 'password123',
-        first_name: 'New',
-        last_name: 'User',
-        rut: '12345678-9',
-      });
-      expect(result).toEqual(mockResponse.data);
+      expect(mockedPost).toHaveBeenCalledWith('/auth/register', payload);
+      expect(result).toEqual({ success: true, user_id: 'u-2', email: 'new@example.com' });
+      expect(authStorage.getAccessToken()).toBeNull();
     });
   });
 
   describe('logout', () => {
-    it('successfully logs out and clears storage', async () => {
-      localStorage.setItem('token', 'test-token');
-      localStorage.setItem('user', JSON.stringify({ id: '1' }));
+    it('clears auth storage and never calls the API', async () => {
+      authStorage.setAccessToken('a');
+      authStorage.setRefreshToken('r');
+      authStorage.setUser({
+        id: '1',
+        email: 'x@y.com',
+        name: 'X',
+        role: 'user',
+        created_at: '2024-01-01T00:00:00Z',
+      });
 
-      const mockResponse = {
-        data: {
-          success: true,
-          data: { message: 'Logged out' },
-        },
-      };
+      await authService.logout();
 
-      vi.mocked(api.post).mockResolvedValue(mockResponse);
-
-      const result = await authService.logout();
-
-      expect(api.post).toHaveBeenCalledWith('/auth/logout');
-      expect(localStorage.getItem('token')).toBeNull();
-      expect(localStorage.getItem('user')).toBeNull();
-      expect(result).toEqual(mockResponse.data);
+      expect(mockedPost).not.toHaveBeenCalled();
+      expect(authStorage.getAccessToken()).toBeNull();
     });
   });
 
   describe('getProfile', () => {
-    it('successfully retrieves user profile', async () => {
-      const mockUser = {
+    it('GETs /auth/me and persists the user', async () => {
+      const profile = {
         id: '1',
-        email: 'test@example.com',
-        name: 'Test User',
-        role: 'user' as const,
+        email: 'p@example.com',
+        name: 'Profile User',
+        first_name: 'Profile',
+        last_name: 'User',
+        role: 'admin' as const,
+        created_at: '2024-01-01T00:00:00Z',
       };
-
-      const mockResponse = {
-        data: mockUser,
-      };
-
-      vi.mocked(api.get).mockResolvedValue(mockResponse);
+      mockedGet.mockResolvedValueOnce({ data: profile });
 
       const result = await authService.getProfile();
 
-      expect(api.get).toHaveBeenCalledWith('/auth/profile');
-      expect(result).toEqual(mockUser);
+      expect(mockedGet).toHaveBeenCalledWith('/auth/me');
+      expect(result).toEqual(profile);
+      expect(authStorage.getUser()).toEqual(profile);
+    });
+  });
+
+  describe('refreshToken', () => {
+    it('posts to /auth/refresh and stores the new access token', async () => {
+      authStorage.setRefreshToken('old-refresh');
+      mockedPost.mockResolvedValueOnce({
+        data: {
+          access_token: 'new-access',
+          token_type: 'bearer' as const,
+          expires_in: 7200,
+          user: {
+            id: '1',
+            email: 'r@example.com',
+            name: 'R',
+            role: 'user' as const,
+            created_at: '2024-01-01T00:00:00Z',
+          },
+        },
+      });
+
+      const result = await authService.refreshToken();
+
+      expect(mockedPost).toHaveBeenCalledWith('/auth/refresh', {
+        refresh_token: 'old-refresh',
+      });
+      expect(result.access_token).toBe('new-access');
+      expect(authStorage.getAccessToken()).toBe('new-access');
+    });
+
+    it('throws when no refresh token is stored', async () => {
+      await expect(authService.refreshToken()).rejects.toThrow(
+        'No refresh token available',
+      );
+      expect(mockedPost).not.toHaveBeenCalled();
     });
   });
 
   describe('updateProfile', () => {
-    it('successfully updates user profile', async () => {
-      const mockResponse = {
-        data: {
-          id: '1',
-          first_name: 'Updated',
-          last_name: 'Name',
-        },
-      };
-
-      vi.mocked(api.patch).mockResolvedValue(mockResponse);
+    it('PATCHes /auth/profile and returns the backend envelope', async () => {
+      mockedPatch.mockResolvedValueOnce({
+        data: { success: true, message: 'Profile updated' },
+      });
 
       const result = await authService.updateProfile({
-        first_name: 'Updated',
-        last_name: 'Name',
+        first_name: 'Nuevo',
+        last_name: 'Apellido',
       });
 
-      expect(api.patch).toHaveBeenCalledWith('/auth/profile', {
-        first_name: 'Updated',
-        last_name: 'Name',
+      expect(mockedPatch).toHaveBeenCalledWith('/auth/profile', {
+        first_name: 'Nuevo',
+        last_name: 'Apellido',
       });
-      expect(result.success).toBe(true);
-      expect(result.data).toEqual(mockResponse.data);
+      expect(result).toEqual({ success: true, message: 'Profile updated' });
     });
   });
 
   describe('changePassword', () => {
-    it('successfully changes password', async () => {
-      const mockResponse = {
-        data: {
-          success: true,
-        },
-      };
-
-      vi.mocked(api.post).mockResolvedValue(mockResponse);
-
-      const result = await authService.changePassword('oldPass', 'newPass');
-
-      expect(api.post).toHaveBeenCalledWith('/auth/change-password', {
-        current_password: 'oldPass',
-        new_password: 'newPass',
+    it('POSTs current/new passwords to /auth/change-password', async () => {
+      mockedPost.mockResolvedValueOnce({
+        data: { success: true, message: 'Password changed' },
       });
-      expect(result.success).toBe(true);
+
+      const result = await authService.changePassword('Old123!', 'New456!');
+
+      expect(mockedPost).toHaveBeenCalledWith('/auth/change-password', {
+        current_password: 'Old123!',
+        new_password: 'New456!',
+      });
+      expect(result).toEqual({ success: true, message: 'Password changed' });
     });
 
-    it('handles password change failure', async () => {
-      const mockResponse = {
-        data: {
-          success: false,
-          message: 'Current password is incorrect',
-        },
-      };
-
-      vi.mocked(api.post).mockResolvedValue(mockResponse);
-
-      const result = await authService.changePassword('wrong', 'newPass');
-
-      expect(result.success).toBe(false);
-      expect(result.error).toBe('Current password is incorrect');
+    it('lets axios errors propagate on bad credentials', async () => {
+      mockedPost.mockRejectedValueOnce({
+        response: { data: { detail: 'Current password is incorrect' } },
+      });
+      await expect(authService.changePassword('wrong', 'New456!')).rejects.toBeDefined();
     });
   });
 });
