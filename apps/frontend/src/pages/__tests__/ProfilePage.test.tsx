@@ -67,7 +67,7 @@ describe('ProfilePage', () => {
     id: '1',
     name: 'John Doe',
     email: 'john@example.com',
-    role: 'user',
+    role: 'user' as const,
     first_name: 'John',
     last_name: 'Doe',
     company: 'Test Company',

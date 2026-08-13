@@ -23,6 +23,15 @@ export interface Book {
   author?: string;
 }
 
+export interface Challenge {
+  challenge_id: string;
+  phrase: string;
+  phrase_id: string;
+  difficulty: string;
+  expires_at: string;
+  expires_in_seconds: number;
+}
+
 export interface PhraseStats {
   total: number;
   active: number;

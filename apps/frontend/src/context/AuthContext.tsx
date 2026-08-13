@@ -3,44 +3,16 @@ import { authService } from '../services/authService';
 import { authStorage } from '../services/storage';
 import { features } from '../config/environment.js';
 import toast from 'react-hot-toast';
-import type { LoginCredentials, RegisterData, VoiceProfile } from '../types';
+import type { LoginCredentials, RegisterData, User } from '../types';
 
 // ============================================
 // Type Definitions
 // ============================================
 
-// AuthUser is more flexible than User to accommodate various backend responses
-interface AuthUser {
-  id: string;
-  name?: string; // Optional - computed from first_name + last_name
-  first_name?: string;
-  last_name?: string;
-  fullName?: string; // Alias often used in frontend
-  username?: string;
-  email: string;
-  role: string;
-  voice_template?: unknown; // Allow voice template info
-  voiceProfile?: VoiceProfile;
-  company?: string;
-  rut?: string;
-  created_at?: string;
-  settings?: {
-    notifications?: {
-      email?: boolean;
-      push?: boolean;
-      verificationAlerts?: boolean;
-    };
-    security?: {
-      twoFactor?: boolean;
-      sessionTimeout?: number;
-      requireReauth?: boolean;
-    };
-    appearance?: {
-      theme?: string;
-      language?: string;
-    };
-  };
-}
+// AuthUser is unified with the shared User type from
+// src/types/index.ts so the storage layer and consumers agree
+// on a single shape.
+type AuthUser = User;
 
 interface AuthState {
   user: AuthUser | null;
