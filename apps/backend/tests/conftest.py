@@ -8,6 +8,7 @@ company, settings.
 import os
 import asyncio
 import uuid
+from pathlib import Path
 from datetime import datetime, timedelta, timezone
 from typing import AsyncGenerator
 
@@ -73,6 +74,18 @@ async def _ensure_test_db() -> None:
             await conn.execute(sql)
         finally:
             await conn.close()
+
+    # Aplica migraciones pendientes con el mismo runner de producción, para que
+    # la BD de pruebas quede idéntica a una BD real.
+    import subprocess
+    import sys
+
+    runner = Path(project_root).parent / "infra" / "db" / "apply_migrations.py"
+    if runner.is_file():
+        env = dict(os.environ)
+        env.pop("DATABASE_URL", None)
+        env["DB_NAME"] = TEST_DB_NAME
+        subprocess.run([sys.executable, str(runner)], env=env, check=True)
 
 
 # Bootstrap is performed lazily inside the async db_pool fixture, on the same
