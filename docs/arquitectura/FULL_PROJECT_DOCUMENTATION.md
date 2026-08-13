@@ -292,11 +292,18 @@ VITE_AUDIO_MAX_DURATION=10
     ```
 3.  **Inicializar Base de Datos**:
     ```bash
-    # Cargar schema
+    # Cargar schema (corre dentro del contenedor de Postgres al primer
+    # arranque, ver infra/db/init.sql en docker-entrypoint-initdb.d).
+    # Si necesita reiniciar manualmente:
     docker exec -i voice_biometrics_db psql -U voice_user -d voice_biometrics < ../Database/init.sql
-    
+
     # Cargar frases (Seed)
-    docker exec -it voice_biometrics_api python scripts/extract_phrases.py
+    # La extracción de frases se hace con scripts/extract_phrases.py, que
+    # NO está incluido en el repo por razones de derechos de autor sobre
+    # los libros en Database/Libros/ (gitignored). Para sembrar las
+    # 37,407 frases pre-generadas del dump local, restaurar
+    # Database/data_dump.sql (gitignored, contiene PII) con:
+    # docker exec -i voice_biometrics_db psql -U voice_user -d voice_biometrics < Database/data_dump.sql
     ```
 
 ### Ejecución Local (Desarrollo)
