@@ -62,17 +62,30 @@ export interface QuickVerifyResponse {
 }
 
 export interface VerificationHistoryItem {
-  verification_id: string;
-  is_verified: boolean;
-  confidence_score: number;
-  timestamp: string;
-  phrase_used?: string;
+  id: string;
+  date: string;
+  result: 'success' | 'failed';
+  score: number;
+  method: string;
+  details?: {
+    similarity: number;
+    spoof_prob: number;
+    phrase_match: number;
+    phrase_ok: boolean | null;
+    reason: string | null;
+    latency_ms: number | null;
+  };
 }
 
 export interface VerificationHistoryResponse {
   user_id: string;
   total_attempts: number;
   recent_attempts: VerificationHistoryItem[];
+}
+
+export interface VerificationHistoryEnvelope {
+  success: boolean;
+  history: VerificationHistoryResponse;
 }
 
 export interface StartMultiPhraseVerificationResponse {
@@ -180,9 +193,9 @@ class VerificationService {
   async getVerificationHistory(
     userId: string,
     limit: number = 10
-  ): Promise<VerificationHistoryResponse> {
-    const response = await api.get<VerificationHistoryResponse>(
-      `${this.baseUrl}/history/${userId}`,
+  ): Promise<VerificationHistoryEnvelope> {
+    const response = await api.get<VerificationHistoryEnvelope>(
+      `${this.baseUrl}/user/${userId}/history`,
       {
         params: { limit },
       }

@@ -168,10 +168,26 @@ describe('verificationService', () => {
       const mockResponse = {
         data: {
           success: true,
-          history: [
-            { id: 1, result: 'success', score: 95, date: '2024-01-01' },
-            { id: 2, result: 'failure', score: 45, date: '2024-01-02' },
-          ],
+          history: {
+            user_id: 'user-1',
+            total_attempts: 2,
+            recent_attempts: [
+              {
+                id: '1',
+                result: 'success',
+                score: 95,
+                date: '2024-01-01',
+                method: 'Frase Aleatoria',
+              },
+              {
+                id: '2',
+                result: 'failed',
+                score: 45,
+                date: '2024-01-02',
+                method: 'Multi-Frase',
+              },
+            ],
+          },
         },
       };
 
