@@ -252,7 +252,8 @@ Todos los cambios de reglas se registran en el audit log:
 ## Soporte
 
 Para asistencia adicional:
-- Revisar logs en `/api/admin/logs`
+- Revisar la actividad reciente en `GET /api/admin/activity?limit=100&action=<nombre>` (admin only)
+- Auditar reglas de calidad de frases en `GET /api/admin/phrase-rules`
 - Consultar documentación técnica en `API_DOCUMENTATION.md`
 - Contactar al equipo de desarrollo
 
