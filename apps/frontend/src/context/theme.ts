@@ -28,12 +28,17 @@ export const getInitialTheme = (): Theme => {
   if (typeof window === 'undefined') return 'light';
 
   try {
-    // Acceder directamente a localStorage sin el servicio para evitar dependencias circulares
-    const saved = localStorage.getItem('voiceauth_theme_preference');
+    // Acceder directamente a localStorage sin el servicio para evitar dependencias circulares.
+    // La clave coincide con la que usa storageService.setThemePreference
+    // (storagePrefix='voiceauth_' + 'theme' = 'voiceauth_theme').
+    const saved = localStorage.getItem('voiceauth_theme');
     if (saved) {
       const parsed = JSON.parse(saved) as unknown;
       if (parsed === 'light' || parsed === 'dark') {
         return parsed;
+      }
+      if (parsed === 'auto') {
+        return getSystemTheme();
       }
     }
     return getSystemTheme();

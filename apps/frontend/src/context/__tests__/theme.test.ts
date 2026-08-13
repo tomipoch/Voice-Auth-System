@@ -37,7 +37,7 @@ describe('theme utilities', () => {
 
   describe('getInitialTheme', () => {
     it('returns stored theme from localStorage', () => {
-      localStorage.setItem('voiceauth_local_theme', JSON.stringify('light'));
+      localStorage.setItem('voiceauth_theme', JSON.stringify('light'));
       expect(getInitialTheme()).toBe('light');
     });
 
@@ -47,13 +47,13 @@ describe('theme utilities', () => {
     });
 
     it('returns system theme when stored as auto', () => {
-      localStorage.setItem('voiceauth_local_theme', JSON.stringify('auto'));
+      localStorage.setItem('voiceauth_theme', JSON.stringify('auto'));
       window.matchMedia = createMatchMediaMock(true);
       expect(getInitialTheme()).toBe('dark');
     });
 
     it('handles invalid JSON in localStorage', () => {
-      localStorage.setItem('voiceauth_local_theme', 'invalid-json');
+      localStorage.setItem('voiceauth_theme', 'invalid-json');
       window.matchMedia = createMatchMediaMock(false);
       expect(getInitialTheme()).toBe('light'); // Returns light on error
     });
