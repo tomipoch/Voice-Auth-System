@@ -187,22 +187,25 @@ async def get_enrollment_service():
     """Get enrollment service instance with dependencies."""
     from ..persistence.postgres_voice_signature_repository import PostgresVoiceSignatureRepository
     from ..persistence.postgres_audit_log_repository import PostgresAuditLogRepository
+    from ..persistence.postgres_enrollment_session_repository import PostgresEnrollmentSessionRepository
     from ...application.enrollment_service import EnrollmentService
-    
+
     pool = await get_db_pool()
-    
+
     voice_repo = PostgresVoiceSignatureRepository(pool)
     user_repo = await get_user_repository()
     audit_repo = PostgresAuditLogRepository(pool)
+    enrollment_session_repo = PostgresEnrollmentSessionRepository(pool)
     challenge_service = await get_challenge_service()
     biometric_validator = get_biometric_validator()
-    
+
     return EnrollmentService(
         voice_repo=voice_repo,
         user_repo=user_repo,
         audit_repo=audit_repo,
         challenge_service=challenge_service,
-        biometric_validator=biometric_validator
+        biometric_validator=biometric_validator,
+        enrollment_session_repo=enrollment_session_repo,
     )
 
 

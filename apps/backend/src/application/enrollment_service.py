@@ -3,13 +3,16 @@
 import numpy as np
 from typing import List, Optional, Dict
 from uuid import UUID, uuid4
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import logging
 
 from ..domain.model.voice_signature import VoiceSignature
 from ..domain.repositories.voice_signature_repository_port import VoiceSignatureRepositoryPort
 from ..domain.repositories.user_repository_port import UserRepositoryPort
 from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
+from ..domain.repositories.enrollment_session_repository_port import (
+    EnrollmentSessionRepositoryPort,
+)
 from ..shared.types.common_types import UserId, VoiceEmbedding, AuditAction, ChallengeId
 from ..shared.constants.biometric_constants import MIN_ENROLLMENT_SAMPLES, MAX_ENROLLMENT_SAMPLES
 
@@ -40,15 +43,16 @@ class EnrollmentService:
         user_repo: UserRepositoryPort,
         audit_repo: AuditLogRepositoryPort,
         challenge_service,  # ChallengeService
-        biometric_validator: BiometricValidator
+        biometric_validator: BiometricValidator,
+        enrollment_session_repo: Optional[EnrollmentSessionRepositoryPort] = None,
     ):
         self._voice_repo = voice_repo
         self._user_repo = user_repo
         self._audit_repo = audit_repo
         self._challenge_service = challenge_service
         self._biometric_validator = biometric_validator
-        # In-memory sessions (in production, use Redis or database)
-        # Moved to instance variable to avoid sharing state between instances
+        self._session_repo = enrollment_session_repo
+        # In-memory sessions (en producción se consultaría el repo tras reinicio)
         self._active_sessions: Dict[UUID, EnrollmentSession] = {}
     
     async def start_enrollment(
@@ -114,7 +118,18 @@ class EnrollmentService:
                 "challenge_count": len(challenges)
             }
         )
-        
+
+        # Persistir la sesión para sobrevivir reinicios
+        if self._session_repo is not None:
+            await self._session_repo.upsert(
+                session_id=enrollment_id,
+                user_id=user_id,
+                challenges=session.challenges,
+                samples_collected=0,
+                challenge_index=0,
+                expires_at=datetime.now(timezone.utc) + timedelta(hours=1),
+            )
+
         return {
             "enrollment_id": str(enrollment_id),
             "user_id": str(user_id),
@@ -193,7 +208,18 @@ class EnrollmentService:
                 "duration_sec": duration_sec
             }
         )
-        
+
+        # Persistir progreso de la sesión
+        if self._session_repo is not None:
+            await self._session_repo.upsert(
+                session_id=session.enrollment_id,
+                user_id=session.user_id,
+                challenges=session.challenges,
+                samples_collected=session.samples_collected,
+                challenge_index=session.challenge_index,
+                expires_at=datetime.now(timezone.utc) + timedelta(hours=1),
+            )
+
         return {
             "sample_id": str(sample_id),
             "samples_completed": session.samples_collected,
@@ -265,7 +291,10 @@ class EnrollmentService:
         
         # Clean up session
         del self._active_sessions[enrollment_id]
-        
+
+        if self._session_repo is not None:
+            await self._session_repo.mark_completed(enrollment_id)
+
         return {
             "voiceprint_id": str(voiceprint.id),
             "user_id": str(session.user_id),
@@ -309,13 +338,32 @@ class EnrollmentService:
                 "required_samples": MIN_ENROLLMENT_SAMPLES
             }
     
-    def get_session(self, enrollment_id: UUID) -> Optional[EnrollmentSession]:
-        """Get an active enrollment session by ID (public accessor)."""
-        return self._active_sessions.get(enrollment_id)
-    
+    async def get_session(self, enrollment_id: UUID) -> Optional[EnrollmentSession]:
+        """Get an active enrollment session by ID (public accessor).
+
+        Si no está en memoria (p. ej. reinicio del servidor), la recupera
+        desde enrollment_session y la re-registra en memoria.
+        """
+        session = self._active_sessions.get(enrollment_id)
+        if session is not None:
+            return session
+        if self._session_repo is not None:
+            stored = await self._session_repo.get_by_id(enrollment_id)
+            if stored:
+                session = EnrollmentSession(
+                    user_id=stored["user_id"],
+                    enrollment_id=stored["id"],
+                    challenges=stored["challenges"],
+                )
+                session.samples_collected = stored["samples_collected"]
+                session.challenge_index = stored["challenge_index"]
+                self._active_sessions[enrollment_id] = session
+                return session
+        return None
+
     async def get_session_user(self, enrollment_id: UUID) -> Optional[Dict]:
         """Get user data for an active enrollment session."""
-        session = self._active_sessions.get(enrollment_id)
+        session = await self.get_session(enrollment_id)
         if session:
             return await self._user_repo.get_user(session.user_id)
         return None

@@ -151,7 +151,7 @@ async def add_enrollment_sample(
     
     try:
         # Get user info from active session using public methods
-        session = enrollment_service.get_session(enrollment_uuid)
+        session = await enrollment_service.get_session(enrollment_uuid)
         user = await enrollment_service.get_session_user(enrollment_uuid)
         
         # Convert to WAV format
