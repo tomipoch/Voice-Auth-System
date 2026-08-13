@@ -9,7 +9,9 @@ class ClientAppRepositoryPort(ABC):
     """Gestión de clientes externos de la API y sus API keys (solo hash persistido)."""
 
     @abstractmethod
-    async def create_client(self, name: str, contact_email: Optional[str] = None) -> tuple[UUID, str]:
+    async def create_client(
+        self, name: str, contact_email: Optional[str] = None
+    ) -> tuple[UUID, str]:
         """Crea un cliente con una API key nueva; devuelve (client_id, raw_key)."""
 
     @abstractmethod

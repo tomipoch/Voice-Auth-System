@@ -52,8 +52,12 @@ class PostgresEnrollmentSessionRepository(EnrollmentSessionRepositoryPort):
                         created_at, expires_at, completed_at
                     ) VALUES ($1, $2, $3, $4, $5, now(), $6, NULL)
                     """,
-                    session_id, user_id, json.dumps(challenges, ensure_ascii=False),
-                    samples_collected, challenge_index, expires_at,
+                    session_id,
+                    user_id,
+                    json.dumps(challenges, ensure_ascii=False),
+                    samples_collected,
+                    challenge_index,
+                    expires_at,
                 )
 
     async def get_by_id(self, session_id: UUID) -> Optional[dict]:

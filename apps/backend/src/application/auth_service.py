@@ -94,7 +94,8 @@ class AuthService:
         if not user:
             logger.warning(
                 "Failed login attempt for non-existent user: %s from IP: %s",
-                email, ip,
+                email,
+                ip,
             )
             raise AuthError(
                 status_code=401,
@@ -107,7 +108,8 @@ class AuthService:
         if locked_until and locked_until > datetime.now(timezone.utc):
             logger.warning(
                 "Login attempt for locked account: %s from IP: %s",
-                email, ip,
+                email,
+                ip,
             )
             raise AuthError(
                 status_code=403,
@@ -118,12 +120,17 @@ class AuthService:
             )
 
         # Password check
-        if not bcrypt.checkpw(password.encode("utf-8"), user["password"].encode("utf-8")):
+        if not bcrypt.checkpw(
+            password.encode("utf-8"), user["password"].encode("utf-8")
+        ):
             await self._user_repo.increment_failed_auth_attempts(user["id"])
             failed_attempts = user.get("failed_auth_attempts", 0) + 1
             logger.warning(
                 "Failed login attempt for user: %s (attempt %d/%d) from IP: %s",
-                email, failed_attempts, self.MAX_FAILED_ATTEMPTS, ip,
+                email,
+                failed_attempts,
+                self.MAX_FAILED_ATTEMPTS,
+                ip,
             )
             if failed_attempts >= self.MAX_FAILED_ATTEMPTS:
                 await self._user_repo.lock_user_account(
@@ -131,7 +138,8 @@ class AuthService:
                 )
                 logger.error(
                     "User account user_id=%s, email=%s locked due to too many failed attempts.",
-                    user["id"], email,
+                    user["id"],
+                    email,
                 )
             raise AuthError(
                 status_code=401,
@@ -143,7 +151,9 @@ class AuthService:
         await self._user_repo.reset_failed_auth_attempts(user["id"])
         logger.info(
             "Successful login for user: %s (ID: %s) from IP: %s",
-            email, user["id"], ip,
+            email,
+            user["id"],
+            ip,
         )
 
         access_token = self.create_access_token(
@@ -170,7 +180,11 @@ class AuthService:
             entity_type="user",
             entity_id=str(user["id"]),
             success=True,
-            metadata={"email": email, "message": "User logged in successfully", "ip_address": ip},
+            metadata={
+                "email": email,
+                "message": "User logged in successfully",
+                "ip_address": ip,
+            },
         )
 
         return {

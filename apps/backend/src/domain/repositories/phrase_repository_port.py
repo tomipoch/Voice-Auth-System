@@ -24,8 +24,8 @@ class PhraseRepositoryPort(ABC):
     async def find_all_active(
         self,
         difficulty: Optional[str] = None,
-        language: str = 'es',
-        limit: Optional[int] = None
+        language: str = "es",
+        limit: Optional[int] = None,
     ) -> List[Phrase]:
         """Find all active phrases with optional filters."""
         pass
@@ -36,8 +36,8 @@ class PhraseRepositoryPort(ABC):
         user_id: Optional[UUID] = None,
         exclude_recent: bool = True,
         difficulty: Optional[str] = None,
-        language: str = 'es',
-        count: int = 1
+        language: str = "es",
+        count: int = 1,
     ) -> List[Phrase]:
         """
         Find random phrases for a user.
@@ -52,12 +52,12 @@ class PhraseRepositoryPort(ABC):
         pass
 
     @abstractmethod
-    async def count_by_difficulty(self, language: str = 'es') -> Dict[str, int]:
+    async def count_by_difficulty(self, language: str = "es") -> Dict[str, int]:
         """Count phrases grouped by difficulty."""
         pass
 
     @abstractmethod
-    async def count_by_status(self, language: str = 'es') -> Dict[str, int]:
+    async def count_by_status(self, language: str = "es") -> Dict[str, int]:
         """Count active and inactive phrases for a language.
 
         Returns dict with keys 'active' and 'inactive'.
@@ -79,7 +79,7 @@ class PhraseRepositoryPort(ABC):
         search: Optional[str] = None,
         book_id: Optional[UUID] = None,
         author: Optional[str] = None,
-        language: str = 'es'
+        language: str = "es",
     ) -> Tuple[List[Dict[str, Any]], int]:
         """Find paginated phrases with optional filters; returns (rows, total)."""
         pass
@@ -100,30 +100,20 @@ class PhraseUsageRepositoryPort(ABC):
 
     @abstractmethod
     async def record_usage(
-        self,
-        phrase_id: UUID,
-        user_id: UUID,
-        used_for: str
+        self, phrase_id: UUID, user_id: UUID, used_for: str
     ) -> PhraseUsage:
         """Record that a user used a phrase."""
         pass
 
     @abstractmethod
     async def find_recent_by_user(
-        self,
-        user_id: UUID,
-        days: int = 30,
-        limit: Optional[int] = None
+        self, user_id: UUID, days: int = 30, limit: Optional[int] = None
     ) -> List[PhraseUsage]:
         """Find recent phrase usages for a user."""
         pass
 
     @abstractmethod
-    async def get_user_phrase_ids(
-        self,
-        user_id: UUID,
-        days: int = 30
-    ) -> List[UUID]:
+    async def get_user_phrase_ids(self, user_id: UUID, days: int = 30) -> List[UUID]:
         """Get phrase IDs that a user has recently used."""
         pass
 

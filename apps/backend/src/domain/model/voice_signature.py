@@ -11,7 +11,7 @@ from ...shared.types.common_types import VoiceEmbedding, UserId
 @dataclass
 class VoiceSignature:
     """Represents a user's voice biometric signature (voiceprint)."""
-    
+
     id: UUID
     user_id: UserId
     embedding: VoiceEmbedding

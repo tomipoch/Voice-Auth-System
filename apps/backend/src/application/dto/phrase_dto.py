@@ -39,7 +39,7 @@ class GetPhrasesRequestDTO:
     user_id: Optional[str] = None
     count: int = 1
     difficulty: Optional[str] = None
-    language: str = 'es'
+    language: str = "es"
 
 
 @dataclass

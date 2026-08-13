@@ -6,18 +6,18 @@ from uuid import UUID
 from datetime import datetime, timedelta, timezone
 
 from ...domain.repositories.phrase_repository_port import (
-    PhraseRepositoryPort, 
-    PhraseUsageRepositoryPort
+    PhraseRepositoryPort,
+    PhraseUsageRepositoryPort,
 )
 from ...domain.model.phrase import Phrase, PhraseUsage
 
 
 class PostgresPhraseRepository(PhraseRepositoryPort):
     """PostgreSQL implementation of phrase repository."""
-    
+
     def __init__(self, connection_pool: asyncpg.Pool):
         self._pool = connection_pool
-    
+
     async def save(self, phrase: Phrase) -> None:
         """Save a phrase to the repository."""
         async with self._pool.acquire() as conn:
@@ -45,9 +45,9 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 phrase.language,
                 phrase.difficulty,
                 phrase.is_active,
-                phrase.created_at
+                phrase.created_at,
             )
-    
+
     async def find_by_id(self, phrase_id: UUID) -> Optional[Phrase]:
         """Find a phrase by its ID."""
         async with self._pool.acquire() as conn:
@@ -58,18 +58,18 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 FROM phrase
                 WHERE id = $1
                 """,
-                phrase_id
+                phrase_id,
             )
-            
+
             if row:
                 return Phrase(**dict(row))
             return None
-    
+
     async def find_all_active(
-        self, 
+        self,
         difficulty: Optional[str] = None,
-        language: str = 'es',
-        limit: Optional[int] = None
+        language: str = "es",
+        limit: Optional[int] = None,
     ) -> List[Phrase]:
         """Find all active phrases with optional filters."""
         query = """
@@ -79,28 +79,28 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
             WHERE is_active = TRUE AND language = $1
         """
         params = [language]
-        
+
         if difficulty:
             query += " AND difficulty = $2"
             params.append(difficulty)
-        
+
         query += " ORDER BY created_at DESC"
-        
+
         if limit:
             query += f" LIMIT ${len(params) + 1}"
             params.append(limit)
-        
+
         async with self._pool.acquire() as conn:
             rows = await conn.fetch(query, *params)
             return [Phrase(**dict(row)) for row in rows]
-    
+
     async def find_random(
         self,
         user_id: Optional[UUID] = None,
         exclude_recent: bool = True,
         difficulty: Optional[str] = None,
-        language: str = 'es',
-        count: int = 1
+        language: str = "es",
+        count: int = 1,
     ) -> List[Phrase]:
         """Find random phrases for a user."""
         query = """
@@ -111,7 +111,7 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
         """
         params = [language]
         param_idx = 2
-        
+
         # Exclude recently used phrases if requested
         if exclude_recent and user_id:
             query += f"""
@@ -124,26 +124,22 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
             """
             params.append(user_id)
             param_idx += 1
-        
+
         # Filter by difficulty
         if difficulty:
             query += f" AND p.difficulty = ${param_idx}"
             params.append(difficulty)
             param_idx += 1
-        
+
         # Random selection
         query += f" ORDER BY RANDOM() LIMIT ${param_idx}"
         params.append(count)
-        
+
         async with self._pool.acquire() as conn:
             rows = await conn.fetch(query, *params)
             return [Phrase(**dict(row)) for row in rows]
-    
-    async def get_recent_phrase_ids(
-        self,
-        user_id: UUID,
-        limit: int = 50
-    ) -> List[UUID]:
+
+    async def get_recent_phrase_ids(self, user_id: UUID, limit: int = 50) -> List[UUID]:
         """Get IDs of recently used phrases for a user.
 
         Args:
@@ -164,14 +160,12 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 LIMIT $2
                 """,
                 user_id,
-                limit
+                limit,
             )
 
-            return [row['phrase_id'] for row in rows]
+            return [row["phrase_id"] for row in rows]
 
-
-    
-    async def count_by_difficulty(self, language: str = 'es') -> dict:
+    async def count_by_difficulty(self, language: str = "es") -> dict:
         """Count phrases grouped by difficulty."""
         async with self._pool.acquire() as conn:
             rows = await conn.fetch(
@@ -181,11 +175,11 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 WHERE is_active = TRUE AND language = $1
                 GROUP BY difficulty
                 """,
-                language
+                language,
             )
-            return {row['difficulty']: row['count'] for row in rows}
+            return {row["difficulty"]: row["count"] for row in rows}
 
-    async def count_by_status(self, language: str = 'es') -> dict:
+    async def count_by_status(self, language: str = "es") -> dict:
         """Count active and inactive phrases for a language."""
         async with self._pool.acquire() as conn:
             rows = await conn.fetch(
@@ -209,7 +203,7 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 "SELECT id, title, author FROM books ORDER BY title"
             )
             return [dict(row) for row in rows]
-    
+
     async def update_active_status(self, phrase_id: UUID, is_active: bool) -> bool:
         """Update the active status of a phrase."""
         async with self._pool.acquire() as conn:
@@ -219,10 +213,11 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 SET is_active = $2
                 WHERE id = $1
                 """,
-                phrase_id, is_active
+                phrase_id,
+                is_active,
             )
             return result == "UPDATE 1"
-    
+
     async def delete(self, phrase_id: UUID) -> bool:
         """Delete a phrase from the repository."""
         async with self._pool.acquire() as conn:
@@ -231,10 +226,10 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 DELETE FROM phrase
                 WHERE id = $1
                 """,
-                phrase_id
+                phrase_id,
             )
             return result == "DELETE 1"
-    
+
     async def find_paginated(
         self,
         page: int = 1,
@@ -244,11 +239,11 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
         search: Optional[str] = None,
         book_id: Optional[UUID] = None,
         author: Optional[str] = None,
-        language: str = 'es'
+        language: str = "es",
     ) -> tuple[List[dict], int]:
         """
         Find phrases with pagination and filters, including book information.
-        
+
         Returns:
             Tuple of (phrases list with book info, total count)
         """
@@ -256,39 +251,39 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
         where_clauses = ["p.language = $1"]
         params = [language]
         param_idx = 2
-        
+
         if difficulty:
             where_clauses.append(f"p.difficulty = ${param_idx}")
             params.append(difficulty)
             param_idx += 1
-        
+
         if is_active is not None:
             where_clauses.append(f"p.is_active = ${param_idx}")
             params.append(is_active)
             param_idx += 1
-        
+
         if search:
             where_clauses.append(f"p.text ILIKE ${param_idx}")
             params.append(f"%{search}%")
             param_idx += 1
-        
+
         if book_id:
             where_clauses.append(f"p.book_id = ${param_idx}")
             params.append(book_id)
             param_idx += 1
-        
+
         if author:
             where_clauses.append(f"b.author ILIKE ${param_idx}")
             params.append(f"%{author}%")
             param_idx += 1
-        
+
         where_clause = " AND ".join(where_clauses)
-        
+
         async with self._pool.acquire() as conn:
             # Get total count
             count_query = f"SELECT COUNT(*) FROM phrase p WHERE {where_clause}"
             total = await conn.fetchval(count_query, *params)
-            
+
             # Get paginated results with book info
             offset = (page - 1) * limit
             data_query = f"""
@@ -303,30 +298,27 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
                 LIMIT ${param_idx} OFFSET ${param_idx + 1}
             """
             params.extend([limit, offset])
-            
+
             rows = await conn.fetch(data_query, *params)
-            
+
             # Convert to dict with book info
             phrases = [dict(row) for row in rows]
-            
+
             return phrases, total or 0
 
 
 class PostgresPhraseUsageRepository(PhraseUsageRepositoryPort):
     """PostgreSQL implementation of phrase usage repository."""
-    
+
     def __init__(self, connection_pool: asyncpg.Pool):
         self._pool = connection_pool
-    
+
     async def record_usage(
-        self, 
-        phrase_id: UUID, 
-        user_id: UUID, 
-        used_for: str
+        self, phrase_id: UUID, user_id: UUID, used_for: str
     ) -> PhraseUsage:
         """Record that a user used a phrase."""
         now = datetime.now(timezone.utc)
-        
+
         async with self._pool.acquire() as conn:
             row = await conn.fetchrow(
                 """
@@ -334,15 +326,15 @@ class PostgresPhraseUsageRepository(PhraseUsageRepositoryPort):
                 VALUES ($1, $2, $3, $4)
                 RETURNING id, phrase_id, user_id, used_for, used_at
                 """,
-                phrase_id, user_id, used_for, now
+                phrase_id,
+                user_id,
+                used_for,
+                now,
             )
             return PhraseUsage(**dict(row))
-    
+
     async def find_recent_by_user(
-        self, 
-        user_id: UUID, 
-        days: int = 30,
-        limit: Optional[int] = None
+        self, user_id: UUID, days: int = 30, limit: Optional[int] = None
     ) -> List[PhraseUsage]:
         """Find recent phrase usages for a user."""
         query = """
@@ -353,20 +345,16 @@ class PostgresPhraseUsageRepository(PhraseUsageRepositoryPort):
             ORDER BY used_at DESC
         """
         params = [user_id, datetime.now(timezone.utc) - timedelta(days=days)]
-        
+
         if limit:
             query += " LIMIT $3"
             params.append(limit)
-        
+
         async with self._pool.acquire() as conn:
             rows = await conn.fetch(query, *params)
             return [PhraseUsage(**dict(row)) for row in rows]
-    
-    async def get_user_phrase_ids(
-        self, 
-        user_id: UUID, 
-        days: int = 30
-    ) -> List[UUID]:
+
+    async def get_user_phrase_ids(self, user_id: UUID, days: int = 30) -> List[UUID]:
         """Get phrase IDs that a user has recently used."""
         async with self._pool.acquire() as conn:
             rows = await conn.fetch(
@@ -376,11 +364,11 @@ class PostgresPhraseUsageRepository(PhraseUsageRepositoryPort):
                 WHERE user_id = $1 
                 AND used_at > $2
                 """,
-                user_id, 
-                datetime.now(timezone.utc) - timedelta(days=days)
+                user_id,
+                datetime.now(timezone.utc) - timedelta(days=days),
             )
-            return [row['phrase_id'] for row in rows]
-    
+            return [row["phrase_id"] for row in rows]
+
     async def count_by_phrase(self, phrase_id: UUID) -> int:
         """Count how many times a phrase has been used."""
         async with self._pool.acquire() as conn:
@@ -390,6 +378,6 @@ class PostgresPhraseUsageRepository(PhraseUsageRepositoryPort):
                 FROM phrase_usage
                 WHERE phrase_id = $1
                 """,
-                phrase_id
+                phrase_id,
             )
             return count or 0

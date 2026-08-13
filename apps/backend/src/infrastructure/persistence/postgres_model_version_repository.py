@@ -3,7 +3,9 @@
 import asyncpg
 from typing import Optional
 
-from ...domain.repositories.model_version_repository_port import ModelVersionRepositoryPort
+from ...domain.repositories.model_version_repository_port import (
+    ModelVersionRepositoryPort,
+)
 
 
 class PostgresModelVersionRepository(ModelVersionRepositoryPort):
@@ -22,7 +24,9 @@ class PostgresModelVersionRepository(ModelVersionRepositoryPort):
                         VALUES ($1, $2, $3)
                         ON CONFLICT (kind, name, version) DO NOTHING
                         """,
-                        model["kind"], model["name"], model["version"],
+                        model["kind"],
+                        model["name"],
+                        model["version"],
                     )
             by_kind: dict[str, Optional[int]] = {}
             for model in models:
@@ -40,5 +44,6 @@ class PostgresModelVersionRepository(ModelVersionRepositoryPort):
     async def get_model_id(self, kind: str) -> Optional[int]:
         async with self._pool.acquire() as conn:
             return await conn.fetchval(
-                "SELECT id FROM model_version WHERE kind = $1 ORDER BY name LIMIT 1", kind
+                "SELECT id FROM model_version WHERE kind = $1 ORDER BY name LIMIT 1",
+                kind,
             )

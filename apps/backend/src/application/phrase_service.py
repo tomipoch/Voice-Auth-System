@@ -5,7 +5,7 @@ from uuid import UUID
 
 from ..domain.repositories.phrase_repository_port import (
     PhraseRepositoryPort,
-    PhraseUsageRepositoryPort
+    PhraseUsageRepositoryPort,
 )
 from ..domain.model.phrase import Phrase
 from .dto.phrase_dto import PhraseDTO, PhraseStatsDTO, PhraseListDTO, BookDTO
@@ -17,7 +17,7 @@ class PhraseService:
     def __init__(
         self,
         phrase_repository: PhraseRepositoryPort,
-        usage_repository: PhraseUsageRepositoryPort
+        usage_repository: PhraseUsageRepositoryPort,
     ):
         self._phrase_repo = phrase_repository
         self._usage_repo = usage_repository
@@ -27,7 +27,7 @@ class PhraseService:
         user_id: Optional[UUID] = None,
         count: int = 1,
         difficulty: Optional[str] = None,
-        language: str = 'es'
+        language: str = "es",
     ) -> List[PhraseDTO]:
         """
         Get random phrases for a user to use in enrollment or verification.
@@ -38,7 +38,7 @@ class PhraseService:
             exclude_recent=user_id is not None,
             difficulty=difficulty,
             language=language,
-            count=count
+            count=count,
         )
 
         return [self._to_dto(phrase) for phrase in phrases]
@@ -51,22 +51,17 @@ class PhraseService:
     async def list_active_phrases(
         self,
         difficulty: Optional[str] = None,
-        language: str = 'es',
-        limit: Optional[int] = None
+        language: str = "es",
+        limit: Optional[int] = None,
     ) -> List[PhraseDTO]:
         """List all active phrases with optional filters."""
         phrases = await self._phrase_repo.find_all_active(
-            difficulty=difficulty,
-            language=language,
-            limit=limit
+            difficulty=difficulty, language=language, limit=limit
         )
         return [self._to_dto(phrase) for phrase in phrases]
 
     async def record_phrase_usage(
-        self,
-        phrase_id: UUID,
-        user_id: UUID,
-        used_for: str
+        self, phrase_id: UUID, user_id: UUID, used_for: str
     ) -> None:
         """
         Record that a user used a phrase.
@@ -78,7 +73,7 @@ class PhraseService:
         """
         await self._usage_repo.record_usage(phrase_id, user_id, used_for)
 
-    async def get_phrase_stats(self, language: str = 'es') -> PhraseStatsDTO:
+    async def get_phrase_stats(self, language: str = "es") -> PhraseStatsDTO:
         """Get statistics about available phrases."""
         counts_by_difficulty = await self._phrase_repo.count_by_difficulty(language)
         status_counts = await self._phrase_repo.count_by_status(language)
@@ -89,10 +84,10 @@ class PhraseService:
             total=total,
             active=status_counts.get("active", 0),
             inactive=status_counts.get("inactive", 0),
-            easy=counts_by_difficulty.get('easy', 0),
-            medium=counts_by_difficulty.get('medium', 0),
-            hard=counts_by_difficulty.get('hard', 0),
-            language=language
+            easy=counts_by_difficulty.get("easy", 0),
+            medium=counts_by_difficulty.get("medium", 0),
+            hard=counts_by_difficulty.get("hard", 0),
+            language=language,
         )
 
     async def list_books(self) -> List[BookDTO]:
@@ -112,7 +107,7 @@ class PhraseService:
         search: Optional[str] = None,
         book_id: Optional[UUID] = None,
         author: Optional[str] = None,
-        language: str = 'es',
+        language: str = "es",
     ) -> PhraseListDTO:
         """Paginated phrase list with optional filters and book info."""
         phrases, total = await self._phrase_repo.find_paginated(
@@ -134,11 +129,7 @@ class PhraseService:
             total_pages=total_pages,
         )
 
-    async def update_phrase_status(
-        self,
-        phrase_id: UUID,
-        is_active: bool
-    ) -> bool:
+    async def update_phrase_status(self, phrase_id: UUID, is_active: bool) -> bool:
         """Enable or disable a phrase."""
         return await self._phrase_repo.update_active_status(phrase_id, is_active)
 
@@ -146,11 +137,7 @@ class PhraseService:
         """Delete a phrase from the system."""
         return await self._phrase_repo.delete(phrase_id)
 
-    async def get_recent_phrase_ids(
-        self,
-        user_id: UUID,
-        limit: int = 50
-    ) -> List[UUID]:
+    async def get_recent_phrase_ids(self, user_id: UUID, limit: int = 50) -> List[UUID]:
         """
         Get IDs of phrases recently used by a user.
         Used to exclude recent phrases when creating challenges.
@@ -175,5 +162,5 @@ class PhraseService:
             language=phrase.language,
             difficulty=phrase.difficulty,
             is_active=phrase.is_active,
-            created_at=phrase.created_at.isoformat()
+            created_at=phrase.created_at.isoformat(),
         )

@@ -12,5 +12,7 @@ class SystemSettingsRepositoryPort(ABC):
         """Devuelve el value JSONB de una clave o None."""
 
     @abstractmethod
-    async def set(self, key: str, value: dict, updated_by: Optional[str] = None) -> None:
+    async def set(
+        self, key: str, value: dict, updated_by: Optional[str] = None
+    ) -> None:
         """Upsert del value JSONB de una clave."""

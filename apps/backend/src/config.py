@@ -15,20 +15,20 @@ if _ENV_PATH.is_file():
 
 # Challenge expiration timeouts (in seconds) based on difficulty
 CHALLENGE_TIMEOUT: Dict[str, int] = {
-    'easy': 120,      # 2 minutes
-    'medium': 180,    # 3 minutes
-    'hard': 240       # 4 minutes
+    "easy": 120,  # 2 minutes
+    "medium": 180,  # 3 minutes
+    "hard": 240,  # 4 minutes
 }
 
 # Cleanup job interval (in seconds)
 CHALLENGE_CLEANUP_INTERVAL = 30  # Run cleanup every 30 seconds
 
 # Database configuration
-DB_HOST = os.getenv('DB_HOST', 'localhost')
-DB_PORT = os.getenv('DB_PORT', '5432')
-DB_NAME = os.getenv('DB_NAME', 'voice_biometrics')
-DB_USER = os.getenv('DB_USER', 'voice_user')
-DB_PASSWORD = os.getenv('DB_PASSWORD', 'voice_password')
+DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_PORT = os.getenv("DB_PORT", "5432")
+DB_NAME = os.getenv("DB_NAME", "voice_biometrics")
+DB_USER = os.getenv("DB_USER", "voice_user")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "voice_password")
 
 # JWT configuration
 # Single source of truth for SECRET_KEY and ALGORITHM. Both auth_controller

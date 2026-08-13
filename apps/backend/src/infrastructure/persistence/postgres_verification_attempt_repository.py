@@ -20,7 +20,9 @@ class PostgresVerificationAttemptRepository(VerificationAttemptRepositoryPort):
         async with self._pool.acquire() as conn:
             await conn.execute(
                 "INSERT INTO audio_blob (id, content, mime, created_at) VALUES ($1, $2, $3, now())",
-                audio_id, content, mime,
+                audio_id,
+                content,
+                mime,
             )
         return audio_id
 
@@ -54,8 +56,15 @@ class PostgresVerificationAttemptRepository(VerificationAttemptRepositoryPort):
                         decided, accept, reason, policy_id, total_latency_ms, created_at, decided_at
                     ) VALUES ($1, $2, $3, $4, $5, TRUE, $6, $7, $8, $9, now(), now())
                     """,
-                    attempt_id, user_id, client_id, challenge_id, audio_id,
-                    accept, reason, policy_id, total_latency_ms,
+                    attempt_id,
+                    user_id,
+                    client_id,
+                    challenge_id,
+                    audio_id,
+                    accept,
+                    reason,
+                    policy_id,
+                    total_latency_ms,
                 )
                 await conn.execute(
                     """
@@ -64,8 +73,15 @@ class PostgresVerificationAttemptRepository(VerificationAttemptRepositoryPort):
                         inference_ms, speaker_model_id, antispoof_model_id, asr_model_id
                     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
                     """,
-                    attempt_id, similarity, spoof_prob, phrase_match, phrase_ok,
-                    inference_ms, speaker_model_id, antispoof_model_id, asr_model_id,
+                    attempt_id,
+                    similarity,
+                    spoof_prob,
+                    phrase_match,
+                    phrase_ok,
+                    inference_ms,
+                    speaker_model_id,
+                    antispoof_model_id,
+                    asr_model_id,
                 )
         return attempt_id
 
@@ -81,7 +97,8 @@ class PostgresVerificationAttemptRepository(VerificationAttemptRepositoryPort):
                 ORDER BY a.created_at DESC
                 LIMIT $2
                 """,
-                user_id, limit,
+                user_id,
+                limit,
             )
             return [dict(row) for row in rows]
 

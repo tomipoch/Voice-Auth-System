@@ -12,7 +12,6 @@ from .common_types import (
     AttemptId,
     AudioId,
     VoiceEmbedding,
-    
     # Enums
     AuthReason,
     ModelKind,
@@ -29,7 +28,6 @@ __all__ = [
     "AttemptId",
     "AudioId",
     "VoiceEmbedding",
-    
     # Enums
     "AuthReason",
     "ModelKind",

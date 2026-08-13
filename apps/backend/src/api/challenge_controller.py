@@ -29,22 +29,21 @@ async def create_challenge(
 ):
     """
     Create a new voice challenge for a user.
-    
+
     - **user_id**: User UUID
     - **difficulty**: Optional difficulty level (easy/medium/hard)
     """
     try:
         challenge = await challenge_service.create_challenge(
-            user_id=user_id,
-            difficulty=difficulty
+            user_id=user_id, difficulty=difficulty
         )
-        
+
         return {
             "success": True,
             "challenge": challenge,
-            "message": "Challenge created successfully"
+            "message": "Challenge created successfully",
         }
-        
+
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
@@ -62,25 +61,23 @@ async def create_challenge_batch(
 ):
     """
     Create multiple challenges at once (optimized).
-    
+
     - **user_id**: User UUID
     - **count**: Number of challenges to create (default: 3)
     - **difficulty**: Optional difficulty level (easy/medium/hard)
     """
     try:
         challenges = await challenge_service.create_challenge_batch(
-            user_id=user_id,
-            count=count,
-            difficulty=difficulty
+            user_id=user_id, count=count, difficulty=difficulty
         )
-        
+
         return {
             "success": True,
             "challenges": challenges,
             "count": len(challenges),
-            "message": f"Created {len(challenges)} challenges successfully"
+            "message": f"Created {len(challenges)} challenges successfully",
         }
-        
+
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
@@ -99,15 +96,12 @@ async def get_challenge(
     """
     try:
         challenge = await challenge_service.get_challenge(challenge_id)
-        
+
         if not challenge:
             raise HTTPException(status_code=404, detail="Challenge not found")
-        
-        return {
-            "success": True,
-            "challenge": challenge
-        }
-        
+
+        return {"success": True, "challenge": challenge}
+
     except HTTPException:
         raise
     except Exception as e:
@@ -126,19 +120,16 @@ async def get_active_challenge(
     """
     try:
         challenge = await challenge_service.get_active_challenge(user_id)
-        
+
         if not challenge:
             return {
                 "success": True,
                 "challenge": None,
-                "message": "No active challenge found"
+                "message": "No active challenge found",
             }
-        
-        return {
-            "success": True,
-            "challenge": challenge
-        }
-        
+
+        return {"success": True, "challenge": challenge}
+
     except Exception as e:
         logger.error(f"Error getting active challenge: {e}")
         raise HTTPException(status_code=500, detail=INTERNAL_SERVER_ERROR)
@@ -153,22 +144,17 @@ async def validate_challenge(
 ):
     """
     Validate a challenge (strict validation).
-    
+
     - **challenge_id**: Challenge UUID
     - **user_id**: User UUID
     """
     try:
         is_valid, reason = await challenge_service.validate_challenge_strict(
-            challenge_id=challenge_id,
-            user_id=user_id
+            challenge_id=challenge_id, user_id=user_id
         )
-        
-        return {
-            "success": True,
-            "is_valid": is_valid,
-            "reason": reason
-        }
-        
+
+        return {"success": True, "is_valid": is_valid, "reason": reason}
+
     except Exception as e:
         logger.error(f"Error validating challenge: {e}")
         raise HTTPException(status_code=500, detail=INTERNAL_SERVER_ERROR)
@@ -182,7 +168,7 @@ async def get_time_remaining(
 ):
     """
     Get the remaining time for a challenge.
-    
+
     Returns:
         - expired: bool - Whether the challenge has expired
         - seconds_remaining: int - Seconds until expiration (0 if expired)
@@ -190,41 +176,43 @@ async def get_time_remaining(
     """
     try:
         challenge = await challenge_service.get_challenge(challenge_id)
-        
+
         if not challenge:
             raise HTTPException(status_code=404, detail="Challenge not found")
-        
+
         from datetime import datetime, timezone
-        
+
         now = datetime.now(timezone.utc)
-        expires_at = challenge.get('expires_at')
-        
+        expires_at = challenge.get("expires_at")
+
         if not expires_at:
-            raise HTTPException(status_code=500, detail="Challenge has no expiration time")
-        
+            raise HTTPException(
+                status_code=500, detail="Challenge has no expiration time"
+            )
+
         # Ensure expires_at is timezone-aware
         if expires_at.tzinfo is None:
             expires_at = expires_at.replace(tzinfo=timezone.utc)
-        
+
         # Check if expired
         if expires_at <= now:
             return {
                 "success": True,
                 "expired": True,
                 "seconds_remaining": 0,
-                "expires_at": expires_at.isoformat()
+                "expires_at": expires_at.isoformat(),
             }
-        
+
         # Calculate remaining time
         seconds_remaining = int((expires_at - now).total_seconds())
-        
+
         return {
             "success": True,
             "expired": False,
             "seconds_remaining": seconds_remaining,
-            "expires_at": expires_at.isoformat()
+            "expires_at": expires_at.isoformat(),
         }
-        
+
     except HTTPException:
         raise
     except Exception as e:
@@ -242,13 +230,13 @@ async def cleanup_expired_challenges(
     """
     try:
         deleted_count = await challenge_service.cleanup_expired_challenges()
-        
+
         return {
             "success": True,
             "deleted_count": deleted_count,
-            "message": f"Cleaned up {deleted_count} expired challenges"
+            "message": f"Cleaned up {deleted_count} expired challenges",
         }
-        
+
     except Exception as e:
         logger.error(f"Error cleaning up challenges: {e}")
         raise HTTPException(status_code=500, detail=INTERNAL_SERVER_ERROR)
@@ -265,13 +253,9 @@ async def generate_test_phrase(
     """
     try:
         phrase = challenge_service.generate_test_phrase(phrase_type)
-        
-        return {
-            "success": True,
-            "phrase": phrase,
-            "phrase_type": phrase_type
-        }
-        
+
+        return {"success": True, "phrase": phrase, "phrase_type": phrase_type}
+
     except Exception as e:
         logger.error(f"Error generating test phrase: {e}")
         raise HTTPException(status_code=500, detail=INTERNAL_SERVER_ERROR)

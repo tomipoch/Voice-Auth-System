@@ -16,6 +16,7 @@ VoiceEmbedding = np.ndarray  # Shape: (256,)
 
 class AuthReason(Enum):
     """Reasons for authentication decisions."""
+
     OK = "ok"
     LOW_SIMILARITY = "low_similarity"
     SPOOF = "spoof"
@@ -26,6 +27,7 @@ class AuthReason(Enum):
 
 class ModelKind(Enum):
     """Types of ML models in the system."""
+
     SPEAKER = "speaker"
     ANTISPOOF = "antispoof"
     ASR = "asr"
@@ -33,6 +35,7 @@ class ModelKind(Enum):
 
 class RiskLevel(Enum):
     """Risk levels for authentication policies."""
+
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
@@ -41,6 +44,7 @@ class RiskLevel(Enum):
 
 class AudioFormat(Enum):
     """Supported audio formats."""
+
     WAV = "wav"
     MP3 = "mp3"
     FLAC = "flac"
@@ -49,19 +53,20 @@ class AudioFormat(Enum):
 
 class AuditAction(Enum):
     """Actions that can be audited."""
+
     # Authentication
     LOGIN = "LOGIN"
     LOGOUT = "LOGOUT"
-    
+
     # Enrollment
     ENROLLMENT_START = "ENROLLMENT_START"
     ENROLLMENT_COMPLETE = "ENROLLMENT_COMPLETE"
     ENROLL = "ENROLL"  # Legacy, keep for compatibility
-    
+
     # Verification
     VERIFICATION = "VERIFICATION"
     VERIFY = "VERIFY"  # Legacy, keep for compatibility
-    
+
     # Admin actions
     DELETE_USER = "DELETE_USER"
     ROTATE_KEY = "ROTATE_KEY"

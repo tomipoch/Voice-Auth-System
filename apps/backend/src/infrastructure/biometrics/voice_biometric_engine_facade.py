@@ -17,151 +17,135 @@ class VoiceBiometricEngineFacade:
     Provides a unified interface for voice analysis, hiding the complexity
     of individual adapters.
     """
-    
+
     def __init__(
         self,
         speaker_adapter: SpeakerEmbeddingAdapter,
         spoof_adapter: SpoofDetectorAdapter,
-        asr_adapter: ASRAdapter
+        asr_adapter: ASRAdapter,
     ):
         self._speaker_adapter = speaker_adapter
         self._spoof_adapter = spoof_adapter
         self._asr_adapter = asr_adapter
         # Reusable thread pool for parallel model inference (prevents memory leak)
-        self._executor = ThreadPoolExecutor(max_workers=3, thread_name_prefix="biometric_")
-    
+        self._executor = ThreadPoolExecutor(
+            max_workers=3, thread_name_prefix="biometric_"
+        )
+
     def close(self):
         """Close the executor and release resources. Call this on application shutdown."""
-        if hasattr(self, '_executor') and self._executor:
+        if hasattr(self, "_executor") and self._executor:
             self._executor.shutdown(wait=True)
-    
+
     def __del__(self):
         """Cleanup resources when the object is destroyed."""
         try:
-            if hasattr(self, '_executor') and self._executor:
+            if hasattr(self, "_executor") and self._executor:
                 self._executor.shutdown(wait=False)
         except Exception:
             pass  # Ignore errors during cleanup
-    
+
     def extract_embedding_only(
-        self,
-        audio_data: bytes,
-        audio_format: str
+        self, audio_data: bytes, audio_format: str
     ) -> VoiceEmbedding:
         """Extract only speaker embedding (for enrollment)."""
         return self._speaker_adapter.extract_embedding(audio_data, audio_format)
-    
-    def extract_features(
-        self,
-        audio_data: bytes,
-        audio_format: str
-    ) -> dict:
+
+    def extract_features(self, audio_data: bytes, audio_format: str) -> dict:
         """
         Extract biometric features (embedding and anti-spoofing score).
         """
         # 1. Extract speaker embedding
         embedding = self._speaker_adapter.extract_embedding(audio_data, audio_format)
-        
+
         # 2. Detect spoofing
         spoof_prob = self._spoof_adapter.detect_spoof(audio_data)
-        
+
         # 3. Transcribe audio (ASR)
         transcribed_text = self._asr_adapter.transcribe(audio_data)
-        
+
         return {
             "embedding": embedding,
             "anti_spoofing_score": spoof_prob,
-            "transcribed_text": transcribed_text
+            "transcribed_text": transcribed_text,
         }
-    
+
     async def extract_features_parallel(
-        self,
-        audio_data: bytes,
-        audio_format: str
+        self, audio_data: bytes, audio_format: str
     ) -> dict:
         """
         Extract biometric features in parallel for faster processing.
-        
+
         Runs speaker embedding, anti-spoofing, and ASR models concurrently
         using asyncio and a shared ThreadPoolExecutor. This reduces processing time
         from ~18s sequential to ~10s parallel (the time of the slowest model).
-        
+
         Args:
             audio_data: Audio data as bytes
             audio_format: Format of audio (defaults to 'wav')
-            
+
         Returns:
             Dictionary with embedding, anti_spoofing_score, and transcribed_text
         """
-        loop = asyncio.get_running_loop()  # Fixed: use get_running_loop instead of deprecated get_event_loop
-        
+        loop = (
+            asyncio.get_running_loop()
+        )  # Fixed: use get_running_loop instead of deprecated get_event_loop
+
         # Run all three models concurrently using shared executor
         embedding_task = loop.run_in_executor(
             self._executor,
             self._speaker_adapter.extract_embedding,
             audio_data,
-            audio_format
+            audio_format,
         )
-        
+
         anti_spoof_task = loop.run_in_executor(
-            self._executor,
-            self._spoof_adapter.detect_spoof,
-            audio_data
+            self._executor, self._spoof_adapter.detect_spoof, audio_data
         )
-        
+
         transcription_task = loop.run_in_executor(
-            self._executor,
-            self._asr_adapter.transcribe,
-            audio_data
+            self._executor, self._asr_adapter.transcribe, audio_data
         )
-        
+
         # Wait for all tasks to complete
         embedding, spoof_prob, transcribed_text = await asyncio.gather(
-            embedding_task,
-            anti_spoof_task,
-            transcription_task
+            embedding_task, anti_spoof_task, transcription_task
         )
-        
+
         return {
             "embedding": embedding,
             "anti_spoofing_score": spoof_prob,
-            "transcribed_text": transcribed_text
+            "transcribed_text": transcribed_text,
         }
-    
-    def validate_audio_quality(
-        self,
-        audio_data: bytes,
-        audio_format: str
-    ) -> dict:
+
+    def validate_audio_quality(self, audio_data: bytes, audio_format: str) -> dict:
         """Validate audio quality for enrollment/verification."""
         return self._speaker_adapter.validate_audio_quality(audio_data, audio_format)
-    
+
     def _calculate_similarity(
-        self,
-        embedding1: VoiceEmbedding,
-        embedding2: VoiceEmbedding
+        self, embedding1: VoiceEmbedding, embedding2: VoiceEmbedding
     ) -> float:
         """Calculate cosine similarity between embeddings."""
         # Normalize embeddings
         norm1 = embedding1 / np.linalg.norm(embedding1)
         norm2 = embedding2 / np.linalg.norm(embedding2)
-        
+
         # Calculate cosine similarity
         similarity = np.dot(norm1, norm2)
-        
+
         # Clamp to [0, 1] and return
         return max(0.0, min(1.0, similarity))
-    
+
     def _calculate_phrase_similarity(self, expected: str, recognized: str) -> float:
         """Calculate similarity between expected and recognized phrases."""
         # Simple word-based similarity (in production, use more sophisticated NLP)
         expected_words = set(expected.lower().split())
         recognized_words = set(recognized.lower().split())
-        
+
         if not expected_words:
             return 1.0 if not recognized_words else 0.0
-        
+
         intersection = expected_words.intersection(recognized_words)
         union = expected_words.union(recognized_words)
-        
+
         return len(intersection) / len(union) if union else 0.0

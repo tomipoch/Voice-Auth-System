@@ -4,7 +4,9 @@ import json
 import asyncpg
 from typing import Optional
 
-from ...domain.repositories.system_settings_repository_port import SystemSettingsRepositoryPort
+from ...domain.repositories.system_settings_repository_port import (
+    SystemSettingsRepositoryPort,
+)
 
 
 class PostgresSystemSettingsRepository(SystemSettingsRepositoryPort):
@@ -25,7 +27,9 @@ class PostgresSystemSettingsRepository(SystemSettingsRepositoryPort):
                 return json.loads(value)
             return dict(value)
 
-    async def set(self, key: str, value: dict, updated_by: Optional[str] = None) -> None:
+    async def set(
+        self, key: str, value: dict, updated_by: Optional[str] = None
+    ) -> None:
         async with self._pool.acquire() as conn:
             await conn.execute(
                 """
@@ -36,5 +40,7 @@ class PostgresSystemSettingsRepository(SystemSettingsRepositoryPort):
                     updated_at = now(),
                     updated_by = EXCLUDED.updated_by
                 """,
-                key, json.dumps(value, ensure_ascii=False), updated_by,
+                key,
+                json.dumps(value, ensure_ascii=False),
+                updated_by,
             )

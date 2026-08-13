@@ -34,33 +34,57 @@ ACCESS_TOKEN_EXPIRE_MINUTES = AuthService.ACCESS_TOKEN_EXPIRE_MINUTES
 # Pydantic models with OpenAPI documentation
 class UserLoginRequest(BaseModel):
     """Request body for user login."""
-    email: EmailStr = Field(..., description="User email address", examples=["user@example.com"])
+
+    email: EmailStr = Field(
+        ..., description="User email address", examples=["user@example.com"]
+    )
     password: str = Field(..., description="User password", min_length=8)
 
-    model_config = {"json_schema_extra": {"examples": [{"email": "user@example.com", "password": "SecurePass123"}]}}
+    model_config = {
+        "json_schema_extra": {
+            "examples": [{"email": "user@example.com", "password": "SecurePass123"}]
+        }
+    }
 
 
 class UserRegisterRequest(BaseModel):
     """Request body for user registration."""
-    first_name: str = Field(..., description="User's first name", min_length=1, max_length=50)
-    last_name: str = Field(..., description="User's last name", min_length=1, max_length=50)
-    rut: Optional[str] = Field(None, description="Chilean RUT (optional)", pattern=r"^\d{7,8}-[\dkK]$")
+
+    first_name: str = Field(
+        ..., description="User's first name", min_length=1, max_length=50
+    )
+    last_name: str = Field(
+        ..., description="User's last name", min_length=1, max_length=50
+    )
+    rut: Optional[str] = Field(
+        None, description="Chilean RUT (optional)", pattern=r"^\d{7,8}-[\dkK]$"
+    )
     email: EmailStr = Field(..., description="User email address")
-    password: str = Field(..., description="Password (min 8 chars, 1 uppercase, 1 lowercase, 1 number)", min_length=8)
+    password: str = Field(
+        ...,
+        description="Password (min 8 chars, 1 uppercase, 1 lowercase, 1 number)",
+        min_length=8,
+    )
     company: Optional[str] = Field(None, description="Company name (optional)")
 
 
 class TokenResponse(BaseModel):
     """Response containing authentication tokens."""
+
     access_token: str = Field(..., description="JWT access token")
-    token_type: str = Field(default="bearer", description="Token type (always 'bearer')")
+    token_type: str = Field(
+        default="bearer", description="Token type (always 'bearer')"
+    )
     expires_in: int = Field(..., description="Token expiration time in seconds")
-    refresh_token: Optional[str] = Field(None, description="JWT refresh token for obtaining new access tokens")
+    refresh_token: Optional[str] = Field(
+        None, description="JWT refresh token for obtaining new access tokens"
+    )
     user: dict = Field(..., description="User profile data")
 
 
 class ProfileUpdateRequest(BaseModel):
     """Request body for updating user profile."""
+
     first_name: Optional[str] = Field(None, description="New first name")
     last_name: Optional[str] = Field(None, description="New last name")
     rut: Optional[str] = Field(None, description="Chilean RUT")
@@ -69,8 +93,11 @@ class ProfileUpdateRequest(BaseModel):
 
 class PasswordChangeRequest(BaseModel):
     """Request body for changing password."""
+
     current_password: str = Field(..., description="Current password for verification")
-    new_password: str = Field(..., description="New password (must meet strength requirements)")
+    new_password: str = Field(
+        ..., description="New password (must meet strength requirements)"
+    )
 
 
 class UserProfile(BaseModel):
@@ -99,7 +126,9 @@ async def get_current_user(
     )
 
     try:
-        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(
+            credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM]
+        )
         email: str = payload.get("sub")
         if email is None:
             raise auth_error
@@ -132,7 +161,10 @@ def validate_password_strength(password: str) -> tuple[bool, str]:
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify password against hash."""
     import bcrypt
-    return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+
+    return bcrypt.checkpw(
+        plain_password.encode("utf-8"), hashed_password.encode("utf-8")
+    )
 
 
 async def get_auth_service(
@@ -143,7 +175,9 @@ async def get_auth_service(
 
 
 def _auth_error_to_http(exc: AuthError) -> HTTPException:
-    return HTTPException(status_code=exc.status_code, detail=exc.detail, headers=exc.headers or None)
+    return HTTPException(
+        status_code=exc.status_code, detail=exc.detail, headers=exc.headers or None
+    )
 
 
 @auth_router.post("/login", response_model=TokenResponse)
@@ -191,25 +225,24 @@ async def register(
         if not validate_rut(user_data.rut):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Invalid RUT format. Use format: 12345678-9 (without dots)"
+                detail="Invalid RUT format. Use format: 12345678-9 (without dots)",
             )
 
     is_valid, error_msg = validate_password_strength(user_data.password)
     if not is_valid:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=error_msg
-        )
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
 
     existing = await user_repo.get_user_by_email(user_data.email)
     if existing:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email already registered"
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered"
         )
 
     import bcrypt
-    hashed = bcrypt.hashpw(user_data.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+    hashed = bcrypt.hashpw(user_data.password.encode("utf-8"), bcrypt.gensalt()).decode(
+        "utf-8"
+    )
     user_dict = {
         "first_name": user_data.first_name,
         "last_name": user_data.last_name,
@@ -259,15 +292,18 @@ async def update_profile(
     audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository),
 ):
     """Update current user's profile."""
-    update_data = {k: v for k, v in profile_data.dict(exclude_unset=True).items() if v is not None}
+    update_data = {
+        k: v for k, v in profile_data.dict(exclude_unset=True).items() if v is not None
+    }
     if "rut" in update_data and update_data["rut"]:
         if not validate_rut(update_data["rut"]):
             raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Invalid RUT format"
+                status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid RUT format"
             )
     if not update_data:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No fields to update")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="No fields to update"
+        )
 
     await user_repo.update_user(current_user["id"], update_data)
     await audit_repo.log_event(
@@ -292,16 +328,16 @@ async def change_password(
     if not verify_password(request.current_password, current_user["password"]):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Current password is incorrect"
+            detail="Current password is incorrect",
         )
     is_valid, error_msg = validate_password_strength(request.new_password)
     if not is_valid:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=error_msg
-        )
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error_msg)
     import bcrypt
-    hashed = bcrypt.hashpw(request.new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+    hashed = bcrypt.hashpw(
+        request.new_password.encode("utf-8"), bcrypt.gensalt()
+    ).decode("utf-8")
     await user_repo.update_user(current_user["id"], {"password": hashed})
     await audit_repo.log_event(
         actor=str(current_user["id"]),
