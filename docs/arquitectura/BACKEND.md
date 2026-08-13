@@ -91,7 +91,7 @@ Backend/
 │   │   ├── policies/           # Políticas de negocio
 │   │   ├── auth_service.py
 │   │   ├── enrollment_service.py
-│   │   ├── verification_service_v2.py
+│   │   ├── verification_service.py
 │   │   ├── challenge_service.py
 │   │   └── phrase_service.py
 │   │
