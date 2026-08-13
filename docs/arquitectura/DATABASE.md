@@ -29,7 +29,7 @@ La base de datos **Voice Biometrics DB** es un sistema PostgreSQL 16+ diseñado 
 - **Trazabilidad completa** de intentos de autenticación
 - **Auditoría forense** con versionado de modelos ML
 - **Políticas de privacidad** y derecho al olvido (GDPR-compliant)
-- **Dynamic phrase system** con 43,459 frases únicas
+- **Dynamic phrase system** con 37,407 frases únicas
 - **Optimización para consultas** de alta concurrencia
 
 ### Características Principales
@@ -267,8 +267,10 @@ CREATE TABLE IF NOT EXISTS "user" (
   password TEXT,
   first_name TEXT,
   last_name TEXT,
+  rut VARCHAR(12) NULL,                -- Chilean RUT (Rol Único Tributario) - Format: XXXXXXXX-X
   role TEXT DEFAULT 'user' CHECK (role IN ('user', 'admin', 'superadmin')),
   company TEXT,
+  settings JSONB NOT NULL DEFAULT '{}'::jsonb, -- per-user preferences
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   deleted_at TIMESTAMPTZ,
   failed_auth_attempts INT NOT NULL DEFAULT 0,
@@ -283,8 +285,10 @@ CREATE TABLE IF NOT EXISTS "user" (
 - `email`: Email único (usado para login web)
 - `password`: bcrypt hash de la contraseña
 - `first_name`, `last_name`: Nombre del usuario
+- `rut`: RUT chileno (formato `XXXXXXXX-X` o `XX.XXX.XXX-X`); nullable
 - `role`: Rol del usuario (user/admin/superadmin)
 - `company`: Organización del usuario
+- `settings`: JSONB con preferencias por usuario (notificaciones, apariencia, etc.); default `{}`
 - `created_at`: Timestamp de registro
 - `deleted_at`: Soft delete (NULL = activo)
 - `failed_auth_attempts`: Contador de intentos fallidos
@@ -791,18 +795,19 @@ CREATE TABLE IF NOT EXISTS phrase (
 **Constraint**:
 - `ck_phrase_length`: 20 ≤ char_count ≤ 500
 
-**Distribución**:
+**Distribución (ejemplo — el dump pre-generado tiene 37,407 filas;
+la proporción por dificultad exacta varía con los libros cargados):**
 ```sql
 SELECT difficulty, COUNT(*) AS total
 FROM phrase
 WHERE is_active = TRUE
 GROUP BY difficulty;
 
--- Resultado:
--- easy    | 6637
--- medium  | 25063
--- hard    | 11759
--- TOTAL   | 43459
+-- Ejemplo de salida sobre una carga típica:
+-- easy    | 11000
+-- medium  | 18000
+-- hard    | 8407
+-- TOTAL   | 37407
 ```
 
 ---
@@ -841,6 +846,136 @@ WHERE user_id = '...'
 ORDER BY used_at DESC
 LIMIT 50;
 ```
+
+---
+
+### 5.16 books
+
+**Propósito**: Metadatos de los libros de origen de las frases.
+Los PDFs viven en `Database/Libros/` (gitignored). La migración
+003 siembra solo metadatos; el pipeline `extract_phrases.py`
+(no commiteado) extrae texto desde el PDF y crea filas en
+`phrase`.
+
+```sql
+CREATE TABLE IF NOT EXISTS books (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title TEXT NOT NULL,
+  author TEXT,
+  filename TEXT NOT NULL UNIQUE,
+  language TEXT NOT NULL DEFAULT 'es',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+ALTER TABLE phrase ADD COLUMN IF NOT EXISTS book_id UUID REFERENCES books(id) ON DELETE SET NULL;
+CREATE INDEX IF NOT EXISTS idx_phrase_book_id ON phrase(book_id);
+```
+
+**Columnas**:
+- `id`: UUID del libro (referenciado por `phrase.book_id`)
+- `title`: Título legible
+- `author`: Autor (nullable para obras de autor anónimo)
+- `filename`: nombre de archivo en `Database/Libros/`; único
+- `language`: idioma del libro (default `'es'`)
+- `created_at`: timestamp de inserción
+
+---
+
+### 5.17 phrase_quality_rules
+
+**Propósito**: Reglas configurables que el pipeline de validación
+aplica al crear challenges (p.ej. `min_similarity_threshold`,
+`max_attempts_per_day`). El valor se almacena como JSONB con
+shape `{value: number, description: string}`.
+
+```sql
+CREATE TABLE IF NOT EXISTS phrase_quality_rules (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    rule_name TEXT NOT NULL UNIQUE,
+    rule_type TEXT NOT NULL CHECK (rule_type IN ('threshold', 'rate_limit', 'cleanup')),
+    rule_value JSONB NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    created_by UUID REFERENCES "user"(id) ON DELETE SET NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_phrase_quality_rules_active
+  ON phrase_quality_rules(is_active) WHERE is_active = TRUE;
+CREATE INDEX IF NOT EXISTS idx_phrase_quality_rules_type ON phrase_quality_rules(rule_type);
+```
+
+**Columnas**:
+- `id`: UUID de la regla
+- `rule_name`: nombre legible, único (`min_similarity_threshold`, etc.)
+- `rule_type`: `threshold | rate_limit | cleanup`
+- `rule_value`: JSONB (`{value: number, description: string}`)
+- `is_active`: si la regla se aplica
+- `created_by`: usuario admin que creó la regla (nullable)
+- `updated_at`: actualizado por trigger en cada UPDATE
+
+El endpoint backend es `GET/PATCH /api/admin/phrase-rules`
+(ver [API docs](../API_ENDPOINTS_DOCUMENTATION.md)).
+
+---
+
+### 5.18 enrollment_session
+
+**Propósito**: Estado persistente de una sesión de enrolamiento
+en curso. Antes de esta tabla la sesión vivía en memoria
+(`EnrollmentService._active_sessions`); ahora sobrevive
+reinicios. La constraint `UNIQUE (user_id) DEFERRABLE` evita
+que un usuario tenga dos sesiones a la vez al mismo tiempo.
+
+```sql
+CREATE TABLE IF NOT EXISTS enrollment_session (
+    id UUID PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+    challenges JSONB NOT NULL,
+    samples_collected INTEGER DEFAULT 0,
+    challenge_index INTEGER DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    expires_at TIMESTAMPTZ DEFAULT (NOW() + INTERVAL '1 hour'),
+    completed_at TIMESTAMPTZ
+);
+
+CREATE INDEX IF NOT EXISTS idx_enrollment_session_user ON enrollment_session(user_id);
+CREATE INDEX IF NOT EXISTS idx_enrollment_session_expires ON enrollment_session(expires_at);
+```
+
+**Columnas**:
+- `id`: UUID de la sesión (= el `enrollment_id` que viaja en el flujo)
+- `user_id`: único activo por usuario
+- `challenges`: JSONB con la lista de challenges emitidos
+- `samples_collected`: avance (0..N)
+- `challenge_index`: índice del challenge actual
+- `expires_at`: TTL de la sesión (default: 1 hora desde `created_at`)
+- `completed_at`: NULL hasta que se complete
+
+---
+
+### 5.19 system_settings
+
+**Propósito**: Configuración global mutable del sistema
+controlada por superadmin (por ejemplo `dataset_recording`),
+almacenada como JSONB clave→valor.
+
+```sql
+CREATE TABLE IF NOT EXISTS system_settings (
+    key VARCHAR(100) PRIMARY KEY,
+    value JSONB NOT NULL DEFAULT '{}'::jsonb,
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_by VARCHAR(255)
+);
+```
+
+**Columnas**:
+- `key`: nombre lógico de la setting (PK)
+- `value`: JSONB con shape específica de la setting
+- `updated_at`: timestamp de la última modificación
+- `updated_by`: id del usuario que la modificó
+
+Acceso backend: `GET/PUT /api/admin/system-settings/{key}`.
 
 ---
 
