@@ -6,8 +6,43 @@ de embeddings/contraseñas) y `pg_trgm` (búsqueda por similitud de frases).
 Esquema completo en `infra/db/init.sql` (baseline idempotente, fuente de verdad) + migraciones
 `NNN_*.sql` aplicadas por `infra/db/apply_migrations.py` y registradas en `schema_migrations`.
 
+## Inventario de archivos en `infra/`
+
+### Scripts Python (`infra/db/*.py`)
+
+| Archivo | Estado en git | Qué hace |
+|---|---|---|
+| `apply_migrations.py` | ✅ trackeado | **Runner de migraciones**: aplica `migrations/*.sql` pendientes en orden lexicográfico, cada una en su propia transacción, y las registra en `schema_migrations` con checksum SHA-256. Falla si una migración ya aplicada fue editada. Soporta `--dry-run` y `--dir`. Conexión vía `DATABASE_URL` o variables `DB_*`. Lo ejecuta el contenedor `api` al arrancar y el conftest de pytest en `voice_biometrics_test`. |
+| `assign_books_to_phrases.py` | ✅ trackeado | **One-off (2025)**: asigna `book_id` y `source` a las frases existentes que quedaron sin libro, distribuyéndolas uniformemente entre los `books` (solución temporal porque se perdió el mapping original de extracción). |
+| `extract_phrases.py` | ❌ gitignored | **Extracción de frases desde `Libros/*.pdf`** (PyMuPDF): filtra frases por calidad, calcula `phoneme_score` (diversidad fonémica del español), `style` (narrative/descriptive/dialogue/poetic) y dificultad; inserta en `phrase` (limpiando las existentes). `--dry-run`, `--min-per-book`, `--max-per-book`. |
+| `extract_to_txt.py` | ❌ gitignored | **Variante offline de la extracción**: genera `frases_por_libro/<libro>.txt` (secciones `## EASY/MEDIUM/HARD` + metadatos `[score\|style]`) para revisión manual; no toca la base de datos. |
+| `import_phrases_from_txt.py` | ❌ gitignored | **Importa los TXT revisados** de `frases_por_libro/` a la tabla `phrase` (language `'es'`); borra las frases existentes por defecto (`--no-clear` para conservarlas); `--dry-run` disponible. |
+
+### Archivos SQL
+
+| Archivo | Estado en git | Qué hace |
+|---|---|---|
+| `init.sql` | ✅ trackeado | **Baseline completo e idempotente** (fuente de verdad): extensiones `pgcrypto` + `pg_trgm`, las 20 tablas, enum `auth_reason`, vista `v_attempt_metrics`, 3 funciones + 2 triggers, índices y seeds de referencia (36 libros, 10 reglas de calidad, `system_settings`, usuarios dev). Corre vía `docker-entrypoint-initdb.d` en volúmenes nuevos y en el conftest de tests. |
+| `migrations/001_add_auth_attempt_indexes.sql` | ✅ trackeado | **Migración activa**: índices `idx_auth_attempt_challenge` y `idx_auth_attempt_client` (ver §índices; ya replicados en `init.sql` para BDs nuevas). |
+| `migrations/README.md` | ✅ trackeado | Convenciones del runner: numeración `NNN_*`, forward-only, idempotencia, checksum. |
+| `data_dump.sql` | ❌ gitignored (PII) | `pg_dump` del entorno real: 37.407 frases + usuarios + datos de runtime. Restaurar tras crear el esquema (ver §Restauración). |
+| `Libros/*.pdf` | ❌ gitignored (copyright) | Libros fuente de las frases (provistos por el usuario; no están en el repo). |
+| `frases_por_libro/*.txt` | ❌ gitignored | Extracciones de frases por libro (intermedio entre `extract_to_txt.py` e `import_phrases_from_txt.py`). |
+
+### Flujo de población de frases
+
+```
+Libros/*.pdf ──extract_to_txt.py──▶ frases_por_libro/*.txt ──import_phrases_from_txt.py──▶ phrase
+                          (revisión manual del TXT)                        (borra previas)
+extract_phrases.py: ruta directa PDF → phrase (misma lógica, sin paso de revisión)
+assign_books_to_phrases.py: one-off histórico para re-asignar book_id tras el cambio de esquema
+```
+
+Los **datos de runtime** (frases reales, usuarios) NO vienen de estos scripts: se restauran desde
+`data_dump.sql`. Los scripts solo se usan para re-extraer/regenerar frases desde los libros.
+
 ## Estructura
-21 tablas + vista `v_attempt_metrics` + enum `auth_reason` + 3 funciones/triggers.
+20 tablas + vista `v_attempt_metrics` + enum `auth_reason` + 3 funciones + 2 triggers.
 
 | Tabla | Propósito | Estado |
 |---|---|---|
