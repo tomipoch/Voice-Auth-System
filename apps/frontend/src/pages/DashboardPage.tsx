@@ -4,18 +4,13 @@ import { Mic, Shield, Users, Activity, AlertCircle } from 'lucide-react';
 import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
 import { useAuth } from '../hooks/useAuth';
-import { verificationService } from '../services/apiServices';
+import verificationService from '../services/verificationService';
+import type { VerificationHistoryItem } from '../services/verificationService';
 
 interface ActivityItem {
   type: 'success' | 'error' | 'warning';
   message: string;
   timestamp: string;
-}
-
-interface HistoryAttempt {
-  result: string;
-  score: number;
-  date: string;
 }
 
 const DashboardPage = () => {
@@ -32,7 +27,7 @@ const DashboardPage = () => {
           if (response.success && response.history?.recent_attempts) {
             // Transform backend data to match activity format
             const activities = response.history.recent_attempts.map(
-              (h: HistoryAttempt) =>
+              (h: VerificationHistoryItem) =>
                 ({
                   type: h.result === 'success' ? 'success' : 'error',
                   message:
