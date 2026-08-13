@@ -11,8 +11,6 @@ Reglas:
   y falla). Para revertir, se escribe una migración nueva.
 - Cada migración debe ser idempotente cuando tenga sentido (`IF NOT EXISTS`,
   `ON CONFLICT ... DO NOTHING`).
-- `legacy/` contiene los scripts ad-hoc anteriores (sin runner); su contenido ya está
-  consolidado en `init.sql`. No moverlos de vuelta.
 
 Aplicar:
 

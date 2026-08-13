@@ -6,8 +6,7 @@ Uso:
 
 Variables de entorno: DATABASE_URL (prioritaria) o DB_HOST/DB_PORT/DB_NAME/DB_USER/DB_PASSWORD.
 Cada migración se aplica en una transacción propia y se registra con su checksum;
-editar una migración ya aplicada produce error. Los subdirectorios (p. ej. legacy/)
-se ignoran.
+editar una migración ya aplicada produce error. Los subdirectorios se ignoran.
 """
 
 import argparse
