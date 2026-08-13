@@ -1,21 +1,17 @@
 """Pytest configuration for integration tests."""
 
+import asyncio
+
 import pytest
 import asyncpg
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-import asyncio
 from httpx import AsyncClient, ASGITransport
 from typing import AsyncGenerator
 
 # Import the FastAPI app
 import sys
-# The following line is already present in the original code, but the instruction implies adding it.
-# To avoid duplication, I'll ensure it's there.
-# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
-# Let's re-evaluate the sys.path.insert. The original code does not have it.
-# The instruction adds it. So it should be added.
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 from src.main import create_app
@@ -24,6 +20,19 @@ from src.main import create_app
 # Load environment variables from test.env
 env_path = Path(__file__).parent.parent.parent / 'test.env'
 load_dotenv(env_path)
+
+@pytest.fixture(autouse=True)
+def reset_global_db_pool():
+    """Cierra el pool global de asyncpg antes de cada test para evitar que
+    conexiones abiertas en loops anteriores contaminen el siguiente test."""
+    from src.infrastructure.config import dependencies as deps
+
+    deps._db_pool = None
+    deps._db_initialized = False
+    deps._initialization_error = None
+
+    yield
+
 
 @pytest.fixture(scope="session")
 def event_loop():

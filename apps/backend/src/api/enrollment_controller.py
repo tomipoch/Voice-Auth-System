@@ -46,7 +46,6 @@ async def start_enrollment(
 ):
     # Scope check: non-admin users can only enroll themselves
     if current_user.get("role") not in ("admin", "superadmin"):
-        from uuid import UUID
         token_uid = str(current_user.get("id") or current_user.get("user_id") or "")
         if user_id and token_uid != user_id:
             raise HTTPException(
@@ -57,12 +56,12 @@ async def start_enrollment(
             user_id = token_uid
     """
     Start enrollment process and get phrases for user.
-    
+
     - **external_ref**: External reference for the user (optional)
     - **user_id**: User UUID (optional, will be created if not provided)
     - **difficulty**: Phrase difficulty level (easy/medium/hard)
     - **force_overwrite**: Force overwrite existing voiceprint if it exists
-    
+
     Returns enrollment_id, user_id, and list of phrases to read.
     """
     user_uuid = UUID(user_id) if user_id else None
