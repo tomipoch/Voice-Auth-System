@@ -1,13 +1,14 @@
 """Authorization helpers for endpoint protection."""
 
+import hashlib
 from typing import Optional
 from uuid import UUID
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, Header, HTTPException, status
 
 from src.api.auth_controller import get_current_user
 
-__all__ = ["get_current_user", "enforce_user_scope", "require_admin_user"]
+__all__ = ["get_current_user", "enforce_user_scope", "require_admin_user", "get_optional_client"]
 
 
 def _is_admin(user: dict) -> bool:
@@ -47,3 +48,30 @@ async def require_admin_user(
             detail="Admin access required",
         )
     return current_user
+
+
+async def get_optional_client(
+    x_api_key: Optional[str] = Header(default=None),
+) -> Optional[dict]:
+    """Dependency opcional: si llega X-API-Key válida, devuelve el cliente; si no, None.
+
+    La autenticación por usuario (JWT) sigue funcionando igual; esta dependency
+    permite a clientes externos usar la API con su propia key.
+    """
+    if not x_api_key:
+        return None
+    from src.infrastructure.config.dependencies import get_client_app_repository
+    from src.domain.repositories.client_app_repository_port import ClientAppRepositoryPort
+    from src.infrastructure.persistence.postgres_client_app_repository import (
+        PostgresClientAppRepository,
+    )
+
+    repo: ClientAppRepositoryPort = await get_client_app_repository()
+    key_hash = hashlib.sha256(x_api_key.encode("utf-8")).hexdigest()
+    client = await repo.get_client_by_api_key(key_hash)
+    if client is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid API key",
+        )
+    return client

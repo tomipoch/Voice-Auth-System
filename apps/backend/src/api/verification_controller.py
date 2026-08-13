@@ -10,7 +10,7 @@ import logging
 from ..application.verification_service import VerificationService
 from ..infrastructure.biometrics.voice_biometric_engine_facade import VoiceBiometricEngineFacade
 from .rate_limit import limiter, verification_limit
-from .auth_guards import enforce_user_scope, get_current_user
+from .auth_guards import enforce_user_scope, get_current_user, get_optional_client
 from ..application.dto.verification_dto import (
     StartVerificationRequest,
     StartVerificationResponse,
@@ -88,7 +88,8 @@ async def verify_voice(
     phrase_id: str = Form(...),
     audio_file: UploadFile = File(...),
     verification_service: VerificationService = Depends(get_verification_service),
-    voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine)
+    voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine),
+    client: Optional[dict] = Depends(get_optional_client),
 ):
     """
     Verify voice with phrase validation.
@@ -144,6 +145,7 @@ async def verify_voice(
             transcribed_text=transcribed_text,
             expected_phrase=expected_phrase,
             audio_bytes=audio_bytes,
+            client_id=UUID(client["id"]) if client else None,
             total_latency_ms=int((time.monotonic() - start_time) * 1000),
         )
         
@@ -185,7 +187,8 @@ async def quick_verify(
     user_id: str = Form(...),
     audio_file: UploadFile = File(...),
     verification_service: VerificationService = Depends(get_verification_service),
-    voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine)
+    voice_engine: VoiceBiometricEngineFacade = Depends(get_voice_biometric_engine),
+    client: Optional[dict] = Depends(get_optional_client),
 ):
     """
     Quick verification without phrase management (for simple use cases).
@@ -244,6 +247,7 @@ async def quick_verify(
             embedding=embedding,
             anti_spoofing_score=anti_spoofing_score,
             audio_bytes=audio_bytes,
+            client_id=UUID(client["id"]) if client else None,
             total_latency_ms=int((time.monotonic() - start_time) * 1000),
         )
         
@@ -320,6 +324,7 @@ async def verify_phrase(
     audit_repo: AuditLogRepositoryPort = Depends(get_audit_log_repository),
     user_repo: UserRepositoryPort = Depends(get_user_repository),
     _current_user=Depends(get_current_user),
+    client: Optional[dict] = Depends(get_optional_client),
 ):
     """
     Verify a single phrase in multi-phrase verification.
@@ -376,6 +381,7 @@ async def verify_phrase(
             anti_spoofing_score=anti_spoofing_score,
             transcribed_text=transcribed_text,
             audio_bytes=audio_bytes,
+            client_id=UUID(client["id"]) if client else None,
             total_latency_ms=int((time.monotonic() - start_time) * 1000),
         )
         

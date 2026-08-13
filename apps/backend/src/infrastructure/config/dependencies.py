@@ -265,6 +265,13 @@ async def get_system_settings_repository():
     return PostgresSystemSettingsRepository(pool)
 
 
+async def get_client_app_repository():
+    """Get client app repository instance."""
+    from ..persistence.postgres_client_app_repository import PostgresClientAppRepository
+    pool = await get_db_pool()
+    return PostgresClientAppRepository(pool)
+
+
 async def get_challenge_service():
     """Get challenge service instance with dependencies."""
     from ..persistence.postgres_challenge_repository import PostgresChallengeRepository

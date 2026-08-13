@@ -10,6 +10,7 @@ import json
 from datetime import datetime, timedelta
 
 from .auth_controller import get_current_user
+from .auth_guards import require_admin_user
 
 logger = logging.getLogger(__name__)
 
@@ -644,26 +645,26 @@ async def toggle_phrase_quality_rule(
 ):
     """
     Enable or disable a phrase quality rule (admin only).
-    
+
     - **rule_name**: Name of the rule to toggle
     - **is_active**: True to enable, False to disable
     """
     try:
         success = await rules_service.toggle_rule(rule_name, is_active)
-        
+
         if not success:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Rule '{rule_name}' not found"
             )
-        
+
         return {
             "success": True,
             "message": f"Rule '{rule_name}' {'enabled' if is_active else 'disabled'}",
             "rule_name": rule_name,
             "is_active": is_active
         }
-        
+
     except HTTPException:
         raise
     except Exception as e:
@@ -672,3 +673,92 @@ async def toggle_phrase_quality_rule(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to toggle phrase quality rule"
         )
+
+
+# =====================================================
+# API Clients CRUD (X-API-Key para clientes externos)
+# =====================================================
+
+from ..domain.repositories.client_app_repository_port import ClientAppRepositoryPort
+from ..infrastructure.config.dependencies import get_client_app_repository
+
+
+class CreateClientRequest(BaseModel):
+    name: str = Field(min_length=1, max_length=200)
+    contact_email: Optional[str] = None
+
+
+class CreateClientResponse(BaseModel):
+    client_id: str
+    name: str
+    api_key: str  # se muestra UNA sola vez en la respuesta
+
+
+class ClientListResponse(BaseModel):
+    clients: list
+
+
+class RotateClientKeyResponse(BaseModel):
+    client_id: str
+    api_key: str
+
+
+@admin_router.post("/clients", response_model=CreateClientResponse)
+async def create_api_client(
+    request: CreateClientRequest,
+    client_repo: ClientAppRepositoryPort = Depends(get_client_app_repository),
+    _admin=Depends(require_admin_user),
+):
+    """Crea un cliente externo de la API con una API key nueva (devuelta una sola vez)."""
+    try:
+        client_id, raw_key = await client_repo.create_client(request.name, request.contact_email)
+        return CreateClientResponse(client_id=str(client_id), name=request.name, api_key=raw_key)
+    except Exception as e:
+        logger.error(f"Error creating API client: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to create API client",
+        )
+
+
+@admin_router.get("/clients", response_model=ClientListResponse)
+async def list_api_clients(
+    client_repo: ClientAppRepositoryPort = Depends(get_client_app_repository),
+    _admin=Depends(require_admin_user),
+):
+    """Lista clientes externos de la API (sin exponer key_hash)."""
+    try:
+        return ClientListResponse(clients=await client_repo.list_clients())
+    except Exception as e:
+        logger.error(f"Error listing API clients: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to list API clients",
+        )
+
+
+@admin_router.post("/clients/{client_id}/rotate", response_model=RotateClientKeyResponse)
+async def rotate_api_client_key(
+    client_id: UUID,
+    client_repo: ClientAppRepositoryPort = Depends(get_client_app_repository),
+    _admin=Depends(require_admin_user),
+):
+    """Revoca la key actual y emite una nueva."""
+    raw_key = await client_repo.rotate_api_key(client_id)
+    if not raw_key:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Client not found or has no active key",
+        )
+    return RotateClientKeyResponse(client_id=str(client_id), api_key=raw_key)
+
+
+@admin_router.delete("/clients/{client_id}")
+async def revoke_api_client_key(
+    client_id: UUID,
+    client_repo: ClientAppRepositoryPort = Depends(get_client_app_repository),
+    _admin=Depends(require_admin_user),
+):
+    """Revoca la API key activa del cliente."""
+    await client_repo.revoke_api_key(client_id)
+    return {"success": True, "client_id": str(client_id)}
