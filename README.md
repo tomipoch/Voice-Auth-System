@@ -52,18 +52,46 @@ Voice-Auth-System/
 
 ## 🔑 Usuarios de Prueba
 
-| Email | Password | Rol |
-|-------|----------|-----|
-| superadmin@voicebio.com | SuperAdmin2024! | SuperAdmin |
-| admin@empresa.com | AdminEmpresa2024! | Admin |
-| user@empresa.com | User2024! | User |
+> Los hashes bcrypt viven en [`apps/backend/scripts/create_admin_users.sql`](apps/backend/scripts/create_admin_users.sql);
+> las contraseñas legibles se documentan en
+> [`apps/backend/README.md`](apps/backend/README.md) y
+> [`docs/arquitectura/SETUP.md`](docs/arquitectura/SETUP.md). No se commitean en el repo.
+
+| Email | Rol | Empresa |
+|-------|-----|---------|
+| `admin@familia.com` | admin | familia |
+| `superadmin@sistema.com` | superadmin | sistema |
+
+## 📚 Base de datos de libros (necesaria)
+
+El sistema necesita libros de dominio público en `Database/Libros/`
+(no commiteados por derechos de autor). Pasos:
+
+1. Coloque libros `.pdf` o `.txt` en `Database/Libros/`.
+2. El script de extracción de frases (`scripts/extract_phrases.py`)
+   **no está incluido en el repo**; se ejecuta dentro del contenedor
+   de la API para producir las frases. Solo `assign_books_to_phrases.py`
+   está commiteado.
+3. La migración `003` siembra solo los metadatos en la tabla `books`
+   (título, autor, idioma, total_frases); las frases en sí no se
+   generan sin los libros.
+4. Para restaurar las 37.407 frases pre-generadas use el dump
+   local `Database/data_dump.sql` (gitignored por PII —
+
+contiene RUTs). No está en el repo; manténgalo sólo en una copia
+   local fuera de Git.
+
+Si su instalación requiere el dump, regenérelas ejecutando
+`scripts/extract_phrases.py` (omitido) contra los PDFs de su
+proyecto local, o restaure el dump desde su backup personal.
 
 ## 🛠️ Tecnologías
 
 - **Backend**: FastAPI, PostgreSQL 16 (pgvector), Docker
-- **Frontend**: React 19, TypeScript, Tailwind CSS, Vite
+- **Frontend**: React 19, TypeScript, Tailwind CSS (con `rolldown-vite` como bundler)
 - **ML**: SpeechBrain (ECAPA-TDNN), Anti-spoofing (AASIST + RawNet2)
 - **Demo Bank**: Hono + better-sqlite3
+- **Bundler**: `rolldown-vite` (alias npm sobre `vite` declarado en `apps/frontend/package.json` `overrides`)
 
 ## 📚 Documentación
 
