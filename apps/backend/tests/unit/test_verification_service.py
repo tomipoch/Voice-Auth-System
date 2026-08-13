@@ -27,6 +27,7 @@ def _make_service():
     voice_repo.get_voiceprint_by_user = AsyncMock(return_value=None)
     user_repo.user_exists = AsyncMock(return_value=True)
     user_repo.get_user = AsyncMock(return_value={"id": uuid4(), "email": "u@e.com", "role": "user"})
+    user_repo.get_user_policy = AsyncMock(return_value={"keep_audio": False})
     challenge_service.create_challenge = AsyncMock(return_value={
         "challenge_id": uuid4(),
         "phrase": "test phrase",
@@ -46,6 +47,11 @@ def _make_service():
     challenge_service.mark_challenge_used = AsyncMock(return_value=None)
     audit_repo.log_event = AsyncMock(return_value=None)
     audit_repo.get_user_activity = AsyncMock(return_value=[])
+    attempt_repo = MagicMock()
+    attempt_repo.save_audio_blob = AsyncMock(return_value=uuid4())
+    attempt_repo.record_attempt = AsyncMock(return_value=uuid4())
+    model_version_repo = MagicMock()
+    model_version_repo.get_model_id = AsyncMock(return_value=1)
 
     service = VerificationService(
         voice_repo=voice_repo,
@@ -53,8 +59,10 @@ def _make_service():
         audit_repo=audit_repo,
         challenge_service=challenge_service,
         biometric_validator=biometric_validator,
+        attempt_repo=attempt_repo,
+        model_version_repo=model_version_repo,
     )
-    return service, voice_repo, user_repo, audit_repo, challenge_service, biometric_validator
+    return service, voice_repo, user_repo, audit_repo, challenge_service, biometric_validator, attempt_repo, model_version_repo
 
 
 def _embedding() -> np.ndarray:
@@ -161,7 +169,7 @@ class TestStartVerification:
             await service.start_verification(user_id=user_id)
 
     async def test_creates_challenge_and_session(self):
-        service, voice_repo, user_repo, audit_repo, challenge_service, _ = _make_service()
+        service, voice_repo, user_repo, audit_repo, challenge_service, *_ = _make_service()
         user_id = uuid4()
         voice_repo.get_voiceprint_by_user = AsyncMock(return_value=AsyncMock(embedding=[0.1] * EMBEDDING_DIMENSION))
         result = await service.start_verification(user_id=user_id, difficulty="medium")
@@ -179,7 +187,7 @@ class TestQuickVerify:
             await service.quick_verify(user_id=uuid4(), embedding=_embedding())
 
     async def test_returns_verified_for_good_match(self):
-        service, voice_repo, _, _, _, biometric_validator = _make_service()
+        service, voice_repo, _, _, _, biometric_validator, *_ = _make_service()
         user_id = uuid4()
         voice_repo.get_voiceprint_by_user = AsyncMock(return_value=AsyncMock(embedding=[0.1] * EMBEDDING_DIMENSION))
         biometric_validator.calculate_similarity = MagicMock(return_value=0.9)
@@ -201,3 +209,62 @@ class TestGetMultiSession:
     def test_returns_none_if_missing(self):
         service, *_ = _make_service()
         assert service.get_multi_session(uuid4()) is None
+
+
+@pytest.mark.asyncio
+class TestPersistAttempt:
+    async def test_quick_verify_records_attempt(self):
+        service, voice_repo, _, _, _, _, attempt_repo, _ = _make_service()
+        user_id = uuid4()
+        voice_repo.get_voiceprint_by_user = AsyncMock(return_value=AsyncMock(embedding=[0.1] * EMBEDDING_DIMENSION))
+
+        await service.quick_verify(user_id=user_id, embedding=_embedding())
+        attempt_repo.record_attempt.assert_awaited_once()
+        kwargs = attempt_repo.record_attempt.await_args.kwargs
+        assert kwargs["accept"] is True
+        assert kwargs["reason"] == "ok"
+        assert kwargs["policy_id"] == "quick"
+
+    async def test_verify_voice_records_attempt_with_policy_single(self):
+        service, voice_repo, user_repo, _, challenge_service, biometric_validator, attempt_repo, _ = _make_service()
+        user_id = uuid4()
+        voice_repo.get_voiceprint_by_user = AsyncMock(return_value=AsyncMock(embedding=[0.1] * EMBEDDING_DIMENSION))
+        biometric_validator.calculate_similarity = MagicMock(return_value=0.9)
+
+        from src.application.verification_service import VerificationSession
+        vid = uuid4()
+        cid = uuid4()
+        service._active_sessions[vid] = VerificationSession(
+            user_id=user_id, verification_id=vid,
+            challenge={"challenge_id": cid, "phrase": "hola"},
+        )
+
+        await service.verify_voice(
+            verification_id=vid, challenge_id=cid, embedding=_embedding(),
+            transcribed_text="hola", expected_phrase="hola",
+        )
+        attempt_repo.record_attempt.assert_awaited_once()
+        kwargs = attempt_repo.record_attempt.await_args.kwargs
+        assert kwargs["policy_id"] == "single"
+        assert kwargs["accept"] is True
+
+    async def test_keep_audio_true_persists_audio_blob(self):
+        service, voice_repo, user_repo, _, _, _, attempt_repo, _ = _make_service()
+        user_repo.get_user_policy = AsyncMock(return_value={"keep_audio": True})
+        user_id = uuid4()
+        voice_repo.get_voiceprint_by_user = AsyncMock(return_value=AsyncMock(embedding=[0.1] * EMBEDDING_DIMENSION))
+
+        await service.quick_verify(user_id=user_id, embedding=_embedding(), audio_bytes=b"RIFF-wav")
+        attempt_repo.save_audio_blob.assert_awaited_once()
+        kwargs = attempt_repo.record_attempt.await_args.kwargs
+        assert kwargs["audio_id"] is not None
+
+    async def test_keep_audio_false_skips_audio_blob(self):
+        service, voice_repo, user_repo, _, _, _, attempt_repo, _ = _make_service()
+        user_repo.get_user_policy = AsyncMock(return_value={"keep_audio": False})
+        user_id = uuid4()
+        voice_repo.get_voiceprint_by_user = AsyncMock(return_value=AsyncMock(embedding=[0.1] * EMBEDDING_DIMENSION))
+
+        await service.quick_verify(user_id=user_id, embedding=_embedding(), audio_bytes=b"RIFF-wav")
+        attempt_repo.save_audio_blob.assert_not_awaited()
+        assert attempt_repo.record_attempt.await_args.kwargs["audio_id"] is None

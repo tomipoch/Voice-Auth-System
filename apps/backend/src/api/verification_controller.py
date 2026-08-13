@@ -134,13 +134,17 @@ async def verify_voice(
         expected_phrase = phrase.text if phrase else None
         
         # Verify voice with phrase matching
+        import time
+        start_time = time.monotonic()
         verify_result = await verification_service.verify_voice(
             verification_id=verification_uuid,
             challenge_id=phrase_uuid,  # Fixed: was phrase_id, now challenge_id
             embedding=embedding,
             anti_spoofing_score=anti_spoofing_score,
             transcribed_text=transcribed_text,
-            expected_phrase=expected_phrase
+            expected_phrase=expected_phrase,
+            audio_bytes=audio_bytes,
+            total_latency_ms=int((time.monotonic() - start_time) * 1000),
         )
         
         # Debug logging
@@ -233,10 +237,14 @@ async def quick_verify(
         anti_spoofing_score = features.get("anti_spoofing_score")
         
         # Quick verify
+        import time
+        start_time = time.monotonic()
         verify_result = await verification_service.quick_verify(
             user_id=user_uuid,
             embedding=embedding,
-            anti_spoofing_score=anti_spoofing_score
+            anti_spoofing_score=anti_spoofing_score,
+            audio_bytes=audio_bytes,
+            total_latency_ms=int((time.monotonic() - start_time) * 1000),
         )
         
         return VerifyVoiceResponse(
@@ -358,13 +366,17 @@ async def verify_phrase(
         user_id_for_dataset = str(multi_session.user_id) if multi_session else None
         
         # Verify phrase
+        import time
+        start_time = time.monotonic()
         result = await verification_service.verify_phrase(
             verification_id=verification_uuid,
             challenge_id=phrase_uuid,  # Changed from phrase_id to challenge_id
             phrase_number=phrase_number,
             embedding=embedding,
             anti_spoofing_score=anti_spoofing_score,
-            transcribed_text=transcribed_text
+            transcribed_text=transcribed_text,
+            audio_bytes=audio_bytes,
+            total_latency_ms=int((time.monotonic() - start_time) * 1000),
         )
         
         logger.info(f"Phrase {phrase_number} verified. is_complete={result.get('is_complete')}")

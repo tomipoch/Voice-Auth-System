@@ -217,22 +217,28 @@ async def get_verification_service():
     """Get verification service instance with dependencies."""
     from ..persistence.postgres_voice_signature_repository import PostgresVoiceSignatureRepository
     from ..persistence.postgres_audit_log_repository import PostgresAuditLogRepository
+    from ..persistence.postgres_verification_attempt_repository import PostgresVerificationAttemptRepository
+    from ..persistence.postgres_model_version_repository import PostgresModelVersionRepository
     from ...application.verification_service import VerificationService
-    
+
     pool = await get_db_pool()
-    
+
     voice_repo = PostgresVoiceSignatureRepository(pool)
     user_repo = await get_user_repository()
     audit_repo = PostgresAuditLogRepository(pool)
+    attempt_repo = PostgresVerificationAttemptRepository(pool)
+    model_version_repo = PostgresModelVersionRepository(pool)
     challenge_service = await get_challenge_service()
     biometric_validator = get_biometric_validator()
-    
+
     return VerificationService(
         voice_repo=voice_repo,
         user_repo=user_repo,
         audit_repo=audit_repo,
         challenge_service=challenge_service,
         biometric_validator=biometric_validator,
+        attempt_repo=attempt_repo,
+        model_version_repo=model_version_repo,
         similarity_threshold=SIMILARITY_THRESHOLD,
         anti_spoofing_threshold=ANTI_SPOOFING_THRESHOLD,
     )

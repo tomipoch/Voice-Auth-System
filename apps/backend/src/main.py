@@ -163,7 +163,30 @@ async def lifespan(app: FastAPI):
             logger.info("✅ Application fully ready")
         except Exception as e:
             logger.error(f"Model loading failed: {e}")
-    
+
+    # 4. Registrar versiones de modelos ML en model_version (trazabilidad forense).
+    #    Mapea model_type='antispoofing' (interno) al CHECK del enum model_version.kind='antispoof'.
+    if os.getenv("TESTING") != "True":
+        try:
+            from .infrastructure.persistence.postgres_model_version_repository import PostgresModelVersionRepository
+            from .infrastructure.biometrics.model_manager import ModelManager
+
+            pool = await get_db_pool()
+            model_repo = PostgresModelVersionRepository(pool)
+            manager = ModelManager(models_dir=os.getenv("MODEL_CACHE_DIR", "models"))
+            registry = [
+                {
+                    "kind": ("antispoof" if cfg.model_type == "antispoofing" else cfg.model_type),
+                    "name": key,
+                    "version": cfg.version,
+                }
+                for key, cfg in manager.models.items()
+            ]
+            await model_repo.register_models(registry)
+            logger.info(f"Registered {len(registry)} ML model versions in model_version")
+        except Exception as exc:
+            logger.warning(f"Could not register model versions: {exc}")
+
     yield
     
     logger.info("Shutting down Voice Biometrics API...")

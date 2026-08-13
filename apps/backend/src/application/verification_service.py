@@ -11,6 +11,10 @@ from datetime import datetime, timezone
 from ..domain.repositories.voice_signature_repository_port import VoiceSignatureRepositoryPort
 from ..domain.repositories.user_repository_port import UserRepositoryPort
 from ..domain.repositories.audit_log_repository_port import AuditLogRepositoryPort
+from ..domain.repositories.verification_attempt_repository_port import (
+    VerificationAttemptRepositoryPort,
+)
+from ..domain.repositories.model_version_repository_port import ModelVersionRepositoryPort
 from ..shared.types.common_types import VoiceEmbedding, AuditAction, ChallengeId
 
 logger = logging.getLogger(__name__)
@@ -50,6 +54,8 @@ class VerificationService:
         audit_repo: AuditLogRepositoryPort,
         challenge_service,  # ChallengeService
         biometric_validator: BiometricValidator,
+        attempt_repo: Optional[VerificationAttemptRepositoryPort] = None,
+        model_version_repo: Optional[ModelVersionRepositoryPort] = None,
         similarity_threshold: Optional[float] = None,
         anti_spoofing_threshold: Optional[float] = None,
     ):
@@ -60,6 +66,8 @@ class VerificationService:
         self._audit_repo = audit_repo
         self._challenge_service = challenge_service
         self._biometric_validator = biometric_validator
+        self._attempt_repo = attempt_repo
+        self._model_version_repo = model_version_repo
         self._similarity_threshold = (
             similarity_threshold
             if similarity_threshold is not None
@@ -75,6 +83,65 @@ class VerificationService:
         self._active_sessions: Dict[UUID, VerificationSession] = {}
         self._active_multi_sessions: Dict[UUID, MultiPhraseVerificationSession] = {}
     
+    def _map_reason(self, is_verified: bool, is_live: bool, phrase_match: bool) -> str:
+        """Mapea el resultado de la verificación al enum auth_reason."""
+        if is_verified:
+            return "ok"
+        if not is_live:
+            return "spoof"
+        if not phrase_match:
+            return "bad_phrase"
+        return "low_similarity"
+
+    async def _persist_attempt(
+        self,
+        *,
+        user_id: UUID,
+        accept: bool,
+        reason: str,
+        similarity: float,
+        spoof_prob: float,
+        phrase_match: float,
+        phrase_ok: bool,
+        policy_id: str,
+        client_id: Optional[UUID] = None,
+        challenge_id: Optional[UUID] = None,
+        audio_bytes: Optional[bytes] = None,
+        total_latency_ms: Optional[int] = None,
+    ) -> None:
+        """Persiste el intento en auth_attempt + scores (+ audio_blob si keep_audio)."""
+        if self._attempt_repo is None:
+            return
+        audio_id = None
+        if audio_bytes is not None:
+            try:
+                policy = await self._user_repo.get_user_policy(user_id)
+            except Exception:
+                policy = None
+            if policy and policy.get("keep_audio"):
+                audio_id = await self._attempt_repo.save_audio_blob(audio_bytes, "audio/wav")
+        model_ids = {"speaker": None, "antispoof": None, "asr": None}
+        if self._model_version_repo is not None:
+            for kind in ("speaker", "antispoof", "asr"):
+                model_ids[kind] = await self._model_version_repo.get_model_id(kind)
+        await self._attempt_repo.record_attempt(
+            user_id=user_id,
+            client_id=client_id,
+            challenge_id=challenge_id,
+            audio_id=audio_id,
+            accept=accept,
+            reason=reason,
+            policy_id=policy_id,
+            total_latency_ms=total_latency_ms,
+            similarity=float(similarity),
+            spoof_prob=float(spoof_prob),
+            phrase_match=float(phrase_match),
+            phrase_ok=bool(phrase_ok),
+            speaker_model_id=model_ids.get("speaker"),
+            antispoof_model_id=model_ids.get("antispoof"),
+            asr_model_id=model_ids.get("asr"),
+        )
+
     def _calculate_phrase_similarity(self, expected: str, transcribed: str) -> float:
         """Calculate similarity between expected and transcribed phrases."""
         norm_expected = expected.lower().strip()
@@ -210,7 +277,10 @@ class VerificationService:
         embedding: VoiceEmbedding,
         anti_spoofing_score: Optional[float] = None,
         transcribed_text: Optional[str] = None,
-        expected_phrase: Optional[str] = None
+        expected_phrase: Optional[str] = None,
+        audio_bytes: Optional[bytes] = None,
+        client_id: Optional[UUID] = None,
+        total_latency_ms: Optional[int] = None,
     ) -> Dict:
         """Verify voice with challenge validation and optional phrase matching."""
         
@@ -300,6 +370,22 @@ class VerificationService:
         except Exception as exc:
             logger.warning("Evaluation logger skipped verification attempt: %s", exc)
         
+        # Persistir la decisión y las señales técnicas
+        await self._persist_attempt(
+            user_id=session.user_id,
+            accept=is_verified,
+            reason=self._map_reason(is_verified, is_live, phrase_match),
+            similarity=similarity_score,
+            spoof_prob=anti_spoofing_score if anti_spoofing_score is not None else 0.0,
+            phrase_match=phrase_match_score,
+            phrase_ok=phrase_match,
+            policy_id="single",
+            challenge_id=challenge_id,
+            audio_bytes=audio_bytes,
+            client_id=client_id,
+            total_latency_ms=total_latency_ms,
+        )
+
         # Clean up session
         del self._active_sessions[verification_id]
         
@@ -320,7 +406,10 @@ class VerificationService:
         self,
         user_id: UUID,
         embedding: VoiceEmbedding,
-        anti_spoofing_score: Optional[float] = None
+        anti_spoofing_score: Optional[float] = None,
+        audio_bytes: Optional[bytes] = None,
+        client_id: Optional[UUID] = None,
+        total_latency_ms: Optional[int] = None,
     ) -> Dict:
         """Quick verification without phrase management (for simple use cases)."""
         
@@ -360,8 +449,23 @@ class VerificationService:
                 "is_verified": is_verified
             }
         )
-        
-        
+
+        # Persistir la decisión y las señales técnicas
+        await self._persist_attempt(
+            user_id=user_id,
+            accept=is_verified,
+            reason=self._map_reason(is_verified, is_live, phrase_match=True),
+            similarity=similarity_score,
+            spoof_prob=anti_spoofing_score if anti_spoofing_score is not None else 0.0,
+            phrase_match=0.0,
+            phrase_ok=True,
+            policy_id="quick",
+            audio_bytes=audio_bytes,
+            client_id=client_id,
+            total_latency_ms=total_latency_ms,
+        )
+
+
         return {
             "user_id": str(user_id),
             "is_verified": is_verified,
@@ -481,7 +585,10 @@ class VerificationService:
         phrase_number: int,
         embedding: VoiceEmbedding,
         transcribed_text: Optional[str] = None,
-        anti_spoofing_score: Optional[float] = None
+        anti_spoofing_score: Optional[float] = None,
+        audio_bytes: Optional[bytes] = None,
+        client_id: Optional[UUID] = None,
+        total_latency_ms: Optional[int] = None,
     ) -> Dict:
         """Verify a single phrase implementation with real ASR scoring."""
         
@@ -538,10 +645,34 @@ class VerificationService:
             # Calculate average score
             avg_score = sum(r["final_score"] for r in session.results) / 3
             is_verified = avg_score >= self._similarity_threshold
-            
+            avg_similarity = sum(r["similarity_score"] for r in session.results) / 3
+            avg_phrase = sum(r["asr_confidence"] for r in session.results) / 3
+            avg_spoof = sum(r["anti_spoofing_score"] for r in session.results) / 3
+            any_spoof = any(
+                r["anti_spoofing_score"] >= self._anti_spoofing_threshold
+                for r in session.results
+            )
+
+            # Persistir un intento por verificación multi (decisión final)
+            await self._persist_attempt(
+                user_id=session.user_id,
+                accept=is_verified,
+                reason=("spoof" if any_spoof else
+                        "ok" if is_verified else "low_similarity"),
+                similarity=avg_similarity,
+                spoof_prob=avg_spoof,
+                phrase_match=avg_phrase,
+                phrase_ok=is_verified,
+                policy_id="multi",
+                challenge_id=UUID(str(session.challenges[0]["challenge_id"])) if session.challenges else None,
+                audio_bytes=audio_bytes,
+                total_latency_ms=total_latency_ms,
+                client_id=client_id,
+            )
+
             # Clean up session (audit log saved in controller with IP, user agent)
             del self._active_multi_sessions[verification_id]
-            
+
             return {
                 "is_complete": True,
                 "user_id": str(session.user_id),  # Added for audit logging
