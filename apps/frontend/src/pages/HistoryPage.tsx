@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calendar, CheckCircle, XCircle, Search, Filter } from 'lucide-react';
+import { Calendar, CheckCircle, XCircle } from 'lucide-react';
 import MainLayout from '../components/ui/MainLayout';
 import Card from '../components/ui/Card';
 
@@ -14,8 +14,6 @@ const mockHistory = [
 
 const HistoryPage = () => {
   const [history] = useState(mockHistory);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('all');
 
   return (
     <MainLayout>
@@ -29,32 +27,6 @@ const HistoryPage = () => {
       </div>
 
       <Card className="p-6 shadow-xl backdrop-blur-xl border border-blue-200/40 dark:border-gray-600/40">
-        {/* Filters and Search */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-          <div className="relative w-full md:w-64">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-gray-500" />
-            <select
-              className="border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-            >
-              <option value="all">Todos</option>
-              <option value="success">Exitosos</option>
-              <option value="failed">Fallidos</option>
-            </select>
-          </div>
-        </div>
-
         {/* Table */}
         <div className="overflow-x-auto">
           <table className="min-w-full">

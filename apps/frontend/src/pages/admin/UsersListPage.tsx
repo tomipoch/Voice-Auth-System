@@ -65,9 +65,12 @@ const UsersListPage = () => {
 
     try {
       if (confirmAction.type === 'reset') {
-        // TODO: Implement password reset endpoint when available
-        console.log('Reset password for', confirmAction.user.id);
-        toast.success('Contraseña reseteada exitosamente');
+        toast.error(
+          'El reseteo de contraseñas no está disponible todavía. Pídele al usuario usar "¿Olvidaste tu contraseña?" en el login.'
+        );
+        setShowConfirmModal(false);
+        setConfirmAction(null);
+        return;
       } else {
         // Toggle user status using the new updateUser endpoint
         const newStatus = confirmAction.user.status === 'active' ? 'inactive' : 'active';

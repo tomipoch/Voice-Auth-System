@@ -61,11 +61,6 @@ const DashboardPage = () => {
     isVoiceEnrolled: user?.voice_template ? true : false,
   };
 
-  const systemStats = {
-    avgResponseTime: 150,
-    systemUptime: 99.9,
-  };
-
   return (
     <MainLayout>
       <div className="mb-8">
@@ -246,37 +241,6 @@ const DashboardPage = () => {
                     </span>
                   </div>
                 ))}
-              </div>
-            </div>
-          </Card>
-        </div>
-      )}
-
-      {/* System Metrics (only for admins) */}
-      {systemStats && user?.role === 'admin' && (
-        <div className="mt-8">
-          <Card>
-            <div className="p-6">
-              <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">
-                Métricas del Sistema
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                  <p className="text-sm text-blue-600 dark:text-blue-400 font-medium">
-                    Tiempo de Respuesta Promedio
-                  </p>
-                  <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">
-                    {systemStats.avgResponseTime || 0}ms
-                  </span>
-                </div>
-                <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                  <p className="text-sm text-green-600 dark:text-green-400 font-medium">
-                    Uptime del Sistema
-                  </p>
-                  <span className="text-sm text-green-600 dark:text-green-400 font-medium">
-                    {systemStats.systemUptime || 0}%
-                  </span>
-                </div>
               </div>
             </div>
           </Card>
