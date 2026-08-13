@@ -841,6 +841,243 @@ Authorization: Bearer <admin_access_token>
 
 ---
 
+## Challenges (admin)
+
+### POST `/api/challenges/generate-test-phrase`
+
+Generate an ephemeral test phrase for demo / QA flows. Admin-only
+(no real DB write; the phrase is composed from a small word bank
+on the fly).
+
+**Headers:**
+```
+Authorization: Bearer <admin_access_token>
+```
+
+**Body (multipart/form-data, optional):**
+```
+phrase_type: mixed | words | numbers
+```
+
+**Response:** `200 OK`
+```json
+{
+  "success": true,
+  "phrase": "the quick brown fox",
+  "phrase_type": "mixed"
+}
+```
+
+---
+
+## Evaluation
+
+Evaluation sessions let an admin wrap a series of enroll/verify
+operations and dump the trace to a JSON file. The endpoints
+below manage the lifecycle of those sessions and require admin
+authentication (the FastAPI dependency is `require_admin_user`).
+
+### POST `/api/evaluation/start-session`
+
+Start a new evaluation session. Subsequent enrollment and
+verification operations will be tracked by the
+`evaluation.evaluation_logger` until the session is stopped.
+
+**Headers:**
+```
+Authorization: Bearer <admin_access_token>
+```
+
+**Body:**
+```json
+{ "session_name": "Q1-enrollment-test" }
+```
+
+**Response:** `201 Created`
+```json
+{
+  "session_id": "eval-2026-01-15T12-34-56Z",
+  "message": "Evaluation session started. All operations will be logged."
+}
+```
+
+---
+
+### POST `/api/evaluation/stop-session`
+
+Stop the active session (or a named one via query parameter).
+
+**Headers:**
+```
+Authorization: Bearer <admin_access_token>
+```
+
+**Query Parameters (optional):**
+```
+session_id: <session-id>
+```
+
+**Response:** `200 OK`
+```json
+{
+  "message": "Evaluation session eval-2026-01-15T12-34-56Z stopped",
+  "session_id": "eval-2026-01-15T12-34-56Z"
+}
+```
+
+---
+
+### GET `/api/evaluation/export-session/{session_id}`
+
+Export a session trace to a JSON file (path under
+`evaluation/dataset/...`). Returns the file path written.
+
+**Headers:**
+```
+Authorization: Bearer <admin_access_token>
+```
+
+**Response:** `200 OK`
+```json
+{
+  "message": "Session exported successfully",
+  "session_id": "eval-2026-01-15T12-34-56Z",
+  "filepath": "/api/.../evaluation/dataset/eval-2026-01-15T12-34-56Z.json"
+}
+```
+
+---
+
+### GET `/api/evaluation/sessions`
+
+List the ids of all currently active evaluation sessions.
+
+**Headers:**
+```
+Authorization: Bearer <admin_access_token>
+```
+
+**Response:** `200 OK`
+```json
+["eval-2026-01-15T12-34-56Z", "eval-2026-01-16T09-00-00Z"]
+```
+
+---
+
+### GET `/api/evaluation/session-summary/{session_id}`
+
+Per-session aggregates (counts, timings, decision histogram).
+
+**Headers:**
+```
+Authorization: Bearer <admin_access_token>
+```
+
+**Response:** `200 OK`
+```json
+{
+  "session_id": "eval-2026-01-15T12-34-56Z",
+  "stats": {
+    "total_operations": 47,
+    "enrollments": 5,
+    "verifications": 42
+  }
+}
+```
+
+---
+
+### GET `/api/evaluation/status`
+
+Status of the evaluation system.
+
+**Response:** `200 OK`
+```json
+{
+  "enabled": true,
+  "current_session": "eval-2026-01-15T12-34-56Z",
+  "active_sessions": 1
+}
+```
+
+---
+
+## Dataset Recording
+
+Admin-only lifecycle for collecting raw audio samples during
+verification/enrollment. While enabled, every audio blob is
+written to `evaluation/dataset/recordings/<session_name>/`.
+
+The state lives in `system_settings.dataset_recording` so the
+flag survives backend restarts.
+
+### POST `/api/dataset-recording/start`
+
+**Headers:**
+```
+Authorization: Bearer <admin_access_token>
+```
+
+**Body:**
+```json
+{ "session_name": "Q1-user-evals" }
+```
+
+**Response:** `200 OK`
+```json
+{
+  "success": true,
+  "session_id": "dsr-2026-01-15T12-34-56Z",
+  "session_dir": "/api/.../evaluation/dataset/recordings/Q1-user-evals",
+  "message": "Dataset recording started. ..."
+}
+```
+
+---
+
+### POST `/api/dataset-recording/stop`
+
+**Headers:**
+```
+Authorization: Bearer <admin_access_token>
+```
+
+**Response:** `200 OK`
+```json
+{
+  "success": true,
+  "message": "Dataset recording stopped",
+  "session_dir": "/api/.../evaluation/dataset/recordings/Q1-user-evals"
+}
+```
+
+When no session is active the endpoint returns
+`{"success": false, "message": "No active recording session"}`.
+
+---
+
+### GET `/api/dataset-recording/status`
+
+**Headers:**
+```
+Authorization: Bearer <admin_access_token>
+```
+
+**Response:** `200 OK` (envelope matches the persisted setting plus
+in-memory summary)
+```json
+{
+  "enabled": true,
+  "session_id": "dsr-2026-01-15T12-34-56Z",
+  "session_dir": "/api/.../evaluation/dataset/recordings/Q1-user-evals",
+  "total_users": 12,
+  "total_enrollment_audios": 36,
+  "total_verification_audios": 96
+}
+```
+
+---
+
 ## Error Codes
 
 ### Common HTTP Status Codes
