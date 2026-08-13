@@ -84,22 +84,11 @@ async def test_count_by_difficulty_and_by_status(phrase_repo):
 
 
 @pytest.mark.asyncio
-async def test_list_books_empty_when_no_books(phrase_repo, db_connection):
-    # The test DB is bootstrapped from init.sql only (no migrations), so
-    # create the books table here for the list_books test.
-    await db_connection.execute(
-        """
-        CREATE TABLE IF NOT EXISTS books (
-          id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-          title TEXT NOT NULL,
-          author TEXT,
-          filename TEXT,
-          language TEXT NOT NULL DEFAULT 'es',
-          created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-        )
-        """
-    )
-    assert await phrase_repo.list_books() == []
+async def test_list_books_returns_seeded_books(phrase_repo):
+    """La BD de pruebas (init.sql consolidado) siembra los metadatos de libros."""
+    books = await phrase_repo.list_books()
+    assert len(books) >= 26  # seed del baseline (36 con los PDFs faltantes agregados)
+    assert all(b["title"] and b["author"] for b in books)
 
 
 @pytest.mark.asyncio
@@ -117,3 +106,47 @@ async def test_update_active_status_and_delete(phrase_repo):
     # Updating a missing phrase returns False
     assert await phrase_repo.update_active_status(uuid.uuid4(), True) is False
     assert await phrase_repo.delete(uuid.uuid4()) is False
+
+
+@pytest.fixture
+async def user_in_pool(db_pool):
+    """Crea un usuario en el pool (visible para phrase_repo) y lo limpia al final."""
+    user_id = await db_pool.fetchval(
+        """
+        INSERT INTO "user" (email, password, first_name, last_name, role, company, settings)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        RETURNING id
+        """,
+        f"phrase-{uuid.uuid4().hex[:8]}@example.com",
+        "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYzS.sC",
+        "Phrase", "Test", "user", "acme", "{}",
+    )
+    yield user_id
+    await db_pool.execute('DELETE FROM "user" WHERE id = $1', user_id)
+
+
+@pytest.mark.asyncio
+async def test_get_recent_phrase_ids_orders_by_recency(phrase_repo, user_in_pool, db_pool):
+    """get_recent_phrase_ids devuelve las frases más recientes primero."""
+    from datetime import timedelta
+
+    older = _make_phrase(text="Frase antigua para orden por recencia")
+    middle = _make_phrase(text="Frase intermedia para orden por recencia")
+    newer = _make_phrase(text="Frase reciente para orden por recencia")
+    for p in (older, middle, newer):
+        await phrase_repo.save(p)
+
+    now = datetime.now(timezone.utc)
+    for phrase_id, minutes_ago in [(older.id, 120), (middle.id, 60), (newer.id, 5)]:
+        await db_pool.execute(
+            "INSERT INTO phrase_usage (phrase_id, user_id, used_for, used_at) VALUES ($1, $2, 'verification', $3)",
+            phrase_id, user_in_pool, now - timedelta(minutes=minutes_ago),
+        )
+
+    recent = await phrase_repo.get_recent_phrase_ids(user_in_pool, limit=3)
+    assert recent == [newer.id, middle.id, older.id]
+
+    # Cleanup
+    await db_pool.execute("DELETE FROM phrase_usage WHERE user_id = $1", user_in_pool)
+    for p in (older, middle, newer):
+        await phrase_repo.delete(p.id)

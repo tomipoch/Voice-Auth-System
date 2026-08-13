@@ -145,27 +145,28 @@ class PostgresPhraseRepository(PhraseRepositoryPort):
         limit: int = 50
     ) -> List[UUID]:
         """Get IDs of recently used phrases for a user.
-        
+
         Args:
-            user_id: User ID to get recent phrases for
+            user_id: User ID to get recent phrases
             limit: Maximum number of phrase IDs to return
-            
+
         Returns:
             List of phrase UUIDs, ordered by most recent first
         """
         async with self._pool.acquire() as conn:
             rows = await conn.fetch(
                 """
-                SELECT DISTINCT ON (phrase_id) phrase_id, used_at
+                SELECT phrase_id
                 FROM phrase_usage
                 WHERE user_id = $1 AND phrase_id IS NOT NULL
-                ORDER BY phrase_id, used_at DESC
+                GROUP BY phrase_id
+                ORDER BY MAX(used_at) DESC
                 LIMIT $2
                 """,
                 user_id,
                 limit
             )
-            
+
             return [row['phrase_id'] for row in rows]
 
 
