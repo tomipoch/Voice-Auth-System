@@ -135,24 +135,6 @@ class TestIsVerificationPassed:
         assert service._is_verification_passed(0.85, True, False) is False
 
 
-class TestParseLogMetadata:
-    def test_dict_passthrough(self):
-        service, *_ = _make_service()
-        assert service._parse_log_metadata({"a": 1}) == {"a": 1}
-
-    def test_json_string(self):
-        service, *_ = _make_service()
-        assert service._parse_log_metadata('{"a": 1}') == {"a": 1}
-
-    def test_invalid_json(self):
-        service, *_ = _make_service()
-        assert service._parse_log_metadata("not json") == {}
-
-    def test_none(self):
-        service, *_ = _make_service()
-        assert service._parse_log_metadata(None) == {}
-
-
 @pytest.mark.asyncio
 class TestStartVerification:
     async def test_raises_for_missing_user(self):
@@ -268,3 +250,47 @@ class TestPersistAttempt:
         await service.quick_verify(user_id=user_id, embedding=_embedding(), audio_bytes=b"RIFF-wav")
         attempt_repo.save_audio_blob.assert_not_awaited()
         assert attempt_repo.record_attempt.await_args.kwargs["audio_id"] is None
+
+
+@pytest.mark.asyncio
+class TestGetVerificationHistory:
+    async def test_reads_from_attempt_repo(self):
+        service, _, user_repo, _, _, _, attempt_repo, _ = _make_service()
+        user_id = uuid4()
+        user_repo.user_exists = AsyncMock(return_value=True)
+        attempt_repo.count_by_user = AsyncMock(return_value=2)
+        attempt_repo.get_history = AsyncMock(return_value=[
+            {
+                "id": uuid4(), "created_at": datetime.now(timezone.utc),
+                "accept": True, "reason": "ok", "policy_id": "multi",
+                "total_latency_ms": 200,
+                "similarity": 0.9, "spoof_prob": 0.01, "phrase_match": 0.8, "phrase_ok": True,
+            },
+            {
+                "id": uuid4(), "created_at": datetime.now(timezone.utc),
+                "accept": False, "reason": "spoof", "policy_id": "single",
+                "total_latency_ms": None,
+                "similarity": 0.5, "spoof_prob": 0.9, "phrase_match": 0.7, "phrase_ok": False,
+            },
+        ])
+
+        history = await service.get_verification_history(user_id, limit=10)
+        assert history["total_attempts"] == 2
+        assert len(history["recent_attempts"]) == 2
+        first = history["recent_attempts"][0]
+        assert first["result"] == "success"
+        assert first["score"] == 90
+        assert first["method"] == "Multi-Frase"
+        assert history["recent_attempts"][1]["result"] == "failed"
+        assert history["recent_attempts"][1]["method"] == "Frase Aleatoria"
+
+    async def test_returns_empty_when_attempt_repo_none(self):
+        """Sin attempt_repo (modo test unitario sin BD), devuelve vacío."""
+        service, voice_repo, user_repo, _, _, _, _, _ = _make_service()
+        service._attempt_repo = None
+        user_id = uuid4()
+        user_repo.user_exists = AsyncMock(return_value=True)
+
+        history = await service.get_verification_history(user_id, limit=10)
+        assert history["total_attempts"] == 0
+        assert history["recent_attempts"] == []

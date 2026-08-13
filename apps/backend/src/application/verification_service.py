@@ -192,35 +192,8 @@ class VerificationService:
         """Parse metadata from log entry (handles JSON strings)."""
         from ..shared.json_metadata import parse_json_metadata
         return parse_json_metadata(metadata)
-    
-    def _transform_log_to_attempt(self, log: dict) -> Optional[dict]:
-        """Transform a single audit log entry to verification attempt format."""
-        action = log.get('action')
-        entity_type = log.get('entity_type')
-        valid_actions = {AuditAction.VERIFY.value, 'verify', 'VERIFICATION'}
-        valid_types = {'verification_result', 'multi_verification_complete', 'quick_verification'}
-        
-        if action not in valid_actions or entity_type not in valid_types:
-            return None
-        
-        metadata = self._parse_log_metadata(log.get('metadata', {}))
-        
-        # Extract score based on verification type
-        if entity_type == 'multi_verification_complete':
-            score = int(metadata.get('average_score', 0) * 100)
-        else:
-            score = int(metadata.get('similarity_score', 0) * 100)
-        
-        timestamp = log.get('timestamp')
-        return {
-            "id": log.get('entity_id'),
-            "date": timestamp.strftime("%Y-%m-%d %H:%M") if timestamp else "",
-            "result": "success" if log.get('success') else "failed",
-            "score": score,
-            "method": "Multi-Frase" if entity_type == 'multi_verification_complete' else "Frase Aleatoria",
-            "details": metadata
-        }
-    
+
+
     async def start_verification(
         self,
         user_id: UUID,
@@ -481,26 +454,46 @@ class VerificationService:
         user_id: UUID,
         limit: int = 10
     ) -> Dict:
-        """Get verification history for a user."""
-        
+        """Get verification history for a user from auth_attempt + scores."""
+
         if not await self._user_repo.user_exists(user_id):
             raise ValueError(f"User {user_id} does not exist")
-        
-        # Get verification attempts from audit log (last 30 days)
-        activity = await self._audit_repo.get_user_activity(str(user_id), hours=24*30, limit=limit)
-        logger.debug(f"Retrieved {len(activity)} audit logs for user {user_id}")
-        
-        # Transform logs to attempt format using helper
+
+        if self._attempt_repo is None:
+            return {"user_id": str(user_id), "total_attempts": 0, "recent_attempts": []}
+
+        total = await self._attempt_repo.count_by_user(user_id)
+        rows = await self._attempt_repo.get_history(user_id, limit=limit)
+
+        method_labels = {
+            "single": "Frase Aleatoria",
+            "multi": "Multi-Frase",
+            "quick": "Rápida",
+        }
         attempts = []
-        for log in activity:
-            attempt = self._transform_log_to_attempt(log)
-            if attempt:
-                attempts.append(attempt)
-        
+        for row in rows:
+            policy_id = row.get("policy_id") or "single"
+            score = int(round(float(row["similarity"]) * 100))
+            attempts.append({
+                "id": str(row["id"]),
+                "date": row["created_at"].strftime("%Y-%m-%d %H:%M") if row["created_at"] else "",
+                "result": "success" if row["accept"] else "failed",
+                "score": score,
+                "method": method_labels.get(policy_id, "Frase Aleatoria"),
+                "details": {
+                    "similarity": float(row["similarity"]),
+                    "spoof_prob": float(row["spoof_prob"]),
+                    "phrase_match": float(row["phrase_match"]),
+                    "phrase_ok": bool(row["phrase_ok"]) if row["phrase_ok"] is not None else None,
+                    "reason": row["reason"],
+                    "latency_ms": row["total_latency_ms"],
+                },
+            })
+
         return {
             "user_id": str(user_id),
-            "total_attempts": len(attempts),
-            "recent_attempts": attempts
+            "total_attempts": total,
+            "recent_attempts": attempts,
         }
     
     def get_multi_session(self, verification_id: UUID) -> Optional[MultiPhraseVerificationSession]:
