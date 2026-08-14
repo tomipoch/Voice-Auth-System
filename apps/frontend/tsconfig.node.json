@@ -12,5 +12,5 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["vite.config.ts", "tailwind.config.ts", "eslint.config.ts"]
+  "include": ["vite.config.ts"]
 }

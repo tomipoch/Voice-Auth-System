@@ -54,9 +54,8 @@ bun run typecheck # Verificar tipos
 
 Variables en `.env`:
 ```env
-VITE_API_URL=http://localhost:8000/api
-VITE_BACKEND_URL=http://localhost:8000
-VITE_DEV_MODE=true
+VITE_API_URL=http://localhost:8000
+VITE_ENABLE_MOCK_DATA=false
 ```
 
 ## 🧪 Testing
@@ -69,4 +68,4 @@ bun run test:coverage # Con cobertura
 
 ## 📚 Documentación
 
-Ver [docs/frontend/](../docs/frontend/) para documentación técnica.
+Ver [`docs/arquitectura/FRONTEND.md`](../docs/arquitectura/FRONTEND.md) para documentación técnica.
