@@ -32,7 +32,7 @@ bun install
 # Iniciar servidor backend (puerto 3001)
 bun run server
 
-# En otra terminal, iniciar frontend (puerto 5173)
+# En otra terminal, iniciar frontend (puerto 5174)
 bun run dev
 ```
 
@@ -69,6 +69,6 @@ export const config = {
 
 ## 🛠️ Tecnologías
 
-- **Frontend**: React 18, TypeScript, Tailwind CSS, Vite
+- **Frontend**: React 19, TypeScript, Tailwind CSS, Vite
 - **Backend**: Hono (Node.js), SQLite, JWT
 - **Integración**: API REST con sistema biométrico
