@@ -31,12 +31,11 @@ docker exec -i voice_biometrics_db psql -U voice_user -d voice_biometrics < infr
 ```
 Voice-Auth-System/
 ├── apps/
-│   ├── backend/         # API FastAPI + PostgreSQL
+│   ├── backend/         # API FastAPI + PostgreSQL (+ Dockerfile)
 │   ├── frontend/        # UI React + Vite + Tailwind
 │   └── demo-bank/       # Demo "Banco Pirulete" (integración con el API)
 ├── infra/
-│   ├── db/              # Schema SQL + migraciones + datos de libros
-│   ├── deployment/      # Dockerfile multi-stage del backend
+│   ├── db/              # Schema SQL + migraciones + herramientas de libros
 │   └── evaluation/      # Dataset de evaluación (PII, gitignored)
 ├── docs/
 │   ├── arquitectura/    # Arquitectura, ML, backend, DB, frontend
@@ -44,8 +43,7 @@ Voice-Auth-System/
 │   ├── informe/         # Informe de tesis + interpretación de gráficos
 │   ├── API_ENDPOINTS_DOCUMENTATION.md
 │   └── ANEXOS/          # Anexos de tesis
-├── evaluation/          # Scripts y resultados de evaluación
-├── docker-compose.yml   # (en apps/backend/)
+├── docker-compose.yml   # Stack completo (PostgreSQL + API + pgAdmin)
 ├── .env.example         # Variables de entorno (raíz)
 └── LICENSE              # MIT
 ```

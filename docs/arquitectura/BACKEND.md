@@ -132,26 +132,23 @@ Backend/
 │   └── main.py                 # Punto de entrada
 │
 ├── scripts/                    # Scripts de utilidad
-│   ├── init-db.sql
-│   ├── seed_data.sql
-│   └── create_users.py
-│
-├── docs/                       # Documentación
-│   ├── API_DOCUMENTATION.md
-│   └── API_QUICK_REFERENCE.md
+│   └── create_admin_users.sql
 │
 ├── tests/                      # Tests
 │   ├── unit/
-│   └── integration/
+│   ├── integration/
+│   └── manual/
 │
-├── models/                     # Modelos ML
+├── models/                     # Modelos ML (descargados, gitignored)
 │   ├── speaker-recognition/
 │   └── text-verification/
 │
 ├── requirements.txt
-├── Dockerfile
-├── docker-compose.yml
-└── .env
+├── requirements-dev.txt
+├── ruff.toml
+├── pytest.ini
+├── Dockerfile               # Build de la imagen API (compose de raíz)
+└── start_server.sh
 ```
 
 ---

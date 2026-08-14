@@ -19,12 +19,13 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    restart: unless-stopped
 
   # Voice Biometrics API
   api:
     build:
       context: ./apps/backend
-      dockerfile: ../../infra/deployment/Dockerfile.backend
+      dockerfile: Dockerfile
     container_name: voice_biometrics_api
     ports:
       - "8000:8000"
@@ -53,12 +54,14 @@ services:
     restart: unless-stopped
 
   # pgAdmin for database management (optional)
+  # Override PGADMIN_DEFAULT_EMAIL / PGADMIN_DEFAULT_PASSWORD in your .env;
+  # do not commit real credentials.
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: voice_biometrics_pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-change_me_pgadmin}
     ports:
       - "5050:80"
     depends_on:
