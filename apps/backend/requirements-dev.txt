@@ -5,18 +5,12 @@
 pytest>=7.4.0
 pytest-asyncio>=0.21.1
 pytest-cov>=4.1.0
+httpx>=0.25.0
 
 # Code Quality
 black>=23.11.0
-flake8>=6.1.0
-mypy>=1.7.0
-isort>=5.12.0
-
-# Development Tools
-pre-commit>=3.5.0
+ruff>=0.6.0
 
 # PDF Processing
-# PyPDF2: legacy, kept for backwards compatibility
-PyPDF2>=3.0.0
 # PyMuPDF: extracción de frases desde PDFs (infra/db/tools/extract_phrases.py)
 PyMuPDF>=1.24.0

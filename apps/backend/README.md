@@ -15,7 +15,7 @@ pip install -r requirements.txt
 cp .env.example .env
 
 # 4. Iniciar servicios (PostgreSQL + pgAdmin)
-docker-compose up -d
+docker compose -f ../../docker-compose.yml up -d
 
 # 5. Iniciar servidor
 ./start_server.sh
@@ -34,7 +34,7 @@ Backend/
 ├── tests/            # Pruebas unitarias y de integración
 ├── scripts/          # Scripts de utilidad
 ├── models/           # Modelos ML (descarga automática)
-└── docs/             # Documentación técnica
+└── evaluation/       # Dataset y scripts de evaluación
 ```
 
 ## 🔧 Configuración
@@ -46,7 +46,7 @@ DB_PORT=5432
 DB_NAME=voice_biometrics
 DB_USER=voice_user
 DB_PASSWORD=voice_password
-DEVELOPMENT_MODE=true
+ENV=development
 ```
 
 ## 📡 API Endpoints
@@ -64,14 +64,14 @@ DEVELOPMENT_MODE=true
 ## 🐳 Docker
 
 ```bash
-docker-compose up -d      # Iniciar servicios
-docker-compose logs -f    # Ver logs
-docker-compose down -v    # Detener y limpiar
+docker compose -f ../../docker-compose.yml up -d      # Iniciar servicios
+docker compose -f ../../docker-compose.yml logs -f    # Ver logs
+docker compose -f ../../docker-compose.yml down -v    # Detener y limpiar
 ```
 
 **Servicios**:
 - PostgreSQL: `localhost:5432`
-- pgAdmin: `localhost:5050` (admin@example.com / admin)
+- pgAdmin: `localhost:5050` (admin@example.com / change_me_pgadmin)
 
 ## 🧪 Testing
 
